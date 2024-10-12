@@ -28,3 +28,8 @@ bool    chessBoard::isValid(const string move) const
 {
     return (true);
 }
+
+void    chessBoard::playMove(const string move)
+{
+    ;
+}

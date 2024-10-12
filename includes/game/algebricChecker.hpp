@@ -12,6 +12,8 @@ class algebricChecker
         algebricChecker();
         ~algebricChecker();
 
+        void    operator=(string move);
+
         bool    isValid() const;
 
     private:
