@@ -7,7 +7,8 @@
 NAME = shell-chess
 
 SRCS = srcs/main.cpp \
-	srcs/welcome.cpp
+	srcs/welcome.cpp \
+	srcs/game/chessBoard.cpp \
 
 CXX = c++
 

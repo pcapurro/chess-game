@@ -4,7 +4,7 @@
 # include <iostream>
 # include <string>
 
-# include "chessBoard.hpp"
+# include "game/chessBoard.hpp"
 
 using namespace std;
 
