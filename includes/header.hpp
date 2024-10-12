@@ -4,9 +4,12 @@
 # include <iostream>
 # include <string>
 
+# include "chessBoard.hpp"
+
 using namespace std;
 
 void    printWelcome(void);
+void    initWelcome(void);
 
 int     main(int argc, char **argv);
 

@@ -7,10 +7,11 @@
 NAME = shell-chess
 
 SRCS = srcs/main.cpp \
+	srcs/welcome.cpp
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror
+CXXFLAGS = #-Wall -Wextra -Werror
 
 OBJS = $(SRCS:.cpp=.o)
 
