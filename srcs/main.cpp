@@ -8,13 +8,22 @@ int main(int argc, char **argv)
     algebricChecker checker;
     string          input;
 
+    printLoading();
     while (board.isCheckMate() != true)
     {
-        checker = "21";
-        if (checker.isValid() != true)
-            ;
+        getline(cin, input);
+        if (cin.fail() == true)
+            exit(1);
         else
-            board.playMove(input);
+        {
+            checker = input;
+            if (checker.isValid() != true)
+                ;
+            else if (board.isLegal(input) != true)
+                ;
+            else
+                board.playMove(input);
+        }
     }
     return (0);
 }

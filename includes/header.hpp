@@ -12,6 +12,8 @@ using namespace std;
 void    printWelcome(void);
 void    initWelcome(void);
 
+void    printLoading(void);
+
 int     main(int argc, char **argv);
 
 #endif

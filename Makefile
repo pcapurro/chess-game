@@ -8,6 +8,7 @@ NAME = shell-chess
 
 SRCS = srcs/main.cpp \
 	srcs/welcome.cpp \
+	srcs/loading.cpp \
 	srcs/game/chessBoard.cpp \
 	srcs/game/algebricChecker.cpp \
 
