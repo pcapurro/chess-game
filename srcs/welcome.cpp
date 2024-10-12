@@ -6,7 +6,7 @@ void    printWelcome(void)
     cout << "##           #-######-#                         #-######-#           ##  " << endl;
     cout << "#                 #/-/# ♛ ♞ ♝ shell-chess ♛ ♞ ♝ #\\-\\#                 #" << endl;
     cout << "#        #-######-#       #-# by pcapurro #-#       #-######-#        #  " << endl;
-    cout << "##              #-######-#               #-######-#                  ##  " << endl;
+    cout << "##                #-######-#               #-######-#                  ##" << endl;
     cout << "                                                                         " << endl;
     cout << "                    ♖ ## Press ENTER to start! ## ♖                      " << endl;
 }
