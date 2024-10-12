@@ -1,5 +1,5 @@
-#ifndef CHESS_BOARD
-# define CHESS_BOARD
+#ifndef CHESSBOARD
+# define CHESSBOARD
 
 # include <iostream>
 

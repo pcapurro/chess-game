@@ -5,6 +5,7 @@
 # include <string>
 
 # include "game/chessBoard.hpp"
+# include "game/algebricChecker.hpp"
 
 using namespace std;
 
