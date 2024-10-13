@@ -18,7 +18,7 @@ bool    algebraicChecker::isValid() const
 {
     if (isValidChar() != true || isGoodLength() != true)
     {
-        cout << "Invalid notation." << endl;
+        cerr << "Invalid notation." << endl;
         return (false);
     }
     return (true);

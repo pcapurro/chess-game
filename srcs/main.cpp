@@ -9,14 +9,13 @@ int main(int argc, char **argv)
     algebraicChecker    checker;
     string              input;
 
-    string player;
     board.announcePlayer(1);
     while (board.isCheckMate() != true)
     {
         getline(cin, input);
         if (cin.fail() == true)
         {
-            cout << "System error. Shutting down..." << endl;
+            cerr << "System error. Shutting down..." << endl;
             return (1);
         }
         else
