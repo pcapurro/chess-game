@@ -1,6 +1,6 @@
 #include "../includes/header.hpp"
 
-void    printWelcome(void)
+void    printTitle(void)
 {
     cout << "                         #-# ############ #-#                            " << endl;
     cout << "##           #-######-#                         #-######-#           ##  " << endl;
@@ -13,14 +13,10 @@ void    printWelcome(void)
 
 void    initWelcome(void)
 {
-    printWelcome();
-    
     string  input;
-    input = "42";
-    while (input.length() != 0)
-    {
-        getline(cin, input);
-        if (cin.fail() == true)
-            exit(1);
-    }
+    printTitle();
+    getline(cin, input);
+    if (cin.fail() == true)
+        systemError();
+    cout << "\033[2A" << "\033[2K" << "\033[1K" << endl;
 }

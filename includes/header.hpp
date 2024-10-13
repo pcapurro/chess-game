@@ -11,11 +11,13 @@
 
 using namespace std;
 
-void    printWelcome(void);
+void    printTitle(void);
 void    initWelcome(void);
 
+void    printGradually(const string str, const int value);
 void    printLoading(void);
 
+void    systemError(void);
 int     main(int argc, char **argv);
 
 #endif

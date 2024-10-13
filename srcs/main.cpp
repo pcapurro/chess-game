@@ -1,29 +1,29 @@
 #include "../includes/header.hpp"
 
+void    systemError(void)
+{
+    printGradually("System error. Shutting down", 2);
+    exit(1);
+}
+
 int main(int argc, char **argv)
 {
-    initWelcome();
-    printLoading();
-
     chessBoard          board;
     algebraicChecker    checker;
     string              input;
 
+    initWelcome();
+    printLoading();
     board.announcePlayer(1);
     while (board.isCheckMate() != true)
     {
         getline(cin, input);
         if (cin.fail() == true)
-        {
-            cerr << "System error. Shutting down..." << endl;
-            return (1);
-        }
+            systemError();
         else
         {
             checker = input;
-            if (checker.isValid() != true)
-                continue;
-            if (board.isLegal(input) != true)
+            if (checker.isValid() != true || board.isLegal(input) != true)
                 continue;
             else
                 board.playMove(input);
