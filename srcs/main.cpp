@@ -3,27 +3,33 @@
 int main(int argc, char **argv)
 {
     initWelcome();
+    printLoading();
 
     chessBoard          board;
     algebraicChecker    checker;
     string              input;
 
-    printLoading();
+    string player;
+    board.announcePlayer(1);
     while (board.isCheckMate() != true)
     {
         getline(cin, input);
         if (cin.fail() == true)
-            exit(1);
+        {
+            cout << "System error. Shutting down..." << endl;
+            return (1);
+        }
         else
         {
             checker = input;
             if (checker.isValid() != true)
-                ;
-            else if (board.isLegal(input) != true)
-                ;
+                continue;
+            if (board.isLegal(input) != true)
+                continue;
             else
                 board.playMove(input);
         }
+        board.announcePlayer(1);
     }
     return (0);
 }

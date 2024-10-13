@@ -17,9 +17,13 @@ class chessBoard
         bool    isLegal(const string move) const;
         bool    isValid(const string move) const;
 
+        void    announcePlayer(const int value, const string move = "none");
         void    playMove(const string move);
 
     private:
+
+        int     _turn;
+        string  _player;
 };
 
 #endif

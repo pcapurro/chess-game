@@ -16,22 +16,30 @@ void    algebraicChecker::operator=(string move)
 
 bool    algebraicChecker::isValid() const
 {
+    if (isValidChar() != true || isGoodLength() != true)
+    {
+        cout << "Invalid notation." << endl;
+        return (false);
+    }
     return (true);
 }
 
 bool    algebraicChecker::isValidChar() const
 {
-    for (int i = 0; this->_move[i] != '\0'; i++)
+    string  dictionnary;
+
+    dictionnary = "KQRBNabcdefgh12345678+#xp0-";
+    for (int i = 0; _move[i] != '\0'; i++)
     {
-        if (this->_move[i])
-            ;
+        if (dictionnary.find(_move[i]) > dictionnary.length())
+            return (false);
     }
     return (true);
 }
 
 bool    algebraicChecker::isGoodLength() const
 {
-    if (this->_move.length() > 7)
+    if (_move.length() > 7 || _move.length() < 2)
         return (false);
     return (true);
 }

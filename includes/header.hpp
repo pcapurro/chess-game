@@ -4,6 +4,8 @@
 # include <iostream>
 # include <string>
 
+# include <unistd.h>
+
 # include "game/chessBoard.hpp"
 # include "game/algebraicChecker.hpp"
 
