@@ -4,9 +4,9 @@ int main(int argc, char **argv)
 {
     initWelcome();
 
-    chessBoard      board;
-    algebricChecker checker;
-    string          input;
+    chessBoard          board;
+    algebraicChecker    checker;
+    string              input;
 
     printLoading();
     while (board.isCheckMate() != true)

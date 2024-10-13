@@ -10,7 +10,7 @@ SRCS = srcs/main.cpp \
 	srcs/welcome.cpp \
 	srcs/loading.cpp \
 	srcs/game/chessBoard.cpp \
-	srcs/game/algebricChecker.cpp \
+	srcs/game/algebraicChecker.cpp \
 
 CXX = c++
 
