@@ -20,6 +20,8 @@ class algebraicChecker
 
         bool    isValid();
         bool    isGoodLength() const;
+        bool    isValidComplexSequence() const;
+        bool    isValidSimpleSequence() const;
         bool    isValidSequence() const;
         bool    isValidChar() const;
 
@@ -27,6 +29,8 @@ class algebraicChecker
         string _move;
 };
 
-bool    isChessDigit(int nb);
+bool    isChessDigit(char c);
+bool    isChessPiece(char c);
+bool    isChessLetter(char c);
 
 #endif
