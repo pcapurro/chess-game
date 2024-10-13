@@ -6,13 +6,23 @@ void    systemError(void)
     exit(1);
 }
 
+void    initWelcome(void)
+{
+    string  input;
+    printTitle();
+    getline(cin, input);
+    if (cin.fail() == true)
+        systemError();
+    cout << "\033[2A" << "\033[2K" << endl;
+}
+
 int main(int argc, char **argv)
 {
     initWelcome();
     printLoading();
 
     chessBoard          *board;
-    algebraicChecker    checker;
+    algebraicParser    checker;
     string              input;
 
     board = new chessBoard;
@@ -35,6 +45,6 @@ int main(int argc, char **argv)
     }
     board->announceEvent(3);
     delete board;
-    
+
     return (0);
 }

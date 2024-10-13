@@ -1,5 +1,16 @@
 #include "../includes/header.hpp"
 
+void    printTitle(void)
+{
+    cout << "                         #-# ############ #-#                            " << endl;
+    cout << "##           #-######-#                         #-######-#           ##  " << endl;
+    cout << "#                 #/-/# ♛ ♞ ♝ shell-chess ♛ ♞ ♝ #\\-\\#                 #" << endl;
+    cout << "#        #-######-#       #-# by pcapurro #-#       #-######-#        #  " << endl;
+    cout << "##                #-######-#               #-######-#                ##  " << endl;
+    cout << "                                                                         " << endl;
+    cout << "                    ♖ ## Press ENTER to start! ## ♖                      " << endl;
+}
+
 void    printGradually(const string str, const int value)
 {
     string  points;

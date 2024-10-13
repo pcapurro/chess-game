@@ -1,16 +1,16 @@
-#ifndef ALGEBRAICCHECKER_HPP
-# define ALGEBRAICCHECKER_HPP
+#ifndef ALGEBRAICPARSER_HPP
+# define ALGEBRAICPARSER_HPP
 
 # include <iostream>
 
 using namespace std;
 
-class algebraicChecker
+class algebraicParser
 {
     public:
 
-        algebraicChecker();
-        ~algebraicChecker();
+        algebraicParser();
+        ~algebraicParser();
 
         void    operator=(const string move);
 
@@ -19,6 +19,7 @@ class algebraicChecker
     private:
 
         bool    isValid();
+        
         bool    isGoodLength() const;
         bool    isValidComplexSequence() const;
         bool    isValidSimpleSequence() const;

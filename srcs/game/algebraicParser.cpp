@@ -24,23 +24,23 @@ bool    isChessCoord(char c)
     return (true);
 }
 
-algebraicChecker::algebraicChecker() {;}
-algebraicChecker::~algebraicChecker() {;}
+algebraicParser::algebraicParser() {;}
+algebraicParser::~algebraicParser() {;}
 
-void    algebraicChecker::operator=(const string move)
+void    algebraicParser::operator=(const string move)
 {
     _move = move;
     isValid();
 }
 
-bool    algebraicChecker::fail() const
+bool    algebraicParser::fail() const
 {
     if (_fail == false)
         return (false);
     return (true);
 }
 
-bool    algebraicChecker::isValid()
+bool    algebraicParser::isValid()
 {
     if (isValidChar() != true || isGoodLength() != true
         || isValidSequence() != true)
@@ -54,7 +54,7 @@ bool    algebraicChecker::isValid()
     return (true);
 }
 
-bool    algebraicChecker::isValidChar() const
+bool    algebraicParser::isValidChar() const
 {
     string  dictionnary;
 
@@ -67,14 +67,14 @@ bool    algebraicChecker::isValidChar() const
     return (true);
 }
 
-bool    algebraicChecker::isGoodLength() const
+bool    algebraicParser::isGoodLength() const
 {
     if (_move.length() > 7 || _move.length() < 2)
         return (false);
     return (true);
 }
 
-bool    algebraicChecker::isValidComplexSequence() const
+bool    algebraicParser::isValidComplexSequence() const
 {
     if (_move.find('x') < _move.length())
     {
@@ -122,7 +122,7 @@ bool    algebraicChecker::isValidComplexSequence() const
     return (true);
 }
 
-bool    algebraicChecker::isValidSimpleSequence() const
+bool    algebraicParser::isValidSimpleSequence() const
 {
     if (count(_move.begin(), _move.end(), '0') != 0 || count(_move.begin(), _move.end(), '-') != 0)
     {
@@ -162,7 +162,7 @@ bool    algebraicChecker::isValidSimpleSequence() const
     return (true);
 }
 
-bool    algebraicChecker::isValidSequence() const
+bool    algebraicParser::isValidSequence() const
 {
     if (isValidSimpleSequence() != true || isValidComplexSequence() != true)
         return (false);

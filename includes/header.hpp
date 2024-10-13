@@ -8,7 +8,7 @@
 # include <unistd.h>
 
 # include "game/chessBoard.hpp"
-# include "game/algebraicChecker.hpp"
+# include "game/algebraicParser.hpp"
 
 using namespace std;
 
