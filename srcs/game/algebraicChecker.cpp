@@ -72,10 +72,17 @@ bool    algebraicChecker::isValidSequence() const
         if (_move.find('x') == 0 || _move.find('x') == _move.length() - 1)
             return (false);
     }
-
     if (count_if(_move.begin(), _move.end(), isChessDigit) == 0
         || count_if(_move.begin(), _move.end(), isChessDigit) > 2)
         return (false);
+    if (_move.length() == 2)
+    {
+        if (isChessDigit(_move[1]) != true)
+            return (false);
+        string dictionnary = "abcdefgh";
+        if (dictionnary.find(_move[0]) > 2)
+            return (false);
+    }
     return (true);
 }
 
