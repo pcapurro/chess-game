@@ -136,10 +136,12 @@ bool    algebraicChecker::isValidComplexSequence() const
 
 bool    algebraicChecker::isValidSimpleSequence() const
 {
-    if (_move.find('0') < _move.length() || _move.find('-') < _move.length())
+    if (count(_move.begin(), _move.end(), '0') != 0 || count(_move.begin(), _move.end(), '-') != 0)
     {
         if (_move != "0-0" && _move != "0-0-0")
             return (false);
+        else
+            return (true);
     }
 
     int d_count = 0, p_count = 0, l_count = 0;
@@ -174,7 +176,6 @@ bool    algebraicChecker::isValidSimpleSequence() const
         if (isChessPiece(_move[0]) != true)
             return (false);
     }
-
     return (true);
 }
 
