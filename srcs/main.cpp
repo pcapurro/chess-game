@@ -8,14 +8,15 @@ void    systemError(void)
 
 int main(int argc, char **argv)
 {
+    initWelcome();
+    printLoading();
+
     chessBoard          *board;
     algebraicChecker    checker;
     string              input;
 
-    initWelcome();
-    printLoading();
     board = new chessBoard;
-    while (1)
+    while (board->isCheckMate() != true)
     {
         board->announceEvent(1, checker.fail());
         cout << "\033[2K" << "> ";
