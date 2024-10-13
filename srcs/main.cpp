@@ -14,10 +14,12 @@ int main(int argc, char **argv)
 
     initWelcome();
     printLoading();
-    board.announcePlayer(1);
     while (board.isCheckMate() != true)
     {
+        board.announcePlayer(1, checker.fail());
+        cout << "\033[2K" << "> ";
         getline(cin, input);
+        
         if (cin.fail() == true)
             systemError();
         else
@@ -28,7 +30,6 @@ int main(int argc, char **argv)
             else
                 board.playMove(input);
         }
-        board.announcePlayer(1);
     }
     return (0);
 }

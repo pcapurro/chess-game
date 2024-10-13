@@ -14,13 +14,15 @@ class algebraicChecker
 
         void    operator=(string move);
 
-        bool    isValid() const;
+        bool    isValid();
+        bool    fail() const;
 
     private:
 
         bool    isGoodLength() const;
         bool    isValidChar() const;
 
+        bool    _fail;
         string _move;
 };
 

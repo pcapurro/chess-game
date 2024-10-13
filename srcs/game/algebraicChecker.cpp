@@ -14,13 +14,23 @@ void    algebraicChecker::operator=(string move)
     this->_move = move;
 }
 
-bool    algebraicChecker::isValid() const
+bool    algebraicChecker::fail() const
+{
+    if (_fail == false)
+        return (false);
+    return (true);
+}
+
+bool    algebraicChecker::isValid()
 {
     if (isValidChar() != true || isGoodLength() != true)
     {
-        cerr << "Invalid notation." << endl;
+        cout << "\033[2A" << "\033[2K";
+        cerr << "Try again. ";
+        _fail = true;
         return (false);
     }
+    _fail = false;
     return (true);
 }
 
