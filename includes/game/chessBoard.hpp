@@ -17,7 +17,7 @@ class chessBoard
         bool    isLegal(const string move) const;
         bool    isValid(const string move) const;
 
-        void    announcePlayer(const int value, const bool fail = false, \
+        void    announceEvent(const int value, const bool fail = false, \
                                 const string move = "none");
         void    playMove(const string move);
 

@@ -29,7 +29,7 @@ bool    chessBoard::isValid(const string move) const
     return (true);
 }
 
-void    chessBoard::announcePlayer(const int value, const bool fail, const string move)
+void    chessBoard::announceEvent(const int value, const bool fail, const string move)
 {
     if (_turn % 2 == 0)
         _player = "White";
@@ -52,11 +52,17 @@ void    chessBoard::announcePlayer(const int value, const bool fail, const strin
         cout << "\033[2K";
         cout << _player << " played " << move << endl;
     }
+    if (value == 3)
+    {
+        cout << "\033[1A";
+        cout << "\033[2K";
+        cout << _player << " won the game! 🎉" << endl;
+    }
 }
 
 void    chessBoard::playMove(const string move)
 {
     // ...
-    announcePlayer(2, false, move);
+    announceEvent(2, false, move);
     _turn++;
 }

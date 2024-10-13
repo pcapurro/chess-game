@@ -8,15 +8,16 @@ void    systemError(void)
 
 int main(int argc, char **argv)
 {
-    chessBoard          board;
+    chessBoard          *board;
     algebraicChecker    checker;
     string              input;
 
     initWelcome();
     printLoading();
-    while (board.isCheckMate() != true)
+    board = new chessBoard;
+    while (1)
     {
-        board.announcePlayer(1, checker.fail());
+        board->announceEvent(1, checker.fail());
         cout << "\033[2K" << "> ";
         getline(cin, input);
         
@@ -25,11 +26,13 @@ int main(int argc, char **argv)
         else
         {
             checker = input;
-            if (checker.fail() != false || board.isLegal(input) != true)
+            if (checker.fail() != false || board->isLegal(input) != true)
                 continue;
             else
-                board.playMove(input);
+                board->playMove(input);
         }
     }
+    board->announceEvent(3);
+    delete board;
     return (0);
 }
