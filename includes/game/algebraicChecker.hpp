@@ -12,7 +12,7 @@ class algebraicChecker
         algebraicChecker();
         ~algebraicChecker();
 
-        void    operator=(string move);
+        void    operator=(const string move);
 
         bool    fail() const;
 
@@ -26,11 +26,11 @@ class algebraicChecker
         bool    isValidChar() const;
 
         bool    _fail;
-        string _move;
+        string  _move;
 };
 
 bool    isChessDigit(char c);
 bool    isChessPiece(char c);
-bool    isChessLetter(char c);
+bool    isChessCoord(char c);
 
 #endif

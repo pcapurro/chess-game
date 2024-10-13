@@ -35,5 +35,6 @@ int main(int argc, char **argv)
     }
     board->announceEvent(3);
     delete board;
+    
     return (0);
 }

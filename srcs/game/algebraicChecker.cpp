@@ -16,7 +16,7 @@ bool    isChessPiece(char c)
     return (true);
 }
 
-bool    isChessLetter(char c)
+bool    isChessCoord(char c)
 {
     if (c != 'a' && c != 'b' && c != 'c' && c != 'd'
         && c != 'e' && c != 'f' && c != 'g' && c != 'h')
@@ -27,9 +27,9 @@ bool    isChessLetter(char c)
 algebraicChecker::algebraicChecker() {;}
 algebraicChecker::~algebraicChecker() {;}
 
-void    algebraicChecker::operator=(string move)
+void    algebraicChecker::operator=(const string move)
 {
-    this->_move = move;
+    _move = move;
     isValid();
 }
 
@@ -101,35 +101,23 @@ bool    algebraicChecker::isValidComplexSequence() const
 
         if (left.length() == 2)
         {
-            if (isChessLetter(left[0]) != true)
-                return (false);
-            if (isChessDigit(left[1]) != true)
+            if (isChessCoord(left[0]) != true || isChessDigit(left[1]) != true)
                 return (false);
         }
 
         if (left.length() == 3)
         {
-            if (isChessPiece(left[0]) != true)
-                return (false);
-            if (isChessLetter(left[1]) != true)
-                return (false);
-            if (isChessDigit(left[2]) != true)
+            if (isChessPiece(left[0]) != true || isChessCoord(left[1]) != true
+                || isChessDigit(left[2]) != true)
                 return (false);
         }
 
-        if (right.length() < 2 || right.length() > 3)
+        if (right.length() < 2 || right.length() > 3
+            || isChessCoord(right[0]) != true || isChessDigit(right[1]) != true)
             return (false);
 
-        if (isChessLetter(right[0]) != true)
+        if (right.length() == 3 && isChessPiece(right[2]) != true)
             return (false);
-        if (isChessDigit(right[1]) != true)
-            return (false);
-
-        if (right.length() == 3)
-        {
-            if (isChessPiece(right[2]) != true)
-                return (false);
-        }
     }
     return (true);
 }
@@ -151,7 +139,7 @@ bool    algebraicChecker::isValidSimpleSequence() const
             d_count++;
         if (isChessPiece(_move[i]) == true)
             p_count++;
-        if (isChessLetter(_move[i]) == true)
+        if (isChessCoord(_move[i]) == true)
             l_count++;
     }
 
@@ -162,18 +150,13 @@ bool    algebraicChecker::isValidSimpleSequence() const
 
     if (_move.length() == 2)
     {
-        if (isChessLetter(_move[0]) != true)
-            return (false);
-        if (isChessDigit(_move[1]) != true)
+        if (isChessCoord(_move[0]) != true || isChessDigit(_move[1]) != true)
             return (false);
     }
     if (_move.length() == 3)
     {
-        if (isChessDigit(_move[2]) != true)
-            return (false);
-        if (isChessLetter(_move[1]) != true)
-            return (false);
-        if (isChessPiece(_move[0]) != true)
+        if (isChessDigit(_move[2]) != true || isChessCoord(_move[1]) != true
+            || isChessPiece(_move[0]) != true)
             return (false);
     }
     return (true);
@@ -185,18 +168,3 @@ bool    algebraicChecker::isValidSequence() const
         return (false);
     return (true);
 }
-
-// K, Q, R, B, N ✅
-// a, b, c, d, e, f, g, h ✅
-// 1 2 3 4 5 6 7 8 ✅
-
-// x ✅
-// 0-0 ✅
-// 0-0-0 ✅
-
-// e4 ✅
-// d2 ✅
-// f7xe8Q ✅
-// Kf6xe4 ✅
-// e4xe5 ✅
-// Kg8 ✅
