@@ -86,15 +86,16 @@ bool    algebraicChecker::isValidComplexSequence() const
         string  left;
         string  right;
 
-        for (int i, c = 0; _move[i] != '\0'; i++)
+        for (int i = 0, c = 0; _move[i] != '\0'; i++)
         {
             if (_move[i] == 'x')
                 c = 1;
+            if (c == 0)
+                left = left + _move[i];
             if (c == 1 && _move[i] != 'x')
                 right = right + _move[i];
-            else
-                left = left + _move[i];
         }
+
         if (left.length() < 2 || left.length() > 3)
             return (false);
 
