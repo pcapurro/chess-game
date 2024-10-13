@@ -25,7 +25,7 @@ int main(int argc, char **argv)
         else
         {
             checker = input;
-            if (checker.isValid() != true || board.isLegal(input) != true)
+            if (checker.fail() != false || board.isLegal(input) != true)
                 continue;
             else
                 board.playMove(input);

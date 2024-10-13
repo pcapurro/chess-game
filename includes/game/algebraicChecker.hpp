@@ -14,16 +14,19 @@ class algebraicChecker
 
         void    operator=(string move);
 
-        bool    isValid();
         bool    fail() const;
 
     private:
 
+        bool    isValid();
         bool    isGoodLength() const;
+        bool    isValidSequence() const;
         bool    isValidChar() const;
 
         bool    _fail;
         string _move;
 };
+
+bool    isChessDigit(int nb);
 
 #endif
