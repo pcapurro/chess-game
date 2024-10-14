@@ -13,7 +13,6 @@ class chessPiece
         chessPiece(const string color, const string pos)
         {
             _color = color;
-            _pos = pos;
             _moves = 0;
 
             _x = getCoordinateToX(pos[0]);
@@ -22,10 +21,7 @@ class chessPiece
 
         ~chessPiece() {};
 
-        const string  getColor() const
-        {
-            return (_pos);
-        }
+        const string  getColor() const { return (_color); }
 
         int getCoordinateToX(const char c) const
         {
@@ -42,7 +38,7 @@ class chessPiece
     protected:
 
         string  _color;
-        string  _pos;
+
         int     _moves;
         int     _x;
         int     _y;
