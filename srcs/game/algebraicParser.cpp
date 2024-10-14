@@ -1,6 +1,6 @@
 #include "../../includes/header.hpp"
 
-bool    isChessDigit(char c)
+bool    isChessDigit(const char c)
 {
     if (c != '1' && c != '2' && c != '3' && c != '4'
         && c != '5' && c != '6' && c != '7' && c != '8')
@@ -8,7 +8,7 @@ bool    isChessDigit(char c)
     return (true);
 }
 
-bool    isChessPiece(char c)
+bool    isChessPiece(const char c)
 {
     if (c != 'K' && c != 'Q' && c != 'R'
         && c != 'B' && c != 'N')
@@ -16,7 +16,7 @@ bool    isChessPiece(char c)
     return (true);
 }
 
-bool    isChessCoord(char c)
+bool    isChessCoord(const char c)
 {
     if (c != 'a' && c != 'b' && c != 'c' && c != 'd'
         && c != 'e' && c != 'f' && c != 'g' && c != 'h')
@@ -196,13 +196,10 @@ void    algebraicParser::parseMove()
         _newMove = left + right;
     }
     else
-    {
-        ;
-    }
+        _newMove = _move;
 }
 
-// 1. e4 x
-// 2. Ne4 x 
-// 3. Qe6xf5 v
-// 4. e7xe8Q v
-// 4. e8Q x
+string  algebraicParser::getParsedMove() const
+{
+    return (_newMove);
+}

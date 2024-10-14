@@ -40,7 +40,7 @@ int main(int argc, char **argv)
             if (checker.fail() != false || board->isLegal(input) != true)
                 continue;
             else
-                board->playMove(input);
+                board->playMove(checker.getParsedMove());
         }
     }
     board->announceEvent(3);

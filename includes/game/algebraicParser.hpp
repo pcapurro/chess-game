@@ -14,6 +14,7 @@ class algebraicParser
 
         void    operator=(const string move);
 
+        string  getParsedMove() const;
         bool    fail() const;
 
     private:
@@ -33,8 +34,8 @@ class algebraicParser
         string  _newMove;
 };
 
-bool    isChessDigit(char c);
-bool    isChessPiece(char c);
-bool    isChessCoord(char c);
+bool    isChessDigit(const char c);
+bool    isChessPiece(const char c);
+bool    isChessCoord(const char c);
 
 #endif
