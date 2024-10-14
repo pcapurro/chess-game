@@ -1,4 +1,4 @@
-#include "../../includes/header.hpp"
+#include "../../include/header.hpp"
 
 bool    isChessDigit(const char c)
 {

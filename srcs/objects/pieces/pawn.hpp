@@ -13,24 +13,23 @@ class Pawn : chessPiece
             _enPassant = true;
         }
 
-        ~Pawn();
+        ~Pawn() {};
 
         virtual const bool  checkMoveConsistency(const string move) const
         {
             int target_x = getCoordinateToX(move[0]);
             int target_y = atoi(move.c_str() + 1);
 
-            if (_x + 1 == target_x && _y == target_y)
+            if ((_x + 1 == target_x && _y + 1 == target_y) || (_x - 1 == target_x && _y + 1 == target_y))
                 return (true);
-            if (_x + 1 == target_x && _y - 1 == target_y)
+            if (_x == target_x && _y + 1 == target_y)
                 return (true);
-            if (_x + 1 == target_x && _y + 1 == target_y)
-                return (true);
-            if (_x + 2 == target_x && _y == target_y)
+            if (_x == target_x && _y + 2 == target_y)
             {
                 if (getDoubleMove() == true && _moves == 0)
                     return (true);
             }
+            
             return (false);
         }
 

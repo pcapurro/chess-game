@@ -31,9 +31,10 @@ class chessPiece
                 if (letters[i] == c)
                     return (i);
             }
+            return (0);
         }
 
-        virtual const bool  checkMoveConsistency(const string move) const;
+        virtual const bool  checkMoveConsistency(const string move) const = 0;
 
     protected:
 

@@ -1,14 +1,14 @@
-#ifndef BISHOP_HPP
-# define BISHOP_HPP
+#ifndef QUEEN_HPP
+# define QUEEN_HPP
 
 # include "chessPiece.hpp"
 
-class Bishop : chessPiece
+class Queen : chessPiece
 {
     public:
     
-        Bishop(const string color, const string pos) : chessPiece(color, pos) {}
-        ~Bishop();
+        Queen(const string color, const string pos) : chessPiece(color, pos) {}
+        ~Queen() {};
 
         virtual const bool  checkMoveConsistency(const string move) const
         {
@@ -17,6 +17,12 @@ class Bishop : chessPiece
 
             for (int i = 1; i != 8; i++)
             {
+                if ((_x + i == target_x && _y == target_y)
+                || (_x - i == target_x && _y == target_y))
+                    return (true);
+                if ((_x == target_x && _y + i == target_y)
+                    || (_x == target_x && _y - i == target_y))
+                    return (true);
                 if ((_x - i == target_x && _y + i == target_y)
                     || (_x + i == target_x && _y + i == target_y))
                     return (true);

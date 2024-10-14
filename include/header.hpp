@@ -7,8 +7,8 @@
 
 # include <unistd.h>
 
-# include "game/chessBoard.hpp"
-# include "game/algebraicParser.hpp"
+# include "../srcs/objects/chessBoard.hpp"
+# include "../srcs/objects/algebraicParser.hpp"
 
 using namespace std;
 

@@ -8,7 +8,7 @@ class Knight : chessPiece
     public:
     
         Knight(const string color, const string pos) : chessPiece(color, pos) {}
-        ~Knight();
+        ~Knight() {};
 
         virtual const bool  checkMoveConsistency(const string move) const
         {
