@@ -10,9 +10,19 @@ class King : chessPiece
         King();
         ~King();
 
-        virtual const bool  whereCanIGo() const
+        virtual const bool  checkMoveConsistency(const string move) const
         {
-            ;
+            int target_x = getCoordinateToX(move[0]);
+            int target_y = atoi(move.c_str() + 1);
+
+            if (_x - 1 == target_x && _y == target_y)
+                return (true);
+            if (_x == target_x && _y - 1 == target_y)
+                return (true);
+            if (_x + 1 == target_x && _y == target_y)
+                return (true);
+            if (_x == target_x && _y + 1 == target_y)
+                return (true);
         }
 };
 

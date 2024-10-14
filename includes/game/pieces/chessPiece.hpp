@@ -14,7 +14,11 @@ class chessPiece
         {
             _color = color;
             _pos = pos;
+
+            _x = getCoordinateToX(pos[0]);
+            _y = atoi(pos.c_str() + 1);
         }
+
         ~chessPiece() {};
 
         const string  getColor() const
@@ -22,12 +26,24 @@ class chessPiece
             return (_pos);
         }
 
-        virtual const bool  whereCanIGo() const;
+        int getCoordinateToX(const char c) const
+        {
+            string letters = "abcdefgh";
+            for (int i = 0; letters[i] != '\0'; i++)
+            {
+                if (letters[i] == c)
+                    return (i);
+            }
+        }
+
+        virtual const bool  checkMoveConsistency(const string move) const;
 
     protected:
 
         string  _color;
         string  _pos;
+        int     _x;
+        int     _y;
 
 };
 

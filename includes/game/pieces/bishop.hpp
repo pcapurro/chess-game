@@ -10,7 +10,7 @@ class Bishop : chessPiece
         Bishop();
         ~Bishop();
 
-        virtual const bool  whereCanIGo() const
+        virtual const bool  checkMoveConsistency(const string move) const
         {
             ;
         }

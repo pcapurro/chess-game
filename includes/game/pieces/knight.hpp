@@ -10,7 +10,7 @@ class Knight : chessPiece
         Knight();
         ~Knight();
 
-        virtual const bool  whereCanIGo() const
+        virtual const bool  checkMoveConsistency(const string move) const
         {
             ;
         }
