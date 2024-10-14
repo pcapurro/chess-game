@@ -3,11 +3,20 @@
 
 # include <iostream>
 
+# include "pieces/chessPiece.hpp"
+# include "pieces/king.hpp"
+# include "pieces/queen.hpp"
+# include "pieces/bishop.hpp"
+# include "pieces/knight.hpp"
+# include "pieces/rook.hpp"
+# include "pieces/pawn.hpp"
+
 using namespace std;
 
 class chessBoard
 {
     public:
+
         chessBoard();
         ~chessBoard();
 
