@@ -14,6 +14,7 @@ class chessPiece
         {
             _color = color;
             _pos = pos;
+            _moves = 0;
 
             _x = getCoordinateToX(pos[0]);
             _y = atoi(pos.c_str() + 1);
@@ -42,6 +43,7 @@ class chessPiece
 
         string  _color;
         string  _pos;
+        int     _moves;
         int     _x;
         int     _y;
 

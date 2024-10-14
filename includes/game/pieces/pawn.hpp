@@ -7,7 +7,12 @@ class Pawn : chessPiece
 {
     public:
     
-        Pawn();
+        Pawn(const string color, const string pos) : chessPiece(color, pos)
+        {
+            _doubleMove = true;
+            _enPassant = true;
+        }
+
         ~Pawn();
 
         virtual const bool  checkMoveConsistency(const string move) const
@@ -21,12 +26,24 @@ class Pawn : chessPiece
                 return (true);
             if (_x + 1 == target_x && _y + 1 == target_y)
                 return (true);
+            if (_x + 2 == target_x && _y == target_y)
+            {
+                if (getDoubleMove() == true && _moves == 0)
+                    return (true);
+            }
+            return (false);
         }
+
+        bool    getDoubleMove(void) const { return(_doubleMove); }
+        bool    getEnPassant(void) const { return(_enPassant); }
+
+        void    disableDoubleMove(void) { _doubleMove = false; }
+        void    disableEnPassant(void) { _enPassant = false; }
 
     private:
 
-        bool    doubleMove
-        bool    enPassant;
+        bool    _doubleMove;
+        bool    _enPassant;
 };
 
 #endif
