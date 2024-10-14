@@ -26,8 +26,11 @@ class algebraicParser
         bool    isValidSequence() const;
         bool    isValidChar() const;
 
+        void    parseMove();
+
         bool    _fail;
         string  _move;
+        string  _newMove;
 };
 
 bool    isChessDigit(char c);

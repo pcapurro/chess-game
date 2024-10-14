@@ -31,6 +31,8 @@ void    algebraicParser::operator=(const string move)
 {
     _move = move;
     isValid();
+    if (_fail != true)
+        parseMove();
 }
 
 bool    algebraicParser::fail() const
@@ -76,7 +78,7 @@ bool    algebraicParser::isGoodLength() const
 
 bool    algebraicParser::isValidComplexSequence() const
 {
-    if (_move.find('x') < _move.length())
+    if (count(_move.begin(), _move.end(), 'x') != 0)
     {
         if (count(_move.begin(), _move.end(), 'x') != 1)
             return (false);
@@ -116,7 +118,7 @@ bool    algebraicParser::isValidComplexSequence() const
             || isChessCoord(right[0]) != true || isChessDigit(right[1]) != true)
             return (false);
 
-        if (right.length() == 3 && isChessPiece(right[2]) != true)
+        if (right.length() == 3 && right[1] != '8' && isChessPiece(right[2]) != true)
             return (false);
     }
     return (true);
@@ -155,7 +157,12 @@ bool    algebraicParser::isValidSimpleSequence() const
     }
     if (_move.length() == 3)
     {
-        if (isChessDigit(_move[2]) != true || isChessCoord(_move[1]) != true
+        if (_move[1] == '8')
+        {
+            if (isChessCoord(_move[0]) != true || isChessPiece(_move[2]) != true)
+                return (false);
+        }
+        else if (isChessDigit(_move[2]) != true || isChessCoord(_move[1]) != true
             || isChessPiece(_move[0]) != true)
             return (false);
     }
@@ -168,3 +175,34 @@ bool    algebraicParser::isValidSequence() const
         return (false);
     return (true);
 }
+
+void    algebraicParser::parseMove()
+{
+    if (count(_move.begin(), _move.end(), 'x') != 0)
+    {
+        string  left;
+        string  right;
+
+        for (int i = 0; _move[i] != '\0'; i++)
+        {
+            if (_move[i] == 'x')
+            {
+                right = _move.c_str() + i + 1;
+                break ;
+            }
+            if (isChessPiece(_move[i]) != true)
+                left = left + _move[i];
+        }
+        _newMove = left + right;
+    }
+    else
+    {
+        ;
+    }
+}
+
+// 1. e4 x
+// 2. Ne4 x 
+// 3. Qe6xf5 v
+// 4. e7xe8Q v
+// 4. e8Q x
