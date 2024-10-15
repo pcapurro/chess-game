@@ -3,7 +3,7 @@
 
 # include "chessPiece.hpp"
 
-class King : chessPiece
+class King : public chessPiece
 {
     public:
     
