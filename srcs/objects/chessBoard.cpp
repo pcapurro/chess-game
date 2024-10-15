@@ -3,52 +3,79 @@
 chessBoard::chessBoard()
 {
     _turn = 0;
+    _allocated = false;
+    _player = "white";
     
-    _board = new(nothrow) chessPiece**[8];
+    _board = new(nothrow) chessPiece*[64];
     if (_board == nullptr)
         systemError();
     else
     {
-        for (int i = 0; i != 8; i++)
+        for (int i = 0; i != 64; i++)
+            _board[i] = NULL;
+
+        _board[0] = new Rook("black", "a8");
+        _board[1] = new Knight("black", "b8");
+        _board[2] = new Bishop("black", "c8");
+        _board[3] = new Queen("black", "d8");
+        _board[4] = new King("black", "e8");
+        _board[5] = new Bishop("black", "f8");
+        _board[6] = new Knight("black", "g8");
+        _board[7] = new Rook("black", "h8");
+
+        for (int i = 8, k = 0; i != 16; i++)
+            _board[i] = new Pawn("black", to_string('0') + "7");
+
+        for (int i = 48, k = 0; i != 56; i++)
+            _board[i] = new Pawn("white", to_string('0') + "7");
+
+        _board[56] = new Rook("white", "a1");
+        _board[57] = new Knight("white", "b1");
+        _board[58] = new Bishop("white", "c1");
+        _board[59] = new Queen("white", "d1");
+        _board[60] = new King("white", "e1");
+        _board[61] = new Bishop("white", "f1");
+        _board[62] = new Knight("white", "g1");
+        _board[63] = new Rook("white", "h1");
+
+        for (int i = 0; i != 64; i++)
         {
-            _board[i] = new (nothrow) chessPiece*[8];
             if (_board[i] == nullptr)
-            {
-                i = i - 1;
-                while (i != -1)
-                    delete (_board[i]), i--;
-                systemError();
-            }
+                _allocated = false; return ;
         }
-
-        _board[0][0] = new Rook("black", "a8");
-        _board[0][1] = new Knight("black", "b8");
-        _board[0][2] = new Bishop("black", "c8");
-        _board[0][3] = new Queen("black", "d8");
-        _board[0][4] = new King("black", "e8");
-        _board[0][5] = new Bishop("black", "f8");
-        _board[0][6] = new Knight("black", "g8");
-        _board[0][7] = new Rook("black", "h8");
-
-        for (int i = 0; i != 8; i++)
-        {
-            _board[2][i] = NULL; _board[3][i] = NULL;
-            _board[4][i] = NULL; _board[5][i] = NULL;
-        }
-
-        _board[7][1] = new Rook("white", "a1");
-        _board[7][2] = new Knight("white", "b1");
-        _board[7][3] = new Bishop("white", "c1");
-        _board[7][4] = new Queen("white", "d1");
-        _board[7][5] = new King("white", "e1");
-        _board[7][6] = new Bishop("white", "f1");
-        _board[7][7] = new Knight("white", "g1");
-        _board[7][8] = new Rook("white", "h1");
+        _allocated = true;
     }
 }
 chessBoard::~chessBoard()
 {
-    ;
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board[i] && _board[i] != nullptr
+            && _board[i] != NULL)
+            delete _board[i];
+    }
+    delete [] _board;
+}
+
+bool    chessBoard::isAllocated(void) const
+{
+    return (_allocated);
+}
+
+void    chessBoard::printBoard(void) const
+{
+    for (int i = 0, k = 0; i != 64; i++)
+    {
+        if (_board[i] != NULL && i > 32)
+            cout << "[WP] ";
+        else if (_board[i] != NULL && i < 32)
+            cout << "[BP] ";
+        else
+            cout << "[  ] ";
+        k++;
+        if (k == 8)
+            k = 0, cout << endl;
+    }
 }
 
 bool    chessBoard::isCheck() const

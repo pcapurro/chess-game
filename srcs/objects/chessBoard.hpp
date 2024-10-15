@@ -20,6 +20,8 @@ class chessBoard
         chessBoard();
         ~chessBoard();
 
+        bool    isAllocated(void) const;
+
         bool    isCheck() const;
         bool    isCheckMate() const;
 
@@ -30,9 +32,12 @@ class chessBoard
                                 const string move = "none");
         void    playMove(const string move);
 
+        void    printBoard(void) const;
+
     private:
 
-        chessPiece  ***_board;
+        bool        _allocated;
+        chessPiece  **_board;
 
         int         _turn;
         string      _player;
