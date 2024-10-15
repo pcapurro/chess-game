@@ -47,7 +47,6 @@ int main(int argc, char **argv)
                 else
                     board->playMove(checker.getParsedMove());
             }
-            board->printBoard(); //
         }
         board->announceEvent(3);
         delete board;

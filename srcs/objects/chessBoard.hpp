@@ -31,14 +31,16 @@ class chessBoard
 
         void    announceEvent(const int value, const bool cfail = false, \
                                 const bool bfail = false, const string move = "none");
+        
+        int     getCoordinateToX(const char c) const;
         void    playMove(const string move);
 
         void    printBoard(void) const;
 
     private:
 
+        vector<string, chessPiece*> _board;
         bool        _allocated;
-        chessPiece  **_board;
 
         int         _turn;
         bool        _moveFailed;

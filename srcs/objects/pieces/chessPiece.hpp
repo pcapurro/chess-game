@@ -21,8 +21,6 @@ class chessPiece
 
         ~chessPiece() {};
 
-        const string  getColor() const { return (_color); }
-
         int getCoordinateToX(const char c) const
         {
             string letters = "abcdefgh";
@@ -33,6 +31,8 @@ class chessPiece
             }
             return (0);
         }
+
+        const string  getColor() const { return (_color); }
 
         virtual const bool  checkMoveConsistency(const string move) const = 0;
 

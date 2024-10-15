@@ -5,59 +5,15 @@ chessBoard::chessBoard()
     _turn = 0;
     _allocated = false;
     _player = "white";
-    
-    _board = new(nothrow) chessPiece*[64];
-    if (_board == nullptr)
-        systemError();
-    else
-    {
-        for (int i = 0; i != 64; i++)
-            _board[i] = NULL;
 
-        _board[0] = new Rook("black", "a8");
-        _board[1] = new Knight("black", "b8");
-        _board[2] = new Bishop("black", "c8");
-        _board[3] = new Queen("black", "d8");
-        _board[4] = new King("black", "e8");
-        _board[5] = new Bishop("black", "f8");
-        _board[6] = new Knight("black", "g8");
-        _board[7] = new Rook("black", "h8");
+    // ...
 
-        for (int i = 8, k = 0; i != 16; i++)
-            _board[i] = new Pawn("black", to_string('0') + "7");
-
-        for (int i = 48, k = 0; i != 56; i++)
-            _board[i] = new Pawn("white", to_string('0') + "2");
-
-        _board[56] = new Rook("white", "a1");
-        _board[57] = new Knight("white", "b1");
-        _board[58] = new Bishop("white", "c1");
-        _board[59] = new Queen("white", "d1");
-        _board[60] = new King("white", "e1");
-        _board[61] = new Bishop("white", "f1");
-        _board[62] = new Knight("white", "g1");
-        _board[63] = new Rook("white", "h1");
-
-        for (int i = 0; i != 64; i++)
-        {
-            if (_board[i] == nullptr && (i < 16 || i > 47))
-            {
-                _allocated = false;
-                return ;
-            }
-        }
-        _allocated = true;
-    }
+    _allocated = true;
 }
+
 chessBoard::~chessBoard()
 {
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board[i] && _board[i] != nullptr
-            && _board[i] != NULL)
-            delete _board[i];
-    }
-    delete [] _board;
+    ;
 }
 
 bool    chessBoard::isAllocated(void) const
@@ -67,19 +23,7 @@ bool    chessBoard::isAllocated(void) const
 
 void    chessBoard::printBoard(void) const
 {
-    for (int i = 0, k = 0; i != 64; i++)
-    {
-        if (_board[i] != NULL && i > 32)
-            cout << "[WP] ";
-        else if (_board[i] != NULL && i < 32)
-            cout << "[BP] ";
-        else
-            cout << "[  ] ";
-        k++;
-        if (k == 8)
-            k = 0, cout << endl;
-    }
-    cout << endl;
+    ;
 }
 
 bool    chessBoard::fail(void) const
@@ -99,15 +43,26 @@ bool    chessBoard::isCheckMate() const
 
 bool    chessBoard::isLegal(const string move)
 {
-    if (1)
-    {
-        cout << "\033[2A" << "\033[2K";
-        cerr << YELLOW << "Illegal move. " << COLOR_E;
-        _moveFailed = true;
-        return (false);
-    }
+    // if (1)
+    // {
+    //     cout << "\033[2A" << "\033[2K";
+    //     cerr << YELLOW << "Illegal move. " << COLOR_E;
+    //     _moveFailed = true;
+    //     return (false);
+    // }
     _moveFailed = false;
     return (true);
+}
+
+int chessBoard::getCoordinateToX(const char c) const
+{
+    string letters = "abcdefgh";
+    for (int i = 0; letters[i] != '\0'; i++)
+    {
+        if (letters[i] == c)
+            return (i);
+    }
+    return (0);
 }
 
 void    chessBoard::announceEvent(const int value, const bool cfail, const bool bfail, const string move)
@@ -143,6 +98,17 @@ void    chessBoard::announceEvent(const int value, const bool cfail, const bool 
 
 void    chessBoard::playMove(const string move)
 {
+    int target_x = getCoordinateToX(move[0]) - 1;;
+    int target_y = atoi(move.c_str() + 1) - 1;;
+
+    if (move.length() == 2)
+    {
+        ;
+    }
+    else
+    {
+        ;
+    }
     announceEvent(2, false, false, move);
     _turn++;
 }
