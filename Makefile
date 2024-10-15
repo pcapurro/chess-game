@@ -8,8 +8,11 @@ NAME = shell-chess
 
 SRCS = srcs/main.cpp \
 	srcs/print.cpp \
-	srcs/objects/chessBoard.cpp \
-	srcs/objects/algebraicParser.cpp \
+	srcs/algebraicParser/algebraicParser.cpp \
+	srcs/chessBoard/boardBase.cpp \
+	srcs/chessBoard/boardCheckers.cpp \
+	srcs/chessBoard/boardInit.cpp \
+	srcs/chessBoard/boardFree.cpp \
 
 CXX = c++
 

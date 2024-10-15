@@ -4,14 +4,9 @@
 # include <iostream>
 # include <string>
 # include <algorithm>
-
 # include <vector>
 # include <map>
-
 # include <unistd.h>
-
-# include "../srcs/objects/chessBoard.hpp"
-# include "../srcs/objects/algebraicParser.hpp"
 
 # define ERASE_LINE "\033[2K"
 
@@ -20,6 +15,9 @@
 # define GREEN "\033[32m"
 
 # define COLOR_E "\033[0m"
+
+# include "../srcs/algebraicParser/algebraicParser.hpp"
+# include "../srcs/chessBoard/chessBoard.hpp"
 
 using namespace std;
 
