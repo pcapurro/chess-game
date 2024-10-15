@@ -13,6 +13,14 @@
 # include "../srcs/objects/chessBoard.hpp"
 # include "../srcs/objects/algebraicParser.hpp"
 
+# define ERASE_LINE "\033[2K"
+
+# define RED "\033[31m"
+# define YELLOW "\033[33m"
+# define GREEN "\033[3m"
+
+# define COLOR_E "\033[0m"
+
 using namespace std;
 
 void    printTitle(void);

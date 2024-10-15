@@ -22,14 +22,15 @@ class chessBoard
 
         bool    isAllocated(void) const;
 
+        bool    fail(void) const;
+
         bool    isCheck() const;
         bool    isCheckMate() const;
 
-        bool    isLegal(const string move) const;
-        bool    isValid(const string move) const;
+        bool    isLegal(const string move);
 
-        void    announceEvent(const int value, const bool fail = false, \
-                                const string move = "none");
+        void    announceEvent(const int value, const bool cfail = false, \
+                                const bool bfail = false, const string move = "none");
         void    playMove(const string move);
 
         void    printBoard(void) const;
@@ -40,6 +41,7 @@ class chessBoard
         chessPiece  **_board;
 
         int         _turn;
+        bool        _moveFailed;
         string      _player;
 };
 

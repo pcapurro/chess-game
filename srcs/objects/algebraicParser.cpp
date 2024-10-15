@@ -48,7 +48,7 @@ bool    algebraicParser::isValid()
         || isValidSequence() != true)
     {
         cout << "\033[2A" << "\033[2K";
-        cerr << "Try again. ";
+        cerr << RED << "Invalid move. " << COLOR_E;
         _fail = true;
         return (false);
     }

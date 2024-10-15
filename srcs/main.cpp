@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 
         while (board->isCheckMate() != true)
         {
-            board->announceEvent(1, checker.fail());
+            board->announceEvent(1, checker.fail(), board->fail());
             cout << "\033[2K" << "> ";
             getline(cin, input);
         

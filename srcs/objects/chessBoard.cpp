@@ -27,7 +27,7 @@ chessBoard::chessBoard()
             _board[i] = new Pawn("black", to_string('0') + "7");
 
         for (int i = 48, k = 0; i != 56; i++)
-            _board[i] = new Pawn("white", to_string('0') + "7");
+            _board[i] = new Pawn("white", to_string('0') + "2");
 
         _board[56] = new Rook("white", "a1");
         _board[57] = new Knight("white", "b1");
@@ -82,6 +82,11 @@ void    chessBoard::printBoard(void) const
     cout << endl;
 }
 
+bool    chessBoard::fail(void) const
+{
+    return (_moveFailed);
+}
+
 bool    chessBoard::isCheck() const
 {
     return (true);
@@ -92,17 +97,20 @@ bool    chessBoard::isCheckMate() const
     return (false);
 }
 
-bool    chessBoard::isLegal(const string move) const
+bool    chessBoard::isLegal(const string move)
 {
+    if (1)
+    {
+        cout << "\033[2A" << "\033[2K";
+        cerr << YELLOW << "Illegal move. " << COLOR_E;
+        _moveFailed = true;
+        return (false);
+    }
+    _moveFailed = false;
     return (true);
 }
 
-bool    chessBoard::isValid(const string move) const
-{
-    return (true);
-}
-
-void    chessBoard::announceEvent(const int value, const bool fail, const string move)
+void    chessBoard::announceEvent(const int value, const bool cfail, const bool bfail, const string move)
 {
     if (_turn % 2 == 0)
         _player = "White";
@@ -111,7 +119,7 @@ void    chessBoard::announceEvent(const int value, const bool fail, const string
 
     if (value == 1)
     {
-        if (fail != false)
+        if (cfail != false || bfail != false)
             cout << _player << " to play." << endl;
         else
             cout << "\033[2K" << _player << " to play." << endl;
@@ -135,6 +143,6 @@ void    chessBoard::announceEvent(const int value, const bool fail, const string
 
 void    chessBoard::playMove(const string move)
 {
-    announceEvent(2, false, move);
+    announceEvent(2, false, false, move);
     _turn++;
 }
