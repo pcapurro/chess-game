@@ -40,8 +40,11 @@ chessBoard::chessBoard()
 
         for (int i = 0; i != 64; i++)
         {
-            if (_board[i] == nullptr)
-                _allocated = false; return ;
+            if (_board[i] == nullptr && (i < 16 || i > 47))
+            {
+                _allocated = false;
+                return ;
+            }
         }
         _allocated = true;
     }
@@ -76,6 +79,7 @@ void    chessBoard::printBoard(void) const
         if (k == 8)
             k = 0, cout << endl;
     }
+    cout << endl;
 }
 
 bool    chessBoard::isCheck() const
@@ -131,7 +135,6 @@ void    chessBoard::announceEvent(const int value, const bool fail, const string
 
 void    chessBoard::playMove(const string move)
 {
-    // ...
     announceEvent(2, false, move);
     _turn++;
 }

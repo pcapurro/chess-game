@@ -22,34 +22,35 @@ int main(int argc, char **argv)
     printLoading();
 
     chessBoard          *board;
-    algebraicParser    checker;
-    string              input;
 
     board = new chessBoard;
     if (board->isAllocated() != true)
         delete board, systemError();
-
-    // board->printBoard();
-
-    while (board->isCheckMate() != true)
+    else
     {
-        board->announceEvent(1, checker.fail());
-        cout << "\033[2K" << "> ";
-        getline(cin, input);
-        
-        if (cin.fail() == true)
-            systemError();
-        else
-        {
-            checker = input;
-            if (checker.fail() != false || board->isLegal(input) != true)
-                continue;
-            else
-                board->playMove(checker.getParsedMove());
-        }
-    }
-    board->announceEvent(3);
-    delete board;
+        string          input;
+        algebraicParser checker;
 
+        while (board->isCheckMate() != true)
+        {
+            board->announceEvent(1, checker.fail());
+            cout << "\033[2K" << "> ";
+            getline(cin, input);
+        
+            if (cin.fail() == true)
+                systemError();
+            else
+            {
+                checker = input;
+                if (checker.fail() != false || board->isLegal(input) != true)
+                    continue;
+                else
+                    board->playMove(checker.getParsedMove());
+            }
+            board->printBoard(); //
+        }
+        board->announceEvent(3);
+        delete board;
+    }
     return (0);
 }
