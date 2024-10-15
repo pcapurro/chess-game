@@ -29,7 +29,7 @@ void    printGradually(const string str, const int value)
 void    printLoading(void)
 {
     printGradually("Loading", 1);
-    cout << "Game is ready." << endl;
+    cout << GREEN << "Game is ready." << COLOR_E << endl;
     sleep(1);
     cout << endl;
 }

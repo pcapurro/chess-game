@@ -23,10 +23,9 @@ class chessPiece
 
         int getCoordinateToX(const char c) const
         {
-            string letters = "abcdefgh";
-            for (int i = 0; letters[i] != '\0'; i++)
+            for (int i = 0; "abcdefgh"[i] != '\0'; i++)
             {
-                if (letters[i] == c)
+                if ("abcdefgh"[i] == c)
                     return (i);
             }
             return (0);

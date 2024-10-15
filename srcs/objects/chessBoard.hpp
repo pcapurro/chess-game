@@ -13,6 +13,13 @@
 
 using namespace std;
 
+typedef struct s_square
+{
+    chessPiece  *piece;
+    string      coord;
+
+}   t_square;
+
 class chessBoard
 {
     public:
@@ -21,30 +28,36 @@ class chessBoard
         ~chessBoard();
 
         bool    isAllocated(void) const;
-
         bool    fail(void) const;
 
-        bool    isCheck() const;
         bool    isCheckMate() const;
-
         bool    isLegal(const string move);
+        void    playMove(const string move);
 
         void    announceEvent(const int value, const bool cfail = false, \
                                 const bool bfail = false, const string move = "none");
-        
-        int     getCoordinateToX(const char c) const;
-        void    playMove(const string move);
-
-        void    printBoard(void) const;
 
     private:
 
-        vector<string, chessPiece*> _board;
-        bool        _allocated;
+        bool    checkBoardAllocation() const;
 
-        int         _turn;
-        bool        _moveFailed;
-        string      _player;
+        void    initRooksKnights();
+        void    initBishops();
+        void    initQueensKings();
+        void    initBoard(void);
+
+        bool    isCheck() const;
+        
+        int     getCoordinateToX(const char c) const;
+
+        void    printBoard(void) const; //
+
+        vector<t_square>    _board;
+        bool                _allocated;
+
+        int                 _turn;
+        bool                _moveFailed;
+        string              _player;
 };
 
 #endif
