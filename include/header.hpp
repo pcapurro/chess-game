@@ -5,6 +5,9 @@
 # include <string>
 # include <algorithm>
 
+# include <vector>
+# include <map>
+
 # include <unistd.h>
 
 # include "../srcs/objects/chessBoard.hpp"

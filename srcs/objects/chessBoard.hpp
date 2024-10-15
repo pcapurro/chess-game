@@ -32,8 +32,10 @@ class chessBoard
 
     private:
 
-        int     _turn;
-        string  _player;
+        chessPiece  ***_board;
+
+        int         _turn;
+        string      _player;
 };
 
 #endif
