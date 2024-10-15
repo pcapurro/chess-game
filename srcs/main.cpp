@@ -18,12 +18,12 @@ void    initWelcome(void)
 
 int main(int argc, char **argv)
 {
-    // initWelcome();
-    // printLoading();
+    initWelcome();
+    printLoading();
 
     chessBoard          *board;
-    // algebraicParser    checker;
-    // string              input;
+    algebraicParser    checker;
+    string              input;
 
     board = new chessBoard;
     if (board->isAllocated() != true)
@@ -31,25 +31,25 @@ int main(int argc, char **argv)
 
     // board->printBoard();
 
-    // while (board->isCheckMate() != true)
-    // {
-    //     board->announceEvent(1, checker.fail());
-    //     cout << "\033[2K" << "> ";
-    //     getline(cin, input);
+    while (board->isCheckMate() != true)
+    {
+        board->announceEvent(1, checker.fail());
+        cout << "\033[2K" << "> ";
+        getline(cin, input);
         
-    //     if (cin.fail() == true)
-    //         systemError();
-    //     else
-    //     {
-    //         checker = input;
-    //         if (checker.fail() != false || board->isLegal(input) != true)
-    //             continue;
-    //         else
-    //             board->playMove(checker.getParsedMove());
-    //     }
-    // }
-    // board->announceEvent(3);
-    // delete board;
+        if (cin.fail() == true)
+            systemError();
+        else
+        {
+            checker = input;
+            if (checker.fail() != false || board->isLegal(input) != true)
+                continue;
+            else
+                board->playMove(checker.getParsedMove());
+        }
+    }
+    board->announceEvent(3);
+    delete board;
 
     return (0);
 }
