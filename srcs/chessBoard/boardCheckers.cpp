@@ -5,6 +5,16 @@ bool    chessBoard::fail(void) const
     return (_moveFailed);
 }
 
+bool    chessBoard::isThereSomething(const string move) const
+{
+    size_t  atValue;
+
+    atValue = getAtValue(move);
+    if (_board.at(atValue).piece == NULL)
+        return (false);
+    return (true);
+}
+
 bool    chessBoard::isCheck(void) const
 {
     return (true);

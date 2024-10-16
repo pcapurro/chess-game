@@ -159,7 +159,8 @@ bool    algebraicParser::isValidSimpleSequence(void) const
     {
         if (_move[1] == '8')
         {
-            if (isChessCoord(_move[0]) != true || isChessPiece(_move[2]) != true)
+            if (isChessCoord(_move[0]) != true || isChessPiece(_move[2]) != true
+                || _move[2] == 'K')
                 return (false);
         }
         else if (isChessDigit(_move[2]) != true || isChessCoord(_move[1]) != true

@@ -50,21 +50,26 @@ void    chessBoard::printBoard(void)
 
 void    chessBoard::playMove(const string move)
 {
-    cout << "before => " << endl;
-    printBoard();
-    cout << endl;
-
-    if (move.length() == 2)
-        ;
-    else
+    string  left;
+    string  right;
+        
+    for (int i = 0; move[i] != '\0' && right.length() == 0; i++)
     {
-        movePiece(string(1, move[0]) + string(1, move[1]), string(1, move[2]) + string(1, move[3]));
-
-        cout << "after => " << endl;
-        printBoard();
+        left = left + move[i];
+        if (isChessDigit(move[i]) == true)
+            right = move.c_str() + i + 1;
     }
-    announceEvent(2, false, false, move);
-    _turn++;
+    if (right.empty() == true || right.length() == 1)
+    {
+        right = left + right;
+        left[1] = left[1] - 1;
+        if (isThereSomething(left) != true)
+            left[1] = left[1] - 1;
+    }
+    movePiece(left, right);
+    if (isChessPiece(right.at(right.length() - 1)) != false)
+        promotePiece(right, right[right.length() - 1]);
 
-    exit(0); //
+    // announceEvent(2, false, false, move);
+    _turn++;
 }

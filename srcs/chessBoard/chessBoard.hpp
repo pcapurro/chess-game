@@ -48,13 +48,13 @@ class chessBoard
         void    initQueensKings(void);
         void    initBoard(void);
 
-        size_t  getAtValue(const string coord);
+        size_t  getAtValue(const string coord) const;
 
-        void    promoteMovePiece(const string initialCoord, \
-                                const string newCoord, char pieceType);
+        void    promotePiece(const string initialCoord, char pieceType);
         void    removePiece(const string coord);
         void    movePiece(const string initialCoord, const string newCoord);
 
+        bool    isThereSomething(const string move) const;
         bool    isCheck() const;
 
         vector<t_square>    _board;

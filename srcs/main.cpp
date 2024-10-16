@@ -31,9 +31,9 @@ int main(int argc, char **argv)
         string          input;
         algebraicParser checker;
 
-        while (board->isCheckMate() != true)
+        while (board->isCheckMate() != true && board->isAllocated() == true)
         {
-            board->announceEvent(1, checker.fail(), board->fail());
+            // board->announceEvent(1, checker.fail(), board->fail());
             cout << "\033[2K" << "> ";
             getline(cin, input);
         
