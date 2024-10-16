@@ -172,7 +172,10 @@ void    algebraicParser::parseDoubleSequence(void)
         if (isChessPiece(_move[i]) != true)
             left = left + _move[i];
     }
-    _newMove = left + right;
+    if (_move[0] == 'e')
+        _newMove = _newMove + "P>" + left + ">" + right;
+    else
+        _newMove = _newMove + _move[0] + ">" + (left.c_str() + 1) + ">" + right;
 }
 
 void    algebraicParser::parseUniqueSequence(void)
@@ -180,7 +183,10 @@ void    algebraicParser::parseUniqueSequence(void)
     vector<string>  coords;
 
     if (_move[0] == 'e')
+    {
         coords = getPawnSequence(_move);
+        _newMove = _newMove + "P>";
+    }
     else
     {
         if (_move[0] == 'K')
@@ -193,13 +199,18 @@ void    algebraicParser::parseUniqueSequence(void)
             coords = getKnightSequence(_move.c_str() + 1);
         if (_move[0] == 'R')
             coords = getRookSequence(_move.c_str() + 1);
+        _newMove = _newMove + _move[0] + ">";
     }
+    
     for (int i = 0; i != coords.size(); i++)
     {
         if (isChessCoord(coords.at(i)[0]) == true && isChessDigit(coords.at(i)[1]) == true)
             _newMove = _newMove + coords.at(i);
     }
-    _newMove = _newMove + ">" + _move;
+    if (_move[0] == 'e')
+        _newMove = _newMove + ">" + _move.c_str();
+    else
+        _newMove = _newMove + ">" + (_move.c_str() + 1);
 }
 
 void    algebraicParser::parseMove(void)
@@ -208,6 +219,8 @@ void    algebraicParser::parseMove(void)
         parseDoubleSequence();
     else
         parseUniqueSequence();
+    cout << _newMove << endl;
+    exit(0);
 }
 
 string  algebraicParser::getParsedMove(void) const
