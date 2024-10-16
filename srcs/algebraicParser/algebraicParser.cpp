@@ -175,7 +175,7 @@ void    algebraicParser::parseDoubleSequence(void)
         left = left + _move[i];
     }
 
-    if (left.length() < 3)
+    if (left.length() < 3 && isChessCoord(_move[0]) != true)
     {
         vector<string>  coords;
 
@@ -243,7 +243,7 @@ void    algebraicParser::parseUniqueSequence(void)
         else
             _newMove = _newMove + _move[0] + _move[1] + ">";
     }
-    
+
     for (int i = 0; i != coords.size(); i++)
     {
         if (isChessCoord(coords.at(i)[0]) == true && isChessDigit(coords.at(i)[1]) == true)
