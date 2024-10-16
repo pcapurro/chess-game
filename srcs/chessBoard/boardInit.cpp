@@ -1,6 +1,6 @@
 #include "../../include/header.hpp"
 
-chessBoard::chessBoard()
+chessBoard::chessBoard(void)
 {
     _turn = 0;
     _allocated = false;
@@ -13,7 +13,7 @@ chessBoard::chessBoard()
         _allocated = true;
 }
 
-void    chessBoard::initBishops()
+void    chessBoard::initBishops(void)
 {
     _board.push_back({new Bishop("white", "c1"), "c1"});
     _board.push_back({new Bishop("white", "f1"), "f1"});
@@ -21,7 +21,7 @@ void    chessBoard::initBishops()
     _board.push_back({new Bishop("black", "f8"), "f8"});
 }
 
-void    chessBoard::initRooksKnights()
+void    chessBoard::initRooksKnights(void)
 {
     _board.push_back({new Knight("white", "g1"), "g1"});
     _board.push_back({new Knight("white", "b1"), "b1"});
@@ -34,7 +34,7 @@ void    chessBoard::initRooksKnights()
     _board.push_back({new Rook("black", "h8"), "h8"});
 }
 
-void    chessBoard::initQueensKings()
+void    chessBoard::initQueensKings(void)
 {
     _board.push_back({new Queen("white", "d1"), "d1"});
     _board.push_back({new Queen("black", "d8"), "d8"});
@@ -43,7 +43,7 @@ void    chessBoard::initQueensKings()
     _board.push_back({new King("black", "e8"), "e8"});
 }
 
-void    chessBoard::initBoard()
+void    chessBoard::initBoard(void)
 {
     for (int i = 0; i != 8; i++)
     {

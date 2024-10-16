@@ -1,6 +1,6 @@
 #include "../../include/header.hpp"
 
-chessBoard::~chessBoard()
+chessBoard::~chessBoard(void)
 {
     for (int i = 0; i != 64; i++)
     {
@@ -10,7 +10,7 @@ chessBoard::~chessBoard()
     _board.clear();
 }
 
-bool    chessBoard::checkBoardAllocation() const
+bool    chessBoard::checkBoardAllocation(void) const
 {
     for (int i = 0; i != 64; i++)
     {

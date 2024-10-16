@@ -53,7 +53,16 @@ void    chessBoard::playMove(const string move)
     }
     else
     {
-        ;
+        string  left;
+        string  right;
+
+        for (int i = 0; move[i] != 'x' && move[i] != '\0'; i++)
+        {
+            if (move[i] == 'x')
+                right = move.c_str() + (i + 1);
+            else
+                left = left + move[i];
+        }
     }
     announceEvent(2, false, false, move);
     _turn++;

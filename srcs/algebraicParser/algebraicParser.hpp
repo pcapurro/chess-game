@@ -9,25 +9,25 @@ class algebraicParser
 {
     public:
 
-        algebraicParser();
-        ~algebraicParser();
+        algebraicParser(void);
+        ~algebraicParser(void);
 
         void    operator=(const string move);
 
-        string  getParsedMove() const;
-        bool    fail() const;
+        string  getParsedMove(void) const;
+        bool    fail(void) const;
 
     private:
 
-        bool    isValid();
+        bool    isValid(void);
         
-        bool    isGoodLength() const;
-        bool    isValidComplexSequence() const;
-        bool    isValidSimpleSequence() const;
-        bool    isValidSequence() const;
-        bool    isValidChar() const;
+        bool    isGoodLength(void) const;
+        bool    isValidComplexSequence(void) const;
+        bool    isValidSimpleSequence(void) const;
+        bool    isValidSequence(void) const;
+        bool    isValidChar(void) const;
 
-        void    parseMove();
+        void    parseMove(void);
 
         bool    _fail;
         string  _move;

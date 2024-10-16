@@ -24,8 +24,8 @@ bool    isChessCoord(const char c)
     return (true);
 }
 
-algebraicParser::algebraicParser() {;}
-algebraicParser::~algebraicParser() {;}
+algebraicParser::algebraicParser(void) {;}
+algebraicParser::~algebraicParser(void) {;}
 
 void    algebraicParser::operator=(const string move)
 {
@@ -35,14 +35,14 @@ void    algebraicParser::operator=(const string move)
         parseMove();
 }
 
-bool    algebraicParser::fail() const
+bool    algebraicParser::fail(void) const
 {
     if (_fail == false)
         return (false);
     return (true);
 }
 
-bool    algebraicParser::isValid()
+bool    algebraicParser::isValid(void)
 {
     if (isValidChar() != true || isGoodLength() != true
         || isValidSequence() != true)
@@ -56,7 +56,7 @@ bool    algebraicParser::isValid()
     return (true);
 }
 
-bool    algebraicParser::isValidChar() const
+bool    algebraicParser::isValidChar(void) const
 {
     string  dictionnary;
 
@@ -69,14 +69,14 @@ bool    algebraicParser::isValidChar() const
     return (true);
 }
 
-bool    algebraicParser::isGoodLength() const
+bool    algebraicParser::isGoodLength(void) const
 {
     if (_move.length() > 7 || _move.length() < 2)
         return (false);
     return (true);
 }
 
-bool    algebraicParser::isValidComplexSequence() const
+bool    algebraicParser::isValidComplexSequence(void) const
 {
     if (count(_move.begin(), _move.end(), 'x') != 0)
     {
@@ -124,7 +124,7 @@ bool    algebraicParser::isValidComplexSequence() const
     return (true);
 }
 
-bool    algebraicParser::isValidSimpleSequence() const
+bool    algebraicParser::isValidSimpleSequence(void) const
 {
     if (count(_move.begin(), _move.end(), '0') != 0 || count(_move.begin(), _move.end(), '-') != 0)
     {
@@ -169,14 +169,14 @@ bool    algebraicParser::isValidSimpleSequence() const
     return (true);
 }
 
-bool    algebraicParser::isValidSequence() const
+bool    algebraicParser::isValidSequence(void) const
 {
     if (isValidSimpleSequence() != true || isValidComplexSequence() != true)
         return (false);
     return (true);
 }
 
-void    algebraicParser::parseMove()
+void    algebraicParser::parseMove(void)
 {
     if (count(_move.begin(), _move.end(), 'x') != 0)
     {
@@ -199,7 +199,7 @@ void    algebraicParser::parseMove()
         _newMove = _move;
 }
 
-string  algebraicParser::getParsedMove() const
+string  algebraicParser::getParsedMove(void) const
 {
     return (_newMove);
 }

@@ -5,12 +5,12 @@ bool    chessBoard::fail(void) const
     return (_moveFailed);
 }
 
-bool    chessBoard::isCheck() const
+bool    chessBoard::isCheck(void) const
 {
     return (true);
 }
 
-bool    chessBoard::isCheckMate() const
+bool    chessBoard::isCheckMate(void) const
 {
     return (false);
 }

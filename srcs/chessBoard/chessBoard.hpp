@@ -24,8 +24,8 @@ class chessBoard
 {
     public:
 
-        chessBoard();
-        ~chessBoard();
+        chessBoard(void);
+        ~chessBoard(void);
 
         bool    isAllocated(void) const;
         bool    fail(void) const;
@@ -39,12 +39,15 @@ class chessBoard
 
     private:
 
-        bool    checkBoardAllocation() const;
+        bool    checkBoardAllocation(void) const;
 
-        void    initRooksKnights();
-        void    initBishops();
-        void    initQueensKings();
+        void    initRooksKnights(void);
+        void    initBishops(void);
+        void    initQueensKings(void);
         void    initBoard(void);
+
+        void    removePiece(const string coord);
+        void    putPiece(const string coord, chessPiece *piece);
 
         bool    isCheck() const;
 
