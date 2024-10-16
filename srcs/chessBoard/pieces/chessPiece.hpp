@@ -15,21 +15,11 @@ class chessPiece
             _color = color;
             _moves = 0;
 
-            _x = getCoordinateToX(pos[0]);
+            _x = pos[0] - 97;
             _y = atoi(pos.c_str() + 1);
         }
 
         ~chessPiece() {};
-
-        int getCoordinateToX(const char c) const
-        {
-            for (int i = 0; "abcdefgh"[i] != '\0'; i++)
-            {
-                if ("abcdefgh"[i] == c)
-                    return (i);
-            }
-            return (0);
-        }
 
         const string  getColor() const { return (_color); }
 

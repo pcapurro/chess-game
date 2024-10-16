@@ -47,8 +47,6 @@ class chessBoard
         void    initBoard(void);
 
         bool    isCheck() const;
-        
-        int     getCoordinateToX(const char c) const;
 
         void    printBoard(void) const; //
 

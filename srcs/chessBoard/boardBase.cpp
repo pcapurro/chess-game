@@ -1,15 +1,5 @@
 #include "../../include/header.hpp"
 
-int chessBoard::getCoordinateToX(const char c) const //
-{
-    for (int i = 0; "abcdefgh"[i] != '\0'; i++)
-    {
-        if ("abcdefgh"[i] == c)
-            return (i);
-    }
-    return (0);
-}
-
 void    chessBoard::printBoard(void) const //
 {
     for (int i = 0; i != 8; i++)
@@ -54,8 +44,8 @@ void    chessBoard::announceEvent(const int value, const bool cfail, const bool 
 
 void    chessBoard::playMove(const string move)
 {
-    int target_x = getCoordinateToX(move[0]) - 1;;
-    int target_y = atoi(move.c_str() + 1) - 1;;
+    int target_x = move[0] - 97 - 1;
+    int target_y = atoi(move.c_str() + 1) - 1;
 
     if (move.length() == 2)
     {

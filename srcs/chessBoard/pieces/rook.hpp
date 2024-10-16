@@ -12,7 +12,7 @@ class Rook : public chessPiece
 
         virtual const bool  checkMoveConsistency(const string move) const
         {
-            int target_x = getCoordinateToX(move[0]);
+            int target_x = move[0] - 97;
             int target_y = atoi(move.c_str() + 1);
 
             for (int i = 1; i != 8; i++)

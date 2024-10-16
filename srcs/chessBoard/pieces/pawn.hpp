@@ -17,7 +17,7 @@ class Pawn : public chessPiece
 
         virtual const bool  checkMoveConsistency(const string move) const
         {
-            int target_x = getCoordinateToX(move[0]);
+            int target_x = move[0] - 97;
             int target_y = atoi(move.c_str() + 1);
 
             if ((_x + 1 == target_x && _y + 1 == target_y) || (_x - 1 == target_x && _y + 1 == target_y))
