@@ -175,10 +175,12 @@ void    algebraicParser::parseDoubleSequence(void)
         left = left + _move[i];
     }
 
-    if (left[0] != 'e' && left.length() < 3)
+    if (left.length() < 3)
     {
         vector<string>  coords;
 
+        if (isChessCoord(_move[0]) == true)
+            coords = getPawnSequence(right);
         if (_move[0] == 'K')
             coords = getKingSequence(right);
         if (_move[0] == 'Q')
@@ -200,7 +202,7 @@ void    algebraicParser::parseDoubleSequence(void)
         }
     }
 
-    if (isChessCoord(_move[0]) != false)
+    if (isChessCoord(_move[0]) != false && left.length() != 1)
         _newMove = _newMove + "P>" + left + ">" + right;
     else
     {
@@ -264,8 +266,6 @@ void    algebraicParser::parseMove(void)
         else
             parseUniqueSequence();
     }
-    cout << _newMove << endl;
-    exit(0);
 }
 
 string  algebraicParser::getParsedMove(void) const
