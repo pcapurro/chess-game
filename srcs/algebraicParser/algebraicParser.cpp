@@ -84,7 +84,9 @@ bool    algebraicParser::isValidComplexSequence(void) const
 
         if (left.length() == 2)
         {
-            if (isChessCoord(left[0]) != true || isChessDigit(left[1]) != true)
+            if (isChessCoord(left[0]) != false && isChessDigit(left[1]) != true)
+                return (false);
+            if (isChessPiece(left[0]) != false && isChessCoord(left[1]) != true)
                 return (false);
         }
 
@@ -169,18 +171,23 @@ void    algebraicParser::parseDoubleSequence(void)
             right = _move.c_str() + i + 1;
             break ;
         }
-        if (isChessPiece(_move[i]) != true)
-            left = left + _move[i];
+        left = left + _move[i];
     }
     if (_move[0] == 'e')
         _newMove = _newMove + "P>" + left + ">" + right;
     else
-        _newMove = _newMove + _move[0] + ">" + (left.c_str() + 1) + ">" + right;
+    {
+        if (isChessCoord(_move[1]) != false && left.length() == 2)
+            _newMove = _newMove + _move[0] + ">" + _move[1] + ">" + right;
+        else
+            _newMove = _newMove + _move[0] + ">" + (left.c_str() + 1) + ">" + right;            
+    }
 }
 
 void    algebraicParser::parseUniqueSequence(void)
 {
     vector<string>  coords;
+    int i = 0;
 
     if (_move[0] == 'e')
     {
@@ -189,17 +196,23 @@ void    algebraicParser::parseUniqueSequence(void)
     }
     else
     {
+        _move.length() == 4 ? i = 1 : i = 0;
+
         if (_move[0] == 'K')
-            coords = getKingSequence(_move.c_str() + 1);
+            coords = getKingSequence(_move.c_str() + 1 + i);
         if (_move[0] == 'Q')
-            coords = getQueenSequence(_move.c_str() + 1);
+            coords = getQueenSequence(_move.c_str() + 1 + i);
         if (_move[0] == 'B')
-            coords = getBishopSequence(_move.c_str() + 1);
+            coords = getBishopSequence(_move.c_str() + 1 + i);
         if (_move[0] == 'N')
-            coords = getKnightSequence(_move.c_str() + 1);
+            coords = getKnightSequence(_move.c_str() + 1 + i);
         if (_move[0] == 'R')
-            coords = getRookSequence(_move.c_str() + 1);
-        _newMove = _newMove + _move[0] + ">";
+            coords = getRookSequence(_move.c_str() + 1 + i);
+        
+        if (i == 0)
+            _newMove = _newMove + _move[0] + ">";
+        else
+            _newMove = _newMove + _move[0] + _move[1] + ">";
     }
     
     for (int i = 0; i != coords.size(); i++)
@@ -210,7 +223,7 @@ void    algebraicParser::parseUniqueSequence(void)
     if (_move[0] == 'e')
         _newMove = _newMove + ">" + _move.c_str();
     else
-        _newMove = _newMove + ">" + (_move.c_str() + 1);
+        _newMove = _newMove + ">" + (_move.c_str() + 1 + i);
 }
 
 void    algebraicParser::parseMove(void)
@@ -227,3 +240,9 @@ string  algebraicParser::getParsedMove(void) const
 {
     return (_newMove);
 }
+
+// e4 v
+// e4xe5 v
+// Nf3 v
+// Nfe4 x
+// Nde4 x
