@@ -175,7 +175,8 @@ void    algebraicParser::parseDoubleSequence(void)
         left = left + _move[i];
     }
 
-    if (left.length() < 3 && isChessCoord(_move[0]) != true)
+    if (left.length() < 3 
+        || (isChessCoord(_move[0]) != true && left.length() == 1))
     {
         vector<string>  coords;
 
