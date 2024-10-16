@@ -22,12 +22,16 @@ class Pawn : public chessPiece
                     return (true);
                 if (_x == target_x && _y + 1 == target_y)
                     return (true);
+                if (_x == target_x && _y + 2 == target_y)
+                    return (true);
             }
             else
             {
                 if ((_x + 1 == target_x && _y - 1 == target_y) || (_x - 1 == target_x && _y - 1 == target_y))
                     return (true);
                 if (_x == target_x && _y - 1 == target_y)
+                    return (true);
+                if (_x == target_x && _y - 2 == target_y)
                     return (true);
             }
             return (false);

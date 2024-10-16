@@ -22,7 +22,7 @@ bool    chessBoard::isThereSomething(const string coord) const
     atValue = getAtValue(coord);
     if (_board.at(atValue).piece == NULL)
     {
-        // cout << "there is nothing here..." << endl;
+        // cout << "there is nothing here... >" << _board.at(atValue).coord << endl;
         return (false);
     }
     return (true);
@@ -85,12 +85,9 @@ bool    chessBoard::isLegal(const string move)
 {
     string  src;
     string  dest;
-    
+
     src = getSrcDestCoords(move, 0);
     dest = getSrcDestCoords(move, 1);
-    
-    cout << "src => " << src << endl;
-    cout << "dest => " << dest << endl;
     if (isThereSomething(src) != true || isRightSide(src) != true
         || isItReachable(src, dest) != true)
     {
