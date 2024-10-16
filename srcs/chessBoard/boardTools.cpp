@@ -10,38 +10,6 @@ size_t  chessBoard::getAtValue(const string coord) const
     return (0);
 }
 
-string  chessBoard::getSrcDestCoords(const string move, const int value) const
-{
-    string  src;
-    string  dest;
-        
-    for (int i = 0; move[i] != '\0' && dest.length() == 0; i++)
-    {
-        src = src + move[i];
-        if (isChessDigit(move[i]) == true)
-            dest = move.c_str() + i + 1;
-    }
-    if (dest.empty() == true || dest.length() == 1)
-    {
-        dest = src + dest;
-        if (_player == "White")
-        {
-            src[1] = src[1] - 1;
-            if (isThereSomething(src) != true)
-                src[1] = src[1] - 1;
-        }
-        else
-        {
-            src[1] = src[1] + 1;
-            if (isThereSomething(src) != true)
-                src[1] = src[1] + 1;
-        }
-    }
-    if (value == 0)
-        return (src);
-    return (dest);
-}
-
 void    chessBoard::removePiece(const string coord)
 {
     size_t  atValue = getAtValue(coord);

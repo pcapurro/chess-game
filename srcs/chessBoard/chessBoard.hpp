@@ -49,7 +49,6 @@ class chessBoard
         void    initBoard(void);
 
         size_t  getAtValue(const string coord) const;
-        string  getSrcDestCoords(const string move, const int value) const;
 
         void    promotePiece(const string initialCoord, char pieceType);
         void    removePiece(const string coord);

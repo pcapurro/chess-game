@@ -53,8 +53,8 @@ void    chessBoard::playMove(const string move)
     string  src;
     string  dest;
 
-    src = getSrcDestCoords(move, 0);
-    dest = getSrcDestCoords(move, 1);
+    // src = getSrcDestCoords(move, 0); //
+    // dest = getSrcDestCoords(move, 1); //
     movePiece(src, dest);
     if (isChessPiece(dest.at(dest.length() - 1)) != false)
         promotePiece(dest, dest[dest.length() - 1]);

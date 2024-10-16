@@ -86,8 +86,8 @@ bool    chessBoard::isLegal(const string move)
     string  src;
     string  dest;
 
-    src = getSrcDestCoords(move, 0);
-    dest = getSrcDestCoords(move, 1);
+    // src = getSrcDestCoords(move, 0); //
+    // dest = getSrcDestCoords(move, 1); //
     if (isThereSomething(src) != true || isRightSide(src) != true
         || isItReachable(src, dest) != true)
     {
