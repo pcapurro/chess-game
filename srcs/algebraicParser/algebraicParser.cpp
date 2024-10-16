@@ -79,7 +79,7 @@ bool    algebraicParser::isValidComplexSequence(void) const
                 right = right + _move[i];
         }
 
-        if (left.length() < 2 || left.length() > 3)
+        if (left.empty() != false || left.length() > 3)
             return (false);
 
         if (left.length() == 2)
@@ -163,6 +163,7 @@ void    algebraicParser::parseDoubleSequence(void)
 {
     string  left;
     string  right;
+    string  middle;
 
     for (int i = 0; _move[i] != '\0'; i++)
     {
@@ -173,14 +174,40 @@ void    algebraicParser::parseDoubleSequence(void)
         }
         left = left + _move[i];
     }
+
+    if (left[0] != 'e' && left.length() < 3)
+    {
+        vector<string>  coords;
+
+        if (_move[0] == 'K')
+            coords = getKingSequence(right);
+        if (_move[0] == 'Q')
+            coords = getQueenSequence(right);
+        if (_move[0] == 'B')
+            coords = getBishopSequence(right);
+        if (_move[0] == 'N')
+            coords = getKnightSequence(right);
+        if (_move[0] == 'R')
+            coords = getRookSequence(right);
+
+        for (int i = 0; i != coords.size(); i++)
+        {
+            if (isChessCoord(coords.at(i)[0]) == true && isChessDigit(coords.at(i)[1]) == true)
+            {
+                if (left.length() != 2 || (left.length() == 2 && coords.at(i)[0] == _move[1]))
+                    middle = middle + coords.at(i);
+            }
+        }
+    }
+
     if (_move[0] == 'e')
         _newMove = _newMove + "P>" + left + ">" + right;
     else
     {
-        if (isChessCoord(_move[1]) != false && left.length() == 2)
-            _newMove = _newMove + _move[0] + ">" + _move[1] + ">" + right;
+        if (middle.size() != 0)
+            _newMove = _newMove + _move[0] + ">" + middle + ">" + right;
         else
-            _newMove = _newMove + _move[0] + ">" + (left.c_str() + 1) + ">" + right;            
+            _newMove = _newMove + _move[0] + ">" + (left.c_str() + 1) + ">" + right;
     }
 }
 
@@ -243,9 +270,3 @@ string  algebraicParser::getParsedMove(void) const
 {
     return (_newMove);
 }
-
-// e4 v
-// e4xe5 v
-// Nf3 v
-// Nfe4 x
-// Nde4 x
