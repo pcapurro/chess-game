@@ -184,25 +184,22 @@ void    algebraicParser::parseUniqueSequence(void)
     else
     {
         if (_move[0] == 'K')
-            coords = getKingSequence(_move);
+            coords = getKingSequence(_move.c_str() + 1);
         if (_move[0] == 'Q')
-            coords = getQueenSequence(_move);
+            coords = getQueenSequence(_move.c_str() + 1);
         if (_move[0] == 'B')
-            coords = getBishopSequence(_move);
+            coords = getBishopSequence(_move.c_str() + 1);
         if (_move[0] == 'N')
-            coords = getKnightSequence(_move);
+            coords = getKnightSequence(_move.c_str() + 1);
         if (_move[0] == 'R')
-            coords = getRookSequence(_move);
+            coords = getRookSequence(_move.c_str() + 1);
     }
     for (int i = 0; i != coords.size(); i++)
     {
         if (isChessCoord(coords.at(i)[0]) == true && isChessDigit(coords.at(i)[1]) == true)
-            _newMove = _newMove + coords.at(i) + " ; ";
+            _newMove = _newMove + coords.at(i);
     }
     _newMove = _newMove + ">" + _move;
-
-    cout << _newMove << endl;
-    exit(0);
 }
 
 void    algebraicParser::parseMove(void)

@@ -73,7 +73,7 @@ vector<string>  getQueenSequence(const string move)
     vector<string>  coords;
     string          newCoords;
 
-    for (int i = 0; i != 8; i++)
+    for (int i = 1; i != 8; i++)
     {
         newCoords = move;
         newCoords[0] = newCoords[0] - (i * 1);
@@ -119,7 +119,7 @@ vector<string>  getRookSequence(const string move)
     vector<string>  coords;
     string          newCoords;
 
-    for (int i = 0; i != 8; i++)
+    for (int i = 1; i != 8; i++)
     {
         newCoords = move;
         newCoords[0] = newCoords[0] - (i * 1);
@@ -145,7 +145,7 @@ vector<string>  getBishopSequence(const string move)
     vector<string>  coords;
     string          newCoords;
 
-    for (int i = 0; i != 8; i++)
+    for (int i = 1; i != 8; i++)
     {
         newCoords = move;
         newCoords[0] = newCoords[0] - (i * 1);
