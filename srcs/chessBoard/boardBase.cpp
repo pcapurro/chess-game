@@ -23,7 +23,7 @@ void    chessBoard::announceEvent(const int value, const bool cfail, const bool 
         cout << "\033[2K";
         cout << _player << " played " << move << endl;
     }
-    if (value == 3)
+    if (value == 5)
     {
         cout << "\033[1A";
         cout << "\033[2K";
@@ -50,26 +50,15 @@ void    chessBoard::printBoard(void)
 
 void    chessBoard::playMove(const string move)
 {
-    string  left;
-    string  right;
-        
-    for (int i = 0; move[i] != '\0' && right.length() == 0; i++)
-    {
-        left = left + move[i];
-        if (isChessDigit(move[i]) == true)
-            right = move.c_str() + i + 1;
-    }
-    if (right.empty() == true || right.length() == 1)
-    {
-        right = left + right;
-        left[1] = left[1] - 1;
-        if (isThereSomething(left) != true)
-            left[1] = left[1] - 1;
-    }
-    movePiece(left, right);
-    if (isChessPiece(right.at(right.length() - 1)) != false)
-        promotePiece(right, right[right.length() - 1]);
+    string  src;
+    string  dest;
 
-    // announceEvent(2, false, false, move);
+    src = getSrcDestCoords(move, 0);
+    dest = getSrcDestCoords(move, 1);
+    movePiece(src, dest);
+    if (isChessPiece(dest.at(dest.length() - 1)) != false)
+        promotePiece(dest, dest[dest.length() - 1]);
+    announceEvent(2, false, false, move);
     _turn++;
+    _moveFailed = false;
 }

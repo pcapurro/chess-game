@@ -49,12 +49,17 @@ class chessBoard
         void    initBoard(void);
 
         size_t  getAtValue(const string coord) const;
+        string  getSrcDestCoords(const string move, const int value) const;
 
         void    promotePiece(const string initialCoord, char pieceType);
         void    removePiece(const string coord);
         void    movePiece(const string initialCoord, const string newCoord);
 
+        void    printIllegal(void) const;
+
         bool    isThereSomething(const string move) const;
+        bool    isThereAllyHere(const string src, const string dest) const;
+        bool    isItReachable(const string src, const string dest) const;
         bool    isCheck() const;
 
         vector<t_square>    _board;

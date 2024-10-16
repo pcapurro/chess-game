@@ -15,7 +15,7 @@ class Pawn : public chessPiece
 
         ~Pawn() {};
 
-        virtual const bool  checkMoveConsistency(const string move) const
+        virtual const bool  checkAccess(const string move) const
         {
             int target_x = move[0] - 97;
             int target_y = atoi(move.c_str() + 1);

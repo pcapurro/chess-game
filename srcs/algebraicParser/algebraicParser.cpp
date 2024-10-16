@@ -42,13 +42,18 @@ bool    algebraicParser::fail(void) const
     return (true);
 }
 
+void    algebraicParser::printInvalid(void) const
+{
+    cout << "\033[2A" << "\033[2K";
+    cerr << RED << "Invalid move. " << COLOR_E;
+}
+
 bool    algebraicParser::isValid(void)
 {
     if (isValidChar() != true || isGoodLength() != true
         || isValidSequence() != true)
     {
-        cout << "\033[2A" << "\033[2K";
-        cerr << RED << "Invalid move. " << COLOR_E;
+        printInvalid();
         _fail = true;
         return (false);
     }

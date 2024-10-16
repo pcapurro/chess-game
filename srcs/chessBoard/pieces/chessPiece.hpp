@@ -23,7 +23,7 @@ class chessPiece
 
         const string  getColor() const { return (_color); }
 
-        virtual const bool  checkMoveConsistency(const string move) const = 0;
+        virtual const bool  checkAccess(const string move) const = 0;
 
     protected:
 
