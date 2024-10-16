@@ -41,7 +41,7 @@ bool    algebraicParser::isValidChar(void) const
 {
     string  dictionnary;
 
-    dictionnary = "KQRBNabcdefgh12345678x0-";
+    dictionnary = "KQRBNabcdefgh12345678xO-";
     for (int i = 0; _move[i] != '\0'; i++)
     {
         if (dictionnary.find(_move[i]) > dictionnary.length())
@@ -109,9 +109,9 @@ bool    algebraicParser::isValidComplexSequence(void) const
 
 bool    algebraicParser::isValidSimpleSequence(void) const
 {
-    if (count(_move.begin(), _move.end(), '0') != 0 || count(_move.begin(), _move.end(), '-') != 0)
+    if (count(_move.begin(), _move.end(), 'O') != 0 || count(_move.begin(), _move.end(), '-') != 0)
     {
-        if (_move != "0-0" && _move != "0-0-0")
+        if (_move != "O-O" && _move != "O-O-O")
             return (false);
         else
             return (true);
@@ -228,12 +228,15 @@ void    algebraicParser::parseUniqueSequence(void)
 
 void    algebraicParser::parseMove(void)
 {
-    if (count(_move.begin(), _move.end(), 'x') != 0)
-        parseDoubleSequence();
+    if (_move == "O-O" || _move == "O-O-O")
+        _newMove = _move;
     else
-        parseUniqueSequence();
-    cout << _newMove << endl;
-    exit(0);
+    {
+        if (count(_move.begin(), _move.end(), 'x') != 0)
+            parseDoubleSequence();
+        else
+            parseUniqueSequence();
+    }
 }
 
 string  algebraicParser::getParsedMove(void) const
