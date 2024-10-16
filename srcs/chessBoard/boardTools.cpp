@@ -94,6 +94,4 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord)
     removePiece(newCoordUpdated);
     atValue = getAtValue(newCoordUpdated);
     _board.at(atValue).piece = piece;
-
-    _board.at(atValue).piece->increaseMovesNb();
 }

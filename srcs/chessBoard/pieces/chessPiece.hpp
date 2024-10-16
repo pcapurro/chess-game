@@ -21,11 +21,10 @@ class chessPiece
 
         ~chessPiece() {};
 
-        void    increaseMovesNb(void) { _moves++; }
-        const string  getColor() const { return (_color); }
+        const string        getColor() const { return (_color); }
+        void                move(void) { _moves++; };
 
         virtual const bool  checkAccess(const string move) const = 0;
-        virtual void        move(void) = 0;
 
     protected:
 

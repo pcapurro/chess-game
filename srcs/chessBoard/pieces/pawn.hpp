@@ -7,11 +7,7 @@ class Pawn : public chessPiece
 {
     public:
     
-        Pawn(const string color, const string pos) : chessPiece(color, pos)
-        {
-            _doubleMove = true;
-            _enPassant = true;
-        }
+        Pawn(const string color, const string pos) : chessPiece(color, pos) {}
 
         ~Pawn() {};
 
@@ -26,11 +22,6 @@ class Pawn : public chessPiece
                     return (true);
                 if (_x == target_x && _y + 1 == target_y)
                     return (true);
-                if (_x == target_x && _y + 2 == target_y)
-                {
-                    if (getDoubleMove() == true && _moves == 0)
-                        return (true);
-                }
             }
             else
             {
@@ -38,32 +29,9 @@ class Pawn : public chessPiece
                     return (true);
                 if (_x == target_x && _y - 1 == target_y)
                     return (true);
-                if (_x == target_x && _y - 2 == target_y)
-                {
-                    if (getDoubleMove() == true && _moves == 0)
-                        return (true);
-                }
             }
             return (false);
         }
-
-        virtual void    move(void)
-        {
-            if (_moves == 0)
-                disableDoubleMove();
-            _moves++;
-        }
-
-        bool    getDoubleMove(void) const { return(_doubleMove); }
-        bool    getEnPassant(void) const { return(_enPassant); }
-
-        void    disableDoubleMove(void) { _doubleMove = false; }
-        void    disableEnPassant(void) { _enPassant = false; }
-
-    private:
-
-        bool    _doubleMove;
-        bool    _enPassant;
 };
 
 #endif

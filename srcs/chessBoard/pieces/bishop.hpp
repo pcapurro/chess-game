@@ -27,11 +27,6 @@ class Bishop : public chessPiece
 
             return (false);
         }
-
-        virtual void    move(void)
-        {
-            _moves++;
-        }
 };
 
 #endif
