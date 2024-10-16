@@ -37,6 +37,8 @@ class chessBoard
         void    announceEvent(const int value, const bool cfail = false, \
                                 const bool bfail = false, const string move = "none");
 
+        void    printBoard(void); //
+
     private:
 
         bool    checkBoardAllocation(void) const;
@@ -46,12 +48,14 @@ class chessBoard
         void    initQueensKings(void);
         void    initBoard(void);
 
+        size_t  getAtValue(const string coord);
+
+        void    promoteMovePiece(const string initialCoord, \
+                                const string newCoord, char pieceType);
         void    removePiece(const string coord);
-        void    putPiece(const string coord, chessPiece *piece);
+        void    movePiece(const string initialCoord, const string newCoord);
 
         bool    isCheck() const;
-
-        void    printBoard(void) const; //
 
         vector<t_square>    _board;
         bool                _allocated;

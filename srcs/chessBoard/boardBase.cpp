@@ -1,16 +1,5 @@
 #include "../../include/header.hpp"
 
-void    chessBoard::printBoard(void) const //
-{
-    for (int i = 0; i != 8; i++)
-    {
-        for (int k = 0; k != 8; k++)
-            cout << "[" << _board.at(i).coord << "]" << " ; ";
-        cout << endl;
-    }
-    cout << endl;
-}
-
 void    chessBoard::announceEvent(const int value, const bool cfail, const bool bfail, const string move)
 {
     if (_turn % 2 == 0)
@@ -42,28 +31,40 @@ void    chessBoard::announceEvent(const int value, const bool cfail, const bool 
     }
 }
 
+void    chessBoard::printBoard(void)
+{
+    for (int i = 0; i != 8; i++)
+    {
+        for (int k = 0; k != 8; k++)
+        {
+            string coord = "abcdefgh"[i] + to_string(k + 1);
+            if (_board.at(getAtValue(coord)).piece != NULL)
+                cout << "[P] ; ";
+            else
+                cout << "[ ] ; ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
 void    chessBoard::playMove(const string move)
 {
-    int target_x = move[0] - 97 - 1;
-    int target_y = atoi(move.c_str() + 1) - 1;
+    cout << "before => " << endl;
+    printBoard();
+    cout << endl;
 
     if (move.length() == 2)
-    {
         ;
-    }
     else
     {
-        string  left;
-        string  right;
+        movePiece(string(1, move[0]) + string(1, move[1]), string(1, move[2]) + string(1, move[3]));
 
-        for (int i = 0; move[i] != 'x' && move[i] != '\0'; i++)
-        {
-            if (move[i] == 'x')
-                right = move.c_str() + (i + 1);
-            else
-                left = left + move[i];
-        }
+        cout << "after => " << endl;
+        printBoard();
     }
     announceEvent(2, false, false, move);
     _turn++;
+
+    exit(0); //
 }

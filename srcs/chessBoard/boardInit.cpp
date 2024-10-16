@@ -49,7 +49,7 @@ void    chessBoard::initBoard(void)
     {
         for (int k = 0; k != 8; k++)
         {
-            string coord = "abcdefgh"[k] + to_string(k + 1);
+            string coord = "abcdefgh"[i] + to_string(k + 1);
             if (k + 1 == 2)
                 _board.push_back({new Pawn("white", coord), coord});
             if (k + 1 == 7)
