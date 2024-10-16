@@ -15,13 +15,16 @@ bool    chessBoard::isCheckMate(void) const
     return (false);
 }
 
-bool    chessBoard::isThereSomething(const string move) const
+bool    chessBoard::isThereSomething(const string coord) const
 {
     size_t  atValue;
 
-    atValue = getAtValue(move);
+    atValue = getAtValue(coord);
     if (_board.at(atValue).piece == NULL)
+    {
+        // cout << "there is nothing here..." << endl;
         return (false);
+    }
     return (true);
 }
 
@@ -49,7 +52,26 @@ bool    chessBoard::isItReachable(const string src, const string dest) const
 
     atValue = getAtValue(src);
     if (_board.at(atValue).piece->checkAccess(dest) != true)
+    {
+        // cout << "not reachable..." << endl;
         return (false);
+    }
+    return (true);
+}
+
+bool    chessBoard::isRightSide(const string src) const
+{
+    int     atValue;
+    string  playerColor;
+
+    atValue = getAtValue(src);
+    playerColor = _player;
+    playerColor[0] = tolower(playerColor[0]);
+    if (_board.at(atValue).piece->getColor() != playerColor)
+    {
+        // cout << "bad side..." << endl;
+        return (false);
+    }
     return (true);
 }
 
@@ -69,11 +91,12 @@ bool    chessBoard::isLegal(const string move)
     
     cout << "src => " << src << endl;
     cout << "dest => " << dest << endl;
-    if (isThereSomething(src) != true || isThereAllyHere(src, src) != false
+    if (isThereSomething(src) != true || isRightSide(src) != true
         || isItReachable(src, dest) != true)
     {
         printIllegal();
         _moveFailed = true;
+        exit(0);
         return (false);
     }
     _moveFailed = false;

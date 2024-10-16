@@ -20,17 +20,38 @@ class Pawn : public chessPiece
             int target_x = move[0] - 97;
             int target_y = atoi(move.c_str() + 1);
 
-            if ((_x + 1 == target_x && _y + 1 == target_y) || (_x - 1 == target_x && _y + 1 == target_y))
-                return (true);
-            if (_x == target_x && _y + 1 == target_y)
-                return (true);
-            if (_x == target_x && _y + 2 == target_y)
+            if (_color == "white")
             {
-                if (getDoubleMove() == true && _moves == 0)
+                if ((_x + 1 == target_x && _y + 1 == target_y) || (_x - 1 == target_x && _y + 1 == target_y))
                     return (true);
+                if (_x == target_x && _y + 1 == target_y)
+                    return (true);
+                if (_x == target_x && _y + 2 == target_y)
+                {
+                    if (getDoubleMove() == true && _moves == 0)
+                        return (true);
+                }
             }
-            
+            else
+            {
+                if ((_x + 1 == target_x && _y - 1 == target_y) || (_x - 1 == target_x && _y - 1 == target_y))
+                    return (true);
+                if (_x == target_x && _y - 1 == target_y)
+                    return (true);
+                if (_x == target_x && _y - 2 == target_y)
+                {
+                    if (getDoubleMove() == true && _moves == 0)
+                        return (true);
+                }
+            }
             return (false);
+        }
+
+        virtual void    move(void)
+        {
+            if (_moves == 0)
+                disableDoubleMove();
+            _moves++;
         }
 
         bool    getDoubleMove(void) const { return(_doubleMove); }

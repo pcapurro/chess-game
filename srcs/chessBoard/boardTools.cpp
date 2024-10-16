@@ -24,9 +24,18 @@ string  chessBoard::getSrcDestCoords(const string move, const int value) const
     if (dest.empty() == true || dest.length() == 1)
     {
         dest = src + dest;
-        src[1] = src[1] - 1;
-        if (isThereSomething(src) != true)
+        if (_player == "White")
+        {
             src[1] = src[1] - 1;
+            if (isThereSomething(src) != true)
+                src[1] = src[1] - 1;
+        }
+        else
+        {
+            src[1] = src[1] + 1;
+            if (isThereSomething(src) != true)
+                src[1] = src[1] + 1;
+        }
     }
     if (value == 0)
         return (src);
@@ -85,4 +94,6 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord)
     removePiece(newCoordUpdated);
     atValue = getAtValue(newCoordUpdated);
     _board.at(atValue).piece = piece;
+
+    _board.at(atValue).piece->increaseMovesNb();
 }
