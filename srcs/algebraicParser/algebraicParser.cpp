@@ -133,28 +133,28 @@ bool    algebraicParser::isValidSimpleSequence(void) const
 
     if (_move.length() == 2)
     {
-        if (isChessCoord(_move[0]) == false || isChessDigit(_move[1]) == false)
-            return (false);
+        if (isChessCoord(_move[0]) == true && isChessDigit(_move[1]) == true)
+            return (true);
     }
     if (_move.length() == 3)
     {
         if (isChessCoord(_move[0]) == true && _move[1] == '8')
         {
-            if (isChessPiece(_move[2]) == false || _move[2] == 'K')
-                return (false);
+            if (isChessPiece(_move[2]) == true && _move[2] != 'K')
+                return (true);
         }
-        if (isChessPiece(_move[0]) == false || isChessCoord(_move[1]) == false
-            || isChessDigit(_move[2]) == false)
-            return (false);
+        if (isChessPiece(_move[0]) == true && isChessCoord(_move[1]) == true
+            && isChessDigit(_move[2]) == true)
+            return (true);
     }
-    return (true);
+    return (false);
 }
 
 bool    algebraicParser::isValidSequence(void) const
 {
-    if (isValidSimpleSequence() == false || isValidComplexSequence() == false)
-        return (false);
-    return (true);
+    if (isValidSimpleSequence() == true || isValidComplexSequence() == true)
+        return (true);
+    return (false);
 }
 
 void    algebraicParser::parseDoubleSequence(void)
@@ -258,6 +258,10 @@ void    algebraicParser::parseMove(void)
         else
             parseUniqueSequence();
     }
+    cout << "obj > " << _obj << endl;
+    cout << "src > " << _src << endl;
+    cout << "dest > " << _dest << endl;
+    exit(0);
 }
 
 const string    algebraicParser::getSource(void) const { return (_src); }
