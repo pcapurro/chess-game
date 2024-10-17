@@ -54,10 +54,20 @@ void    chessBoard::playMove(const char obj, const string src, const string dest
         return ;
     else
     {
-        movePiece(_src, dest);
-        if (isChessPiece(dest.at(dest.length() - 1)) == true)
-            promotePiece(dest, dest[dest.length() - 1]);
-        printBoard();
+        if (dest == "O-O" || dest == "O-O-O")
+        {
+            if (_player == "White")
+                whiteCastles(dest);
+            if (_player == "Black")
+                blackCastles(dest);
+        }
+        else
+        {
+            movePiece(_src, dest);
+            if (isChessPiece(dest.at(dest.length() - 1)) == true)
+                promotePiece(dest, dest[dest.length() - 1]);
+            printBoard();
+        }
         announceEvent(2, false, false, move);
         _turn++;
     }

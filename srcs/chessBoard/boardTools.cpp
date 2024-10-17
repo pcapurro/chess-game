@@ -73,3 +73,31 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord)
             _blackCastle = false;
     }
 }
+
+void    chessBoard::whiteCastles(const string move)
+{
+    if (move == "O-O")
+    {
+        movePiece("h1", "f1");
+        movePiece("e1", "g1");
+    }
+    if (move == "O-O-O")
+    {
+        movePiece("e1", "c1");
+        movePiece("a1", "d1");
+    }
+}
+
+void    chessBoard::blackCastles(const string move)
+{
+    if (move == "O-O")
+    {
+        movePiece("e8", "g8");
+        movePiece("h8", "f8");
+    }
+    if (move == "O-O-O")
+    {
+        movePiece("e8", "c8");
+        movePiece("a8", "d8");
+    }
+}

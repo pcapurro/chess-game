@@ -56,6 +56,9 @@ class chessBoard
         void    promotePiece(const string initialCoord, char pieceType);
         void    removePiece(const string coord);
         void    movePiece(const string initialCoord, const string newCoord);
+        
+        void    whiteCastles(const string move);
+        void    blackCastles(const string move);
 
         void    printIllegal(void) const;
 
