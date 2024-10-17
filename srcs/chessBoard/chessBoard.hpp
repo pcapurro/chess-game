@@ -59,12 +59,14 @@ class chessBoard
 
         void    printIllegal(void) const;
 
-        string  checkSource(const char type, const string src);
+        void    checkSource(const char type, const string src);
 
         bool    isCheck() const;
 
         vector<t_square>    _board;
         bool                _allocated;
+
+        string              _src;
 
         int                 _turn;
         bool                _moveFailed;

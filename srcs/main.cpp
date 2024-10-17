@@ -13,7 +13,7 @@ void    initWelcome(void)
     getline(cin, input);
     if (cin.fail() == true)
         systemError();
-    cout << "\033[2A" << "\033[2K" << endl;
+    cout << "\033[2A" << ERASE_LINE << endl;
 }
 
 int main(int argc, char **argv)
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
         while (board->isCheckMate() == false && board->isAllocated() == true)
         {
             board->announceEvent(1, checker.fail(), board->fail());
-            cout << "\033[2K" << "> ";
+            cout << ERASE_LINE << "> ";
             getline(cin, input);
         
             if (cin.fail() == true)
@@ -42,7 +42,7 @@ int main(int argc, char **argv)
             else
             {
                 checker = input;
-                if (checker.fail() == true || board->isLegal(getParsedMove) == false)
+                if (checker.fail() == true)
                     continue;
                 else
                     board->playMove(getParsedMove, input);

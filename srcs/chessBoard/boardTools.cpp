@@ -62,4 +62,6 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord)
     removePiece(newCoordUpdated);
     atValue = getAtValue(newCoordUpdated);
     _board.at(atValue).piece = piece;
+
+    cout << "moving " << initialCoord << " to " << newCoord << endl;
 }

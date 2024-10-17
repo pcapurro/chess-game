@@ -20,7 +20,7 @@ bool    algebraicParser::fail(void) const
 
 void    algebraicParser::printInvalid(void) const
 {
-    cout << "\033[2A" << "\033[2K";
+    cout << "\033[2A" << ERASE_LINE;
     cerr << RED << "Invalid move. " << COLOR_E;
 }
 
@@ -252,6 +252,9 @@ void    algebraicParser::parseUniqueSequence(void)
 
 void    algebraicParser::parseMove(void)
 {
+    _src.clear();
+    _dest.clear();
+
     if (_move == "O-O" || _move == "O-O-O")
         _obj = 'R', _src = "", _dest = _move;
     else

@@ -12,7 +12,7 @@ void    chessBoard::announceEvent(const int value, const bool cfail, const bool 
         if (cfail == true || bfail == true)
             cout << _player << " to play." << endl;
         else
-            cout << "\033[2K" << _player << " to play." << endl;
+            cout << ERASE_LINE << _player << " to play." << endl;
     }
     if (value == 2)
     {
@@ -20,13 +20,13 @@ void    chessBoard::announceEvent(const int value, const bool cfail, const bool 
             cout << "\033[3A";
         else
             cout << "\033[2A";
-        cout << "\033[2K";
+        cout << ERASE_LINE;
         cout << _player << " played " << move << endl;
     }
     if (value == 5)
     {
         cout << "\033[1A";
-        cout << "\033[2K";
+        cout << ERASE_LINE;
         cout << _player << " won the game! 🎉" << endl;
     }
 }
@@ -50,10 +50,15 @@ void    chessBoard::printBoard(void)
 
 void    chessBoard::playMove(const char obj, const string src, const string dest, const string move)
 {
-    movePiece(src, dest);
-    if (isChessPiece(dest.at(dest.length() - 1)) == true)
-        promotePiece(dest, dest[dest.length() - 1]);
-    announceEvent(2, false, false, move);
-    _turn++;
-    _moveFailed = false;
+    if (isLegal(obj, src, dest) != true)
+        return ;
+    else
+    {
+        movePiece(_src, dest);
+        if (isChessPiece(dest.at(dest.length() - 1)) == true)
+            promotePiece(dest, dest[dest.length() - 1]);
+        printBoard();
+        announceEvent(2, false, false, move);
+        _turn++;
+    }
 }
