@@ -75,6 +75,11 @@ class chessBoard
         bool    isThereAlly(const string dest);
         bool    isRightSide(const string src);
         bool    isThereAttacker(const char type);
+        bool    isThereSomething(const string dest);
+
+        string  getBishopPath(const string src, const string dest);
+        string  getQueenPath(const string src, const string dest);
+        string  getRookPath(const string src, const string dest);
         bool    isTheWayClear(const char type, const string src, \
                                             const string dest);
 

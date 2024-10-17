@@ -113,6 +113,16 @@ bool    chessBoard::isRightSide(const string src)
     return (false);
 }
 
+bool    chessBoard::isThereSomething(const string dest)
+{
+    int     atValue;
+
+    atValue = getAtValue(dest);
+    if (_board.at(atValue).piece != NULL)
+        return (true);
+    return (false);
+}
+
 bool    chessBoard::isThereAttacker(const char type)
 {
     int     atValue;
@@ -123,11 +133,6 @@ bool    chessBoard::isThereAttacker(const char type)
     _moveFailed = true;
     printIllegal();
     return (false);
-}
-
-bool    chessBoard::isTheWayClear(const char type, const string src, const string dest)
-{
-    return (true);
 }
 
 bool    chessBoard::isThereAlly(const string dest)
