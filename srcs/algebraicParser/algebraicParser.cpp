@@ -79,6 +79,9 @@ bool    algebraicParser::isValidComplexSequence(void) const
                 right = right + _move[i];
         }
 
+        if (left.length() > 3 || right.length() < 2 || right.length() > 3)
+            return (false);
+
         if (left.length() == 1 && isChessPiece(left[0]) == true)
             return (true);
 
