@@ -75,16 +75,19 @@ string  chessBoard::getBishopPath(const string src, const string dest)
 
 bool    chessBoard::isTheWayClear(const char type, const string src, const string dest)
 {
-    string  coords;
+    if (type == 'B' || type == 'R' || type == 'Q')
+    {
+        string  coords;
 
-    if (type == 'B')
-        coords = getBishopPath(src, dest);
-    if (type == 'R')
-        coords = getRookPath(src, dest);
-    if (type == 'Q')
-        coords = getQueenPath(src, dest);
-
-    if (coords.find(dest) == string::npos)
-        return (false);
+        if (type == 'B')
+            coords = getBishopPath(src, dest);
+        if (type == 'R')
+            coords = getRookPath(src, dest);
+        if (type == 'Q')
+            coords = getQueenPath(src, dest);
+        
+        if (coords.find(dest) == string::npos)
+            return (false);
+    }
     return (true);
 }
