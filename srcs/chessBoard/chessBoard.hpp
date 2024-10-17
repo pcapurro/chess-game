@@ -69,6 +69,7 @@ class chessBoard
         bool    isItValidDestination(const char obj, const string src, \
                                         const string dest);
         bool    isThereAlly(const string dest);
+        bool    isThereAttacker(const char type);
 
         bool    isCastlingPossible(const string move) const;
         bool    willItCheck(void) const;

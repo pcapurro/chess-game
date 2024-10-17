@@ -101,6 +101,16 @@ bool    chessBoard::isCastlingPossible(const string move) const
     return (true);
 }
 
+bool    chessBoard::isThereAttacker(const char type)
+{
+    int     atValue;
+
+    atValue = getAtValue(_src);
+    if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getType() == type)
+        return (true);
+    return (false);
+}
+
 bool    chessBoard::isThereAlly(const string dest)
 {
     int     atValue;
@@ -204,7 +214,11 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
                 return (false);
         }
         else
+        {
             _src = src;
+            if (isThereAttacker(obj) != true)
+                return (false);
+        }
         
         if (isThereAlly(dest) == true)
             return (false);
