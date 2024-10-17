@@ -127,7 +127,8 @@ int chessBoard::checkPawnDestintation(const string src, const string dest)
             if (source.length() == 2)
             {
                 if (source[0] == dest[0]
-                    && _board.at(getAtValue(source)).piece != NULL)
+                    && _board.at(getAtValue(source)).piece != NULL
+                    && _board.at(getAtValue(source)).piece->getType() == 'P')
                 {
                     if (source[1] == dest[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
                         return (FAIL);
