@@ -61,12 +61,16 @@ class chessBoard
 
         void    checkSource(const char type, const string src);
 
-        bool    isCheck() const;
+        bool    isCastlingPossible(const string move) const;
+        bool    isCheck(void) const;
 
         vector<t_square>    _board;
         bool                _allocated;
 
         string              _src;
+
+        bool                _whiteCastle;
+        bool                _blackCastle;
 
         int                 _turn;
         bool                _moveFailed;

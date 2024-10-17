@@ -25,6 +25,7 @@ class chessPiece
         const string        getColor() const { return (_color); }
         const char          getType() const { return (_type); }
         void                move(void) { _moves++; };
+        const int           getMoves(void) { return (_moves); }
 
         virtual const bool  checkAccess(const string move) const = 0;
 

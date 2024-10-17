@@ -63,5 +63,13 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord)
     atValue = getAtValue(newCoordUpdated);
     _board.at(atValue).piece = piece;
 
-    cout << "moving " << initialCoord << " to " << newCoord << endl;
+    _board.at(atValue).piece->move();
+
+    if (_board.at(atValue).piece->getType() == 'K')
+    {
+        if (_board.at(atValue).piece->getColor() == "white")
+            _whiteCastle = false;
+        if (_board.at(atValue).piece->getColor() == "black")
+            _blackCastle = false;
+    }
 }

@@ -6,6 +6,9 @@ chessBoard::chessBoard(void)
     _allocated = false;
     _player = "white";
 
+    _whiteCastle = true;
+    _blackCastle = true;
+
     initBoard();
     if (checkBoardAllocation() == false)
         _allocated = false;
