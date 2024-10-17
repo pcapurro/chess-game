@@ -152,6 +152,12 @@ bool    algebraicParser::isValidSimpleSequence(void) const
             && isChessDigit(_move[2]) == true)
             return (true);
     }
+    if (_move.length() == 4)
+    {
+        if (isChessPiece(_move[0]) == true && isChessCoord(_move[1]) == true
+            && isChessCoord(_move[2]) == true && isChessDigit(_move[3]) == true)
+            return (true);
+    }
     return (false);
 }
 
