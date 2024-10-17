@@ -180,15 +180,17 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
     }
     else
     {
-        if (src.length() != 2 && isItValidDestination(obj, src, dest) != true)
-            return (false);
+        if (src.length() != 2)
+        {
+            if (isItValidDestination(obj, src, dest) != true)
+                return (false);
+        }
         else
             _src = src;
         
         if (isThereAlly(dest) == true)
             return (false);
     }
-
-    // cout << "Move valide" << endl;
+    cout << "Move valide" << endl;
     return (true);
 }
