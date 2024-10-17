@@ -125,6 +125,11 @@ bool    chessBoard::isThereAttacker(const char type)
     return (false);
 }
 
+bool    chessBoard::isTheWayClear(const char type, const string src, const string dest)
+{
+    return (true);
+}
+
 bool    chessBoard::isThereAlly(const string dest)
 {
     int     atValue;
@@ -167,13 +172,14 @@ int chessBoard::checkPawnDestintation(const string src, const string dest)
     return (FAIL);
 }
 
-int chessBoard::checkSource(const char type, const string src)
+int chessBoard::checkSource(const char type, const string src, const string dest)
 {
     for (int i = 0; i != 64; i++)
     {
         if (src.find(_board.at(i).coord) != string::npos && _board.at(i).piece != NULL)
         {
-            if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == type)
+            if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == type
+                && isTheWayClear(type, _board.at(i).coord, dest) == true)
                 _src = _src + _board.at(i).coord;
         }
     }
@@ -200,7 +206,7 @@ bool    chessBoard::isThereValidDestintation(const char obj, const string src, c
             return (false);
         }
     }
-    else if (checkSource(obj, src) == FAIL)
+    else if (checkSource(obj, src, dest) == FAIL)
     {
         _moveFailed = true;
         printIllegal();

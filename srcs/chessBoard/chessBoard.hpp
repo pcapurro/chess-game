@@ -64,7 +64,7 @@ class chessBoard
 
         void    printIllegal(void) const;
 
-        int     checkSource(const char type, const string src);
+        int     checkSource(const char type, const string src, const string dest);
         int     checkPawnDestintation(const string src, const string dest);
         
         bool    isThereValidDestintation(const char obj, const string src, \
@@ -75,6 +75,8 @@ class chessBoard
         bool    isThereAlly(const string dest);
         bool    isRightSide(const string src);
         bool    isThereAttacker(const char type);
+        bool    isTheWayClear(const char type, const string src, \
+                                            const string dest);
 
         bool    isCastlingPossible(const string move) const;
         bool    willItCheck(void) const;
