@@ -109,7 +109,7 @@ bool    algebraicParser::isValidSimpleSequence(void) const
 {
     if (count(_move.begin(), _move.end(), 'O') != 0 || count(_move.begin(), _move.end(), '-') != 0)
     {
-        if (_move == "O-O" || _move != "O-O-O")
+        if (_move == "O-O" || _move == "O-O-O")
             return (true);
     }
 
@@ -258,10 +258,6 @@ void    algebraicParser::parseMove(void)
         else
             parseUniqueSequence();
     }
-    cout << "obj > " << _obj << endl;
-    cout << "src > " << _src << endl;
-    cout << "dest > " << _dest << endl;
-    exit(0);
 }
 
 const string    algebraicParser::getSource(void) const { return (_src); }
