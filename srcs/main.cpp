@@ -42,10 +42,10 @@ int main(int argc, char **argv)
             else
             {
                 checker = input;
-                if (checker.fail() != false || board->isLegal(checker.getParsedMove()) != true)
+                if (checker.fail() != false || board->isLegal(getParsedMove) != true)
                     continue;
                 else
-                    board->playMove(checker.getParsedMove());
+                    board->playMove(getParsedMove, input);
             }
         }
         board->announceEvent(5);

@@ -48,13 +48,8 @@ void    chessBoard::printBoard(void)
     cout << endl;
 }
 
-void    chessBoard::playMove(const string move)
+void    chessBoard::playMove(const char obj, const string src, const string dest, const string move)
 {
-    string  src;
-    string  dest;
-
-    // src = getSrcDestCoords(move, 0); //
-    // dest = getSrcDestCoords(move, 1); //
     movePiece(src, dest);
     if (isChessPiece(dest.at(dest.length() - 1)) != false)
         promotePiece(dest, dest[dest.length() - 1]);

@@ -11,6 +11,9 @@
 # include "pieces/rook.hpp"
 # include "pieces/pawn.hpp"
 
+# define getParsedMove checker.getObject(), \
+    checker.getSource(), checker.getDest()
+
 using namespace std;
 
 typedef struct s_square
@@ -31,8 +34,8 @@ class chessBoard
         bool    fail(void) const;
 
         bool    isCheckMate() const;
-        bool    isLegal(const string move);
-        void    playMove(const string move);
+        bool    isLegal(const char obj, const string src, const string dest);
+        void    playMove(const char obj, const string src, const string dest, const string move);
 
         void    announceEvent(const int value, const bool cfail = false, \
                                 const bool bfail = false, const string move = "none");

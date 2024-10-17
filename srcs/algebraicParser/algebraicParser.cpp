@@ -207,13 +207,12 @@ void    algebraicParser::parseDoubleSequence(void)
     }
 
     if (isChessCoord(_move[0]) != false && left.length() != 1)
-        _newMove = _newMove + "P>" + left + ">" + right;
+        _obj = 'P', _src = left, _dest = right;
     else
     {
-        if (middle.size() != 0)
-            _newMove = _newMove + _move[0] + ">" + middle + ">" + right;
-        else
-            _newMove = _newMove + _move[0] + ">" + (left.c_str() + 1) + ">" + right;
+        _obj = _move[0];
+        middle.size() != 0 ? _src = middle : _src = (left.c_str() + 1);
+        _dest = right;
     }
 }
 
@@ -223,10 +222,7 @@ void    algebraicParser::parseUniqueSequence(void)
     int i = 0;
 
     if (isChessCoord(_move[0]) != false)
-    {
-        coords = getPawnSequence(_move);
-        _newMove = _newMove + "P>";
-    }
+        coords = getPawnSequence(_move), _obj = 'P';
     else
     {
         _move.length() == 4 ? i = 1 : i = 0;
@@ -242,27 +238,24 @@ void    algebraicParser::parseUniqueSequence(void)
         if (_move[0] == 'R')
             coords = getRookSequence(_move.c_str() + 1 + i);
         
-        if (i == 0)
-            _newMove = _newMove + _move[0] + ">";
-        else
-            _newMove = _newMove + _move[0] + _move[1] + ">";
+        _obj = _move[0];
     }
 
     for (int i = 0; i != coords.size(); i++)
     {
         if (isChessCoord(coords.at(i)[0]) == true && isChessDigit(coords.at(i)[1]) == true)
-            _newMove = _newMove + coords.at(i);
+            _src = _src + coords.at(i);
     }
     if (isChessCoord(_move[0]) != false)
-        _newMove = _newMove + ">" + _move.c_str();
+        _dest = _dest + _move.c_str();
     else
-        _newMove = _newMove + ">" + (_move.c_str() + 1 + i);
+        _dest = _dest + (_move.c_str() + 1 + i);
 }
 
 void    algebraicParser::parseMove(void)
 {
     if (_move == "O-O" || _move == "O-O-O")
-        _newMove = _move;
+        _obj = 'R', _src = "", _dest = _move;
     else
     {
         if (count(_move.begin(), _move.end(), 'x') != 0)
@@ -272,7 +265,6 @@ void    algebraicParser::parseMove(void)
     }
 }
 
-string  algebraicParser::getParsedMove(void) const
-{
-    return (_newMove);
-}
+const string    algebraicParser::getSource(void) const { return (_src); }
+const string    algebraicParser::getDest(void) const { return (_dest); }
+const char      algebraicParser::getObject(void) const { return (_obj); }

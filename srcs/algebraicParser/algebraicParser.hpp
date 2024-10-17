@@ -14,8 +14,11 @@ class algebraicParser
 
         void    operator=(const string move);
 
-        string  getParsedMove(void) const;
-        bool    fail(void) const;
+        const string    getSource(void) const;
+        const string    getDest(void) const;
+        const char      getObject(void) const;
+
+        bool            fail(void) const;
 
     private:
 
@@ -34,7 +37,10 @@ class algebraicParser
 
         bool    _fail;
         string  _move;
-        string  _newMove;
+
+        char     _obj;
+        string  _src;
+        string  _dest;
 };
 
 bool            isChessDigit(const char c);

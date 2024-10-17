@@ -221,22 +221,27 @@ vector<string>  getKnightSequence(const string move)
 vector<string>  getPawnSequence(const string move)
 {
     vector<string>  coords;
+    string          newMove;
     string          newCoords;
 
-    newCoords = move;
+    newMove = move;
+    if (move.length() > 2)
+        newMove.at(newMove.length() - 1) = '\0';
+
+    newCoords = newMove;
     newCoords[1] = newCoords[1] - 1;
     coords.push_back(newCoords);
 
-    newCoords = move;
+    newCoords = newMove;
     newCoords[1] = newCoords[1] - 2;
     coords.push_back(newCoords);
 
-    newCoords = move;
+    newCoords = newMove;
     newCoords[0] = newCoords[0] - 1;
     newCoords[1] = newCoords[1] - 1;
     coords.push_back(newCoords);
     
-    newCoords = move;
+    newCoords = newMove;
     newCoords[0] = newCoords[0] + 1;
     newCoords[1] = newCoords[1] - 1;
     coords.push_back(newCoords);

@@ -81,13 +81,8 @@ void    chessBoard::printIllegal(void) const
     cerr << YELLOW << "Illegal move. " << COLOR_E;
 }
 
-bool    chessBoard::isLegal(const string move)
+bool    chessBoard::isLegal(const char obj, const string src, const string dest)
 {
-    string  src;
-    string  dest;
-
-    // src = getSrcDestCoords(move, 0); //
-    // dest = getSrcDestCoords(move, 1); //
     if (isThereSomething(src) != true || isRightSide(src) != true
         || isItReachable(src, dest) != true)
     {
