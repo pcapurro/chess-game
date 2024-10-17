@@ -24,14 +24,14 @@ int main(int argc, char **argv)
     chessBoard  *board;
 
     board = new chessBoard;
-    if (board->isAllocated() != true)
+    if (board->isAllocated() == false)
         delete board, systemError();
     else
     {
         string          input;
         algebraicParser checker;
 
-        while (board->isCheckMate() != true && board->isAllocated() == true)
+        while (board->isCheckMate() == false && board->isAllocated() == true)
         {
             board->announceEvent(1, checker.fail(), board->fail());
             cout << "\033[2K" << "> ";
@@ -42,7 +42,7 @@ int main(int argc, char **argv)
             else
             {
                 checker = input;
-                if (checker.fail() != false || board->isLegal(getParsedMove) != true)
+                if (checker.fail() == true || board->isLegal(getParsedMove) == false)
                     continue;
                 else
                     board->playMove(getParsedMove, input);

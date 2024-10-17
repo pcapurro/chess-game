@@ -51,7 +51,7 @@ bool    chessBoard::isItReachable(const string src, const string dest) const
     int atValue;
 
     atValue = getAtValue(src);
-    if (_board.at(atValue).piece->checkAccess(dest) != true)
+    if (_board.at(atValue).piece->checkAccess(dest) == false)
     {
         // cout << "not reachable..." << endl;
         return (false);
@@ -83,8 +83,8 @@ void    chessBoard::printIllegal(void) const
 
 bool    chessBoard::isLegal(const char obj, const string src, const string dest)
 {
-    if (isThereSomething(src) != true || isRightSide(src) != true
-        || isItReachable(src, dest) != true)
+    if (isThereSomething(src) == false || isRightSide(src) == false
+        || isItReachable(src, dest) == false)
     {
         printIllegal();
         _moveFailed = true;

@@ -9,7 +9,7 @@ void    chessBoard::announceEvent(const int value, const bool cfail, const bool 
 
     if (value == 1)
     {
-        if (cfail != false || bfail != false)
+        if (cfail == true || bfail == true)
             cout << _player << " to play." << endl;
         else
             cout << "\033[2K" << _player << " to play." << endl;
@@ -51,7 +51,7 @@ void    chessBoard::printBoard(void)
 void    chessBoard::playMove(const char obj, const string src, const string dest, const string move)
 {
     movePiece(src, dest);
-    if (isChessPiece(dest.at(dest.length() - 1)) != false)
+    if (isChessPiece(dest.at(dest.length() - 1)) == true)
         promotePiece(dest, dest[dest.length() - 1]);
     announceEvent(2, false, false, move);
     _turn++;

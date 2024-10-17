@@ -7,7 +7,7 @@ void    algebraicParser::operator=(const string move)
 {
     _move = move;
     isValid();
-    if (_fail != true)
+    if (_fail == false)
         parseMove();
 }
 
@@ -26,8 +26,8 @@ void    algebraicParser::printInvalid(void) const
 
 bool    algebraicParser::isValid(void)
 {
-    if (isValidChar() != true || isGoodLength() != true
-        || isValidSequence() != true)
+    if (isValidChar() == false || isGoodLength() == false
+        || isValidSequence() == false)
     {
         printInvalid();
         _fail = true;
@@ -63,7 +63,7 @@ bool    algebraicParser::isValidComplexSequence(void) const
     {
         if (count(_move.begin(), _move.end(), 'x') != 1)
             return (false);
-        if (_move.find('x') == 0 || _move.find('x') == _move.length() - 1)
+        if (_move[0] == 'x' || _move.at(_move.length() - 1) == 'x')
             return (false);
         
         string  left;
@@ -79,46 +79,42 @@ bool    algebraicParser::isValidComplexSequence(void) const
                 right = right + _move[i];
         }
 
-        if (left.empty() != false || left.length() > 3)
-            return (false);
+        if (left.length() == 1 && isChessPiece(left[0]) == true)
+            return (true);
 
         if (left.length() == 2)
         {
-            if (isChessCoord(left[0]) != false && isChessDigit(left[1]) != true)
-                return (false);
-            if (isChessPiece(left[0]) != false && isChessCoord(left[1]) != true)
-                return (false);
+            if (isChessCoord(left[0]) == true && isChessDigit(left[1]) == true)
+                return (true);
+            if (isChessPiece(left[0]) == true && isChessCoord(left[1]) == true)
+                return (true);
         }
-
         if (left.length() == 3)
         {
-            if (isChessPiece(left[0]) != true || isChessCoord(left[1]) != true
-                || isChessDigit(left[2]) != true)
-                return (false);
+            if (isChessPiece(left[0]) == true && isChessCoord(left[1]) == true
+                && isChessDigit(left[2]) == true)
+                return (true);
+            if (right[1] == '8' && isChessPiece(right[2]) == true && right[2] != 'K'
+                && isChessCoord(left[0]) == true)
+                return (true);
         }
-
-        if (right.length() < 2 || right.length() > 3
-            || isChessCoord(right[0]) != true || isChessDigit(right[1]) != true)
-            return (false);
-
-        if (right.length() == 3 && right[1] != '8' && isChessPiece(right[2]) != true)
-            return (false);
-
-        if (isChessPiece(right[right.length() - 1]) == true && isChessCoord(left[0]) != true)
+        if (isChessCoord(right[0]) == false || isChessDigit(right[1] == false)
+            || (isChessPiece(right[right.length() - 1]) == true && isChessCoord(left[0]) == false))
             return (false);
     }
-    return (true);
+    return (false);
 }
 
 bool    algebraicParser::isValidSimpleSequence(void) const
 {
     if (count(_move.begin(), _move.end(), 'O') != 0 || count(_move.begin(), _move.end(), '-') != 0)
     {
-        if (_move != "O-O" && _move != "O-O-O")
-            return (false);
-        else
+        if (_move == "O-O" || _move != "O-O-O")
             return (true);
     }
+
+    if (_move.length() == 1)
+        return (false);
 
     int d_count = 0, p_count = 0, l_count = 0;
     for (int i = 0; _move.c_str()[i] != '\0'; i++)
@@ -130,7 +126,6 @@ bool    algebraicParser::isValidSimpleSequence(void) const
         if (isChessCoord(_move[i]) == true)
             l_count++;
     }
-
     if (d_count == 0 || d_count > 2
         || p_count > 2 || l_count == 0
         || l_count > 2)
@@ -138,18 +133,18 @@ bool    algebraicParser::isValidSimpleSequence(void) const
 
     if (_move.length() == 2)
     {
-        if (isChessCoord(_move[0]) != true || isChessDigit(_move[1]) != true)
+        if (isChessCoord(_move[0]) == false || isChessDigit(_move[1]) == false)
             return (false);
     }
     if (_move.length() == 3)
     {
-        if (isChessCoord(_move[0]) != false && _move[1] == '8')
+        if (isChessCoord(_move[0]) == true && _move[1] == '8')
         {
-            if (isChessPiece(_move[2]) != true || _move[2] == 'K')
+            if (isChessPiece(_move[2]) == false || _move[2] == 'K')
                 return (false);
         }
-        else if (isChessDigit(_move[2]) != true || isChessCoord(_move[1]) != true
-            || isChessPiece(_move[0]) != true)
+        if (isChessPiece(_move[0]) == false || isChessCoord(_move[1]) == false
+            || isChessDigit(_move[2]) == false)
             return (false);
     }
     return (true);
@@ -157,7 +152,7 @@ bool    algebraicParser::isValidSimpleSequence(void) const
 
 bool    algebraicParser::isValidSequence(void) const
 {
-    if (isValidSimpleSequence() != true || isValidComplexSequence() != true)
+    if (isValidSimpleSequence() == false || isValidComplexSequence() == false)
         return (false);
     return (true);
 }
@@ -179,7 +174,7 @@ void    algebraicParser::parseDoubleSequence(void)
     }
 
     if (left.length() < 3 
-        || (isChessCoord(_move[0]) != true && left.length() == 1))
+        || (isChessCoord(_move[0]) == false && left.length() == 1))
     {
         vector<string>  coords;
 
@@ -206,7 +201,7 @@ void    algebraicParser::parseDoubleSequence(void)
         }
     }
 
-    if (isChessCoord(_move[0]) != false && left.length() != 1)
+    if (isChessCoord(_move[0]) == true && left.length() != 1)
         _obj = 'P', _src = left, _dest = right;
     else
     {
@@ -221,7 +216,7 @@ void    algebraicParser::parseUniqueSequence(void)
     vector<string>  coords;
     int i = 0;
 
-    if (isChessCoord(_move[0]) != false)
+    if (isChessCoord(_move[0]) == true)
         coords = getPawnSequence(_move), _obj = 'P';
     else
     {
@@ -246,7 +241,7 @@ void    algebraicParser::parseUniqueSequence(void)
         if (isChessCoord(coords.at(i)[0]) == true && isChessDigit(coords.at(i)[1]) == true)
             _src = _src + coords.at(i);
     }
-    if (isChessCoord(_move[0]) != false)
+    if (isChessCoord(_move[0]) == true)
         _dest = _dest + _move.c_str();
     else
         _dest = _dest + (_move.c_str() + 1 + i);

@@ -7,7 +7,7 @@ chessBoard::chessBoard(void)
     _player = "white";
 
     initBoard();
-    if (checkBoardAllocation() != true)
+    if (checkBoardAllocation() == false)
         _allocated = false;
     else
         _allocated = true;
