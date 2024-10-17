@@ -20,6 +20,12 @@ bool    algebraicParser::fail(void) const
 
 void    algebraicParser::setTurn(const int turn) { _turn = turn; }
 
+const string    algebraicParser::checkSource(void) const { return (_src); }
+
+const string    algebraicParser::getDest(void) const { return (_dest); }
+
+const char      algebraicParser::getObject(void) const { return (_obj); }
+
 void    algebraicParser::printInvalid(void) const
 {
     // cout << "\033[2A" << ERASE_LINE;
@@ -171,11 +177,22 @@ bool    algebraicParser::isValidSequence(void) const
     return (false);
 }
 
-void    algebraicParser::parseDoubleSequence(void)
+string  algebraicParser::getLeftSequence(void) const
 {
     string  left;
+
+    for (int i = 0; _move[i] != '\0'; i++)
+    {
+        if (_move[i] == 'x')
+            break ;
+        left = left + _move[i];
+    }
+    return (left);
+}
+
+string  algebraicParser::getRightSequence(void) const
+{
     string  right;
-    string  middle;
 
     for (int i = 0; _move[i] != '\0'; i++)
     {
@@ -184,8 +201,18 @@ void    algebraicParser::parseDoubleSequence(void)
             right = _move.c_str() + i + 1;
             break ;
         }
-        left = left + _move[i];
     }
+    return (right);
+}
+
+void    algebraicParser::parseDoubleSequence(void)
+{
+    string  left;
+    string  right;
+    string  middle;
+
+    left = getLeftSequence();
+    right = getRightSequence();
 
     if (left.length() < 3 
         || (isChessCoord(_move[0]) == false && left.length() == 1))
@@ -223,7 +250,7 @@ void    algebraicParser::parseDoubleSequence(void)
         _obj = 'P', _src = left, _dest = right;
     else
     {
-        _obj = _move[0];
+        isChessCoord(_move[0]) == true ? _obj = 'P' : _obj = _move[0];
         middle.size() != 0 ? _src = middle : _src = (left.c_str() + 1);
         _dest = right;
     }
@@ -283,7 +310,3 @@ void    algebraicParser::parseMove(void)
     }
     _turn++;
 }
-
-const string    algebraicParser::checkSource(void) const { return (_src); }
-const string    algebraicParser::getDest(void) const { return (_dest); }
-const char      algebraicParser::getObject(void) const { return (_obj); }

@@ -33,6 +33,9 @@ class algebraicParser
         bool    isValidSequence(void) const;
         bool    isValidChar(void) const;
 
+        string  getLeftSequence(void) const;
+        string  getRightSequence(void) const;
+
         void    parseUniqueSequence(void);
         void    parseDoubleSequence(void);
         void    parseMove(void);
