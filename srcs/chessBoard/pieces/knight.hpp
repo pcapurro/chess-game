@@ -7,7 +7,7 @@ class Knight : public chessPiece
 {
     public:
     
-        Knight(const string color, const string pos) : chessPiece(color, pos) {}
+        Knight(const char type, const string color, const string pos) : chessPiece(type, color, pos) {}
         ~Knight() {};
 
         virtual const bool  checkAccess(const string move) const

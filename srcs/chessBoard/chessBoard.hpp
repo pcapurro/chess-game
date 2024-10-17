@@ -59,7 +59,9 @@ class chessBoard
 
         void    printIllegal(void) const;
 
-        bool    isThereSomething(const string coord) const;
+        string  getSource(const char type, const string src);
+
+        bool    isThereSomething(const char type, const string src) const;
         bool    isThereAllyHere(const string src, const string dest) const;
         bool    isRightSide(const string src) const;
         bool    isItReachable(const string src, const string dest) const;

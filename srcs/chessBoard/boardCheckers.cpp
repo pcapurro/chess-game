@@ -15,19 +15,6 @@ bool    chessBoard::isCheckMate(void) const
     return (false);
 }
 
-bool    chessBoard::isThereSomething(const string coord) const
-{
-    size_t  atValue;
-
-    atValue = getAtValue(coord);
-    if (_board.at(atValue).piece == NULL)
-    {
-        // cout << "there is nothing here... >" << _board.at(atValue).coord << endl;
-        return (false);
-    }
-    return (true);
-}
-
 bool    chessBoard::isThereAllyHere(const string src, const string dest) const
 {
     int     atValue;
@@ -75,6 +62,28 @@ bool    chessBoard::isRightSide(const string src) const
     return (true);
 }
 
+string  chessBoard::getSource(const char type, const string src)
+{
+    string  source;
+    string  color;
+
+    color = _player, color[0] = tolower(color[0]);
+    for (int i = 0; i != 64; i++)
+    {
+        if (src.find(_board.at(i).coord) != string::npos && _board.at(i).piece != NULL)
+        {
+            cout << "ok" << endl;
+            cout << _board.at(i).piece->getColor() << endl;
+            cout << _board.at(i).piece->getType() << endl;
+            if (_board.at(i).piece->getColor() == color && _board.at(i).piece->getType() == type)
+                source = source + _board.at(i).coord;
+        }
+    }
+    if (source.length() != 2)
+        source = "none";
+    return (source);
+}
+
 void    chessBoard::printIllegal(void) const
 {
     cout << "\033[2A" << "\033[2K";
@@ -83,8 +92,20 @@ void    chessBoard::printIllegal(void) const
 
 bool    chessBoard::isLegal(const char obj, const string src, const string dest)
 {
-    if (isThereSomething(src) == false || isRightSide(src) == false
-        || isItReachable(src, dest) == false)
+    cout << src << endl;
+    cout << dest << endl;
+
+    string  source;
+
+    if (src.length() != 2)
+        source = getSource(obj, src);
+
+    cout << source << endl;
+
+    exit(0);
+
+    if (source == "none" || isRightSide(source) == false
+        || isItReachable(source, dest) == false)
     {
         printIllegal();
         _moveFailed = true;

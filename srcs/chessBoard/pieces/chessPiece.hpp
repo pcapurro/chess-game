@@ -10,8 +10,9 @@ class chessPiece
 {
     public:
         
-        chessPiece(const string color, const string pos)
+        chessPiece(const char type, const string color, const string pos)
         {
+            _type = type;
             _color = color;
             _moves = 0;
 
@@ -22,6 +23,7 @@ class chessPiece
         ~chessPiece() {};
 
         const string        getColor() const { return (_color); }
+        const char          getType() const { return (_type); }
         void                move(void) { _moves++; };
 
         virtual const bool  checkAccess(const string move) const = 0;
@@ -29,6 +31,8 @@ class chessPiece
     protected:
 
         string  _color;
+
+        char    _type;
 
         int     _moves;
         int     _x;

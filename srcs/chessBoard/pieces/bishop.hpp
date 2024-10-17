@@ -7,7 +7,7 @@ class Bishop : public chessPiece
 {
     public:
     
-        Bishop(const string color, const string pos) : chessPiece(color, pos) {}
+        Bishop(const char type, const string color, const string pos) : chessPiece(type, color, pos) {}
         ~Bishop() {};
 
         virtual const bool  checkAccess(const string move) const
