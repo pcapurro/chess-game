@@ -42,7 +42,7 @@ void    chessBoard::printIllegal(void) const
 bool    chessBoard::isLegal(const char obj, const string src, const string dest)
 {
     checkSource(obj, src);
-    // cout << src << " > " << _src << endl;
+    // cout << src << " > " << _src << endl << endl << endl << endl;
     if (_src == "none")
     {
         printIllegal();

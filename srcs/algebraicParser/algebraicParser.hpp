@@ -38,6 +38,8 @@ class algebraicParser
         bool    _fail;
         string  _move;
 
+        int     _turn;
+
         char     _obj;
         string  _src;
         string  _dest;
@@ -54,6 +56,6 @@ vector<string>  getRookSequence(const string move);
 vector<string>  getBishopSequence(const string move);
 vector<string>  getKnightSequence(const string move);
 
-vector<string>  getPawnSequence(const string move);
+vector<string>  getPawnSequence(const string move, const int turn);
 
 #endif

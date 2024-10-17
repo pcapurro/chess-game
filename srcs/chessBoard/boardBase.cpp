@@ -57,7 +57,7 @@ void    chessBoard::playMove(const char obj, const string src, const string dest
         movePiece(_src, dest);
         if (isChessPiece(dest.at(dest.length() - 1)) == true)
             promotePiece(dest, dest[dest.length() - 1]);
-        printBoard();
+        // printBoard();
         announceEvent(2, false, false, move);
         _turn++;
     }

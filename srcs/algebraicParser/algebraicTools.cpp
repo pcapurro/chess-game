@@ -218,7 +218,7 @@ vector<string>  getKnightSequence(const string move)
     return (coords);
 }
 
-vector<string>  getPawnSequence(const string move)
+vector<string>  getPawnSequence(const string move, const int turn)
 {
     vector<string>  coords;
     string          newMove;
@@ -229,22 +229,44 @@ vector<string>  getPawnSequence(const string move)
         newMove.at(newMove.length() - 1) = '\0';
 
     newCoords = newMove;
-    newCoords[1] = newCoords[1] - 1;
-    coords.push_back(newCoords);
+    if (turn % 2 == 0)
+    {
+        newCoords[1] = newCoords[1] - 1;
+        coords.push_back(newCoords);
 
-    newCoords = newMove;
-    newCoords[1] = newCoords[1] - 2;
-    coords.push_back(newCoords);
+        newCoords = newMove;
+        newCoords[1] = newCoords[1] - 2;
+        coords.push_back(newCoords);
 
-    newCoords = newMove;
-    newCoords[0] = newCoords[0] - 1;
-    newCoords[1] = newCoords[1] - 1;
-    coords.push_back(newCoords);
+        newCoords = newMove;
+        newCoords[0] = newCoords[0] - 1;
+        newCoords[1] = newCoords[1] - 1;
+        coords.push_back(newCoords);
     
-    newCoords = newMove;
-    newCoords[0] = newCoords[0] + 1;
-    newCoords[1] = newCoords[1] - 1;
-    coords.push_back(newCoords);
+        newCoords = newMove;
+        newCoords[0] = newCoords[0] + 1;
+        newCoords[1] = newCoords[1] - 1;
+        coords.push_back(newCoords);
+    }
+    else
+    {
+        newCoords[1] = newCoords[1] + 1;
+        coords.push_back(newCoords);
+
+        newCoords = newMove;
+        newCoords[1] = newCoords[1] + 2;
+        coords.push_back(newCoords);
+
+        newCoords = newMove;
+        newCoords[0] = newCoords[0] + 1;
+        newCoords[1] = newCoords[1] + 1;
+        coords.push_back(newCoords);
+
+        newCoords = newMove;
+        newCoords[0] = newCoords[0] - 1;
+        newCoords[1] = newCoords[1] + 1;
+        coords.push_back(newCoords);
+    }
 
     return (coords);
 }

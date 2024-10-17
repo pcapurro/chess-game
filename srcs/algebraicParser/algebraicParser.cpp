@@ -1,6 +1,6 @@
 #include "../../include/header.hpp"
 
-algebraicParser::algebraicParser(void) {;}
+algebraicParser::algebraicParser(void) { _turn = 0; }
 algebraicParser::~algebraicParser(void) {;}
 
 void    algebraicParser::operator=(const string move)
@@ -182,7 +182,7 @@ void    algebraicParser::parseDoubleSequence(void)
         vector<string>  coords;
 
         if (isChessCoord(_move[0]) == true)
-            coords = getPawnSequence(right);
+            coords = getPawnSequence(right, _turn);
         if (_move[0] == 'K')
             coords = getKingSequence(right);
         if (_move[0] == 'Q')
@@ -220,7 +220,7 @@ void    algebraicParser::parseUniqueSequence(void)
     int i = 0;
 
     if (isChessCoord(_move[0]) == true)
-        coords = getPawnSequence(_move), _obj = 'P';
+        coords = getPawnSequence(_move, _turn), _obj = 'P';
     else
     {
         _move.length() == 4 ? i = 1 : i = 0;
@@ -264,6 +264,7 @@ void    algebraicParser::parseMove(void)
         else
             parseUniqueSequence();
     }
+    _turn++;
 }
 
 const string    algebraicParser::checkSource(void) const { return (_src); }
