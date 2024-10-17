@@ -308,5 +308,4 @@ void    algebraicParser::parseMove(void)
         else
             parseUniqueSequence();
     }
-    _turn++;
 }

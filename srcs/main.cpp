@@ -41,13 +41,13 @@ int main(int argc, char **argv)
                 systemError();
             else
             {
-                checker.setTurn(board->getActualTurn());
                 checker = input;
                 if (checker.fail() == true)
                     continue ;
                 if (board->playMove(getParsedMove, input) == FAIL)
                     continue ;
             }
+            checker.setTurn(board->getActualTurn());
             board->printBoard();
         }
         board->announceEvent(5);

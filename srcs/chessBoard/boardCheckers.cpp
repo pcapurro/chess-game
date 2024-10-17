@@ -181,7 +181,6 @@ bool    chessBoard::isThereValidDestintation(const char obj, const string src, c
     {
         if (checkPawnDestintation(src, dest) == FAIL)
         {
-            cout << _src << endl;
             _moveFailed = true;
             printIllegal();
             return (false);
