@@ -107,7 +107,7 @@ bool    chessBoard::isThereAlly(const string dest)
     return (false);
 }
 
-bool    chessBoard::checkPawnDestintation(const string src, const string dest)
+int chessBoard::checkPawnDestintation(const string src, const string dest)
 {
     int     atValue;
     string  source;
@@ -124,36 +124,39 @@ bool    chessBoard::checkPawnDestintation(const string src, const string dest)
                     && _board.at(getAtValue(source)).piece != NULL)
                 {
                     if (source[1] == dest[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
-                        return (false);
+                        return (FAIL);
                     _src = source;
-                    _moveFailed = false;
-                    return (true);
+                    return (SUCCESS);
                 }
                 else
                     source.clear();
             }
         }
     }
-    return (false);
+    return (FAIL);
 }
 
 bool    chessBoard::isItValidDestination(const char obj, const string src, const string dest)
 {
     if (obj == 'P')
     {
-        if (checkPawnDestintation(src, dest) != true)
+        if (checkPawnDestintation(src, dest) == FAIL)
         {
             _moveFailed = true;
             printIllegal();
             return (false);
         }
     }
-    else
-        checkSource(obj, src);
-    return (!_moveFailed);
+    else if (checkSource(obj, src) == FAIL)
+    {
+        _moveFailed = true;
+        printIllegal();
+        return (false);
+    }
+    return (true);
 }
 
-void    chessBoard::checkSource(const char type, const string src)
+int chessBoard::checkSource(const char type, const string src)
 {
     _src.clear();
     for (int i = 0; i != 64; i++)
@@ -168,7 +171,10 @@ void    chessBoard::checkSource(const char type, const string src)
     {
         printIllegal();
         _moveFailed = true;
+        return (FAIL);
     }
+    _moveFailed = false;
+    return (SUCCESS);
 }
 
 void    chessBoard::printIllegal(void) const
@@ -193,10 +199,7 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
         if (src.length() != 2)
         {
             if (isItValidDestination(obj, src, dest) != true)
-            {
-                cout << "invalid" << endl;
                 return (false);
-            }
         }
         else
             _src = src;
@@ -204,6 +207,5 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
         if (isThereAlly(dest) == true)
             return (false);
     }
-    cout << "Move valide" << endl;
     return (true);
 }
