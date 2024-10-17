@@ -2,15 +2,10 @@
 
 string  chessBoard::getQueenPath(const string src, const string dest)
 {
-    int src_x = src[0] - 97;
-    int src_y = atoi(src.c_str() + 1);
-    
-    int dest_x = dest[0] - 97;
-    int dest_y = atoi(dest.c_str() + 1);
-
     string  coords;
-    string  newCoords;
 
+    coords = getRookPath(src, dest);
+    coords = coords + getBishopPath(src, dest);
     return (coords);
 }
 
