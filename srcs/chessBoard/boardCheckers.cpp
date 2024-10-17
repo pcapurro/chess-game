@@ -202,9 +202,6 @@ bool    chessBoard::isItValidDestination(const char obj, const string src, const
 
 bool    chessBoard::isLegal(const char obj, const string src, const string dest)
 {
-    cout << src << endl;
-    exit(0);
-
     if (dest == "O-O-O" || dest == "O-O")
     {
         if (isCastlingPossible(dest) != true)
