@@ -14,7 +14,7 @@ class algebraicParser
 
         void    operator=(const string move);
 
-        const string    getSource(void) const;
+        const string    checkSource(void) const;
         const string    getDest(void) const;
         const char      getObject(void) const;
 

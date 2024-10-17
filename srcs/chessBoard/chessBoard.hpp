@@ -12,7 +12,7 @@
 # include "pieces/pawn.hpp"
 
 # define getParsedMove checker.getObject(), \
-    checker.getSource(), checker.getDest()
+    checker.checkSource(), checker.getDest()
 
 using namespace std;
 
@@ -59,12 +59,8 @@ class chessBoard
 
         void    printIllegal(void) const;
 
-        string  getSource(const char type, const string src);
+        string  checkSource(const char type, const string src);
 
-        bool    isThereSomething(const char type, const string src) const;
-        bool    isThereAllyHere(const string src, const string dest) const;
-        bool    isRightSide(const string src) const;
-        bool    isItReachable(const string src, const string dest) const;
         bool    isCheck() const;
 
         vector<t_square>    _board;

@@ -263,6 +263,6 @@ void    algebraicParser::parseMove(void)
     }
 }
 
-const string    algebraicParser::getSource(void) const { return (_src); }
+const string    algebraicParser::checkSource(void) const { return (_src); }
 const string    algebraicParser::getDest(void) const { return (_dest); }
 const char      algebraicParser::getObject(void) const { return (_obj); }
