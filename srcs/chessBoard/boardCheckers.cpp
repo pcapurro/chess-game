@@ -174,7 +174,7 @@ int chessBoard::checkSource(const char type, const string src)
     return (SUCCESS);
 }
 
-bool    chessBoard::isItValidDestination(const char obj, const string src, const string dest)
+bool    chessBoard::isThereValidDestintation(const char obj, const string src, const string dest)
 {
     _src.clear();
     if (obj == 'P')
@@ -196,6 +196,20 @@ bool    chessBoard::isItValidDestination(const char obj, const string src, const
     return (true);
 }
 
+bool    chessBoard::isItValidDestination(const char obj, const string src, const string dest)
+{
+    if (obj == 'P')
+    {
+        if (dest[1] == (src[1] - 1) || dest[1] == (src[1] + 1))
+        {
+            int atValue = getAtValue(dest);
+            if (_board.at(atValue).piece == NULL)
+                return (false);
+        }
+    }
+    return (true);
+}
+
 bool    chessBoard::isLegal(const char obj, const string src, const string dest)
 {
     if (dest == "O-O-O" || dest == "O-O")
@@ -211,13 +225,14 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
     {
         if (src.length() != 2)
         {
-            if (isItValidDestination(obj, src, dest) != true)
+            if (isThereValidDestintation(obj, src, dest) != true)
                 return (false);
         }
         else
         {
             _src = src;
-            if (isThereAttacker(obj) != true)
+            if (isItValidDestination(obj, _src, dest) != true
+                || isThereAttacker(obj) != true)
                 return (false);
         }
         
