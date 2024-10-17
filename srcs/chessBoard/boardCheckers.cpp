@@ -118,6 +118,9 @@ bool    chessBoard::isItValidDestination(const char obj, const string src, const
                     if (source[0] == dest[0]
                         && _board.at(getAtValue(source)).piece != NULL)
                     {
+                        if (source[1] == dest[1] - 2 
+                            && _board.at(getAtValue(source)).piece->getMoves() != 0)
+                            return (false);
                         _src = source;
                         return (true);
                     }
@@ -176,5 +179,6 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
             || isThereAlly(dest) == true)
             return (false);
     }
+    cout << "Move valide" << endl;
     return (true);
 }
