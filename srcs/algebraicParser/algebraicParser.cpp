@@ -87,6 +87,9 @@ bool    algebraicParser::isValidComplexSequence(void) const
         if (left.length() == 1 && isChessPiece(left[0]) == true)
             return (true);
 
+        if (left.length() == 1 && isChessCoord(left[0]) == true)
+            return (true);
+
         if (left.length() == 2)
         {
             if (isChessCoord(left[0]) == true && isChessDigit(left[1]) == true)
@@ -189,8 +192,12 @@ void    algebraicParser::parseDoubleSequence(void)
     {
         vector<string>  coords;
 
+        char c = 'i';
+        if (left.length() == 1 && isChessCoord(left[0]) == true)
+            c = left[0];
+
         if (isChessCoord(_move[0]) == true)
-            coords = getPawnSequence(right, _turn);
+            coords = getPawnSequence(right, _turn, c);
         if (_move[0] == 'K')
             coords = getKingSequence(right, 'i');
         if (_move[0] == 'Q')
@@ -228,7 +235,7 @@ void    algebraicParser::parseUniqueSequence(void)
     int i = 0;
 
     if (isChessCoord(_move[0]) == true)
-        coords = getPawnSequence(_move, _turn), _obj = 'P';
+        coords = getPawnSequence(_move, _turn, 'i'), _obj = 'P';
     else
     {
         char sign = 'i';

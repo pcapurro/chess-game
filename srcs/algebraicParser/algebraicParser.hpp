@@ -58,6 +58,6 @@ vector<string>  getRookSequence(const string move, const char sign);
 vector<string>  getBishopSequence(const string move, const char sign);
 vector<string>  getKnightSequence(const string move, const char sign);
 
-vector<string>  getPawnSequence(const string move, const int turn);
+vector<string>  getPawnSequence(const string move, const int turn, const char sign);
 
 #endif

@@ -155,8 +155,6 @@ int chessBoard::checkPawnDestintation(const string src, const string dest)
 
 int chessBoard::checkSource(const char type, const string src)
 {
-    cout << src << endl;
-
     for (int i = 0; i != 64; i++)
     {
         if (src.find(_board.at(i).coord) != string::npos && _board.at(i).piece != NULL)
@@ -165,8 +163,6 @@ int chessBoard::checkSource(const char type, const string src)
                 _src = _src + _board.at(i).coord;
         }
     }
-
-    cout << "_src > " << _src << endl;
 
     if (_src.length() != 2)
     {
