@@ -132,6 +132,7 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
         checkSource(obj, src);
 
     // cout << src << " > " << _src << endl << endl << endl << endl;
+    // exit(0);
 
     return (!_moveFailed);
 }

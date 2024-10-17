@@ -39,7 +39,20 @@ void    chessBoard::printBoard(void)
         {
             string coord = "abcdefgh"[i] + to_string(k + 1);
             if (_board.at(getAtValue(coord)).piece != NULL)
-                cout << "[P] ; ";
+            {
+                if (_board.at(getAtValue(coord)).piece->getType() == 'P')
+                    cout << "[P] ; ";
+                if (_board.at(getAtValue(coord)).piece->getType() == 'K')
+                    cout << "[K] ; ";
+                if (_board.at(getAtValue(coord)).piece->getType() == 'Q')
+                    cout << "[Q] ; ";
+                if (_board.at(getAtValue(coord)).piece->getType() == 'R')
+                    cout << "[R] ; ";
+                if (_board.at(getAtValue(coord)).piece->getType() == 'N')
+                    cout << "[N] ; ";
+                if (_board.at(getAtValue(coord)).piece->getType() == 'B')
+                    cout << "[B] ; ";
+            }
             else
                 cout << "[ ] ; ";
         }
