@@ -27,7 +27,21 @@ string  chessBoard::getRookPath(const string src, const string dest)
 
     for (int i = 0; i != 8; i++)
     {
-        ;
+        if (src_x > dest_x && src_y == dest_y)
+            src_x--;
+        if (src_x < dest_x && src_y == dest_y)
+            src_x++;
+        if (src_x == dest_x && src_y < dest_y)
+            src_y++;
+        if (src_x == dest_x && src_y > dest_y)
+            src_y--;
+
+        newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
+        if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+            coords = coords + newCoords;
+        if (isThereSomething(newCoords) == true || newCoords == dest)
+            break ;
+        newCoords.clear();
     }
     return (coords);
 }
@@ -55,7 +69,8 @@ string  chessBoard::getBishopPath(const string src, const string dest)
             src_x++, src_y--;
 
         newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
-        coords = coords + newCoords;
+        if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+            coords = coords + newCoords;
         if (isThereSomething(newCoords) == true || newCoords == dest)
             break ;
         newCoords.clear();
@@ -76,7 +91,5 @@ bool    chessBoard::isTheWayClear(const char type, const string src, const strin
 
     if (coords.find(dest) == string::npos)
         return (false);
-    cout << "chemin possible" << endl;
-    exit(0);
     return (true);
 }
