@@ -35,7 +35,7 @@ class chessBoard
 
         bool    isCheckMate() const;
         bool    isLegal(const char obj, const string src, const string dest);
-        void    playMove(const char obj, const string src, const string dest, const string move);
+        int     playMove(const char obj, const string src, const string dest, const string move);
 
         void    announceEvent(const int value, const bool cfail = false, \
                                 const bool bfail = false, const string move = "none");
@@ -64,10 +64,12 @@ class chessBoard
 
         void    checkSource(const char type, const string src);
 
-        bool    isCastlingPossible(const string move) const;
+        bool    checkPawnDestintation(const string src, const string dest);
         bool    isItValidDestination(const char obj, const string src, \
                                         const string dest);
-        bool    isThereAlly(const string dest) const;
+        bool    isThereAlly(const string dest);
+
+        bool    isCastlingPossible(const string move) const;
         bool    willItCheck(void) const;
         bool    isCheck(void) const;
 

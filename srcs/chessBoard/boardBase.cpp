@@ -56,7 +56,7 @@ void    chessBoard::printBoard(void)
     cout << endl;
 }
 
-void    chessBoard::playMove(const char obj, const string src, const string dest, const string move)
+int chessBoard::playMove(const char obj, const string src, const string dest, const string move)
 {
     if (_turn % 2 == 0)
         _color = "white";
@@ -64,7 +64,7 @@ void    chessBoard::playMove(const char obj, const string src, const string dest
         _color = "black";
 
     if (isLegal(obj, src, dest) != true)
-        return ;
+        return (FAIL);
     else
     {
         if (dest == "O-O" || dest == "O-O-O")
@@ -83,4 +83,5 @@ void    chessBoard::playMove(const char obj, const string src, const string dest
         announceEvent(2, false, false, move);
         _turn++;
     }
+    return (SUCCESS);
 }

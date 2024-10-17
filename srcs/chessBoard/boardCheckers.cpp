@@ -95,13 +95,45 @@ bool    chessBoard::isCastlingPossible(const string move) const
     return (true);
 }
 
-bool    chessBoard::isThereAlly(const string dest) const
+bool    chessBoard::isThereAlly(const string dest)
 {
     int     atValue;
 
     atValue = getAtValue(dest);
     if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == _color)
         return (true);
+    _moveFailed = true;
+    printIllegal();
+    return (false);
+}
+
+bool    chessBoard::checkPawnDestintation(const string src, const string dest)
+{
+    int     atValue;
+    string  source;
+
+    atValue = getAtValue(dest);
+    if (_board.at(atValue).piece == NULL)
+    {
+        for (int i = 0; i != src.length(); i++)
+        {
+            source = source + src.at(i);
+            if (source.length() == 2)
+            {
+                if (source[0] == dest[0]
+                    && _board.at(getAtValue(source)).piece != NULL)
+                {
+                    if (source[1] == dest[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
+                        return (false);
+                    _src = source;
+                    _moveFailed = false;
+                    return (true);
+                }
+                else
+                    source.clear();
+            }
+        }
+    }
     return (false);
 }
 
@@ -109,34 +141,12 @@ bool    chessBoard::isItValidDestination(const char obj, const string src, const
 {
     if (obj == 'P')
     {
-        int     atValue;
-        string  source;
-
-        atValue = getAtValue(dest);
-        if (_board.at(atValue).piece == NULL)
+        if (checkPawnDestintation(src, dest) != true)
         {
-            for (int i = 0; i != src.length(); i++)
-            {
-                source = source + src.at(i);
-                if (source.length() == 2)
-                {
-                    if (source[0] == dest[0]
-                        && _board.at(getAtValue(source)).piece != NULL)
-                    {
-                        if (source[1] == dest[1] - 2 
-                            && _board.at(getAtValue(source)).piece->getMoves() != 0)
-                            return (false);
-                        _src = source;
-                        return (true);
-                    }
-                    else
-                        source.clear();
-                }
-            }
+            _moveFailed = true;
+            printIllegal();
+            return (false);
         }
-        printIllegal();
-        _moveFailed = true;
-        return (false);
     }
     else
         checkSource(obj, src);
@@ -183,7 +193,10 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
         if (src.length() != 2)
         {
             if (isItValidDestination(obj, src, dest) != true)
+            {
+                cout << "invalid" << endl;
                 return (false);
+            }
         }
         else
             _src = src;

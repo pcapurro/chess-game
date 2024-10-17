@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 
         while (board->isCheckMate() == false && board->isAllocated() == true)
         {
-            // board->announceEvent(1, checker.fail(), board->fail());
+            board->announceEvent(1, checker.fail(), board->fail());
             cout << ERASE_LINE << "> ";
             getline(cin, input);
         
@@ -43,9 +43,9 @@ int main(int argc, char **argv)
             {
                 checker = input;
                 if (checker.fail() == true)
-                    continue;
-                else
-                    board->playMove(getParsedMove, input);
+                    continue ;
+                if (board->playMove(getParsedMove, input) == FAIL)
+                    continue ;
             }
             board->printBoard();
         }

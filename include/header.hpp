@@ -8,6 +8,9 @@
 # include <map>
 # include <unistd.h>
 
+# define SUCCESS 0
+# define FAIL -1
+
 # define ERASE_LINE "\033[2K"
 
 # define RED "\033[31m"
