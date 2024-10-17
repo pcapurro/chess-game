@@ -65,6 +65,9 @@ class chessBoard
         void    checkSource(const char type, const string src);
 
         bool    isCastlingPossible(const string move) const;
+        bool    isItValidDestination(const char obj, const string src, \
+                                        const string dest);
+        bool    isThereAlly(const string dest) const;
         bool    isCheck(void) const;
 
         vector<t_square>    _board;

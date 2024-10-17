@@ -90,6 +90,54 @@ bool    chessBoard::isCastlingPossible(const string move) const
     return (true);
 }
 
+bool    chessBoard::isThereAlly(const string dest) const
+{
+    int     atValue;
+    string  color;
+
+    color = _player, color[0] = tolower(color[0]);
+    atValue = getAtValue(dest);
+
+    if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == color)
+        return (true);
+    return (false);
+}
+
+bool    chessBoard::isItValidDestination(const char obj, const string src, const string dest)
+{
+    if (obj == 'P')
+    {
+        int     atValue;
+        string  source;
+
+        atValue = getAtValue(dest);
+        if (_board.at(atValue).piece == NULL)
+        {
+            for (int i = 0; i != src.length(); i++)
+            {
+                source = source + src.at(i);
+                if (source.length() == 2)
+                {
+                    if (source[0] == dest[0]
+                        && _board.at(getAtValue(source)).piece != NULL)
+                    {
+                        _src = source;
+                        return (true);
+                    }
+                    else
+                        source.clear();
+                }
+            }
+        }
+        printIllegal();
+        _moveFailed = true;
+        return (false);
+    }
+    else
+        checkSource(obj, src);
+    return (!_moveFailed);
+}
+
 void    chessBoard::checkSource(const char type, const string src)
 {
     string  color;
@@ -129,10 +177,10 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
         }
     }
     else
-        checkSource(obj, src);
-
-    // cout << src << " > " << _src << endl << endl << endl << endl;
-    // exit(0);
-
-    return (!_moveFailed);
+    {
+        if (isItValidDestination(obj, src, dest) != true
+            || isThereAlly(dest) == true)
+            return (false);
+    }
+    return (true);
 }
