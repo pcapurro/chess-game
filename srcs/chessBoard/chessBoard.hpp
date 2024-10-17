@@ -68,6 +68,7 @@ class chessBoard
         bool    isItValidDestination(const char obj, const string src, \
                                         const string dest);
         bool    isThereAlly(const string dest) const;
+        bool    willItCheck(void) const;
         bool    isCheck(void) const;
 
         vector<t_square>    _board;

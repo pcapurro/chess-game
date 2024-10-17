@@ -5,6 +5,11 @@ bool    chessBoard::fail(void) const
     return (_moveFailed);
 }
 
+bool    chessBoard::willItCheck(void) const
+{
+    return (true);
+}
+
 bool    chessBoard::isCheck(void) const
 {
     return (true);
@@ -175,10 +180,15 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
     }
     else
     {
-        if (isItValidDestination(obj, src, dest) != true
-            || isThereAlly(dest) == true)
+        if (src.length() != 2 && isItValidDestination(obj, src, dest) != true)
+            return (false);
+        else
+            _src = src;
+        
+        if (isThereAlly(dest) == true)
             return (false);
     }
-    cout << "Move valide" << endl;
+
+    // cout << "Move valide" << endl;
     return (true);
 }
