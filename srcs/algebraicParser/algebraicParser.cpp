@@ -97,7 +97,7 @@ bool    algebraicParser::isValidComplexSequence(void) const
             if (isChessPiece(left[0]) == true && isChessCoord(left[1]) == true
                 && isChessDigit(left[2]) == true)
                 return (true);
-            if (right[1] == '8' && isChessPiece(right[2]) == true && right[2] != 'K'
+            if ((right[1] == '8' || right[1] == '1') && isChessPiece(right[2]) == true && right[2] != 'K'
                 && isChessCoord(left[0]) == true)
                 return (true);
         }
