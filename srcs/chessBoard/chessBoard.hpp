@@ -80,7 +80,7 @@ class chessBoard
 
         int                 _turn;
         bool                _moveFailed;
-        string              _player;
+        string              _color;
 };
 
 #endif

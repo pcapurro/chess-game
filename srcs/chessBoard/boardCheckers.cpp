@@ -19,7 +19,7 @@ bool    chessBoard::isCastlingPossible(const string move) const
 {
     int atValue;
 
-    if (_player == "White")
+    if (_color == "white")
     {
         if (_whiteCastle != true)
             return (false);
@@ -53,7 +53,7 @@ bool    chessBoard::isCastlingPossible(const string move) const
                 return (false);
         }
     }
-    if (_player == "Black")
+    if (_color == "Black")
     {
         if (_blackCastle != true)
             return (false);
@@ -93,12 +93,9 @@ bool    chessBoard::isCastlingPossible(const string move) const
 bool    chessBoard::isThereAlly(const string dest) const
 {
     int     atValue;
-    string  color;
 
-    color = _player, color[0] = tolower(color[0]);
     atValue = getAtValue(dest);
-
-    if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == color)
+    if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == _color)
         return (true);
     return (false);
 }
@@ -140,15 +137,12 @@ bool    chessBoard::isItValidDestination(const char obj, const string src, const
 
 void    chessBoard::checkSource(const char type, const string src)
 {
-    string  color;
-
     _src.clear();
-    color = _player, color[0] = tolower(color[0]);
     for (int i = 0; i != 64; i++)
     {
         if (src.find(_board.at(i).coord) != string::npos && _board.at(i).piece != NULL)
         {
-            if (_board.at(i).piece->getColor() == color && _board.at(i).piece->getType() == type)
+            if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == type)
                 _src = _src + _board.at(i).coord;
         }
     }
@@ -161,8 +155,8 @@ void    chessBoard::checkSource(const char type, const string src)
 
 void    chessBoard::printIllegal(void) const
 {
-    cout << "\033[2A" << ERASE_LINE;
-    cerr << YELLOW << "Illegal move. " << COLOR_E;
+    // cout << "\033[2A" << ERASE_LINE;
+    // cerr << YELLOW << "Illegal move. " << COLOR_E;
 }
 
 bool    chessBoard::isLegal(const char obj, const string src, const string dest)

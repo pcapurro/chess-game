@@ -4,7 +4,7 @@ chessBoard::chessBoard(void)
 {
     _turn = 0;
     _allocated = false;
-    _player = "white";
+    _color = "white";
 
     _whiteCastle = true;
     _blackCastle = true;
