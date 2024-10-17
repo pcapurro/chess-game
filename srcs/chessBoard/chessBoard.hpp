@@ -73,6 +73,7 @@ class chessBoard
                                         const string dest);
         
         bool    isThereAlly(const string dest);
+        bool    isRightSide(const string src);
         bool    isThereAttacker(const char type);
 
         bool    isCastlingPossible(const string move) const;

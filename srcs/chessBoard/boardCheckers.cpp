@@ -101,6 +101,18 @@ bool    chessBoard::isCastlingPossible(const string move) const
     return (true);
 }
 
+bool    chessBoard::isRightSide(const string src)
+{
+    int     atValue;
+
+    atValue = getAtValue(src);
+    if (_board.at(atValue).piece->getColor() == _color)
+        return (true);
+    _moveFailed = true;
+    printIllegal();
+    return (false);
+}
+
 bool    chessBoard::isThereAttacker(const char type)
 {
     int     atValue;
@@ -108,6 +120,8 @@ bool    chessBoard::isThereAttacker(const char type)
     atValue = getAtValue(_src);
     if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getType() == type)
         return (true);
+    _moveFailed = true;
+    printIllegal();
     return (false);
 }
 
@@ -211,6 +225,8 @@ bool    chessBoard::isItValidDestination(const char obj, const string src, const
 
 bool    chessBoard::isLegal(const char obj, const string src, const string dest)
 {
+    cout << src << " ; " << dest << endl;
+
     if (dest == "O-O-O" || dest == "O-O")
     {
         if (isCastlingPossible(dest) != true)
@@ -234,8 +250,7 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
                 || isThereAttacker(obj) != true)
                 return (false);
         }
-        
-        if (isThereAlly(dest) == true)
+        if (isThereAlly(dest) == true || isRightSide(_src) == false)
             return (false);
     }
     return (true);
