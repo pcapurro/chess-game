@@ -1,5 +1,11 @@
 #include "../../include/header.hpp"
 
+void    chessBoard::printIllegal(void) const
+{
+    // cout << "\033[2A" << ERASE_LINE;
+    // cerr << YELLOW << "Illegal move. " << COLOR_E;
+}
+
 bool    chessBoard::fail(void) const
 {
     return (_moveFailed);
@@ -136,29 +142,8 @@ int chessBoard::checkPawnDestintation(const string src, const string dest)
     return (FAIL);
 }
 
-bool    chessBoard::isItValidDestination(const char obj, const string src, const string dest)
-{
-    if (obj == 'P')
-    {
-        if (checkPawnDestintation(src, dest) == FAIL)
-        {
-            _moveFailed = true;
-            printIllegal();
-            return (false);
-        }
-    }
-    else if (checkSource(obj, src) == FAIL)
-    {
-        _moveFailed = true;
-        printIllegal();
-        return (false);
-    }
-    return (true);
-}
-
 int chessBoard::checkSource(const char type, const string src)
 {
-    _src.clear();
     for (int i = 0; i != 64; i++)
     {
         if (src.find(_board.at(i).coord) != string::npos && _board.at(i).piece != NULL)
@@ -177,10 +162,26 @@ int chessBoard::checkSource(const char type, const string src)
     return (SUCCESS);
 }
 
-void    chessBoard::printIllegal(void) const
+bool    chessBoard::isItValidDestination(const char obj, const string src, const string dest)
 {
-    // cout << "\033[2A" << ERASE_LINE;
-    // cerr << YELLOW << "Illegal move. " << COLOR_E;
+    _src.clear();
+    if (obj == 'P')
+    {
+        if (checkPawnDestintation(src, dest) == FAIL)
+        {
+            cout << _src << endl;
+            _moveFailed = true;
+            printIllegal();
+            return (false);
+        }
+    }
+    else if (checkSource(obj, src) == FAIL)
+    {
+        _moveFailed = true;
+        printIllegal();
+        return (false);
+    }
+    return (true);
 }
 
 bool    chessBoard::isLegal(const char obj, const string src, const string dest)

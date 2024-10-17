@@ -10,6 +10,11 @@ size_t  chessBoard::getAtValue(const string coord) const
     return (0);
 }
 
+int     chessBoard::getActualTurn(void) const
+{
+    return (_turn);
+}
+
 void    chessBoard::removePiece(const string coord)
 {
     size_t  atValue = getAtValue(coord);

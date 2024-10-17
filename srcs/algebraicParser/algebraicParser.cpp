@@ -18,6 +18,8 @@ bool    algebraicParser::fail(void) const
     return (true);
 }
 
+void    algebraicParser::setTurn(const int turn) { _turn = turn; }
+
 void    algebraicParser::printInvalid(void) const
 {
     // cout << "\033[2A" << ERASE_LINE;

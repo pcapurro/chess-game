@@ -41,6 +41,7 @@ int main(int argc, char **argv)
                 systemError();
             else
             {
+                checker.setTurn(board->getActualTurn());
                 checker = input;
                 if (checker.fail() == true)
                     continue ;

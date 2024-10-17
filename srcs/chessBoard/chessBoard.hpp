@@ -33,6 +33,8 @@ class chessBoard
         bool    isAllocated(void) const;
         bool    fail(void) const;
 
+        int     getActualTurn(void) const;
+
         bool    isCheckMate() const;
         bool    isLegal(const char obj, const string src, const string dest);
         int     playMove(const char obj, const string src, const string dest, const string move);
