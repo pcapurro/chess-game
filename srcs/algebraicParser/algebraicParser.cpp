@@ -192,15 +192,15 @@ void    algebraicParser::parseDoubleSequence(void)
         if (isChessCoord(_move[0]) == true)
             coords = getPawnSequence(right, _turn);
         if (_move[0] == 'K')
-            coords = getKingSequence(right);
+            coords = getKingSequence(right, 'i');
         if (_move[0] == 'Q')
-            coords = getQueenSequence(right);
+            coords = getQueenSequence(right, 'i');
         if (_move[0] == 'B')
-            coords = getBishopSequence(right);
+            coords = getBishopSequence(right, 'i');
         if (_move[0] == 'N')
-            coords = getKnightSequence(right);
+            coords = getKnightSequence(right, 'i');
         if (_move[0] == 'R')
-            coords = getRookSequence(right);
+            coords = getRookSequence(right, 'i');
 
         for (int i = 0; i != coords.size(); i++)
         {
@@ -231,18 +231,20 @@ void    algebraicParser::parseUniqueSequence(void)
         coords = getPawnSequence(_move, _turn), _obj = 'P';
     else
     {
-        _move.length() == 4 ? i = 1 : i = 0;
+        char sign = 'i';
+        if (_move.length() == 4)
+            sign = _move[1], i = 1;
 
         if (_move[0] == 'K')
-            coords = getKingSequence(_move.c_str() + 1 + i);
+            coords = getKingSequence(_move.c_str() + 1 + i, sign);
         if (_move[0] == 'Q')
-            coords = getQueenSequence(_move.c_str() + 1 + i);
+            coords = getQueenSequence(_move.c_str() + 1 + i, sign);
         if (_move[0] == 'B')
-            coords = getBishopSequence(_move.c_str() + 1 + i);
+            coords = getBishopSequence(_move.c_str() + 1 + i, sign);
         if (_move[0] == 'N')
-            coords = getKnightSequence(_move.c_str() + 1 + i);
+            coords = getKnightSequence(_move.c_str() + 1 + i, sign);
         if (_move[0] == 'R')
-            coords = getRookSequence(_move.c_str() + 1 + i);
+            coords = getRookSequence(_move.c_str() + 1 + i, sign);
         
         _obj = _move[0];
     }
