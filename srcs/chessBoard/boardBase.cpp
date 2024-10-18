@@ -56,6 +56,25 @@ void    chessBoard::printBoard(void)
     cout << endl;
 }
 
+void    chessBoard::enableDisableEnPassant(const char obj, const string src, const string dest)
+{
+    if (obj == 'P')
+    {
+        if ((_color == "white" && (dest[1] == (src[1] + 2)))
+            || (_color == "black" && (dest[1] == (src[1] - 2))))
+        {
+            _enPassant = true;
+            _enPassantDest = dest;
+            if (_color == "white")
+                _enPassantDest[1] = _enPassantDest[1] - 1;
+            else
+                _enPassantDest[1] = _enPassantDest[1] + 1;
+        }
+        else
+            _enPassant = false, _enPassantDest.clear();
+    }
+}
+
 int chessBoard::playMove(const char obj, const char type, const string src, const string dest, const string move)
 {
     if (_turn % 2 == 0)
@@ -80,6 +99,8 @@ int chessBoard::playMove(const char obj, const char type, const string src, cons
             if (isChessPiece(dest.at(dest.length() - 1)) == true)
                 promotePiece(dest, dest[dest.length() - 1]);
         }
+        enableDisableEnPassant(obj, _src, dest);
+
         announceEvent(2, false, false, move);
         _turn++;
     }

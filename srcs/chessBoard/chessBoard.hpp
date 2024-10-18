@@ -90,6 +90,9 @@ class chessBoard
         bool    willItCheck(void) const;
         bool    isCheck(void) const;
 
+        void    enableDisableEnPassant(const char obj, const string src, \
+                                        const string dest);
+
         vector<t_square>    _board;
         bool                _allocated;
 
@@ -97,6 +100,9 @@ class chessBoard
 
         bool                _whiteCastle;
         bool                _blackCastle;
+
+        bool                _enPassant;
+        string              _enPassantDest;
 
         int                 _turn;
         bool                _moveFailed;
