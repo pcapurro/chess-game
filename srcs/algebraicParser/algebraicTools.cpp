@@ -24,6 +24,34 @@ bool    isChessCoord(const char c)
     return (true);
 }
 
+string  algebraicParser::getLeftSequence(void) const
+{
+    string  left;
+
+    for (int i = 0; _move[i] != '\0'; i++)
+    {
+        if (_move[i] == 'x' || _move[i] == '-')
+            break ;
+        left = left + _move[i];
+    }
+    return (left);
+}
+
+string  algebraicParser::getRightSequence(void) const
+{
+    string  right;
+
+    for (int i = 0; _move[i] != '\0'; i++)
+    {
+        if (_move[i] == 'x' || _move[i] == '-')
+        {
+            right = _move.c_str() + i + 1;
+            break ;
+        }
+    }
+    return (right);
+}
+
 vector<string>  getKingSequence(const string move, const char sign)
 {
     vector<string>  coords;

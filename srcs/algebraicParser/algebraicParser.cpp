@@ -67,71 +67,57 @@ bool    algebraicParser::isGoodLength(void) const
 
 bool    algebraicParser::isValidComplexSequence(void) const
 {
-    if (count(_move.begin(), _move.end(), 'x') != 0)
-    {
-        if (count(_move.begin(), _move.end(), 'x') != 1)
-            return (false);
-        if (_move[0] == 'x' || _move.at(_move.length() - 1) == 'x')
-            return (false);
+    if (count(_move.begin(), _move.end(), 'x') != 1
+        && count(_move.begin(), _move.end(), '-') != 1)
+        return (false);
+    if (_move[0] == 'x' || _move.at(_move.length() - 1) == 'x'
+        || _move[0] == '-' || _move.at(_move.length() - 1) == '-')
+        return (false);
         
-        string  left;
-        string  right;
+    string  left;
+    string  right;
 
-        for (int i = 0, c = 0; _move[i] != '\0'; i++)
+    left = getLeftSequence();
+    right = getRightSequence();
+
+    if (left.length() > 3 || right.length() < 2 || right.length() > 3)
+        return (false);
+
+    if (left.length() == 1 && isChessPiece(left[0]) == true)
+        return (true);
+
+    if (left.length() == 1 && isChessCoord(left[0]) == true)
+        return (true);
+
+    if (left.length() == 2)
+    {
+        if (isChessCoord(left[0]) == true && isChessDigit(left[1]) == true)
         {
-            if (_move[i] == 'x')
-                c = 1;
-            if (c == 0)
-                left = left + _move[i];
-            if (c == 1 && _move[i] != 'x')
-                right = right + _move[i];
-        }
-
-        if (left.length() > 3 || right.length() < 2 || right.length() > 3)
-            return (false);
-
-        if (left.length() == 1 && isChessPiece(left[0]) == true)
-            return (true);
-
-        if (left.length() == 1 && isChessCoord(left[0]) == true)
-            return (true);
-
-        if (left.length() == 2)
-        {
-            if (isChessCoord(left[0]) == true && isChessDigit(left[1]) == true)
+            if (right[1] == '1' || right[1] == '8')
             {
-                if (right[1] == '1' || right[1] == '8')
-                {
-                    if (right.length() != 3 || isChessPiece(right[2]) == false || right[2] == 'K')
-                        return (false);
-                }
-                return (true);
+                if (right.length() != 3 || isChessPiece(right[2]) == false || right[2] == 'K')
+                    return (false);
             }
-            if (isChessPiece(left[0]) == true && isChessCoord(left[1]) == true)
-                return (true);
+            return (true);
         }
-        if (left.length() == 3)
-        {
-            if (isChessPiece(left[0]) == true && isChessCoord(left[1]) == true
-                && isChessDigit(left[2]) == true)
-                return (true);
-        }
-
-        if (isChessCoord(right[0]) == false || isChessDigit(right[1] == false)
-            || (isChessPiece(right[right.length() - 1]) == true && isChessCoord(left[0]) == false))
-            return (false);
+        if (isChessPiece(left[0]) == true && isChessCoord(left[1]) == true)
+            return (true);
     }
+    if (left.length() == 3)
+    {
+        if (isChessPiece(left[0]) == true && isChessCoord(left[1]) == true
+            && isChessDigit(left[2]) == true)
+            return (true);
+    }
+
+    if (isChessCoord(right[0]) == false || isChessDigit(right[1] == false)
+        || (isChessPiece(right[right.length() - 1]) == true && isChessCoord(left[0]) == false))
+        return (false);
     return (false);
 }
 
 bool    algebraicParser::isValidSimpleSequence(void) const
 {
-    if (count(_move.begin(), _move.end(), 'O') != 0 || count(_move.begin(), _move.end(), '-') != 0)
-    {
-        if (_move == "O-O" || _move == "O-O-O")
-            return (true);
-    }
-
     if (_move.length() == 1)
         return (false);
 
@@ -177,41 +163,6 @@ bool    algebraicParser::isValidSimpleSequence(void) const
             return (true);
     }
     return (false);
-}
-
-bool    algebraicParser::isValidSequence(void) const
-{
-    if (isValidSimpleSequence() == true || isValidComplexSequence() == true)
-        return (true);
-    return (false);
-}
-
-string  algebraicParser::getLeftSequence(void) const
-{
-    string  left;
-
-    for (int i = 0; _move[i] != '\0'; i++)
-    {
-        if (_move[i] == 'x')
-            break ;
-        left = left + _move[i];
-    }
-    return (left);
-}
-
-string  algebraicParser::getRightSequence(void) const
-{
-    string  right;
-
-    for (int i = 0; _move[i] != '\0'; i++)
-    {
-        if (_move[i] == 'x')
-        {
-            right = _move.c_str() + i + 1;
-            break ;
-        }
-    }
-    return (right);
 }
 
 void    algebraicParser::parseDoubleSequence(void)
@@ -303,6 +254,27 @@ void    algebraicParser::parseUniqueSequence(void)
         _dest = _dest + (_move.c_str() + 1 + i);
 }
 
+bool    algebraicParser::isValidSequence(void) const
+{
+    if (count(_move.begin(), _move.end(), 'O') != 0)
+    {
+        if (_move == "O-O" || _move == "O-O-O")
+            return (true);
+    }
+    else
+    {
+        if (count(_move.begin(), _move.end(), 'x') != 0 || count(_move.begin(), _move.end(), '-') != 0)
+        {
+            if (isValidComplexSequence() == true)
+                return (true);
+        }
+        else
+            if (isValidSimpleSequence() == true)
+                return (true);
+    }
+    return (false);
+}
+
 void    algebraicParser::parseMove(void)
 {
     _src.clear();
@@ -312,7 +284,8 @@ void    algebraicParser::parseMove(void)
         _obj = 'R', _src = "", _dest = _move;
     else
     {
-        if (count(_move.begin(), _move.end(), 'x') != 0)
+        if (count(_move.begin(), _move.end(), 'x') != 0
+            || count(_move.begin(), _move.end(), '-') != 0)
             parseDoubleSequence();
         else
             parseUniqueSequence();
