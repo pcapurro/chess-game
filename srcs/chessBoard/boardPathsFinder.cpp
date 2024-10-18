@@ -1,5 +1,67 @@
 #include "../../include/header.hpp"
 
+string  chessBoard::getKingPath(const string src, const string dest)
+{
+    string  coords;
+    string  newCoords;
+
+    newCoords = newCoords + "abcdefgh"[src[0] + 1] + to_string(src[1]);
+    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+        coords = coords + newCoords;
+    newCoords = newCoords + "abcdefgh"[src[0]] + to_string(src[1] + 1);
+    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+        coords = coords + newCoords;
+
+    newCoords = newCoords + "abcdefgh"[src[0] - 1] + to_string(src[1]);
+    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+        coords = coords + newCoords;
+    newCoords = newCoords + "abcdefgh"[src[0]] + to_string(src[1] - 1);
+    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+        coords = coords + newCoords;
+
+    newCoords = newCoords + "abcdefgh"[src[0] + 1] + to_string(src[1] + 1);
+    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+        coords = coords + newCoords;
+    newCoords = newCoords + "abcdefgh"[src[0] - 1] + to_string(src[1] - 1);
+    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+        coords = coords + newCoords;
+
+    newCoords = newCoords + "abcdefgh"[src[0] + 1] + to_string(src[1] - 1);
+    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+        coords = coords + newCoords;
+    newCoords = newCoords + "abcdefgh"[src[0] - 1] + to_string(src[1] + 1);
+    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+        coords = coords + newCoords;
+
+    return (coords);
+}
+
+string  chessBoard::getPawnPath(const string src, const string dest)
+{
+    string  coords;
+    string  newCoords;
+
+    if (_color == "white")
+    {
+        newCoords = newCoords + "abcdefgh"[src[0] - 1] + to_string(src[1] - 1);
+        if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+            coords = coords + newCoords;
+        newCoords = newCoords + "abcdefgh"[src[0] + 1] + to_string(src[1] - 1);
+        if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+            coords = coords + newCoords;
+    }
+    if (_color == "black")
+    {
+        newCoords = newCoords + "abcdefgh"[src[0] - 1] + to_string(src[1] + 1);
+        if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+            coords = coords + newCoords;
+        newCoords = newCoords + "abcdefgh"[src[0] + 1] + to_string(src[1] + 1);
+        if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+            coords = coords + newCoords;
+    }
+    return (coords);
+}
+
 string  chessBoard::getQueenPath(const string src, const string dest)
 {
     string  coords;
@@ -79,6 +141,10 @@ bool    chessBoard::isTheWayClear(const char type, const string src, const strin
     {
         string  coords;
 
+        if (type == 'P')
+            coords = getPawnPath(src, dest);
+        if (type == 'K')
+            coords = getKingPath(src, dest);
         if (type == 'B')
             coords = getBishopPath(src, dest);
         if (type == 'R')
