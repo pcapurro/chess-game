@@ -1,67 +1,5 @@
 #include "../../include/header.hpp"
 
-bool    chessBoard::isOnKnightPath(const string src, const string dest)
-{
-    int src_x = src[0] - 97;
-    int src_y = atoi(src.c_str() + 1);
-    
-    int dest_x = dest[0] - 97;
-    int dest_y = atoi(dest.c_str() + 1);
-
-    if (src_x + 2 == dest_x && src_y + 1 == dest_y)
-        return (true);
-    if (src_x + 2 == dest_x && src_y - 1 == dest_y)
-        return (true);
-
-    if (src_x - 2 == dest_x && src_y + 1 == dest_y)
-        return (true);
-    if (src_x - 2 == dest_x && src_y - 1 == dest_y)
-        return (true);
-
-    if (src_x + 1 == dest_x && src_y + 2 == dest_y)
-        return (true);
-    if (src_x - 1 == dest_x && src_y + 2 == dest_y)
-        return (true);
-
-    if (src_x + 1 == dest_x && src_y - 2 == dest_y)
-        return (true);
-    if (src_x - 1 == dest_x && src_y - 2 == dest_y)
-        return (true);
-
-    return (false);
-}
-
-bool    chessBoard::isOnKingPath(const string src, const string dest)
-{
-    int src_x = src[0] - 97;
-    int src_y = atoi(src.c_str() + 1);
-    
-    int dest_x = dest[0] - 97;
-    int dest_y = atoi(dest.c_str() + 1);
-
-    if (src_x + 1 == dest_x && src_y == dest_y)
-        return (true);
-    if (src_x == dest_x && src_y + 1 == dest_y)
-        return (true);
-
-    if (src_x - 1 == dest_x && src_y == dest_y)
-        return (true);
-    if (src_x == dest_x && src_y - 1 == dest_y)
-        return (true);
-
-    if (src_x + 1 == dest_x && src_y + 1 == dest_y)
-        return (true);
-    if (src_x + 1 == dest_x && src_y - 1 == dest_y)
-        return (true);
-
-    if (src_x - 1 == dest_x && src_y + 1 == dest_y)
-        return (true);
-    if (src_x - 1 == dest_x && src_y - 1 == dest_y)
-        return (true);
-
-    return (false);
-}
-
 bool    chessBoard::isOnPawnPath(const string src, const string dest)
 {
     int src_x = src[0] - 97;
@@ -192,11 +130,11 @@ bool    chessBoard::isTheDestinationSafe(const string dest)
             }
             else
             {
-                if (type == 'K' && isOnKingPath(_board.at(i).coord, dest) == true)
+                if (type == 'K' && _board.at(i).piece->isOnMyWay(dest) == true)
                     return (false);
                 if (type == 'P' && isOnPawnPath(_board.at(i).coord, dest) == true)
                     return (false);
-                if (type == 'N' && isOnKnightPath(_board.at(i).coord, dest) == true)
+                if (type == 'N' && _board.at(i).piece->isOnMyWay(dest) == true)
                     return (false);
             }
         }

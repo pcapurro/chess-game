@@ -10,7 +10,7 @@ class Rook : public chessPiece
         Rook(const char type, const string color, const string pos) : chessPiece(type, color, pos) {}
         ~Rook() {};
 
-        virtual const bool  checkAccess(const string move) const
+        virtual const bool  isOnMyWay(const string move) const
         {
             int target_x = move[0] - 97;
             int target_y = atoi(move.c_str() + 1);

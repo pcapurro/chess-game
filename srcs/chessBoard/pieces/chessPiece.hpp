@@ -27,7 +27,7 @@ class chessPiece
         void                move(void) { _moves++; };
         const int           getMoves(void) { return (_moves); }
 
-        virtual const bool  checkAccess(const string move) const = 0;
+        virtual const bool  isOnMyWay(const string move) const = 0;
 
     protected:
 

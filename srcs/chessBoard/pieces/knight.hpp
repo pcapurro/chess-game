@@ -10,7 +10,7 @@ class Knight : public chessPiece
         Knight(const char type, const string color, const string pos) : chessPiece(type, color, pos) {}
         ~Knight() {};
 
-        virtual const bool  checkAccess(const string move) const
+        virtual const bool  isOnMyWay(const string move) const
         {
             int target_x = move[0] - 97;
             int target_y = atoi(move.c_str() + 1);
