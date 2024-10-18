@@ -255,8 +255,11 @@ bool    chessBoard::isLegal(const char obj, const char type, const string src, c
                 return (false);
         }
 
-        if (src.length() != 2 && isThereValidDestintation(obj, src, dest) != true)
-            return (false);
+        if (src.length() != 2)
+        {
+            if (isThereValidDestintation(obj, src, dest) != true)
+                return (false);
+        }
         else
         {
             _src = src;
