@@ -223,7 +223,7 @@ bool    chessBoard::isItValidDestination(const char obj, const string src, const
 {
     if (obj == 'P')
     {
-        if (dest[1] == (src[1] - 1) || dest[1] == (src[1] + 1))
+        if (dest[1] == (src[1] - 2) || dest[1] == (src[1] + 2))
         {
             int atValue = getAtValue(dest);
             if (_enPassant == false || _enPassantDest != dest)
