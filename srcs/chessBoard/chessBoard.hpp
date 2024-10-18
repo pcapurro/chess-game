@@ -83,6 +83,7 @@ class chessBoard
 
         bool    isOnPawnPath(const string src, const string dest);
         bool    isOnKingPath(const string src, const string dest);
+        bool    isOnKnightPath(const string src, const string dest);
 
         string  getQueenPath(const string src, const string dest);
         string  getPawnPath(const string src, const string dest);

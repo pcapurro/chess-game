@@ -1,5 +1,36 @@
 #include "../../include/header.hpp"
 
+bool    chessBoard::isOnKnightPath(const string src, const string dest)
+{
+    int src_x = src[0] - 97;
+    int src_y = atoi(src.c_str() + 1);
+    
+    int dest_x = dest[0] - 97;
+    int dest_y = atoi(dest.c_str() + 1);
+
+    if (src_x + 2 == dest_x && src_y + 1 == dest_y)
+        return (true);
+    if (src_x + 2 == dest_x && src_y - 1 == dest_y)
+        return (true);
+
+    if (src_x - 2 == dest_x && src_y + 1 == dest_y)
+        return (true);
+    if (src_x - 2 == dest_x && src_y - 1 == dest_y)
+        return (true);
+
+    if (src_x + 1 == dest_x && src_y + 2 == dest_y)
+        return (true);
+    if (src_x - 1 == dest_x && src_y + 2 == dest_y)
+        return (true);
+
+    if (src_x + 1 == dest_x && src_y - 2 == dest_y)
+        return (true);
+    if (src_x - 1 == dest_x && src_y - 2 == dest_y)
+        return (true);
+
+    return (false);
+}
+
 bool    chessBoard::isOnKingPath(const string src, const string dest)
 {
     int src_x = src[0] - 97;
@@ -152,10 +183,22 @@ bool    chessBoard::isTheDestinationSafe(const string dest)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
         {
-            if (isTheWayClear(_board.at(i).piece->getType(), _board.at(i).coord, dest) == true
-                || isOnKingPath(_board.at(i).coord, dest) == true
-                || isOnPawnPath(_board.at(i).coord, dest) == true)
-                return (false);
+            int type = _board.at(i).piece->getType();
+
+            if (type == 'Q' || type == 'R' || type == 'B')
+            {
+                if (isTheWayClear(_board.at(i).piece->getType(), _board.at(i).coord, dest) == true)
+                    return (false);
+            }
+            else
+            {
+                if (type == 'K' && isOnKingPath(_board.at(i).coord, dest) == true)
+                    return (false);
+                if (type == 'P' && isOnPawnPath(_board.at(i).coord, dest) == true)
+                    return (false);
+                if (type == 'N' && isOnKnightPath(_board.at(i).coord, dest) == true)
+                    return (false);
+            }
         }
     }
     return (true);
