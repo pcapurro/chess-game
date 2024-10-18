@@ -184,7 +184,7 @@ int chessBoard::checkSource(const char type, const string src, const string dest
         {
             if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == type)
             {
-                if (type == 'P' || type == 'K' || isTheWayClear(type, _board.at(i).coord, dest) == true)
+                if (type == 'P' || type == 'N' || type == 'K' || isTheWayClear(type, _board.at(i).coord, dest) == true)
                     _src = _src + _board.at(i).coord;
             }
         }
