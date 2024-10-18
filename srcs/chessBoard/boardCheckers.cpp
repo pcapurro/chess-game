@@ -255,11 +255,8 @@ bool    chessBoard::isLegal(const char obj, const char type, const string src, c
                 return (false);
         }
 
-        if (src.length() != 2)
-        {
-            if (isThereValidDestintation(obj, src, dest) != true)
-                return (false);
-        }
+        if (src.length() != 2 && isThereValidDestintation(obj, src, dest) != true)
+            return (false);
         else
         {
             _src = src;
@@ -267,7 +264,8 @@ bool    chessBoard::isLegal(const char obj, const char type, const string src, c
                 || isThereAttacker(obj) != true)
                 return (false);
         }
-        if (isThereAlly(dest) == true || isRightSide(_src) == false)
+        if (isThereAlly(dest) == true || isRightSide(_src) == false
+            || (obj == 'K' && isTheDestinationSafe(dest) == false))
             return (false);
     }
     return (true);

@@ -87,6 +87,8 @@ class chessBoard
         bool    isTheWayClear(const char type, const string src, \
                                             const string dest);
 
+        bool    isTheDestinationSafe(const string dest);
+
         bool    isCastlingPossible(const string move) const;
         bool    willItCheck(void) const;
         bool    isCheck(void) const;

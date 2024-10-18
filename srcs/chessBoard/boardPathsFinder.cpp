@@ -91,3 +91,16 @@ bool    chessBoard::isTheWayClear(const char type, const string src, const strin
     }
     return (true);
 }
+
+bool    chessBoard::isTheDestinationSafe(const string dest)
+{
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
+        {
+            if (isTheWayClear(_board.at(i).piece->getType(), _board.at(i).coord, dest) == true)
+                return (false);
+        }
+    }
+    return (true);
+}
