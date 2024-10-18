@@ -182,9 +182,11 @@ int chessBoard::checkSource(const char type, const string src, const string dest
     {
         if (src.find(_board.at(i).coord) != string::npos && _board.at(i).piece != NULL)
         {
-            if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == type
-                && isTheWayClear(type, _board.at(i).coord, dest) == true)
-                _src = _src + _board.at(i).coord;
+            if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == type)
+            {
+                if (type == 'P' || type == 'K' || isTheWayClear(type, _board.at(i).coord, dest) == true)
+                    _src = _src + _board.at(i).coord;
+            }
         }
     }
 
