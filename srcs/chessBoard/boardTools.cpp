@@ -16,6 +16,35 @@ int     chessBoard::getActualTurn(void) const
     return (_turn);
 }
 
+void    chessBoard::priseEnPassant(const string initialCoord, const string newCoord)
+{
+    chessPiece  *piece;
+    size_t      atValue;
+    string      newCoordUpdated;
+    
+    cout << "doing prise en passant..." << endl;
+
+    atValue = getAtValue(initialCoord); 
+    piece = _board.at(atValue).piece;
+    _board.at(atValue).piece = NULL;
+
+    atValue = getAtValue(newCoord);
+    _board.at(atValue).piece = piece;
+    _board.at(atValue).piece->move();
+
+    cout << "moving piece from " << initialCoord << " to " << newCoord << endl;
+
+    newCoordUpdated = newCoord;
+    if (_color == "white")
+        newCoordUpdated[1] = newCoordUpdated[1] - 1;
+    if (_color == "black")
+        newCoordUpdated[1] = newCoordUpdated[1] + 1;
+
+    removePiece(newCoordUpdated);
+
+    cout << "deleting piece at " << newCoordUpdated << endl;
+}
+
 void    chessBoard::removePiece(const string coord)
 {
     size_t  atValue = getAtValue(coord);

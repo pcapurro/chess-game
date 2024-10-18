@@ -60,6 +60,7 @@ class chessBoard
 
         void    promotePiece(const string initialCoord, char pieceType);
         void    removePiece(const string coord);
+        void    priseEnPassant(const string initialCoord, const string newCoord);
         void    movePiece(const string initialCoord, const string newCoord);
         
         void    whiteCastles(const string move);

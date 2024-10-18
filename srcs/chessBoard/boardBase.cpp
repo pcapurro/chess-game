@@ -95,9 +95,14 @@ int chessBoard::playMove(const char obj, const char type, const string src, cons
         }
         else
         {
-            movePiece(_src, dest);
-            if (isChessPiece(dest.at(dest.length() - 1)) == true)
-                promotePiece(dest, dest[dest.length() - 1]);
+            if (isThereSomething(dest) != true)
+                priseEnPassant(_src, dest);
+            else
+            {
+                movePiece(_src, dest);
+                if (isChessPiece(dest.at(dest.length() - 1)) == true)
+                    promotePiece(dest, dest[dest.length() - 1]);
+            }
         }
         enableDisableEnPassant(obj, _src, dest);
 
