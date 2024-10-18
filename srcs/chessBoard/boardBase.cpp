@@ -95,7 +95,8 @@ int chessBoard::playMove(const char obj, const char type, const string src, cons
         }
         else
         {
-            if (isThereSomething(dest) != true)
+            if (type == 'x' && isThereSomething(dest) != true
+                && _enPassant == true && _enPassantDest == dest)
                 priseEnPassant(_src, dest);
             else
             {

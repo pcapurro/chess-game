@@ -163,6 +163,8 @@ int chessBoard::checkPawnDestintation(const string src, const string dest)
                 {
                     if (source[1] == dest[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
                         return (FAIL);
+                    if (source[1] == dest[1] + 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
+                        return (FAIL);
                     _src = source;
                     return (SUCCESS);
                 }
