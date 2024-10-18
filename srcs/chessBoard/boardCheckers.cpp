@@ -152,6 +152,7 @@ int chessBoard::checkPawnDestintation(const string src, const string dest)
     int     atValue;
     string  source;
 
+    atValue = getAtValue(dest);
     if (_board.at(atValue).piece == NULL)
     {
         for (int i = 0; i != src.length(); i++)
