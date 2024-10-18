@@ -99,7 +99,14 @@ bool    algebraicParser::isValidComplexSequence(void) const
         if (left.length() == 2)
         {
             if (isChessCoord(left[0]) == true && isChessDigit(left[1]) == true)
+            {
+                if (right[1] == '1' || right[1] == '8')
+                {
+                    if (right.length() != 3 || isChessPiece(right[2]) == false || right[2] == 'K')
+                        return (false);
+                }
                 return (true);
+            }
             if (isChessPiece(left[0]) == true && isChessCoord(left[1]) == true)
                 return (true);
         }
@@ -108,10 +115,8 @@ bool    algebraicParser::isValidComplexSequence(void) const
             if (isChessPiece(left[0]) == true && isChessCoord(left[1]) == true
                 && isChessDigit(left[2]) == true)
                 return (true);
-            if ((right[1] == '8' || right[1] == '1') && isChessPiece(right[2]) == true && right[2] != 'K'
-                && isChessCoord(left[0]) == true)
-                return (true);
         }
+
         if (isChessCoord(right[0]) == false || isChessDigit(right[1] == false)
             || (isChessPiece(right[right.length() - 1]) == true && isChessCoord(left[0]) == false))
             return (false);
@@ -148,7 +153,11 @@ bool    algebraicParser::isValidSimpleSequence(void) const
     if (_move.length() == 2)
     {
         if (isChessCoord(_move[0]) == true && isChessDigit(_move[1]) == true)
+        {
+            if (_move[1] == '8' || _move[1] == '1')
+                return (false);
             return (true);
+        }
     }
     if (_move.length() == 3)
     {
