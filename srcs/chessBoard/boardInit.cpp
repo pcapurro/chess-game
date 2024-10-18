@@ -66,3 +66,18 @@ void    chessBoard::initBoard(void)
     initBishops();
     initQueensKings();
 }
+
+    // for (int i = 0; i != 8; i++)
+    // {
+    //     for (int k = 0; k != 8; k++)
+    //     {
+    //         string coord = "abcdefgh"[i] + to_string(k + 1);
+    //         if (coord != "e4" && coord != "e5" && coord != "a1" && coord != "h8")
+    //             _board.push_back({NULL, coord});
+    //     }
+    // }
+    // _board.push_back({new Queen('Q', "white", "e4"), "e4"});
+    // _board.push_back({new King('K', "white", "a1"), "a1"});
+
+    // _board.push_back({new Bishop('B', "black", "e5"), "e5"});
+    // _board.push_back({new King('K', "black", "h8"), "h8"});
