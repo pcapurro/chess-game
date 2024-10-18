@@ -77,6 +77,7 @@ int chessBoard::playMove(const char obj, const string src, const string dest, co
         else
         {
             movePiece(_src, dest);
+            cout << dest << endl;
             if (isChessPiece(dest.at(dest.length() - 1)) == true)
                 promotePiece(dest, dest[dest.length() - 1]);
         }
