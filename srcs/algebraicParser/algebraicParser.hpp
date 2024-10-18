@@ -16,9 +16,10 @@ class algebraicParser
 
         void            setTurn(const int turn);
 
-        const string    checkSource(void) const;
+        const string    getSource(void) const;
         const string    getDest(void) const;
         const char      getObject(void) const;
+        const char      getType(void) const;
 
         bool            fail(void) const;
 
@@ -45,7 +46,8 @@ class algebraicParser
 
         int     _turn;
 
-        char     _obj;
+        char    _obj;
+        char    _type;
         string  _src;
         string  _dest;
 };

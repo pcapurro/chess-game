@@ -11,8 +11,9 @@
 # include "pieces/rook.hpp"
 # include "pieces/pawn.hpp"
 
-# define getParsedMove checker.getObject(), \
-    checker.checkSource(), checker.getDest()
+# define getParsedMove checker.getObject(),\
+    checker.getType(), checker.getSource(), \
+    checker.getDest()
 
 using namespace std;
 
@@ -36,8 +37,10 @@ class chessBoard
         int     getActualTurn(void) const;
 
         bool    isCheckMate() const;
-        bool    isLegal(const char obj, const string src, const string dest);
-        int     playMove(const char obj, const string src, const string dest, const string move);
+        bool    isLegal(const char obj, const char type, const string src, \
+                        const string dest);
+        int     playMove(const char obj, const char type, const string src, \
+                            const string dest, const string move);
 
         void    announceEvent(const int value, const bool cfail = false, \
                                 const bool bfail = false, const string move = "none");

@@ -234,7 +234,7 @@ bool    chessBoard::isItValidDestination(const char obj, const string src, const
     return (true);
 }
 
-bool    chessBoard::isLegal(const char obj, const string src, const string dest)
+bool    chessBoard::isLegal(const char obj, const char type, const string src, const string dest)
 {
     cout << src << " ; " << dest << endl;
 
@@ -249,6 +249,12 @@ bool    chessBoard::isLegal(const char obj, const string src, const string dest)
     }
     else
     {
+        cout << type << endl;
+        cout << isThereSomething(dest) << endl;
+
+        if (type == 'x' && isThereSomething(dest) != true)
+            return (false);
+
         if (src.length() != 2)
         {
             if (isThereValidDestintation(obj, src, dest) != true)

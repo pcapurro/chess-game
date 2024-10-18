@@ -56,14 +56,14 @@ void    chessBoard::printBoard(void)
     cout << endl;
 }
 
-int chessBoard::playMove(const char obj, const string src, const string dest, const string move)
+int chessBoard::playMove(const char obj, const char type, const string src, const string dest, const string move)
 {
     if (_turn % 2 == 0)
         _color = "white";
     else
         _color = "black";
 
-    if (isLegal(obj, src, dest) != true)
+    if (isLegal(obj, type, src, dest) != true)
         return (FAIL);
     else
     {
@@ -77,7 +77,6 @@ int chessBoard::playMove(const char obj, const string src, const string dest, co
         else
         {
             movePiece(_src, dest);
-            cout << dest << endl;
             if (isChessPiece(dest.at(dest.length() - 1)) == true)
                 promotePiece(dest, dest[dest.length() - 1]);
         }

@@ -20,11 +20,13 @@ bool    algebraicParser::fail(void) const
 
 void    algebraicParser::setTurn(const int turn) { _turn = turn; }
 
-const string    algebraicParser::checkSource(void) const { return (_src); }
+const string    algebraicParser::getSource(void) const { return (_src); }
 
 const string    algebraicParser::getDest(void) const { return (_dest); }
 
 const char      algebraicParser::getObject(void) const { return (_obj); }
+
+const char      algebraicParser::getType(void) const { return (_type); }
 
 void    algebraicParser::printInvalid(void) const
 {
@@ -174,6 +176,11 @@ void    algebraicParser::parseDoubleSequence(void)
     left = getLeftSequence();
     right = getRightSequence();
 
+    if (count(_move.begin(), _move.end(), 'x') != 0)
+        _type = 'x';
+    if (count(_move.begin(), _move.end(), '-') != 0)
+        _type = '-';
+
     if (left.length() < 3 
         || (isChessCoord(_move[0]) == false && left.length() == 1))
     {
@@ -221,6 +228,7 @@ void    algebraicParser::parseUniqueSequence(void)
     vector<string>  coords;
     int i = 0;
 
+    _type = '>';
     if (isChessCoord(_move[0]) == true)
         coords = getPawnSequence(_move, _turn, 'i'), _obj = 'P';
     else
