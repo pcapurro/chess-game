@@ -67,7 +67,7 @@ vector<string>  chessBoard::getPossibleMoves(const string coord)
         for (int k = 0; k != 8; k++)
         {
             actualCoords[1] = actualCoords[1] + 1;
-            if (_board.at(i).piece->isOnMyWay(actualCoords, boardCoords) == true)
+            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords) == true)
                 moves.push_back(coord + actualCoords);
         }
         actualCoords[0] = actualCoords[0] + 1;
