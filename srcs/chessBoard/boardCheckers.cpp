@@ -19,17 +19,18 @@ bool    chessBoard::doesItResolveCheck(void) const
 bool    chessBoard::isCheck(void) const
 {
     string          kingPos;
+    string          kingColor;
     vector<string>  boardCoords;
 
     boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K')
-            kingPos = _board.at(i).coord;
+            kingPos = _board.at(i).coord, kingColor = _board.at(i).piece->getColor();
     }
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != kingColor)
         {
             if (_board.at(i).piece->isOnMyWay(kingPos, boardCoords) == true)
             {

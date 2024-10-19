@@ -21,48 +21,60 @@ class Queen : public chessPiece
             string  coords;
             string  newCoords;
 
-            for (int i = 0; i != 8; i++)
+            for (int k = 0; k != 4; k++)
             {
-                if (src_x > dest_x && src_y == dest_y)
-                    src_x--;
-                if (src_x < dest_x && src_y == dest_y)
-                    src_x++;
-                if (src_x == dest_x && src_y < dest_y)
-                    src_y++;
-                if (src_x == dest_x && src_y > dest_y)
-                    src_y--;
+                for (int i = 0; i != 8; i++)
+                {
+                    if (k == 0)
+                        src_x--;
+                    if (k == 1)
+                        src_x++;
+                    if (k == 2)
+                        src_y++;
+                    if (k == 3)
+                        src_y--;
 
-                newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
-                if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
-                    coords = coords + newCoords;
-                if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end()
-                    || newCoords == move)
-                    break ;
+                    newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
+                    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+                        coords = coords + newCoords;
+                    if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end()
+                        || newCoords == move)
+                        break ;
+                    newCoords.clear();
+                }
                 newCoords.clear();
+                src_x = _x;
+                src_y = _y;
             }
             
             newCoords.clear();
             src_x = _x;
             src_y = _y;
 
-            for (int i = 0; i != 8; i++)
+            for (int k = 0; k != 4; k++)
             {
-                if (src_x < dest_x && src_y < dest_y)
-                    src_x++, src_y++;
-                if (src_x > dest_x && src_y < dest_y)
-                    src_x--, src_y++;
-                if (src_x > dest_x && src_y > dest_y)
-                    src_x--, src_y--;
-                if (src_x < dest_x && src_y > dest_y)
-                    src_x++, src_y--;
+                for (int i = 0; i != 8; i++)
+                {
+                    if (k == 0)
+                        src_x++, src_y++;
+                    if (k == 1)
+                        src_x--, src_y++;
+                    if (k == 2)
+                        src_x--, src_y--;
+                    if (k == 3)
+                        src_x++, src_y--;
 
-                newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
-                if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
-                    coords = coords + newCoords;
-                if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end()
-                    || newCoords == move)
-                    break ;
+                    newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
+                    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+                        coords = coords + newCoords;
+                    if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end()
+                        || newCoords == move)
+                        break ;
+                    newCoords.clear();
+                }
                 newCoords.clear();
+                src_x = _x;
+                src_y = _y;
             }
 
             cout << "possible moves for " << _type << " > " << coords << endl;
