@@ -111,11 +111,15 @@ bool    chessBoard::isTheDestinationSafe(void)
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
         {
             if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
+            {
+                cout << "piece at " << _board.at(i).coord << " is threatening " << _lastMove.dest << endl;
                 return (false);
+            }
             else
                 cout << "piece at " << _board.at(i).coord << " is not threatening " << _lastMove.dest << endl;
         }
     }
+    cout << "dest is safe" << endl;
     return (true);
 }
 
