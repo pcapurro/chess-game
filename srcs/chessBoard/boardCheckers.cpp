@@ -220,10 +220,10 @@ int chessBoard::checkPawnDestintation(void)
 
 int chessBoard::checkSource(void)
 {
-    vector<string>  coords;
+    vector<string>  boardCoords;
     string          source;
     
-    coords = getPiecesCoords();
+    boardCoords = getPiecesCoords();
     source = _lastMove.src;
     _lastMove.src.clear();
     for (int i = 0; i != 64; i++)
@@ -233,7 +233,8 @@ int chessBoard::checkSource(void)
             if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == _lastMove.obj)
             {
                 int type = _lastMove.obj;
-                if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
+                cout << "checking if piece at " << _board.at(i).coord << " can reach " << _lastMove.dest << endl;
+                if (_board.at(i).piece->isOnMyWay(_lastMove.dest, boardCoords) == true)
                 {
                     cout << _board.at(i).coord << " is valid " << endl;
                     _lastMove.src = _lastMove.src + _board.at(i).coord;

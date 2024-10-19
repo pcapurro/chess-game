@@ -35,11 +35,12 @@ class Rook : public chessPiece
                         src_y--;
 
                     newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
-                    if (isChessCoord(newCoords[0]) == false || isChessDigit(newCoords[1]) == false
-                        || find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
+                    if (isChessCoord(newCoords[0]) == false || isChessDigit(newCoords[1]) == false)
                         break ;
                     else
                         coords = coords + newCoords;
+                    if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
+                        break ;
                     newCoords.clear();
                 }
                 src_x = _x;
