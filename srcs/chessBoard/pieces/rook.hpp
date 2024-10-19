@@ -40,8 +40,6 @@ class Rook : public chessPiece
                         coords = coords + newCoords;
                         if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
                             break ;
-                        if (newCoords == move)
-                            return (true);
                     }
                     newCoords.clear();
                 }
@@ -49,6 +47,9 @@ class Rook : public chessPiece
                 src_y = _y;
                 newCoords.clear();
             }
+
+            if (coords.find(move) != string::npos)
+                return (true);
             return (false);
         }
 };

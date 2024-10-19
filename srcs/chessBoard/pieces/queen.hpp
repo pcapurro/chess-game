@@ -40,8 +40,6 @@ class Queen : public chessPiece
                         coords = coords + newCoords;
                         if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
                             break ;
-                        if (newCoords == move)
-                            return (true);
                     }
                     newCoords.clear();
                 }
@@ -73,8 +71,6 @@ class Queen : public chessPiece
                         coords = coords + newCoords;
                         if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
                             break ;
-                        if (newCoords == move)
-                            return (true);
                     }
                     newCoords.clear();
                 }
@@ -82,6 +78,9 @@ class Queen : public chessPiece
                 src_x = _x;
                 src_y = _y;
             }
+
+            if (coords.find(move) != string::npos)
+                return (true);
             return (false);
         }
 };
