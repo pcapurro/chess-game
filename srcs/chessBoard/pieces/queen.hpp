@@ -35,12 +35,11 @@ class Queen : public chessPiece
                         src_y--;
 
                     newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
-                    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
-                    {
+                    if (isChessCoord(newCoords[0]) == false || isChessDigit(newCoords[1]) == false
+                        || find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
+                        break ;
+                    else
                         coords = coords + newCoords;
-                        if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
-                            break ;
-                    }
                     newCoords.clear();
                 }
                 newCoords.clear();
@@ -66,12 +65,11 @@ class Queen : public chessPiece
                         src_x++, src_y--;
 
                     newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
-                    if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
-                    {
+                    if (isChessCoord(newCoords[0]) == false || isChessDigit(newCoords[1]) == false
+                        || find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
+                        break ;
+                    else
                         coords = coords + newCoords;
-                        if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
-                            break ;
-                    }
                     newCoords.clear();
                 }
                 newCoords.clear();
