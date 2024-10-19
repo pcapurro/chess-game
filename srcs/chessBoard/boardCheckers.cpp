@@ -197,16 +197,19 @@ int chessBoard::checkPawnDestintation(void)
 int chessBoard::checkSource(void)
 {
     vector<string>  coords;
+    string          source;
     
     coords = getPiecesCoords();
+    source = _lastMove.src;
+    _lastMove.src.clear();
     for (int i = 0; i != 64; i++)
     {
-        if (_lastMove.src.find(_board.at(i).coord) != string::npos && _board.at(i).piece != NULL)
+        if (source.find(_board.at(i).coord) != string::npos && _board.at(i).piece != NULL)
         {
             if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == _lastMove.obj)
             {
                 int type = _lastMove.obj;
-                if (type == 'P' || type == 'N' || type == 'K' || _board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
+                if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
                     _lastMove.src = _lastMove.src + _board.at(i).coord;
             }
         }
