@@ -80,9 +80,9 @@ class chessBoard
         bool    isThereAttacker(void);
 
         bool    isTheDestinationSafe(void);
-
         bool    isCastlingPossible(void) const;
-        bool    willItCheck(void) const;
+
+        bool    doesItResolveCheck(void) const;
         bool    isCheck(void) const;
 
         vector<string>  getPiecesCoords() const;

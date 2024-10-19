@@ -77,6 +77,7 @@ void    chessBoard::enableDisableEnPassant(void)
 
 void    chessBoard::setTurn(void)
 {
+    _turn++;
     if (_turn % 2 == 0)
         _color = "white";
     else
@@ -86,7 +87,6 @@ void    chessBoard::setTurn(void)
 int chessBoard::playMove(t_move move)
 {
     _lastMove = move;
-    setTurn();
     if (isLegal() != true)
     {
         _moveFailed = true;
@@ -116,7 +116,10 @@ int chessBoard::playMove(t_move move)
         }
         enableDisableEnPassant();
         announceEvent(2, false, false, _lastMove.move);
-        _turn++;
+        
+        setTurn();
+        if (isCheck() == true)
+            cout << "check" << endl;
     }
     return (SUCCESS);
 }

@@ -11,14 +11,34 @@ bool    chessBoard::fail(void) const
     return (_moveFailed);
 }
 
-bool    chessBoard::willItCheck(void) const
+bool    chessBoard::doesItResolveCheck(void) const
 {
     return (true);
 }
 
 bool    chessBoard::isCheck(void) const
 {
-    return (true);
+    string          kingPos;
+    vector<string>  boardCoords;
+
+    boardCoords = getPiecesCoords();
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K')
+            kingPos = _board.at(i).coord;
+    }
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
+        {
+            if (_board.at(i).piece->isOnMyWay(kingPos, boardCoords) == true)
+            {
+                cout << "piece at " << _board.at(i).coord << " (" << _board.at(i).piece->getType() << ") can reach " << kingPos << endl;
+                return (true);
+            }
+        }
+    }
+    return (false);
 }
 
 bool    chessBoard::isCheckMate(void) const
@@ -111,12 +131,7 @@ bool    chessBoard::isTheDestinationSafe(void)
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
         {
             if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
-            {
-                cout << "piece at " << _board.at(i).coord << " (" << _board.at(i).piece->getX() << " ; " << _board.at(i).piece->getY() << ") " << " is threatening " << _lastMove.dest << endl;
                 return (false);
-            }
-            else
-                cout << "piece at " << _board.at(i).coord << " is not threatening " << _lastMove.dest << endl;
         }
     }
     cout << "dest is safe" << endl;
@@ -300,6 +315,9 @@ bool    chessBoard::isLegal(void)
         }
         if (isThereAlly() == true || isRightSide() == false
             || (_lastMove.obj == 'K' && isTheDestinationSafe() == false))
+            return (false);
+
+        if (isCheck() == true && doesItResolveCheck() == false)
             return (false);
     }
     return (true);
