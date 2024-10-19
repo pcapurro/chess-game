@@ -36,26 +36,41 @@ bool    chessBoard::isCheck(void)
 
 bool    chessBoard::doesItResolveCheck(const string srcdest)
 {
+    int         atValueSrc;
     int         atValueDest;
+    
     string      src;
     string      dest;
     chessPiece  *savedPiece;
 
     src = string(1, srcdest[0]) + string(1, srcdest[1]);
     dest = srcdest.c_str() + 2;
+
+    atValueSrc = getAtValue(src);
     atValueDest = getAtValue(dest);
-    
     if (_board.at(atValueDest).piece != NULL)
+    {
         savedPiece = _board.at(atValueDest).piece;
-    movePiece(src, dest);
+        _board.at(atValueDest).piece = NULL;
+    }
+    else
+        savedPiece = NULL;
+
+    _board.at(atValueDest).piece = _board.at(atValueSrc).piece;
+    _board.at(atValueDest).piece->updatePos(_board.at(atValueDest).coord);
+    _board.at(atValueSrc).piece = NULL;
+
     if (isCheck() == true)
     {
+        _board.at(atValueSrc).piece = _board.at(atValueDest).piece;
+        _board.at(atValueSrc).piece->updatePos(_board.at(atValueSrc).coord);
         _board.at(atValueDest).piece = savedPiece;
-        movePiece(dest, src);
         return (false);
     }
+    _board.at(atValueSrc).piece = _board.at(atValueDest).piece;
+    _board.at(atValueSrc).piece->updatePos(_board.at(atValueSrc).coord);
     _board.at(atValueDest).piece = savedPiece;
-    movePiece(dest, src);
+    
     return (true);
 }
 
