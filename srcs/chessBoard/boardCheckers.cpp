@@ -56,8 +56,21 @@ vector<string>  chessBoard::getPossibleMoves(const string coord)
 {
     int             atValue;
     vector<string>  moves;
+    vector<string>  boardCoords;
+    string          actualCoords;
 
     atValue = getAtValue(coord);
+    boardCoords = getPiecesCoords();
+    for (int i = 0; i != 64; i++)
+    {
+        for (int k = 9; k != 1; k--)
+        {
+            actualCoords = "abcdefgh"[k] + to_string(i - 1);
+            if (_board.at(i).piece->isOnMyWay(actualCoords, boardCoords) == true)
+                moves.push_back(coord + actualCoords);
+            actualCoords.clear();
+        }
+    }
     return (moves);
 }
 
