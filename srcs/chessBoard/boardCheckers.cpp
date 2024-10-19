@@ -234,7 +234,10 @@ int chessBoard::checkSource(void)
             {
                 int type = _lastMove.obj;
                 if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
+                {
+                    cout << _board.at(i).coord << " is valid " << endl;
                     _lastMove.src = _lastMove.src + _board.at(i).coord;
+                }
             }
         }
     }

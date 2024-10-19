@@ -36,20 +36,20 @@ class Rook : public chessPiece
 
                     newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
                     if (isChessCoord(newCoords[0]) == true && isChessDigit(newCoords[1]) == true)
+                    {
                         coords = coords + newCoords;
-                    if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end()
-                        || newCoords == move)
-                        break ;
+                        if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
+                            break ;
+                        if (newCoords == move)
+                            return (true);
+                    }
                     newCoords.clear();
                 }
                 src_x = _x;
                 src_y = _y;
                 newCoords.clear();
             }
-
-            if (coords.find(move) == string::npos)
-                return (false);
-            return (true);
+            return (false);
         }
 };
 
