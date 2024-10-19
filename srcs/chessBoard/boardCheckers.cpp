@@ -357,7 +357,7 @@ bool    chessBoard::isLegal(void)
             return (false);
 
         if (isCheck() == true 
-            && doesItResolveCheck(_lastMove.src, _lastMove.dest) == false)
+            && doesItResolveCheck(_lastMove.src + _lastMove.dest) == false)
             return (false);
     }
     return (true);
