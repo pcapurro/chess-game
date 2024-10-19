@@ -11,7 +11,7 @@ bool    chessBoard::fail(void) const
     return (_moveFailed);
 }
 
-bool    chessBoard::isCheck(vector<t_square> &theBoard)
+bool    chessBoard::isCheck(void)
 {
     string          kingPos;
     string          kingColor;
@@ -20,36 +20,36 @@ bool    chessBoard::isCheck(vector<t_square> &theBoard)
     boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
-        if (theBoard.at(i).piece != NULL && theBoard.at(i).piece->getType() == 'K' && theBoard.at(i).piece->getColor() == _color)
-            kingPos = theBoard.at(i).coord, kingColor = theBoard.at(i).piece->getColor();
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _color)
+            kingPos = _board.at(i).coord, kingColor = _board.at(i).piece->getColor();
     }
     for (int i = 0; i != 64; i++)
     {
-        if (theBoard.at(i).piece != NULL && theBoard.at(i).piece->getColor() != kingColor)
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != kingColor)
         {
-            if (theBoard.at(i).piece->isOnMyWay(kingPos, boardCoords) == true)
+            if (_board.at(i).piece->isOnMyWay(kingPos, boardCoords) == true)
                 return (true);
         }
     }
     return (false);
 }
 
-bool    chessBoard::doesItResolveCheck(const string src, const string dest, vector<t_square> &theBoard)
+bool    chessBoard::doesItResolveCheck(const string srcdest)
 {
-    movePiece(src, dest, theBoard);
-    if (isCheck(theBoard) == true)
+    string  src;
+    string  dest;
+
+    src = string(1, srcdest[0]) + string(1, srcdest[1]);
+    dest = srcdest.c_str() + 2;
+
+    movePiece(src, dest);
+    if (isCheck() == true)
+    {
+        movePiece(dest, src);
         return (false);
+    }
+    movePiece(dest, src);
     return (true);
-}
-
-vector<t_square>    chessBoard::copyBoard(void) const
-{
-    vector<t_square>    boardCopy;
-
-    for (int i = 0; i != 64; i++)
-        boardCopy.push_back({_board.at(i).piece, _board.at(i).coord});
-
-    return (boardCopy);
 }
 
 vector<string>  chessBoard::getPossibleMoves(const string coord)
@@ -63,26 +63,17 @@ vector<string>  chessBoard::getPossibleMoves(const string coord)
 
 bool    chessBoard::isCheckMate(void)
 {
-    if (isCheck(_board) == true)
+    if (isCheck() == true)
     {
-        vector<t_square>    boardCopy;
         vector<string>      sources;
 
-        boardCopy = copyBoard();
         for (int i = 0; i != 64; i++)
         {
-            if (boardCopy.at(i).piece != NULL)
+            if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _color)
             {
-                sources = getPossibleMoves(boardCopy.at(i).coord);
+                sources = getPossibleMoves(_board.at(i).coord);
                 for (int k = 0; k != sources.size(); k++)
-                {
-                    string src = src + sources.at(k)[0] + sources.at(k)[1];
-                    string dest = dest + sources.at(k)[2] + sources.at(k)[3];
-
-                    movePiece(src, dest, boardCopy);
-                    if (isCheck(boardCopy) == false)
-                        return (false);
-                }
+                    doesItResolveCheck(sources.at(k));
             }
             sources.clear();
         }
@@ -365,8 +356,8 @@ bool    chessBoard::isLegal(void)
             || (_lastMove.obj == 'K' && isTheDestinationSafe() == false))
             return (false);
 
-        if (isCheck(_board) == true 
-            && doesItResolveCheck(_lastMove.src, _lastMove.dest, _board) == false)
+        if (isCheck() == true 
+            && doesItResolveCheck(_lastMove.src, _lastMove.dest) == false)
             return (false);
     }
     return (true);

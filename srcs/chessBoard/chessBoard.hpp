@@ -56,9 +56,8 @@ class chessBoard
         size_t  getAtValue(const string coord) const;
 
         void    promotePiece(const string initialCoord, char pieceType);
-        void    movePiece(const string initialCoord, const string newCoord, \
-                            vector<t_square> &theBoard);
-        void    removePiece(const string coord, vector<t_square> &theBoard);
+        void    movePiece(const string initialCoord, const string newCoord);
+        void    removePiece(const string coord);
 
         void    priseEnPassant(void);
         
@@ -83,11 +82,9 @@ class chessBoard
         bool    isTheDestinationSafe(void);
         bool    isCastlingPossible(void) const;
 
-        bool    doesItResolveCheck(const string src, const string dest, \
-                                    vector<t_square> &theBoard);
-        bool    isCheck(vector<t_square> &theBoard);
+        bool    doesItResolveCheck(const string srcdest);
+        bool    isCheck(void);
 
-        vector<t_square>    copyBoard(void) const;
         vector<string>      getPossibleMoves(const string coord);
         vector<string>      getPiecesCoords() const;
 
