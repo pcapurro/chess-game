@@ -109,7 +109,7 @@ int chessBoard::playMove(t_move move)
                 priseEnPassant();
             else
             {
-                movePiece(_lastMove.src, _lastMove.dest);
+                movePiece(_lastMove.src, _lastMove.dest, _board);
                 if (isChessPiece(_lastMove.dest.at(_lastMove.dest.length() - 1)) == true)
                     promotePiece(_lastMove.dest, _lastMove.dest[_lastMove.dest.length() - 1]);
             }
@@ -118,7 +118,7 @@ int chessBoard::playMove(t_move move)
         announceEvent(2, false, false, _lastMove.move);
         
         setTurn();
-        if (isCheck() == true)
+        if (isCheck(_board) == true)
             cout << "check" << endl;
     }
     return (SUCCESS);

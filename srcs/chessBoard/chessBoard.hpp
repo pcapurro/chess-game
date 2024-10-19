@@ -34,7 +34,7 @@ class chessBoard
 
         int     getActualTurn(void) const;
 
-        bool    isCheckMate() const;
+        bool    isCheckMate();
         int     playMove(t_move move);
 
         void    announceEvent(const int value, const bool cfail = false, \
@@ -56,8 +56,9 @@ class chessBoard
         size_t  getAtValue(const string coord) const;
 
         void    promotePiece(const string initialCoord, char pieceType);
-        void    movePiece(const string initialCoord, const string newCoord);
-        void    removePiece(const string coord);
+        void    movePiece(const string initialCoord, const string newCoord, \
+                            vector<t_square> &theBoard);
+        void    removePiece(const string coord, vector<t_square> &theBoard);
 
         void    priseEnPassant(void);
         
@@ -82,8 +83,9 @@ class chessBoard
         bool    isTheDestinationSafe(void);
         bool    isCastlingPossible(void) const;
 
-        bool    doesItResolveCheck(void) const;
-        bool    isCheck(void) const;
+        bool    doesItResolveCheck(const string src, const string dest, \
+                                    vector<t_square> &theBoard);
+        bool    isCheck(vector<t_square> &theBoard);
 
         vector<string>  getPiecesCoords() const;
 

@@ -11,12 +11,7 @@ bool    chessBoard::fail(void) const
     return (_moveFailed);
 }
 
-bool    chessBoard::doesItResolveCheck(void) const
-{
-    return (true);
-}
-
-bool    chessBoard::isCheck(void) const
+bool    chessBoard::isCheck(vector<t_square> &theBoard)
 {
     string          kingPos;
     string          kingColor;
@@ -25,22 +20,37 @@ bool    chessBoard::isCheck(void) const
     boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _color)
-            kingPos = _board.at(i).coord, kingColor = _board.at(i).piece->getColor();
+        if (theBoard.at(i).piece != NULL && theBoard.at(i).piece->getType() == 'K' && theBoard.at(i).piece->getColor() == _color)
+            kingPos = theBoard.at(i).coord, kingColor = theBoard.at(i).piece->getColor();
     }
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != kingColor)
+        if (theBoard.at(i).piece != NULL && theBoard.at(i).piece->getColor() != kingColor)
         {
-            if (_board.at(i).piece->isOnMyWay(kingPos, boardCoords) == true)
+            if (theBoard.at(i).piece->isOnMyWay(kingPos, boardCoords) == true)
                 return (true);
         }
     }
     return (false);
 }
 
-bool    chessBoard::isCheckMate(void) const
+bool    chessBoard::doesItResolveCheck(const string src, const string dest, vector<t_square> &theBoard)
 {
+    movePiece(src, dest, theBoard);
+    if (isCheck(theBoard) == true)
+        return (false);
+    return (true);
+}
+
+bool    chessBoard::isCheckMate(void)
+{
+    if (isCheck(_board) == true)
+    {
+        for (int i = 0; i != 64; i++)
+        {
+            ;
+        }
+    }
     return (false);
 }
 
@@ -319,7 +329,8 @@ bool    chessBoard::isLegal(void)
             || (_lastMove.obj == 'K' && isTheDestinationSafe() == false))
             return (false);
 
-        if (isCheck() == true && doesItResolveCheck() == false)
+        if (isCheck(_board) == true 
+            && doesItResolveCheck(_lastMove.src, _lastMove.dest, _board) == false)
             return (false);
     }
     return (true);
