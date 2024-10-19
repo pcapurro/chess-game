@@ -21,16 +21,16 @@ class Pawn : public chessPiece
 
             if (_color == "white")
             {
-                if (src_x + 1 == dest_x && src_y - 1 == dest_y)
+                if (src_x + 1 == dest_x && src_y + 1 == dest_y)
                     return (true);
-                if (src_x - 1 == dest_x && src_y - 1 == dest_y)
+                if (src_x - 1 == dest_x && src_y + 1 == dest_y)
                     return (true);
             }
             if (_color == "black")
             {
-                if (src_x + 1 == dest_x && src_y + 1 == dest_y)
+                if (src_x + 1 == dest_x && src_y - 1 == dest_y)
                     return (true);
-                if (src_x - 1 == dest_x && src_y + 1 == dest_y)
+                if (src_x - 1 == dest_x && src_y - 1 == dest_y)
                     return (true);
             }
             return (false);
