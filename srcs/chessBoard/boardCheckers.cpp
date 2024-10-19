@@ -93,9 +93,9 @@ bool    chessBoard::isCheckMate(void)
             }
             sources.clear();
         }
+        cout << "checkmate" << endl;
         return (true);
     }
-    cout << "checkmate" << endl;
     return (false);
 }
 

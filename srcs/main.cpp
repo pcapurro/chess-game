@@ -54,8 +54,8 @@ int main(int argc, char **argv)
         {
             board->announceEvent(1, checker.fail(), board->fail());
             cout << ERASE_LINE << "> ";
-            // getline(cin, input); //
-            input = game[i]; //
+            getline(cin, input); //
+            // input = game[i]; //
             cout << "playing... " << input << endl;
         
             if (cin.fail() == true)
