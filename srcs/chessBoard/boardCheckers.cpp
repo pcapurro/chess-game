@@ -42,16 +42,52 @@ bool    chessBoard::doesItResolveCheck(const string src, const string dest, vect
     return (true);
 }
 
+vector<t_square>    chessBoard::copyBoard(void) const
+{
+    vector<t_square>    boardCopy;
+
+    for (int i = 0; i != 64; i++)
+        boardCopy.push_back({_board.at(i).piece, _board.at(i).coord});
+
+    return (boardCopy);
+}
+
+vector<string>  chessBoard::getPossibleMoves(const string coord)
+{
+    int             atValue;
+    vector<string>  moves;
+
+    atValue = getAtValue(coord);
+    return (moves);
+}
+
 bool    chessBoard::isCheckMate(void)
 {
     if (isCheck(_board) == true)
     {
+        vector<t_square>    boardCopy;
+        vector<string>      sources;
+
+        boardCopy = copyBoard();
         for (int i = 0; i != 64; i++)
         {
-            ;
+            if (boardCopy.at(i).piece != NULL)
+            {
+                sources = getPossibleMoves(boardCopy.at(i).coord);
+                for (int k = 0; k != sources.size(); k++)
+                {
+                    string src = src + sources.at(k)[0] + sources.at(k)[1];
+                    string dest = dest + sources.at(k)[2] + sources.at(k)[3];
+
+                    movePiece(src, dest, boardCopy);
+                    if (isCheck(boardCopy) == false)
+                        return (false);
+                }
+            }
+            sources.clear();
         }
     }
-    return (false);
+    return (true);
 }
 
 bool    chessBoard::isCastlingPossible(void) const

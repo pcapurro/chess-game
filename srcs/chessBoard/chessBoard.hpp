@@ -87,7 +87,9 @@ class chessBoard
                                     vector<t_square> &theBoard);
         bool    isCheck(vector<t_square> &theBoard);
 
-        vector<string>  getPiecesCoords() const;
+        vector<t_square>    copyBoard(void) const;
+        vector<string>      getPossibleMoves(const string coord);
+        vector<string>      getPiecesCoords() const;
 
         void    enableDisableEnPassant(void);
 
