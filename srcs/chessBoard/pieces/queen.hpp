@@ -64,9 +64,9 @@ class Queen : public chessPiece
                 newCoords.clear();
             }
 
-            if (find(coords.begin(), coords.end(), move) == coords.end())
+            if (coords.find(move) == string::npos)
                 return (false);
-            return (false);
+            return (true);
         }
 };
 
