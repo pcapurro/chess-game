@@ -24,10 +24,17 @@ class chessPiece
 
         const string        getColor() const { return (_color); }
         const char          getType() const { return (_type); }
-        void                move(void) { _moves++; };
         const int           getMoves(void) { return (_moves); }
+        const int           getX(void) { return (_x); }
+        const int           getY(void) { return (_y); }
+    
+        void                move(void) { _moves++; };
 
-        void                updatePos(const string coord) { _x = coord[0] - 97; _y = atoi(coord.c_str() + 1); }
+        void                updatePos(const string coord)
+        {
+            _x = coord[0] - 97;
+            _y = atoi(coord.c_str() + 1);
+        }
 
         virtual const bool  isOnMyWay(const string move, const vector<string> boardCoords) const = 0;
 

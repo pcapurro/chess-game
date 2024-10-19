@@ -47,6 +47,7 @@ int main(int argc, char **argv)
             cout << ERASE_LINE << "> ";
             // getline(cin, input); //
             input = game[i]; //
+            cout << "playing... " << input << endl;
         
             if (cin.fail() == true)
                 systemError();
