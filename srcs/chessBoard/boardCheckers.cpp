@@ -73,7 +73,10 @@ bool    chessBoard::isCheckMate(void)
             {
                 sources = getPossibleMoves(_board.at(i).coord);
                 for (int k = 0; k != sources.size(); k++)
-                    doesItResolveCheck(sources.at(k));
+                {
+                    if (doesItResolveCheck(sources.at(k)) == true)
+                        return (false);
+                }
             }
             sources.clear();
         }
