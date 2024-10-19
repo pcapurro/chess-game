@@ -113,7 +113,7 @@ bool    chessBoard::isRightSide(void)
     return (false);
 }
 
-bool    chessBoard::isThereSomething(const string dest)
+bool    chessBoard::isThereSomething(const string dest) const
 {
     int     atValue;
 
@@ -187,7 +187,7 @@ int chessBoard::checkSource(void)
             if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == _lastMove.obj)
             {
                 int type = _lastMove.obj;
-                if (type == 'P' || type == 'N' || type == 'K' || isTheWayClear(type, _board.at(i).coord, _lastMove.dest) == true)
+                if (type == 'P' || type == 'N' || type == 'K' || _board.at(i).piece->isOnMyWay(_lastMove.dest) == true)
                     _lastMove.src = _lastMove.src + _board.at(i).coord;
             }
         }

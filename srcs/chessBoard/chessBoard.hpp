@@ -34,6 +34,8 @@ class chessBoard
 
         int     getActualTurn(void) const;
 
+        bool    isThereSomething(const string coord) const;
+
         bool    isCheckMate() const;
         int     playMove(t_move move);
 
@@ -77,16 +79,7 @@ class chessBoard
         bool    isRightSide(void);
         bool    isThereAttacker(void);
 
-        bool    isThereSomething(const string coord);
-
         bool    isOnPawnPath(const string src, const string dest);
-
-        string  getQueenPath(const string src, const string dest);
-        string  getPawnPath(const string src, const string dest);
-        string  getBishopPath(const string src, const string dest);
-        string  getRookPath(const string src, const string dest);
-        bool    isTheWayClear(const char type, const string src, \
-                                const string dest);
 
         bool    isTheDestinationSafe(void);
 
