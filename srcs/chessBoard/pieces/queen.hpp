@@ -41,6 +41,7 @@ class Queen : public chessPiece
                 newCoords.clear();
             }
             
+            newCoords.clear();
             src_x = _x;
             src_y = _y;
 
@@ -63,6 +64,8 @@ class Queen : public chessPiece
                     break ;
                 newCoords.clear();
             }
+
+            cout << "possible moves for " << _type << " > " << coords << endl;
 
             if (coords.find(move) == string::npos)
                 return (false);

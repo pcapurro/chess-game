@@ -27,6 +27,8 @@ class chessPiece
         void                move(void) { _moves++; };
         const int           getMoves(void) { return (_moves); }
 
+        void                updatePos(const string coord) { _x = coord[0] - 97; _y = atoi(coord.c_str() + 1); }
+
         virtual const bool  isOnMyWay(const string move, const vector<string> boardCoords) const = 0;
 
     protected:

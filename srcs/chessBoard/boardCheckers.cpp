@@ -112,6 +112,8 @@ bool    chessBoard::isTheDestinationSafe(void)
         {
             if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
                 return (false);
+            else
+                cout << "piece at " << _board.at(i).coord << " is not threatening " << _lastMove.dest << endl;
         }
     }
     return (true);
@@ -157,8 +159,10 @@ bool    chessBoard::isThereAlly(void)
 
     atValue = getAtValue(_lastMove.dest);
     if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == _color)
+    {
+        cout << "there is ally on dest" << endl;
         return (true);
-    cout << "there is ally on dest" << endl;
+    }
     return (false);
 }
 
@@ -209,7 +213,6 @@ int chessBoard::checkSource(void)
             if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == _lastMove.obj)
             {
                 int type = _lastMove.obj;
-                cout << _board.at(i).coord << " is ok coord" << endl;
                 if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
                     _lastMove.src = _lastMove.src + _board.at(i).coord;
             }

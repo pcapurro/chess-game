@@ -43,6 +43,7 @@ void    chessBoard::priseEnPassant(void)
     atValue = getAtValue(_lastMove.dest);
     _board.at(atValue).piece = piece;
     _board.at(atValue).piece->move();
+    _board.at(atValue).piece->updatePos(_lastMove.dest);
 
     cout << "moving piece from " << _lastMove.src << " to " << _lastMove.dest << endl;
 
@@ -111,6 +112,7 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord)
     _board.at(atValue).piece = piece;
 
     _board.at(atValue).piece->move();
+    _board.at(atValue).piece->updatePos(newCoord);
 
     if (_board.at(atValue).piece->getType() == 'K')
     {
