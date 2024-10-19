@@ -28,28 +28,28 @@ void    chessBoard::announceEvent(const int value, const bool cfail, const bool 
 
 void    chessBoard::printBoard(void)
 {
-    for (int i = 0; i != 8; i++)
+    for (int i = 9; i != 1; i--)
     {
         for (int k = 0; k != 8; k++)
         {
-            string coord = "abcdefgh"[i] + to_string(k + 1);
+            string coord = "abcdefgh"[k] + to_string(i - 1);
             if (_board.at(getAtValue(coord)).piece != NULL)
             {
                 if (_board.at(getAtValue(coord)).piece->getType() == 'P')
-                    cout << "[P] ; ";
+                    cout << "[P]";
                 if (_board.at(getAtValue(coord)).piece->getType() == 'K')
-                    cout << "[K] ; ";
+                    cout << "[K]";
                 if (_board.at(getAtValue(coord)).piece->getType() == 'Q')
-                    cout << "[Q] ; ";
+                    cout << "[Q]";
                 if (_board.at(getAtValue(coord)).piece->getType() == 'R')
-                    cout << "[R] ; ";
+                    cout << "[R]";
                 if (_board.at(getAtValue(coord)).piece->getType() == 'N')
-                    cout << "[N] ; ";
+                    cout << "[N]";
                 if (_board.at(getAtValue(coord)).piece->getType() == 'B')
-                    cout << "[B] ; ";
+                    cout << "[B]";
             }
             else
-                cout << "[ ] ; ";
+                cout << "[ ]";
         }
         cout << endl;
     }
