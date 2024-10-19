@@ -82,7 +82,6 @@ bool    chessBoard::isCheckMate(void)
     {
         vector<string>      sources;
 
-        cout << "checking checkmate..." << endl;
         for (int i = 0; i != 64; i++)
         {
             if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _color)
@@ -94,11 +93,8 @@ bool    chessBoard::isCheckMate(void)
                         return (false);
                 }
             }
-            else
-                cout << "piece at " << _board.at(i).coord << "doesn't exist or not same color" << endl;
             sources.clear();
         }
-        cout << "checkmate" << endl;
         return (true);
     }
     return (false);
@@ -192,7 +188,6 @@ bool    chessBoard::isTheDestinationSafe(void)
                 return (false);
         }
     }
-    cout << "dest is safe" << endl;
     return (true);
 }
 
@@ -204,7 +199,6 @@ bool    chessBoard::isRightSide(void)
     if (_board.at(atValue).piece == NULL
         || _board.at(atValue).piece->getColor() == _color)
         return (true);
-    cout << "not right side" << endl;
     return (false);
 }
 
@@ -215,7 +209,6 @@ bool    chessBoard::isThereSomething(const string dest) const
     atValue = getAtValue(dest);
     if (_board.at(atValue).piece != NULL)
         return (true);
-    cout << "there is nothing there" << endl;
     return (false);
 }
 
@@ -226,7 +219,6 @@ bool    chessBoard::isThereAttacker(void)
     atValue = getAtValue(_lastMove.src);
     if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getType() == _lastMove.obj)
         return (true);
-    cout << "there is no attacker" << endl;
     return (false);
 }
 
@@ -236,10 +228,7 @@ bool    chessBoard::isThereAlly(void)
 
     atValue = getAtValue(_lastMove.dest);
     if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == _color)
-    {
-        cout << "there is ally on dest" << endl;
         return (true);
-    }
     return (false);
 }
 
@@ -290,22 +279,14 @@ int chessBoard::checkSource(void)
             if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == _lastMove.obj)
             {
                 int type = _lastMove.obj;
-                cout << "checking if piece at " << _board.at(i).coord << " can reach " << _lastMove.dest << endl;
                 if (_board.at(i).piece->isOnMyWay(_lastMove.dest, boardCoords) == true)
-                {
-                    cout << _board.at(i).coord << " is valid " << endl;
                     _lastMove.src = _lastMove.src + _board.at(i).coord;
-                }
             }
         }
     }
 
     if (_lastMove.src.length() != 2)
-    {
-        cout << "no src or multiple srcs" << endl;
-        cout << "srcs > " << _lastMove.src << endl;
         return (FAIL);
-    }
     return (SUCCESS);
 }
 
@@ -314,10 +295,7 @@ bool    chessBoard::isThereValidDestintation(void)
     if (_lastMove.obj == 'P')
     {
         if (checkPawnDestintation() == FAIL)
-        {
-            cout << "no valid dest (p)" << endl;
             return (false);
-        }
     }
     else if (checkSource() == FAIL)
     {
@@ -336,10 +314,7 @@ bool    chessBoard::isItValidDestination(void)
             if (_enPassant == false || _enPassantDest != _lastMove.dest)
             {
                 if (_board.at(atValue).piece == NULL)
-                {
-                    cout << "no valid dest" << endl;
                     return (false);
-                }
             }
         }
     }
@@ -351,10 +326,7 @@ bool    chessBoard::isLegal(void)
     if (_lastMove.dest == "O-O-O" || _lastMove.dest == "O-O")
     {
         if (isCastlingPossible() != true)
-        {
-            cout << "no castling possible" << endl;
             return (false);
-        }
     }
     else
     {

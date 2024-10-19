@@ -33,8 +33,6 @@ void    chessBoard::priseEnPassant(void)
     chessPiece  *piece;
     size_t      atValue;
     string      newCoordUpdated;
-    
-    cout << "doing prise en passant..." << endl;
 
     atValue = getAtValue(_lastMove.src); 
     piece = _board.at(atValue).piece;
@@ -45,8 +43,6 @@ void    chessBoard::priseEnPassant(void)
     _board.at(atValue).piece->move();
     _board.at(atValue).piece->updatePos(_lastMove.dest);
 
-    cout << "moving piece from " << _lastMove.src << " to " << _lastMove.dest << endl;
-
     newCoordUpdated = _lastMove.dest;
     if (_color == "white")
         newCoordUpdated[1] = newCoordUpdated[1] - 1;
@@ -54,8 +50,6 @@ void    chessBoard::priseEnPassant(void)
         newCoordUpdated[1] = newCoordUpdated[1] + 1;
 
     removePiece(newCoordUpdated);
-
-    cout << "deleting piece at " << newCoordUpdated << endl;
 }
 
 void    chessBoard::removePiece(const string coord)
@@ -121,7 +115,6 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord)
         if (_board.at(atValue).piece->getColor() == "black")
             _blackCastle = false;
     }
-    cout << "moving piece from " << initialCoord << " to " << newCoord << endl;
 }
 
 

@@ -79,8 +79,6 @@ class Queen : public chessPiece
                 src_y = _y;
             }
 
-            cout << coords << endl;
-
             if (coords.find(move) != string::npos)
                 return (true);
             return (false);
