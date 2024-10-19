@@ -33,7 +33,7 @@ class Pawn : public chessPiece
                 if (src_x - 1 == dest_x && src_y + 1 == dest_y)
                     return (true);
             }
-            return (true);
+            return (false);
         }
 };
 
