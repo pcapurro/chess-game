@@ -56,15 +56,15 @@ void    chessBoard::printBoard(void)
     cout << endl;
 }
 
-void    chessBoard::enableDisableEnPassant(const char obj, const string src, const string dest)
+void    chessBoard::enableDisableEnPassant(void)
 {
-    if (obj == 'P')
+    if (_lastMove.obj == 'P')
     {
-        if ((_color == "white" && (dest[1] == (src[1] + 2)))
-            || (_color == "black" && (dest[1] == (src[1] - 2))))
+        if ((_color == "white" && (_lastMove.dest[1] == (_lastMove.dest[1] + 2)))
+            || (_color == "black" && (_lastMove.dest[1] == (_lastMove.src[1] - 2))))
         {
             _enPassant = true;
-            _enPassantDest = dest;
+            _enPassantDest = _lastMove.dest;
             if (_color == "white")
                 _enPassantDest[1] = _enPassantDest[1] - 1;
             else
@@ -75,39 +75,41 @@ void    chessBoard::enableDisableEnPassant(const char obj, const string src, con
     }
 }
 
-int chessBoard::playMove(const char obj, const char type, const string src, const string dest, const string move)
+int chessBoard::playMove(t_move move)
 {
+    _lastMove = move;
+
     if (_turn % 2 == 0)
         _color = "white";
     else
         _color = "black";
 
-    if (isLegal(obj, type, src, dest) != true)
+    if (isLegal() != true)
         return (FAIL);
     else
     {
-        if (dest == "O-O" || dest == "O-O-O")
+        if (_lastMove.dest == "O-O" || _lastMove.dest == "O-O-O")
         {
             if (_color == "white")
-                whiteCastles(dest);
+                whiteCastles();
             if (_color == "black")
-                blackCastles(dest);
+                blackCastles();
         }
         else
         {
-            if (type == 'x' && isThereSomething(dest) != true
-                && _enPassant == true && _enPassantDest == dest)
-                priseEnPassant(_src, dest);
+            if (_lastMove.action == 'x' && isThereSomething(_lastMove.dest) != true
+                && _enPassant == true && _enPassantDest == _lastMove.dest)
+                priseEnPassant(_lastMove.src, _lastMove.dest);
             else
             {
-                movePiece(_src, dest);
-                if (isChessPiece(dest.at(dest.length() - 1)) == true)
-                    promotePiece(dest, dest[dest.length() - 1]);
+                movePiece(_lastMove.src, _lastMove.dest);
+                if (isChessPiece(_lastMove.dest.at(_lastMove.dest.length() - 1)) == true)
+                    promotePiece(_lastMove.dest, _lastMove.dest[_lastMove.dest.length() - 1]);
             }
         }
-        enableDisableEnPassant(obj, _src, dest);
+        enableDisableEnPassant();
 
-        announceEvent(2, false, false, move);
+        announceEvent(2, false, false, _lastMove.move);
         _turn++;
     }
     return (SUCCESS);

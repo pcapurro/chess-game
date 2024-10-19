@@ -28,11 +28,11 @@ string  algebraicParser::getLeftSequence(void) const
 {
     string  left;
 
-    for (int i = 0; _move[i] != '\0'; i++)
+    for (int i = 0; _move.move[i] != '\0'; i++)
     {
-        if (_move[i] == 'x' || _move[i] == '-')
+        if (_move.move[i] == 'x' || _move.move[i] == '-')
             break ;
-        left = left + _move[i];
+        left = left + _move.move[i];
     }
     return (left);
 }
@@ -41,11 +41,11 @@ string  algebraicParser::getRightSequence(void) const
 {
     string  right;
 
-    for (int i = 0; _move[i] != '\0'; i++)
+    for (int i = 0; _move.move[i] != '\0'; i++)
     {
-        if (_move[i] == 'x' || _move[i] == '-')
+        if (_move.move[i] == 'x' || _move.move[i] == '-')
         {
-            right = _move.c_str() + i + 1;
+            right = _move.move.c_str() + i + 1;
             break ;
         }
     }

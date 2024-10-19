@@ -115,7 +115,7 @@ bool    chessBoard::isTheWayClear(const char type, const string src, const strin
     return (true);
 }
 
-bool    chessBoard::isTheDestinationSafe(const string dest)
+bool    chessBoard::isTheDestinationSafe(void)
 {
     for (int i = 0; i != 64; i++)
     {
@@ -125,16 +125,16 @@ bool    chessBoard::isTheDestinationSafe(const string dest)
 
             if (type == 'Q' || type == 'R' || type == 'B')
             {
-                if (isTheWayClear(_board.at(i).piece->getType(), _board.at(i).coord, dest) == true)
+                if (isTheWayClear(_board.at(i).piece->getType(), _board.at(i).coord, _lastMove.dest) == true)
                     return (false);
             }
             else
             {
-                if (type == 'K' && _board.at(i).piece->isOnMyWay(dest) == true)
+                if (type == 'K' && _board.at(i).piece->isOnMyWay(_lastMove.dest) == true)
                     return (false);
-                if (type == 'P' && isOnPawnPath(_board.at(i).coord, dest) == true)
+                if (type == 'P' && isOnPawnPath(_board.at(i).coord, _lastMove.dest) == true)
                     return (false);
-                if (type == 'N' && _board.at(i).piece->isOnMyWay(dest) == true)
+                if (type == 'N' && _board.at(i).piece->isOnMyWay(_lastMove.dest) == true)
                     return (false);
             }
         }

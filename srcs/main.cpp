@@ -44,7 +44,7 @@ int main(int argc, char **argv)
                 checker = input;
                 if (checker.fail() == true)
                     continue ;
-                if (board->playMove(getParsedMove, input) == FAIL)
+                if (board->playMove(checker.getParsedMove()) == FAIL)
                     continue ;
             }
             checker.setTurn(board->getActualTurn());

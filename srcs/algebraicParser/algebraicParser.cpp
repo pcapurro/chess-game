@@ -5,7 +5,7 @@ algebraicParser::~algebraicParser(void) {;}
 
 void    algebraicParser::operator=(const string move)
 {
-    _move = move;
+    _move.move = move;
     isValid();
     if (_fail == false)
         parseMove();
@@ -20,13 +20,7 @@ bool    algebraicParser::fail(void) const
 
 void    algebraicParser::setTurn(const int turn) { _turn = turn; }
 
-const string    algebraicParser::getSource(void) const { return (_src); }
-
-const string    algebraicParser::getDest(void) const { return (_dest); }
-
-const char      algebraicParser::getObject(void) const { return (_obj); }
-
-const char      algebraicParser::getType(void) const { return (_type); }
+t_move  algebraicParser::getParsedMove(void) const { return (_move); };
 
 void    algebraicParser::printInvalid(void) const
 {
@@ -52,9 +46,9 @@ bool    algebraicParser::isValidChar(void) const
     string  dictionnary;
 
     dictionnary = "KQRBNabcdefgh12345678xO-";
-    for (int i = 0; _move[i] != '\0'; i++)
+    for (int i = 0; _move.move[i] != '\0'; i++)
     {
-        if (dictionnary.find(_move[i]) > dictionnary.length())
+        if (dictionnary.find(_move.move[i]) > dictionnary.length())
             return (false);
     }
     return (true);
@@ -62,18 +56,18 @@ bool    algebraicParser::isValidChar(void) const
 
 bool    algebraicParser::isGoodLength(void) const
 {
-    if (_move.length() > 7 || _move.length() < 2)
+    if (_move.move.length() > 7 || _move.move.length() < 2)
         return (false);
     return (true);
 }
 
 bool    algebraicParser::isValidComplexSequence(void) const
 {
-    if (count(_move.begin(), _move.end(), 'x') != 1
-        && count(_move.begin(), _move.end(), '-') != 1)
+    if (count(_move.move.begin(), _move.move.end(), 'x') != 1
+        && count(_move.move.begin(), _move.move.end(), '-') != 1)
         return (false);
-    if (_move[0] == 'x' || _move.at(_move.length() - 1) == 'x'
-        || _move[0] == '-' || _move.at(_move.length() - 1) == '-')
+    if (_move.move[0] == 'x' || _move.move.at(_move.move.length() - 1) == 'x'
+        || _move.move[0] == '-' || _move.move.at(_move.move.length() - 1) == '-')
         return (false);
         
     string  left;
@@ -120,17 +114,17 @@ bool    algebraicParser::isValidComplexSequence(void) const
 
 bool    algebraicParser::isValidSimpleSequence(void) const
 {
-    if (_move.length() == 1)
+    if (_move.move.length() == 1)
         return (false);
 
     int d_count = 0, p_count = 0, l_count = 0;
-    for (int i = 0; _move.c_str()[i] != '\0'; i++)
+    for (int i = 0; _move.move.c_str()[i] != '\0'; i++)
     {
-        if (isChessDigit(_move[i]) == true)
+        if (isChessDigit(_move.move[i]) == true)
             d_count++;
-        if (isChessPiece(_move[i]) == true)
+        if (isChessPiece(_move.move[i]) == true)
             p_count++;
-        if (isChessCoord(_move[i]) == true)
+        if (isChessCoord(_move.move[i]) == true)
             l_count++;
     }
     if (d_count == 0 || d_count > 2
@@ -138,30 +132,30 @@ bool    algebraicParser::isValidSimpleSequence(void) const
         || l_count > 2)
         return (false);
 
-    if (_move.length() == 2)
+    if (_move.move.length() == 2)
     {
-        if (isChessCoord(_move[0]) == true && isChessDigit(_move[1]) == true)
+        if (isChessCoord(_move.move[0]) == true && isChessDigit(_move.move[1]) == true)
         {
-            if (_move[1] == '8' || _move[1] == '1')
+            if (_move.move[1] == '8' || _move.move[1] == '1')
                 return (false);
             return (true);
         }
     }
-    if (_move.length() == 3)
+    if (_move.move.length() == 3)
     {
-        if (isChessCoord(_move[0]) == true && _move[1] == '8')
+        if (isChessCoord(_move.move[0]) == true && _move.move[1] == '8')
         {
-            if (isChessPiece(_move[2]) == true && _move[2] != 'K')
+            if (isChessPiece(_move.move[2]) == true && _move.move[2] != 'K')
                 return (true);
         }
-        if (isChessPiece(_move[0]) == true && isChessCoord(_move[1]) == true
-            && isChessDigit(_move[2]) == true)
+        if (isChessPiece(_move.move[0]) == true && isChessCoord(_move.move[1]) == true
+            && isChessDigit(_move.move[2]) == true)
             return (true);
     }
-    if (_move.length() == 4)
+    if (_move.move.length() == 4)
     {
-        if (isChessPiece(_move[0]) == true && isChessCoord(_move[1]) == true
-            && isChessCoord(_move[2]) == true && isChessDigit(_move[3]) == true)
+        if (isChessPiece(_move.move[0]) == true && isChessCoord(_move.move[1]) == true
+            && isChessCoord(_move.move[2]) == true && isChessDigit(_move.move[3]) == true)
             return (true);
     }
     return (false);
@@ -176,13 +170,13 @@ void    algebraicParser::parseDoubleSequence(void)
     left = getLeftSequence();
     right = getRightSequence();
 
-    if (count(_move.begin(), _move.end(), 'x') != 0)
-        _type = 'x';
-    if (count(_move.begin(), _move.end(), '-') != 0)
-        _type = '-';
+    if (count(_move.move.begin(), _move.move.end(), 'x') != 0)
+        _move.action = 'x';
+    if (count(_move.move.begin(), _move.move.end(), '-') != 0)
+        _move.action = '-';
 
     if (left.length() < 3 
-        || (isChessCoord(_move[0]) == false && left.length() == 1))
+        || (isChessCoord(_move.move[0]) == false && left.length() == 1))
     {
         vector<string>  coords;
 
@@ -190,36 +184,36 @@ void    algebraicParser::parseDoubleSequence(void)
         if (left.length() == 1 && isChessCoord(left[0]) == true)
             c = left[0];
 
-        if (isChessCoord(_move[0]) == true)
+        if (isChessCoord(_move.move[0]) == true)
             coords = getPawnSequence(right, _turn, c);
-        if (_move[0] == 'K')
+        if (_move.move[0] == 'K')
             coords = getKingSequence(right, 'i');
-        if (_move[0] == 'Q')
+        if (_move.move[0] == 'Q')
             coords = getQueenSequence(right, 'i');
-        if (_move[0] == 'B')
+        if (_move.move[0] == 'B')
             coords = getBishopSequence(right, 'i');
-        if (_move[0] == 'N')
+        if (_move.move[0] == 'N')
             coords = getKnightSequence(right, 'i');
-        if (_move[0] == 'R')
+        if (_move.move[0] == 'R')
             coords = getRookSequence(right, 'i');
 
         for (int i = 0; i != coords.size(); i++)
         {
             if (isChessCoord(coords.at(i)[0]) == true && isChessDigit(coords.at(i)[1]) == true)
             {
-                if (left.length() != 2 || (left.length() == 2 && coords.at(i)[0] == _move[1]))
+                if (left.length() != 2 || (left.length() == 2 && coords.at(i)[0] == _move.move[1]))
                     middle = middle + coords.at(i);
             }
         }
     }
 
-    if (isChessCoord(_move[0]) == true && left.length() != 1)
-        _obj = 'P', _src = left, _dest = right;
+    if (isChessCoord(_move.move[0]) == true && left.length() != 1)
+        _move.obj = 'P', _move.src = left, _move.dest = right;
     else
     {
-        isChessCoord(_move[0]) == true ? _obj = 'P' : _obj = _move[0];
-        middle.size() != 0 ? _src = middle : _src = (left.c_str() + 1);
-        _dest = right;
+        isChessCoord(_move.move[0]) == true ? _move.obj = 'P' : _move.obj = _move.move[0];
+        middle.size() != 0 ? _move.src = middle : _move.src = (left.c_str() + 1);
+        _move.dest = right;
     }
 }
 
@@ -228,50 +222,50 @@ void    algebraicParser::parseUniqueSequence(void)
     vector<string>  coords;
     int i = 0;
 
-    _type = '>';
-    if (isChessCoord(_move[0]) == true)
-        coords = getPawnSequence(_move, _turn, 'i'), _obj = 'P';
+    _move.action = '>';
+    if (isChessCoord(_move.move[0]) == true)
+        coords = getPawnSequence(_move.move, _turn, 'i'), _move.obj = 'P';
     else
     {
         char sign = 'i';
-        if (_move.length() == 4)
-            sign = _move[1], i = 1;
+        if (_move.move.length() == 4)
+            sign = _move.move[1], i = 1;
 
-        if (_move[0] == 'K')
-            coords = getKingSequence(_move.c_str() + 1 + i, sign);
-        if (_move[0] == 'Q')
-            coords = getQueenSequence(_move.c_str() + 1 + i, sign);
-        if (_move[0] == 'B')
-            coords = getBishopSequence(_move.c_str() + 1 + i, sign);
-        if (_move[0] == 'N')
-            coords = getKnightSequence(_move.c_str() + 1 + i, sign);
-        if (_move[0] == 'R')
-            coords = getRookSequence(_move.c_str() + 1 + i, sign);
+        if (_move.move[0] == 'K')
+            coords = getKingSequence(_move.move.c_str() + 1 + i, sign);
+        if (_move.move[0] == 'Q')
+            coords = getQueenSequence(_move.move.c_str() + 1 + i, sign);
+        if (_move.move[0] == 'B')
+            coords = getBishopSequence(_move.move.c_str() + 1 + i, sign);
+        if (_move.move[0] == 'N')
+            coords = getKnightSequence(_move.move.c_str() + 1 + i, sign);
+        if (_move.move[0] == 'R')
+            coords = getRookSequence(_move.move.c_str() + 1 + i, sign);
         
-        _obj = _move[0];
+        _move.obj = _move.move[0];
     }
 
     for (int i = 0; i != coords.size(); i++)
     {
         if (isChessCoord(coords.at(i)[0]) == true && isChessDigit(coords.at(i)[1]) == true)
-            _src = _src + coords.at(i);
+            _move.src = _move.src + coords.at(i);
     }
-    if (isChessCoord(_move[0]) == true)
-        _dest = _dest + _move.c_str();
+    if (isChessCoord(_move.move[0]) == true)
+        _move.dest = _move.dest + _move.move.c_str();
     else
-        _dest = _dest + (_move.c_str() + 1 + i);
+        _move.dest = _move.dest + (_move.move.c_str() + 1 + i);
 }
 
 bool    algebraicParser::isValidSequence(void) const
 {
-    if (count(_move.begin(), _move.end(), 'O') != 0)
+    if (count(_move.move.begin(), _move.move.end(), 'O') != 0)
     {
-        if (_move == "O-O" || _move == "O-O-O")
+        if (_move.move == "O-O" || _move.move == "O-O-O")
             return (true);
     }
     else
     {
-        if (count(_move.begin(), _move.end(), 'x') != 0 || count(_move.begin(), _move.end(), '-') != 0)
+        if (count(_move.move.begin(), _move.move.end(), 'x') != 0 || count(_move.move.begin(), _move.move.end(), '-') != 0)
         {
             if (isValidComplexSequence() == true)
                 return (true);
@@ -285,15 +279,15 @@ bool    algebraicParser::isValidSequence(void) const
 
 void    algebraicParser::parseMove(void)
 {
-    _src.clear();
-    _dest.clear();
+    _move.src.clear();
+    _move.dest.clear();
 
-    if (_move == "O-O" || _move == "O-O-O")
-        _obj = 'R', _src = "", _dest = _move;
+    if (_move.move == "O-O" || _move.move == "O-O-O")
+        _move.obj = 'R', _move.src = "", _move.dest = _move.move;
     else
     {
-        if (count(_move.begin(), _move.end(), 'x') != 0
-            || count(_move.begin(), _move.end(), '-') != 0)
+        if (count(_move.move.begin(), _move.move.end(), 'x') != 0
+            || count(_move.move.begin(), _move.move.end(), '-') != 0)
             parseDoubleSequence();
         else
             parseUniqueSequence();

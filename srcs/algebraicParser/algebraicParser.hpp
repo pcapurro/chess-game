@@ -5,6 +5,17 @@
 
 using namespace std;
 
+typedef struct s_move
+{
+    string  move;
+    char    action;
+    
+    char    obj;
+    string  src;
+    string  dest;
+
+}   t_move;
+
 class algebraicParser
 {
     public:
@@ -16,10 +27,7 @@ class algebraicParser
 
         void            setTurn(const int turn);
 
-        const string    getSource(void) const;
-        const string    getDest(void) const;
-        const char      getObject(void) const;
-        const char      getType(void) const;
+        t_move          getParsedMove(void) const;
 
         bool            fail(void) const;
 
@@ -42,14 +50,9 @@ class algebraicParser
         void    parseMove(void);
 
         bool    _fail;
-        string  _move;
 
         int     _turn;
-
-        char    _obj;
-        char    _type;
-        string  _src;
-        string  _dest;
+        t_move  _move;
 };
 
 bool            isChessDigit(const char c);

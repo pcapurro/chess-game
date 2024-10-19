@@ -3,6 +3,8 @@
 
 # include <iostream>
 
+# include "../algebraicParser/algebraicParser.hpp"
+
 # include "pieces/chessPiece.hpp"
 # include "pieces/king.hpp"
 # include "pieces/queen.hpp"
@@ -10,10 +12,6 @@
 # include "pieces/knight.hpp"
 # include "pieces/rook.hpp"
 # include "pieces/pawn.hpp"
-
-# define getParsedMove checker.getObject(),\
-    checker.getType(), checker.getSource(), \
-    checker.getDest()
 
 using namespace std;
 
@@ -37,10 +35,7 @@ class chessBoard
         int     getActualTurn(void) const;
 
         bool    isCheckMate() const;
-        bool    isLegal(const char obj, const char type, const string src, \
-                        const string dest);
-        int     playMove(const char obj, const char type, const string src, \
-                            const string dest, const string move);
+        int     playMove(t_move move);
 
         void    announceEvent(const int value, const bool cfail = false, \
                                 const bool bfail = false, const string move = "none");
@@ -63,23 +58,22 @@ class chessBoard
         void    priseEnPassant(const string initialCoord, const string newCoord);
         void    movePiece(const string initialCoord, const string newCoord);
         
-        void    whiteCastles(const string move);
-        void    blackCastles(const string move);
+        void    whiteCastles(void);
+        void    blackCastles(void);
 
         void    printIllegal(void) const;
+        bool    isLegal(void);
 
-        int     checkSource(const char type, const string src, const string dest);
-        int     checkPawnDestintation(const string src, const string dest);
+        int     checkSource(void);
+        int     checkPawnDestintation(void);
         
-        bool    isThereValidDestintation(const char obj, const string src, \
-                                        const string dest);
-        bool    isItValidDestination(const char obj, const string src, \
-                                        const string dest);
+        bool    isThereValidDestintation(void);
+        bool    isItValidDestination(void);
         
-        bool    isThereAlly(const string dest);
-        bool    isRightSide(const string src);
-        bool    isThereAttacker(const char type);
-        bool    isThereSomething(const string dest);
+        bool    isThereAlly(const string coord);
+        bool    isRightSide(const string coord);
+        bool    isThereAttacker(void);
+        bool    isThereSomething(const string coord);
 
         bool    isOnPawnPath(const string src, const string dest);
 
@@ -90,19 +84,18 @@ class chessBoard
         bool    isTheWayClear(const char type, const string src, \
                                 const string dest);
 
-        bool    isTheDestinationSafe(const string dest);
+        bool    isTheDestinationSafe(void);
 
-        bool    isCastlingPossible(const string move) const;
+        bool    isCastlingPossible(void) const;
         bool    willItCheck(void) const;
         bool    isCheck(void) const;
 
-        void    enableDisableEnPassant(const char obj, const string src, \
-                                        const string dest);
+        void    enableDisableEnPassant(void);
 
         vector<t_square>    _board;
         bool                _allocated;
 
-        string              _src;
+        t_move              _lastMove;
 
         bool                _whiteCastle;
         bool                _blackCastle;
@@ -111,8 +104,9 @@ class chessBoard
         string              _enPassantDest;
 
         int                 _turn;
-        bool                _moveFailed;
         string              _color;
+    
+        bool                _moveFailed;
 };
 
 #endif
