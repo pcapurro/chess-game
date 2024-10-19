@@ -90,7 +90,11 @@ vector<string>  chessBoard::getPossibleMoves(const string coord)
         {
             actualCoords[1] = actualCoords[1] + 1;
             if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords) == true)
+            {
+                if (_board.at(getAtValue(actualCoords)).piece == NULL 
+                    || _board.at(getAtValue(actualCoords)).piece->getColor() != _color)
                 moves.push_back(coord + actualCoords);
+            }
         }
         actualCoords[0] = actualCoords[0] + 1;
         actualCoords[1] = '0';
