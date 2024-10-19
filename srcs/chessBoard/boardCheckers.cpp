@@ -36,18 +36,25 @@ bool    chessBoard::isCheck(void)
 
 bool    chessBoard::doesItResolveCheck(const string srcdest)
 {
-    string  src;
-    string  dest;
+    int         atValueDest;
+    string      src;
+    string      dest;
+    chessPiece  *savedPiece;
 
     src = string(1, srcdest[0]) + string(1, srcdest[1]);
     dest = srcdest.c_str() + 2;
-
+    atValueDest = getAtValue(dest);
+    
+    if (_board.at(atValueDest).piece != NULL)
+        savedPiece = _board.at(atValueDest).piece;
     movePiece(src, dest);
     if (isCheck() == true)
     {
+        _board.at(atValueDest).piece = savedPiece;
         movePiece(dest, src);
         return (false);
     }
+    _board.at(atValueDest).piece = savedPiece;
     movePiece(dest, src);
     return (true);
 }
@@ -95,6 +102,7 @@ bool    chessBoard::isCheckMate(void)
             }
             sources.clear();
         }
+        cout << "checkmate" << endl;
         return (true);
     }
     return (false);

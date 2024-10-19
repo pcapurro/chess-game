@@ -38,7 +38,7 @@ int main(int argc, char **argv)
     //     "Qd8", "Bf8", "Nxe1", "Bd5", "Nf3", "Ne4", "Qb8", "b5", "h4", "h5", "Ne5", "Kg7", "Kg1", "Bc5", "Kf1", "Ng3",
     //     "Ke1", "Bb4", "Kd1", "Bb3", "Kc1", "Ne2", "Kb1", "Nc3", "Kc1", "Rc2"}; //
 
-    string game [] = {"e4", "e5", "Qf3", "a6", "Bc4", "a5", "Qxf7"};
+    string game [] = {"e4", "e5", "Qf3", "Nh6", "Bc4", "a5", "Qxf7"};
 
     int i = 0; //
 
@@ -55,9 +55,9 @@ int main(int argc, char **argv)
         while (board->isCheckMate() == false && board->isAllocated() == true)
         {
             board->announceEvent(1, checker.fail(), board->fail());
-            // cout << ERASE_LINE << "> ";
-            // getline(cin, input); //
-            input = game[i]; //
+            cout << ERASE_LINE << "> ";
+            getline(cin, input); //
+            // input = game[i]; //
             cout << "playing... " << input << endl;
         
             if (cin.fail() == true)
