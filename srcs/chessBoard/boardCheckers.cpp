@@ -25,7 +25,7 @@ bool    chessBoard::isCheck(void) const
     boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K')
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _color)
             kingPos = _board.at(i).coord, kingColor = _board.at(i).piece->getColor();
     }
     for (int i = 0; i != 64; i++)
@@ -33,10 +33,7 @@ bool    chessBoard::isCheck(void) const
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != kingColor)
         {
             if (_board.at(i).piece->isOnMyWay(kingPos, boardCoords) == true)
-            {
-                cout << "piece at " << _board.at(i).coord << " (" << _board.at(i).piece->getType() << ") can reach " << kingPos << endl;
                 return (true);
-            }
         }
     }
     return (false);
