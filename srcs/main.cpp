@@ -30,13 +30,15 @@ int main(int argc, char **argv)
     //     "Qb2", "Kd1", "Bf1", "Rd2", "Rd7", "Rxd7", "Bxc4", "bxc4", "Qxh8", "Rd3", "Qa8",
     //     "c3", "Qa4", "Ke1", "f4", "f5", "Kc1", "Rd2", "Qa7"}; //
 
-    string game [] = {"Nf3", "Nf6", "c4", "g6", "Nc3", "Bg7", "d4", "O-O", "Bf4", "d5", 
-        "Qb3", "dxc4", "Qxc4", "c6", "e4", "Nbd7", "Rd1", "Nb6", "Qc5", "Bg4", "Bg5", 
-        "Na4", "Qa3", "Nxc3", "bxc3", "Nxe4", "Bxe7", "Qb6", "Bc4", "Nxc3", "Bc5", "Rfe8",
-        "Kf1", "Be6", "Bxb6","Bxc4", "Kg1", "Ne2", "Kf1", "Nxd4", "Kg1", "Ne2", "Kf1", "Nc3",
-        "Kg1", "axb6", "Qb4", "Ra4", "Qxb6", "Nxd1", "h3", "Rxa2", "Kh2", "Nxf2", "Re1", "Rxe1",
-        "Qd8", "Bf8", "Nxe1", "Bd5", "Nf3", "Ne4", "Qb8", "b5", "h4", "h5", "Ne5", "Kg7", "Kg1", "Bc5", "Kf1", "Ng3",
-        "Ke1", "Bb4", "Kd1", "Bb3", "Kc1", "Ne2", "Kb1", "Nc3", "Kc1", "Rc2"}; //
+    // string game [] = {"Nf3", "Nf6", "c4", "g6", "Nc3", "Bg7", "d4", "O-O", "Bf4", "d5", 
+    //     "Qb3", "dxc4", "Qxc4", "c6", "e4", "Nbd7", "Rd1", "Nb6", "Qc5", "Bg4", "Bg5", 
+    //     "Na4", "Qa3", "Nxc3", "bxc3", "Nxe4", "Bxe7", "Qb6", "Bc4", "Nxc3", "Bc5", "Rfe8",
+    //     "Kf1", "Be6", "Bxb6","Bxc4", "Kg1", "Ne2", "Kf1", "Nxd4", "Kg1", "Ne2", "Kf1", "Nc3",
+    //     "Kg1", "axb6", "Qb4", "Ra4", "Qxb6", "Nxd1", "h3", "Rxa2", "Kh2", "Nxf2", "Re1", "Rxe1",
+    //     "Qd8", "Bf8", "Nxe1", "Bd5", "Nf3", "Ne4", "Qb8", "b5", "h4", "h5", "Ne5", "Kg7", "Kg1", "Bc5", "Kf1", "Ng3",
+    //     "Ke1", "Bb4", "Kd1", "Bb3", "Kc1", "Ne2", "Kb1", "Nc3", "Kc1", "Rc2"}; //
+
+    string game [] = {"e4", "e5", "Qf3", "a6", "Bc4", "a5", "Qxf7"};
 
     int i = 0; //
 
@@ -53,9 +55,9 @@ int main(int argc, char **argv)
         while (board->isCheckMate() == false && board->isAllocated() == true)
         {
             board->announceEvent(1, checker.fail(), board->fail());
-            cout << ERASE_LINE << "> ";
-            getline(cin, input); //
-            // input = game[i]; //
+            // cout << ERASE_LINE << "> ";
+            // getline(cin, input); //
+            input = game[i]; //
             cout << "playing... " << input << endl;
         
             if (cin.fail() == true)
@@ -64,9 +66,9 @@ int main(int argc, char **argv)
             {
                 checker = input;
                 if (checker.fail() == true)
-                    exit(0);
+                    exit(0) ;
                 if (board->playMove(checker.getParsedMove()) == FAIL)
-                    exit(0);
+                    exit(0) ;
             }
             i++; //
             board->printBoard();

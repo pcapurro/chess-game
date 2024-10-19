@@ -61,15 +61,17 @@ vector<string>  chessBoard::getPossibleMoves(const string coord)
 
     atValue = getAtValue(coord);
     boardCoords = getPiecesCoords();
+    actualCoords = "a0";
     for (int i = 0; i != 64; i++)
     {
-        for (int k = 9; k != 1; k--)
+        for (int k = 0; k != 8; k++)
         {
-            actualCoords = "abcdefgh"[k] + to_string(i - 1);
+            actualCoords[1] = actualCoords[1] + 1;
             if (_board.at(i).piece->isOnMyWay(actualCoords, boardCoords) == true)
                 moves.push_back(coord + actualCoords);
-            actualCoords.clear();
         }
+        actualCoords[0] = actualCoords[0] + 1;
+        actualCoords[1] = '0';
     }
     return (moves);
 }
@@ -80,6 +82,7 @@ bool    chessBoard::isCheckMate(void)
     {
         vector<string>      sources;
 
+        cout << "checking checkmate..." << endl;
         for (int i = 0; i != 64; i++)
         {
             if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _color)
@@ -91,6 +94,8 @@ bool    chessBoard::isCheckMate(void)
                         return (false);
                 }
             }
+            else
+                cout << "piece at " << _board.at(i).coord << "doesn't exist or not same color" << endl;
             sources.clear();
         }
         cout << "checkmate" << endl;
