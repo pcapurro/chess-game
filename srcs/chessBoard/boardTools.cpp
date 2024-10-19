@@ -11,9 +11,21 @@ size_t  chessBoard::getAtValue(const string coord) const
     return (0);
 }
 
-int     chessBoard::getActualTurn(void) const
+int chessBoard::getActualTurn(void) const
 {
     return (_turn);
+}
+
+vector<string>  chessBoard::getPiecesCoords() const
+{
+    vector<string>  coords;
+
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL)
+            coords.push_back(_board.at(i).coord);
+    }
+    return (coords);
 }
 
 void    chessBoard::priseEnPassant(void)

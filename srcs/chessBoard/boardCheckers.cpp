@@ -101,6 +101,22 @@ bool    chessBoard::isCastlingPossible(void) const
     return (true);
 }
 
+bool    chessBoard::isTheDestinationSafe(void)
+{
+    vector<string>  coords;
+
+    coords = getPiecesCoords();
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
+        {
+            if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
+                return (false);
+        }
+    }
+    return (true);
+}
+
 bool    chessBoard::isRightSide(void)
 {
     int     atValue;
@@ -180,6 +196,9 @@ int chessBoard::checkPawnDestintation(void)
 
 int chessBoard::checkSource(void)
 {
+    vector<string>  coords;
+    
+    coords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
         if (_lastMove.src.find(_board.at(i).coord) != string::npos && _board.at(i).piece != NULL)
@@ -187,7 +206,7 @@ int chessBoard::checkSource(void)
             if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == _lastMove.obj)
             {
                 int type = _lastMove.obj;
-                if (type == 'P' || type == 'N' || type == 'K' || _board.at(i).piece->isOnMyWay(_lastMove.dest) == true)
+                if (type == 'P' || type == 'N' || type == 'K' || _board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
                     _lastMove.src = _lastMove.src + _board.at(i).coord;
             }
         }

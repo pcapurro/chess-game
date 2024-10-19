@@ -10,7 +10,7 @@ class King : public chessPiece
         King(const char type, const string color, const string pos) : chessPiece(type, color, pos) {}
         ~King() {};
 
-        virtual const bool  isOnMyWay(const string move) const
+        virtual const bool  isOnMyWay(const string move, const vector<string> boardCoords) const
         {
             return (false);
         }
