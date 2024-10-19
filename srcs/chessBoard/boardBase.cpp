@@ -79,13 +79,23 @@ int chessBoard::playMove(t_move move)
 {
     _lastMove = move;
 
+    cout << _lastMove.move << endl;
+    cout << _lastMove.obj << endl;
+    cout << _lastMove.action << endl;
+    cout << _lastMove.src << endl;
+    cout << _lastMove.dest << endl;
+
     if (_turn % 2 == 0)
         _color = "white";
     else
         _color = "black";
 
     if (isLegal() != true)
+    {
+        _moveFailed = true;
+        printIllegal();
         return (FAIL);
+    }
     else
     {
         if (_lastMove.dest == "O-O" || _lastMove.dest == "O-O-O")

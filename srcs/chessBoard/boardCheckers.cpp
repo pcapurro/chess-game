@@ -109,8 +109,7 @@ bool    chessBoard::isRightSide(const string src)
     if (_board.at(atValue).piece == NULL
         || _board.at(atValue).piece->getColor() == _color)
         return (true);
-    _moveFailed = true;
-    printIllegal();
+    cout << "not right side" << endl;
     return (false);
 }
 
@@ -121,6 +120,7 @@ bool    chessBoard::isThereSomething(const string dest)
     atValue = getAtValue(dest);
     if (_board.at(atValue).piece != NULL)
         return (true);
+    cout << "there is nothing there" << endl;
     return (false);
 }
 
@@ -131,6 +131,7 @@ bool    chessBoard::isThereAttacker(void)
     atValue = getAtValue(_lastMove.src);
     if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getType() == _lastMove.obj)
         return (true);
+    cout << "there is no attacker" << endl;
     return (false);
 }
 
@@ -141,6 +142,7 @@ bool    chessBoard::isThereAlly(const string dest)
     atValue = getAtValue(dest);
     if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == _color)
         return (true);
+    cout << "there is ally on dest" << endl;
     return (false);
 }
 
@@ -193,11 +195,9 @@ int chessBoard::checkSource(void)
 
     if (_lastMove.src.length() != 2)
     {
-        printIllegal();
-        _moveFailed = true;
+        cout << "no src or multiple srcs" << endl;
         return (FAIL);
     }
-    _moveFailed = false;
     return (SUCCESS);
 }
 
@@ -208,15 +208,12 @@ bool    chessBoard::isThereValidDestintation(void)
     {
         if (checkPawnDestintation() == FAIL)
         {
-            _moveFailed = true;
-            printIllegal();
+            cout << "no valid dest (p)" << endl;
             return (false);
         }
     }
     else if (checkSource() == FAIL)
     {
-        _moveFailed = true;
-        printIllegal();
         return (false);
     }
     return (true);
@@ -232,7 +229,10 @@ bool    chessBoard::isItValidDestination(void)
             if (_enPassant == false || _enPassantDest != _lastMove.dest)
             {
                 if (_board.at(atValue).piece == NULL)
+                {
+                    cout << "no valid dest" << endl;
                     return (false);
+                }
             }
         }
     }
@@ -245,8 +245,7 @@ bool    chessBoard::isLegal(void)
     {
         if (isCastlingPossible() != true)
         {
-            printIllegal();
-            _moveFailed = true;
+            cout << "no castling possible" << endl;
             return (false);
         }
     }
