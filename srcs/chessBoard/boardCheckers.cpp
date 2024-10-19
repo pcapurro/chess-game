@@ -101,11 +101,11 @@ bool    chessBoard::isCastlingPossible(void) const
     return (true);
 }
 
-bool    chessBoard::isRightSide(const string src)
+bool    chessBoard::isRightSide(void)
 {
     int     atValue;
 
-    atValue = getAtValue(src);
+    atValue = getAtValue(_lastMove.src);
     if (_board.at(atValue).piece == NULL
         || _board.at(atValue).piece->getColor() == _color)
         return (true);
@@ -135,11 +135,11 @@ bool    chessBoard::isThereAttacker(void)
     return (false);
 }
 
-bool    chessBoard::isThereAlly(const string dest)
+bool    chessBoard::isThereAlly(void)
 {
     int     atValue;
 
-    atValue = getAtValue(dest);
+    atValue = getAtValue(_lastMove.dest);
     if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == _color)
         return (true);
     cout << "there is ally on dest" << endl;
@@ -203,7 +203,6 @@ int chessBoard::checkSource(void)
 
 bool    chessBoard::isThereValidDestintation(void)
 {
-    _lastMove.src.clear();
     if (_lastMove.obj == 'P')
     {
         if (checkPawnDestintation() == FAIL)
@@ -268,7 +267,7 @@ bool    chessBoard::isLegal(void)
                 || isThereAttacker() != true)
                 return (false);
         }
-        if (isThereAlly(_lastMove.dest) == true || isRightSide(_lastMove.src) == false
+        if (isThereAlly() == true || isRightSide() == false
             || (_lastMove.obj == 'K' && isTheDestinationSafe() == false))
             return (false);
     }

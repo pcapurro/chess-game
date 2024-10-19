@@ -222,7 +222,6 @@ void    algebraicParser::parseUniqueSequence(void)
     vector<string>  coords;
     int i = 0;
 
-    _move.action = '>';
     if (isChessCoord(_move.move[0]) == true)
         coords = getPawnSequence(_move.move, _turn, 'i'), _move.obj = 'P';
     else
@@ -282,6 +281,7 @@ void    algebraicParser::parseMove(void)
     _move.src.clear();
     _move.dest.clear();
 
+    _move.action = '>';
     if (_move.move == "O-O" || _move.move == "O-O-O")
         _move.obj = 'R', _move.src = "", _move.dest = _move.move;
     else

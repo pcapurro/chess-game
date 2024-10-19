@@ -44,6 +44,8 @@ class chessBoard
 
     private:
 
+        void    setTurn(void);
+
         bool    checkBoardAllocation(void) const;
 
         void    initRooksKnights(void);
@@ -54,9 +56,10 @@ class chessBoard
         size_t  getAtValue(const string coord) const;
 
         void    promotePiece(const string initialCoord, char pieceType);
-        void    removePiece(const string coord);
-        void    priseEnPassant(const string initialCoord, const string newCoord);
         void    movePiece(const string initialCoord, const string newCoord);
+        void    removePiece(const string coord);
+
+        void    priseEnPassant(void);
         
         void    whiteCastles(void);
         void    blackCastles(void);
@@ -70,9 +73,10 @@ class chessBoard
         bool    isThereValidDestintation(void);
         bool    isItValidDestination(void);
         
-        bool    isThereAlly(const string coord);
-        bool    isRightSide(const string coord);
+        bool    isThereAlly(void);
+        bool    isRightSide(void);
         bool    isThereAttacker(void);
+
         bool    isThereSomething(const string coord);
 
         bool    isOnPawnPath(const string src, const string dest);

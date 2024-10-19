@@ -75,21 +75,18 @@ void    chessBoard::enableDisableEnPassant(void)
     }
 }
 
-int chessBoard::playMove(t_move move)
+void    chessBoard::setTurn(void)
 {
-    _lastMove = move;
-
-    cout << _lastMove.move << endl;
-    cout << _lastMove.obj << endl;
-    cout << _lastMove.action << endl;
-    cout << _lastMove.src << endl;
-    cout << _lastMove.dest << endl;
-
     if (_turn % 2 == 0)
         _color = "white";
     else
         _color = "black";
+}
 
+int chessBoard::playMove(t_move move)
+{
+    _lastMove = move;
+    setTurn();
     if (isLegal() != true)
     {
         _moveFailed = true;
@@ -109,7 +106,7 @@ int chessBoard::playMove(t_move move)
         {
             if (_lastMove.action == 'x' && isThereSomething(_lastMove.dest) != true
                 && _enPassant == true && _enPassantDest == _lastMove.dest)
-                priseEnPassant(_lastMove.src, _lastMove.dest);
+                priseEnPassant();
             else
             {
                 movePiece(_lastMove.src, _lastMove.dest);
@@ -118,7 +115,6 @@ int chessBoard::playMove(t_move move)
             }
         }
         enableDisableEnPassant();
-
         announceEvent(2, false, false, _lastMove.move);
         _turn++;
     }

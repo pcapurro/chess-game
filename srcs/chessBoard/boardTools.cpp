@@ -16,7 +16,7 @@ int     chessBoard::getActualTurn(void) const
     return (_turn);
 }
 
-void    chessBoard::priseEnPassant(const string initialCoord, const string newCoord)
+void    chessBoard::priseEnPassant(void)
 {
     chessPiece  *piece;
     size_t      atValue;
@@ -24,17 +24,17 @@ void    chessBoard::priseEnPassant(const string initialCoord, const string newCo
     
     cout << "doing prise en passant..." << endl;
 
-    atValue = getAtValue(initialCoord); 
+    atValue = getAtValue(_lastMove.src); 
     piece = _board.at(atValue).piece;
     _board.at(atValue).piece = NULL;
 
-    atValue = getAtValue(newCoord);
+    atValue = getAtValue(_lastMove.dest);
     _board.at(atValue).piece = piece;
     _board.at(atValue).piece->move();
 
-    cout << "moving piece from " << initialCoord << " to " << newCoord << endl;
+    cout << "moving piece from " << _lastMove.src << " to " << _lastMove.dest << endl;
 
-    newCoordUpdated = newCoord;
+    newCoordUpdated = _lastMove.dest;
     if (_color == "white")
         newCoordUpdated[1] = newCoordUpdated[1] - 1;
     if (_color == "black")
