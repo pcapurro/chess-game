@@ -209,6 +209,7 @@ int chessBoard::checkSource(void)
             if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == _lastMove.obj)
             {
                 int type = _lastMove.obj;
+                cout << _board.at(i).coord << " is ok coord" << endl;
                 if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
                     _lastMove.src = _lastMove.src + _board.at(i).coord;
             }
@@ -218,6 +219,7 @@ int chessBoard::checkSource(void)
     if (_lastMove.src.length() != 2)
     {
         cout << "no src or multiple srcs" << endl;
+        cout << "srcs > " << _lastMove.src << endl;
         return (FAIL);
     }
     return (SUCCESS);

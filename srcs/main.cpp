@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 
         while (board->isCheckMate() == false && board->isAllocated() == true)
         {
+            board->printBoard();
             board->announceEvent(1, checker.fail(), board->fail());
             cout << ERASE_LINE << "> ";
             getline(cin, input);
@@ -48,7 +49,6 @@ int main(int argc, char **argv)
                     continue ;
             }
             checker.setTurn(board->getActualTurn());
-            board->printBoard();
         }
         board->announceEvent(5);
         delete board;
