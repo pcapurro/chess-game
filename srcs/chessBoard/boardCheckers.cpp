@@ -93,8 +93,10 @@ bool    chessBoard::isCheckMate(void)
             }
             sources.clear();
         }
+        return (true);
     }
-    return (true);
+    cout << "checkmate" << endl;
+    return (false);
 }
 
 bool    chessBoard::isCastlingPossible(void) const
