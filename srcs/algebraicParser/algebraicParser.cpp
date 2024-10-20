@@ -45,7 +45,7 @@ bool    algebraicParser::isValidChar(void) const
 {
     string  dictionnary;
 
-    dictionnary = "KQRBNabcdefgh12345678xO-";
+    dictionnary = "KQRBNabcdefgh12345678xO-#+";
     for (int i = 0; _move.move[i] != '\0'; i++)
     {
         if (dictionnary.find(_move.move[i]) > dictionnary.length())
@@ -114,17 +114,24 @@ bool    algebraicParser::isValidComplexSequence(void) const
 
 bool    algebraicParser::isValidSimpleSequence(void) const
 {
-    if (_move.move.length() == 1)
+    string  sequence;
+
+    sequence = _move.move;
+
+    if (sequence[sequence.length() - 1] == '#' || sequence[sequence.length() - 1] == '+')
+        sequence.erase(sequence.length() - 1);
+
+    if (_move.move.length() <= 1)
         return (false);
 
     int d_count = 0, p_count = 0, l_count = 0;
-    for (int i = 0; _move.move.c_str()[i] != '\0'; i++)
+    for (int i = 0; sequence.c_str()[i] != '\0'; i++)
     {
-        if (isChessDigit(_move.move[i]) == true)
+        if (isChessDigit(sequence[i]) == true)
             d_count++;
-        if (isChessPiece(_move.move[i]) == true)
+        if (isChessPiece(sequence[i]) == true)
             p_count++;
-        if (isChessCoord(_move.move[i]) == true)
+        if (isChessCoord(sequence[i]) == true)
             l_count++;
     }
     if (d_count == 0 || d_count > 2
@@ -132,30 +139,31 @@ bool    algebraicParser::isValidSimpleSequence(void) const
         || l_count > 2)
         return (false);
 
-    if (_move.move.length() == 2)
+
+    if (sequence.length() == 2)
     {
-        if (isChessCoord(_move.move[0]) == true && isChessDigit(_move.move[1]) == true)
+        if (isChessCoord(sequence[0]) == true && isChessDigit(sequence[1]) == true)
         {
-            if (_move.move[1] == '8' || _move.move[1] == '1')
+            if (sequence[1] == '8' || sequence[1] == '1')
                 return (false);
             return (true);
         }
     }
-    if (_move.move.length() == 3)
+    if (sequence.length() == 3)
     {
-        if (isChessCoord(_move.move[0]) == true && _move.move[1] == '8')
+        if (isChessCoord(sequence[0]) == true && sequence[1] == '8')
         {
-            if (isChessPiece(_move.move[2]) == true && _move.move[2] != 'K')
+            if (isChessPiece(sequence[2]) == true && sequence[2] != 'K')
                 return (true);
         }
-        if (isChessPiece(_move.move[0]) == true && isChessCoord(_move.move[1]) == true
-            && isChessDigit(_move.move[2]) == true)
+        if (isChessPiece(sequence[0]) == true && isChessCoord(sequence[1]) == true
+            && isChessDigit(sequence[2]) == true)
             return (true);
     }
-    if (_move.move.length() == 4)
+    if (sequence.length() == 4)
     {
-        if (isChessPiece(_move.move[0]) == true && isChessCoord(_move.move[1]) == true
-            && isChessCoord(_move.move[2]) == true && isChessDigit(_move.move[3]) == true)
+        if (isChessPiece(sequence[0]) == true && isChessCoord(sequence[1]) == true
+            && isChessCoord(sequence[2]) == true && isChessDigit(sequence[3]) == true)
             return (true);
     }
     return (false);
@@ -264,6 +272,13 @@ bool    algebraicParser::isValidSequence(void) const
     }
     else
     {
+        if (count(_move.move.begin(), _move.move.end(), '#') != 0 && count(_move.move.begin(), _move.move.end(), '#') != 1)
+            return (false);
+        if (count(_move.move.begin(), _move.move.end(), '+') != 0 && count(_move.move.begin(), _move.move.end(), '+') != 1)
+            return (false);
+        if (_move.move[_move.move.length() - 1] != '#' && _move.move[_move.move.length() - 1] != '+')
+            return (false);
+
         if (count(_move.move.begin(), _move.move.end(), 'x') != 0 || count(_move.move.begin(), _move.move.end(), '-') != 0)
         {
             if (isValidComplexSequence() == true)
@@ -286,6 +301,10 @@ void    algebraicParser::parseMove(void)
         _move.obj = 'R', _move.src = "", _move.dest = _move.move;
     else
     {
+        if (count(_move.move.begin(), _move.move.end(), '#') != 0
+            || count(_move.move.begin(), _move.move.end(), '+') != 0)
+            _move.move.erase(_move.move.length() - 1);
+
         if (count(_move.move.begin(), _move.move.end(), 'x') != 0
             || count(_move.move.begin(), _move.move.end(), '-') != 0)
             parseDoubleSequence();

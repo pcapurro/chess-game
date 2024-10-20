@@ -49,6 +49,8 @@ string  algebraicParser::getRightSequence(void) const
             break ;
         }
     }
+    if (right[right.length() - 1] == '#' || right[right.length() - 1] == '+')
+        right.erase(right.length() - 1);
     return (right);
 }
 
