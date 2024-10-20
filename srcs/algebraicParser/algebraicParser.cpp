@@ -150,7 +150,7 @@ bool    algebraicParser::isValidSimpleSequence(void) const
     }
     if (sequence.length() == 3)
     {
-        if (isChessCoord(sequence[0]) == true && sequence[1] == '8')
+        if (isChessCoord(sequence[0]) == true && (sequence[1] == '8' || sequence[1] == '1'))
         {
             if (isChessPiece(sequence[2]) == true && sequence[2] != 'K')
                 return (true);
