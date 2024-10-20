@@ -58,7 +58,7 @@ int main(int argc, char **argv)
             board->printBoard();
             cout << ERASE_LINE << "> ";
              getline(cin, input); //
-            //input = game[i]; //
+            // input = game[i]; //
             cout << "playing... " << input << endl;
         
             if (cin.fail() == true)

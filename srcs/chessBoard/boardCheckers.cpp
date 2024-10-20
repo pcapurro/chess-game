@@ -3,7 +3,7 @@
 void    chessBoard::printIllegal(void) const
 {
     // cout << "\033[2A" << ERASE_LINE;
-    // cerr << YELLOW << "Illegal move. " << COLOR_E;
+    cerr << YELLOW << "Illegal move. " << COLOR_E;
 }
 
 bool    chessBoard::fail(void) const
@@ -470,8 +470,11 @@ bool    chessBoard::isLegal(void)
                 return (false);
         }
 
-        if (_lastMove.src.length() != 2 && isThereValidSource() == false)
-            return (false);
+        if (_lastMove.src.length() != 2)
+        {
+            if (isThereValidSource() == false)
+                return (false);
+        }
         else if (isItValidSource() == false)
             return (false);
 
