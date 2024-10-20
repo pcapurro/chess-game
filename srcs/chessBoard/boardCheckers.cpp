@@ -323,8 +323,11 @@ bool    chessBoard::isTheDestinationSafe(void)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
         {
-            if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords) == true)
+            if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords, 1) == true)
+            {
+                cout << _board.at(i).coord << " threat" << endl;
                 return (false);
+            }
         }
     }
     return (true);
@@ -497,9 +500,14 @@ bool    chessBoard::isLegal(void)
                 || isThereAttacker() == false)
                 return (false);
         }
+
+        cout << "ok" << endl;
+
         if (isThereAlly() == true || isRightSide() == false
             || (_lastMove.obj == 'K' && isTheDestinationSafe() == false))
             return (false);
+
+        cout << "ok" << endl;
 
         if (isCheck() == false && doesItResolveCheck(_lastMove.src + _lastMove.dest) == false)
             return (false);
