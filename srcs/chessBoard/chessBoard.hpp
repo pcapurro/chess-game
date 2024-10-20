@@ -84,8 +84,12 @@ class chessBoard
 
         bool    doesItResolveCheck(const string srcdest);
         bool    isCheck(void);
-        bool    isDraw(void);
         bool    isCheckMate(void);
+
+        bool    isDraw(void);
+        bool    canTheKingMove(void);
+        bool    canAnAllyPieceMove(void);
+        bool    isCheckMateImpossible(void);
 
         vector<string>      getPossibleMoves(const string coord);
         vector<string>      getPiecesCoords() const;

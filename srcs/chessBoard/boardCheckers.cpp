@@ -34,47 +34,72 @@ bool    chessBoard::isCheck(void)
     return (false);
 }
 
+bool    chessBoard::canAnAllyPieceMove(void)
+{
+    string          kingColor;
+    vector<string>  boardCoords;
+
+    boardCoords = getPiecesCoords();
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == kingColor
+            && _board.at(i).piece->getType() != 'K')
+        {
+            for (int k = 0; k != 64; k++)
+            {
+                if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords) == true)
+                    return (true);
+            }
+        }
+    }
+    return (false);
+}
+
+bool    chessBoard::isCheckMateImpossible(void)
+{
+    return (false);
+}
+
+bool    chessBoard::canTheKingMove(void)
+{
+    int             kingPos;
+    string          kingColor;
+    vector<string>  boardCoords;
+
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _color)
+            kingPos = i, kingColor = _board.at(i).piece->getColor();
+    }
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(kingPos).piece->isOnMyWay(_board.at(i).coord, boardCoords) == true)
+        {
+            boardCoords = getPiecesCoords();
+            if ((_board.at(i).piece == NULL || _board.at(i).piece->getColor() != kingColor)
+                && doesItResolveCheck(_board.at(kingPos).coord + _board.at(i).coord) == true)
+                return (true);
+        }
+    }
+    return (false);
+}
+
 bool    chessBoard::isDraw(void)
 {
     if (isCheck() == false)
     {
-        int             kingPos;
-        string          kingColor;
-        vector<string>  boardCoords;
-
-        for (int i = 0; i != 64; i++)
+        if (isCheckMateImpossible() == true || (canTheKingMove() == false && canAnAllyPieceMove() == false))
         {
-            if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _color)
-                kingPos = i, kingColor = _board.at(i).piece->getColor();
+            cout << "draw" << endl;
+            return (true);
         }
-        for (int i = 0; i != 64; i++)
-        {
-            if (_board.at(kingPos).piece->isOnMyWay(_board.at(i).coord, boardCoords) == true)
-            {
-                boardCoords = getPiecesCoords();
-                if ((_board.at(i).piece == NULL || _board.at(i).piece->getColor() != kingColor)
-                    && doesItResolveCheck(_board.at(kingPos).coord + _board.at(i).coord) == true)
-                    return (false);
-            }
-        }
-        boardCoords = getPiecesCoords();
-        for (int i = 0; i != 64; i++)
-        {
-            if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == kingColor
-                && i != kingPos)
-            {
-                for (int k = 0; k != 64; k++)
-                {
-                    if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords) == true)
-                        return (false);
-                }
-            }
-        }
-        cout << "draw" << endl;
-        return (true);
     }
     return (false);
 }
+
+// 1. si il ne reste que un/deux cavalier et le roi
+// 2. si il ne reste que un fou et le roi
+// 3. si il ne reste que le roi v
 
 bool    chessBoard::doesItResolveCheck(const string srcdest)
 {
