@@ -38,7 +38,7 @@ bool    chessBoard::canAnyAllyPieceMove(void)
 {
     vector<string>  boardCoords;
 
-    boardCoords = getPiecesCoords(1);
+    boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _color
@@ -193,7 +193,7 @@ vector<string>  chessBoard::getPossibleMoves(const string coord)
     string          actualCoords;
 
     atValue = getAtValue(coord);
-    boardCoords = getPiecesCoords(1);
+    boardCoords = getPiecesCoords();
     actualCoords = "a0";
     for (int i = 0; i != 64; i++)
     {

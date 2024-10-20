@@ -122,7 +122,7 @@ class chessBoard
         void    enableDisableEnPassant(void);
 
         vector<string>      getPossibleMoves(const string coord);
-        vector<string>      getPiecesCoords(const int value = 0) const;
+        vector<string>      getPiecesCoords(void) const;
 
         vector<t_square>    _board;
         bool                _allocated;
