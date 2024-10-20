@@ -73,6 +73,11 @@ bool    chessBoard::isCheckMateImpossible(void)
 
     if (_boardCount.whiteKing + _boardCount.blackKing
         + _boardCount.whiteKnight + _boardCount.blackKnight
+        == 4 && 4 == _boardCount.total)
+        return (true);
+
+    if (_boardCount.whiteKing + _boardCount.blackKing
+        + _boardCount.whiteKnight + _boardCount.blackKnight
         == 3 && 3 == _boardCount.total)
         return (true);
 
@@ -102,6 +107,9 @@ bool    chessBoard::isCheckMateImpossible(void)
             changeColor();
         }
     }
+
+    cout << "checkmate possible" << endl;
+
     return (false);
 }
 

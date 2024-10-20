@@ -53,17 +53,18 @@ void    chessBoard::initBoard(void)
         for (int k = 0; k != 8; k++)
         {
             string coord = "abcdefgh"[i] + to_string(k + 1);
-            if (coord != "e4" && coord != "e5" && coord != "e1" && coord != "h8" && coord != "a1")
+            if (k + 1 == 2)
+                _board.push_back({new Pawn('P', "white", coord), coord});
+            if (k + 1 == 7)
+                _board.push_back({new Pawn('P', "black", coord), coord});
+            
+            if (k + 1 >= 3 && k + 1 <= 6)
                 _board.push_back({NULL, coord});
         }
     }
-    _board.push_back({new Queen('Q', "white", "e1"), "e1"});
-    _board.push_back({new King('K', "white", "a1"), "a1"});
-
-    _board.push_back({new Pawn('P', "black", "e5"), "e5"});
-    _board.push_back({new Pawn('P', "white", "e4"), "e4"});
-
-    _board.push_back({new King('K', "black", "h8"), "h8"});
+    initRooksKnights();
+    initBishops();
+    initQueensKings();
 }
 
     // for (int i = 0; i != 8; i++)
