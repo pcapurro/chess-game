@@ -511,6 +511,9 @@ bool    chessBoard::isLegal(void)
             || (_lastMove.obj == 'K' && isTheDestinationSafe() == false))
             return (false);
 
+        if (isCheck() == false && doesItResolveCheck(_lastMove.src + _lastMove.dest) == false)
+            return (false);
+
         if (isCheck() == true 
             && doesItResolveCheck(_lastMove.src + _lastMove.dest) == false)
             return (false);
