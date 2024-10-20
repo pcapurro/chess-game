@@ -55,6 +55,7 @@ int main(int argc, char **argv)
         while (board->isGameOver() == false)
         {
             board->announceEvent(1, checker.fail(), board->fail());
+            board->printBoard();
             cout << ERASE_LINE << "> ";
             getline(cin, input); //
             // input = game[i]; //
@@ -71,7 +72,6 @@ int main(int argc, char **argv)
                     exit(0) ;
             }
             i++; //
-            board->printBoard();
             checker.setTurn(board->getActualTurn());
         }
         board->announceEvent(5);

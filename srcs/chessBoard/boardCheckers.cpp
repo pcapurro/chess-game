@@ -42,7 +42,6 @@ bool    chessBoard::isDraw(void)
         string          kingColor;
         vector<string>  boardCoords;
 
-        boardCoords = getPiecesCoords();
         for (int i = 0; i != 64; i++)
         {
             if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _color)
@@ -52,14 +51,17 @@ bool    chessBoard::isDraw(void)
         {
             if (_board.at(kingPos).piece->isOnMyWay(_board.at(i).coord, boardCoords) == true)
             {
+                boardCoords = getPiecesCoords();
                 if ((_board.at(i).piece == NULL || _board.at(i).piece->getColor() != kingColor)
                     && doesItResolveCheck(_board.at(kingPos).coord + _board.at(i).coord) == true)
                     return (false);
             }
         }
+        boardCoords = getPiecesCoords();
         for (int i = 0; i != 64; i++)
         {
-            if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == kingColor)
+            if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == kingColor
+                && i != kingPos)
             {
                 for (int k = 0; k != 64; k++)
                 {
@@ -68,6 +70,7 @@ bool    chessBoard::isDraw(void)
                 }
             }
         }
+        cout << "draw" << endl;
         return (true);
     }
     return (false);
