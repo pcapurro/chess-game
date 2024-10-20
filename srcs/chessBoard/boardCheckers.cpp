@@ -46,7 +46,8 @@ bool    chessBoard::canAnyAllyPieceMove(void)
         {
             for (int k = 0; k != 64; k++)
             {
-                if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords) == true)
+                if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords) == true
+                    && doesItResolveCheck(_board.at(i).coord + _board.at(k).coord) == true)
                     return (true);
             }
         }
