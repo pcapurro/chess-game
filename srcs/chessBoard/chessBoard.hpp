@@ -113,7 +113,7 @@ class chessBoard
 
         bool    isDraw(void);
         bool    canTheKingMove(void);
-        bool    canAnAllyPieceMove(void);
+        bool    canAnyAllyPieceMove(void);
         bool    isCheckMateImpossible(void);
 
         vector<string>      getPossibleMoves(const string coord);

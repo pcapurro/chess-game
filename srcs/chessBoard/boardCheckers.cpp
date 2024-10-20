@@ -34,15 +34,14 @@ bool    chessBoard::isCheck(void)
     return (false);
 }
 
-bool    chessBoard::canAnAllyPieceMove(void)
+bool    chessBoard::canAnyAllyPieceMove(void)
 {
-    string          kingColor;
     vector<string>  boardCoords;
 
     boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == kingColor
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _color
             && _board.at(i).piece->getType() != 'K')
         {
             for (int k = 0; k != 64; k++)
@@ -87,10 +86,10 @@ bool    chessBoard::isCheckMateImpossible(void)
         && _boardCount.whiteBishop == 0 && _boardCount.blackBishop == 0
         && _boardCount.whiteQueen == 0 && _boardCount.blackQueen == 0)
     {
-        if (canAnAllyPieceMove() == false)
+        if (canAnyAllyPieceMove() == false)
         {
             changeColor();
-            if (canAnAllyPieceMove() == false)
+            if (canAnyAllyPieceMove() == false)
             {
                 changeColor();
                 return (true);
@@ -100,15 +99,6 @@ bool    chessBoard::isCheckMateImpossible(void)
     }
     return (false);
 }
-
-// si restant :
-// - les deux rois v
-// - les deux rois et aucun pion ne peut bouger v
-// - les deux rois et 2 cavaliers chacun v
-// - les deux rois et 1 cavalier chacun v
-// - les deux rois et 1 cavalier pour un v
-// - les deux rois et un fou chacun v
-// - les deux rois et un fou pour un v
 
 bool    chessBoard::canTheKingMove(void)
 {
@@ -138,7 +128,7 @@ bool    chessBoard::isDraw(void)
 {
     if (isCheck() == false)
     {
-        if (isCheckMateImpossible() == true || (canTheKingMove() == false && canAnAllyPieceMove() == false))
+        if (isCheckMateImpossible() == true || (canTheKingMove() == false && canAnyAllyPieceMove() == false))
         {
             cout << "draw" << endl;
             return (true);
