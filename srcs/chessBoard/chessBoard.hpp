@@ -92,11 +92,11 @@ class chessBoard
         void    printIllegal(void) const;
         bool    isLegal(void);
 
-        int     checkSource(void);
-        int     checkPawnDestintation(void);
+        int     checkNormalSource(void);
+        int     checkPawnSource(void);
         
-        bool    isThereValidDestintation(void);
-        bool    isItValidDestination(void);
+        bool    isThereValidSource(void);
+        bool    isItValidSource(void);
 
         bool    isThereSomething(const string coord) const;
         

@@ -380,39 +380,36 @@ bool    chessBoard::isThereAlly(void)
     return (false);
 }
 
-int chessBoard::checkPawnDestintation(void)
+int chessBoard::checkPawnSource(void)
 {
     int     atValue;
     string  source;
 
     atValue = getAtValue(_lastMove.dest);
-    if (_board.at(atValue).piece == NULL)
+    for (int i = 0; i != _lastMove.src.length(); i++)
     {
-        for (int i = 0; i != _lastMove.src.length(); i++)
+        source = source + _lastMove.src.at(i);
+        if (source.length() == 2)
         {
-            source = source + _lastMove.src.at(i);
-            if (source.length() == 2)
+            cout << "checking source > " << source << endl;
+            if (_board.at(getAtValue(source)).piece != NULL
+                && _board.at(getAtValue(source)).piece->getType() == 'P')
             {
-                if (source[0] == _lastMove.dest[0]
-                    && _board.at(getAtValue(source)).piece != NULL
-                    && _board.at(getAtValue(source)).piece->getType() == 'P')
-                {
-                    if (source[1] == _lastMove.dest[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
-                        return (FAIL);
-                    if (source[1] == _lastMove.dest[1] + 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
-                        return (FAIL);
-                    _lastMove.src = source;
-                    return (SUCCESS);
-                }
-                else
-                    source.clear();
+                if (source[1] == _lastMove.dest[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
+                    return (FAIL);
+                if (source[1] == _lastMove.dest[1] + 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
+                    return (FAIL);
+                _lastMove.src = source;
+                return (SUCCESS);
             }
+            else
+                source.clear();
         }
     }
     return (FAIL);
 }
 
-int chessBoard::checkSource(void)
+int chessBoard::checkNormalSource(void)
 {
     vector<string>  boardCoords;
     string          source;
@@ -438,21 +435,19 @@ int chessBoard::checkSource(void)
     return (SUCCESS);
 }
 
-bool    chessBoard::isThereValidDestintation(void)
+bool    chessBoard::isThereValidSource(void)
 {
     if (_lastMove.obj == 'P')
     {
-        if (checkPawnDestintation() == FAIL)
+        if (checkPawnSource() == FAIL)
             return (false);
     }
-    else if (checkSource() == FAIL)
-    {
+    else if (checkNormalSource() == FAIL)
         return (false);
-    }
     return (true);
 }
 
-bool    chessBoard::isItValidDestination(void)
+bool    chessBoard::isItValidSource(void)
 {
     if (_lastMove.obj == 'P')
     {
@@ -497,23 +492,19 @@ bool    chessBoard::isLegal(void)
 
         if (_lastMove.src.length() != 2)
         {
-            if (isThereValidDestintation() == false)
+            if (isThereValidSource() == false)
                 return (false);
         }
         else
         {
-            if (isItValidDestination() == false
+            if (isItValidSource() == false
                 || isThereAttacker() == false)
                 return (false);
         }
 
-        cout << "ok" << endl;
-
         if (isThereAlly() == true || isRightSide() == false
             || (_lastMove.obj == 'K' && isTheDestinationSafe() == false))
             return (false);
-
-        cout << "ok" << endl;
 
         if (isCheck() == false && doesItResolveCheck(_lastMove.src + _lastMove.dest) == false)
             return (false);
