@@ -34,6 +34,30 @@ bool    chessBoard::isCheck(void)
     return (false);
 }
 
+bool    chessBoard::isDraw(void)
+{
+    if (isCheck() == false)
+    {
+        int             kingPos;
+        string          kingColor;
+        vector<string>  boardCoords;
+
+        boardCoords = getPiecesCoords();
+        for (int i = 0; i != 64; i++)
+        {
+            if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _color)
+                kingPos = i, kingColor = _board.at(i).piece->getColor();
+        }
+        for (int i = 0; i != 64; i++)
+        {
+            if (_board.at(kingPos).piece->isOnMyWay(_board.at(i).coord, boardCoords) == true)
+                return (false);
+        }
+        return (true);
+    }
+    return (false);
+}
+
 bool    chessBoard::doesItResolveCheck(const string srcdest)
 {
     int         atValueSrc;
@@ -346,6 +370,17 @@ bool    chessBoard::isItValidDestination(void)
         }
     }
     return (true);
+}
+
+bool    chessBoard::isGameOver(void)
+{
+    if (isAllocated() == false)
+        return (true);
+    if (isCheckMate() == true)
+        return (true);
+    if (isDraw() == true)
+        return (true);
+    return (false);
 }
 
 bool    chessBoard::isLegal(void)

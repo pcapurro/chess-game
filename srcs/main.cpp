@@ -52,7 +52,7 @@ int main(int argc, char **argv)
         string          input;
         algebraicParser checker;
 
-        while (board->isCheckMate() == false && board->isAllocated() == true)
+        while (board->isGameOver() == false)
         {
             board->announceEvent(1, checker.fail(), board->fail());
             cout << ERASE_LINE << "> ";

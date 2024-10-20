@@ -29,12 +29,12 @@ class chessBoard
         chessBoard(void);
         ~chessBoard(void);
 
-        bool    isAllocated(void) const;
         bool    fail(void) const;
+        bool    isAllocated(void) const;
 
         int     getActualTurn(void) const;
 
-        bool    isCheckMate();
+        bool    isGameOver(void);
         int     playMove(t_move move);
 
         void    announceEvent(const int value, const bool cfail = false, \
@@ -84,6 +84,8 @@ class chessBoard
 
         bool    doesItResolveCheck(const string srcdest);
         bool    isCheck(void);
+        bool    isDraw(void);
+        bool    isCheckMate(void);
 
         vector<string>      getPossibleMoves(const string coord);
         vector<string>      getPiecesCoords() const;
