@@ -120,7 +120,7 @@ bool    algebraicParser::isValidSimpleSequence(void) const
 
     if (sequence[sequence.length() - 1] == '#' || sequence[sequence.length() - 1] == '+')
         sequence.erase(sequence.length() - 1);
-
+    
     if (_move.move.length() <= 1)
         return (false);
 
@@ -138,7 +138,6 @@ bool    algebraicParser::isValidSimpleSequence(void) const
         || p_count > 2 || l_count == 0
         || l_count > 2)
         return (false);
-
 
     if (sequence.length() == 2)
     {
@@ -272,12 +271,15 @@ bool    algebraicParser::isValidSequence(void) const
     }
     else
     {
-        if (count(_move.move.begin(), _move.move.end(), '#') != 0 && count(_move.move.begin(), _move.move.end(), '#') != 1)
-            return (false);
-        if (count(_move.move.begin(), _move.move.end(), '+') != 0 && count(_move.move.begin(), _move.move.end(), '+') != 1)
-            return (false);
-        if (_move.move[_move.move.length() - 1] != '#' && _move.move[_move.move.length() - 1] != '+')
-            return (false);
+        if (count(_move.move.begin(), _move.move.end(), '#') != 0 || count(_move.move.begin(), _move.move.end(), '+') != 0)
+        {
+            if (count(_move.move.begin(), _move.move.end(), '#') != 0 && count(_move.move.begin(), _move.move.end(), '#') != 1)
+                return (false);
+            if (count(_move.move.begin(), _move.move.end(), '+') != 0 && count(_move.move.begin(), _move.move.end(), '+') != 1)
+                return (false);
+            if (_move.move[_move.move.length() - 1] != '#' && _move.move[_move.move.length() - 1] != '+')
+                return (false);
+        }
 
         if (count(_move.move.begin(), _move.move.end(), 'x') != 0 || count(_move.move.begin(), _move.move.end(), '-') != 0)
         {
