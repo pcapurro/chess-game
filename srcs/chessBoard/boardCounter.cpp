@@ -15,38 +15,38 @@ void    chessBoard::countPiecesOnBoard(void)
 
             if (_board.at(i).piece->getType() == 'Q'
                 && _board.at(i).piece->getColor() == "white")
-                _boardCount.whiteKing++;
+                _boardCount.whiteQueen++;
             if (_board.at(i).piece->getType() == 'Q'
                 && _board.at(i).piece->getColor() == "black")
-                _boardCount.whiteKing++;
+                _boardCount.blackQueen++;
 
             if (_board.at(i).piece->getType() == 'N'
                 && _board.at(i).piece->getColor() == "white")
-                _boardCount.whiteKing++;
+                _boardCount.whiteKnight++;
             if (_board.at(i).piece->getType() == 'N'
                 && _board.at(i).piece->getColor() == "black")
-                _boardCount.whiteKing++;
+                _boardCount.blackKnight++;
 
             if (_board.at(i).piece->getType() == 'R'
                 && _board.at(i).piece->getColor() == "white")
-                _boardCount.whiteKing++;
+                _boardCount.whiteRook++;
             if (_board.at(i).piece->getType() == 'R'
                 && _board.at(i).piece->getColor() == "black")
-                _boardCount.whiteKing++;
+                _boardCount.blackRook++;
 
             if (_board.at(i).piece->getType() == 'B'
                 && _board.at(i).piece->getColor() == "white")
-                _boardCount.whiteKing++;
+                _boardCount.whiteBishop++;
             if (_board.at(i).piece->getType() == 'B'
                 && _board.at(i).piece->getColor() == "black")
-                _boardCount.whiteKing++;
+                _boardCount.blackBishop++;
 
             if (_board.at(i).piece->getType() == 'P'
                 && _board.at(i).piece->getColor() == "white")
-                _boardCount.whiteKing++;
+                _boardCount.whitePawn++;
             if (_board.at(i).piece->getType() == 'P'
                 && _board.at(i).piece->getColor() == "black")
-                _boardCount.whiteKing++;
+                _boardCount.blackPawn++;
             
             _boardCount.total++;
         }
