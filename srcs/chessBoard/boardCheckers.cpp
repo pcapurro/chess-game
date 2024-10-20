@@ -205,10 +205,13 @@ vector<string>  chessBoard::getPossibleMoves(const string coord)
         for (int k = 0; k != 8; k++)
         {
             actualCoords[1] = actualCoords[1] + 1;
-            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords) == true)
+            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords) == true
+                && (_board.at(getAtValue(actualCoords)).piece == NULL 
+                || _board.at(getAtValue(actualCoords)).piece->getColor() != _color))
             {
-                if (_board.at(getAtValue(actualCoords)).piece == NULL 
-                    || _board.at(getAtValue(actualCoords)).piece->getColor() != _color)
+                if (_board.at(atValue).piece->getType() != 'P'
+                    || (_board.at(getAtValue(actualCoords)).piece == NULL && _board.at(atValue).coord[0] == _board.at(getAtValue(actualCoords)).coord[0])
+                    || (_board.at(getAtValue(actualCoords)).piece != NULL && _board.at(atValue).coord[0] != _board.at(getAtValue(actualCoords)).coord[0]))
                 moves.push_back(coord + actualCoords);
             }
         }
@@ -232,7 +235,10 @@ bool    chessBoard::isCheckMate(void)
                 for (int k = 0; k != sources.size(); k++)
                 {
                     if (doesItResolveCheck(sources.at(k)) == true)
+                    {
+                        cout << "not checkmate if " << sources.at(k) << endl;
                         return (false);
+                    }
                 }
             }
             sources.clear();
