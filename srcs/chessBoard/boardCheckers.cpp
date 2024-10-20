@@ -50,10 +50,12 @@ bool    chessBoard::isDraw(void)
         }
         for (int i = 0; i != 64; i++)
         {
-            if (_board.at(kingPos).piece->isOnMyWay(_board.at(i).coord, boardCoords) == true
-                && _board.at(i).piece->getColor() != kingColor
-                && doesItResolveCheck(_board.at(kingPos).coord + _board.at(i).coord) == true)
-                return (false);
+            if (_board.at(kingPos).piece->isOnMyWay(_board.at(i).coord, boardCoords) == true)
+            {
+                if ((_board.at(i).piece == NULL || _board.at(i).piece->getColor() != kingColor)
+                    && doesItResolveCheck(_board.at(kingPos).coord + _board.at(i).coord) == true)
+                    return (false);
+            }
         }
         for (int i = 0; i != 64; i++)
         {
@@ -61,7 +63,7 @@ bool    chessBoard::isDraw(void)
             {
                 for (int k = 0; k != 64; k++)
                 {
-                    if (_board.at(i).piece->isOnMyWay(_board.at(i).coord + _board.at(k).coord, boardCoords) == true)
+                    if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords) == true)
                         return (false);
                 }
             }
