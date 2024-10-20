@@ -48,14 +48,10 @@ bool    chessBoard::canAnyAllyPieceMove(void)
             {
                 if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords) == true
                     && doesItResolveCheck(_board.at(i).coord + _board.at(k).coord) == true)
-                {
-                    cout << "piece at " << _board.at(i).coord << " can move to " << _board.at(k).coord << endl;
                     return (true);
-                }
             }
         }
     }
-    cout << "no ally piece can move" << endl;
     return (false);
 }
 
@@ -107,9 +103,6 @@ bool    chessBoard::isCheckMateImpossible(void)
             changeColor();
         }
     }
-
-    cout << "checkmate possible" << endl;
-
     return (false);
 }
 
@@ -134,7 +127,6 @@ bool    chessBoard::canTheKingMove(void)
                 return (true);
         }
     }
-    cout << "the king can't move" << endl;
     return (false);
 }
 
@@ -231,10 +223,7 @@ bool    chessBoard::isCheckMate(void)
                 for (int k = 0; k != sources.size(); k++)
                 {
                     if (doesItResolveCheck(sources.at(k)) == true)
-                    {
-                        cout << "not checkmate if " << sources.at(k) << endl;
                         return (false);
-                    }
                 }
             }
             sources.clear();
@@ -330,10 +319,7 @@ bool    chessBoard::isTheDestinationSafe(void)
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
         {
             if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords, 1) == true)
-            {
-                cout << _board.at(i).coord << " threat" << endl;
                 return (false);
-            }
         }
     }
     return (true);
@@ -360,16 +346,6 @@ bool    chessBoard::isThereSomething(const string dest) const
     return (false);
 }
 
-bool    chessBoard::isThereAttacker(void)
-{
-    int     atValue;
-
-    atValue = getAtValue(_lastMove.src);
-    if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getType() == _lastMove.obj)
-        return (true);
-    return (false);
-}
-
 bool    chessBoard::isThereAlly(void)
 {
     int     atValue;
@@ -391,7 +367,6 @@ int chessBoard::checkPawnSource(void)
         source = source + _lastMove.src.at(i);
         if (source.length() == 2)
         {
-            cout << "checking source > " << source << endl;
             if (_board.at(getAtValue(source)).piece != NULL
                 && _board.at(getAtValue(source)).piece->getType() == 'P')
             {
@@ -449,11 +424,13 @@ bool    chessBoard::isThereValidSource(void)
 
 bool    chessBoard::isItValidSource(void)
 {
+    int     atValue;
+
     if (_lastMove.obj == 'P')
     {
         if (_lastMove.dest[1] == (_lastMove.src[1] - 2) || _lastMove.dest[1] == (_lastMove.src[1] + 2))
         {
-            int atValue = getAtValue(_lastMove.dest);
+            atValue = getAtValue(_lastMove.dest);
             if (_enPassant == false || _enPassantDest != _lastMove.dest)
             {
                 if (_board.at(atValue).piece == NULL)
@@ -461,6 +438,9 @@ bool    chessBoard::isItValidSource(void)
             }
         }
     }
+    atValue = getAtValue(_lastMove.src);
+    if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getType() != _lastMove.obj)
+        return (false);
     return (true);
 }
 
@@ -490,17 +470,10 @@ bool    chessBoard::isLegal(void)
                 return (false);
         }
 
-        if (_lastMove.src.length() != 2)
-        {
-            if (isThereValidSource() == false)
-                return (false);
-        }
-        else
-        {
-            if (isItValidSource() == false
-                || isThereAttacker() == false)
-                return (false);
-        }
+        if (_lastMove.src.length() != 2 && isThereValidSource() == false)
+            return (false);
+        else if (isItValidSource() == false)
+            return (false);
 
         if (isThereAlly() == true || isRightSide() == false
             || (_lastMove.obj == 'K' && isTheDestinationSafe() == false))
