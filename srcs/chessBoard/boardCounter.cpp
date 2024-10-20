@@ -1,7 +1,32 @@
 #include "../../include/header.hpp"
 
+void    chessBoard::resetCount(void)
+{
+    _boardCount.whiteKing = 0;
+    _boardCount.blackKing = 0;
+
+    _boardCount.whiteQueen = 0;
+    _boardCount.blackQueen = 0;
+
+    _boardCount.whiteRook = 0;
+    _boardCount.blackRook = 0;
+
+    _boardCount.whiteBishop = 0;
+    _boardCount.blackBishop = 0;
+
+    _boardCount.whiteKnight = 0;
+    _boardCount.blackKnight = 0;
+
+    _boardCount.whitePawn = 0;
+    _boardCount.blackPawn = 0;
+
+    _boardCount.total = 0;
+}
+
 void    chessBoard::countPiecesOnBoard(void)
 {
+    resetCount();
+
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL)

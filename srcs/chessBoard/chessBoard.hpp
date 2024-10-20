@@ -116,12 +116,13 @@ class chessBoard
         bool    canAnyAllyPieceMove(void);
         bool    isCheckMateImpossible(void);
 
-        vector<string>      getPossibleMoves(const string coord);
-        vector<string>      getPiecesCoords() const;
-
         void    countPiecesOnBoard(void);
+        void    resetCount(void);
 
         void    enableDisableEnPassant(void);
+
+        vector<string>      getPossibleMoves(const string coord);
+        vector<string>      getPiecesCoords() const;
 
         vector<t_square>    _board;
         bool                _allocated;
