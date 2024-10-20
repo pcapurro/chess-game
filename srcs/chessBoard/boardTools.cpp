@@ -16,7 +16,7 @@ int chessBoard::getActualTurn(void) const
     return (_turn);
 }
 
-vector<string>  chessBoard::getPiecesCoords() const
+vector<string>  chessBoard::getPiecesCoords(const int value) const
 {
     vector<string>  coords;
 
@@ -25,6 +25,8 @@ vector<string>  chessBoard::getPiecesCoords() const
         if (_board.at(i).piece != NULL)
             coords.push_back(_board.at(i).coord);
     }
+    if (value == 1)
+        coords.push_back("21");
     return (coords);
 }
 

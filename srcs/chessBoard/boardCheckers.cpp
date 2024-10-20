@@ -38,7 +38,7 @@ bool    chessBoard::canAnyAllyPieceMove(void)
 {
     vector<string>  boardCoords;
 
-    boardCoords = getPiecesCoords();
+    boardCoords = getPiecesCoords(1);
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _color
@@ -47,12 +47,7 @@ bool    chessBoard::canAnyAllyPieceMove(void)
             for (int k = 0; k != 64; k++)
             {
                 if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords) == true)
-                {
-                    if (_board.at(i).piece->getType() != 'P'
-                        || (_board.at(k).coord[0] == _board.at(i).coord[0] && _board.at(k).piece == NULL)
-                        || (_board.at(k).piece != NULL && _board.at(k).piece->getColor() != _color))
-                        return (true);
-                }
+                    return (true);
             }
         }
     }
@@ -198,7 +193,7 @@ vector<string>  chessBoard::getPossibleMoves(const string coord)
     string          actualCoords;
 
     atValue = getAtValue(coord);
-    boardCoords = getPiecesCoords();
+    boardCoords = getPiecesCoords(1);
     actualCoords = "a0";
     for (int i = 0; i != 64; i++)
     {
@@ -208,12 +203,7 @@ vector<string>  chessBoard::getPossibleMoves(const string coord)
             if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords) == true
                 && (_board.at(getAtValue(actualCoords)).piece == NULL 
                 || _board.at(getAtValue(actualCoords)).piece->getColor() != _color))
-            {
-                if (_board.at(atValue).piece->getType() != 'P'
-                    || (_board.at(getAtValue(actualCoords)).piece == NULL && _board.at(atValue).coord[0] == _board.at(getAtValue(actualCoords)).coord[0])
-                    || (_board.at(getAtValue(actualCoords)).piece != NULL && _board.at(atValue).coord[0] != _board.at(getAtValue(actualCoords)).coord[0]))
                 moves.push_back(coord + actualCoords);
-            }
         }
         actualCoords[0] = actualCoords[0] + 1;
         actualCoords[1] = '0';

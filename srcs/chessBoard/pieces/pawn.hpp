@@ -25,14 +25,44 @@ class Pawn : public chessPiece
                     return (true);
                 if (src_x - 1 == dest_x && src_y + 1 == dest_y)
                     return (true);
+
+                if (find(boardCoords.begin(), boardCoords.end(), "21") != boardCoords.end())
+                {
+                    string newCoord;
+                    
+                    newCoord = "abcdefgh"[src_x] + to_string(src_y + 1);
+                    if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
+                        && src_x == dest_x && src_y + 1 == dest_y)
+                        return (true);
+                    newCoord = "abcdefgh"[src_x] + to_string(src_y + 2);
+                    if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
+                        && src_x == dest_x && src_y + 2 == dest_y)
+                        return (true);
+                }
             }
+
             if (_color == "black")
             {
                 if (src_x + 1 == dest_x && src_y - 1 == dest_y)
                     return (true);
                 if (src_x - 1 == dest_x && src_y - 1 == dest_y)
                     return (true);
+
+                if (find(boardCoords.begin(), boardCoords.end(), "21") != boardCoords.end())
+                {
+                    string newCoord;
+                    
+                    newCoord = "abcdefgh"[src_x] + to_string(src_y - 1);
+                    if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
+                        && src_x == dest_x && src_y - 1 == dest_y)
+                        return (true);
+                    newCoord = "abcdefgh"[src_x] + to_string(src_y - 2);
+                    if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
+                        && src_x == dest_x && src_y - 2 == dest_y)
+                        return (true);
+                }
             }
+
             return (false);
         }
 };
