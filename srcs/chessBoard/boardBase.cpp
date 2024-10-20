@@ -75,6 +75,14 @@ void    chessBoard::enableDisableEnPassant(void)
     }
 }
 
+void    chessBoard::changeColor(void)
+{
+    if (_color == "white")
+        _color = "black";
+    else
+        _color = "white";
+}
+
 void    chessBoard::setTurn(void)
 {
     _turn++;

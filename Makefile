@@ -11,6 +11,7 @@ SRCS = srcs/main.cpp \
 	srcs/algebraicParser/algebraicParser.cpp \
 	srcs/algebraicParser/algebraicTools.cpp \
 	srcs/chessBoard/boardBase.cpp \
+	srcs/chessBoard/boardCounter.cpp \
 	srcs/chessBoard/boardCheckers.cpp \
 	srcs/chessBoard/boardTools.cpp \
 	srcs/chessBoard/boardInit.cpp \

@@ -57,8 +57,58 @@ bool    chessBoard::canAnAllyPieceMove(void)
 
 bool    chessBoard::isCheckMateImpossible(void)
 {
+    countPiecesOnBoard();
+
+    if (_boardCount.total == 2)
+        return (true);
+
+    if (_boardCount.whiteKing + _boardCount.blackKing
+        + _boardCount.whiteKnight + _boardCount.blackKnight
+        == 6 && 6 == _boardCount.total)
+        return (true);
+
+    if (_boardCount.whiteKing + _boardCount.blackKing
+        + _boardCount.whiteKnight + _boardCount.blackKnight
+        == 3 && 3 == _boardCount.total)
+        return (true);
+
+    if (_boardCount.whiteKing + _boardCount.blackKing
+        + _boardCount.whiteBishop + _boardCount.blackBishop
+        == 4 && 4 == _boardCount.total)
+        return (true);
+
+    if (_boardCount.whiteKing + _boardCount.blackKing
+        + _boardCount.whiteBishop + _boardCount.blackBishop
+        == 3 && 3 == _boardCount.total)
+        return (true);
+
+    if (_boardCount.whiteRook == 0 && _boardCount.blackRook == 0
+        && _boardCount.whiteKnight == 0 && _boardCount.blackKnight == 0
+        && _boardCount.whiteBishop == 0 && _boardCount.blackBishop == 0
+        && _boardCount.whiteQueen == 0 && _boardCount.blackQueen == 0)
+    {
+        if (canAnAllyPieceMove() == false)
+        {
+            changeColor();
+            if (canAnAllyPieceMove() == false)
+            {
+                changeColor();
+                return (true);
+            }
+            changeColor();
+        }
+    }
     return (false);
 }
+
+// si restant :
+// - les deux rois v
+// - les deux rois et aucun pion ne peut bouger v
+// - les deux rois et 2 cavaliers chacun v
+// - les deux rois et 1 cavalier chacun v
+// - les deux rois et 1 cavalier pour un v
+// - les deux rois et un fou chacun v
+// - les deux rois et un fou pour un v
 
 bool    chessBoard::canTheKingMove(void)
 {
@@ -96,10 +146,6 @@ bool    chessBoard::isDraw(void)
     }
     return (false);
 }
-
-// 1. si il ne reste que un/deux cavalier et le roi
-// 2. si il ne reste que un fou et le roi
-// 3. si il ne reste que le roi v
 
 bool    chessBoard::doesItResolveCheck(const string srcdest)
 {

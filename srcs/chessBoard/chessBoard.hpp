@@ -22,6 +22,30 @@ typedef struct s_square
 
 }   t_square;
 
+typedef struct s_counter
+{
+    int whiteKing;
+    int blackKing;
+
+    int whiteQueen;
+    int blackQueen;
+
+    int whiteRook;
+    int blackRook;
+
+    int whiteBishop;
+    int blackBishop;
+
+    int whiteKnight;
+    int blackKnight;
+
+    int whitePawn;
+    int blackPawn;
+
+    int total;
+
+}   t_counter;
+
 class chessBoard
 {
     public:
@@ -45,6 +69,7 @@ class chessBoard
     private:
 
         void    setTurn(void);
+        void    changeColor(void);
 
         bool    checkBoardAllocation(void) const;
 
@@ -94,6 +119,8 @@ class chessBoard
         vector<string>      getPossibleMoves(const string coord);
         vector<string>      getPiecesCoords() const;
 
+        void    countPiecesOnBoard(void);
+
         void    enableDisableEnPassant(void);
 
         vector<t_square>    _board;
@@ -109,6 +136,8 @@ class chessBoard
 
         int                 _turn;
         string              _color;
+
+        t_counter           _boardCount;
     
         bool                _moveFailed;
 };
