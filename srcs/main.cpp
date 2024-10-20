@@ -67,9 +67,9 @@ int main(int argc, char **argv)
             {
                 checker = input;
                 if (checker.fail() == true)
-                    exit(0) ;
+                    exit(0);
                 if (board->playMove(checker.getParsedMove()) == FAIL)
-                    exit(0) ;
+                    exit(0);
             }
             i++; //
             checker.setTurn(board->getActualTurn());

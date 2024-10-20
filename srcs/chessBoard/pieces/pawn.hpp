@@ -38,10 +38,14 @@ class Pawn : public chessPiece
                     if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
                         && src_x == dest_x && src_y + 1 == dest_y)
                         return (true);
-                    newCoord = "abcdefgh"[src_x] + to_string(src_y + 2);
-                    if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
-                        && src_x == dest_x && src_y + 2 == dest_y)
+                    
+                    if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end())
+                    {
+                        newCoord = "abcdefgh"[src_x] + to_string(src_y + 2);
+                        if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
+                            && src_x == dest_x && src_y + 2 == dest_y)
                         return (true);
+                    }
                 }
             }
 
@@ -62,10 +66,14 @@ class Pawn : public chessPiece
                     if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
                         && src_x == dest_x && src_y - 1 == dest_y)
                         return (true);
-                    newCoord = "abcdefgh"[src_x] + to_string(src_y - 2);
-                    if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
-                        && src_x == dest_x && src_y - 2 == dest_y)
+                    
+                    if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end())
+                    {
+                        newCoord = "abcdefgh"[src_x] + to_string(src_y - 2);
+                        if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
+                            && src_x == dest_x && src_y - 2 == dest_y)
                         return (true);
+                    }
                 }
             }
 

@@ -48,10 +48,14 @@ bool    chessBoard::canAnyAllyPieceMove(void)
             {
                 if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords) == true
                     && doesItResolveCheck(_board.at(i).coord + _board.at(k).coord) == true)
+                {
+                    cout << "piece at " << _board.at(i).coord << " can move to " << _board.at(k).coord << endl;
                     return (true);
+                }
             }
         }
     }
+    cout << "no ally piece can move" << endl;
     return (false);
 }
 
@@ -130,6 +134,7 @@ bool    chessBoard::canTheKingMove(void)
                 return (true);
         }
     }
+    cout << "the king can't move" << endl;
     return (false);
 }
 
