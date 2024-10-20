@@ -87,7 +87,7 @@ void    chessBoard::setTurn(void)
 int chessBoard::playMove(t_move move)
 {
     _lastMove = move;
-    if (isLegal() != true)
+    if (isLegal() == false)
     {
         _moveFailed = true;
         printIllegal();
@@ -104,7 +104,7 @@ int chessBoard::playMove(t_move move)
         }
         else
         {
-            if (_lastMove.action == 'x' && isThereSomething(_lastMove.dest) != true
+            if (_lastMove.action == 'x' && isThereSomething(_lastMove.dest) == false
                 && _enPassant == true && _enPassantDest == _lastMove.dest)
                 priseEnPassant();
             else

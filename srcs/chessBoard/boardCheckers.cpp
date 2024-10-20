@@ -133,7 +133,7 @@ bool    chessBoard::isCastlingPossible(void) const
 
     if (_color == "white")
     {
-        if (_whiteCastle != true)
+        if (_whiteCastle == false)
             return (false);
 
         if (_lastMove.move == "O-O")
@@ -167,7 +167,7 @@ bool    chessBoard::isCastlingPossible(void) const
     }
     if (_color == "Black")
     {
-        if (_blackCastle != true)
+        if (_blackCastle == false)
             return (false);
 
         if (_lastMove.move == "O-O")
@@ -352,26 +352,26 @@ bool    chessBoard::isLegal(void)
 {
     if (_lastMove.dest == "O-O-O" || _lastMove.dest == "O-O")
     {
-        if (isCastlingPossible() != true)
+        if (isCastlingPossible() == false || isCheck() == true)
             return (false);
     }
     else
     {
-        if (_lastMove.action == 'x' && isThereSomething(_lastMove.dest) != true)
+        if (_lastMove.action == 'x' && isThereSomething(_lastMove.dest) == false)
         {
-            if (_lastMove.obj != 'P' || _enPassant == false)
+            if (_lastMove.obj != 'P' || _enPassant == false || _enPassantDest != _lastMove.dest)
                 return (false);
         }
 
         if (_lastMove.src.length() != 2)
         {
-            if (isThereValidDestintation() != true)
+            if (isThereValidDestintation() == false)
                 return (false);
         }
         else
         {
-            if (isItValidDestination() != true
-                || isThereAttacker() != true)
+            if (isItValidDestination() == false
+                || isThereAttacker() == false)
                 return (false);
         }
         if (isThereAlly() == true || isRightSide() == false
