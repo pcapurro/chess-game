@@ -1,11 +1,5 @@
 #include "../../include/header.hpp"
 
-void    chessBoard::printIllegal(void) const
-{
-    cout << "\033[2A" << ERASE_LINE;
-    cerr << YELLOW << "Illegal move. " << COLOR_E;
-}
-
 bool    chessBoard::fail(void) const
 {
     return (_moveFailed);

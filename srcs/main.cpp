@@ -31,9 +31,9 @@ int main(int argc, char **argv)
         string          input;
         algebraicParser checker;
 
+        board->printBoard();
         while (board->isGameOver() == false)
         {
-            board->printBoard();
             board->printEvent(1, checker.fail(), board->fail());
             
             cout << ERASE_LINE << "> ";
@@ -49,6 +49,7 @@ int main(int argc, char **argv)
                 if (board->playMove(checker.getParsedMove()) == FAIL)
                     continue ;
             }
+            board->printBoard();
             checker.setTurn(board->getActualTurn());
         }
         board->printEndGame();

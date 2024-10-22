@@ -10,6 +10,12 @@ void    chessBoard::printHistory(void)
     cout << endl;
 }
 
+void    chessBoard::printIllegal(void) const
+{
+    cout << "\033[2A" << ERASE_LINE;
+    cerr << YELLOW << "Illegal move. " << COLOR_E;
+}
+
 void    chessBoard::printEndGame(void)
 {
     string  player;
@@ -48,11 +54,7 @@ void    chessBoard::printEvent(const int value, const bool cfail, const bool bfa
         player = getOppositeColor();
         player[0] = player[0] - 32;
 
-        if (_turn != 0 && _turn != 1)
-            cout << "\033[3A";
-        else
-            cout << "\033[2A";
-        cout << ERASE_LINE;
+        cout << "\033[2A" << ERASE_LINE;
 
         if (isCheck() == true)
             cout << player << " played " << move << ORANGE << " (check)." << COLOR_E << endl;
@@ -103,10 +105,7 @@ void    chessBoard::printBoard(void)
 
     if (_turn != 0)
     {
-        if (_turn == 1)
-            cout << "\033[10A";
-        else
-            cout << "\033[9A";
+        cout << "\033[10A";
         for (int i = 0; i != 10; i++)
             cout << ERASE_LINE;
     }
