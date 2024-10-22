@@ -68,7 +68,7 @@ void    chessBoard::printPiece(const char type, const string color)
     if (type == 'P' && color == "white")
         cout << "│♟▕";
     if (type == 'P' && color == "black")
-        cout << "│♟▕";
+        cout << "│♙▕";
 
     if (type == 'N' && color == "white")
         cout << "│♞▕";
