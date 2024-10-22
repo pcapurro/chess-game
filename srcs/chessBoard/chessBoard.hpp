@@ -65,6 +65,7 @@ class chessBoard
                                 const bool bfail = false, const string move = "none");
         void    printEndGame(void);
 
+        void    printPiece(const char type, const string color);
         void    printBoard(void); //
 
     private:

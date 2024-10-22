@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 
         while (board->isGameOver() == false)
         {
+            board->printBoard();
             board->printEvent(1, checker.fail(), board->fail());
             
             cout << ERASE_LINE << "> ";

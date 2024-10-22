@@ -19,15 +19,14 @@ void    chessBoard::printEndGame(void)
     if (isCheckMate() == true)
     {
         cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
-        cout << "Checkmate. " << player << " won the game! 🎉" << endl;
-        printHistory();
+        cout << "Checkmate. " << GREEN << player << " won the game! 🎉" << COLOR_E << endl;
     }
     else
     {
         cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
-        cout << "Draw. " << player << " No one won the game." << endl;
-        printHistory();
+        cout << "Draw. No one won the game." << endl;
     }
+    printHistory();
 }
 
 void    chessBoard::printEvent(const int value, const bool cfail, const bool bfail, const string move)
@@ -62,27 +61,67 @@ void    chessBoard::printEvent(const int value, const bool cfail, const bool bfa
     }
 }
 
+void    chessBoard::printPiece(const char type, const string color)
+{
+    if (type == 'P' && color == "white")
+        cout << "[♟]";
+    if (type == 'P' && color == "black")
+        cout << "[♟]";
+
+    if (type == 'N' && color == "white")
+        cout << "[♞]";
+    if (type == 'N' && color == "black")
+        cout << "[♘]";
+
+    if (type == 'B' && color == "white")
+        cout << "[♝]";
+    if (type == 'B' && color == "black")
+        cout << "[♗]";
+
+    if (type == 'R' && color == "white")
+        cout << "[♜]";
+    if (type == 'R' && color == "black")
+        cout << "[♖]";
+
+    if (type == 'Q' && color == "white")
+        cout << "[♛]";
+    if (type == 'Q' && color == "black")
+        cout << "[♕]";
+
+    if (type == 'K' && color == "white")
+        cout << "[♚]";
+    if (type == 'K' && color == "black")
+        cout << "[♔]";
+}
+
 void    chessBoard::printBoard(void)
 {
+    int     atValue;
+    char    type;
+    string  color;
+    string  coords;
+
+    if (_turn != 0)
+    {
+        if (_turn == 1)
+            cout << "\033[10A";
+        else
+            cout << "\033[9A";
+        for (int i = 0; i != 10; i++)
+            cout << ERASE_LINE;
+    }
+
     for (int i = 9; i != 1; i--)
     {
         for (int k = 0; k != 8; k++)
         {
-            string coord = "abcdefgh"[k] + to_string(i - 1);
-            if (_board.at(getAtValue(coord)).piece != NULL)
+            coords = "abcdefgh"[k] + to_string(i - 1);
+            atValue = getAtValue(coords);
+            if (_board.at(atValue).piece != NULL)
             {
-                if (_board.at(getAtValue(coord)).piece->getType() == 'P')
-                    cout << "[P]";
-                if (_board.at(getAtValue(coord)).piece->getType() == 'K')
-                    cout << "[K]";
-                if (_board.at(getAtValue(coord)).piece->getType() == 'Q')
-                    cout << "[Q]";
-                if (_board.at(getAtValue(coord)).piece->getType() == 'R')
-                    cout << "[R]";
-                if (_board.at(getAtValue(coord)).piece->getType() == 'N')
-                    cout << "[N]";
-                if (_board.at(getAtValue(coord)).piece->getType() == 'B')
-                    cout << "[B]";
+                type = _board.at(atValue).piece->getType();
+                color = _board.at(atValue).piece->getColor();
+                printPiece(type, color);
             }
             else
                 cout << "[ ]";
