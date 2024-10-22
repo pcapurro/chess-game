@@ -96,6 +96,16 @@ void    chessBoard::printPiece(const char type, const string color)
         cout << "[♔]";
 }
 
+void    chessBoard::removeBoard(void)
+{
+    if (_turn != 0)
+    {
+        cout << "\033[12A";
+        for (int i = 0; i != 10; i++)
+            cout << ERASE_LINE;
+    }
+}
+
 void    chessBoard::printBoard(void)
 {
     int     atValue;
@@ -103,15 +113,11 @@ void    chessBoard::printBoard(void)
     string  color;
     string  coords;
 
-    if (_turn != 0)
-    {
-        cout << "\033[10A";
-        for (int i = 0; i != 10; i++)
-            cout << ERASE_LINE;
-    }
-
+    removeBoard();
+    cout << "   a  b  c  d  e  f  g  h" << endl;
     for (int i = 9; i != 1; i--)
     {
+        cout << i - 1 << " ";
         for (int k = 0; k != 8; k++)
         {
             coords = "abcdefgh"[k] + to_string(i - 1);
@@ -125,7 +131,7 @@ void    chessBoard::printBoard(void)
             else
                 cout << "[ ]";
         }
-        cout << endl;
+        cout << " " << i - 1 << endl;
     }
-    cout << endl;
+    cout << "   a  b  c  d  e  f  g  h" << endl << endl;
 }

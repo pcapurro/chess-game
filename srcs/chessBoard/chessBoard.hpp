@@ -66,7 +66,8 @@ class chessBoard
         void    printEndGame(void);
 
         void    printPiece(const char type, const string color);
-        void    printBoard(void); //
+        void    printBoard(void);
+        void    removeBoard(void);
 
     private:
 
