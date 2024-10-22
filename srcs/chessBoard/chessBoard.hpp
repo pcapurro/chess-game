@@ -54,88 +54,79 @@ class chessBoard
         ~chessBoard(void);
 
         bool    fail(void) const;
-        bool    error(void) const;
         bool    isAllocated(void) const;
 
-        int     getActualTurn(void) const;
+        int     getActualTurn(void) const { return (_turn); };
 
         bool    isGameOver(void);
         int     playMove(t_move move);
 
-        void    printEvent(const bool cfail, const bool bfail, const int value);
+        void    printEvent(const bool cfail, const bool bfail,\
+                            const int value);
         void    printEndGame(void);
-
-        void    printPiece(const char type, const string color);
-        void    printBoard(void);
-        void    removeBoard(void);
+        void    printBoard(void) const;
 
     private:
 
-        void    setTurn(void);
-        string  getOppositeColor(void);
+        const size_t        getAtValue(const string coord) const;
+        vector<string>      getPossibleMoves(const string coord) const;
+        vector<string>      getPiecesCoords(void) const;
 
-        void    printHistory(void);
+        void    printPiece(const char type, const string color) const;
+
+        void    printHistory(void) const;
         void    addToHistory(void);
-
-        bool    checkBoardAllocation(void) const;
 
         void    initRooksKnights(void);
         void    initBishops(void);
         void    initQueensKings(void);
         void    initBoard(void);
 
-        size_t  getAtValue(const string coord) const;
+        bool    checkBoardAllocation(void) const;
+
+        void    priseEnPassant(void);
+        void    enableDisableEnPassant(void);
+        void    whiteCastles(void);
+        void    blackCastles(void);
 
         void    promotePiece(const string initialCoord, char pieceType);
         void    movePiece(const string initialCoord, const string newCoord);
         void    removePiece(const string coord);
 
-        void    priseEnPassant(void);
-        
-        void    whiteCastles(void);
-        void    blackCastles(void);
+        int     checkNormalSource(void);
+        int     checkPawnSource(void);
+        bool    isThereValidSource(void);
+
+        bool    isItValidSource(void) const;
+
+        bool    isThereSomething(const string coord) const;
+        bool    isThereAlly(void) const;
+        bool    isRightSide(void) const;
+        bool    isTheDestinationSafe(void) const;
+        bool    isCastlingPossible(void) const;
 
         bool    isLegal(void);
 
-        int     checkNormalSource(void);
-        int     checkPawnSource(void);
-        
-        bool    isThereValidSource(void);
-        bool    isItValidSource(void);
-
-        bool    isThereSomething(const string coord) const;
-        
-        bool    isThereAlly(void);
-        bool    isRightSide(void);
-
-        bool    isTheDestinationSafe(void);
-        bool    isCastlingPossible(void) const;
-
         bool    doesItResolveCheck(const string srcdest);
-        bool    isCheck(void);
-        bool    isCheckMate(void);
-
-        bool    isDraw(void);
+        bool    isCheckMateImpossible(void);
         bool    canTheKingMove(void);
         bool    canAnyAllyPieceMove(void);
-        bool    isCheckMateImpossible(void);
+
+        bool    isCheck(void);
+        bool    isCheckMate(void);
+        bool    isDraw(void);
 
         void    countPiecesOnBoard(void);
         void    resetCount(void);
-
-        void    enableDisableEnPassant(void);
-
-        vector<string>      getPossibleMoves(const string coord);
-        vector<string>      getPiecesCoords(void) const;
 
         vector<t_square>    _board;
         bool                _allocated;
 
         t_move              _lastMove;
+        bool                _moveFailed;
 
         bool                _whiteCastle;
         bool                _blackCastle;
-
         bool                _enPassant;
         string              _enPassantDest;
 
@@ -143,9 +134,7 @@ class chessBoard
         string              _color;
 
         t_counter           _boardCount;
-
         vector<string>      _history;
-        bool                _moveFailed;
 };
 
 #endif

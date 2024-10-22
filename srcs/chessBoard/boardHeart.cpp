@@ -1,38 +1,8 @@
 #include "../../include/header.hpp"
 
-string  chessBoard::getOppositeColor(void)
+bool    chessBoard::fail(void) const
 {
-    if (_color == "white")
-        return (string("black"));
-    return (string("white"));
-}
-
-void    chessBoard::setTurn(void)
-{
-    _turn++;
-    if (_turn % 2 == 0)
-        _color = "white";
-    else
-        _color = "black";
-}
-
-void    chessBoard::enableDisableEnPassant(void)
-{
-    if (_lastMove.obj == 'P')
-    {
-        if ((_color == "white" && (_lastMove.dest[1] == (_lastMove.dest[1] + 2)))
-            || (_color == "black" && (_lastMove.dest[1] == (_lastMove.src[1] - 2))))
-        {
-            _enPassant = true;
-            _enPassantDest = _lastMove.dest;
-            if (_color == "white")
-                _enPassantDest[1] = _enPassantDest[1] - 1;
-            else
-                _enPassantDest[1] = _enPassantDest[1] + 1;
-        }
-        else
-            _enPassant = false, _enPassantDest.clear();
-    }
+    return (_moveFailed);
 }
 
 void    chessBoard::addToHistory(void)
@@ -89,7 +59,8 @@ int chessBoard::playMove(t_move move)
         }
         enableDisableEnPassant();
         addToHistory();
-        setTurn();
+
+        ++_turn % 2 == 0 ? _color = "white" : _color = "black";
     }
     return (SUCCESS);
 }

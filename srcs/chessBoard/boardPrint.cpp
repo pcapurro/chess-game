@@ -1,6 +1,6 @@
 #include "../../include/header.hpp"
 
-void    chessBoard::printPiece(const char type, const string color)
+void    chessBoard::printPiece(const char type, const string color) const
 {
     if (type == 'P' && color == "white")
         cout << "│♟▕";
@@ -33,7 +33,7 @@ void    chessBoard::printPiece(const char type, const string color)
         cout << "│♔▕";
 }
 
-void    chessBoard::printBoard(void)
+void    chessBoard::printBoard(void) const
 {
     int     atValue;
     char    type;
@@ -65,7 +65,7 @@ void    chessBoard::printBoard(void)
 }
 
 
-void    chessBoard::printHistory(void)
+void    chessBoard::printHistory(void) const
 {
     cout << ERASE_LINE << "Game summary: ";
     for (int i = 0; i != _history.size(); i++)
@@ -79,7 +79,7 @@ void    chessBoard::printEndGame(void)
 {
     string  player;
 
-    player = getOppositeColor();
+    _color == "white" ? player = "black" : player = "white";
     player[0] = player[0] - 32;
     if (isCheckMate() == true)
     {
@@ -115,7 +115,7 @@ void    chessBoard::printEvent(const bool cfail, const bool bfail, const int val
     }
     if (_turn > 0)
     {
-        player = getOppositeColor();
+        _color == "white" ? player = "black" : player = "white";
         player[0] = player[0] - 32;
 
         if (cfail == false && bfail == false)
