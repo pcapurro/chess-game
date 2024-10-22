@@ -1,4 +1,5 @@
 #include "../../include/header.hpp"
+#include "../chessBoard/pieces/chessPiece.hpp"
 
 bool    isChessDigit(const char c)
 {
@@ -58,51 +59,18 @@ vector<string>  getKingSequence(const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
+    King            king('K', "white", move);
 
-    newCoords = move;
-    newCoords[1] = newCoords[1] + 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[1] = newCoords[1] - 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[0] = newCoords[0] - 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[0] = newCoords[0] + 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[0] = newCoords[0] + 1;
-    newCoords[1] = newCoords[1] + 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[0] = newCoords[0] + 1;
-    newCoords[1] = newCoords[1] - 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[0] = newCoords[0] - 1;
-    newCoords[1] = newCoords[1] + 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[0] = newCoords[0] - 1;
-    newCoords[1] = newCoords[1] - 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
+    for (int i = 9; i != 1; i--)
+    {
+        for (int k = 0; k != 8; k++)
+        {
+            newCoords = "abcdefgh"[k] + to_string(i - 1);
+            if (king.isOnMyWay(newCoords) == true
+                && sign == 'i' || newCoords[0] == sign)
+                coords.push_back(newCoords);
+        }
+    }
     return (coords);
 }
 
@@ -110,52 +78,17 @@ vector<string>  getQueenSequence(const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
+    Queen           queen('Q', "white", move);
 
-    for (int i = 1; i != 8; i++)
+    for (int i = 9; i != 1; i--)
     {
-        newCoords = move;
-        newCoords[0] = newCoords[0] - (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[0] = newCoords[0] + (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[1] = newCoords[1] + (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[1] = newCoords[1] - (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[0] = newCoords[0] - (i * 1);
-        newCoords[1] = newCoords[1] - (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[0] = newCoords[0] + (i * 1);
-        newCoords[1] = newCoords[1] + (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[0] = newCoords[0] - (i * 1);
-        newCoords[1] = newCoords[1] + (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[0] = newCoords[0] + (i * 1);
-        newCoords[1] = newCoords[1] - (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        for (int k = 0; k != 8; k++)
+        {
+            newCoords = "abcdefgh"[k] + to_string(i - 1);
+            if (queen.isOnMyWay(newCoords) == true
+                && sign == 'i' || newCoords[0] == sign)
+                coords.push_back(newCoords);
+        }
     }
     return (coords);
 }
@@ -164,28 +97,17 @@ vector<string>  getRookSequence(const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
+    Rook            rook('R', "white", move);
 
-    for (int i = 1; i != 8; i++)
+    for (int i = 9; i != 1; i--)
     {
-        newCoords = move;
-        newCoords[0] = newCoords[0] - (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[0] = newCoords[0] + (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[1] = newCoords[1] + (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[1] = newCoords[1] - (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        for (int k = 0; k != 8; k++)
+        {
+            newCoords = "abcdefgh"[k] + to_string(i - 1);
+            if (rook.isOnMyWay(newCoords) == true
+                && sign == 'i' || newCoords[0] == sign)
+                coords.push_back(newCoords);
+        }
     }
     return (coords);
 }
@@ -194,32 +116,17 @@ vector<string>  getBishopSequence(const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
+    Bishop          bishop('B', "white", move);
 
-    for (int i = 1; i != 8; i++)
+    for (int i = 9; i != 1; i--)
     {
-        newCoords = move;
-        newCoords[0] = newCoords[0] - (i * 1);
-        newCoords[1] = newCoords[1] - (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[0] = newCoords[0] + (i * 1);
-        newCoords[1] = newCoords[1] + (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[0] = newCoords[0] - (i * 1);
-        newCoords[1] = newCoords[1] + (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
-
-        newCoords = move;
-        newCoords[0] = newCoords[0] + (i * 1);
-        newCoords[1] = newCoords[1] - (i * 1);
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        for (int k = 0; k != 8; k++)
+        {
+            newCoords = "abcdefgh"[k] + to_string(i - 1);
+            if (bishop.isOnMyWay(newCoords) == true
+                && sign == 'i' || newCoords[0] == sign)
+                coords.push_back(newCoords);
+        }
     }
     return (coords);
 }
@@ -228,55 +135,18 @@ vector<string>  getKnightSequence(const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
+    Knight          knight('K', "white", move);
 
-    newCoords = move;
-    newCoords[1] = newCoords[1] + 2;
-    newCoords[0] = newCoords[0] - 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[1] = newCoords[1] + 2;
-    newCoords[0] = newCoords[0] + 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[1] = newCoords[1] - 2;
-    newCoords[0] = newCoords[0] - 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[1] = newCoords[1] - 2;
-    newCoords[0] = newCoords[0] + 1;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[1] = newCoords[1] + 1;
-    newCoords[0] = newCoords[0] - 2;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[1] = newCoords[1] - 1;
-    newCoords[0] = newCoords[0] - 2;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[1] = newCoords[1] + 1;
-    newCoords[0] = newCoords[0] + 2;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
-    newCoords = move;
-    newCoords[1] = newCoords[1] - 1;
-    newCoords[0] = newCoords[0] + 2;
-    if (sign == 'i' || newCoords[0] == sign)
-        coords.push_back(newCoords);
-
+    for (int i = 9; i != 1; i--)
+    {
+        for (int k = 0; k != 8; k++)
+        {
+            newCoords = "abcdefgh"[k] + to_string(i - 1);
+            if (knight.isOnMyWay(newCoords) == true
+                && sign == 'i' || newCoords[0] == sign)
+                coords.push_back(newCoords);
+        }
+    }
     return (coords);
 }
 

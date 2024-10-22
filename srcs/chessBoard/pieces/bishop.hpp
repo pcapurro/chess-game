@@ -10,7 +10,7 @@ class Bishop : public chessPiece
         Bishop(const char type, const string color, const string pos) : chessPiece(type, color, pos) {}
         ~Bishop() {};
 
-        virtual const bool  isOnMyWay(const string move, const vector<string> boardCoords, const int value) const
+        virtual const bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, const int value = 0) const
         {
             int src_x = _x;
             int src_y = _y;
