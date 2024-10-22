@@ -153,6 +153,7 @@ vector<string>  getKnightSequence(const string move, const char sign)
 vector<string>  getPawnSequence(const string move, const int turn, const char sign)
 {
     vector<string>  coords;
+    vector<string>  realCoords;
     string          newMove;
     string          newCoords;
 
@@ -164,49 +165,46 @@ vector<string>  getPawnSequence(const string move, const int turn, const char si
     if (turn % 2 == 0)
     {
         newCoords[1] = newCoords[1] - 1;
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        coords.push_back(newCoords);
 
         newCoords = newMove;
         newCoords[1] = newCoords[1] - 2;
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        coords.push_back(newCoords);
 
         newCoords = newMove;
         newCoords[0] = newCoords[0] - 1;
         newCoords[1] = newCoords[1] - 1;
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        coords.push_back(newCoords);
     
         newCoords = newMove;
         newCoords[0] = newCoords[0] + 1;
         newCoords[1] = newCoords[1] - 1;
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        coords.push_back(newCoords);
     }
     else
     {
         newCoords[1] = newCoords[1] + 1;
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        coords.push_back(newCoords);
 
         newCoords = newMove;
         newCoords[1] = newCoords[1] + 2;
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        coords.push_back(newCoords);
 
         newCoords = newMove;
         newCoords[0] = newCoords[0] + 1;
         newCoords[1] = newCoords[1] + 1;
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        coords.push_back(newCoords);
 
         newCoords = newMove;
         newCoords[0] = newCoords[0] - 1;
         newCoords[1] = newCoords[1] + 1;
-        if (sign == 'i' || newCoords[0] == sign)
-            coords.push_back(newCoords);
+        coords.push_back(newCoords);
     }
 
-    return (coords);
+    for (int i = 0; i != coords.size(); i++)
+    {
+        if (sign == 'i' || coords.at(i)[0] == sign)
+            realCoords.push_back(coords.at(i));
+    }
+    return (realCoords);
 }
