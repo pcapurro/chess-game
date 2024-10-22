@@ -219,7 +219,6 @@ bool    chessBoard::isCheckMate(void)
             }
             sources.clear();
         }
-        // cout << "checkmate" << endl;
         return (true);
     }
     return (false);

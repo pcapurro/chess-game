@@ -15,24 +15,16 @@ class Knight : public chessPiece
             int dest_x = move[0] - 97;
             int dest_y = atoi(move.c_str() + 1);
 
-            if (_x - 1 == dest_x && _y + 2 == dest_y)
-                return (true);
-            if (_x + 1 == dest_x && _y + 2 == dest_y)
+            if ((_x - 1 == dest_x && _y + 2 == dest_y) || (_x + 1 == dest_x && _y + 2 == dest_y))
                 return (true);
 
-            if (_x - 1 == dest_x && _y - 2 == dest_y)
-                return (true);
-            if (_x + 1 == dest_x && _y - 2 == dest_y)
+            if ((_x - 1 == dest_x && _y - 2 == dest_y) || (_x + 1 == dest_x && _y - 2 == dest_y))
                 return (true);
 
-            if (_x - 2 == dest_x && _y + 1 == dest_y)
-                return (true);
-            if (_x - 2 == dest_x && _y - 1 == dest_y)
+            if ((_x - 2 == dest_x && _y + 1 == dest_y) || (_x - 2 == dest_x && _y - 1 == dest_y))
                 return (true);
 
-            if (_x + 2 == dest_x && _y + 1 == dest_y)
-                return (true);
-            if (_x + 2 == dest_x && _y - 1 == dest_y)
+            if ((_x + 2 == dest_x && _y + 1 == dest_y) || (_x + 2 == dest_x && _y - 1 == dest_y))
                 return (true);
 
             return (false);
