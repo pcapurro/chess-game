@@ -358,7 +358,8 @@ int chessBoard::checkPawnSource(void)
         if (source.length() == 2)
         {
             if (_board.at(getAtValue(source)).piece != NULL
-                && _board.at(getAtValue(source)).piece->getType() == 'P')
+                && _board.at(getAtValue(source)).piece->getType() == 'P'
+                && _board.at(getAtValue(source)).coord[0] == _lastMove.dest[0])
             {
                 if (source[1] == _lastMove.dest[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
                     return (FAIL);
