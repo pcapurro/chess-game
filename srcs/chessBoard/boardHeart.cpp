@@ -1,9 +1,4 @@
-#include "../../include/header.hpp"
-
-bool    chessBoard::fail(void) const
-{
-    return (_moveFailed);
-}
+#include "../../include/shellChess.hpp"
 
 void    chessBoard::enableDisableEnPassant(void)
 {

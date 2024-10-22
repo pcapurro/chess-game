@@ -53,7 +53,7 @@ class chessBoard
         chessBoard(void);
         ~chessBoard(void);
 
-        bool    fail(void) const;
+        bool    fail(void) const { return (_moveFailed); };
         bool    isAllocated(void) const;
 
         int     getActualTurn(void) const { return (_turn); };

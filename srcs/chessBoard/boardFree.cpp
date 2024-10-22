@@ -1,4 +1,4 @@
-#include "../../include/header.hpp"
+#include "../../include/shellChess.hpp"
 
 chessBoard::~chessBoard(void)
 {

@@ -15,15 +15,14 @@ SRCS = srcs/main.cpp \
 	srcs/algebraicParser/algebraicParser.cpp \
 	srcs/algebraicParser/algebraicTools.cpp \
 	srcs/chessBoard/boardHeart.cpp \
-	srcs/chessBoard/checkers/boardEndChecker.cpp \
-	srcs/chessBoard/checkers/boardMoveChecker.cpp \
-	srcs/chessBoard/checkers/boardPieceChecker.cpp \
 	srcs/chessBoard/boardCounter.cpp \
 	srcs/chessBoard/boardPrint.cpp \
-	srcs/chessBoard/boardAction.cpp \
 	srcs/chessBoard/boardTools.cpp \
 	srcs/chessBoard/boardInit.cpp \
 	srcs/chessBoard/boardFree.cpp \
+	srcs/chessBoard/checkers/boardEndChecker.cpp \
+	srcs/chessBoard/checkers/boardMoveChecker.cpp \
+	srcs/chessBoard/checkers/boardPieceChecker.cpp \
 
 CXX = c++
 

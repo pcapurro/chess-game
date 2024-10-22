@@ -1,5 +1,5 @@
-#ifndef HEADER_HPP
-# define HEADER_HPP
+#ifndef SHELLCHESS_HPP
+# define SHELLCHESS_HPP
 
 # include <iostream>
 # include <string>
