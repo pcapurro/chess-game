@@ -24,7 +24,9 @@ class chessPiece
 
         const string        getColor() const { return (_color); }
         const char          getType() const { return (_type); }
+        
         const int           getMoves(void) { return (_moves); }
+
         const int           getX(void) { return (_x); }
         const int           getY(void) { return (_y); }
     

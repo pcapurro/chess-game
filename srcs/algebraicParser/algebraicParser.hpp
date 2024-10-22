@@ -20,16 +20,14 @@ class algebraicParser
 {
     public:
 
-        algebraicParser(void);
-        ~algebraicParser(void);
+        algebraicParser(void) { _turn = 0; };
+        ~algebraicParser(void) {};
 
-        void    operator=(const string move);
-
-        void            setTurn(const int turn);
-
-        t_move          getParsedMove(void) const;
-
+        void            operator=(const string move);
         bool            fail(void) const;
+
+        void            setTurn(const int turn) { _turn = turn; };
+        t_move          getParsedMove(void) const { return (_move); };
 
     private:
 
