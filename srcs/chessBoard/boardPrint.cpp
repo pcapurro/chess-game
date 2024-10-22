@@ -94,14 +94,18 @@ void    chessBoard::printEndGame(void)
     printHistory();
 }
 
-void    chessBoard::printEvent(const bool cfail, const bool bfail)
+void    chessBoard::printEvent(const bool cfail, const bool bfail, const int value)
 {
     string  player;
 
     cout << ERASE_LINE;
+    if (value == 3 && _turn != 0)
+        cout << "\033[1A" << ERASE_LINE;
+
     if (cfail == true || bfail == true)
     {
-        cout << "\033[1A" << ERASE_LINE;
+        if (value != 3)
+            cout << "\033[1A" << ERASE_LINE;
 
         if (cfail == true)
             cout << RED << "Invalid move. " << COLOR_E;

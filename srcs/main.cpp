@@ -22,10 +22,7 @@ int main(const int argc, const char **argv)
             initWelcome();
             printLoading();
 
-            if (argc == 3)
-                shellGame(1);
-            else
-                shellGame(0);
+            shellGame(argc);
         }
         else
             ;

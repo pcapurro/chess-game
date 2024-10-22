@@ -61,7 +61,7 @@ class chessBoard
         bool    isGameOver(void);
         int     playMove(t_move move);
 
-        void    printEvent(const bool cfail = false, const bool bfail = false);
+        void    printEvent(const bool cfail, const bool bfail, const int value);
         void    printEndGame(void);
 
         void    printPiece(const char type, const string color);

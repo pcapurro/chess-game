@@ -22,15 +22,14 @@ void    shellGame(const int value)
         string          input;
         algebraicParser checker;
 
-        board->printBoard();
+        if (value != 3)
+            board->printBoard();
         while (board->isGameOver() == false)
         {
-            board->printEvent(checker.fail(), board->fail());
-            
+            board->printEvent(checker.fail(), board->fail(), value);
             cout << ERASE_LINE << "> ";
-            getline(cin, input);
-            cout << "\033[1A";
-        
+            getline(cin, input), cout << "\033[1A";
+
             if (cin.fail() == true)
                 systemError();
             else
@@ -39,7 +38,8 @@ void    shellGame(const int value)
                 if (checker.fail() == true || board->playMove(checker.getParsedMove()) == FAIL)
                     continue ;
             }
-            board->printBoard();
+            if (value != 3)
+                board->printBoard();
             checker.setTurn(board->getActualTurn());
         }
         board->printEndGame();
