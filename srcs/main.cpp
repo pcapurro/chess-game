@@ -34,10 +34,11 @@ int main(int argc, char **argv)
         board->printBoard();
         while (board->isGameOver() == false)
         {
-            board->printEvent(1, checker.fail(), board->fail());
+            board->printEvent(checker.fail(), board->fail());
             
             cout << ERASE_LINE << "> ";
             getline(cin, input);
+            cout << "\033[1A";
         
             if (cin.fail() == true)
                 systemError();

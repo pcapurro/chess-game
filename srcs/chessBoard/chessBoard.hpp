@@ -61,8 +61,7 @@ class chessBoard
         bool    isGameOver(void);
         int     playMove(t_move move);
 
-        void    printEvent(const int value, const bool cfail = false, \
-                                const bool bfail = false, const string move = "none");
+        void    printEvent(const bool cfail = false, const bool bfail = false);
         void    printEndGame(void);
 
         void    printPiece(const char type, const string color);
@@ -95,7 +94,6 @@ class chessBoard
         void    whiteCastles(void);
         void    blackCastles(void);
 
-        void    printIllegal(void) const;
         bool    isLegal(void);
 
         int     checkNormalSource(void);

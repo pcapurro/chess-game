@@ -18,13 +18,7 @@ void    algebraicParser::operator=(const string move)
 
 bool    algebraicParser::fail(void) const
 {
-    if (_fail == false)
-        return (false);
-    return (true);
-}
-
-void    algebraicParser::printInvalid(void) const
-{
-    cout << "\033[2A" << ERASE_LINE;
-    cerr << RED << "Invalid move. " << COLOR_E;
+    if (_fail == true)
+        return (true);
+    return (false);
 }

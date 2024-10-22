@@ -59,7 +59,6 @@ int chessBoard::playMove(t_move move)
     if (isLegal() == false)
     {
         _moveFailed = true;
-        printIllegal();
         return (FAIL);
     }
     else
@@ -88,7 +87,6 @@ int chessBoard::playMove(t_move move)
         enableDisableEnPassant();
         addToHistory();
         setTurn();
-        printEvent(2, false, false, _lastMove.move);
     }
     return (SUCCESS);
 }

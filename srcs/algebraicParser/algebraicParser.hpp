@@ -34,7 +34,6 @@ class algebraicParser
     private:
 
         bool    isValid(void);
-        void    printInvalid(void) const;
         
         bool    isGoodLength(void) const;
         bool    isValidComplexSequence(void) const;

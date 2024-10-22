@@ -10,12 +10,6 @@ void    chessBoard::printHistory(void)
     cout << endl;
 }
 
-void    chessBoard::printIllegal(void) const
-{
-    cout << "\033[2A" << ERASE_LINE;
-    cerr << YELLOW << "Illegal move. " << COLOR_E;
-}
-
 void    chessBoard::printEndGame(void)
 {
     string  player;
@@ -35,32 +29,33 @@ void    chessBoard::printEndGame(void)
     printHistory();
 }
 
-void    chessBoard::printEvent(const int value, const bool cfail, const bool bfail, const string move)
+void    chessBoard::printEvent(const bool cfail, const bool bfail)
 {
     string  player;
 
-    if (value == 1)
+    cout << ERASE_LINE;
+    if (cfail == true || bfail == true)
     {
-        player = _color;
-        player[0] = player[0] - 32;
+        cout << "\033[1A";
 
-        if (cfail == true || bfail == true)
-            cout << player << " to play." << endl;
-        else
-            cout << ERASE_LINE << player << " to play." << endl;
+        if (cfail == true)
+            cout << RED << "Invalid move. " << COLOR_E;
+        if (bfail == true)
+            cout << YELLOW << "Invalid move. " << COLOR_E;
     }
-    if (value == 2)
+    if (_turn > 0)
     {
         player = getOppositeColor();
         player[0] = player[0] - 32;
 
-        cout << "\033[2A" << ERASE_LINE;
-
         if (isCheck() == true)
-            cout << player << " played " << move << ORANGE << " (check)." << COLOR_E << endl;
+            cout << player << " played " << _lastMove.move << ORANGE << " (check). " << COLOR_E;
         else
-            cout << player << " played " << move << "." << endl;
+            cout << player << " played " << _lastMove.move << ". ";
     }
+    player = _color;
+    player[0] = player[0] - 32;
+    cout << player << " to play." << endl;
 }
 
 void    chessBoard::printPiece(const char type, const string color)
@@ -96,16 +91,6 @@ void    chessBoard::printPiece(const char type, const string color)
         cout << "│♔▕";
 }
 
-void    chessBoard::removeBoard(void)
-{
-    if (_turn != 0)
-    {
-        cout << "\033[12A";
-        for (int i = 0; i != 10; i++)
-            cout << ERASE_LINE;
-    }
-}
-
 void    chessBoard::printBoard(void)
 {
     int     atValue;
@@ -113,11 +98,12 @@ void    chessBoard::printBoard(void)
     string  color;
     string  coords;
 
-    removeBoard();
-    cout << "    a  b  c  d  e  f  g  h" << endl;
+    if (_turn != 0)
+        cout << "\033[12A";
+    cout << ERASE_LINE << "    a  b  c  d  e  f  g  h" << endl;
     for (int i = 9; i != 1; i--)
     {
-        cout << " " << i - 1 << " ";
+        cout << ERASE_LINE << " " << i - 1 << " ";
         for (int k = 0; k != 8; k++)
         {
             coords = "abcdefgh"[k] + to_string(i - 1);
@@ -133,5 +119,5 @@ void    chessBoard::printBoard(void)
         }
         cout << " " << i - 1 << endl;
     }
-    cout << "    a  b  c  d  e  f  g  h" << endl << endl;
+    cout << ERASE_LINE << "    a  b  c  d  e  f  g  h" << endl << endl;
 }

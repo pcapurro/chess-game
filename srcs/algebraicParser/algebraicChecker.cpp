@@ -5,7 +5,6 @@ bool    algebraicParser::isValid(void)
     if (isValidChar() == false || isGoodLength() == false
         || isValidSequence() == false)
     {
-        printInvalid();
         _fail = true;
         return (false);
     }

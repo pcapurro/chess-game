@@ -6,13 +6,15 @@ chessBoard::chessBoard(void)
     _allocated = false;
     _color = "white";
 
+    _moveFailed = false;
+
     _whiteCastle = true;
     _blackCastle = true;
 
     initBoard();
-    // if (checkBoardAllocation() == false)
-        // _allocated = false;
-    // else
+    if (checkBoardAllocation() == false)
+        _allocated = false;
+    else
         _allocated = true;
 }
 
