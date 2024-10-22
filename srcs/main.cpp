@@ -1,11 +1,5 @@
 #include "../include/header.hpp"
 
-void    systemError(void)
-{
-    printGradually("System error. Shutting down", 2);
-    exit(1);
-}
-
 int main(const int argc, const char **argv)
 {
     if (argc > 3 || (argc == 2 && string(argv[1]) != "--no-visual")
@@ -22,7 +16,8 @@ int main(const int argc, const char **argv)
             initWelcome();
             printLoading();
 
-            shellGame(argc);
+            if (shellGame(argc) != 0)
+                return (1);
         }
         else
             ;

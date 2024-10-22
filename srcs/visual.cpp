@@ -1,6 +1,6 @@
 #include "../include/header.hpp"
 
-void    visualGame(void)
+int visualGame(void)
 {
-    ;
+    return (0);
 }

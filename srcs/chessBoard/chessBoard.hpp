@@ -54,6 +54,7 @@ class chessBoard
         ~chessBoard(void);
 
         bool    fail(void) const;
+        bool    error(void) const;
         bool    isAllocated(void) const;
 
         int     getActualTurn(void) const;

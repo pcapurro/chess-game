@@ -8,8 +8,9 @@
 # include <map>
 # include <unistd.h>
 
+# define ERR -1
 # define SUCCESS 0
-# define FAIL -1
+# define FAIL 1
 
 # define ERASE_LINE "\033[2K"
 
@@ -31,10 +32,11 @@ void    initWelcome(void);
 void    printGradually(const string str, const int value);
 void    printLoading(void);
 
-void    systemError(void);
+void    memoryFailed(void);
+void    systemFailed(void);
 
-void    shellGame(const int value);
-void    visualGame(void);
+int     shellGame(const int argc);
+int     visualGame(void);
 
 int     main(const int argc, const char **argv);
 

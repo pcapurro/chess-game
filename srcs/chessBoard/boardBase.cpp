@@ -82,6 +82,9 @@ int chessBoard::playMove(t_move move)
                 movePiece(_lastMove.src, _lastMove.dest);
                 if (isChessPiece(_lastMove.dest.at(_lastMove.dest.length() - 1)) == true)
                     promotePiece(_lastMove.dest, _lastMove.dest[_lastMove.dest.length() - 1]);
+                
+                if (_allocated == false)
+                    return (ERR);
             }
         }
         enableDisableEnPassant();
