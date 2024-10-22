@@ -30,6 +30,6 @@ void    printLoading(void)
 {
     printGradually("Loading", 1);
     cout << GREEN << "Game is ready." << COLOR_E << endl;
-    sleep(1);
+    // sleep(1);
     cout << endl;
 }

@@ -2,7 +2,7 @@
 
 void    chessBoard::printIllegal(void) const
 {
-    // cout << "\033[2A" << ERASE_LINE;
+    cout << "\033[2A" << ERASE_LINE;
     cerr << YELLOW << "Illegal move. " << COLOR_E;
 }
 
@@ -94,13 +94,13 @@ bool    chessBoard::isCheckMateImpossible(void)
     {
         if (canAnyAllyPieceMove() == false)
         {
-            changeColor();
+            _color = getOppositeColor();
             if (canAnyAllyPieceMove() == false)
             {
-                changeColor();
+                _color = getOppositeColor();
                 return (true);
             }
-            changeColor();
+            _color = getOppositeColor();
         }
     }
     return (false);
@@ -228,7 +228,7 @@ bool    chessBoard::isCheckMate(void)
             }
             sources.clear();
         }
-        cout << "checkmate" << endl;
+        // cout << "checkmate" << endl;
         return (true);
     }
     return (false);

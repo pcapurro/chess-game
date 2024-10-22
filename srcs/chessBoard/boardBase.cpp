@@ -2,28 +2,35 @@
 
 void    chessBoard::announceEvent(const int value, const bool cfail, const bool bfail, const string move)
 {
-    // if (value == 1)
-    // {
-    //     if (cfail == true || bfail == true)
-    //         cout << _player << " to play." << endl;
-    //     else
-    //         cout << ERASE_LINE << _player << " to play." << endl;
-    // }
-    // if (value == 2)
-    // {
-    //     if (_turn != 0)
-    //         cout << "\033[3A";
-    //     else
-    //         cout << "\033[2A";
-    //     cout << ERASE_LINE;
-    //     cout << _player << " played " << move << endl;
-    // }
-    // if (value == 5)
-    // {
-    //     cout << "\033[1A";
-    //     cout << ERASE_LINE;
-    //     cout << _player << " won the game! 🎉" << endl;
-    // }
+    string  player;
+
+    player = _color;
+    player[0] = player[0] - 32;
+    if (value == 1)
+    {
+        if (cfail == true || bfail == true)
+            cout << player << " to play." << endl;
+        else
+            cout << ERASE_LINE << player << " to play." << endl;
+    }
+    if (value == 2)
+    {
+        if (_turn != 0)
+            cout << "\033[3A";
+        else
+            cout << "\033[2A";
+        cout << ERASE_LINE;
+        cout << player << " played " << move << "." << endl;
+    }
+    if (value == 5)
+    {
+        player = getOppositeColor();
+        player[0] = player[0] - 32;
+
+        cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
+        cout << "Checkmate. " << player << " won the game! 🎉" << endl;
+        printHistory();
+    }
 }
 
 void    chessBoard::printBoard(void)
@@ -75,12 +82,11 @@ void    chessBoard::enableDisableEnPassant(void)
     }
 }
 
-void    chessBoard::changeColor(void)
+string  chessBoard::getOppositeColor(void)
 {
     if (_color == "white")
-        _color = "black";
-    else
-        _color = "white";
+        return (string("black"));
+    return (string("white"));
 }
 
 void    chessBoard::setTurn(void)
@@ -103,6 +109,8 @@ int chessBoard::playMove(t_move move)
     }
     else
     {
+        _moveFailed = false;
+
         if (_lastMove.dest == "O-O" || _lastMove.dest == "O-O-O")
         {
             if (_color == "white")
@@ -123,11 +131,14 @@ int chessBoard::playMove(t_move move)
             }
         }
         enableDisableEnPassant();
+
+        addToHistory();
         announceEvent(2, false, false, _lastMove.move);
         
         setTurn();
         if (isCheck() == true)
-            cout << "check" << endl;
+            ;
+            // cout << "check" << endl;
     }
     return (SUCCESS);
 }

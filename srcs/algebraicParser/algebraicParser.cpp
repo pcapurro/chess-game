@@ -24,7 +24,7 @@ t_move  algebraicParser::getParsedMove(void) const { return (_move); };
 
 void    algebraicParser::printInvalid(void) const
 {
-    // cout << "\033[2A" << ERASE_LINE;
+    cout << "\033[2A" << ERASE_LINE;
     cerr << RED << "Invalid move. " << COLOR_E;
 }
 

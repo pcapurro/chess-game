@@ -69,7 +69,10 @@ class chessBoard
     private:
 
         void    setTurn(void);
-        void    changeColor(void);
+        string  getOppositeColor(void);
+
+        void    printHistory(void);
+        void    addToHistory(void);
 
         bool    checkBoardAllocation(void) const;
 
@@ -138,7 +141,8 @@ class chessBoard
         string              _color;
 
         t_counter           _boardCount;
-    
+
+        vector<string>      _history;
         bool                _moveFailed;
 };
 

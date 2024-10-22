@@ -21,10 +21,6 @@ int main(int argc, char **argv)
     initWelcome();
     printLoading();
 
-    string game [] = {};
-
-    int i = 0; //
-
     chessBoard  *board;
 
     board = new chessBoard;
@@ -38,11 +34,8 @@ int main(int argc, char **argv)
         while (board->isGameOver() == false)
         {
             board->announceEvent(1, checker.fail(), board->fail());
-            board->printBoard();
-            // cout << ERASE_LINE << "> ";
-            // getline(cin, input); //
-            input = game[i]; //
-            cout << "playing... " << input << endl;
+            cout << ERASE_LINE << "> ";
+            getline(cin, input); //
         
             if (cin.fail() == true)
                 systemError();
@@ -50,11 +43,10 @@ int main(int argc, char **argv)
             {
                 checker = input;
                 if (checker.fail() == true)
-                    exit(0);
+                    continue ;
                 if (board->playMove(checker.getParsedMove()) == FAIL)
-                    exit(0);
+                    continue ;
             }
-            i++; //
             checker.setTurn(board->getActualTurn());
         }
         board->announceEvent(5);
