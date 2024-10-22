@@ -66,34 +66,34 @@ void    chessBoard::printEvent(const int value, const bool cfail, const bool bfa
 void    chessBoard::printPiece(const char type, const string color)
 {
     if (type == 'P' && color == "white")
-        cout << "[♟]";
+        cout << "│♟▕";
     if (type == 'P' && color == "black")
-        cout << "[♟]";
+        cout << "│♟▕";
 
     if (type == 'N' && color == "white")
-        cout << "[♞]";
+        cout << "│♞▕";
     if (type == 'N' && color == "black")
-        cout << "[♘]";
+        cout << "│♘▕";
 
     if (type == 'B' && color == "white")
-        cout << "[♝]";
+        cout << "│♝▕";
     if (type == 'B' && color == "black")
-        cout << "[♗]";
+        cout << "│♗▕";
 
     if (type == 'R' && color == "white")
-        cout << "[♜]";
+        cout << "│♜▕";
     if (type == 'R' && color == "black")
-        cout << "[♖]";
+        cout << "│♖▕";
 
     if (type == 'Q' && color == "white")
-        cout << "[♛]";
+        cout << "│♛▕";
     if (type == 'Q' && color == "black")
-        cout << "[♕]";
+        cout << "│♕▕";
 
     if (type == 'K' && color == "white")
-        cout << "[♚]";
+        cout << "│♚▕";
     if (type == 'K' && color == "black")
-        cout << "[♔]";
+        cout << "│♔▕";
 }
 
 void    chessBoard::removeBoard(void)
@@ -114,10 +114,10 @@ void    chessBoard::printBoard(void)
     string  coords;
 
     removeBoard();
-    cout << "   a  b  c  d  e  f  g  h" << endl;
+    cout << "    a  b  c  d  e  f  g  h" << endl;
     for (int i = 9; i != 1; i--)
     {
-        cout << i - 1 << " ";
+        cout << " " << i - 1 << " ";
         for (int k = 0; k != 8; k++)
         {
             coords = "abcdefgh"[k] + to_string(i - 1);
@@ -129,9 +129,9 @@ void    chessBoard::printBoard(void)
                 printPiece(type, color);
             }
             else
-                cout << "[ ]";
+                cout << "│ ▕";
         }
         cout << " " << i - 1 << endl;
     }
-    cout << "   a  b  c  d  e  f  g  h" << endl << endl;
+    cout << "    a  b  c  d  e  f  g  h" << endl << endl;
 }
