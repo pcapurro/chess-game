@@ -7,6 +7,8 @@
 NAME = shell-chess
 
 SRCS = srcs/main.cpp \
+	srcs/shell.cpp \
+	srcs/visual.cpp \
 	srcs/print.cpp \
 	srcs/algebraicParser/algebraicBase.cpp \
 	srcs/algebraicParser/algebraicChecker.cpp \

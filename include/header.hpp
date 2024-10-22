@@ -32,6 +32,10 @@ void    printGradually(const string str, const int value);
 void    printLoading(void);
 
 void    systemError(void);
-int     main(int argc, char **argv);
+
+void    shellGame(const int value);
+void    visualGame(void);
+
+int     main(const int argc, const char **argv);
 
 #endif
