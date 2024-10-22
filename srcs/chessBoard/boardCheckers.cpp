@@ -352,6 +352,8 @@ int chessBoard::checkPawnSource(void)
     string  source;
 
     atValue = getAtValue(_lastMove.dest);
+    if (_board.at(atValue).piece != NULL)
+        return (FAIL);
     for (int i = 0; i != _lastMove.src.length(); i++)
     {
         source = source + _lastMove.src.at(i);

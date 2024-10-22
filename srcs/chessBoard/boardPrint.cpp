@@ -41,7 +41,7 @@ void    chessBoard::printEvent(const bool cfail, const bool bfail)
         if (cfail == true)
             cout << RED << "Invalid move. " << COLOR_E;
         if (bfail == true)
-            cout << YELLOW << "Invalid move. " << COLOR_E;
+            cout << YELLOW << "Illegal move. " << COLOR_E;
     }
     if (_turn > 0)
     {
