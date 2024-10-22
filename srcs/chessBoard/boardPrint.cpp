@@ -1,63 +1,5 @@
 #include "../../include/header.hpp"
 
-void    chessBoard::printHistory(void)
-{
-    cout << ERASE_LINE << "Game summary: ";
-    for (int i = 0; i != _history.size(); i++)
-    {
-        cout << i + 1 << "." << _history.at(i) << " ";
-    }
-    cout << endl;
-}
-
-void    chessBoard::printEndGame(void)
-{
-    string  player;
-
-    player = getOppositeColor();
-    player[0] = player[0] - 32;
-    if (isCheckMate() == true)
-    {
-        cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
-        cout << "Checkmate. " << GREEN << player << " won the game! 🎉" << COLOR_E << endl;
-    }
-    else
-    {
-        cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
-        cout << "Draw. No one won the game." << endl;
-    }
-    printHistory();
-}
-
-void    chessBoard::printEvent(const bool cfail, const bool bfail)
-{
-    string  player;
-
-    cout << ERASE_LINE;
-    if (cfail == true || bfail == true)
-    {
-        cout << "\033[1A";
-
-        if (cfail == true)
-            cout << RED << "Invalid move. " << COLOR_E;
-        if (bfail == true)
-            cout << YELLOW << "Illegal move. " << COLOR_E;
-    }
-    if (_turn > 0)
-    {
-        player = getOppositeColor();
-        player[0] = player[0] - 32;
-
-        if (isCheck() == true)
-            cout << player << " played " << _lastMove.move << ORANGE << " (check). " << COLOR_E;
-        else
-            cout << player << " played " << _lastMove.move << ". ";
-    }
-    player = _color;
-    player[0] = player[0] - 32;
-    cout << player << " to play." << endl;
-}
-
 void    chessBoard::printPiece(const char type, const string color)
 {
     if (type == 'P' && color == "white")
@@ -120,4 +62,66 @@ void    chessBoard::printBoard(void)
         cout << " " << i - 1 << endl;
     }
     cout << ERASE_LINE << "    a  b  c  d  e  f  g  h" << endl << endl;
+}
+
+
+void    chessBoard::printHistory(void)
+{
+    cout << ERASE_LINE << "Game summary: ";
+    for (int i = 0; i != _history.size(); i++)
+    {
+        cout << i + 1 << "." << _history.at(i) << " ";
+    }
+    cout << endl;
+}
+
+void    chessBoard::printEndGame(void)
+{
+    string  player;
+
+    player = getOppositeColor();
+    player[0] = player[0] - 32;
+    if (isCheckMate() == true)
+    {
+        cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
+        cout << "Checkmate. " << GREEN << player << " won the game! 🎉" << COLOR_E << endl;
+    }
+    else
+    {
+        cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
+        cout << "Draw. No one won the game." << endl;
+    }
+    printHistory();
+}
+
+void    chessBoard::printEvent(const bool cfail, const bool bfail)
+{
+    string  player;
+
+    cout << ERASE_LINE;
+    if (cfail == true || bfail == true)
+    {
+        cout << "\033[1A" << ERASE_LINE;
+
+        if (cfail == true)
+            cout << RED << "Invalid move. " << COLOR_E;
+        else
+            cout << YELLOW << "Illegal move. " << COLOR_E;
+    }
+    if (_turn > 0)
+    {
+        player = getOppositeColor();
+        player[0] = player[0] - 32;
+
+        if (cfail == false && bfail == false)
+        {
+            if (isCheck() == true)
+                cout << player << " played " << _lastMove.move << ORANGE << " (check). " << COLOR_E;
+            else
+                cout << player << " played " << _lastMove.move << ". ";
+        }
+    }
+    player = _color;
+    player[0] = player[0] - 32;
+    cout << player << " to play." << endl;
 }
