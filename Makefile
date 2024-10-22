@@ -12,7 +12,7 @@ SRCS = srcs/main.cpp \
 	srcs/algebraicParser/algebraicTools.cpp \
 	srcs/chessBoard/boardBase.cpp \
 	srcs/chessBoard/boardCounter.cpp \
-	srcs/chessBoard/boardHistory.cpp \
+	srcs/chessBoard/boardPrint.cpp \
 	srcs/chessBoard/boardCheckers.cpp \
 	srcs/chessBoard/boardTools.cpp \
 	srcs/chessBoard/boardInit.cpp \

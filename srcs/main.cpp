@@ -33,9 +33,10 @@ int main(int argc, char **argv)
 
         while (board->isGameOver() == false)
         {
-            board->announceEvent(1, checker.fail(), board->fail());
+            board->printEvent(1, checker.fail(), board->fail());
+            
             cout << ERASE_LINE << "> ";
-            getline(cin, input); //
+            getline(cin, input);
         
             if (cin.fail() == true)
                 systemError();
@@ -49,7 +50,7 @@ int main(int argc, char **argv)
             }
             checker.setTurn(board->getActualTurn());
         }
-        board->announceEvent(5);
+        board->printEndGame();
         delete board;
     }
     return (0);

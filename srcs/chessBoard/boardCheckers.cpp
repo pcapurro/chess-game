@@ -135,10 +135,7 @@ bool    chessBoard::isDraw(void)
     if (isCheck() == false)
     {
         if (isCheckMateImpossible() == true || (canTheKingMove() == false && canAnyAllyPieceMove() == false))
-        {
-            cout << "draw" << endl;
             return (true);
-        }
     }
     return (false);
 }
