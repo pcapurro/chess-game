@@ -69,7 +69,11 @@ void    chessBoard::printHistory(void) const
 {
     cout << ERASE_LINE << "Game summary: ";
     for (int i = 0; i != _history.size(); i++)
-        cout << i + 1 << "." << _history.at(i) << " ";
+    {
+        if (i != 0)
+            cout << " ";
+        cout << i + 1 << "." << _history.at(i);
+    }
     cout << "#" << endl;
 }
 
@@ -107,9 +111,9 @@ void    chessBoard::printEvent(const bool cfail, const bool bfail, const int val
             cout << "\033[1A" << ERASE_LINE;
 
         if (cfail == true)
-            cout << RED << "Invalid move " << COLOR_E << ". ";
+            cout << RED << "Invalid move" << COLOR_E << ". ";
         else
-            cout << YELLOW << "Illegal move " << COLOR_E << ". ";
+            cout << YELLOW << "Illegal move" << COLOR_E << ". ";
     }
     if (_turn > 0)
     {
