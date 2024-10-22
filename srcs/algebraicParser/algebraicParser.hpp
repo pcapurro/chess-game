@@ -20,7 +20,7 @@ class algebraicParser
 {
     public:
 
-        algebraicParser(void) { _turn = 0; };
+        algebraicParser(void) { _turn = 0, _fail = false; };
         ~algebraicParser(void) {};
 
         void            operator=(const string move);
