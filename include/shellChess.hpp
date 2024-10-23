@@ -49,6 +49,7 @@ typedef struct s_game
     SDL_Renderer    *mainRenderer;
 
     SDL_Texture     *boardTexture;
+    SDL_Surface     *baseSurface;
     t_textures      whiteTextures;
     t_textures      blackTextures;
 
