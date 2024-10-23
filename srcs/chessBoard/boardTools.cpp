@@ -1,6 +1,6 @@
 #include "../../include/shellChess.hpp"
 
-const size_t  chessBoard::getAtValue(const string coord) const
+size_t  chessBoard::getAtValue(const string coord) const
 {
     for (int i = 0; i != 64; i++)
     {

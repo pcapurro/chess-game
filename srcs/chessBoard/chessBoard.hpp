@@ -68,7 +68,7 @@ class chessBoard
 
     private:
 
-        const size_t        getAtValue(const string coord) const;
+        size_t              getAtValue(const string coord) const;
         vector<string>      getPossibleMoves(const string coord) const;
         vector<string>      getPiecesCoords(void) const;
 

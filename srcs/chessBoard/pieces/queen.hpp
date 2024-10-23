@@ -10,16 +10,16 @@ class Queen : public chessPiece
         Queen(const string color, const string pos) : chessPiece(color, pos) { _type = 'Q'; }
         ~Queen() {};
 
-        virtual const bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, const int value = 0) const
+        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, const int value = 0) const
         {
             int src_x = _x;
             int src_y = _y;
-    
-            int dest_x = move[0] - 97;
-            int dest_y = atoi(move.c_str() + 1);
 
             string  coords;
             string  newCoords;
+
+            (void) boardCoords;
+            (void) value;
 
             for (int k = 0; k != 4; k++)
             {
