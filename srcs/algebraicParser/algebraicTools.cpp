@@ -159,7 +159,7 @@ vector<string>  getPawnSequence(const string move, const int turn, const char si
 
     newMove = move;
     if (move.length() > 2)
-        newMove.at(newMove.length() - 1) = '\0';
+        newMove.erase(newMove.length() - 1);
 
     newCoords = newMove;
     if (turn % 2 == 0)
