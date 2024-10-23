@@ -7,7 +7,7 @@ class King : public chessPiece
 {
     public:
     
-        King(const char type, const string color, const string pos) : chessPiece(type, color, pos) {}
+        King(const string color, const string pos) : chessPiece(color, pos) { _type = 'K'; }
         ~King() {};
 
         virtual const bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, const int value = 0) const

@@ -10,9 +10,8 @@ class chessPiece
 {
     public:
         
-        chessPiece(const char type, const string color, const string pos)
+        chessPiece(const string color, const string pos)
         {
-            _type = type;
             _color = color;
             _moves = 0;
 

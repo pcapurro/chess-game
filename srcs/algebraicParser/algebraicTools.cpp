@@ -59,7 +59,7 @@ vector<string>  getKingSequence(const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
-    King            king('K', "white", move);
+    King            king("white", move);
 
     for (int i = 9; i != 1; i--)
     {
@@ -78,7 +78,7 @@ vector<string>  getQueenSequence(const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
-    Queen           queen('Q', "white", move);
+    Queen           queen("white", move);
 
     for (int i = 9; i != 1; i--)
     {
@@ -97,7 +97,7 @@ vector<string>  getRookSequence(const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
-    Rook            rook('R', "white", move);
+    Rook            rook("white", move);
 
     for (int i = 9; i != 1; i--)
     {
@@ -116,7 +116,7 @@ vector<string>  getBishopSequence(const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
-    Bishop          bishop('B', "white", move);
+    Bishop          bishop("white", move);
 
     for (int i = 9; i != 1; i--)
     {
@@ -135,7 +135,7 @@ vector<string>  getKnightSequence(const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
-    Knight          knight('K', "white", move);
+    Knight          knight("white", move);
 
     for (int i = 9; i != 1; i--)
     {

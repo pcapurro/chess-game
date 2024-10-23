@@ -7,7 +7,7 @@ class Pawn : public chessPiece
 {
     public:
     
-        Pawn(const char type, const string color, const string pos) : chessPiece(type, color, pos) {}
+        Pawn(const string color, const string pos) : chessPiece(color, pos) { _type = 'P'; }
 
         ~Pawn() {};
 

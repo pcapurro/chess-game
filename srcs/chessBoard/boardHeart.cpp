@@ -66,13 +66,13 @@ void    chessBoard::promotePiece(const string initialCoord, char pieceType)
     
     removePiece(initialCoord);
     if (pieceType == 'Q')
-        _board.at(atValue).piece = new (std::nothrow) Queen('Q', color, initialCoordUpdated);
+        _board.at(atValue).piece = new (std::nothrow) Queen(color, initialCoordUpdated);
     if (pieceType == 'N')
-        _board.at(atValue).piece = new (std::nothrow) Knight('N', color, initialCoordUpdated);
+        _board.at(atValue).piece = new (std::nothrow) Knight(color, initialCoordUpdated);
     if (pieceType == 'B')
-        _board.at(atValue).piece = new (std::nothrow) Bishop('B', color, initialCoordUpdated);
+        _board.at(atValue).piece = new (std::nothrow) Bishop(color, initialCoordUpdated);
     if (pieceType == 'R')
-        _board.at(atValue).piece = new (std::nothrow) Rook('R', color, initialCoordUpdated);
+        _board.at(atValue).piece = new (std::nothrow) Rook(color, initialCoordUpdated);
     
     if (_board.at(atValue).piece == nullptr)
         _allocated = false, _board.at(atValue).piece = NULL;
