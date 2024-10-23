@@ -17,15 +17,22 @@ int chessBoard::checkPawnDest(void) const
 
     if (_board.at(atValue).coord[0] == _lastMove.src[0])
     {
-        string  newDest = _lastMove.dest;
-        if (_color == "white")
-            newDest[1] = newDest[1] - 1;
-        if (_color == "black")
-            newDest[1] = newDest[1] + 1;
-        
-        if (_board.at(getAtValue(newDest)).piece != NULL
-            || _board.at(atValue).piece != NULL)
+        if (isThereSomething(_lastMove.dest) == true)
             return (FAIL);
+
+        string  newDest = _lastMove.dest;
+        if (_board.at(atValue).coord[1] == _lastMove.dest[1] + 2)
+        {
+            newDest[1] = newDest[1] + 1;
+            if (isThereSomething(newDest) == true)
+                return (FAIL);
+        }
+        if (_board.at(atValue).coord[1] == _lastMove.dest[1] - 2)
+        {
+            newDest[1] = newDest[1] - 1;
+            if (isThereSomething(newDest) == true)
+                return (FAIL);
+        }
     }
 
     return (SUCCESS);
@@ -103,18 +110,6 @@ bool    chessBoard::isItValidSource(void) const
 {
     int     atValue;
 
-    if (_lastMove.obj == 'P')
-    {
-        if (_lastMove.dest[1] == (_lastMove.src[1] - 2) || _lastMove.dest[1] == (_lastMove.src[1] + 2))
-        {
-            atValue = getAtValue(_lastMove.dest);
-            if (_enPassant == false || _enPassantDest != _lastMove.dest)
-            {
-                if (_board.at(atValue).piece == NULL)
-                    return (false);
-            }
-        }
-    }
     atValue = getAtValue(_lastMove.src);
     if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getType() != _lastMove.obj)
         return (false);
