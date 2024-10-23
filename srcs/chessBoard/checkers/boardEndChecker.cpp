@@ -84,9 +84,6 @@ bool    chessBoard::isCheckMateImpossible(void)
             return (true);
     }
 
-    // exit(0);
-    // cout << "check mate possible" << endl;
-
     return (false);
 }
 
