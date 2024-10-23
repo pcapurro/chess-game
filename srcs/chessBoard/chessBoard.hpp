@@ -97,6 +97,8 @@ class chessBoard
         int     checkPawnSource(void);
         bool    isThereValidSource(void);
 
+        int     checkPawnDest(void) const;
+
         bool    isItValidSource(void) const;
 
         bool    isThereSomething(const string coord) const;

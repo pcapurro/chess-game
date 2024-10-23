@@ -1,5 +1,36 @@
 #include "../../../include/shellChess.hpp"
 
+int chessBoard::checkPawnDest(void) const
+{
+    int atValue;
+
+    atValue = getAtValue(_lastMove.dest);
+
+    if ((_board.at(atValue).coord[1] == '8' || _board.at(atValue).coord[1] == '1')
+        && (_lastMove.dest.length() != 3 || isChessPiece(_lastMove.dest[2]) == false
+        || _lastMove.dest[2] == 'K'))
+        return (FAIL);
+
+    if (_board.at(atValue).coord[0] != _lastMove.src[0] && _board.at(atValue).piece == NULL
+        && _enPassant == false && _enPassantDest != _lastMove.dest)
+        return (FAIL);
+
+    if (_board.at(atValue).coord[0] == _lastMove.src[0])
+    {
+        string  newDest = _lastMove.dest;
+        if (_color == "white")
+            newDest[1] = newDest[1] - 1;
+        if (_color == "black")
+            newDest[1] = newDest[1] + 1;
+        
+        if (_board.at(getAtValue(newDest)).piece != NULL
+            || _board.at(atValue).piece != NULL)
+            return (FAIL);
+    }
+
+    return (SUCCESS);
+}
+
 int chessBoard::checkPawnSource(void)
 {
     int     atValue;
@@ -14,8 +45,7 @@ int chessBoard::checkPawnSource(void)
         if (source.length() == 2)
         {
             if (_board.at(getAtValue(source)).piece != NULL
-                && _board.at(getAtValue(source)).piece->getType() == 'P'
-                && _board.at(getAtValue(source)).coord[0] == _lastMove.dest[0])
+                && _board.at(getAtValue(source)).piece->getType() == 'P')
             {
                 if (source[1] == _lastMove.dest[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
                     return (FAIL);
@@ -112,6 +142,9 @@ bool    chessBoard::isLegal(void)
                 return (false);
         }
         else if (isItValidSource() == false)
+            return (false);
+
+        if (_lastMove.obj == 'P' && checkPawnDest() == FAIL)
             return (false);
 
         if (isThereAlly() == true || isRightSide() == false
