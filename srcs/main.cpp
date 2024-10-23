@@ -20,7 +20,7 @@ int main(const int argc, const char **argv)
                 return (1);
         }
         else
-            ;
+            visualGame();
     }
     return (0);
 }

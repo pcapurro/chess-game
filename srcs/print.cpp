@@ -34,14 +34,16 @@ void    printLoading(void)
     cout << endl;
 }
 
-void    systemFailed(void)
+int systemFailed(void)
 {
     cout << "\033[1A" << ERASE_LINE << endl << ERASE_LINE;
     cout << "System failed. Closing the game..." << endl;
+    return (1);
 }
 
-void    memoryFailed(void)
+int memoryFailed(void)
 {
     cout << "\033[1A" << ERASE_LINE << endl << ERASE_LINE;
     cout << "Memory allocation failed. Closing the game..." << endl;
+    return (1);
 }

@@ -8,6 +8,8 @@
 # include <map>
 # include <unistd.h>
 
+# include <SDL2/SDL.h>
+
 # define ERR -1
 # define SUCCESS 0
 # define FAIL 1
@@ -33,8 +35,8 @@ void    initWelcome(void);
 void    printGradually(const string str, const int value);
 void    printLoading(void);
 
-void    memoryFailed(void);
-void    systemFailed(void);
+int     memoryFailed(void);
+int     systemFailed(void);
 
 int     shellGame(const int argc);
 int     visualGame(void);

@@ -59,12 +59,11 @@ int shellGame(const int argc)
     value = shellGameLoop(board, argc);
     if (value != 0)
     {
-        if (value == 1)
-            memoryFailed();
-        else
-            systemFailed();
         delete board;
-        return (1);
+        if (value == 1)
+            return (memoryFailed());
+        else
+            return (systemFailed());
     }
     delete board;
     return (0);
