@@ -68,7 +68,7 @@ void    chessBoard::printBoard(void) const
 void    chessBoard::printHistory(void) const
 {
     cout << ERASE_LINE;
-    if (_history.size() > 160)
+    if (_history.size() > 21)
         cout << endl;
     
     cout << "Game summary: ";
