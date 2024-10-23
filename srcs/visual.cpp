@@ -22,3 +22,5 @@ int visualGame(void)
 
     return (0);
 }
+
+// https://alexandre-laurent.developpez.com/tutoriels/sdl-2/creer-premieres-fenetres/
