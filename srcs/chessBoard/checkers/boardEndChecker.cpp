@@ -76,22 +76,17 @@ bool    chessBoard::isCheckMateImpossible(void)
         == 3 && 3 == _boardCount.total)
         return (true);
 
-    if (_boardCount.whiteRook == 0 && _boardCount.blackRook == 0
-        && _boardCount.whiteKnight == 0 && _boardCount.blackKnight == 0
-        && _boardCount.whiteBishop == 0 && _boardCount.blackBishop == 0
-        && _boardCount.whiteQueen == 0 && _boardCount.blackQueen == 0)
+    if (_boardCount.whitePawn + _boardCount.blackPawn
+        + _boardCount.whiteKing + _boardCount.blackKing
+        == _boardCount.total)
     {
-        if (canAnyAllyPieceMove() == false)
-        {
-            _color == "white" ? _color = "black" : _color = "white";
-            if (canAnyAllyPieceMove() == false)
-            {
-                _color == "white" ? _color = "black" : _color = "white";
-                return (true);
-            }
-            _color == "white" ? _color = "black" : _color = "white";
-        }
+        if (canTheKingMove() == false && canAnyAllyPieceMove() == false)
+            return (true);
     }
+
+    // exit(0);
+    // cout << "check mate possible" << endl;
+
     return (false);
 }
 
