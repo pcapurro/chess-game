@@ -35,7 +35,7 @@ OBJS = $(SRCS:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) -lSDL2
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) -lSDL2 -lSDL2_image
 
 re: fclean all
 

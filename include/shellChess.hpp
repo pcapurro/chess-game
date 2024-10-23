@@ -9,6 +9,7 @@
 # include <unistd.h>
 
 # include <SDL2/SDL.h>
+# include <SDL2/SDL_image.h>
 
 # define ERR -1
 # define SUCCESS 0
