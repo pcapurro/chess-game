@@ -67,7 +67,11 @@ void    chessBoard::printBoard(void) const
 
 void    chessBoard::printHistory(void) const
 {
-    cout << ERASE_LINE << "Game summary: ";
+    cout << ERASE_LINE;
+    if (_history.size() > 160)
+        cout << endl;
+    
+    cout << "Game summary: ";
     for (int i = 0; i != _history.size(); i++)
     {
         if (i != 0)
@@ -86,13 +90,13 @@ void    chessBoard::printEndGame(void)
     if (isCheckMate() == true)
     {
         cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
-        cout << "Checkmate. " << GREEN << player << " won the game! 🎉" << COLOR_E << endl;
+        cout << "Checkmate. " << GREEN << player << " won the game" << COLOR_E << "! 🎉" << endl;
         printHistory();
     }
     if (isDraw() == true)
     {
         cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
-        cout << "Draw. No one won the game." << endl;
+        cout << "Draw. " << GREY << "No one won the game" << COLOR_E << "." << endl;
         printHistory();
     }
 }
