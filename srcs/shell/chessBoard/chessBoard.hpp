@@ -54,8 +54,8 @@ class chessBoard
         bool    fail(void) const { return (_moveFailed); };
         bool    isAllocated(void) const;
 
-        char    getType(const string coord);
-        string  getColor(const string coord);
+        char    getType(const string coord) const;
+        string  getColor(const string coord) const;
 
         int     getActualTurn(void) const { return (_turn); };
 

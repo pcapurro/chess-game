@@ -2,6 +2,7 @@
 # define VISUALGAME_HPP
 
 # include "../../../include/shellChessVisual.hpp"
+#include "../../shell/chessBoard/chessBoard.hpp"
 
 typedef struct s_textures
 {
@@ -23,15 +24,17 @@ class VisualGame
         VisualGame(const int width = 800, const int height = 800);
         ~VisualGame(void);
 
-        void    initializeGame(void);
+        void        initializeGame(void);
 
-        void    loadWhiteTextures(void);
-        void    loadBlackTextures(void);
-        void    loadTexture(SDL_Texture *texture, const char *path);
-        void    loadTextures(void);
+        void        loadWhiteTextures(void);
+        void        loadBlackTextures(void);
+        void        loadTexture(const char type, \
+                        const char color, const char *path);
+        void        loadTextures(void);
 
-        void    loadBoard(void);
-        void    displayFrame(void);
+        SDL_Texture *getTexture(const char type, const string color) const;
+        void        loadBoard(const chessBoard *board);
+        void        displayFrame(void);
     
     private:
 

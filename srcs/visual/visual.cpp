@@ -33,16 +33,21 @@ int visualGame(void *gameObjectPtr, void *chessBoardPtr)
 
     gameObject = (VisualGame *)gameObjectPtr;
     board = (chessBoard *)chessBoardPtr;
-    while (board->isGameOver() == false)
-    {
-        checker = "";
-        if (checker.fail() == true || board->playMove(checker.getParsedMove()) == FAIL)
-            continue ;
-        else if (board->isAllocated() == false)
-            return (1);
-        checker.setTurn(board->getActualTurn());
-    }
-    board->printEndGame();
+
+    gameObject->loadBoard(board);
+    gameObject->displayFrame();
+
+    // while (board->isGameOver() == false)
+    // {
+    //     checker = "";
+    //     if (checker.fail() == true || board->playMove(checker.getParsedMove()) == FAIL)
+    //         continue ;
+    //     else if (board->isAllocated() == false)
+    //         return (1);
+    //     checker.setTurn(board->getActualTurn());
+    // }
+    // board->printEndGame();
+
     return (0);
 }
 
@@ -74,11 +79,9 @@ int main(const int argc, const char **argv)
             { delete gameObject; return (1); }
         if (board->isAllocated() == false)
             { delete board; delete gameObject; return (1); }
-        
-        gameObject->displayFrame();
 
-        // if (visualGame(gameObject, board) != 0)
-            // return (1);
+        if (visualGame(gameObject, board) != 0)
+            return (1);
     }
     return (0);
 }

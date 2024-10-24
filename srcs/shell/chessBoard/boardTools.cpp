@@ -23,7 +23,7 @@ vector<string>  chessBoard::getPiecesCoords(void) const
     return (coords);
 }
 
-char    chessBoard::getType(const string coord)
+char    chessBoard::getType(const string coord) const
 {
     int     atValue;
     char    type;
@@ -35,7 +35,7 @@ char    chessBoard::getType(const string coord)
     return (type);
 }
 
-string  chessBoard::getColor(const string coord)
+string  chessBoard::getColor(const string coord) const
 {
     int     atValue;
     string  color;

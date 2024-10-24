@@ -1,34 +1,60 @@
 #include "visualGame.hpp"
 
-void    VisualGame::loadTexture(SDL_Texture *texture, const char *path)
+void    VisualGame::loadTexture(const char type, const char color, const char *path)
 {
     _baseSurface = SDL_LoadBMP(path);
-    texture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+
+    if (type == 'K' && color == 'w')
+        _whiteTextures.king = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (type == 'Q' && color == 'w')
+        _whiteTextures.queen = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (type == 'N' && color == 'w')
+        _whiteTextures.knight = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (type == 'B' && color == 'w')
+        _whiteTextures.bishop = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (type == 'R' && color == 'w')
+        _whiteTextures.rook = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (type == 'P' && color == 'w')
+        _whiteTextures.pawn = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+
+    if (type == 'K' && color == 'b')
+        _blackTextures.king = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (type == 'Q' && color == 'b')
+        _blackTextures.queen = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (type == 'N' && color == 'b')
+        _blackTextures.knight = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (type == 'B' && color == 'b')
+        _blackTextures.bishop = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (type == 'R' && color == 'b')
+        _blackTextures.rook = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (type == 'P' && color == 'b')
+        _blackTextures.pawn = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+
     SDL_FreeSurface(_baseSurface);
 }
 
 void    VisualGame::loadWhiteTextures(void)
 {
-    loadTexture(_whiteTextures.king, "./materials/white/king.bmp");
-    loadTexture(_whiteTextures.queen, "./materials/white/queen.bmp");
+    loadTexture('K', 'w', "./materials/white/king.bmp");
+    loadTexture('Q', 'w', "./materials/white/queen.bmp");
 
-    loadTexture(_whiteTextures.knight, "./materials/white/knight.bmp");
-    loadTexture(_whiteTextures.bishop, "./materials/white/bishop.bmp");
-    loadTexture(_whiteTextures.rook, "./materials/white/rook.bmp");
+    loadTexture('N', 'w', "./materials/white/knight.bmp");
+    loadTexture('B', 'w', "./materials/white/bishop.bmp");
+    loadTexture('R', 'w', "./materials/white/rook.bmp");
 
-    loadTexture(_whiteTextures.pawn, "./materials/white/pawn.bmp");
+    loadTexture('P', 'w', "./materials/white/pawn.bmp");
 }
 
 void    VisualGame::loadBlackTextures(void)
 {
-    loadTexture(_blackTextures.king, "./materials/black/king.bmp");
-    loadTexture(_blackTextures.queen, "./materials/black/queen.bmp");
+    loadTexture('K', 'b', "./materials/black/king.bmp");
+    loadTexture('Q', 'b', "./materials/black/queen.bmp");
 
-    loadTexture(_blackTextures.knight, "./materials/black/knight.bmp");
-    loadTexture(_blackTextures.bishop, "./materials/black/bishop.bmp");
-    loadTexture(_blackTextures.rook, "./materials/black/rook.bmp");
+    loadTexture('N', 'b', "./materials/black/knight.bmp");
+    loadTexture('B', 'b', "./materials/black/bishop.bmp");
+    loadTexture('R', 'b', "./materials/black/rook.bmp");
 
-    loadTexture(_blackTextures.pawn, "./materials/black/pawn.bmp");
+    loadTexture('P', 'b', "./materials/black/pawn.bmp");
 }
 
 void    VisualGame::loadTextures(void)
