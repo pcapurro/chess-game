@@ -4,9 +4,28 @@
 
 ## === VARIABLES === ##
 
-NAME = shell-chess
+NAMEC = shell-chess
 
-SRCS = srcs/shell/shell.cpp \
+NAMEV = shell-chess-v
+
+SRCSC = srcs/shell/shell.cpp \
+	srcs/shell/print.cpp \
+	srcs/shell/algebraParser/algebraBase.cpp \
+	srcs/shell/algebraParser/algebraChecker.cpp \
+	srcs/shell/algebraParser/algebraParser.cpp \
+	srcs/shell/algebraParser/algebraTools.cpp \
+	srcs/shell/chessBoard/boardHeart.cpp \
+	srcs/shell/chessBoard/boardCounter.cpp \
+	srcs/shell/chessBoard/boardPrint.cpp \
+	srcs/shell/chessBoard/boardTools.cpp \
+	srcs/shell/chessBoard/boardInit.cpp \
+	srcs/shell/chessBoard/boardFree.cpp \
+	srcs/shell/chessBoard/checkers/boardEndChecker.cpp \
+	srcs/shell/chessBoard/checkers/boardMoveChecker.cpp \
+	srcs/shell/chessBoard/checkers/boardPieceChecker.cpp \
+
+SRCSV = srcs/visual/visual.cpp \
+	srcs/visual/loadTextures.cpp \
 	srcs/shell/print.cpp \
 	srcs/shell/algebraParser/algebraBase.cpp \
 	srcs/shell/algebraParser/algebraChecker.cpp \
@@ -28,19 +47,26 @@ CXXFLAGS = #-Wall -Wextra -Werror
 
 SDLFLAGS = -lSDL2
 
-OBJS = $(SRCS:.cpp=.o)
+OBJSC = $(SRCSC:.cpp=.o)
+
+OBJSV = $(SRCSV:.cpp=.o)
 
 ## === RULES === ##
 
-all: $(NAME)
+all: $(NAMEC)
 
-$(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) $(SDLFLAGS)
+$(NAMEC): $(OBJSC)
+	$(CXX) $(CXXFLAGS) $(OBJSC) -o $(NAMEC)
+
+visual: $(NAMEV)
+
+$(NAMEV): $(OBJSV)
+	$(CXX) $(CXXFLAGS) $(OBJSV) -o $(NAMEV) $(SDLFLAGS)
 
 re: fclean all
 
 clean:
-	@rm -rf $(OBJS)
+	@rm -rf $(OBJSC) $(OBJSV)
 
 fclean: clean
-	@rm -rf $(NAME)
+	@rm -rf $(NAMEC) $(NAMEV)

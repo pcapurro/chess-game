@@ -13,7 +13,6 @@ void    initWelcome(void)
 
 int shellGameLoop(chessBoard *board, const int argc)
 {
-    int             value;
     string          input;
     algebraParser   checker;
 

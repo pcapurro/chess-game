@@ -34,6 +34,13 @@ typedef struct s_game
 
 }   t_game;
 
+int     loadTexture(t_game *mainStr, SDL_Texture *texture, const char *path);
+int     loadWhiteTextures(t_game *mainStr);
+int     loadBlackTextures(t_game *mainStr);
+void    *loadTextures(t_game *mainStr);
+
+void    endGame(t_game *mainStr);
+void    *initializeGame(t_game *mainStr);
 
 int     visualGame(void);
 
