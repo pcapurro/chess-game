@@ -6,7 +6,7 @@
 # include "shellChess.hpp"
 # include "shellChessClassic.hpp"
 
-int     validateArguments(const char *arg1, const char *arg2);
-int     visualGame(void *gameObject);
+int     validateArguments(const char *argOne, const char *argTwo);
+int     visualGame(void *gameObjectPtr, void *chessBoardPtr);
 
 #endif

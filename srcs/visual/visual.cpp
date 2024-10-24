@@ -1,41 +1,53 @@
 #include "../../include/shellChessVisual.hpp"
 #include "visualGame/visualGame.hpp"
 
-int validateArguments(const char *arg1, const char *arg2)
+#include "../shell/chessBoard/chessBoard.hpp"
+#include "../shell/algebraParser/algebraParser.hpp"
+
+int validateArguments(const char *argOne, const char *argTwo)
 {
-    if (strlen(arg1) == 2 || strlen(arg2) == 2
-        || strlen(arg1) > 4 || strlen(arg2) > 4)
+    if (strlen(argOne) == 2 || strlen(argTwo) == 2
+        || strlen(argOne) > 4 || strlen(argTwo) > 4)
         return (FAIL);
     else
     {
-        for (int i = 0; arg1[i] != '\0'; i++)
+        for (int i = 0; argOne[i] != '\0'; i++)
         {
-            if (isdigit(arg1[i]) == 0)
+            if (isdigit(argOne[i]) == 0)
                 return (FAIL);
         }
-        for (int i = 0; arg2[i] != '\0'; i++)
+        for (int i = 0; argTwo[i] != '\0'; i++)
         {
-            if (isdigit(arg2[i]) == 0)
+            if (isdigit(argTwo[i]) == 0)
                 return (FAIL);
         }
     }
     return (SUCCESS);
 }    
 
-int visualGame(void *gameObject)
+int visualGame(void *gameObjectPtr, void *chessBoardPtr)
 {
-    VisualGame  *gameObj;
+    algebraParser   checker;
+    VisualGame      *gameObject;
+    chessBoard      *board;
 
-    gameObj = (VisualGame *)gameObject;
-    gameObj->displayFrame();
-    // ...
+    gameObject = (VisualGame *)gameObjectPtr;
+    board = (chessBoard *)chessBoardPtr;
+    while (board->isGameOver() == false)
+    {
+        checker = "";
+        if (checker.fail() == true || board->playMove(checker.getParsedMove()) == FAIL)
+            continue ;
+        else if (board->isAllocated() == false)
+            return (1);
+        checker.setTurn(board->getActualTurn());
+    }
+    board->printEndGame();
     return (0);
 }
 
 int main(const int argc, const char **argv)
 {
-    cout << argc << endl;
-
     if ((argc != 1 && argc != 3)
         || (argc == 3 && validateArguments(argv[1], argv[2]) == FAIL))
     {
@@ -45,7 +57,8 @@ int main(const int argc, const char **argv)
     }
     else
     {
-        VisualGame  *gameObject;
+        VisualGame      *gameObject;
+        chessBoard      *board;
 
         gameObject = nullptr;
         if (argc != 1)
@@ -53,9 +66,19 @@ int main(const int argc, const char **argv)
         else
             gameObject = new (nothrow) VisualGame;
 
-        if (!gameObject || gameObject == nullptr)
+        if (gameObject == nullptr)
             return (1);
-        visualGame(gameObject);
+        
+        board = new (nothrow) chessBoard;
+        if (!board || board == nullptr)
+            { delete gameObject; return (1); }
+        if (board->isAllocated() == false)
+            { delete board; delete gameObject; return (1); }
+        
+        gameObject->displayFrame();
+
+        // if (visualGame(gameObject, board) != 0)
+            // return (1);
     }
     return (0);
 }
