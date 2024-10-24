@@ -3,11 +3,7 @@
 void    VisualGame::loadTexture(SDL_Texture *texture, const char *path)
 {
     baseSurface = SDL_LoadBMP(path);
-    if (!baseSurface)
-        ;
     texture = SDL_CreateTextureFromSurface(mainRenderer, baseSurface);
-    if (!texture)
-        ;
     SDL_FreeSurface(baseSurface);
 }
 
@@ -38,11 +34,7 @@ void    VisualGame::loadBlackTextures(void)
 void    VisualGame::loadTextures(void)
 {
     baseSurface = SDL_LoadBMP("./materials/board.bmp");
-    if (baseSurface)
-        ;
     boardTexture = SDL_CreateTextureFromSurface(mainRenderer, baseSurface);
-    if (boardTexture)
-        ;
     SDL_FreeSurface(baseSurface);
 
     loadWhiteTextures();
