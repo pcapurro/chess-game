@@ -30,6 +30,7 @@ class VisualGame
         void    loadTexture(SDL_Texture *texture, const char *path);
         void    loadTextures(void);
 
+        void    loadBoard(void);
         void    displayFrame(void);
     
     private:

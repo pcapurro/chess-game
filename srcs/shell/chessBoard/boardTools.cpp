@@ -22,3 +22,27 @@ vector<string>  chessBoard::getPiecesCoords(void) const
     }
     return (coords);
 }
+
+char    chessBoard::getType(const string coord)
+{
+    int     atValue;
+    char    type;
+
+    atValue = getAtValue(coord);
+    type = ' ';
+    if (_board.at(atValue).piece != NULL)
+        type = _board.at(atValue).piece->getType();
+    return (type);
+}
+
+string  chessBoard::getColor(const string coord)
+{
+    int     atValue;
+    string  color;
+
+    atValue = getAtValue(coord);
+    color = "none";
+    if (_board.at(atValue).piece != NULL)
+        color = _board.at(atValue).piece->getColor();
+    return (color);
+}

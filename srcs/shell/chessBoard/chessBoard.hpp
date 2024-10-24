@@ -54,6 +54,9 @@ class chessBoard
         bool    fail(void) const { return (_moveFailed); };
         bool    isAllocated(void) const;
 
+        char    getType(const string coord);
+        string  getColor(const string coord);
+
         int     getActualTurn(void) const { return (_turn); };
 
         bool    isGameOver(void);
