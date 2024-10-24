@@ -1,7 +1,7 @@
-#ifndef ALGEBRAICPARSER_HPP
-# define ALGEBRAICPARSER_HPP
+#ifndef algebraParser_HPP
+# define algebraParser_HPP
 
-# include <iostream>
+# include "../../../include/shellChessClassic.hpp"
 
 using namespace std;
 
@@ -16,18 +16,23 @@ typedef struct s_move
 
 }   t_move;
 
-class algebraicParser
+class algebraParser
 {
     public:
 
-        algebraicParser(void) { _turn = 0, _fail = false; };
-        ~algebraicParser(void) {};
+        algebraParser(void) { _turn = 0, _fail = false; };
+        ~algebraParser(void) {};
 
         void            operator=(const string move);
         bool            fail(void) const;
 
         void            setTurn(const int turn) { _turn = turn; };
         t_move          getParsedMove(void) const { return (_move); };
+
+
+        static bool     isChessDigit(const char c);
+        static bool     isChessPiece(const char c);
+        static bool     isChessCoord(const char c);
 
     private:
 
@@ -51,10 +56,6 @@ class algebraicParser
         int     _turn;
         t_move  _move;
 };
-
-bool            isChessDigit(const char c);
-bool            isChessPiece(const char c);
-bool            isChessCoord(const char c);
 
 vector<string>  getKingSequence(const string move, const char sign);
 vector<string>  getQueenSequence(const string move, const char sign);

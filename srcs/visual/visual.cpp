@@ -1,4 +1,4 @@
-#include "../include/shellChess.hpp"
+#include "../include/shellChessClassic.hpp"
 
 void    endGame(t_game *mainStr)
 {
@@ -125,7 +125,7 @@ void    *loadTextures(t_game *mainStr)
     return (mainStr);
 }
 
-int main(void)
+int     visualGame(void)
 {
     t_game  *mainStr;
 
@@ -149,7 +149,12 @@ int main(void)
 
         endGame(mainStr);
     }
+}
 
+int main(void)
+{
+    if (visualGame() != 0)
+        return (1);
     return (0);
 }
 

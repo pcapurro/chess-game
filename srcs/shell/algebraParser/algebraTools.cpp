@@ -1,7 +1,12 @@
-#include "../../include/shellChess.hpp"
-#include "../chessBoard/pieces/chessPiece.hpp"
+# include "algebraParser.hpp"
 
-bool    isChessDigit(const char c)
+#include "../chessBoard/pieces/king.hpp"
+#include "../chessBoard/pieces/queen.hpp"
+#include "../chessBoard/pieces/rook.hpp"
+#include "../chessBoard/pieces/bishop.hpp"
+#include "../chessBoard/pieces/knight.hpp"
+
+bool    algebraParser::isChessDigit(const char c)
 {
     if (c != '1' && c != '2' && c != '3' && c != '4'
         && c != '5' && c != '6' && c != '7' && c != '8')
@@ -9,7 +14,7 @@ bool    isChessDigit(const char c)
     return (true);
 }
 
-bool    isChessPiece(const char c)
+bool    algebraParser::isChessPiece(const char c)
 {
     if (c != 'K' && c != 'Q' && c != 'R'
         && c != 'B' && c != 'N')
@@ -17,7 +22,7 @@ bool    isChessPiece(const char c)
     return (true);
 }
 
-bool    isChessCoord(const char c)
+bool    algebraParser::isChessCoord(const char c)
 {
     if (c != 'a' && c != 'b' && c != 'c' && c != 'd'
         && c != 'e' && c != 'f' && c != 'g' && c != 'h')
@@ -25,7 +30,7 @@ bool    isChessCoord(const char c)
     return (true);
 }
 
-string  algebraicParser::getLeftSequence(void) const
+string  algebraParser::getLeftSequence(void) const
 {
     string  left;
 
@@ -38,7 +43,7 @@ string  algebraicParser::getLeftSequence(void) const
     return (left);
 }
 
-string  algebraicParser::getRightSequence(void) const
+string  algebraParser::getRightSequence(void) const
 {
     string  right;
 

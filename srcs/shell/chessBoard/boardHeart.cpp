@@ -1,4 +1,4 @@
-#include "../../include/shellChess.hpp"
+#include "chessBoard.hpp"
 
 void    chessBoard::enableDisableEnPassant(void)
 {
@@ -182,7 +182,7 @@ int chessBoard::playMove(t_move move)
             else
             {
                 movePiece(_lastMove.src, _lastMove.dest);
-                if (isChessPiece(_lastMove.dest.at(_lastMove.dest.length() - 1)) == true)
+                if (algebraParser::isChessPiece(_lastMove.dest.at(_lastMove.dest.length() - 1)) == true)
                     promotePiece(_lastMove.dest, _lastMove.dest[_lastMove.dest.length() - 1]);
                 
                 if (_allocated == false)

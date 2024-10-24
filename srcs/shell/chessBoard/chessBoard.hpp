@@ -1,16 +1,14 @@
 #ifndef CHESSBOARD
 # define CHESSBOARD
 
-# include <iostream>
-
-# include "../algebraicParser/algebraicParser.hpp"
+# include "../../../include/shellChessClassic.hpp"
 
 # include "pieces/chessPiece.hpp"
 # include "pieces/king.hpp"
 # include "pieces/queen.hpp"
+# include "pieces/rook.hpp"
 # include "pieces/bishop.hpp"
 # include "pieces/knight.hpp"
-# include "pieces/rook.hpp"
 # include "pieces/pawn.hpp"
 
 using namespace std;

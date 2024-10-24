@@ -2,6 +2,7 @@
 # define QUEEN_HPP
 
 # include "chessPiece.hpp"
+# include "../../algebraParser/algebraParser.hpp"
 
 class Queen : public chessPiece
 {
@@ -35,7 +36,7 @@ class Queen : public chessPiece
                         src_y--;
 
                     newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
-                    if (isChessCoord(newCoords[0]) == false || isChessDigit(newCoords[1]) == false)
+                    if (algebraParser::isChessCoord(newCoords[0]) == false || algebraParser::isChessDigit(newCoords[1]) == false)
                         break ;
                     else
                         coords = coords + newCoords;
@@ -66,7 +67,7 @@ class Queen : public chessPiece
                         src_x++, src_y--;
 
                     newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
-                    if (isChessCoord(newCoords[0]) == false || isChessDigit(newCoords[1]) == false)
+                    if (algebraParser::isChessCoord(newCoords[0]) == false || algebraParser::isChessDigit(newCoords[1]) == false)
                         break ;
                     else
                         coords = coords + newCoords;

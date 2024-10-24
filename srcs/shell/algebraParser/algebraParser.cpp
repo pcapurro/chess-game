@@ -1,6 +1,6 @@
-#include "../../include/shellChess.hpp"
+# include "algebraParser.hpp"
 
-void    algebraicParser::parseDoubleSequence(void)
+void    algebraParser::parseDoubleSequence(void)
 {
     string  left;
     string  right;
@@ -15,15 +15,15 @@ void    algebraicParser::parseDoubleSequence(void)
         _move.action = '-';
 
     if (left.length() < 3 
-        || (isChessCoord(_move.move[0]) == false && left.length() == 1))
+        || (algebraParser::isChessCoord(_move.move[0]) == false && left.length() == 1))
     {
         vector<string>  coords;
 
         char c = 'i';
-        if (left.length() == 1 && isChessCoord(left[0]) == true)
+        if (left.length() == 1 && algebraParser::isChessCoord(left[0]) == true)
             c = left[0];
 
-        if (isChessCoord(_move.move[0]) == true)
+        if (algebraParser::isChessCoord(_move.move[0]) == true)
             coords = getPawnSequence(right, _turn, c);
         if (_move.move[0] == 'K')
             coords = getKingSequence(right, 'i');
@@ -38,7 +38,7 @@ void    algebraicParser::parseDoubleSequence(void)
 
         for (int i = 0; i != coords.size(); i++)
         {
-            if (isChessCoord(coords.at(i)[0]) == true && isChessDigit(coords.at(i)[1]) == true)
+            if (algebraParser::isChessCoord(coords.at(i)[0]) == true && algebraParser::isChessDigit(coords.at(i)[1]) == true)
             {
                 if (left.length() != 2 || (left.length() == 2 && coords.at(i)[0] == _move.move[1]))
                     middle = middle + coords.at(i);
@@ -46,22 +46,22 @@ void    algebraicParser::parseDoubleSequence(void)
         }
     }
 
-    if (isChessCoord(_move.move[0]) == true && left.length() != 1)
+    if (algebraParser::isChessCoord(_move.move[0]) == true && left.length() != 1)
         _move.obj = 'P', _move.src = left, _move.dest = right;
     else
     {
-        isChessCoord(_move.move[0]) == true ? _move.obj = 'P' : _move.obj = _move.move[0];
+        algebraParser::isChessCoord(_move.move[0]) == true ? _move.obj = 'P' : _move.obj = _move.move[0];
         middle.size() != 0 ? _move.src = middle : _move.src = (left.c_str() + 1);
         _move.dest = right;
     }
 }
 
-void    algebraicParser::parseUniqueSequence(void)
+void    algebraParser::parseUniqueSequence(void)
 {
     vector<string>  coords;
     int i = 0;
 
-    if (isChessCoord(_move.move[0]) == true)
+    if (algebraParser::isChessCoord(_move.move[0]) == true)
         coords = getPawnSequence(_move.move, _turn, 'i'), _move.obj = 'P';
     else
     {
@@ -85,16 +85,16 @@ void    algebraicParser::parseUniqueSequence(void)
 
     for (int i = 0; i != coords.size(); i++)
     {
-        if (isChessCoord(coords.at(i)[0]) == true && isChessDigit(coords.at(i)[1]) == true)
+        if (algebraParser::isChessCoord(coords.at(i)[0]) == true && algebraParser::isChessDigit(coords.at(i)[1]) == true)
             _move.src = _move.src + coords.at(i);
     }
-    if (isChessCoord(_move.move[0]) == true)
+    if (algebraParser::isChessCoord(_move.move[0]) == true)
         _move.dest = _move.dest + _move.move.c_str();
     else
         _move.dest = _move.dest + (_move.move.c_str() + 1 + i);
 }
 
-void    algebraicParser::parseMove(void)
+void    algebraParser::parseMove(void)
 {
     _move.src.clear();
     _move.dest.clear();

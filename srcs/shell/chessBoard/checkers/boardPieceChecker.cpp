@@ -1,4 +1,4 @@
-#include "../../../include/shellChess.hpp"
+#include "../chessBoard.hpp"
 
 bool    chessBoard::isCastlingPossible(void) const
 {

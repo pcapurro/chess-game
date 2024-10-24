@@ -1,4 +1,4 @@
-#include "../../../include/shellChess.hpp"
+#include "../chessBoard.hpp"
 
 int chessBoard::checkPawnDest(void) const
 {
@@ -7,7 +7,7 @@ int chessBoard::checkPawnDest(void) const
     atValue = getAtValue(_lastMove.dest);
 
     if ((_board.at(atValue).coord[1] == '8' || _board.at(atValue).coord[1] == '1')
-        && (_lastMove.dest.length() != 3 || isChessPiece(_lastMove.dest[2]) == false
+        && (_lastMove.dest.length() != 3 || algebraParser::isChessPiece(_lastMove.dest[2]) == false
         || _lastMove.dest[2] == 'K'))
         return (FAIL);
 

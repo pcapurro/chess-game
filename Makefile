@@ -6,23 +6,21 @@
 
 NAME = shell-chess
 
-SRCS = srcs/main.cpp \
-	srcs/shell.cpp \
-	srcs/visual.cpp \
-	srcs/print.cpp \
-	srcs/algebraicParser/algebraicBase.cpp \
-	srcs/algebraicParser/algebraicChecker.cpp \
-	srcs/algebraicParser/algebraicParser.cpp \
-	srcs/algebraicParser/algebraicTools.cpp \
-	srcs/chessBoard/boardHeart.cpp \
-	srcs/chessBoard/boardCounter.cpp \
-	srcs/chessBoard/boardPrint.cpp \
-	srcs/chessBoard/boardTools.cpp \
-	srcs/chessBoard/boardInit.cpp \
-	srcs/chessBoard/boardFree.cpp \
-	srcs/chessBoard/checkers/boardEndChecker.cpp \
-	srcs/chessBoard/checkers/boardMoveChecker.cpp \
-	srcs/chessBoard/checkers/boardPieceChecker.cpp \
+SRCS = srcs/shell/shell.cpp \
+	srcs/shell/print.cpp \
+	srcs/shell/algebraParser/algebraBase.cpp \
+	srcs/shell/algebraParser/algebraChecker.cpp \
+	srcs/shell/algebraParser/algebraParser.cpp \
+	srcs/shell/algebraParser/algebraTools.cpp \
+	srcs/shell/chessBoard/boardHeart.cpp \
+	srcs/shell/chessBoard/boardCounter.cpp \
+	srcs/shell/chessBoard/boardPrint.cpp \
+	srcs/shell/chessBoard/boardTools.cpp \
+	srcs/shell/chessBoard/boardInit.cpp \
+	srcs/shell/chessBoard/boardFree.cpp \
+	srcs/shell/chessBoard/checkers/boardEndChecker.cpp \
+	srcs/shell/chessBoard/checkers/boardMoveChecker.cpp \
+	srcs/shell/chessBoard/checkers/boardPieceChecker.cpp \
 
 CXX = c++
 

@@ -1,4 +1,5 @@
-#include "../include/shellChess.hpp"
+#include "chessBoard/chessBoard.hpp"
+#include "algebraParser/algebraParser.hpp"
 
 void    initWelcome(void)
 {
@@ -14,7 +15,7 @@ int shellGameLoop(chessBoard *board, const int argc)
 {
     int             value;
     string          input;
-    algebraicParser checker;
+    algebraParser   checker;
 
     if (argc != 3)
         board->printBoard();

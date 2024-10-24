@@ -1,6 +1,6 @@
-#include "../../include/shellChess.hpp"
+# include "algebraParser.hpp"
 
-void    algebraicParser::operator=(const string move)
+void    algebraParser::operator=(const string move)
 {
     _move.move = move;
     isValid();
@@ -8,7 +8,7 @@ void    algebraicParser::operator=(const string move)
         parseMove();
 }
 
-bool    algebraicParser::fail(void) const
+bool    algebraParser::fail(void) const
 {
     if (_fail == true)
         return (true);
