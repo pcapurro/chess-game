@@ -20,7 +20,7 @@ class VisualGame
 {
     public:
 
-        VisualGame(void);
+        VisualGame(const int width = 800, const int height = 800);
         ~VisualGame(void);
 
         void    initializeGame(void);
@@ -34,16 +34,19 @@ class VisualGame
     
     private:
 
-        SDL_Window      *mainWindow;
-        SDL_Renderer    *mainRenderer;
+        const int       _width;
+        const int       _height;
 
-        SDL_Texture     *boardTexture;
-        SDL_Surface     *baseSurface;
-        t_textures      whiteTextures;
-        t_textures      blackTextures;
+        SDL_Window      *_mainWindow;
+        SDL_Renderer    *_mainRenderer;
 
-        bool            error;
-        bool            state;
+        SDL_Texture     *_boardTexture;
+        SDL_Surface     *_baseSurface;
+        t_textures      _whiteTextures;
+        t_textures      _blackTextures;
+
+        bool            _error;
+        bool            _state;
 };
 
 #endif

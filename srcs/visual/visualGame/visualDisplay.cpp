@@ -2,9 +2,9 @@
 
 void    VisualGame::displayFrame()
 {
-    SDL_RenderClear(mainRenderer);
-    SDL_RenderCopy(mainRenderer, boardTexture, NULL, NULL);
-    SDL_RenderPresent(mainRenderer);
+    SDL_RenderClear(_mainRenderer);
+    SDL_RenderCopy(_mainRenderer, _boardTexture, NULL, NULL);
+    SDL_RenderPresent(_mainRenderer);
 
-    SDL_Delay(6000);
+    SDL_Delay(4000);
 }

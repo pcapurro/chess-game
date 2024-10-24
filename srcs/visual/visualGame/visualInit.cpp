@@ -1,6 +1,6 @@
 #include "visualGame.hpp"
 
-VisualGame::VisualGame()
+VisualGame::VisualGame(const int width, const int heigth) : _width(width), _height(heigth)
 {
     initializeGame();
     loadTextures();
@@ -10,9 +10,9 @@ void    VisualGame::initializeGame(void)
 {
     SDL_Init(SDL_INIT_VIDEO);
     
-    mainWindow = SDL_CreateWindow("shell-chess", 100, 100, \
-        700, 700, SDL_WINDOW_SHOWN);
+    _mainWindow = SDL_CreateWindow("shell-chess", 100, 100, \
+        _width, _height, SDL_WINDOW_SHOWN);
 
-    mainRenderer = SDL_CreateRenderer(mainWindow, -1, \
+    _mainRenderer = SDL_CreateRenderer(_mainWindow, -1, \
         SDL_RENDERER_ACCELERATED);
 }

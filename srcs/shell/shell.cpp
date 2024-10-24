@@ -48,7 +48,7 @@ int shellGame(const int argc)
     int         value;
     chessBoard  *board;
 
-    board = new (std::nothrow) chessBoard;
+    board = new (nothrow) chessBoard;
     if (!board || board == nullptr)
         return (1);
     else if (board->isAllocated() == false)
