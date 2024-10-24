@@ -33,6 +33,8 @@ class VisualGame
         void        loadTextures(void);
 
         SDL_Texture *getTexture(const char type, const string color) const;
+        SDL_Rect    getRectangle(const string coords);
+    
         void        loadBoard(const chessBoard *board);
         void        displayFrame(void);
     

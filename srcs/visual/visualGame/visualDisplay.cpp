@@ -35,17 +35,21 @@ SDL_Texture *VisualGame::getTexture(const char type, const string color) const
     return (nullptr);
 }
 
+SDL_Rect    VisualGame::getRectangle(const string coords)
+{
+    SDL_Rect    obj;
+}
+
 void    VisualGame::loadBoard(const chessBoard *board)
 {
     char        type;
     string      coords;
     string      color;
-    SDL_Rect    obj;
 
     SDL_RenderClear(_mainRenderer);
     SDL_RenderCopy(_mainRenderer, _boardTexture, NULL, NULL);
 
-    for (int i = 9; i != 1; i--)
+    for (int i = 8; i != -1; i--)
     {
         for (int k = 0; k != 8; k++)
         {
@@ -54,12 +58,8 @@ void    VisualGame::loadBoard(const chessBoard *board)
             color = board->getColor(coords);
 
             if (type != ' ')
-            {
-                obj.h = _height / 8, obj.w = _width / 8;
-                // obj.x = _width / k, obj.y = _height / i;
-
-                SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
-            }
+                SDL_RenderCopy(_mainRenderer, getTexture(type, color), \
+                    NULL, &getRectangle(coords));
         }
     }
 }
@@ -67,5 +67,5 @@ void    VisualGame::loadBoard(const chessBoard *board)
 void    VisualGame::displayFrame(void)
 {
     SDL_RenderPresent(_mainRenderer);
-    SDL_Delay(4000);
+    SDL_Delay(10000);
 }
