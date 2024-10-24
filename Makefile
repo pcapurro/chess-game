@@ -28,6 +28,8 @@ CXX = c++
 
 CXXFLAGS = #-Wall -Wextra -Werror
 
+SDLFLAGS = -lSDL2
+
 OBJS = $(SRCS:.cpp=.o)
 
 ## === RULES === ##
@@ -35,7 +37,7 @@ OBJS = $(SRCS:.cpp=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) -lSDL2 -lSDL2_image
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) $(SDLFLAGS)
 
 re: fclean all
 
