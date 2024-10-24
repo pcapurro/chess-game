@@ -68,3 +68,22 @@ int shellGame(const int argc)
     delete board;
     return (0);
 }
+
+int main(const int argc, const char **argv)
+{
+    if (argc > 2 || (argc == 2 && string(argv[1]) != "--blind"))
+    {
+        cerr << "Error! Invalid arguments." << endl;
+        cerr << "Usage: ./shell-chess [--blind]" << endl;
+        return (1);
+    }
+    else
+    {
+        initWelcome();
+        printLoading();
+
+        if (shellGame(argc) != 0)
+            return (1);
+    }
+    return (0);
+}

@@ -125,7 +125,7 @@ void    *loadTextures(t_game *mainStr)
     return (mainStr);
 }
 
-int visualGame(void)
+int main(void)
 {
     t_game  *mainStr;
 
