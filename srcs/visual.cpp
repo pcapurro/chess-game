@@ -55,9 +55,9 @@ void    *initializeGame(t_game *mainStr)
 
 void    *loadTextures(t_game *mainStr)
 {
-    // mainStr->baseSurface = IMG_Load("./materials/board.png");
-    // if (!mainStr->baseSurface)
-        // return (nullptr);
+    mainStr->baseSurface = SDL_LoadBMP("./materials/board.bmp");
+    if (!mainStr->baseSurface)
+        return (nullptr);
     mainStr->boardTexture = SDL_CreateTextureFromSurface(mainStr->mainRenderer, mainStr->baseSurface);
     if (!mainStr->boardTexture)
         return (nullptr);
