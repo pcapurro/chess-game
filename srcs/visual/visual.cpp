@@ -33,20 +33,22 @@ int visualGame(void *gameObjectPtr, void *chessBoardPtr)
 
     gameObject = (VisualGame *)gameObjectPtr;
     board = (chessBoard *)chessBoardPtr;
+    while (board->isGameOver() == false)
+    {
+        gameObject->loadBoard(board);
+        gameObject->displayFrame();
 
-    gameObject->loadBoard(board);
-    gameObject->displayFrame();
+        if (gameObject->waitForEvent(board) == 1)
+            break ;
+        checker = gameObject->getInput();
 
-    // while (board->isGameOver() == false)
-    // {
-    //     checker = "";
-    //     if (checker.fail() == true || board->playMove(checker.getParsedMove()) == FAIL)
-    //         continue ;
-    //     else if (board->isAllocated() == false)
-    //         return (1);
-    //     checker.setTurn(board->getActualTurn());
-    // }
-    // board->printEndGame();
+        if (checker.fail() == true || board->playMove(checker.getParsedMove()) == FAIL)
+            continue ;
+        else if (board->isAllocated() == false)
+            return (1);
+
+        checker.setTurn(board->getActualTurn());
+    }
 
     return (0);
 }

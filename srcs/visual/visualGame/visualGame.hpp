@@ -38,6 +38,9 @@ class VisualGame
         void        loadBoard(const chessBoard *board);
         void        displayFrame(void);
     
+        int         waitForEvent(const chessBoard *board);
+        string      getInput(void) const { return (_input); };
+
     private:
 
         const int       _width;
@@ -50,6 +53,8 @@ class VisualGame
         SDL_Surface     *_baseSurface;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
+
+        string          _input;
 
         bool            _error;
         bool            _state;

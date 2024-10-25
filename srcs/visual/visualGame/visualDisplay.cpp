@@ -82,5 +82,4 @@ void    VisualGame::loadBoard(const chessBoard *board)
 void    VisualGame::displayFrame(void)
 {
     SDL_RenderPresent(_mainRenderer);
-    SDL_Delay(10000);
 }
