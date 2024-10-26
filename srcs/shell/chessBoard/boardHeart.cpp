@@ -176,7 +176,8 @@ int chessBoard::playMove(t_move move)
         }
         else
         {
-            if (_lastMove.action == 'x' && isThereSomething(_lastMove.dest) == false
+            if ((_lastMove.action == 'x' || _lastMove.action == '-')
+                && isThereSomething(_lastMove.dest) == false
                 && _enPassant == true && _enPassantDest == _lastMove.dest)
                 priseEnPassant();
             else

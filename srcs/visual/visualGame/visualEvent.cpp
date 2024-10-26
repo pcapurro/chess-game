@@ -5,6 +5,7 @@ int visualGame::loadInput(const string coord, const chessBoard *board)
     _input.obj = board->getType(_sourceCoord);
     _input.src = _sourceCoord;
     _input.dest = coord;
+    _input.action = '-';
 
     _dropped = true;
     _sourceCoord.clear();
