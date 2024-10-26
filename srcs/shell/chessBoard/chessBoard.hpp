@@ -99,7 +99,7 @@ class chessBoard
         bool    isThereValidSource(void);
 
         int     checkPawnDest(void) const;
-        int     checkDest(void) const;
+        int     checkNormalDest(void) const;
 
         bool    isItValidSource(void) const;
 

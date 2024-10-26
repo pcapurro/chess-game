@@ -20,6 +20,16 @@ int chessBoard::checkPawnDest(void) const
         if (isThereSomething(_lastMove.dest) == true)
             return (FAIL);
 
+        if (_color == "white" 
+            && _lastMove.dest[1] - _lastMove.src[1] != 2
+            && _lastMove.dest[1] - _lastMove.src[1] != 1)
+            return (FAIL);
+
+        if (_color == "black" 
+            && _lastMove.src[1] - _lastMove.dest[1] != 2
+            && _lastMove.src[1] - _lastMove.dest[1] != 1)
+            return (FAIL);
+
         string  newDest = _lastMove.dest;
         if (_board.at(atValue).coord[1] == _lastMove.dest[1] + 2)
         {
@@ -94,6 +104,46 @@ int chessBoard::checkNormalSource(void)
     return (SUCCESS);
 }
 
+int chessBoard::checkNormalDest(void) const
+{
+    if (_lastMove.obj == 'Q')
+    {
+        Queen   queen("white", _lastMove.src);
+
+        if (queen.isOnMyWay(_lastMove.dest) == false)
+            return (FAIL);
+    }
+    if (_lastMove.obj == 'K')
+    {
+        King   king("white", _lastMove.src);
+
+        if (king.isOnMyWay(_lastMove.dest) == false)
+            return (FAIL);
+    }
+    if (_lastMove.obj == 'B')
+    {
+        Bishop   bishop("white", _lastMove.src);
+
+        if (bishop.isOnMyWay(_lastMove.dest) == false)
+            return (FAIL);
+    }
+    if (_lastMove.obj == 'N')
+    {
+        Knight   knight("white", _lastMove.src);
+
+        if (knight.isOnMyWay(_lastMove.dest) == false)
+            return (FAIL);
+    }
+    if (_lastMove.obj == 'R')
+    {
+        Rook   rook("white", _lastMove.src);
+
+        if (rook.isOnMyWay(_lastMove.dest) == false)
+            return (FAIL);
+    }
+    return (SUCCESS);
+}
+
 bool    chessBoard::isThereValidSource(void)
 {
     if (_lastMove.obj == 'P')
@@ -145,7 +195,7 @@ bool    chessBoard::isLegal(void)
                 return (false);
         }
         else
-            if (checkDest() == FAIL)
+            if (checkNormalDest() == FAIL)
                 return (false);
 
         if (isThereAlly() == true || isRightSide() == false
