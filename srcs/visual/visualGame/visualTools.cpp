@@ -2,7 +2,6 @@
 
 t_move  visualGame::getInput(void)
 {
-    _turn++;
     return (_input);
 }
 

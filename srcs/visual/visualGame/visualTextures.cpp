@@ -35,31 +35,31 @@ void    visualGame::loadTexture(const char type, const char color, const char *p
 
 void    visualGame::loadWhiteTextures(void)
 {
-    loadTexture('K', 'w', "./materials/white/king.bmp");
-    loadTexture('Q', 'w', "./materials/white/queen.bmp");
+    loadTexture('K', 'w', "./materials/images/white/king.bmp");
+    loadTexture('Q', 'w', "./materials/images/white/queen.bmp");
 
-    loadTexture('N', 'w', "./materials/white/knight.bmp");
-    loadTexture('B', 'w', "./materials/white/bishop.bmp");
-    loadTexture('R', 'w', "./materials/white/rook.bmp");
+    loadTexture('N', 'w', "./materials/images/white/knight.bmp");
+    loadTexture('B', 'w', "./materials/images/white/bishop.bmp");
+    loadTexture('R', 'w', "./materials/images/white/rook.bmp");
 
-    loadTexture('P', 'w', "./materials/white/pawn.bmp");
+    loadTexture('P', 'w', "./materials/images/white/pawn.bmp");
 }
 
 void    visualGame::loadBlackTextures(void)
 {
-    loadTexture('K', 'b', "./materials/black/king.bmp");
-    loadTexture('Q', 'b', "./materials/black/queen.bmp");
+    loadTexture('K', 'b', "./materials/images/black/king.bmp");
+    loadTexture('Q', 'b', "./materials/images/black/queen.bmp");
 
-    loadTexture('N', 'b', "./materials/black/knight.bmp");
-    loadTexture('B', 'b', "./materials/black/bishop.bmp");
-    loadTexture('R', 'b', "./materials/black/rook.bmp");
+    loadTexture('N', 'b', "./materials/images/black/knight.bmp");
+    loadTexture('B', 'b', "./materials/images/black/bishop.bmp");
+    loadTexture('R', 'b', "./materials/images/black/rook.bmp");
 
-    loadTexture('P', 'b', "./materials/black/pawn.bmp");
+    loadTexture('P', 'b', "./materials/images/black/pawn.bmp");
 }
 
 void    visualGame::loadTextures(void)
 {
-    _baseSurface = SDL_LoadBMP("./materials/board.bmp");
+    _baseSurface = SDL_LoadBMP("./materials/images/board.bmp");
     _boardTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
     SDL_FreeSurface(_baseSurface);
 

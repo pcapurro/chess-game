@@ -51,9 +51,32 @@ SDL_Rect    visualGame::getRectangle(const string coords)
     return (obj);
 }
 
-void    visualGame::loadText(void)
+void    visualGame::loadText(const int value)
 {
-    ;
+    SDL_Rect    obj;
+    string      color;
+    
+    if (_turn % 2 == 0)
+        color = "black";
+    else
+        color = "white";
+
+    obj.x = _width / 4, obj.y = _height / 80;
+    obj.w = _width / 2, obj.h = _height / 16;
+    if (value != 0)
+    {
+        if (color == "white")
+            SDL_RenderCopy(_mainRenderer, _texts.blackWon, NULL, &obj);
+        if (color == "black")
+            SDL_RenderCopy(_mainRenderer, _texts.whiteWon, NULL, &obj);
+    }
+    else
+    {
+        if (color == "white")
+            SDL_RenderCopy(_mainRenderer, _texts.whiteToPlay, NULL, &obj);
+        if (color == "black")
+            SDL_RenderCopy(_mainRenderer, _texts.blackToPlay, NULL, &obj);
+    }
 }
 
 void    visualGame::loadBoard(const chessBoard *board, const int cx, const int cy)

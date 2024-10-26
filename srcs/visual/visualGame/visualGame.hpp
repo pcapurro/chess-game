@@ -47,7 +47,7 @@ class visualGame
         SDL_Rect    getRectangle(const string coords);
     
         void        loadBoard(const chessBoard *board, const int cx = 0, const int cy = 0);
-        void        loadText(void);
+        void        loadText(const int value = 0);
         void        displayFrame(void);
     
         int         waitForEvent(const chessBoard *board);
@@ -55,6 +55,8 @@ class visualGame
         t_move      getInput(void);
         string      getCoord(const int x, const int y);
         string      getTurnColor(void) const;
+        
+        void        setTurn(void) { _turn++; };
 
     private:
 

@@ -38,14 +38,22 @@ int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
         gameObject->displayFrame();
 
         if (gameObject->waitForEvent(board) == 1)
-            break ;
+            return (1);
 
         if (board->playMove(gameObject->getInput()) == FAIL)
             continue ;
         else if (board->isAllocated() == false)
             return (1);
+        gameObject->setTurn();
     }
+    
+    gameObject->loadBoard(board);
+    gameObject->loadText(1);
+    gameObject->displayFrame();
+
     board->printEndGame(1);
+
+    SDL_Delay(5000);
 
     return (0);
 }
