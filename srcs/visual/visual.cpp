@@ -33,10 +33,7 @@ int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
     board = (chessBoard *)chessBoardPtr;
     while (board->isGameOver() == false)
     {
-        gameObject->loadBoard(board);
-        gameObject->loadText();
-        gameObject->displayFrame();
-
+        gameObject->displayGame(board);
         if (gameObject->waitForEvent(board) == 1)
             return (1);
 
@@ -46,11 +43,7 @@ int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
             return (1);
         gameObject->setTurn();
     }
-    
-    gameObject->loadBoard(board);
-    gameObject->loadText(1);
-    gameObject->displayFrame();
-
+    gameObject->displayGame(board, -1);
     board->printEndGame(1);
 
     return (0);

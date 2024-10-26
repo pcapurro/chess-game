@@ -67,9 +67,7 @@ int visualGame::waitForEvent(const chessBoard *board)
                 if (event.type == SDL_MOUSEBUTTONUP)
                     return (loadInput(coord, board));
             }
-            loadBoard(board, event.button.x, event.button.y);
-            loadText();
-            displayFrame();
+            displayGame(board, event.button.x, event.button.y);
         }
     }
     return (0);

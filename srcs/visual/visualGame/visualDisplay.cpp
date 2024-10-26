@@ -63,7 +63,7 @@ void    visualGame::loadText(const int value)
 
     obj.x = _width / 4, obj.y = _height / 80;
     obj.w = _width / 2, obj.h = _height / 16;
-    if (value != 0)
+    if (value == -1)
     {
         if (color == "white")
             SDL_RenderCopy(_mainRenderer, _texts.blackWon, NULL, &obj);
@@ -86,16 +86,13 @@ void    visualGame::loadBoard(const chessBoard *board, const int cx, const int c
     string      color;
     SDL_Rect    obj;
 
-    SDL_RenderClear(_mainRenderer);
     obj.h = _height, obj.w = _width, obj.x = 0, obj.y = 0;
     SDL_RenderCopy(_mainRenderer, _boardTexture, NULL, &obj);
-
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
         {
             coords = string(1, "abcdefgh"[k]) + string(1, "87654321"[i]);
-
             type = board->getType(coords);
             color = board->getColor(coords);
 
@@ -112,7 +109,10 @@ void    visualGame::loadBoard(const chessBoard *board, const int cx, const int c
     }
 }
 
-void    visualGame::displayFrame(void)
+void    visualGame::displayGame(const chessBoard *board, const int cx, const int cy)
 {
+    SDL_RenderClear(_mainRenderer);
+    loadBoard(board, cx, cy);
+    loadText(cx);
     SDL_RenderPresent(_mainRenderer);
 }
