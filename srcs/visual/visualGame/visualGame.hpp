@@ -60,7 +60,7 @@ class visualGame
         t_textures      _blackTextures;
 
         bool            _dropped;
-        string          _droppedCoord;
+        string          _sourceCoord;
 
         t_move          _input;
         int             _turn;
