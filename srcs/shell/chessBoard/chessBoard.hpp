@@ -64,7 +64,7 @@ class chessBoard
 
         void    printEvent(const bool cfail, const bool bfail,\
                             const int value);
-        void    printEndGame(void);
+        void    printEndGame(const int value = 0);
         void    printBoard(void) const;
 
     private:

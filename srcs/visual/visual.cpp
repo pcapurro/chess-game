@@ -44,6 +44,7 @@ int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
         else if (board->isAllocated() == false)
             return (1);
     }
+    board->printEndGame(1);
 
     return (0);
 }
