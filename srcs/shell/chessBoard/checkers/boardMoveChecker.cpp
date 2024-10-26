@@ -139,8 +139,14 @@ bool    chessBoard::isLegal(void)
         else if (isItValidSource() == false)
             return (false);
 
-        if (_lastMove.obj == 'P' && checkPawnDest() == FAIL)
-            return (false);
+        if (_lastMove.obj == 'P')
+        {
+            if (checkPawnDest() == FAIL)
+                return (false);
+        }
+        else
+            if (checkDest() == FAIL)
+                return (false);
 
         if (isThereAlly() == true || isRightSide() == false
             || (_lastMove.obj == 'K' && isTheDestinationSafe() == false))

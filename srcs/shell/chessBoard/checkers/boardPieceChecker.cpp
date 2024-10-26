@@ -121,3 +121,43 @@ bool    chessBoard::isThereAlly(void) const
         return (true);
     return (false);
 }
+
+int chessBoard::checkDest(void) const
+{
+    if (_lastMove.obj == 'Q')
+    {
+        Queen   queen("white", _lastMove.src);
+
+        if (queen.isOnMyWay(_lastMove.dest) == false)
+            return (FAIL);
+    }
+    if (_lastMove.obj == 'K')
+    {
+        King   king("white", _lastMove.src);
+
+        if (king.isOnMyWay(_lastMove.dest) == false)
+            return (FAIL);
+    }
+    if (_lastMove.obj == 'B')
+    {
+        Bishop   bishop("white", _lastMove.src);
+
+        if (bishop.isOnMyWay(_lastMove.dest) == false)
+            return (FAIL);
+    }
+    if (_lastMove.obj == 'N')
+    {
+        Knight   knight("white", _lastMove.src);
+
+        if (knight.isOnMyWay(_lastMove.dest) == false)
+            return (FAIL);
+    }
+    if (_lastMove.obj == 'R')
+    {
+        Rook   rook("white", _lastMove.src);
+
+        if (rook.isOnMyWay(_lastMove.dest) == false)
+            return (FAIL);
+    }
+    return (SUCCESS);
+}
