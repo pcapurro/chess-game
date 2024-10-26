@@ -13,11 +13,13 @@ int visualGame::waitForEvent(const chessBoard *board)
                 return (1);
             else
             {
-                cout << event.button.x << " ; " << event.button.y << endl;
-
                 coord = getCoord(event.button.x, event.button.y);
-                if (board->getType(coord) != ' ')
-                    ;
+                cout << event.button.x << " ; " << event.button.y << "(" << coord << ")" << endl;
+
+                if (board->getType(coord) != ' ' && board->getColor(coord) == getTurnColor())
+                    SDL_SetCursor(_playCursor);
+                else
+                    SDL_SetCursor(_normalCursor);
             }
         }
     }

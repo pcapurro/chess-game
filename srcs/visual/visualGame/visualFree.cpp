@@ -33,5 +33,8 @@ visualGame::~visualGame()
     if (_mainRenderer != nullptr)
         SDL_DestroyRenderer(_mainRenderer);
 
+    SDL_FreeCursor(_normalCursor);
+    SDL_FreeCursor(_playCursor);
+
     SDL_Quit();
 }

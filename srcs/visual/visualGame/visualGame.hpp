@@ -41,6 +41,7 @@ class visualGame
         int         waitForEvent(const chessBoard *board);
         t_move      getInput(void);
         string      getCoord(const int x, const int y);
+        string      getTurnColor(void) const;
 
     private:
 
@@ -49,6 +50,9 @@ class visualGame
 
         SDL_Window      *_mainWindow;
         SDL_Renderer    *_mainRenderer;
+
+        SDL_Cursor      *_normalCursor;
+        SDL_Cursor      *_playCursor;
 
         SDL_Texture     *_boardTexture;
         SDL_Surface     *_baseSurface;
