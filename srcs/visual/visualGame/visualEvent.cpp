@@ -21,6 +21,25 @@ int visualGame::loadInput(const string coord, const chessBoard *board)
     return (0);
 }
 
+int visualGame::waitForNewGame(void)
+{
+    SDL_Event   event;
+
+    while (1)
+    {
+        if (SDL_PollEvent(&event) == true)
+        {
+            if (event.type == SDL_QUIT 
+                || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+                return (1);
+
+            if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
+                break ;
+        }
+    }
+    return (0);
+}
+
 int visualGame::waitForEvent(const chessBoard *board)
 {
     SDL_Event   event;

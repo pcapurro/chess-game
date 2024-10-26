@@ -52,6 +52,7 @@ class visualGame
         void        displayFrame(void);
     
         int         waitForEvent(const chessBoard *board);
+        int         waitForNewGame(void);
         int         loadInput(const string coord, const chessBoard *board);
         t_move      getInput(void);
         string      getCoord(const int x, const int y);

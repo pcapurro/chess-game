@@ -53,8 +53,6 @@ int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
 
     board->printEndGame(1);
 
-    SDL_Delay(5000);
-
     return (0);
 }
 
@@ -92,6 +90,9 @@ int main(const int argc, const char **argv)
             if (launchVisualGame(gameObject, board) != 0)
                 return (1);
             gameObject->setToDefault();
+
+            if (gameObject->waitForNewGame() == 1)
+                break ;
         }
     }
     return (0);
