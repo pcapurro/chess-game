@@ -35,7 +35,7 @@ class visualGame
         SDL_Texture *getTexture(const char type, const string color) const;
         SDL_Rect    getRectangle(const string coords);
     
-        void        loadBoard(const chessBoard *board);
+        void        loadBoard(const chessBoard *board, const int cx = 0, const int cy = 0);
         void        displayFrame(void);
     
         int         waitForEvent(const chessBoard *board);
@@ -58,6 +58,9 @@ class visualGame
         SDL_Surface     *_baseSurface;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
+
+        bool            _dropped;
+        string          _droppedCoord;
 
         t_move          _input;
         int             _turn;

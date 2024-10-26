@@ -3,6 +3,7 @@
 visualGame::visualGame(const int width, const int heigth) : _width(width), _height(heigth)
 {
     _turn = 1;
+    _dropped = true;
 
     initializeGame();
     loadTextures();
