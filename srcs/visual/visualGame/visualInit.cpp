@@ -2,12 +2,18 @@
 
 visualGame::visualGame(const int width, const int heigth) : _width(width), _height(heigth)
 {
-    _turn = 1;
-    _dropped = true;
+    setToDefault();
 
     initializeGame();
     loadTextures();
     loadTexts();
+}
+
+void    visualGame::setToDefault(void)
+{
+    _turn = 1;
+    _dropped = true;
+    _sourceCoord.clear();
 }
 
 void    visualGame::initializeGame(void)

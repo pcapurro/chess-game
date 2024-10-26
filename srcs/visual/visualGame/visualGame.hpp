@@ -35,6 +35,7 @@ class visualGame
         ~visualGame(void);
 
         void        initializeGame(void);
+        void        setToDefault(void);
 
         void        loadWhiteTextures(void);
         void        loadBlackTextures(void);

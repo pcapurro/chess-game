@@ -58,8 +58,6 @@ visual: $(NAMEV)
 $(NAMEV): $(OBJSV)
 	$(CXX) $(CXXFLAGS) $(OBJSV) -o $(NAMEV) $(SDLFLAGS)
 
-re: fclean all
-
 clean:
 	@rm -rf $(OBJSC) $(OBJSV)
 

@@ -81,14 +81,18 @@ int main(const int argc, const char **argv)
         if (gameObject == nullptr)
             return (1);
         
-        board = new (nothrow) chessBoard;
-        if (!board || board == nullptr)
-            { delete gameObject; return (1); }
-        if (board->isAllocated() == false)
-            { delete board; delete gameObject; return (1); }
+        while (1)
+        {
+            board = new (nothrow) chessBoard;
+            if (!board || board == nullptr)
+                { delete gameObject; return (1); }
+            if (board->isAllocated() == false)
+                { delete board; delete gameObject; return (1); }
 
-        if (launchVisualGame(gameObject, board) != 0)
-            return (1);
+            if (launchVisualGame(gameObject, board) != 0)
+                return (1);
+            gameObject->setToDefault();
+        }
     }
     return (0);
 }
