@@ -32,6 +32,7 @@ SRCSV = srcs/visual/visual.cpp \
 	srcs/visual/visualGame/visualInit.cpp \
 	srcs/visual/visualGame/visualTextures.cpp \
 	srcs/visual/visualGame/visualEvent.cpp \
+	srcs/visual/visualGame/visualTools.cpp \
 	$(SRCSBASE) \
 
 CXX = c++

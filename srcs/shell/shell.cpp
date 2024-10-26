@@ -43,7 +43,7 @@ int shellGameLoop(chessBoard *board, const int argc)
     return (0);
 }
 
-int shellGame(const int argc)
+int launchShellGame(const int argc)
 {
     int         value;
     chessBoard  *board;
@@ -82,7 +82,7 @@ int main(const int argc, const char **argv)
         initWelcome();
         printLoading();
 
-        if (shellGame(argc) != 0)
+        if (launchShellGame(argc) != 0)
             return (1);
     }
     return (0);

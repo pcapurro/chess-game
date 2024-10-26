@@ -1,6 +1,6 @@
 #include "visualGame.hpp"
 
-void    VisualGame::loadTexture(const char type, const char color, const char *path)
+void    visualGame::loadTexture(const char type, const char color, const char *path)
 {
     _baseSurface = SDL_LoadBMP(path);
 
@@ -33,7 +33,7 @@ void    VisualGame::loadTexture(const char type, const char color, const char *p
     SDL_FreeSurface(_baseSurface);
 }
 
-void    VisualGame::loadWhiteTextures(void)
+void    visualGame::loadWhiteTextures(void)
 {
     loadTexture('K', 'w', "./materials/white/king.bmp");
     loadTexture('Q', 'w', "./materials/white/queen.bmp");
@@ -45,7 +45,7 @@ void    VisualGame::loadWhiteTextures(void)
     loadTexture('P', 'w', "./materials/white/pawn.bmp");
 }
 
-void    VisualGame::loadBlackTextures(void)
+void    visualGame::loadBlackTextures(void)
 {
     loadTexture('K', 'b', "./materials/black/king.bmp");
     loadTexture('Q', 'b', "./materials/black/queen.bmp");
@@ -57,7 +57,7 @@ void    VisualGame::loadBlackTextures(void)
     loadTexture('P', 'b', "./materials/black/pawn.bmp");
 }
 
-void    VisualGame::loadTextures(void)
+void    visualGame::loadTextures(void)
 {
     _baseSurface = SDL_LoadBMP("./materials/board.bmp");
     _boardTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);

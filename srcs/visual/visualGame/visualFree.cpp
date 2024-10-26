@@ -1,6 +1,6 @@
 #include "visualGame.hpp"
 
-VisualGame::~VisualGame()
+visualGame::~visualGame()
 {
     if (_whiteTextures.pawn != nullptr)
         SDL_DestroyTexture(_whiteTextures.pawn);

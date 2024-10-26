@@ -17,12 +17,12 @@ typedef struct s_textures
 
 }   t_textures;
 
-class VisualGame
+class visualGame
 {
     public:
 
-        VisualGame(const int width = 800, const int height = 800);
-        ~VisualGame(void);
+        visualGame(const int width = 800, const int height = 800);
+        ~visualGame(void);
 
         void        initializeGame(void);
 
@@ -39,7 +39,8 @@ class VisualGame
         void        displayFrame(void);
     
         int         waitForEvent(const chessBoard *board);
-        string      getInput(void) const { return (_input); };
+        t_move      getInput(void);
+        string      getCoord(const int x, const int y);
 
     private:
 
@@ -54,7 +55,8 @@ class VisualGame
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
 
-        string          _input;
+        t_move          _input;
+        int             _turn;
 
         bool            _error;
         bool            _state;

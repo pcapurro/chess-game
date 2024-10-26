@@ -26,6 +26,6 @@ void    printLoading(void);
 int     memoryFailed(void);
 int     systemFailed(void);
 
-int     shellGame(const int argc);
+int     launchShellGame(const int argc);
 
 #endif

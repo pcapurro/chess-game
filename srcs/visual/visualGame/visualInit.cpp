@@ -1,12 +1,14 @@
 #include "visualGame.hpp"
 
-VisualGame::VisualGame(const int width, const int heigth) : _width(width), _height(heigth)
+visualGame::visualGame(const int width, const int heigth) : _width(width), _height(heigth)
 {
+    _turn = 0;
+
     initializeGame();
     loadTextures();
 }
 
-void    VisualGame::initializeGame(void)
+void    visualGame::initializeGame(void)
 {
     SDL_Init(SDL_INIT_VIDEO);
     

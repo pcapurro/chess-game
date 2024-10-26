@@ -1,8 +1,9 @@
 #include "visualGame.hpp"
 
-int VisualGame::waitForEvent(const chessBoard *board)
+int visualGame::waitForEvent(const chessBoard *board)
 {
     SDL_Event   event;
+    string      coord;
 
     while (1)
     {
@@ -11,7 +12,13 @@ int VisualGame::waitForEvent(const chessBoard *board)
             if (event.type == SDL_QUIT)
                 return (1);
             else
-                ;
+            {
+                cout << event.button.x << " ; " << event.button.y << endl;
+
+                coord = getCoord(event.button.x, event.button.y);
+                if (board->getType(coord) != ' ')
+                    ;
+            }
         }
     }
     return (0);

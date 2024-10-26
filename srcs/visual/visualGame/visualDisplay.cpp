@@ -1,6 +1,6 @@
 #include "visualGame.hpp"
 
-SDL_Texture *VisualGame::getTexture(const char type, const string color) const
+SDL_Texture *visualGame::getTexture(const char type, const string color) const
 {
     if (color == "white")
     {
@@ -35,7 +35,7 @@ SDL_Texture *VisualGame::getTexture(const char type, const string color) const
     return (nullptr);
 }
 
-SDL_Rect    VisualGame::getRectangle(const string coords)
+SDL_Rect    visualGame::getRectangle(const string coords)
 {
     int         x;
     int         y;
@@ -50,7 +50,7 @@ SDL_Rect    VisualGame::getRectangle(const string coords)
     return (obj);
 }
 
-void    VisualGame::loadBoard(const chessBoard *board)
+void    visualGame::loadBoard(const chessBoard *board)
 {
     char        type;
     string      coords;
@@ -79,7 +79,7 @@ void    VisualGame::loadBoard(const chessBoard *board)
     }
 }
 
-void    VisualGame::displayFrame(void)
+void    visualGame::displayFrame(void)
 {
     SDL_RenderPresent(_mainRenderer);
 }
