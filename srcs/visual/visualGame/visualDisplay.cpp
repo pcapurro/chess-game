@@ -51,6 +51,11 @@ SDL_Rect    visualGame::getRectangle(const string coords)
     return (obj);
 }
 
+void    visualGame::loadText(void)
+{
+    ;
+}
+
 void    visualGame::loadBoard(const chessBoard *board, const int cx, const int cy)
 {
     char        type;

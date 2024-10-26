@@ -17,6 +17,16 @@ typedef struct s_textures
 
 }   t_textures;
 
+typedef struct s_texts
+{
+    SDL_Texture     *whiteWon;
+    SDL_Texture     *blackWon;
+    SDL_Texture     *whiteToPlay;
+    SDL_Texture     *blackToPlay;
+    SDL_Texture     *draw;
+
+}   t_text;
+
 class visualGame
 {
     public:
@@ -31,11 +41,13 @@ class visualGame
         void        loadTexture(const char type, \
                         const char color, const char *path);
         void        loadTextures(void);
+        void        loadTexts(void);
 
         SDL_Texture *getTexture(const char type, const string color) const;
         SDL_Rect    getRectangle(const string coords);
     
         void        loadBoard(const chessBoard *board, const int cx = 0, const int cy = 0);
+        void        loadText(void);
         void        displayFrame(void);
     
         int         waitForEvent(const chessBoard *board);
@@ -59,6 +71,8 @@ class visualGame
         SDL_Surface     *_baseSurface;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
+
+        t_text          _texts;
 
         bool            _dropped;
         string          _sourceCoord;

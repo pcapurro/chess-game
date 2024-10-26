@@ -34,6 +34,7 @@ int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
     while (board->isGameOver() == false)
     {
         gameObject->loadBoard(board);
+        gameObject->loadText();
         gameObject->displayFrame();
 
         if (gameObject->waitForEvent(board) == 1)

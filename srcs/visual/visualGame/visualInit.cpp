@@ -7,6 +7,7 @@ visualGame::visualGame(const int width, const int heigth) : _width(width), _heig
 
     initializeGame();
     loadTextures();
+    loadTexts();
 }
 
 void    visualGame::initializeGame(void)
