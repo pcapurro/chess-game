@@ -39,7 +39,6 @@ int initializeVisualGame(void)
     if (gameObject->isAllocated() == false)
         { memoryFailed(); delete gameObject; return (1); }
         
-    int value;
     while (1)
     {
         board = new (nothrow) chessBoard;
@@ -48,7 +47,7 @@ int initializeVisualGame(void)
         if (board->isAllocated() == false)
             { delete board, delete gameObject; memoryFailed(); return (1); }
 
-        value = launchVisualGame(gameObject, board);
+        int value = launchVisualGame(gameObject, board);
 
         delete board;
         if (value == 1)
