@@ -49,15 +49,18 @@ int initializeVisualGame(void)
             { delete board, delete gameObject; memoryFailed(); return (1); }
 
         value = launchVisualGame(gameObject, board);
-        if (value == 1)
-            { delete board, delete gameObject; memoryFailed(); return (1); }
 
+        delete board;
+        if (value == 1)
+            { delete gameObject; memoryFailed(); return (1); }
         if (value == 2)
-            { delete board, delete gameObject; return (0); }
+            { delete gameObject; return (0); }
             
         gameObject->setToDefault();
         if (gameObject->waitForNewGame() == 1)
             break ;
     }
+    delete gameObject;
+
     return (0);
 }
