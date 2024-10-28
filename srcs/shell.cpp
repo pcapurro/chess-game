@@ -2,16 +2,6 @@
 #include "chessBoard/chessBoard.hpp"
 #include "algebraParser/algebraParser.hpp"
 
-void    initWelcome(void)
-{
-    string  input;
-    printTitle();
-    getline(cin, input);
-    if (cin.fail() == true)
-        systemFailed();
-    cout << "\033[2A" << ERASE_LINE << endl;
-}
-
 int launchShellGame(void *chessBoardPtr, const int argc)
 {
     string          input;
