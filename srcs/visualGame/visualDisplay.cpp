@@ -88,6 +88,8 @@ void    visualGame::loadBoard(const chessBoard *board, const int cx, const int c
 
     obj.h = _height, obj.w = _width, obj.x = 0, obj.y = 0;
     SDL_RenderCopy(_mainRenderer, _boardTexture, NULL, &obj);
+
+    obj.h = _height / 10, obj.w = _width / 10;
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
