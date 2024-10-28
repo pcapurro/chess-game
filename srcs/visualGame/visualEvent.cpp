@@ -5,7 +5,6 @@ int visualGame::loadInput(const string coord, const chessBoard *board)
     _input.obj = board->getType(_sourceCoord);
     _input.src = _sourceCoord;
     _input.dest = coord;
-    _input.action = '-';
 
     if (_input.obj == 'K')
     {
@@ -36,15 +35,12 @@ int visualGame::waitForNewGame(void)
     {
         if (SDL_PollEvent(&event) == true)
         {
-            if (event.type == SDL_QUIT 
-                || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+            if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN
+                && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_RETURN)))
                 return (1);
 
             if (event.window.event == SDL_WINDOWEVENT_RESIZED)
                 setNewDimensions(event.window.data1, event.window.data2);
-
-            if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
-                break ;
         }
     }
     return (0);
@@ -59,10 +55,12 @@ int visualGame::waitForEvent(const chessBoard *board)
     {
         if (SDL_PollEvent(&event) == true)
         {
-            if (event.type == SDL_QUIT 
-                || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
+            if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN
+                && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_RETURN)))
                 return (1);
-            else
+
+            if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP
+                || event.type == SDL_MOUSEMOTION)
             {
                 coord = getCoord(event.button.x, event.button.y);
                 if (board->getType(coord) != ' ' && board->getColor(coord) == getTurnColor())
@@ -79,8 +77,9 @@ int visualGame::waitForEvent(const chessBoard *board)
                 
                 if (event.type == SDL_MOUSEBUTTONUP)
                     return (loadInput(coord, board));
+
+                displayGame(board, event.button.x, event.button.y);
             }
-            displayGame(board, event.button.x, event.button.y);
         }
     }
     return (0);

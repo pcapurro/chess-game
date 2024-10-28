@@ -60,7 +60,7 @@ class visualGame
         int         waitForEvent(const chessBoard *board);
         int         waitForNewGame(void);
         int         loadInput(const string coord, const chessBoard *board);
-        t_move      getInput(void);
+        t_move      getInput(void) { return (_input); };
         string      getCoord(const int x, const int y);
         string      getTurnColor(void) const;
         

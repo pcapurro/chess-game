@@ -2,6 +2,8 @@
 
 visualGame::visualGame(const int width, const int heigth) : _width(width), _height(heigth)
 {
+    _error = false;
+
     setToDefault();
     setToNullPtr();
 
@@ -14,8 +16,15 @@ visualGame::visualGame(const int width, const int heigth) : _width(width), _heig
 
 void    visualGame::setToDefault(void)
 {
-    _error = false;
     _turn = 1;
+
+    _input.action = '-';
+    _input.obj = ' ';
+
+    _input.dest.clear();
+    _input.move.clear();
+    _input.src.clear();
+
     _dropped = true;
     _sourceCoord.clear();
 }

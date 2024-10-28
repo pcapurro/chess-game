@@ -44,8 +44,8 @@ visualGame::~visualGame()
     if (_blackTextures.rook != nullptr && _blackTextures.rook != NULL)
         SDL_DestroyTexture(_blackTextures.rook);
 
-    if (_baseSurface != nullptr && _baseSurface != NULL)
-        SDL_FreeSurface(_baseSurface);
+    // if (_baseSurface != nullptr && _baseSurface != NULL)
+        // SDL_FreeSurface(_baseSurface);
 
     if (_mainWindow != nullptr && _mainWindow != NULL)
         SDL_DestroyWindow(_mainWindow);

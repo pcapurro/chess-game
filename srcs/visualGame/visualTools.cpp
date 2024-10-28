@@ -1,18 +1,12 @@
 #include "visualGame.hpp"
 
-t_move  visualGame::getInput(void)
-{
-    return (_input);
-}
-
 string  visualGame::getCoord(const int x, const int y)
 {
-
     if (x > 0 && y > 0 && x >= _width / 10 && x <= _width / 10 * 9
         && y >= (_height / 10) && y <= (_height / 10 * 9))
     {
         int xZone;
-        int yZone;
+        int yZone ;
 
         for (int i = 0; i != 8; i++)
         {
