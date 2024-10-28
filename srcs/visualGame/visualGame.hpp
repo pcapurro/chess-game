@@ -1,8 +1,8 @@
 #ifndef VISUALGAME_HPP
 # define VISUALGAME_HPP
 
-# include "../../../include/shellChessVisual.hpp"
-#include "../../shell/chessBoard/chessBoard.hpp"
+# include "../../include/shellChess.hpp"
+#include "../chessBoard/chessBoard.hpp"
 
 typedef struct s_textures
 {

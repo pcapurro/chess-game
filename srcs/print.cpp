@@ -1,4 +1,4 @@
-#include "../../include/shellChessClassic.hpp"
+#include "../include/shellChess.hpp"
 
 void    printTitle(void)
 {

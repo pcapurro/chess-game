@@ -1,7 +1,7 @@
 #ifndef algebraParser_HPP
 # define algebraParser_HPP
 
-# include "../../../include/shellChessClassic.hpp"
+# include "../../include/shellChess.hpp"
 
 using namespace std;
 

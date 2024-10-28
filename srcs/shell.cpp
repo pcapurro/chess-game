@@ -1,3 +1,4 @@
+#include "../include/shellChess.hpp"
 #include "chessBoard/chessBoard.hpp"
 #include "algebraParser/algebraParser.hpp"
 
@@ -11,11 +12,13 @@ void    initWelcome(void)
     cout << "\033[2A" << ERASE_LINE << endl;
 }
 
-int shellGameLoop(chessBoard *board, const int argc)
+int launchShellGame(void *chessBoardPtr, const int argc)
 {
     string          input;
+    chessBoard      *board;
     algebraParser   checker;
 
+    board = (chessBoard *)chessBoardPtr;
     if (argc != 3)
         board->printBoard();
     while (board->isGameOver() == false)
@@ -43,7 +46,7 @@ int shellGameLoop(chessBoard *board, const int argc)
     return (0);
 }
 
-int launchShellGame(const int argc)
+int initializeShellGame(const int argc)
 {
     int         value;
     chessBoard  *board;
@@ -56,7 +59,7 @@ int launchShellGame(const int argc)
         delete board;
         return (1);
     }
-    value = shellGameLoop(board, argc);
+    value = launchShellGame(board, argc);
     if (value != 0)
     {
         delete board;
@@ -66,24 +69,5 @@ int launchShellGame(const int argc)
             return (systemFailed());
     }
     delete board;
-    return (0);
-}
-
-int main(const int argc, const char **argv)
-{
-    if (argc > 2 || (argc == 2 && string(argv[1]) != "--blind"))
-    {
-        cerr << "Error! Invalid arguments." << endl;
-        cerr << "Usage: ./shell-chess [--blind]" << endl;
-        return (1);
-    }
-    else
-    {
-        initWelcome();
-        printLoading();
-
-        if (launchShellGame(argc) != 0)
-            return (1);
-    }
     return (0);
 }
