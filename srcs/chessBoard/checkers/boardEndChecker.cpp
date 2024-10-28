@@ -116,7 +116,7 @@ bool    chessBoard::isDraw(void)
     if (isCheck() == false)
     {
         if (isCheckMateImpossible() == true || (canTheKingMove() == false && canAnyAllyPieceMove() == false))
-            return (true);
+            { _draw = true; return (true); }
     }
     return (false);
 }
@@ -206,6 +206,7 @@ bool    chessBoard::isCheckMate(void)
             }
             sources.clear();
         }
+        _checkmate = true;
         return (true);
     }
     return (false);

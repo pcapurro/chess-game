@@ -51,7 +51,7 @@ class visualGame
         SDL_Rect    getRectangle(const string coords);
     
         void        loadBoard(const chessBoard *board, const int cx = 0, const int cy = 0);
-        void        loadText(const int value = 0);
+        void        loadText(const int value);
         void        displayGame(const chessBoard *board, const int cx = 0, const int cy = 0);
     
         int         waitForEvent(const chessBoard *board);

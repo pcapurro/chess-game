@@ -12,7 +12,7 @@ int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
     {
         gameObject->displayGame(board);
         if (gameObject->waitForEvent(board) == 1)
-            return (1);
+            { board->printEndGame(1); return (1); }
 
         if (board->playMove(gameObject->getInput()) == FAIL)
             continue ;
@@ -20,7 +20,7 @@ int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
             return (1);
         gameObject->setTurn();
     }
-    gameObject->displayGame(board, -1);
+    gameObject->displayGame(board);
     board->printEndGame(1);
 
     return (0);

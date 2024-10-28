@@ -58,6 +58,7 @@ class chessBoard
         string  getColor(const string coord) const;
 
         int     getActualTurn(void) const { return (_turn); };
+        int     getStateValue(void) const;
 
         bool    isGameOver(void);
         int     playMove(t_move move);
@@ -125,6 +126,9 @@ class chessBoard
 
         vector<t_square>    _board;
         bool                _allocated;
+
+        bool                _checkmate;
+        bool                _draw;
 
         t_move              _lastMove;
         bool                _moveFailed;

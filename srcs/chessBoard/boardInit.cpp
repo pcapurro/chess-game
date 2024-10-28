@@ -3,18 +3,20 @@
 chessBoard::chessBoard(void)
 {
     _turn = 0;
-    _allocated = false;
+    _allocated = true;
     _color = "white";
 
     _moveFailed = false;
 
     _whiteCastle = true;
     _blackCastle = true;
+    
+    _draw = false;
+    _checkmate = false;
 
-    _allocated = true;
     initBoard();
-    // if (checkBoardAllocation() == false)
-    //     _allocated = false;
+    if (checkBoardAllocation() == false)
+        _allocated = false;
 }
 
 void    chessBoard::initBishops(void)

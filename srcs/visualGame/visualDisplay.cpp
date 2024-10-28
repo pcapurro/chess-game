@@ -63,20 +63,23 @@ void    visualGame::loadText(const int value)
 
     obj.x = _width / 4, obj.y = _height / 80;
     obj.w = _width / 2, obj.h = _height / 16;
-    if (value == -1)
-    {
-        if (color == "white")
-            SDL_RenderCopy(_mainRenderer, _texts.blackWon, NULL, &obj);
-        if (color == "black")
-            SDL_RenderCopy(_mainRenderer, _texts.whiteWon, NULL, &obj);
-    }
-    else
+    if (value == 0)
     {
         if (color == "white")
             SDL_RenderCopy(_mainRenderer, _texts.whiteToPlay, NULL, &obj);
         if (color == "black")
             SDL_RenderCopy(_mainRenderer, _texts.blackToPlay, NULL, &obj);
     }
+    if (value == 1)
+    {
+        if (color == "white")
+            SDL_RenderCopy(_mainRenderer, _texts.blackWon, NULL, &obj);
+        if (color == "black")
+            SDL_RenderCopy(_mainRenderer, _texts.whiteWon, NULL, &obj);
+    }
+
+    if (value == 2)
+        SDL_RenderCopy(_mainRenderer, _texts.draw, NULL, &obj);
 }
 
 void    visualGame::loadBoard(const chessBoard *board, const int cx, const int cy)
@@ -115,6 +118,6 @@ void    visualGame::displayGame(const chessBoard *board, const int cx, const int
 {
     SDL_RenderClear(_mainRenderer);
     loadBoard(board, cx, cy);
-    loadText(cx);
+    loadText(board->getStateValue());
     SDL_RenderPresent(_mainRenderer);
 }

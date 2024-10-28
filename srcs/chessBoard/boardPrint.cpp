@@ -71,24 +71,27 @@ void    chessBoard::printHistory(void) const
     if (_history.size() > 21)
         cout << endl;
     
-    cout << "Game summary: ";
-    for (int i = 0; i != _history.size(); i++)
+    if (_history.empty() != true)
     {
-        if (i != 0)
-            cout << " ";
-        cout << i + 1 << ".";
-        
-        if (_history.at(i).find('O') != string::npos)
+        cout << "Game summary: ";
+        for (int i = 0; i != _history.size(); i++)
         {
-            if (_history.at(i).find("O-O") != string::npos)
-                cout << "O-O";
-            if (_history.at(i).find("O-O-O") != string::npos)
-                cout << "O-O-O";
+            if (i != 0)
+                cout << " ";
+            cout << i + 1 << ".";
+        
+            if (_history.at(i).find('O') != string::npos)
+            {
+                if (_history.at(i).find("O-O") != string::npos)
+                    cout << "O-O";
+                if (_history.at(i).find("O-O-O") != string::npos)
+                    cout << "O-O-O";
+            }
+            else
+                cout << _history.at(i);
         }
-        else
-            cout << _history.at(i);
+        cout << endl << endl;
     }
-    cout << "#" << endl << endl;
 }
 
 void    chessBoard::printEndGame(const int value)
@@ -102,15 +105,14 @@ void    chessBoard::printEndGame(const int value)
         if (value == 0)
             cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
         cout << "Checkmate. " << GREEN << player << " won the game" << COLOR_E << "! 🎉" << endl;
-        printHistory();
     }
     if (isDraw() == true)
     {
         if (value == 0)
             cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
         cout << "Draw. " << GREY << "No one won the game" << COLOR_E << "." << endl;
-        printHistory();
     }
+    printHistory();
 }
 
 void    chessBoard::printEvent(const bool cfail, const bool bfail, const int value)

@@ -52,3 +52,12 @@ string  chessBoard::getColor(const string coord) const
     }
     return (color);
 }
+
+int chessBoard::getStateValue(void) const
+{
+    if (_checkmate == true)
+        return (1);
+    if (_draw == true || isAllocated() == false)
+        return (2);
+    return (0);
+}
