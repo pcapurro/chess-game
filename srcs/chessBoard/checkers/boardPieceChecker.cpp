@@ -51,8 +51,6 @@ bool    chessBoard::isCastlingPossible(void)
         if (_blackCastle == false)
             return (false);
 
-        cout << "ok" << endl;
-
         if (_lastMove.dest == "O-O")
         {
             atValue = getAtValue("h8");
@@ -66,8 +64,6 @@ bool    chessBoard::isCastlingPossible(void)
             atValue = getAtValue("f8");
             if (_board.at(atValue).piece != NULL)
                 return (false);
-
-            cout << "ok1" << endl;
 
             if (doesItResolveCheck("e8f8") == false
                 || doesItResolveCheck("e8g8") == false)
