@@ -43,10 +43,11 @@ int initializeShellGame(const int argc)
 
     board = new (nothrow) chessBoard;
     if (!board || board == nullptr)
-        return (1);
+        { memoryFailed(); return (1); }
     else if (board->isAllocated() == false)
     {
         delete board;
+        memoryFailed();
         return (1);
     }
     value = launchShellGame(board, argc);
@@ -54,9 +55,9 @@ int initializeShellGame(const int argc)
     {
         delete board;
         if (value == 1)
-            return (memoryFailed());
+            { memoryFailed(); return (1); }
         else
-            return (systemFailed());
+            { systemFailed(); return (1); }
     }
     delete board;
     return (0);

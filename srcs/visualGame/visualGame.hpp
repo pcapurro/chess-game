@@ -36,6 +36,7 @@ class visualGame
 
         void        initializeGame(void);
         void        setToDefault(void);
+        void        setToNullPtr(void);
 
         bool        isAllocated(void) const { return (!_error); }
 

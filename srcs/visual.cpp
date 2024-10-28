@@ -12,7 +12,7 @@ int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
     {
         gameObject->displayGame(board);
         if (gameObject->waitForEvent(board) == 1)
-            { board->printEndGame(1); return (1); }
+            { board->printEndGame(1); return (0); }
 
         if (board->playMove(gameObject->getInput()) == FAIL)
             continue ;
@@ -35,20 +35,20 @@ int initializeVisualGame(void)
     gameObject = new (nothrow) visualGame;
 
     if (gameObject == nullptr)
-        return (1);
+        { memoryFailed(); return (1); }
     if (gameObject->isAllocated() == false)
-        { delete gameObject; return (1); }
+        { memoryFailed(); delete gameObject; return (1); }
         
     while (1)
     {
         board = new (nothrow) chessBoard;
         if (!board || board == nullptr)
-            { delete gameObject; return (1); }
+            { memoryFailed(); delete gameObject; return (1); }
         if (board->isAllocated() == false)
-            { delete board; delete gameObject; return (1); }
+            { delete board, delete gameObject; memoryFailed(); return (1); }
 
         if (launchVisualGame(gameObject, board) != 0)
-            return (1);
+            { memoryFailed(); return (1); }
         gameObject->setToDefault();
 
         if (gameObject->waitForNewGame() == 1)

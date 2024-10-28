@@ -3,6 +3,7 @@
 visualGame::visualGame(const int width, const int heigth) : _width(width), _height(heigth)
 {
     setToDefault();
+    setToNullPtr();
 
     initializeGame();
     if (_error == false)
@@ -17,6 +18,37 @@ void    visualGame::setToDefault(void)
     _turn = 1;
     _dropped = true;
     _sourceCoord.clear();
+}
+
+void    visualGame::setToNullPtr(void)
+{
+    _mainWindow = nullptr;
+    _mainRenderer = nullptr;
+    _normalCursor = nullptr;
+    _playCursor = nullptr;
+
+    _boardTexture = nullptr;
+    _baseSurface = nullptr;
+
+    _whiteTextures.bishop = nullptr;
+    _whiteTextures.king = nullptr;
+    _whiteTextures.knight = nullptr;
+    _whiteTextures.pawn = nullptr;
+    _whiteTextures.queen = nullptr;
+    _whiteTextures.rook = nullptr;
+
+    _blackTextures.bishop = nullptr;
+    _blackTextures.king = nullptr;
+    _blackTextures.knight = nullptr;
+    _blackTextures.pawn = nullptr;
+    _blackTextures.queen = nullptr;
+    _blackTextures.rook = nullptr;
+
+    _texts.blackToPlay = nullptr;
+    _texts.blackWon = nullptr;
+    _texts.draw = nullptr;
+    _texts.whiteToPlay = nullptr;
+    _texts.whiteWon = nullptr;
 }
 
 void    visualGame::initializeGame(void)
