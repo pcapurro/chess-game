@@ -15,6 +15,13 @@ int visualGame::loadInput(const string coord, const chessBoard *board)
             _input.dest = "O-O-O";
     }
 
+    if (_input.obj == 'P')
+    {
+        if (_input.dest[1] == '8' && _input.src[1] == '7'
+            || _input.dest[1] == '1' && _input.src[1] == '2')
+            _input.dest = _input.dest + 'Q';
+    }
+
     _dropped = true;
     _sourceCoord.clear();
 
