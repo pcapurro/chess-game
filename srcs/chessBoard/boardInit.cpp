@@ -14,6 +14,9 @@ chessBoard::chessBoard(void)
     _draw = false;
     _checkmate = false;
 
+    _enPassant = false;
+    _enPassantDest = "";
+
     initBoard();
     if (checkBoardAllocation() == false)
         _allocated = false;
