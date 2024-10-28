@@ -11,9 +11,21 @@ int chessBoard::checkPawnDest(void) const
         || _lastMove.dest[2] == 'K'))
         return (FAIL);
 
-    if (_board.at(atValue).coord[0] != _lastMove.src[0] && _board.at(atValue).piece == NULL
-        && (_enPassant == false || _enPassantDest != _lastMove.dest))
-        return (FAIL);
+    if (_board.at(atValue).coord[0] != _lastMove.src[0])
+    {
+        if (_board.at(atValue).piece == NULL)
+        {
+            if ((_enPassant == false || _enPassantDest != _lastMove.dest))
+                return (FAIL);
+        }
+        else
+        {
+            if (_color == "white" && _lastMove.src[1] != _lastMove.dest[1] - 1)
+                return (FAIL);
+            if (_color == "black" && _lastMove.src[1] != _lastMove.dest[1] + 1)
+                return (FAIL);
+        }
+    }
 
     if (_board.at(atValue).coord[0] == _lastMove.src[0])
     {
