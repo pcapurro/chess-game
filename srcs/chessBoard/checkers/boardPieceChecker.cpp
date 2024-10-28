@@ -1,6 +1,6 @@
 #include "../chessBoard.hpp"
 
-bool    chessBoard::isCastlingPossible(void) const
+bool    chessBoard::isCastlingPossible(void)
 {
     int atValue;
 
@@ -9,7 +9,7 @@ bool    chessBoard::isCastlingPossible(void) const
         if (_whiteCastle == false)
             return (false);
 
-        if (_lastMove.move == "O-O")
+        if (_lastMove.dest == "O-O")
         {
             atValue = getAtValue("h1");
             if (_board.at(atValue).piece == NULL
@@ -22,8 +22,12 @@ bool    chessBoard::isCastlingPossible(void) const
             atValue = getAtValue("f1");
             if (_board.at(atValue).piece != NULL)
                 return (false);
+
+            if (doesItResolveCheck("e1g1") == false
+                || doesItResolveCheck("e1f1") == false)
+                return (false);
         }
-        if (_lastMove.move == "O-O-O")
+        if (_lastMove.dest == "O-O-O")
         {
             atValue = getAtValue("a1");
             if (_board.at(atValue).piece == NULL
@@ -36,14 +40,20 @@ bool    chessBoard::isCastlingPossible(void) const
             atValue = getAtValue("c1");
             if (_board.at(atValue).piece != NULL)
                 return (false);
+
+            if (doesItResolveCheck("e1d1") == false
+                || doesItResolveCheck("e1c1") == false)
+                return (false);
         }
     }
-    if (_color == "Black")
+    if (_color == "black")
     {
         if (_blackCastle == false)
             return (false);
 
-        if (_lastMove.move == "O-O")
+        cout << "ok" << endl;
+
+        if (_lastMove.dest == "O-O")
         {
             atValue = getAtValue("h8");
             if (_board.at(atValue).piece == NULL
@@ -56,8 +66,14 @@ bool    chessBoard::isCastlingPossible(void) const
             atValue = getAtValue("f8");
             if (_board.at(atValue).piece != NULL)
                 return (false);
+
+            cout << "ok1" << endl;
+
+            if (doesItResolveCheck("e8f8") == false
+                || doesItResolveCheck("e8g8") == false)
+                return (false);
         }
-        if (_lastMove.move == "O-O-O")
+        if (_lastMove.dest == "O-O-O")
         {
             atValue = getAtValue("a8");
             if (_board.at(atValue).piece == NULL
@@ -69,6 +85,10 @@ bool    chessBoard::isCastlingPossible(void) const
                 return (false);
             atValue = getAtValue("c8");
             if (_board.at(atValue).piece != NULL)
+                return (false);
+
+            if (doesItResolveCheck("e8d8") == false
+                || doesItResolveCheck("e8c8") == false)
                 return (false);
         }
     }

@@ -107,7 +107,7 @@ class chessBoard
         bool    isThereAlly(void) const;
         bool    isRightSide(void) const;
         bool    isTheDestinationSafe(void) const;
-        bool    isCastlingPossible(void) const;
+        bool    isCastlingPossible(void);
 
         bool    isLegal(void);
 

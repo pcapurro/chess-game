@@ -76,9 +76,19 @@ void    chessBoard::printHistory(void) const
     {
         if (i != 0)
             cout << " ";
-        cout << i + 1 << "." << _history.at(i);
+        cout << i + 1 << ".";
+        
+        if (_history.at(i).find('O') != string::npos)
+        {
+            if (_history.at(i).find("O-O") != string::npos)
+                cout << "O-O";
+            if (_history.at(i).find("O-O-O") != string::npos)
+                cout << "O-O-O";
+        }
+        else
+            cout << _history.at(i);
     }
-    cout << "#" << endl;
+    cout << "#" << endl << endl;
 }
 
 void    chessBoard::printEndGame(const int value)
