@@ -38,6 +38,7 @@ void    visualGame::setToNullPtr(void)
 
     _boardTexture = nullptr;
     _baseSurface = nullptr;
+    _baseCheck = 0;
 
     _whiteTextures.bishop = nullptr;
     _whiteTextures.king = nullptr;

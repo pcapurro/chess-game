@@ -78,9 +78,11 @@ class visualGame
         SDL_Cursor      *_playCursor;
 
         SDL_Texture     *_boardTexture;
-        SDL_Surface     *_baseSurface;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
+
+        SDL_Surface     *_baseSurface;
+        int             _baseCheck;
 
         t_text          _texts;
 

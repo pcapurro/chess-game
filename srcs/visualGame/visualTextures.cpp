@@ -2,52 +2,66 @@
 
 void    visualGame::loadTexts(void)
 {
+    _baseCheck = 0;
+
     _baseSurface = SDL_LoadBMP("./materials/texts/black-to-play.bmp");
     if (_baseSurface == NULL)
         { _error = true; return ; }
+    _baseCheck = 1;
     _texts.blackToPlay = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
     if (_texts.blackToPlay == NULL)
         { _error = true; return ; }
     SDL_FreeSurface(_baseSurface);
+    _baseCheck = 0;
 
     _baseSurface = SDL_LoadBMP("./materials/texts/white-to-play.bmp");
     if (_baseSurface == NULL)
         { _error = true; return ; }
+    _baseCheck = 1;
     _texts.whiteToPlay = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
     if (_texts.whiteToPlay == NULL)
         { _error = true; return ; }
     SDL_FreeSurface(_baseSurface);
+    _baseCheck = 0;
 
     _baseSurface = SDL_LoadBMP("./materials/texts/white-won.bmp");
     if (_baseSurface == NULL)
         { _error = true; return ; }
+    _baseCheck = 1;
     _texts.whiteWon = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
     if (_texts.whiteWon == NULL)
         { _error = true; return ; }
     SDL_FreeSurface(_baseSurface);
+    _baseCheck = 0;
 
     _baseSurface = SDL_LoadBMP("./materials/texts/black-won.bmp");
     if (_baseSurface == NULL)
         { _error = true; return ; }
+    _baseCheck = 1;
     _texts.blackWon = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
     if (_texts.blackWon == NULL)
         { _error = true; return ; }
     SDL_FreeSurface(_baseSurface);
+    _baseCheck = 0;
 
     _baseSurface = SDL_LoadBMP("./materials/texts/draw.bmp");
     if (_baseSurface == NULL)
         { _error = true; return ; }
+    _baseCheck = 1;
     _texts.draw = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
     if (_texts.draw == NULL)
         { _error = true; return ; }
     SDL_FreeSurface(_baseSurface);
+    _baseCheck = 0;
 }
 
 void    visualGame::loadTexture(const char type, const char color, const char *path)
 {
+    _baseCheck = 0;
     _baseSurface = SDL_LoadBMP(path);
     if (_baseSurface == NULL)
         { _error = true; return ; }
+    _baseCheck = 1;
 
     if (type == 'K' && color == 'w')
         _whiteTextures.king = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
@@ -76,6 +90,7 @@ void    visualGame::loadTexture(const char type, const char color, const char *p
         _blackTextures.pawn = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
 
     SDL_FreeSurface(_baseSurface);
+    _baseCheck = 0;
 }
 
 void    visualGame::loadWhiteTextures(void)
@@ -104,13 +119,16 @@ void    visualGame::loadBlackTextures(void)
 
 void    visualGame::loadTextures(void)
 {
+    _baseCheck = 0;
     _baseSurface = SDL_LoadBMP("./materials/images/board.bmp");
     if (_baseSurface == NULL)
         { _error = true; return ; }
+    _baseCheck = 1;
     _boardTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
     if (_boardTexture == NULL)
         { _error = true; return ; }
     SDL_FreeSurface(_baseSurface);
+    _baseCheck = 0;
 
     if (_error == false)
         loadWhiteTextures();
