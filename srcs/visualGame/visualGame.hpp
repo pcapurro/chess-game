@@ -37,6 +37,9 @@ class visualGame
         void        initializeGame(void);
         void        setToDefault(void);
 
+        void        setNewDimensions(const int width, const int height) \
+                    { _width = width, _height = height; };
+
         void        loadWhiteTextures(void);
         void        loadBlackTextures(void);
         void        loadTexture(const char type, \
@@ -62,8 +65,8 @@ class visualGame
 
     private:
 
-        const int       _width;
-        const int       _height;
+        int             _width;
+        int             _height;
 
         SDL_Window      *_mainWindow;
         SDL_Renderer    *_mainRenderer;

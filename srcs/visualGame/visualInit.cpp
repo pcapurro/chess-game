@@ -20,8 +20,8 @@ void    visualGame::initializeGame(void)
 {
     SDL_Init(SDL_INIT_VIDEO);
     
-    _mainWindow = SDL_CreateWindow("shell-chess", 100, 100, \
-        _width, _height, SDL_WINDOW_SHOWN);
+    _mainWindow = SDL_CreateWindow("shell-chess", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, \
+        _width, _height, SDL_WINDOW_RESIZABLE);
 
     _mainRenderer = SDL_CreateRenderer(_mainWindow, -1, \
         SDL_RENDERER_ACCELERATED);

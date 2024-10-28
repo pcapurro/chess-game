@@ -33,6 +33,9 @@ int visualGame::waitForNewGame(void)
                 || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
                 return (1);
 
+            if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+                setNewDimensions(event.window.data1, event.window.data2);
+
             if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
                 break ;
         }
@@ -63,6 +66,9 @@ int visualGame::waitForEvent(const chessBoard *board)
                 }
                 else
                     SDL_SetCursor(_normalCursor);
+
+                if (event.window.event == SDL_WINDOWEVENT_RESIZED)
+                    setNewDimensions(event.window.data1, event.window.data2);
                 
                 if (event.type == SDL_MOUSEBUTTONUP)
                     return (loadInput(coord, board));
