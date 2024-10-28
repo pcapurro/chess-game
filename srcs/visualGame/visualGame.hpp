@@ -37,6 +37,8 @@ class visualGame
         void        initializeGame(void);
         void        setToDefault(void);
 
+        bool        isAllocated(void) const { return (!_error); }
+
         void        setNewDimensions(const int width, const int height) \
                     { _width = width, _height = height; };
 

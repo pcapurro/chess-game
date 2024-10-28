@@ -15,7 +15,6 @@ SRCS = srcs/main.cpp \
 	srcs/visualGame/visualInit.cpp \
 	srcs/visualGame/visualTextures.cpp \
 	srcs/visualGame/visualEvent.cpp \
-	srcs/visualGame/visualTexts.cpp \
 	srcs/visualGame/visualTools.cpp \
 	srcs/algebraParser/algebraBase.cpp \
 	srcs/algebraParser/algebraChecker.cpp \

@@ -36,6 +36,8 @@ int initializeVisualGame(void)
 
     if (gameObject == nullptr)
         return (1);
+    if (gameObject->isAllocated() == false)
+        { delete gameObject; return (1); }
         
     while (1)
     {
