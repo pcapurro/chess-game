@@ -64,7 +64,7 @@ class chessBoard
         int     playMove(t_move move);
 
         void    printEvent(const bool cfail, const bool bfail,\
-                            const int value);
+                            const bool blindMode);
         void    printEndGame(const int value = 0);
         void    printBoard(void) const;
 

@@ -2,18 +2,18 @@
 #include "chessBoard/chessBoard.hpp"
 #include "algebraParser/algebraParser.hpp"
 
-int launchShellGame(void *chessBoardPtr, const int argc)
+int launchShellGame(void *chessBoardPtr, const int blindMode, const int sandBoxMode)
 {
     string          input;
     chessBoard      *board;
     algebraParser   checker;
 
     board = (chessBoard *)chessBoardPtr;
-    if (argc != 3)
+    if (blindMode == false)
         board->printBoard();
     while (board->isGameOver() == false)
     {
-        board->printEvent(checker.fail(), board->fail(), argc);
+        board->printEvent(checker.fail(), board->fail(), blindMode);
         cout << ERASE_LINE << "> ";
         getline(cin, input);
         cout << "\033[1A";
@@ -27,7 +27,7 @@ int launchShellGame(void *chessBoardPtr, const int argc)
         else if (board->isAllocated() == false)
             return (1);
 
-        if (argc != 3)
+        if (blindMode == false)
             board->printBoard();
         checker.setTurn(board->getActualTurn());
     }
@@ -36,7 +36,7 @@ int launchShellGame(void *chessBoardPtr, const int argc)
     return (0);
 }
 
-int initializeShellGame(const int argc)
+int initializeShellGame(const int blindMode, const int sandBoxMode)
 {
     int         value;
     chessBoard  *board;
@@ -50,7 +50,7 @@ int initializeShellGame(const int argc)
         memoryFailed();
         return (1);
     }
-    value = launchShellGame(board, argc);
+    value = launchShellGame(board, blindMode, sandBoxMode);
     if (value != 0)
     {
         delete board;

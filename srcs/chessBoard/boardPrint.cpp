@@ -115,17 +115,17 @@ void    chessBoard::printEndGame(const int value)
     printHistory();
 }
 
-void    chessBoard::printEvent(const bool cfail, const bool bfail, const int value)
+void    chessBoard::printEvent(const bool cfail, const bool bfail, const bool blindMode)
 {
     string  player;
 
     cout << ERASE_LINE;
-    if (value == 3 && _turn != 0)
+    if (blindMode == true && _turn != 0)
         cout << "\033[1A" << ERASE_LINE;
 
     if (cfail == true || bfail == true)
     {
-        if (value != 3)
+        if (blindMode == true)
             cout << "\033[1A" << ERASE_LINE;
 
         if (cfail == true)

@@ -26,7 +26,7 @@ int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
     return (0);
 }
 
-int initializeVisualGame(void)
+int initializeVisualGame(const bool sandBoxMode)
 {
     visualGame      *gameObject;
     chessBoard      *board;

@@ -35,11 +35,11 @@ void    printLoading(void);
 int     memoryFailed(void);
 int     systemFailed(void);
 
-int     launchShellGame(void *chessBoardPtr, const int argc);
-int     initializeShellGame(const int argc);
+int     launchShellGame(void *chessBoardPtr, const int blindMode, const int sandBoxMode);
+int     initializeShellGame(const int blindMode, const int sandBoxMode);
 
 int     launchVisualGame(void *gameObjectPtr, void *chessBoardPtr);
-int     initializeVisualGame(void);
+int     initializeVisualGame(const bool sandBoxMode);
 
 
 int     main(const int argc, const char **argv);
