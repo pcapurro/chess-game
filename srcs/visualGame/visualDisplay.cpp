@@ -42,8 +42,9 @@ SDL_Rect    visualGame::getRectangle(const string coords)
     SDL_Rect    obj;
 
     x = coords[0] - 97;
-    y = atoi(coords.c_str() + 1);
-    y = 8 - y;
+    y = atoi(coords.c_str() + 1) - 1;
+    if (_aiSide == -1 || _aiSide == 1)
+        y = 8 - (y + 1);
 
     obj.h = _height / 10, obj.w = _width / 10;
     obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
@@ -85,23 +86,21 @@ void    visualGame::loadText(const int value)
 void    visualGame::loadBoard(const int cx, const int cy)
 {
     SDL_Rect    obj;
-    string      numbers;
 
     obj.h = _height, obj.w = _width, obj.x = 0, obj.y = 0;
-    SDL_RenderCopy(_mainRenderer, _boardTexture, NULL, &obj);
-
-    obj.h = _height / 10, obj.w = _width / 10;
 
     if (_aiSide == -1 || _aiSide == 1)
-        numbers = "12345678";
+        SDL_RenderCopy(_mainRenderer, _whiteBoardTexture, NULL, &obj);
     else
-        numbers = "87654321";
+        SDL_RenderCopy(_mainRenderer, _blackBoardTexture, NULL, &obj);
+
+    obj.h = _height / 10, obj.w = _width / 10;
 
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
         {
-            string coords = string(1, "abcdefgh"[k]) + numbers[i];
+            string coords = string(1, "abcdefgh"[k]) + string(1, "87654321"[i]);
             char type = _board->getType(coords);
             string color = _board->getColor(coords);
 
