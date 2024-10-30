@@ -35,8 +35,7 @@ int visualGame::waitForNewGame(void)
     {
         if (SDL_PollEvent(&event) == true)
         {
-            if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN
-                && event.key.keysym.sym == SDLK_ESCAPE))
+            if (event.type == SDL_QUIT)
                 return (1);
             
             if (event.key.keysym.sym == SDLK_RETURN)
@@ -58,8 +57,7 @@ int visualGame::waitForEvent(void)
     {
         if (SDL_PollEvent(&event) == true)
         {
-            if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN
-                && event.key.keysym.sym == SDLK_ESCAPE))
+            if (event.type == SDL_QUIT)
                 return (1);
 
             if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP
