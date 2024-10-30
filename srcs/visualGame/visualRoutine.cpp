@@ -11,28 +11,57 @@ string  visualGame::getVisualAnswer(void)
 
         i++;
 
-        if (i == 1)
+        if (_aiSide == 0)
         {
-            _input.action = '-';
-            _input.obj = 'P';
-            _input.dest = "e4";
-            _input.src = "e2";
-        }
+            if (i == 1)
+            {
+                _input.action = '-';
+                _input.obj = 'P';
+                _input.dest = "e4";
+                _input.src = "e2";
+            }
 
-        if (i == 2)
-        {
-            _input.action = '-';
-            _input.obj = 'N';
-            _input.dest = "f3";
-            _input.src = "g1";
-        }
+            if (i == 2)
+            {
+                _input.action = '-';
+                _input.obj = 'N';
+                _input.dest = "f3";
+                _input.src = "g1";
+            }
 
-        if (i == 3)
+            if (i == 3)
+            {
+                _input.action = '-';
+                _input.obj = 'B';
+                _input.dest = "c4";
+                _input.src = "f1";
+            }
+        }
+        else
         {
-            _input.action = '-';
-            _input.obj = 'B';
-            _input.dest = "c4";
-            _input.src = "f1";
+            if (i == 1)
+            {
+                _input.action = '-';
+                _input.obj = 'P';
+                _input.dest = "e5";
+                _input.src = "e7";
+            }
+
+            if (i == 2)
+            {
+                _input.action = '-';
+                _input.obj = 'N';
+                _input.dest = "f6";
+                _input.src = "g8";
+            }
+
+            if (i == 3)
+            {
+                _input.action = '-';
+                _input.obj = 'B';
+                _input.dest = "c5";
+                _input.src = "f8";
+            }
         }
     }
     else
