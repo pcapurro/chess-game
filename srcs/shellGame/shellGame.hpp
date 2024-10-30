@@ -8,6 +8,7 @@
 class shellGame
 {
 	public:
+
 		shellGame(const bool blindMode, const bool sandBoxMode);
 		~shellGame(void);
 
@@ -22,6 +23,7 @@ class shellGame
 		string  getShellAnswer(void) const;
 
 	private:
+
 		chessBoard		*_board;
 		algebraParser	*_checker;
 

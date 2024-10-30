@@ -1,8 +1,11 @@
 #include "visualGame.hpp"
 
-visualGame::visualGame(const int width, const int heigth) : _width(width), _height(heigth)
+visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode)
 {
     _error = false;
+
+    _width = 800;
+    _height = 800;
 
     setToDefault();
     setToNullPtr();
@@ -26,7 +29,7 @@ void    visualGame::setToDefault(void)
     _input.src.clear();
 
     _dropped = true;
-    _sourceCoord.clear();
+    _droppedSourceCoords.clear();
 }
 
 void    visualGame::setToNullPtr(void)

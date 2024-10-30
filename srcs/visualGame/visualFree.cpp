@@ -2,6 +2,9 @@
 
 visualGame::~visualGame()
 {
+    if (_board != nullptr)
+        delete _board;
+
     if (_boardTexture != nullptr && _boardTexture != NULL)
         SDL_DestroyTexture(_boardTexture);
 

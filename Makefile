@@ -7,10 +7,10 @@
 NAME = shell-chess
 
 SRCS = srcs/main.cpp \
-	srcs/visual.cpp \
 	srcs/stockfish.cpp \
 	srcs/print.cpp \
 	srcs/visualGame/visualDisplay.cpp \
+	srcs/visualGame/visualRoutine.cpp \
 	srcs/visualGame/visualFree.cpp \
 	srcs/visualGame/visualInit.cpp \
 	srcs/visualGame/visualTextures.cpp \

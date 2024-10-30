@@ -38,8 +38,8 @@ int     systemFailed(void);
 
 string	getStockfishAnswer(const void *boardPtr, const int turn);
 
-int     launchVisualGame(void *gameObjectPtr, void *chessBoardPtr, const bool sandBoxMode);
-int     initializeVisualGame(const bool sandBoxMode);
+void    printInvalidArguments(void);
+int 	validateArguments(const int argc, const char **argv);
 
 int     main(const int argc, const char **argv);
 

@@ -31,14 +31,17 @@ class visualGame
 {
     public:
 
-        visualGame(const int width = 800, const int height = 800);
+        visualGame(const bool sandBoxMode);
         ~visualGame(void);
 
         void        initializeGame(void);
         void        setToDefault(void);
         void        setToNullPtr(void);
 
-        bool        isAllocated(void) const { return (!_error); }
+        void	    visualRoutine(void);
+        int		    visualLoop(void);
+
+        bool        fail(void) const { return (_error); }
 
         void        setNewDimensions(const int width, const int height) \
                     { _width = width, _height = height; };
@@ -77,24 +80,26 @@ class visualGame
         SDL_Cursor      *_normalCursor;
         SDL_Cursor      *_playCursor;
 
-        SDL_Texture     *_boardTexture;
-        t_textures      _whiteTextures;
-        t_textures      _blackTextures;
-
         SDL_Surface     *_baseSurface;
         int             _baseCheck;
 
+        SDL_Texture     *_boardTexture;
+        t_textures      _whiteTextures;
+        t_textures      _blackTextures;
         t_text          _texts;
 
+        chessBoard      *_board;
+
+		const bool		_sandBoxMode;
+
         bool            _dropped;
-        string          _sourceCoord;
+        string          _droppedSourceCoords;
 
         t_move          _input;
         int             _turn;
         string          _aiColor;
 
         bool            _error;
-        bool            _state;
 };
 
 #endif

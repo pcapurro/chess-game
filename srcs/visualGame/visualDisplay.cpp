@@ -103,7 +103,7 @@ void    visualGame::loadBoard(const chessBoard *board, const int cx, const int c
 
             if (type != ' ')
             {
-                if (coords != _sourceCoord)
+                if (coords != _droppedSourceCoords)
                     obj = getRectangle(coords);
                 else
                     obj.x = cx - ((_width / 10) / 2), obj.y = cy - ((_height / 10) / 2);

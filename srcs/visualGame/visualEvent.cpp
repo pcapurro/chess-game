@@ -2,8 +2,8 @@
 
 int visualGame::loadInput(const string coord, const chessBoard *board)
 {
-    _input.obj = board->getType(_sourceCoord);
-    _input.src = _sourceCoord;
+    _input.obj = board->getType(_droppedSourceCoords);
+    _input.src = _droppedSourceCoords;
     _input.dest = coord;
 
     if (_input.obj == 'K')
@@ -22,7 +22,7 @@ int visualGame::loadInput(const string coord, const chessBoard *board)
     }
 
     _dropped = true;
-    _sourceCoord.clear();
+    _droppedSourceCoords.clear();
 
     return (0);
 }
@@ -36,8 +36,11 @@ int visualGame::waitForNewGame(void)
         if (SDL_PollEvent(&event) == true)
         {
             if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN
-                && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_RETURN)))
+                && event.key.keysym.sym == SDLK_ESCAPE))
                 return (1);
+            
+            if (event.key.keysym.sym == SDLK_RETURN)
+                break ;
 
             if (event.window.event == SDL_WINDOWEVENT_RESIZED)
                 setNewDimensions(event.window.data1, event.window.data2);
@@ -67,7 +70,7 @@ int visualGame::waitForEvent(const chessBoard *board)
                 {
                     SDL_SetCursor(_playCursor);
                     if (event.type == SDL_MOUSEBUTTONDOWN)
-                        _dropped = false, _sourceCoord = coord;
+                        _dropped = false, _droppedSourceCoords = coord;
                 }
                 else
                     SDL_SetCursor(_normalCursor);
