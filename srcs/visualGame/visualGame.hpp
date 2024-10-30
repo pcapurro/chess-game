@@ -51,10 +51,12 @@ class visualGame
         void        loadBoardTextures(void);
         void        loadWhiteTextures(void);
         void        loadBlackTextures(void);
+        void        loadArrowTexture(void);
         void        loadTexture(const char type, \
                         const char color, const char *path);
         void        loadTextures(void);
         void        loadTexts(void);
+        void        loadArrow(void);
 
         SDL_Texture *getTexture(const char type, const string color) const;
         SDL_Rect    getRectangle(const string coords);
@@ -88,6 +90,7 @@ class visualGame
 
         SDL_Texture     *_blackBoardTexture;
         SDL_Texture     *_whiteBoardTexture;
+        SDL_Texture     *_arrowTexture;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
         t_text          _texts;

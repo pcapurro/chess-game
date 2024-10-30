@@ -55,6 +55,18 @@ SDL_Rect    visualGame::getRectangle(const string coords)
     return (obj);
 }
 
+void    visualGame::loadArrow(void)
+{
+    if (_board->isGameOver() == true)
+    {
+        SDL_Rect    obj;
+
+        obj.x = _width - (_width / 12), obj.y = _height / 400;
+        obj.w = _width / 12, obj.h = _height / 12;
+        SDL_RenderCopy(_mainRenderer, _arrowTexture, NULL, &obj);
+    }
+}
+
 void    visualGame::loadText(const int value)
 {
     SDL_Rect    obj;
@@ -125,5 +137,6 @@ void    visualGame::displayGame(const int cx, const int cy)
     SDL_RenderClear(_mainRenderer);
     loadBoard(cx, cy);
     loadText(_board->getStateValue());
+    loadArrow();
     SDL_RenderPresent(_mainRenderer);
 }

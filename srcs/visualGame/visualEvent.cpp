@@ -37,9 +37,6 @@ int visualGame::waitForNewGame(void)
         {
             if (event.type == SDL_QUIT)
                 return (1);
-            
-            if (event.key.keysym.sym == SDLK_RETURN)
-                break ;
 
             if (event.window.event == SDL_WINDOWEVENT_RESIZED)
                 setNewDimensions(event.window.data1, event.window.data2);

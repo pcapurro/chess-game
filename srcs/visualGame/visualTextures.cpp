@@ -125,9 +125,11 @@ void    visualGame::loadBoardTextures(void)
     if (_baseSurface == NULL)
         { _error = true; return ; }
     _baseCheck = 1;
+
     _whiteBoardTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
     if (_whiteBoardTexture == NULL)
         { _error = true; return ; }
+
     SDL_FreeSurface(_baseSurface);
 
     _baseCheck = 0;
@@ -136,16 +138,38 @@ void    visualGame::loadBoardTextures(void)
     if (_baseSurface == NULL)
         { _error = true; return ; }
     _baseCheck = 1;
+
     _blackBoardTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
     if (_blackBoardTexture == NULL)
         { _error = true; return ; }
+
     SDL_FreeSurface(_baseSurface);
+
     _baseCheck = 0;
+}
+
+void    visualGame::loadArrowTexture(void)
+{
+    _baseCheck = 0;
+
+    _baseSurface = SDL_LoadBMP("./materials/images/arrow.bmp");
+    if (_baseSurface == NULL)
+        { _error = true; return ; }
+    _baseCheck = 1;
+
+    _arrowTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (_arrowTexture == NULL)
+        { _error = true; return ; }
+
+    SDL_FreeSurface(_baseSurface);
 }
 
 void    visualGame::loadTextures(void)
 {
     loadBoardTextures();
+
+    // if (_error == false)
+        // loadArrowTexture();
 
     if (_error == false)
         loadWhiteTextures();
