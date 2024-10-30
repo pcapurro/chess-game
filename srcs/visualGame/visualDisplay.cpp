@@ -43,8 +43,11 @@ SDL_Rect    visualGame::getRectangle(const string coords)
 
     x = coords[0] - 97;
     y = atoi(coords.c_str() + 1) - 1;
-    if (_aiSide == -1 || _aiSide == 1)
+
+    if (_aiSide != 0)
         y = 8 - (y + 1);
+    else
+        x = 7 - x;
 
     obj.h = _height / 10, obj.w = _width / 10;
     obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
@@ -89,7 +92,7 @@ void    visualGame::loadBoard(const int cx, const int cy)
 
     obj.h = _height, obj.w = _width, obj.x = 0, obj.y = 0;
 
-    if (_aiSide == -1 || _aiSide == 1)
+    if (_aiSide != 0)
         SDL_RenderCopy(_mainRenderer, _whiteBoardTexture, NULL, &obj);
     else
         SDL_RenderCopy(_mainRenderer, _blackBoardTexture, NULL, &obj);
@@ -100,7 +103,7 @@ void    visualGame::loadBoard(const int cx, const int cy)
     {
         for (int k = 0; k != 8; k++)
         {
-            string coords = string(1, "abcdefgh"[k]) + string(1, "87654321"[i]);
+            string coords = string(1, "hgfedcba"[k]) + string(1, "87654321"[i]);
             char type = _board->getType(coords);
             string color = _board->getColor(coords);
 

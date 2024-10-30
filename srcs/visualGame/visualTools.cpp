@@ -10,14 +10,18 @@ string  visualGame::getCoord(const int x, const int y)
     {
         for (int i = 0; i != 8; i++)
         {
-            if (_aiSide != 0)
+            if (_aiSide == 0)
                 yZone = (_height / 10) * (i + 1);
             else
                 yZone = (_height / 10) * (8 - i);
 
             for (int k = 0; k != 8; k++)
             {
-                xZone = (_width / 10 ) * (k + 1);
+                if (_aiSide == 0)
+                    xZone = (_width / 10 ) * (8 - k);
+                else
+                    xZone = (_width / 10 ) * (k + 1);
+
                 if (x >= xZone && x <= xZone + (_width / 10 ) && y >= yZone && y <= yZone + (_height / 10 ))
                     return (string(1, "abcdefgh"[k]) + string(1, "12345678"[i]));
             }
