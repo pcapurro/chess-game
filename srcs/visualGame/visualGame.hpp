@@ -91,6 +91,7 @@ class visualGame
 
         t_move          _input;
         int             _turn;
+        string          _aiColor;
 
         bool            _error;
         bool            _state;

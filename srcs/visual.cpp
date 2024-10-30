@@ -1,7 +1,7 @@
 #include "../include/shellChess.hpp"
 #include "visualGame/visualGame.hpp"
 
-int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr)
+int launchVisualGame(void *gameObjectPtr, void *chessBoardPtr, const bool sandBoxMode)
 {
     visualGame      *gameObject;
     chessBoard      *board;
@@ -47,7 +47,7 @@ int initializeVisualGame(const bool sandBoxMode)
         if (board->isAllocated() == false)
             { delete board, delete gameObject; memoryFailed(); return (1); }
 
-        int value = launchVisualGame(gameObject, board);
+        int value = launchVisualGame(gameObject, board, sandBoxMode);
 
         delete board;
         if (value == 1)

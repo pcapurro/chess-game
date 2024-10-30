@@ -2,23 +2,43 @@
 #include "chessBoard/chessBoard.hpp"
 #include "algebraParser/algebraParser.hpp"
 
-int launchShellGame(void *chessBoardPtr, const int blindMode, const int sandBoxMode)
+string  getShellAnswer(const chessBoard *board, const int sandBoxMode, const int aiTurn)
+{
+    string  newInput;
+
+    if (sandBoxMode == false && ((board->getActualTurn() % 2 == 0 && aiTurn % 2 == 0)
+        || (board->getActualTurn() % 2 != 0 && aiTurn % 2 != 0)))
+        return (getStockfishAnswer(board, aiTurn));
+    else
+    {
+        cout << ERASE_LINE << "> ";
+        getline(cin, newInput);
+        cout << "\033[1A";
+        if (cin.fail() == true)
+            return ("error");
+    }
+    return (newInput);
+}
+
+int launchShellGame(void *chessBoardPtr, const bool blindMode, const bool sandBoxMode)
 {
     string          input;
     chessBoard      *board;
     algebraParser   checker;
+    int             aiTurn;
+
+    aiTurn = -1;
+    if (sandBoxMode == false)
+        srand(time(0)), aiTurn = rand() % 2;
+    if (blindMode == false)
+        board->printBoard(aiTurn);
 
     board = (chessBoard *)chessBoardPtr;
-    if (blindMode == false)
-        board->printBoard();
     while (board->isGameOver() == false)
     {
         board->printEvent(checker.fail(), board->fail(), blindMode);
-        cout << ERASE_LINE << "> ";
-        getline(cin, input);
-        cout << "\033[1A";
-
-        if (cin.fail() == true)
+        input = getShellAnswer(board, sandBoxMode, aiTurn);
+        if (input == "error")
             return (2);
         checker = input;
 
@@ -28,7 +48,7 @@ int launchShellGame(void *chessBoardPtr, const int blindMode, const int sandBoxM
             return (1);
 
         if (blindMode == false)
-            board->printBoard();
+            board->printBoard(aiTurn);
         checker.setTurn(board->getActualTurn());
     }
     board->printEndGame();
@@ -36,7 +56,7 @@ int launchShellGame(void *chessBoardPtr, const int blindMode, const int sandBoxM
     return (0);
 }
 
-int initializeShellGame(const int blindMode, const int sandBoxMode)
+int initializeShellGame(const bool blindMode, const bool sandBoxMode)
 {
     int         value;
     chessBoard  *board;

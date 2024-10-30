@@ -6,6 +6,7 @@
 # include <algorithm>
 # include <vector>
 # include <map>
+# include <cstdlib>
 # include <unistd.h>
 
 # include <SDL2/SDL.h>
@@ -35,12 +36,13 @@ void    printLoading(void);
 int     memoryFailed(void);
 int     systemFailed(void);
 
-int     launchShellGame(void *chessBoardPtr, const int blindMode, const int sandBoxMode);
-int     initializeShellGame(const int blindMode, const int sandBoxMode);
+string	getStockfishAnswer(const void *boardPtr, const int turn);
 
-int     launchVisualGame(void *gameObjectPtr, void *chessBoardPtr);
+int     launchShellGame(void *chessBoardPtr, const bool blindMode, const bool sandBoxMode);
+int     initializeShellGame(const bool blindMode, const bool sandBoxMode);
+
+int     launchVisualGame(void *gameObjectPtr, void *chessBoardPtr, const bool sandBoxMode);
 int     initializeVisualGame(const bool sandBoxMode);
-
 
 int     main(const int argc, const char **argv);
 

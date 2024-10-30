@@ -33,16 +33,11 @@ void    chessBoard::printPiece(const char type, const string color) const
         cout << "│♔▕";
 }
 
-void    chessBoard::printBoard(void) const
+void    chessBoard::printWhiteBoard(void) const
 {
     int     atValue;
-    char    type;
-    string  color;
     string  coords;
 
-    if (_turn != 0)
-        cout << "\033[12A";
-    cout << ERASE_LINE << "    a  b  c  d  e  f  g  h" << endl;
     for (int i = 9; i != 1; i--)
     {
         cout << ERASE_LINE << " " << i - 1 << " ";
@@ -52,8 +47,8 @@ void    chessBoard::printBoard(void) const
             atValue = getAtValue(coords);
             if (_board.at(atValue).piece != NULL)
             {
-                type = _board.at(atValue).piece->getType();
-                color = _board.at(atValue).piece->getColor();
+                char type = _board.at(atValue).piece->getType();
+                string color = _board.at(atValue).piece->getColor();
                 printPiece(type, color);
             }
             else
@@ -61,6 +56,43 @@ void    chessBoard::printBoard(void) const
         }
         cout << " " << i - 1 << endl;
     }
+}
+
+void    chessBoard::printBlackBoard(void) const
+{
+    int     atValue;
+    string  coords;
+
+    for (int i = 1; i != 9; i++)
+    {
+        cout << ERASE_LINE << " " << i << " ";
+        for (int k = 0; k != 8; k++)
+        {
+            coords = "abcdefgh"[k] + to_string(i);
+            atValue = getAtValue(coords);
+            if (_board.at(atValue).piece != NULL)
+            {
+                char type = _board.at(atValue).piece->getType();
+                string color = _board.at(atValue).piece->getColor();
+                printPiece(type, color);
+            }
+            else
+                cout << "│ ▕";
+        }
+        cout << " " << i << endl;
+    }
+}
+
+void    chessBoard::printBoard(const int aiSide) const
+{
+    if (_turn != 0)
+        cout << "\033[12A";
+
+    cout << ERASE_LINE << "    a  b  c  d  e  f  g  h" << endl;
+    if (aiSide == -1 || aiSide == 1)
+        printWhiteBoard();
+    else
+        printBlackBoard();
     cout << ERASE_LINE << "    a  b  c  d  e  f  g  h" << endl << endl ;
 }
 

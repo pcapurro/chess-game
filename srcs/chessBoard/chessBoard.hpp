@@ -66,7 +66,7 @@ class chessBoard
         void    printEvent(const bool cfail, const bool bfail,\
                             const bool blindMode);
         void    printEndGame(const int value = 0);
-        void    printBoard(void) const;
+        void    printBoard(const int aiSide) const;
 
     private:
 
@@ -74,8 +74,9 @@ class chessBoard
         vector<string>      getPossibleMoves(const string coord) const;
         vector<string>      getPiecesCoords(void) const;
 
+        void    printWhiteBoard(void) const;
+        void    printBlackBoard(void) const;
         void    printPiece(const char type, const string color) const;
-
         void    printHistory(void) const;
         void    addToHistory(void);
 
