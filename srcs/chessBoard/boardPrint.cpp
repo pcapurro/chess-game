@@ -157,7 +157,7 @@ void    chessBoard::printEvent(const bool cfail, const bool bfail, const bool bl
 
     if (cfail == true || bfail == true)
     {
-        if (blindMode == true)
+        if (blindMode == false)
             cout << "\033[1A" << ERASE_LINE;
 
         if (cfail == true)
