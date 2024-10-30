@@ -38,9 +38,6 @@ int     systemFailed(void);
 
 string	getStockfishAnswer(const void *boardPtr, const int turn);
 
-int     launchShellGame(void *chessBoardPtr, const bool blindMode, const bool sandBoxMode);
-int     initializeShellGame(const bool blindMode, const bool sandBoxMode);
-
 int     launchVisualGame(void *gameObjectPtr, void *chessBoardPtr, const bool sandBoxMode);
 int     initializeVisualGame(const bool sandBoxMode);
 

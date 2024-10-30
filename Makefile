@@ -8,7 +8,6 @@ NAME = shell-chess
 
 SRCS = srcs/main.cpp \
 	srcs/visual.cpp \
-	srcs/shell.cpp \
 	srcs/stockfish.cpp \
 	srcs/print.cpp \
 	srcs/visualGame/visualDisplay.cpp \
@@ -17,6 +16,9 @@ SRCS = srcs/main.cpp \
 	srcs/visualGame/visualTextures.cpp \
 	srcs/visualGame/visualEvent.cpp \
 	srcs/visualGame/visualTools.cpp \
+	srcs/shellGame/shellInit.cpp \
+	srcs/shellGame/shellRoutine.cpp \
+	srcs/shellGame/shellFree.cpp \
 	srcs/algebraParser/algebraBase.cpp \
 	srcs/algebraParser/algebraChecker.cpp \
 	srcs/algebraParser/algebraParser.cpp \

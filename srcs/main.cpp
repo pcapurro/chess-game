@@ -1,5 +1,7 @@
 #include "../include/shellChess.hpp"
 
+#include "shellGame/shellGame.hpp"
+
 int validateArguments(const int argc, const char **argv)
 {
     if (argc == 1)
@@ -70,9 +72,18 @@ int main(const int argc, const char **argv)
         {
             initWelcome();
             printLoading();
-    
-            if (initializeShellGame(blindMode, sandBoxMode) != 0)
+
+            shellGame   *gameShell;
+            
+            gameShell = new (nothrow) shellGame(blindMode, sandBoxMode);
+            if (gameShell == nullptr)
                 return (1);
+
+            gameShell->shellRoutine();
+
+            if (gameShell->fail() == true)
+                { delete gameShell; return (1); }
+            delete gameShell;
         }
     }
     return (0);
