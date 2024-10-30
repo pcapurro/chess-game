@@ -168,8 +168,8 @@ void    visualGame::loadTextures(void)
 {
     loadBoardTextures();
 
-    // if (_error == false)
-        // loadArrowTexture();
+    if (_error == false)
+        loadArrowTexture();
 
     if (_error == false)
         loadWhiteTextures();

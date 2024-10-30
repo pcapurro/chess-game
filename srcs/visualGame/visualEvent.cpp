@@ -38,6 +38,17 @@ int visualGame::waitForNewGame(void)
             if (event.type == SDL_QUIT)
                 return (1);
 
+            if (event.type == SDL_MOUSEBUTTONDOWN
+                || event.type == SDL_MOUSEMOTION)
+            {
+                SDL_SetCursor(_playCursor);
+                if (event.type == SDL_MOUSEBUTTONDOWN
+                    && event.button.x > _width - (_width / 12) && event.button.y < _height / 12)
+                    break ;
+            }
+            else
+                SDL_SetCursor(_normalCursor);
+
             if (event.window.event == SDL_WINDOWEVENT_RESIZED)
                 setNewDimensions(event.window.data1, event.window.data2);
         }

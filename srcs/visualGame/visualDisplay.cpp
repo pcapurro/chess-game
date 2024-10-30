@@ -61,7 +61,7 @@ void    visualGame::loadArrow(void)
     {
         SDL_Rect    obj;
 
-        obj.x = _width - (_width / 12), obj.y = _height / 400;
+        obj.x = _width - (_width / 12), obj.y = 0;
         obj.w = _width / 12, obj.h = _height / 12;
         SDL_RenderCopy(_mainRenderer, _arrowTexture, NULL, &obj);
     }

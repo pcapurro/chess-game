@@ -10,6 +10,9 @@ visualGame::~visualGame()
     if (_blackBoardTexture != nullptr && _blackBoardTexture != NULL)
         SDL_DestroyTexture(_blackBoardTexture);
 
+    if (_arrowTexture != nullptr && _arrowTexture != NULL)
+        SDL_DestroyTexture(_arrowTexture);
+
     if (_texts.blackToPlay != nullptr && _texts.blackToPlay != NULL)
         SDL_DestroyTexture(_texts.blackToPlay);
     if (_texts.blackWon != nullptr && _texts.blackWon != NULL)
