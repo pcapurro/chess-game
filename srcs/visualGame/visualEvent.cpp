@@ -1,8 +1,8 @@
 #include "visualGame.hpp"
 
-int visualGame::loadInput(const string coord, const chessBoard *board)
+int visualGame::loadInput(const string coord)
 {
-    _input.obj = board->getType(_droppedSourceCoords);
+    _input.obj = _board->getType(_droppedSourceCoords);
     _input.src = _droppedSourceCoords;
     _input.dest = coord;
 
@@ -49,7 +49,7 @@ int visualGame::waitForNewGame(void)
     return (0);
 }
 
-int visualGame::waitForEvent(const chessBoard *board)
+int visualGame::waitForEvent(void)
 {
     SDL_Event   event;
     string      coord;
@@ -59,14 +59,14 @@ int visualGame::waitForEvent(const chessBoard *board)
         if (SDL_PollEvent(&event) == true)
         {
             if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN
-                && (event.key.keysym.sym == SDLK_ESCAPE || event.key.keysym.sym == SDLK_RETURN)))
+                && event.key.keysym.sym == SDLK_ESCAPE))
                 return (1);
 
             if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP
                 || event.type == SDL_MOUSEMOTION)
             {
                 coord = getCoord(event.button.x, event.button.y);
-                if (board->getType(coord) != ' ' && board->getColor(coord) == getTurnColor())
+                if (_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
                 {
                     SDL_SetCursor(_playCursor);
                     if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -79,9 +79,9 @@ int visualGame::waitForEvent(const chessBoard *board)
                     setNewDimensions(event.window.data1, event.window.data2);
                 
                 if (event.type == SDL_MOUSEBUTTONUP)
-                    return (loadInput(coord, board));
+                    return (loadInput(coord));
 
-                displayGame(board, event.button.x, event.button.y);
+                displayGame(event.button.x, event.button.y);
             }
         }
     }

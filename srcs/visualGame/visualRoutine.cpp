@@ -1,11 +1,57 @@
 #include "visualGame.hpp"
 
+string  visualGame::getVisualAnswer(void)
+{
+    string  newInput;
+
+    if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
+        || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
+    {
+        static int i = 0;
+
+        i++;
+
+        if (i == 1)
+        {
+            _input.action = '-';
+            _input.obj = 'P';
+            _input.dest = "e4";
+            _input.src = "e2";
+        }
+
+        if (i == 2)
+        {
+            _input.action = '-';
+            _input.obj = 'N';
+            _input.dest = "f3";
+            _input.src = "g1";
+        }
+
+        if (i == 3)
+        {
+            _input.action = '-';
+            _input.obj = 'B';
+            _input.dest = "c4";
+            _input.src = "f1";
+        }
+    }
+    else
+    {
+        if (waitForEvent() == 1)
+            return ("end");
+    }
+    return (newInput);
+}
+
 int		visualGame::visualLoop(void)
 {
+    string  answer;
+
     while (_board->isGameOver() == false)
     {
-        displayGame(_board);
-        if (waitForEvent(_board) == 1)
+        displayGame();
+        answer = getVisualAnswer();
+        if (answer == "error" || answer == "end")
             { _board->printEndGame(1); return (2); }
 
         if (_board->playMove(getInput()) == FAIL)
@@ -14,7 +60,7 @@ int		visualGame::visualLoop(void)
             return (1);
         setTurn();
     }
-    displayGame(_board);
+    displayGame();
     _board->printEndGame(1);
 
     return (0);

@@ -41,6 +41,8 @@ class visualGame
         void	    visualRoutine(void);
         int		    visualLoop(void);
 
+        string      getVisualAnswer(void);
+
         bool        fail(void) const { return (_error); }
 
         void        setNewDimensions(const int width, const int height) \
@@ -56,13 +58,13 @@ class visualGame
         SDL_Texture *getTexture(const char type, const string color) const;
         SDL_Rect    getRectangle(const string coords);
     
-        void        loadBoard(const chessBoard *board, const int cx = 0, const int cy = 0);
+        void        loadBoard(const int cx = 0, const int cy = 0);
         void        loadText(const int value);
-        void        displayGame(const chessBoard *board, const int cx = 0, const int cy = 0);
+        void        displayGame(const int cx = 0, const int cy = 0);
     
-        int         waitForEvent(const chessBoard *board);
+        int         waitForEvent();
         int         waitForNewGame(void);
-        int         loadInput(const string coord, const chessBoard *board);
+        int         loadInput(const string coord);
         t_move      getInput(void) { return (_input); };
         string      getCoord(const int x, const int y);
         string      getTurnColor(void) const;
@@ -94,6 +96,8 @@ class visualGame
 
         bool            _dropped;
         string          _droppedSourceCoords;
+
+        int             _aiSide;
 
         t_move          _input;
         int             _turn;

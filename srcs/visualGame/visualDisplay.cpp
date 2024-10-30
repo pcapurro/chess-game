@@ -82,24 +82,28 @@ void    visualGame::loadText(const int value)
         SDL_RenderCopy(_mainRenderer, _texts.draw, NULL, &obj);
 }
 
-void    visualGame::loadBoard(const chessBoard *board, const int cx, const int cy)
+void    visualGame::loadBoard(const int cx, const int cy)
 {
-    char        type;
-    string      coords;
-    string      color;
     SDL_Rect    obj;
+    string      numbers;
 
     obj.h = _height, obj.w = _width, obj.x = 0, obj.y = 0;
     SDL_RenderCopy(_mainRenderer, _boardTexture, NULL, &obj);
 
     obj.h = _height / 10, obj.w = _width / 10;
+
+    if (_aiSide == -1 || _aiSide == 1)
+        numbers = "12345678";
+    else
+        numbers = "87654321";
+
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
         {
-            coords = string(1, "abcdefgh"[k]) + string(1, "87654321"[i]);
-            type = board->getType(coords);
-            color = board->getColor(coords);
+            string coords = string(1, "abcdefgh"[k]) + numbers[i];
+            char type = _board->getType(coords);
+            string color = _board->getColor(coords);
 
             if (type != ' ')
             {
@@ -114,10 +118,10 @@ void    visualGame::loadBoard(const chessBoard *board, const int cx, const int c
     }
 }
 
-void    visualGame::displayGame(const chessBoard *board, const int cx, const int cy)
+void    visualGame::displayGame(const int cx, const int cy)
 {
     SDL_RenderClear(_mainRenderer);
-    loadBoard(board, cx, cy);
-    loadText(board->getStateValue());
+    loadBoard(cx, cy);
+    loadText(_board->getStateValue());
     SDL_RenderPresent(_mainRenderer);
 }

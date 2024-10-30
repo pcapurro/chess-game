@@ -7,6 +7,10 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode)
     _width = 800;
     _height = 800;
 
+	_aiSide = -1;
+   	if (_sandBoxMode == false)
+		srand(time(0)), _aiSide = rand() % 2;
+
     setToDefault();
     setToNullPtr();
 
