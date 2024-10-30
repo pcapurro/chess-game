@@ -48,6 +48,7 @@ class visualGame
         void        setNewDimensions(const int width, const int height) \
                     { _width = width, _height = height; };
 
+        void        loadBoardTextures(void);
         void        loadWhiteTextures(void);
         void        loadBlackTextures(void);
         void        loadTexture(const char type, \
@@ -85,7 +86,8 @@ class visualGame
         SDL_Surface     *_baseSurface;
         int             _baseCheck;
 
-        SDL_Texture     *_boardTexture;
+        SDL_Texture     *_blackBoardTexture;
+        SDL_Texture     *_whiteBoardTexture;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
         t_text          _texts;

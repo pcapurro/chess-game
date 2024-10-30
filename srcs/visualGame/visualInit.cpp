@@ -43,7 +43,8 @@ void    visualGame::setToNullPtr(void)
     _normalCursor = nullptr;
     _playCursor = nullptr;
 
-    _boardTexture = nullptr;
+    _whiteBoardTexture = nullptr;
+    _blackBoardTexture = nullptr;
     _baseSurface = nullptr;
     _baseCheck = 0;
 
