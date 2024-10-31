@@ -38,6 +38,9 @@ int     systemFailed(void);
 
 string	getStockfishAnswer(const void *boardPtr, const int turn);
 
+int 	initializeShellGame(const bool sandBoxMode, const bool blindMode);
+int 	initializeVisualGame(const bool sandBoxMode);
+
 void    printInvalidArguments(void);
 int 	validateArguments(const int argc, const char **argv);
 

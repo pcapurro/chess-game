@@ -46,6 +46,43 @@ void    printInvalidArguments(void)
     cerr << "Usage: ./shell-chess [--no-visual] [--blind-mode] or/and [--sandbox]" << endl;
 }
 
+int initializeVisualGame(const bool sandBoxMode)
+{
+    visualGame  *gameVisual;
+
+    gameVisual = new (nothrow) visualGame (sandBoxMode);
+    if (gameVisual == nullptr)
+        return (1);
+
+    gameVisual->visualRoutine();
+
+    delete gameVisual;
+    if (gameVisual->fail() == true)
+        return (1);
+
+    return (0);
+}
+
+int initializeShellGame(const bool sandBoxMode, const bool blindMode)
+{
+    initWelcome();
+    printLoading();
+
+    shellGame   *gameShell;
+            
+    gameShell = new (nothrow) shellGame(blindMode, sandBoxMode);
+    if (gameShell == nullptr)
+        return (1);
+
+    gameShell->shellRoutine();
+
+    delete gameShell;
+    if (gameShell->fail() == true)
+        return (1);
+    
+    return (0);
+}
+
 int main(const int argc, const char **argv)
 {
     if (validateArguments(argc, argv) != SUCCESS)
@@ -65,34 +102,13 @@ int main(const int argc, const char **argv)
 
         if (argc == 1 || argc == 2 && string(argv[1]) == "--sandbox")
         {
-            visualGame  *gameVisual;
-
-            gameVisual = new (nothrow) visualGame (sandBoxMode);
-            if (gameVisual == nullptr)
+            if (initializeVisualGame(sandBoxMode) != 0)
                 return (1);
-
-            gameVisual->visualRoutine();
-
-            if (gameVisual->fail() == true)
-                { delete gameVisual; return (1); }
-            delete gameVisual;
         }
         else
         {
-            initWelcome();
-            printLoading();
-
-            shellGame   *gameShell;
-            
-            gameShell = new (nothrow) shellGame(blindMode, sandBoxMode);
-            if (gameShell == nullptr)
+            if (initializeShellGame(sandBoxMode, blindMode) != 0)
                 return (1);
-
-            gameShell->shellRoutine();
-
-            if (gameShell->fail() == true)
-                { delete gameShell; return (1); }
-            delete gameShell;
         }
     }
     return (0);
