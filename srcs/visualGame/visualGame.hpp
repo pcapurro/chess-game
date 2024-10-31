@@ -56,13 +56,13 @@ class visualGame
                         const char color, const char *path);
         void        loadTextures(void);
         void        loadTexts(void);
-        void        loadArrow(void);
 
         SDL_Texture *getTexture(const char type, const string color) const;
         SDL_Rect    getRectangle(const string coords);
     
         void        loadBoard(const int cx = 0, const int cy = 0);
         void        loadText(const int value);
+        void        loadArrow(const int value);
         void        displayGame(const int cx = 0, const int cy = 0);
     
         int         waitForEvent();
