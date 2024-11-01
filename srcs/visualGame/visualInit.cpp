@@ -22,13 +22,6 @@ void    visualGame::setToDefault(void)
 {
     _turn = 1;
 
-    _input.action = '-';
-    _input.obj = ' ';
-
-    _input.dest.clear();
-    _input.move.clear();
-    _input.src.clear();
-
     _dropped = true;
     _droppedSrc.clear();
 }

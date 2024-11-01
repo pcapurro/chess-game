@@ -1,30 +1,31 @@
 #include "visualGame.hpp"
 
-int visualGame::loadInput(const string coord)
+string visualGame::getInput(const string coord)
 {
-    _input.obj = _board->getType(_droppedSrc);
-    _input.src = _droppedSrc;
-    _input.dest = coord;
+    string  input;
 
-    if (_input.obj == 'K')
+    input = input + _board->getType(_droppedSrc);
+    input = input + _droppedSrc + coord;
+
+    if (input[0] == 'K')
     {
-        if ((_input.dest == "g1" && _input.src == "e1") || (_input.dest == "g8" && _input.src == "e8"))
-            _input.dest = "O-O";
-        if ((_input.dest == "c1" && _input.src == "e1") || (_input.dest == "c8" && _input.src == "e8"))
-            _input.dest = "O-O-O";
+        if ((coord == "g1" && _droppedSrc == "e1") || (coord == "g8" && _droppedSrc == "e8"))
+            input[3] = 'O', input[4] = '-', input = input + "O";
+        if ((coord == "c1" && _droppedSrc == "e1") || (coord == "c8" && _droppedSrc == "e8"))
+            input[3] = 'O', input[4] = '-', input = input + "O-O";
     }
 
-    if (_input.obj == 'P')
+    if (input[0] == 'P')
     {
-        if (_input.dest[1] == '8' && _input.src[1] == '7'
-            || _input.dest[1] == '1' && _input.src[1] == '2')
-            _input.dest = _input.dest + 'Q';
+        if (coord[1] == '8' && _droppedSrc[1] == '7'
+            || coord[1] == '1' && _droppedSrc[1] == '2')
+            input = input + 'Q';
     }
 
     _dropped = true;
     _droppedSrc.clear();
 
-    return (0);
+    return (input);
 }
 
 int visualGame::waitForNewGame(void)
@@ -53,7 +54,7 @@ int visualGame::waitForNewGame(void)
     return (0);
 }
 
-int visualGame::waitForEvent(void)
+string  visualGame::waitForEvent(void)
 {
     SDL_Event   event;
     string      coord;
@@ -63,7 +64,7 @@ int visualGame::waitForEvent(void)
         if (SDL_PollEvent(&event) == true)
         {
             if (event.type == SDL_QUIT)
-                return (1);
+                return (string("end"));
 
             if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP
                 || event.type == SDL_MOUSEMOTION)
@@ -79,11 +80,11 @@ int visualGame::waitForEvent(void)
                     SDL_SetCursor(_normalCursor);
                 
                 if (event.type == SDL_MOUSEBUTTONUP)
-                    return (loadInput(coord));
+                    return (getInput(coord));
 
                 displayGame(event.button.x, event.button.y);
             }
         }
     }
-    return (0);
+    return ("");
 }

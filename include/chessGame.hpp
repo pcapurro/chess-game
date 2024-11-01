@@ -36,8 +36,6 @@ void    printLoading(void);
 int     memoryFailed(void);
 int     systemFailed(void);
 
-string	getStockfishAnswer(const void *boardPtr, const int turn);
-
 int 	initializeShellGame(const bool sandBoxMode, const bool blindMode);
 int 	initializeVisualGame(const bool sandBoxMode);
 

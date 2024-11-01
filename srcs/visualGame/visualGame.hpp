@@ -2,7 +2,8 @@
 # define VISUALGAME_HPP
 
 # include "../../include/chessGame.hpp"
-#include "../chessBoard/chessBoard.hpp"
+# include "../chessBoard/chessBoard.hpp"
+# include "../aiChess/aiChess.hpp"
 
 typedef struct s_textures
 {
@@ -62,12 +63,11 @@ class visualGame
         void        loadArrow(const int value);
         void        displayGame(const int cx = 0, const int cy = 0);
     
-        int         waitForEvent(void);
+        string      waitForEvent(void);
         int         waitForNewGame(void);
 
-        int         loadInput(const string coord);
+        string      getInput(const string coord);
 
-        t_move      getInput(void) const { return (_input); };
         string      getCoord(const int x, const int y) const;
         string      getTurnColor(void) const;
 
@@ -98,8 +98,6 @@ class visualGame
         string          _droppedSrc;
 
         int             _aiSide;
-
-        t_move          _input;
         int             _turn;
 
         bool            _error;

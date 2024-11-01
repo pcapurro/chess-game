@@ -2,20 +2,20 @@
 
 string  shellGame::getShellAnswer(void) const
 {
-    string  newInput;
+    string  answer;
 
     if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
-        return (getStockfishAnswer(_board, _aiSide));
+        return (aiChess::getBestMove(_board, _aiSide));
     else
     {
         cout << ERASE_LINE << "> ";
-        getline(cin, newInput);
+        getline(cin, answer);
         cout << "\033[1A";
         if (cin.fail() == true)
             return ("error");
     }
-    return (newInput);
+    return (answer);
 }
 
 void	shellGame::shellRoutine(void)

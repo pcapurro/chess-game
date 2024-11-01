@@ -3,6 +3,7 @@
 
 # include "../../include/chessGame.hpp"
 # include "../chessBoard/chessBoard.hpp"
+# include "../aiChess/aiChess.hpp"
 # include "../algebraParser/algebraParser.hpp"
 
 class shellGame

@@ -2,74 +2,14 @@
 
 string  visualGame::getVisualAnswer(void)
 {
-    string  newInput;
+    string  answer;
 
     if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
-    {
-        static int i = 0;
-
-        i++;
-
-        if (_aiSide == 0)
-        {
-            if (i == 1)
-            {
-                _input.action = '-';
-                _input.obj = 'P';
-                _input.dest = "e4";
-                _input.src = "e2";
-            }
-
-            if (i == 2)
-            {
-                _input.action = '-';
-                _input.obj = 'N';
-                _input.dest = "f3";
-                _input.src = "g1";
-            }
-
-            if (i == 3)
-            {
-                _input.action = '-';
-                _input.obj = 'B';
-                _input.dest = "c4";
-                _input.src = "f1";
-            }
-        }
-        else
-        {
-            if (i == 1)
-            {
-                _input.action = '-';
-                _input.obj = 'P';
-                _input.dest = "e5";
-                _input.src = "e7";
-            }
-
-            if (i == 2)
-            {
-                _input.action = '-';
-                _input.obj = 'N';
-                _input.dest = "f6";
-                _input.src = "g8";
-            }
-
-            if (i == 3)
-            {
-                _input.action = '-';
-                _input.obj = 'B';
-                _input.dest = "c5";
-                _input.src = "f8";
-            }
-        }
-    }
+        return (aiChess::getBestMove(_board, _aiSide));
     else
-    {
-        if (waitForEvent() == 1)
-            return ("end");
-    }
-    return (newInput);
+        answer = waitForEvent();
+    return (answer);
 }
 
 int		visualGame::visualLoop(void)
@@ -83,7 +23,8 @@ int		visualGame::visualLoop(void)
         if (answer == "error" || answer == "end")
             { _board->printEndGame(1); return (2); }
 
-        if (_board->playMove(getInput()) == FAIL)
+        if (_board->playMove({answer, '-', answer[0], \
+            (string(1, answer[1]) + answer[2]), answer.c_str() + 3}) == FAIL)
             continue ;
         else if (_board->isAllocated() == false)
             return (1);
