@@ -1,5 +1,5 @@
-#ifndef SHELLCHESS_HPP
-# define SHELLCHESS_HPP
+#ifndef CHESSGAME_HPP
+# define CHESSGAME_HPP
 
 # include <iostream>
 # include <string>

@@ -1,6 +1,61 @@
 #include "visualGame.hpp"
 
-string  visualGame::getCoord(const int x, const int y)
+SDL_Texture *visualGame::getTexture(const char type, const string color) const
+{
+    if (color == "white")
+    {
+        if (type == 'K')
+            return (_whiteTextures.king);
+        if (type == 'Q')
+            return (_whiteTextures.queen);
+        if (type == 'R')
+            return (_whiteTextures.rook);
+        if (type == 'B')
+            return (_whiteTextures.bishop);
+        if (type == 'N')
+            return (_whiteTextures.knight);
+        if (type == 'P')
+            return (_whiteTextures.pawn);
+    }
+    if (color == "black")
+    {
+        if (type == 'K')
+            return (_blackTextures.king);
+        if (type == 'Q')
+            return (_blackTextures.queen);
+        if (type == 'R')
+            return (_blackTextures.rook);
+        if (type == 'B')
+            return (_blackTextures.bishop);
+        if (type == 'N')
+            return (_blackTextures.knight);
+        if (type == 'P')
+            return (_blackTextures.pawn);
+    }
+    return (nullptr);
+}
+
+SDL_Rect    visualGame::getRectangle(const string coords) const
+{
+    int         x;
+    int         y;
+    SDL_Rect    obj;
+
+    x = coords[0] - 97;
+    y = atoi(coords.c_str() + 1) - 1;
+
+    if (_aiSide != 0)
+        y = 8 - (y + 1);
+    else
+        x = 7 - x;
+
+    obj.h = _height / 10, obj.w = _width / 10;
+    obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
+
+    return (obj);
+}
+
+string  visualGame::getCoord(const int x, const int y) const
 {
     int xZone;
     int yZone;

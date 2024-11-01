@@ -87,7 +87,7 @@ int		visualGame::visualLoop(void)
             continue ;
         else if (_board->isAllocated() == false)
             return (1);
-        setTurn();
+        _turn++;
     }
     displayGame();
     _board->printEndGame(1);

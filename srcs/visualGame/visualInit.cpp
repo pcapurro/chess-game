@@ -1,11 +1,8 @@
 #include "visualGame.hpp"
 
-visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode)
+visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _width(800), _height(800)
 {
     _error = false;
-
-    _width = 800;
-    _height = 800;
 
 	_aiSide = -1;
    	if (_sandBoxMode == false)
@@ -33,7 +30,7 @@ void    visualGame::setToDefault(void)
     _input.src.clear();
 
     _dropped = true;
-    _droppedSourceCoords.clear();
+    _droppedSrc.clear();
 }
 
 void    visualGame::setToNullPtr(void)
@@ -76,7 +73,7 @@ void    visualGame::initializeGame(void)
         { _error = true; return ; }
     
     _mainWindow = SDL_CreateWindow("shell-chess", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, \
-        _width, _height, SDL_WINDOW_RESIZABLE);
+        _width, _height, 0);
     if (_mainWindow == NULL)
         { _error = true; return ; }
 

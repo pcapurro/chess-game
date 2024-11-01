@@ -1,7 +1,7 @@
 #ifndef VISUALGAME_HPP
 # define VISUALGAME_HPP
 
-# include "../../include/shellChess.hpp"
+# include "../../include/chessGame.hpp"
 #include "../chessBoard/chessBoard.hpp"
 
 typedef struct s_textures
@@ -34,50 +34,47 @@ class visualGame
         visualGame(const bool sandBoxMode);
         ~visualGame(void);
 
+        void	    visualRoutine(void);
+        bool        fail(void) const { return (_error); }
+
+    private:
+
         void        initializeGame(void);
         void        setToDefault(void);
         void        setToNullPtr(void);
 
-        void	    visualRoutine(void);
-        int		    visualLoop(void);
-
-        string      getVisualAnswer(void);
-
-        bool        fail(void) const { return (_error); }
-
-        void        setNewDimensions(const int width, const int height) \
-                    { _width = width, _height = height; };
-
+        void        loadTexts(void);
         void        loadBoardTextures(void);
         void        loadWhiteTextures(void);
         void        loadBlackTextures(void);
         void        loadArrowTexture(void);
-        void        loadTexture(const char type, \
-                        const char color, const char *path);
+        void        loadTexture(const char type, const char color, const char *path);
         void        loadTextures(void);
-        void        loadTexts(void);
 
         SDL_Texture *getTexture(const char type, const string color) const;
-        SDL_Rect    getRectangle(const string coords);
-    
+        SDL_Rect    getRectangle(const string coords) const;
+
+        int		    visualLoop(void);
+        string      getVisualAnswer(void);
+  
         void        loadBoard(const int cx = 0, const int cy = 0);
         void        loadText(const int value);
         void        loadArrow(const int value);
         void        displayGame(const int cx = 0, const int cy = 0);
     
-        int         waitForEvent();
+        int         waitForEvent(void);
         int         waitForNewGame(void);
+
         int         loadInput(const string coord);
-        t_move      getInput(void) { return (_input); };
-        string      getCoord(const int x, const int y);
+
+        t_move      getInput(void) const { return (_input); };
+        string      getCoord(const int x, const int y) const;
         string      getTurnColor(void) const;
-        
-        void        setTurn(void) { _turn++; };
 
-    private:
+        const int       _width;
+        const int       _height;
 
-        int             _width;
-        int             _height;
+        const bool		_sandBoxMode;
 
         SDL_Window      *_mainWindow;
         SDL_Renderer    *_mainRenderer;
@@ -97,16 +94,13 @@ class visualGame
 
         chessBoard      *_board;
 
-		const bool		_sandBoxMode;
-
         bool            _dropped;
-        string          _droppedSourceCoords;
+        string          _droppedSrc;
 
         int             _aiSide;
 
         t_move          _input;
         int             _turn;
-        string          _aiColor;
 
         bool            _error;
 };

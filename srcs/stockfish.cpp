@@ -1,4 +1,4 @@
-#include "../include/shellChess.hpp"
+#include "../include/chessGame.hpp"
 #include "chessBoard/chessBoard.hpp"
 
 string	getStockfishAnswer(const void *boardPtr, const int turn)

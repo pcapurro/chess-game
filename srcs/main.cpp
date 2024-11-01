@@ -1,4 +1,4 @@
-#include "../include/shellChess.hpp"
+#include "../include/chessGame.hpp"
 
 #include "shellGame/shellGame.hpp"
 #include "visualGame/visualGame.hpp"

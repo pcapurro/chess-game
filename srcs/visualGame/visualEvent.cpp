@@ -2,8 +2,8 @@
 
 int visualGame::loadInput(const string coord)
 {
-    _input.obj = _board->getType(_droppedSourceCoords);
-    _input.src = _droppedSourceCoords;
+    _input.obj = _board->getType(_droppedSrc);
+    _input.src = _droppedSrc;
     _input.dest = coord;
 
     if (_input.obj == 'K')
@@ -22,7 +22,7 @@ int visualGame::loadInput(const string coord)
     }
 
     _dropped = true;
-    _droppedSourceCoords.clear();
+    _droppedSrc.clear();
 
     return (0);
 }
@@ -48,9 +48,6 @@ int visualGame::waitForNewGame(void)
             }
             else
                 SDL_SetCursor(_normalCursor);
-
-            if (event.window.event == SDL_WINDOWEVENT_RESIZED)
-                setNewDimensions(event.window.data1, event.window.data2);
         }
     }
     return (0);
@@ -76,13 +73,10 @@ int visualGame::waitForEvent(void)
                 {
                     SDL_SetCursor(_playCursor);
                     if (event.type == SDL_MOUSEBUTTONDOWN)
-                        _dropped = false, _droppedSourceCoords = coord;
+                        _dropped = false, _droppedSrc = coord;
                 }
                 else
                     SDL_SetCursor(_normalCursor);
-
-                if (event.window.event == SDL_WINDOWEVENT_RESIZED)
-                    setNewDimensions(event.window.data1, event.window.data2);
                 
                 if (event.type == SDL_MOUSEBUTTONUP)
                     return (loadInput(coord));
