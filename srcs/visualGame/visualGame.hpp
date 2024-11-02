@@ -71,10 +71,10 @@ class visualGame
         string      getCoord(const int x, const int y) const;
         string      getTurnColor(void) const;
 
+        const bool		_sandBoxMode;
+
         const int       _width;
         const int       _height;
-
-        const bool		_sandBoxMode;
 
         SDL_Window      *_mainWindow;
         SDL_Renderer    *_mainRenderer;

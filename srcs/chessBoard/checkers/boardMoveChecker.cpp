@@ -68,7 +68,7 @@ int chessBoard::checkPawnSource(void)
     atValue = getAtValue(_lastMove.dest);
     if (_board.at(atValue).piece != NULL)
         return (FAIL);
-    for (int i = 0; i != _lastMove.src.length(); i++)
+    for (size_t i = 0; i != _lastMove.src.length(); i++)
     {
         source = source + _lastMove.src.at(i);
         if (source.length() == 2)
@@ -104,7 +104,6 @@ int chessBoard::checkNormalSource(void)
         {
             if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == _lastMove.obj)
             {
-                int type = _lastMove.obj;
                 if (_board.at(i).piece->isOnMyWay(_lastMove.dest, boardCoords) == true)
                     _lastMove.src = _lastMove.src + _board.at(i).coord;
             }

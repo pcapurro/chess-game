@@ -28,8 +28,8 @@ class shellGame
 		chessBoard		*_board;
 		algebraParser	*_checker;
 
-		const bool		_sandBoxMode;
 		const bool		_blindMode;
+		const bool		_sandBoxMode;
 
 		int				_aiSide;
 

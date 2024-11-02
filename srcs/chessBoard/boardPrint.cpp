@@ -106,7 +106,7 @@ void    chessBoard::printHistory(void) const
     if (_history.empty() != true)
     {
         cout << "Game summary: ";
-        for (int i = 0; i != _history.size(); i++)
+        for (size_t i = 0; i != _history.size(); i++)
         {
             if (i != 0)
                 cout << " ";

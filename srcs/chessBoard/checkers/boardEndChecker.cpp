@@ -198,7 +198,7 @@ bool    chessBoard::isCheckMate(void)
             if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _color)
             {
                 sources = getPossibleMoves(_board.at(i).coord);
-                for (int k = 0; k != sources.size(); k++)
+                for (size_t k = 0; k != sources.size(); k++)
                 {
                     if (doesItResolveCheck(sources.at(k)) == true)
                         return (false);

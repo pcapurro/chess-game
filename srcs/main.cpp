@@ -92,15 +92,15 @@ int main(const int argc, const char **argv)
         bool    sandBoxMode = false;
         bool    blindMode = false;
 
-        if (argc == 2 && string(argv[1]) == "--sandbox" || argc == 3 && string(argv[2]) == "--sandbox"
-            || argc == 4 && string(argv[2]) == "--sandbox" || argc == 4 && string(argv[3]) == "--sandbox")
+        if ((argc == 2 && string(argv[1]) == "--sandbox") || (argc == 3 && string(argv[2]) == "--sandbox")
+            || (argc == 4 && string(argv[2]) == "--sandbox") || (argc == 4 && string(argv[3]) == "--sandbox"))
             sandBoxMode = true;
 
-        if (argc == 3 && string(argv[2]) == "--blind-mode" || argc == 4 && string(argv[2]) == "--blind-mode"
-            || argc == 4 && string(argv[3]) == "--blind-mode")
+        if ((argc == 3 && string(argv[2]) == "--blind-mode") || (argc == 4 && string(argv[2]) == "--blind-mode")
+            || (argc == 4 && string(argv[3]) == "--blind-mode"))
             blindMode = true;
 
-        if (argc == 1 || argc == 2 && string(argv[1]) == "--sandbox")
+        if (argc == 1 || (argc == 2 && string(argv[1]) == "--sandbox"))
         {
             if (initializeVisualGame(sandBoxMode) != 0)
                 return (1);

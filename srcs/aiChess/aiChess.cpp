@@ -6,5 +6,8 @@ aiChess::~aiChess(void) {;}
 
 string	aiChess::getBestMove(const chessBoard *board, const int aiSide)
 {
+	(void) board;
+	(void) aiSide;
+
 	return (string(""));
 }

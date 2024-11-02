@@ -17,8 +17,8 @@ string visualGame::getInput(const string coord)
 
     if (input[0] == 'P')
     {
-        if (coord[1] == '8' && _droppedSrc[1] == '7'
-            || coord[1] == '1' && _droppedSrc[1] == '2')
+        if ((coord[1] == '8' && _droppedSrc[1] == '7')
+            || (coord[1] == '1' && _droppedSrc[1] == '2'))
             input = input + 'Q';
     }
 

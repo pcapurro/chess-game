@@ -35,7 +35,7 @@ SRCS = srcs/main.cpp \
 
 CXX = c++
 
-CXXFLAGS = #-Wall -Wextra -Werror
+CXXFLAGS = -Wall -Wextra -Werror
 
 SDLFLAG = -lSDL2
 

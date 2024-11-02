@@ -36,7 +36,7 @@ void    algebraParser::parseDoubleSequence(void)
         if (_move.move[0] == 'R')
             coords = getRookSequence(right, 'i');
 
-        for (int i = 0; i != coords.size(); i++)
+        for (size_t i = 0; i != coords.size(); i++)
         {
             if (algebraParser::isChessCoord(coords.at(i)[0]) == true && algebraParser::isChessDigit(coords.at(i)[1]) == true)
             {

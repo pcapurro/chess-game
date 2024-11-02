@@ -19,7 +19,7 @@ class chessPiece
             _y = atoi(pos.c_str() + 1);
         }
 
-        ~chessPiece() {};
+        virtual ~chessPiece() {};
 
         string          getColor() const { return (_color); }
         char            getType() const { return (_type); }
