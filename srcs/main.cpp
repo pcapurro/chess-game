@@ -56,9 +56,9 @@ int initializeVisualGame(const bool sandBoxMode)
 
     gameVisual->visualRoutine();
 
-    delete gameVisual;
     if (gameVisual->fail() == true)
-        return (1);
+        { delete gameVisual; return (1); }
+    delete gameVisual;
 
     return (0);
 }
@@ -76,9 +76,9 @@ int initializeShellGame(const bool sandBoxMode, const bool blindMode)
 
     gameShell->shellRoutine();
 
-    delete gameShell;
     if (gameShell->fail() == true)
-        return (1);
+        { delete gameShell; return (1); }
+    delete gameShell;
     
     return (0);
 }
