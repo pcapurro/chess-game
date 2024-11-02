@@ -21,6 +21,7 @@ string  shellGame::getShellAnswer(void) const
 void	shellGame::shellRoutine(void)
 {
     string	input;
+    t_move  move;
 
     if (_blindMode == false)
         _board->printBoard(_aiSide);
@@ -32,10 +33,11 @@ void	shellGame::shellRoutine(void)
         if (input == "error")
             { _systemFail = true; systemFailed(); return ; }
         *_checker = input;
+        move = _checker->getParsedMove();
 
-        if (_checker->fail() == true || _board->playMove(_checker->getParsedMove()) == FAIL)
+        if (move.error == false && (_checker->fail() == true || _board->playMove(move) == FAIL))
             continue ;
-        else if (_board->isAllocated() == false)
+        if (move.error == true || _board->isAllocated() == false)
             { _memoryFail = true; memoryFailed(); return ; }
 
         if (_blindMode == false)

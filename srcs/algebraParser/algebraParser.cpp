@@ -25,16 +25,13 @@ void    algebraParser::parseDoubleSequence(void)
 
         if (algebraParser::isChessCoord(_move.move[0]) == true)
             coords = getPawnSequence(right, _turn, c);
-        if (_move.move[0] == 'K')
-            coords = getKingSequence(right, 'i');
-        if (_move.move[0] == 'Q')
-            coords = getQueenSequence(right, 'i');
-        if (_move.move[0] == 'B')
-            coords = getBishopSequence(right, 'i');
-        if (_move.move[0] == 'N')
-            coords = getKnightSequence(right, 'i');
-        if (_move.move[0] == 'R')
-            coords = getRookSequence(right, 'i');
+        else
+            coords = getOthersSequence(_move.move[0], right, 'i');
+
+        if (coords.size() == 1 && coords.at(0) == "error")
+            { _move.error = true; return ; }
+        else
+            _move.error = false;
 
         for (size_t i = 0; i != coords.size(); i++)
         {
@@ -64,26 +61,21 @@ void    algebraParser::parseUniqueSequence(void)
     if (algebraParser::isChessCoord(_move.move[0]) == true)
         coords = getPawnSequence(_move.move, _turn, 'i'), _move.obj = 'P';
     else
-    {
+    {   
         char sign = 'i';
         if (_move.move.length() == 4)
             sign = _move.move[1], i = 1;
 
-        if (_move.move[0] == 'K')
-            coords = getKingSequence(_move.move.c_str() + 1 + i, sign);
-        if (_move.move[0] == 'Q')
-            coords = getQueenSequence(_move.move.c_str() + 1 + i, sign);
-        if (_move.move[0] == 'B')
-            coords = getBishopSequence(_move.move.c_str() + 1 + i, sign);
-        if (_move.move[0] == 'N')
-            coords = getKnightSequence(_move.move.c_str() + 1 + i, sign);
-        if (_move.move[0] == 'R')
-            coords = getRookSequence(_move.move.c_str() + 1 + i, sign);
-        
         _move.obj = _move.move[0];
+        coords = getOthersSequence(_move.move[0], _move.move.c_str() + 1 + i, sign);
+
+        if (coords.size() == 1 && coords.at(0) == "error")
+            { _move.error = true; return ; }
+        else
+            _move.error = false;
     }
 
-    for (int i = 0; i != coords.size(); i++)
+    for (size_t i = 0; i != coords.size(); i++)
     {
         if (algebraParser::isChessCoord(coords.at(i)[0]) == true && algebraParser::isChessDigit(coords.at(i)[1]) == true)
             _move.src = _move.src + coords.at(i);

@@ -14,6 +14,8 @@ typedef struct s_move
     string  src;
     string  dest;
 
+    bool    error;
+
 }   t_move;
 
 class algebraParser
@@ -57,13 +59,7 @@ class algebraParser
         t_move  _move;
 };
 
-vector<string>  getKingSequence(const string move, const char sign);
-vector<string>  getQueenSequence(const string move, const char sign);
-
-vector<string>  getRookSequence(const string move, const char sign);
-vector<string>  getBishopSequence(const string move, const char sign);
-vector<string>  getKnightSequence(const string move, const char sign);
-
+vector<string>  getOthersSequence(const char type, const string move, const char sign);
 vector<string>  getPawnSequence(const string move, const int turn, const char sign);
 
 #endif

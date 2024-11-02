@@ -24,7 +24,7 @@ int		visualGame::visualLoop(void)
             { _board->printEndGame(1); return (2); }
 
         if (_board->playMove({answer, '-', answer[0], \
-            (string(1, answer[1]) + answer[2]), answer.c_str() + 3}) == FAIL)
+            (string(1, answer[1]) + answer[2]), answer.c_str() + 3, false}) == FAIL)
             continue ;
         else if (_board->isAllocated() == false)
             return (1);
