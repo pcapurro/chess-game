@@ -30,8 +30,6 @@ void    algebraParser::parseDoubleSequence(void)
 
         if (coords.size() == 1 && coords.at(0) == "error")
             { _move.error = true; return ; }
-        else
-            _move.error = false;
 
         for (size_t i = 0; i != coords.size(); i++)
         {
@@ -71,8 +69,6 @@ void    algebraParser::parseUniqueSequence(void)
 
         if (coords.size() == 1 && coords.at(0) == "error")
             { _move.error = true; return ; }
-        else
-            _move.error = false;
     }
 
     for (size_t i = 0; i != coords.size(); i++)
