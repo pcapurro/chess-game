@@ -43,7 +43,7 @@ class Pawn : public chessPiece
                     {
                         newCoord = "abcdefgh"[src_x] + to_string(src_y + 2);
                         if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
-                            && src_x == dest_x && src_y + 2 == dest_y)
+                            && src_x == dest_x && src_y + 2 == dest_y && _moves == 0)
                         return (true);
                     }
                 }
@@ -71,7 +71,7 @@ class Pawn : public chessPiece
                     {
                         newCoord = "abcdefgh"[src_x] + to_string(src_y - 2);
                         if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
-                            && src_x == dest_x && src_y - 2 == dest_y)
+                            && src_x == dest_x && src_y - 2 == dest_y && _moves == 0)
                         return (true);
                     }
                 }
