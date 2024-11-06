@@ -37,6 +37,7 @@ string	aiChess::getNextMove(chessBoard *board, const int aiSide)
 			}
 		}
 	}
+	cout << "-" << endl;
 
 	static int i = 0;
 	vector<string> moves2;

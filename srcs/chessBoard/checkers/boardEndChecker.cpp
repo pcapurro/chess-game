@@ -188,7 +188,7 @@ vector<string>  chessBoard::getPossibleMoves(const string coord) const
     atValue = getAtValue(coord);
     boardCoords = getPiecesCoords();
     actualCoords = "a0";
-    for (int i = 0; i != 64; i++)
+    for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
         {
