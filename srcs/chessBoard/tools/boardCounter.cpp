@@ -1,4 +1,4 @@
-#include "chessBoard.hpp"
+#include "../chessBoard.hpp"
 
 void    chessBoard::resetCount(void)
 {

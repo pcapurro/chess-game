@@ -1,4 +1,4 @@
-#include "chessBoard.hpp"
+#include "../chessBoard.hpp"
 
 void    chessBoard::printPiece(const char type, const string color) const
 {

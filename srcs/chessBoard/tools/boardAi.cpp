@@ -1,4 +1,4 @@
-#include "chessBoard.hpp"
+#include "../chessBoard.hpp"
 
 string  chessBoard::getAiNextMove(const int aiSide)
 {
