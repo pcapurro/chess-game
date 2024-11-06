@@ -68,6 +68,8 @@ class chessBoard
         void    printEndGame(const int value = 0);
         void    printBoard(const int aiSide) const;
 
+        friend class aiChess;
+
     private:
 
         size_t              getAtValue(const string coord) const;
@@ -114,6 +116,8 @@ class chessBoard
         bool    isLegal(void);
 
         bool    doesItResolveCheck(const string srcdest);
+        void    tryMove(const string srcdest);
+        void    undoMove(const string srcdest);
         bool    isCheckMateImpossible(void);
         bool    canTheKingMove(void);
         bool    canAnyAllyPieceMove(void);
@@ -138,6 +142,8 @@ class chessBoard
         bool                _blackCastle;
         bool                _enPassant;
         string              _enPassantDest;
+
+        chessPiece          *_savedPiece;
 
         int                 _turn;
         string              _color;

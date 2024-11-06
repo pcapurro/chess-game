@@ -10,7 +10,7 @@ class aiChess
 		aiChess(void);
 		~aiChess(void);
 
-		static string	getBestMove(const chessBoard *board, const int aiSide);
+		static string	getNextMove(chessBoard *board, const int aiSide);
 
 	private:
 		;
