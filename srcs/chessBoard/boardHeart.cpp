@@ -156,7 +156,7 @@ void    chessBoard::addToHistory(void)
     }
 }
 
-int chessBoard::playMove(t_move move)
+int chessBoard::playMove(t_move move, const bool free)
 {
     _lastMove = move;
     if (isLegal() == false)
@@ -180,12 +180,12 @@ int chessBoard::playMove(t_move move)
             if ((_lastMove.action == 'x' || _lastMove.action == '-')
                 && isThereSomething(_lastMove.dest) == false
                 && _enPassant == true && _enPassantDest == _lastMove.dest)
-                priseEnPassant();
+                priseEnPassant(free);
             else
             {
-                movePiece(_lastMove.src, _lastMove.dest);
+                movePiece(_lastMove.src, _lastMove.dest, free);
                 if (algebraParser::isChessPiece(_lastMove.dest.at(_lastMove.dest.length() - 1)) == true)
-                    promotePiece(_lastMove.dest, _lastMove.dest[_lastMove.dest.length() - 1]);
+                    promotePiece(_lastMove.dest, _lastMove.dest[_lastMove.dest.length() - 1], free);
                 
                 if (_allocated == false)
                     return (ERR);

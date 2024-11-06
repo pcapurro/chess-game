@@ -63,12 +63,14 @@ class chessBoard
         int     getStateValue(void) const;
 
         bool    isGameOver(void);
-        int     playMove(t_move move);
+        int     playMove(t_move move, const bool free = true);
 
         void    printEvent(const bool cfail, const bool bfail,\
                             const bool blindMode);
         void    printEndGame(const int value = 0);
         void    printBoard(const int aiSide) const;
+
+        friend  class aiChess;
 
     private:
 

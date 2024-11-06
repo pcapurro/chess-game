@@ -202,10 +202,6 @@ vector<string>  chessBoard::getPossibleMoves(const string coord) const
         actualCoords[1] = '0';
     }
 
-    for (int i = 0; i != moves.size(); i++)
-        cout << moves.at(i) << " ; ";
-    cout << endl;
-
     return (moves);
 }
 

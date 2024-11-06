@@ -19,17 +19,36 @@ string	aiChess::getNextMove(chessBoard *board, const int aiSide)
 
 	newBoard = board;
 
+	vector<string>	moves;
+	for (int i = 0; i != 64; i++)
+	{
+		if (newBoard._board.at(i).piece != NULL)
+		{
+			moves = newBoard.getPossibleMoves(newBoard._board.at(i).coord);
+
+			for (int k = 0; k != moves.size(); k++)
+			{
+				cout << "testing " << moves.at(k) << endl;
+				newBoard.playMove({moves.at(k), '-', moves.at(k)[0], \
+					(string(1, moves.at(k)[1]) + moves.at(k)[2]), moves.at(k).c_str() + 3, false}, false);
+				if (newBoard.isCheckMate() == true)
+					{ cout << "checkmate possible " << endl;}
+				newBoard = board;
+			}
+		}
+	}
+
 	static int i = 0;
-	vector<string> moves;
+	vector<string> moves2;
 	
-	moves.push_back(" ");
-	moves.push_back("Pe7e5");
-	moves.push_back("Pa7a5");
-	moves.push_back("Pa5a4");
+	moves2.push_back(" ");
+	moves2.push_back("Pe7e5");
+	moves2.push_back("Pa7a5");
+	moves2.push_back("Pa5a4");
 
 	i++;
 
-	return (moves.at(i));
+	return (moves2.at(i));
 }
 
 // 0. endgame ou start/middle game ?
