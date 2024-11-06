@@ -22,6 +22,12 @@ chessBoard::chessBoard(void)
         _allocated = false;
 }
 
+void    chessBoard::operator=(const chessBoard *originalBoard)
+{
+    for (int i = 0; i != 64; i++)
+        this->_board.push_back(originalBoard->_board.at(i));
+}
+
 void    chessBoard::initBishops(void)
 {
     _board.push_back({new (nothrow) Bishop("white", "c1"), "c1"});

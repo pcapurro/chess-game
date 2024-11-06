@@ -51,6 +51,8 @@ class chessBoard
         chessBoard(void);
         ~chessBoard(void);
 
+        void    operator=(const chessBoard *originalBoard);
+
         bool    fail(void) const { return (_moveFailed); };
         bool    isAllocated(void) const;
 
@@ -67,8 +69,6 @@ class chessBoard
                             const bool blindMode);
         void    printEndGame(const int value = 0);
         void    printBoard(const int aiSide) const;
-
-        friend class aiChess;
 
     private:
 
@@ -89,14 +89,14 @@ class chessBoard
 
         bool    checkBoardAllocation(void) const;
 
-        void    priseEnPassant(void);
+        void    priseEnPassant(const bool free = true);
         void    enableDisableEnPassant(void);
         void    whiteCastles(void);
         void    blackCastles(void);
 
-        void    promotePiece(const string initialCoord, char pieceType);
-        void    movePiece(const string initialCoord, const string newCoord);
-        void    removePiece(const string coord);
+        void    promotePiece(const string initialCoord, char pieceType, const bool free = true);
+        void    movePiece(const string initialCoord, const string newCoord, const bool free = true);
+        void    removePiece(const string coord, const bool free = true);
 
         int     checkNormalSource(void);
         int     checkPawnSource(void);

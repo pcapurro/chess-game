@@ -7,15 +7,17 @@ aiChess::~aiChess(void) {;}
 
 string	aiChess::getNextMove(chessBoard *board, const int aiSide)
 {
-	string	aiColor;
-	string	playerColor;
+	string		aiColor;
+	string		playerColor;
+
+	chessBoard	newBoard;
 
 	if (aiSide % 2 == 0)
 		aiColor = "white", playerColor = "black";
 	else
 		aiColor = "black", playerColor = "white";
 
-	(void) board;
+	newBoard = board;
 
 	return (string(""));
 }

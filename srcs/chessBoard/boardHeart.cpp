@@ -19,7 +19,7 @@ void    chessBoard::enableDisableEnPassant(void)
     }
 }
 
-void    chessBoard::priseEnPassant(void)
+void    chessBoard::priseEnPassant(const bool free)
 {
     chessPiece  *piece;
     size_t      atValue;
@@ -40,20 +40,21 @@ void    chessBoard::priseEnPassant(void)
     if (_color == "black")
         newCoordUpdated[1] = newCoordUpdated[1] + 1;
 
-    removePiece(newCoordUpdated);
+    removePiece(newCoordUpdated, free);
 }
 
-void    chessBoard::removePiece(const string coord)
+void    chessBoard::removePiece(const string coord, const bool free)
 {
     size_t  atValue = getAtValue(coord);
     if (_board.at(atValue).piece != NULL)
     {
-        delete _board.at(atValue).piece;
+        if (free == true)
+            delete _board.at(atValue).piece;
         _board.at(atValue).piece = NULL;
     }
 }
 
-void    chessBoard::promotePiece(const string initialCoord, char pieceType)
+void    chessBoard::promotePiece(const string initialCoord, char pieceType, const bool free)
 {
     string  initialCoordUpdated;
     string  color;
@@ -64,7 +65,7 @@ void    chessBoard::promotePiece(const string initialCoord, char pieceType)
     atValue = getAtValue(initialCoordUpdated);
     color = _board.at(atValue).piece->getColor();
     
-    removePiece(initialCoord);
+    removePiece(initialCoord, free);
     if (pieceType == 'Q')
         _board.at(atValue).piece = new (nothrow) Queen(color, initialCoordUpdated);
     if (pieceType == 'N')
@@ -78,7 +79,7 @@ void    chessBoard::promotePiece(const string initialCoord, char pieceType)
         _allocated = false, _board.at(atValue).piece = NULL;
 }
 
-void    chessBoard::movePiece(const string initialCoord, const string newCoord)
+void    chessBoard::movePiece(const string initialCoord, const string newCoord, const bool free)
 {
     chessPiece  *piece;
     size_t      atValue;
@@ -92,7 +93,7 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord)
     if (newCoord.length() == 3)
         newCoordUpdated = newCoord, newCoordUpdated[2] = '\0';
     
-    removePiece(newCoordUpdated);
+    removePiece(newCoordUpdated, free);
     atValue = getAtValue(newCoordUpdated);
     _board.at(atValue).piece = piece;
 
