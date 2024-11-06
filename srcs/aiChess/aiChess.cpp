@@ -19,7 +19,17 @@ string	aiChess::getNextMove(chessBoard *board, const int aiSide)
 
 	newBoard = board;
 
-	return (string(""));
+	static int i = 0;
+	vector<string> moves;
+	
+	moves.push_back(" ");
+	moves.push_back("Pe7e5");
+	moves.push_back("Pa7a5");
+	moves.push_back("Pa5a4");
+
+	i++;
+
+	return (moves.at(i));
 }
 
 // 0. endgame ou start/middle game ?

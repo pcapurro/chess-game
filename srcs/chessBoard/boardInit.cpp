@@ -24,6 +24,15 @@ chessBoard::chessBoard(void)
 
 void    chessBoard::operator=(const chessBoard *originalBoard)
 {
+    this->_turn = originalBoard->_turn;
+    this->_color = originalBoard->_color;
+
+    this->_whiteCastle = originalBoard->_whiteCastle;
+    this->_blackCastle = originalBoard->_blackCastle;
+
+    this->_enPassant = originalBoard->_enPassant;
+    this->_enPassantDest = originalBoard->_enPassantDest;
+
     for (int i = 0; i != 64; i++)
         this->_board.push_back(originalBoard->_board.at(i));
 }
