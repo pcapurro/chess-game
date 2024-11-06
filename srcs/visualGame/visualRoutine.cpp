@@ -6,7 +6,7 @@ string  visualGame::getVisualAnswer(void)
 
     if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
-        return (aiChess::getNextMove(_board, _aiSide));
+        return (_board->getAiNextMove(_aiSide));
     else
         answer = waitForEvent();
     return (answer);

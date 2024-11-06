@@ -3,7 +3,6 @@
 
 # include "../../include/chessGame.hpp"
 # include "../chessBoard/chessBoard.hpp"
-# include "../aiChess/aiChess.hpp"
 
 typedef struct s_textures
 {

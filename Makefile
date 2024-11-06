@@ -8,7 +8,6 @@ NAME = shell-chess
 
 SRCS = srcs/main.cpp \
 	srcs/print.cpp \
-	srcs/aiChess/aiChess.cpp \
 	srcs/visualGame/visualDisplay.cpp \
 	srcs/visualGame/visualRoutine.cpp \
 	srcs/visualGame/visualFree.cpp \
@@ -23,6 +22,7 @@ SRCS = srcs/main.cpp \
 	srcs/algebraParser/algebraChecker.cpp \
 	srcs/algebraParser/algebraParser.cpp \
 	srcs/algebraParser/algebraTools.cpp \
+	srcs/chessBoard/boardAi.cpp \
 	srcs/chessBoard/boardHeart.cpp \
 	srcs/chessBoard/boardCounter.cpp \
 	srcs/chessBoard/boardPrint.cpp \
