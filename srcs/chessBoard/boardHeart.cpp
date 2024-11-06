@@ -193,6 +193,9 @@ int chessBoard::playMove(t_move move)
         enableDisableEnPassant();
         addToHistory();
 
+        if (_turn == 3)
+            getPossibleMoves("e5");
+
         ++_turn % 2 == 0 ? _color = "white" : _color = "black";
     }
     return (SUCCESS);

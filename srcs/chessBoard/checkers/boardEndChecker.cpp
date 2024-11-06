@@ -35,7 +35,7 @@ bool    chessBoard::canAnyAllyPieceMove(void)
         {
             for (int k = 0; k != 64; k++)
             {
-                if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords) == true
+                if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords, 0, _enPassantDest) == true
                     && doesItResolveCheck(_board.at(i).coord + _board.at(k).coord) == true)
                     return (true);
             }
@@ -193,7 +193,7 @@ vector<string>  chessBoard::getPossibleMoves(const string coord) const
         for (int k = 0; k != 8; k++)
         {
             actualCoords[1] = actualCoords[1] + 1;
-            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords) == true
+            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords, 0, _enPassantDest) == true
                 && (_board.at(getAtValue(actualCoords)).piece == NULL 
                 || _board.at(getAtValue(actualCoords)).piece->getColor() != _color))
                 moves.push_back(coord + actualCoords);
@@ -201,6 +201,11 @@ vector<string>  chessBoard::getPossibleMoves(const string coord) const
         actualCoords[0] = actualCoords[0] + 1;
         actualCoords[1] = '0';
     }
+
+    for (int i = 0; i != moves.size(); i++)
+        cout << moves.at(i) << " ; ";
+    cout << endl;
+
     return (moves);
 }
 

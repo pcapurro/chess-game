@@ -11,7 +11,8 @@ class Pawn : public chessPiece
 
         ~Pawn() {};
 
-        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, const int value = 0) const
+        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, \
+                                    const int value = 0, const string enPassant = "") const
         {
             int src_x = _x;
             int src_y = _y;
@@ -24,12 +25,12 @@ class Pawn : public chessPiece
             if (_color == "white")
             {
                 newCoord = "abcdefgh"[src_x + 1] + to_string(src_y + 1);
-                if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
-                    && src_x + 1 == dest_x && src_y + 1 == dest_y)
+                if ((find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+                    && src_x + 1 == dest_x && src_y + 1 == dest_y) || (enPassant.empty() != true && newCoord == enPassant))
                     return (true);
                 newCoord = "abcdefgh"[src_x - 1] + to_string(src_y + 1);
-                if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
-                    && src_x - 1 == dest_x && src_y + 1 == dest_y)
+                if ((find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+                    && src_x - 1 == dest_x && src_y + 1 == dest_y) || (enPassant.empty() != true && newCoord == enPassant))
                     return (true);
 
                 if (value == 0)
@@ -52,12 +53,12 @@ class Pawn : public chessPiece
             if (_color == "black")
             {
                 newCoord = "abcdefgh"[src_x + 1] + to_string(src_y - 1);
-                if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
-                    && src_x + 1 == dest_x && src_y - 1 == dest_y)
+                if ((find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+                    && src_x + 1 == dest_x && src_y - 1 == dest_y) || (enPassant.empty() != true && newCoord == enPassant))
                     return (true);
                 newCoord = "abcdefgh"[src_x - 1] + to_string(src_y - 1);
-                if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
-                    && src_x - 1 == dest_x && src_y - 1 == dest_y)
+                if ((find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+                    && src_x - 1 == dest_x && src_y - 1 == dest_y) || (enPassant.empty() != true && newCoord == enPassant))
                     return (true);
 
                 if (value == 0)

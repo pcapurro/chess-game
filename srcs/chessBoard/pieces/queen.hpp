@@ -11,7 +11,8 @@ class Queen : public chessPiece
         Queen(const string color, const string pos) : chessPiece(color, pos) { _type = 'Q'; }
         ~Queen() {};
 
-        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, const int value = 0) const
+        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, \
+                                    const int value = 0, const string enPassant = "") const
         {
             int src_x = _x;
             int src_y = _y;

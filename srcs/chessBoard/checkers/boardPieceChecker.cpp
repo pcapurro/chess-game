@@ -100,7 +100,7 @@ bool    chessBoard::isTheDestinationSafe(void) const
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
         {
-            if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords, 1) == true)
+            if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords, 1, _enPassantDest) == true)
                 return (false);
         }
     }

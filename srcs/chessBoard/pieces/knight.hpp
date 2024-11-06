@@ -10,7 +10,8 @@ class Knight : public chessPiece
         Knight(const string color, const string pos) : chessPiece(color, pos) { _type = 'N'; }
         ~Knight() {};
 
-        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, const int value = 0) const
+        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, \
+                                    const int value = 0, const string enPassant = "") const
         {
             int dest_x = move[0] - 97;
             int dest_y = atoi(move.c_str() + 1);
