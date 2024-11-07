@@ -46,6 +46,16 @@ int chessBoard::checkPawnDest(void) const
             && _lastMove.src[1] - _lastMove.dest[1] != 1)
             return (FAIL);
 
+        if (_color == "white" 
+            && _lastMove.dest[1] - _lastMove.src[1] == 2
+            && _lastMove.src[1] != '2')
+            return (FAIL);
+
+        if (_color == "black" 
+            && _lastMove.src[1] - _lastMove.dest[1] == 2
+            && _lastMove.src[1] != '7')
+            return (FAIL);
+
         string  newDest = _lastMove.dest;
         if (_board.at(atValue).coord[1] == _lastMove.dest[1] + 2)
         {
