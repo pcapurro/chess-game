@@ -28,6 +28,8 @@ void    visualGame::setToDefault(void)
 
 void    visualGame::setToNullPtr(void)
 {
+    _board = nullptr;
+
     _mainWindow = nullptr;
     _mainRenderer = nullptr;
     _normalCursor = nullptr;

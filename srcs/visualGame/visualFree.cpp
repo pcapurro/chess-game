@@ -55,10 +55,10 @@ visualGame::~visualGame()
     if (_baseCheck != 0)
         SDL_FreeSurface(_baseSurface);
 
-    if (_mainWindow != nullptr && _mainWindow != NULL)
-        SDL_DestroyWindow(_mainWindow);
     if (_mainRenderer != nullptr && _mainRenderer != NULL)
         SDL_DestroyRenderer(_mainRenderer);
+    if (_mainWindow != nullptr && _mainWindow != NULL)
+        SDL_DestroyWindow(_mainWindow);
 
     if (_normalCursor != nullptr && _normalCursor != NULL)
         SDL_FreeCursor(_normalCursor);
