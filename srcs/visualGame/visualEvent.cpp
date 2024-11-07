@@ -42,13 +42,16 @@ int visualGame::waitForNewGame(void)
             if (event.type == SDL_MOUSEBUTTONDOWN
                 || event.type == SDL_MOUSEMOTION)
             {
-                SDL_SetCursor(_playCursor);
-                if (event.type == SDL_MOUSEBUTTONDOWN
-                    && event.button.x > _width - (_width / 12) && event.button.y < _height / 12)
-                    break ;
+                if (event.button.x > _width - (_width / 12) && event.button.y < _height / 12)
+                {
+                    if (event.type == SDL_MOUSEMOTION)
+                        SDL_SetCursor(_playCursor);
+                    if (event.type == SDL_MOUSEBUTTONDOWN)
+                        break ;
+                }
+                else
+                    SDL_SetCursor(_normalCursor);
             }
-            else
-                SDL_SetCursor(_normalCursor);
         }
     }
     return (0);
