@@ -45,6 +45,10 @@ void    visualGame::loadText(const int value)
 
 void    visualGame::loadBoard(const int cx, const int cy)
 {
+    char        type;
+    string      numbers;
+    string      coords;
+    string      color;
     SDL_Rect    obj;
 
     obj.h = _height, obj.w = _width, obj.x = 0, obj.y = 0;
@@ -56,13 +60,15 @@ void    visualGame::loadBoard(const int cx, const int cy)
 
     obj.h = _height / 10, obj.w = _width / 10;
 
+    _turn % 2 == 0 ? numbers = "12345678" : numbers = "87654321";
+
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
         {
-            string coords = string(1, "hgfedcba"[k]) + string(1, "87654321"[i]);
-            char type = _board->getType(coords);
-            string color = _board->getColor(coords);
+            coords = string(1, "hgfedcba"[k]) + string(1, numbers[i]);
+            type = _board->getType(coords);
+            color = _board->getColor(coords);
 
             if (type != ' ')
             {
