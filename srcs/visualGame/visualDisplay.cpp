@@ -43,41 +43,31 @@ void    visualGame::loadText(const int value)
         SDL_RenderCopy(_mainRenderer, _texts.draw, NULL, &obj);
 }
 
-void    visualGame::loadBoard(const int cx, const int cy)
+void    visualGame::loadBoard(const string color, const int cx, const int cy)
 {
-    char        type;
-    string      numbers;
+    char        objType;
     string      coords;
-    string      color;
+    string      objColor;
     SDL_Rect    obj;
 
-    obj.h = _height, obj.w = _width, obj.x = 0, obj.y = 0;
-
-    if (_aiSide != 0)
-        SDL_RenderCopy(_mainRenderer, _whiteBoardTexture, NULL, &obj);
-    else
-        SDL_RenderCopy(_mainRenderer, _blackBoardTexture, NULL, &obj);
-
     obj.h = _height / 10, obj.w = _width / 10;
-
-    _turn % 2 == 0 ? numbers = "12345678" : numbers = "87654321";
 
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
         {
-            coords = string(1, "hgfedcba"[k]) + string(1, numbers[i]);
-            type = _board->getType(coords);
-            color = _board->getColor(coords);
+            coords = string(1, "hgfedcba"[k]) + string(1, "87654321"[i]);
+            objType = _board->getType(coords);
+            objColor = _board->getColor(coords);
 
-            if (type != ' ')
+            if (objType != ' ' && objColor == color)
             {
                 if (coords != _droppedSrc)
                     obj = getRectangle(coords);
                 else
                     obj.x = cx - ((_width / 10) / 2), obj.y = cy - ((_height / 10) / 2);
                 
-                SDL_RenderCopy(_mainRenderer, getTexture(type, color), \
+                SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), \
                     NULL, &obj);
             }
         }
@@ -86,11 +76,25 @@ void    visualGame::loadBoard(const int cx, const int cy)
 
 void    visualGame::displayGame(const int cx, const int cy)
 {
-    int stateValue = _board->getStateValue();
+    int         stateValue;
+    SDL_Rect    obj;
 
     SDL_RenderClear(_mainRenderer);
 
-    loadBoard(cx, cy);
+    obj = getRectangle("default");
+
+    if (_aiSide != 0)
+        SDL_RenderCopy(_mainRenderer, _whiteBoardTexture, NULL, &obj);
+    else
+        SDL_RenderCopy(_mainRenderer, _blackBoardTexture, NULL, &obj);
+
+    if (_turn % 2 == 0)
+        loadBoard("white", cx, cy), loadBoard("black", cx, cy);
+    else
+        loadBoard("black", cx, cy), loadBoard("white", cx, cy);
+
+    stateValue = _board->getStateValue();
+
     loadText(stateValue);
     loadArrow(stateValue);
 

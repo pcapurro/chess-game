@@ -57,7 +57,7 @@ class visualGame
         int		    visualLoop(void);
         string      getVisualAnswer(void);
   
-        void        loadBoard(const int cx = 0, const int cy = 0);
+        void        loadBoard(const string color, const int cx = 0, const int cy = 0);
         void        loadText(const int value);
         void        loadArrow(const int value);
         void        displayGame(const int cx = 0, const int cy = 0);

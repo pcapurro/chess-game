@@ -37,21 +37,26 @@ SDL_Texture *visualGame::getTexture(const char type, const string color) const
 
 SDL_Rect    visualGame::getRectangle(const string coords) const
 {
-    int         x;
-    int         y;
     SDL_Rect    obj;
 
-    x = coords[0] - 97;
-    y = atoi(coords.c_str() + 1) - 1;
-
-    if (_aiSide != 0)
-        y = 8 - (y + 1);
+    if (coords == "default")
+        obj.h = _height, obj.w = _width, obj.x = 0, obj.y = 0;
     else
-        x = 7 - x;
+    {
+        int x;
+        int y;
 
-    obj.h = _height / 10, obj.w = _width / 10;
-    obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
+        x = coords[0] - 97;
+        y = atoi(coords.c_str() + 1) - 1;
 
+        if (_aiSide != 0)
+            y = 8 - (y + 1);
+        else
+            x = 7 - x;
+
+        obj.h = _height / 10, obj.w = _width / 10;
+        obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
+    }
     return (obj);
 }
 
