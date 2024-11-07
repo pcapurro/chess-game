@@ -13,6 +13,10 @@ int chessBoard::checkPawnDest(void) const
 
     if (_board.at(atValue).coord[0] != _lastMove.src[0])
     {
+        if (_board.at(atValue).coord[0] - 1 != _lastMove.src[0]
+            && _board.at(atValue).coord[0] + 1 != _lastMove.src[0])
+            return (FAIL);
+
         if (_board.at(atValue).piece == NULL)
         {
             if ((_enPassant == false || _enPassantDest != _lastMove.dest))
