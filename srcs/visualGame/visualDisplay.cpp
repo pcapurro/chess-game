@@ -45,6 +45,8 @@ void    visualGame::loadText(const int value)
 
 void    visualGame::loadBoard(const int cx, const int cy)
 {
+    char        savedType;
+    string      savedColor;
     SDL_Rect    obj;
 
     obj.h = _height, obj.w = _width, obj.x = 0, obj.y = 0;
@@ -69,12 +71,15 @@ void    visualGame::loadBoard(const int cx, const int cy)
                 if (coords != _droppedSrc)
                     obj = getRectangle(coords);
                 else
-                    obj.x = cx - ((_width / 10) / 2), obj.y = cy - ((_height / 10) / 2);
-                SDL_RenderCopy(_mainRenderer, getTexture(type, color), \
-                    NULL, &obj);
+                    savedType = type, savedColor = color;
+                
+                SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
             }
         }
     }
+
+    obj.x = cx - ((_width / 10) / 2), obj.y = cy - ((_height / 10) / 2);
+    SDL_RenderCopy(_mainRenderer, getTexture(savedType, savedColor), NULL, &obj);
 }
 
 void    visualGame::displayGame(const int cx, const int cy)
