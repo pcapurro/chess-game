@@ -43,7 +43,7 @@ int validateArguments(const int argc, const char **argv)
 void    printInvalidArguments(void)
 {
     cerr << "Error! Invalid arguments." << endl;
-    cerr << "Usage: ./shell-chess [--no-visual] [--blind-mode] or/and [--sandbox]" << endl;
+    cerr << "Usage: ./chess-game [--no-visual] [--blind-mode] or/and [--sandbox]" << endl;
 }
 
 int initializeVisualGame(const bool sandBoxMode)

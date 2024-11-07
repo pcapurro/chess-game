@@ -4,7 +4,7 @@
 
 ## === VARIABLES === ##
 
-NAME = shell-chess
+NAME = chess-game
 
 SRCS = srcs/main.cpp \
 	srcs/print.cpp \

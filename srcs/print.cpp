@@ -4,7 +4,7 @@ void    printTitle(void)
 {
     cout << "                         #-# ############ #-#                            " << endl;
     cout << "##           #-######-#                         #-######-#           ##  " << endl;
-    cout << "#                 #/-/# ♛ ♞ ♝ shell-chess ♛ ♞ ♝ #\\-\\#                 #" << endl;
+    cout << "#                 #/-/# ♛ ♞ ♝ chess  game ♛ ♞ ♝ #\\-\\#                 #" << endl;
     cout << "#        #-######-#       #-# by pcapurro #-#       #-######-#        #  " << endl;
     cout << "##                #-######-#               #-######-#                ##  " << endl;
     cout << "                                                                         " << endl;
