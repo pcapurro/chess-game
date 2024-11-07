@@ -4,11 +4,12 @@ void    chessBoard::enableDisableEnPassant(void)
 {
     if (_lastMove.obj == 'P')
     {
-        if ((_color == "white" && (_lastMove.dest[1] == (_lastMove.dest[1] + 2)))
-            || (_color == "black" && (_lastMove.dest[1] == (_lastMove.src[1] - 2))))
+        if ((_color == "white" && _lastMove.dest[1] == _lastMove.src[1] + 2 && _lastMove.dest[1] == '4')
+            || (_color == "black" && _lastMove.dest[1] == _lastMove.src[1] - 2 && _lastMove.dest[1] == '5'))
         {
             _enPassant = true;
             _enPassantDest = _lastMove.dest;
+
             if (_color == "white")
                 _enPassantDest[1] = _enPassantDest[1] - 1;
             else
