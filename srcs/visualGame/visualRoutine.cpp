@@ -1,12 +1,14 @@
 #include "visualGame.hpp"
 
+#include "../chessAi/chessAi.hpp"
+
 string  visualGame::getVisualAnswer(void)
 {
     string  answer;
 
     if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
-        return (_board->getAiNextMove(_aiSide));
+        return (chessAi::getNextMove(_board, _aiSide));
     else
         answer = waitForEvent();
     return (answer);

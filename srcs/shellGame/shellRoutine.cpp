@@ -1,12 +1,14 @@
 #include "shellGame.hpp"
 
+#include "../chessAi/chessAi.hpp"
+
 string  shellGame::getShellAnswer(void) const
 {
     string  answer;
 
     if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
-        return (_board->getAiNextMove(_aiSide));
+        return (chessAi::getNextMove(_board, _aiSide));
     else
     {
         cout << ERASE_LINE << "> ";

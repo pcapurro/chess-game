@@ -62,8 +62,6 @@ class chessBoard
         int     getActualTurn(void) const { return (_turn); };
         int     getStateValue(void) const;
 
-        string  getAiNextMove(const int aiSide);
-
         bool    isGameOver(void);
         int     playMove(t_move move, const bool free = true);
 
@@ -71,6 +69,8 @@ class chessBoard
                             const bool blindMode);
         void    printEndGame(const int value = 0);
         void    printBoard(const int aiSide) const;
+
+        friend class chessAi;
 
     private:
 
