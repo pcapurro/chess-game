@@ -203,7 +203,7 @@ vector<string>  chessBoard::getPossibleMoves(const string coord, const bool reve
             if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords, 0, _enPassantDest) == true)
             {
                 if ((_board.at(getAtValue(actualCoords)).piece == NULL 
-                    || _board.at(getAtValue(actualCoords)).piece->getColor() != _color))
+                    || _board.at(getAtValue(actualCoords)).piece->getColor() != color))
                     moves.push_back(coord + actualCoords);
             }
         }
