@@ -37,7 +37,5 @@ string	chessAi::getNextMove(const chessBoard *board, const int aiSide)
 	if (i == 4)
 		return ("Qf6f2");
 
-	cout << "ok" << endl;
-
 	return ("Qf6f2");
 }
