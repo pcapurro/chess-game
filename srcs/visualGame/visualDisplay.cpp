@@ -18,9 +18,9 @@ void    visualGame::loadText(const int value)
     string      color;
     
     if (_turn % 2 == 0)
-        color = "black";
-    else
         color = "white";
+    else
+        color = "black";
 
     obj.x = _width / 4, obj.y = _height / 80;
     obj.w = _width / 2, obj.h = _height / 16;
@@ -89,9 +89,9 @@ void    visualGame::displayGame(const int cx, const int cy)
         SDL_RenderCopy(_mainRenderer, _blackBoardTexture, NULL, &obj);
 
     if (_turn % 2 == 0)
-        loadBoard("white", cx, cy), loadBoard("black", cx, cy);
-    else
         loadBoard("black", cx, cy), loadBoard("white", cx, cy);
+    else
+        loadBoard("white", cx, cy), loadBoard("black", cx, cy);
 
     stateValue = _board->getStateValue();
 

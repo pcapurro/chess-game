@@ -92,7 +92,7 @@ string  visualGame::getCoord(const int x, const int y) const
 
 string  visualGame::getTurnColor(void) const
 {
-    if (_turn % 2 != 0)
+    if (_turn % 2 == 0)
         return (string("white"));
     return (string("black"));
 }

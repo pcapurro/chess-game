@@ -223,11 +223,17 @@ bool    chessBoard::isCheckMateNextMove(const bool reverse)
             string coord = "abcdefgh"[i] + to_string(k + 1);
             if (_board.at(getAtValue(coord)).piece != NULL && _board.at(getAtValue(coord)).piece->getColor() != _color)
             {
-                cout << "possibles moves for " << coord << endl;
                 vector<string>  moves = getPossibleMoves(coord, reverse);
                 for (int k = 0; k != moves.size(); k++)
-                    cout << moves.at(k) << " ; ";
-                cout << endl;
+                {
+                    tryMove(moves.at(k));
+                    ++_turn % 2 == 0 ? _color = "white" : _color = "black";
+
+                    if (isCheckMate() == true)
+                        { undoMove(moves.at(k)); return (true); }
+                    undoMove(moves.at(k));
+                    --_turn % 2 == 0 ? _color = "white" : _color = "black";
+                }
             }
         }
     }
