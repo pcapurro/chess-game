@@ -4,6 +4,7 @@ chessBoard::chessBoard(void)
 {
     _turn = 0;
     _allocated = true;
+    _free = true;
     _color = "white";
 
     _moveFailed = false;
@@ -24,17 +25,19 @@ chessBoard::chessBoard(void)
 
 chessBoard::chessBoard(const chessBoard *originalBoard)
 {
-    this->_turn = originalBoard->_turn;
-    this->_color = originalBoard->_color;
+    _free = false;
 
-    this->_whiteCastle = originalBoard->_whiteCastle;
-    this->_blackCastle = originalBoard->_blackCastle;
+    _turn = originalBoard->_turn;
+    _color = originalBoard->_color;
 
-    this->_enPassant = originalBoard->_enPassant;
-    this->_enPassantDest = originalBoard->_enPassantDest;
+    _whiteCastle = originalBoard->_whiteCastle;
+    _blackCastle = originalBoard->_blackCastle;
+
+    _enPassant = originalBoard->_enPassant;
+    _enPassantDest = originalBoard->_enPassantDest;
 
     for (int i = 0; i != 64; i++)
-        this->_board.push_back(originalBoard->_board.at(i));
+        _board.push_back(originalBoard->_board.at(i));
 }
 
 void    chessBoard::initBishops(void)

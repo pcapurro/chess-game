@@ -137,6 +137,7 @@ class chessBoard
 
         vector<t_square>    _board;
         bool                _allocated;
+        bool                _free;
 
         bool                _checkmate;
         bool                _draw;
