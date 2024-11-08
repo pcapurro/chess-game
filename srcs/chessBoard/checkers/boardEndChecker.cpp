@@ -165,6 +165,8 @@ void    chessBoard::undoMove(const string srcdest)
     _board.at(atValueSrc).piece = _board.at(atValueDest).piece;
     _board.at(atValueSrc).piece->updatePos(_board.at(atValueSrc).coord);
     _board.at(atValueDest).piece = _savedPiece;
+
+    _savedPiece = NULL;
 }
 
 bool    chessBoard::doesItResolveCheck(const string srcdest)
