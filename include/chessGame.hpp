@@ -5,6 +5,7 @@
 # include <string>
 # include <algorithm>
 # include <vector>
+# include <stack>
 # include <map>
 # include <cstdlib>
 # include <unistd.h>

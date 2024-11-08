@@ -127,7 +127,7 @@ class chessBoard
         bool    isCheckMateNextMove(const bool reverse);
 
         bool    isCheck(void);
-        bool    isCheckMate(void);
+        bool    isCheckMate(const int value = 0);
         bool    isDraw(void);
 
         void    countPiecesOnBoard(void);
@@ -147,7 +147,7 @@ class chessBoard
         bool                _enPassant;
         string              _enPassantDest;
 
-        chessPiece          *_savedPiece;
+        stack<chessPiece*>  _savedObjects;
 
         int                 _turn;
         string              _color;

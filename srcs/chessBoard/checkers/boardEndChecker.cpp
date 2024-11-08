@@ -137,11 +137,11 @@ void    chessBoard::tryMove(const string srcdest)
 
     if (_board.at(atValueDest).piece != NULL)
     {
-        _savedPiece = _board.at(atValueDest).piece;
+        _savedObjects.push(_board.at(atValueDest).piece);
         _board.at(atValueDest).piece = NULL;
     }
     else
-        _savedPiece = NULL;
+        _savedObjects.push(NULL);
 
     _board.at(atValueDest).piece = _board.at(atValueSrc).piece;
     _board.at(atValueDest).piece->updatePos(_board.at(atValueDest).coord);
@@ -164,9 +164,9 @@ void    chessBoard::undoMove(const string srcdest)
 
     _board.at(atValueSrc).piece = _board.at(atValueDest).piece;
     _board.at(atValueSrc).piece->updatePos(_board.at(atValueSrc).coord);
-    _board.at(atValueDest).piece = _savedPiece;
+    _board.at(atValueDest).piece = _savedObjects.top();
 
-    _savedPiece = NULL;
+    _savedObjects.pop();
 }
 
 bool    chessBoard::doesItResolveCheck(const string srcdest)
@@ -229,12 +229,11 @@ bool    chessBoard::isCheckMateNextMove(const bool reverse)
                 for (int k = 0; k != moves.size(); k++)
                 {
                     tryMove(moves.at(k));
-                    ++_turn % 2 == 0 ? _color = "white" : _color = "black";
 
-                    if (isCheckMate() == true)
+                    if (isCheckMate(-1) == true)
                         { undoMove(moves.at(k)); return (true); }
+    
                     undoMove(moves.at(k));
-                    --_turn % 2 == 0 ? _color = "white" : _color = "black";
                 }
             }
         }
@@ -243,7 +242,7 @@ bool    chessBoard::isCheckMateNextMove(const bool reverse)
     return (false);
 }
 
-bool    chessBoard::isCheckMate(void)
+bool    chessBoard::isCheckMate(const int value)
 {
     if (isCheck() == true)
     {
@@ -262,7 +261,8 @@ bool    chessBoard::isCheckMate(void)
             }
             sources.clear();
         }
-        _checkmate = true;
+        if (value == 0)
+            _checkmate = true;
         return (true);
     }
     return (false);
