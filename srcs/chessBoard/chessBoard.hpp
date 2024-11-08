@@ -75,7 +75,7 @@ class chessBoard
     private:
 
         size_t              getAtValue(const string coord) const;
-        vector<string>      getPossibleMoves(const string coord) const;
+        vector<string>      getPossibleMoves(const string coord, const bool reverse = false) const;
         vector<string>      getPiecesCoords(void) const;
 
         void    printWhiteBoard(void) const;
@@ -123,6 +123,8 @@ class chessBoard
         bool    isCheckMateImpossible(void);
         bool    canTheKingMove(void);
         bool    canAnyAllyPieceMove(void);
+
+        bool    isCheckMateNextMove(const bool reverse);
 
         bool    isCheck(void);
         bool    isCheckMate(void);

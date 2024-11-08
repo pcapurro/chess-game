@@ -178,31 +178,61 @@ bool    chessBoard::doesItResolveCheck(const string srcdest)
     return (true);
 }
 
-vector<string>  chessBoard::getPossibleMoves(const string coord) const
+vector<string>  chessBoard::getPossibleMoves(const string coord, const bool reverse) const
 {
     int             atValue;
     vector<string>  moves;
     vector<string>  boardCoords;
     string          actualCoords;
+    string          color;
 
     atValue = getAtValue(coord);
     boardCoords = getPiecesCoords();
     actualCoords = "a0";
+
+    if (reverse == false)
+        color = _color;
+    else
+        _color == "white" ? color = "black" : color = "white";
+
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
         {
             actualCoords[1] = actualCoords[1] + 1;
-            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords, 0, _enPassantDest) == true
-                && (_board.at(getAtValue(actualCoords)).piece == NULL 
-                || _board.at(getAtValue(actualCoords)).piece->getColor() != _color))
-                moves.push_back(coord + actualCoords);
+            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords, 0, _enPassantDest) == true)
+            {
+                if ((_board.at(getAtValue(actualCoords)).piece == NULL 
+                    || _board.at(getAtValue(actualCoords)).piece->getColor() != _color))
+                    moves.push_back(coord + actualCoords);
+            }
         }
         actualCoords[0] = actualCoords[0] + 1;
         actualCoords[1] = '0';
     }
 
     return (moves);
+}
+
+bool    chessBoard::isCheckMateNextMove(const bool reverse)
+{
+    for (int i = 0; i != 8; i++)
+    {
+        for (int k = 0; k != 8; k++)
+        {
+            string coord = "abcdefgh"[i] + to_string(k + 1);
+            if (_board.at(getAtValue(coord)).piece != NULL && _board.at(getAtValue(coord)).piece->getColor() != _color)
+            {
+                cout << "possibles moves for " << coord << endl;
+                vector<string>  moves = getPossibleMoves(coord, reverse);
+                for (int k = 0; k != moves.size(); k++)
+                    cout << moves.at(k) << " ; ";
+                cout << endl;
+            }
+        }
+    }
+
+    return (false);
 }
 
 bool    chessBoard::isCheckMate(void)
