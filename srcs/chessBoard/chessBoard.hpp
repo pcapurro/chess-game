@@ -49,6 +49,8 @@ class chessBoard
     public:
 
         chessBoard(void);
+        chessBoard(const chessBoard *originalBoard);
+
         ~chessBoard(void);
 
         void    operator=(const chessBoard *originalBoard);

@@ -6,23 +6,23 @@ chessAi::~chessAi(void) {;}
 
 string	chessAi::getNextMove(const chessBoard *board, const int aiSide)
 {
-	chessBoard	newBoard;
+	chessBoard	newBoard(board);
 
-	newBoard = board;
+	// if (newBoard.isCheckMateNextMove(true) == true) // defeat in 1 move
+	// 	cout << "player can checkmate next move" << endl;
+	// else
+	// 	cout << "player can't checkmate next move" << endl;
 
-	if (newBoard.isCheckMateNextMove(true) == true) // defeat in 1 move
-		cout << "player can checkmate next move" << endl;
-	else
-		cout << "player can't checkmate next move" << endl;
+	// ++newBoard._turn % 2 == 0 ? newBoard._color = "white" : newBoard._color = "black";
 
-	++newBoard._turn % 2 == 0 ? newBoard._color = "white" : newBoard._color = "black";
+	// if (newBoard.isCheckMateNextMove(true) == true) // victory in 1 move
+	// 	cout << "ai can win next move" << endl;
+	// else
+	// 	cout << "ai can't win next move" << endl;
 
-	if (newBoard.isCheckMateNextMove(true) == true) // victory in 1 move
-		cout << "ai can win next move" << endl;
-	else
-		cout << "ai can't win next move" << endl;
+	// newBoard.printBoard(1);
 
-	--newBoard._turn % 2 == 0 ? newBoard._color = "white" : newBoard._color = "black";
+	// --newBoard._turn % 2 == 0 ? newBoard._color = "white" : newBoard._color = "black";
 
 	static int i = 0;
 
@@ -36,6 +36,8 @@ string	chessAi::getNextMove(const chessBoard *board, const int aiSide)
 		return ("Bf8c5");
 	if (i == 4)
 		return ("Qf6f2");
+
+	cout << "ok" << endl;
 
 	return ("Qf6f2");
 }

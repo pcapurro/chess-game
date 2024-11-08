@@ -22,7 +22,7 @@ chessBoard::chessBoard(void)
         _allocated = false;
 }
 
-void    chessBoard::operator=(const chessBoard *originalBoard)
+chessBoard::chessBoard(const chessBoard *originalBoard)
 {
     this->_turn = originalBoard->_turn;
     this->_color = originalBoard->_color;
