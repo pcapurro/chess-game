@@ -24,13 +24,16 @@ class Pawn : public chessPiece
 
             if (_color == "white")
             {
+                if (enPassant.empty() != true && move == enPassant && move[1] == '6')
+                    return (true);
+
                 newCoord = "abcdefgh"[src_x + 1] + to_string(src_y + 1);
-                if ((find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
-                    && src_x + 1 == dest_x && src_y + 1 == dest_y) || (enPassant.empty() != true && newCoord == enPassant))
+                if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+                    && src_x + 1 == dest_x && src_y + 1 == dest_y)
                     return (true);
                 newCoord = "abcdefgh"[src_x - 1] + to_string(src_y + 1);
-                if ((find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
-                    && src_x - 1 == dest_x && src_y + 1 == dest_y) || (enPassant.empty() != true && newCoord == enPassant))
+                if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+                    && src_x - 1 == dest_x && src_y + 1 == dest_y)
                     return (true);
 
                 if (value == 0)
@@ -52,13 +55,16 @@ class Pawn : public chessPiece
 
             if (_color == "black")
             {
+                if (enPassant.empty() != true && move == enPassant && move[1] == '3')
+                    return (true);
+
                 newCoord = "abcdefgh"[src_x + 1] + to_string(src_y - 1);
-                if ((find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
-                    && src_x + 1 == dest_x && src_y - 1 == dest_y) || (enPassant.empty() != true && newCoord == enPassant))
+                if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+                    && src_x + 1 == dest_x && src_y - 1 == dest_y)
                     return (true);
                 newCoord = "abcdefgh"[src_x - 1] + to_string(src_y - 1);
-                if ((find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
-                    && src_x - 1 == dest_x && src_y - 1 == dest_y) || (enPassant.empty() != true && newCoord == enPassant))
+                if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+                    && src_x - 1 == dest_x && src_y - 1 == dest_y)
                     return (true);
 
                 if (value == 0)
