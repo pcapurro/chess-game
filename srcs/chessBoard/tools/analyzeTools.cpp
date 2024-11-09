@@ -120,18 +120,19 @@ string	chessBoard::getCounterCheckMate(void)
         return (move);
     else
     {
+        string          dest;
         vector<string>  attackMoves;
         vector<string>  shieldMoves;
         vector<string>  runAwayMoves;
 
         for (int i = 0; i != newLegalMoves.size(); i++)
         {
-            if (isThereSomething(newLegalMoves.at(i).c_str() + newLegalMoves.at(i).size() - 2) == true)
-                attackMoves.push_back(newLegalMoves.at(i));
+            if (newLegalMoves.at(i)[0] == 'K')
+                runAwayMoves.push_back(newLegalMoves.at(i));
             else
             {
-                if (newLegalMoves.at(i)[0] == 'K')
-                    runAwayMoves.push_back(newLegalMoves.at(i));
+                if (isThereSomething(newLegalMoves.at(i).c_str() + newLegalMoves.at(i).size() - 2) == true) //
+                    attackMoves.push_back(newLegalMoves.at(i));
                 else
                     shieldMoves.push_back(newLegalMoves.at(i));
             }
