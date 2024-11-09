@@ -150,19 +150,24 @@ void    chessBoard::addToHistory(void)
     string  src = _gameInfo._lastMove.src;
     string  dest = _gameInfo._lastMove.dest;
 
-    if (action == 'x')
-    {
-        if (obj != 'P')
-            _history.push_back(obj + src + "x" + dest);
-        else
-            _history.push_back(src + "x" + dest);
-    }
+    if (dest == "O-O" || dest == "O-O-O")
+        _history.push_back(dest);
     else
     {
-        if (obj != 'P')
-            _history.push_back(obj + src + "-" + dest);
+        if (action == 'x')
+        {
+            if (obj != 'P')
+                _history.push_back(obj + src + "x" + dest);
+            else
+                _history.push_back(src + "x" + dest);
+        }
         else
-            _history.push_back(dest);
+        {
+            if (obj != 'P')
+                _history.push_back(obj + src + "-" + dest);
+            else
+                _history.push_back(dest);
+        }
     }
 }
 

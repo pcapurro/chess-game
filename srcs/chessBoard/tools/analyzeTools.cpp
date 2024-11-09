@@ -142,10 +142,6 @@ string  chessBoard::getRandomMove(void)
     legalMoves = getLegalMoves();
     srand(time(nullptr));
 	value = rand() % legalMoves.size();
-
-        cout << "random value > " << value << endl;
-    cout << "nb of possible moves > " << legalMoves.size() << endl;
-
 	move = legalMoves.at(value);
     return (move);
 }
