@@ -94,7 +94,7 @@ class chessBoard
 
         size_t              getAtValue(const string coord) const;
         vector<string>      getAvailaibleMoves(void);
-        vector<string>      getPossibleMoves(const string coord, const bool reverse = false) const;
+        vector<string>      getPossibleMoves(const string coord) const;
         vector<string>      getPiecesCoords(void) const;
         vector<string>	    getLegalMoves(void);
 
@@ -103,6 +103,7 @@ class chessBoard
         string              getCounterCheckMate(void);
         string              getCounterCheck(void);
         string              getCounterAttack(void);
+        string              getRandomMove(void);
 
         void    printWhiteBoard(void) const;
         void    printBlackBoard(void) const;
@@ -126,6 +127,12 @@ class chessBoard
         void    movePiece(const string initialCoord, const string newCoord, const bool free = true);
         void    removePiece(const string coord, const bool free = true);
 
+        void    tryMove(const string srcdest);
+        void    undoMove(const string srcdest);
+
+        void    switchPlayers(void);
+        void    unSwitchPlayers(void);
+
         int     checkNormalSource(void);
         int     checkPawnSource(void);
         bool    isThereValidSource(void);
@@ -144,13 +151,12 @@ class chessBoard
         bool    isLegal(void);
 
         bool    doesItResolveCheck(const string srcdest);
-        void    tryMove(const string srcdest);
-        void    undoMove(const string srcdest);
         bool    isCheckMateImpossible(void);
         bool    canTheKingMove(void);
         bool    canAnyAllyPieceMove(void);
 
-        bool    canItBeCheckMate(const bool reverse, const bool switchPlayers = false);
+        bool    canItBeCheckMateNow(void);
+        bool    canItBeCheckMateNext(void);
         bool    isAttacked(void);
         bool    isProtected(void);
         bool    isEndGame(void);

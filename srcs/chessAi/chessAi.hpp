@@ -21,12 +21,9 @@ class chessAi
 		void	endGameMove(void);
 		void	randomMove(void);
 
-		vector<string>	getLegalMoves(void);
-
 		string			_nextMove;
 
 		chessBoard		_newBoard;
-		vector<string>	_legalMoves;
 
 };
 

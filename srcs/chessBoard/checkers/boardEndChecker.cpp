@@ -121,6 +121,16 @@ bool    chessBoard::isDraw(void)
     return (false);
 }
 
+void    chessBoard::switchPlayers(void)
+{
+    ++_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
+}
+
+void    chessBoard::unSwitchPlayers(void)
+{
+    --_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
+}
+
 void    chessBoard::tryMove(const string srcdest)
 {
     int         atValueSrc;
@@ -180,22 +190,16 @@ bool    chessBoard::doesItResolveCheck(const string srcdest)
     return (true);
 }
 
-vector<string>  chessBoard::getPossibleMoves(const string coord, const bool reverse) const
+vector<string>  chessBoard::getPossibleMoves(const string coord) const
 {
     int             atValue;
     vector<string>  moves;
     vector<string>  boardCoords;
     string          actualCoords;
-    string          color;
 
     atValue = getAtValue(coord);
     boardCoords = getPiecesCoords();
     actualCoords = "a0";
-
-    if (reverse == false)
-        color = _gameInfo._color;
-    else
-        _gameInfo._color == "white" ? color = "black" : color = "white";
 
     for (int i = 0; i != 8; i++)
     {
@@ -205,7 +209,7 @@ vector<string>  chessBoard::getPossibleMoves(const string coord, const bool reve
             if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords, 0, _gameInfo._enPassantDest) == true)
             {
                 if ((_board.at(getAtValue(actualCoords)).piece == NULL 
-                    || _board.at(getAtValue(actualCoords)).piece->getColor() != color))
+                    || _board.at(getAtValue(actualCoords)).piece->getColor() != _gameInfo._color))
                     moves.push_back(coord + actualCoords);
             }
         }
