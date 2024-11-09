@@ -34,6 +34,9 @@ void	chessAi::randomMove(void)
 {
 	if (_nextMove != "")
 		return ;
+
+	int	value = rand() % _legalMoves.size();
+	_nextMove = _legalMoves.at(value);
 }
 
 string	chessAi::getNextMove(void)
