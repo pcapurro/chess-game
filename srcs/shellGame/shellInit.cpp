@@ -6,6 +6,7 @@ shellGame::shellGame(const bool blindMode, const bool sandBoxMode) : _blindMode(
 	_memoryFail = false;
 
 	_aiSide = -1;
+	srand((unsigned int)((uintptr_t)this));
 	if (_sandBoxMode == false)
 		srand(time(0)), _aiSide = rand() % 2;
 

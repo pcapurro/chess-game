@@ -104,15 +104,24 @@ string	chessBoard::getCounterCheckMate(void)
 {
     string          move;
     vector<string>  legalMoves;
+    vector<string>  newLegalMoves;
 
     legalMoves = getLegalMoves();
+
     for (int i = 0; i != legalMoves.size(); i++)
     {   
         tryMove(legalMoves.at(i).c_str() + 1);
         if (canItBeCheckMateNext() == false)
-            return (legalMoves.at(i));
+            newLegalMoves.push_back(legalMoves.at(i));
         undoMove(legalMoves.at(i).c_str() + 1);
     }
+
+    srand((unsigned int)((uintptr_t)this));
+
+    if (newLegalMoves.size() == 1)
+        move = newLegalMoves.at(0);
+    else if (newLegalMoves.size() > 1)
+        move = newLegalMoves.at(rand() % newLegalMoves.size());
 
     return (move);
 }
@@ -131,6 +140,7 @@ string  chessBoard::getRandomMove(void)
     int             value;
 
     legalMoves = getLegalMoves();
+    srand((unsigned int)((uintptr_t)this));
 	value = rand() % legalMoves.size();
 	move = legalMoves.at(value);
     return (move);
