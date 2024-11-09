@@ -101,7 +101,6 @@ class chessBoard
         string              getCheckMateMove(void);
         string              getCounterStrike(void);
         string              getCounterCheckMate(void);
-        string              getCounterCheck(void);
         string              getCounterAttack(void);
         string              getRandomMove(void);
 

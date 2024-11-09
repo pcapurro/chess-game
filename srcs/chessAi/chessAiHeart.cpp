@@ -34,13 +34,9 @@ void	chessAi::defendMove(void)
 
 	if (_newBoard.canItBeCheckMateNext() == true || _newBoard.isCheck() == true)
 	{
-		cout << "counter checkmate move" << endl;
-		if (_newBoard.canItBeCheckMateNext() == true)
-			{ _nextMove = _newBoard.getCounterCheckMate(); return ; }
-
-		cout << "counter check move" << endl;
-		if (_newBoard.isCheck() == true)
-			{ _nextMove = _newBoard.getCounterCheck(); return ; }
+		cout << "counter checkmate/check move" << endl;
+		_nextMove = _newBoard.getCounterCheckMate();
+		return ;
 	}
 
 	cout << "ally defend move" << endl;
@@ -71,22 +67,22 @@ string	chessAi::getNextMove(void)
 
 	if (_newBoard.canItBeCheckMateNow() == true)
 		checkMateMove();
-	// else
-	// {
-	// 	if (_newBoard.canItBeCheckMateNext() == true
-	// 		|| _newBoard.isCheck() == true || _newBoard.isAttacked() == true)
-	// 		defendMove();
-	// 	else
-	// 	{
-	// 		if (_newBoard.isEndGame() == true)
-	// 			endGameMove();
-	// 		else
-	// 		{
-	// 			attackMove();
-	// 			passiveMove();
-	// 		}
-	// 	}
-	// }
+	else
+	{
+		if (_newBoard.canItBeCheckMateNext() == true
+			|| _newBoard.isCheck() == true || _newBoard.isAttacked() == true)
+			defendMove();
+		// else
+		// {
+		// 	if (_newBoard.isEndGame() == true)
+		// 		endGameMove();
+		// 	else
+		// 	{
+		// 		attackMove();
+		// 		passiveMove();
+		// 	}
+		// }
+	}
 	randomMove();
 	cout << "-" << endl;
 

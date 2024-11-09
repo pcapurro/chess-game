@@ -95,21 +95,24 @@ string	chessBoard::getCheckMateMove(void)
 
 string	chessBoard::getCounterStrike(void)
 {
-	string  move;
+	string          move;
 
     return (move);
 }
 
 string	chessBoard::getCounterCheckMate(void)
 {
-	string  move;
+    string          move;
+    vector<string>  legalMoves;
 
-    return (move);
-}
-
-string	chessBoard::getCounterCheck(void)
-{
-	string  move;
+    legalMoves = getLegalMoves();
+    for (int i = 0; i != legalMoves.size(); i++)
+    {   
+        tryMove(legalMoves.at(i).c_str() + 1);
+        if (canItBeCheckMateNext() == false)
+            return (legalMoves.at(i));
+        undoMove(legalMoves.at(i).c_str() + 1);
+    }
 
     return (move);
 }
