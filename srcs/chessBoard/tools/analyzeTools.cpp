@@ -20,14 +20,14 @@ bool    chessBoard::canItBeCheckMate(const bool reverse, const bool switchPlayer
     char    type;
 
     if (switchPlayers == true)
-        ++_turn % 2 == 0 ? _color = "white" : _color = "black";
+        ++_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
 
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
         {
             string coord = "abcdefgh"[i] + to_string(k + 1);
-            if (_board.at(getAtValue(coord)).piece != NULL && _board.at(getAtValue(coord)).piece->getColor() != _color)
+            if (_board.at(getAtValue(coord)).piece != NULL && _board.at(getAtValue(coord)).piece->getColor() != _gameInfo._color)
             {
                 type = _board.at(getAtValue(coord)).piece->getType();
                 vector<string>  moves = getPossibleMoves(coord, reverse);
@@ -37,10 +37,10 @@ bool    chessBoard::canItBeCheckMate(const bool reverse, const bool switchPlayer
 
                     if (isCheckMate(-1) == true)
                     {
-                        _checkMateMove = string(1, type) + moves.at(k);
+                        // _checkMateMove = string(1, type) + moves.at(k);
                         undoMove(moves.at(k));
                         if (switchPlayers == true)
-                            --_turn % 2 == 0 ? _color = "white" : _color = "black";
+                            --_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
                         return (true);
                     }
     
@@ -51,7 +51,7 @@ bool    chessBoard::canItBeCheckMate(const bool reverse, const bool switchPlayer
     }
 
     if (switchPlayers == true)
-        --_turn % 2 == 0 ? _color = "white" : _color = "black";
+        --_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
 
     return (false);
 }

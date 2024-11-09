@@ -2,21 +2,21 @@
 
 chessBoard::chessBoard(void)
 {
-    _turn = 0;
+    _gameInfo._turn = 0;
     _allocated = true;
     _free = true;
-    _color = "white";
+    _gameInfo._color = "white";
 
-    _moveFailed = false;
+    _gameInfo._moveFailed = false;
 
-    _whiteCastle = true;
-    _blackCastle = true;
+    _gameInfo._whiteCastle = true;
+    _gameInfo._blackCastle = true;
     
-    _draw = false;
-    _checkmate = false;
+    _gameInfo._draw = false;
+    _gameInfo._checkmate = false;
 
-    _enPassant = false;
-    _enPassantDest = "";
+    _gameInfo._enPassant = false;
+    _gameInfo._enPassantDest = "";
 
     initBoard();
     if (checkBoardAllocation() == false)
@@ -27,14 +27,14 @@ chessBoard::chessBoard(const chessBoard *originalBoard)
 {
     _free = false;
 
-    _turn = originalBoard->_turn;
-    _color = originalBoard->_color;
+    _gameInfo._turn = originalBoard->_gameInfo._turn;
+    _gameInfo._color = originalBoard->_gameInfo._color;
 
-    _whiteCastle = originalBoard->_whiteCastle;
-    _blackCastle = originalBoard->_blackCastle;
+    _gameInfo._whiteCastle = originalBoard->_gameInfo._whiteCastle;
+    _gameInfo._blackCastle = originalBoard->_gameInfo._blackCastle;
 
-    _enPassant = originalBoard->_enPassant;
-    _enPassantDest = originalBoard->_enPassantDest;
+    _gameInfo._enPassant = originalBoard->_gameInfo._enPassant;
+    _gameInfo._enPassantDest = originalBoard->_gameInfo._enPassantDest;
 
     for (int i = 0; i != 64; i++)
         _board.push_back(originalBoard->_board.at(i));

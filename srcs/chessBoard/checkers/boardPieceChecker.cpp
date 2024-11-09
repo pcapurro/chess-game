@@ -4,12 +4,12 @@ bool    chessBoard::isCastlingPossible(void)
 {
     int atValue;
 
-    if (_color == "white")
+    if (_gameInfo._color == "white")
     {
-        if (_whiteCastle == false)
+        if (_gameInfo._whiteCastle == false)
             return (false);
 
-        if (_lastMove.dest == "O-O")
+        if (_gameInfo._lastMove.dest == "O-O")
         {
             atValue = getAtValue("h1");
             if (_board.at(atValue).piece == NULL
@@ -27,7 +27,7 @@ bool    chessBoard::isCastlingPossible(void)
                 || doesItResolveCheck("e1f1") == false)
                 return (false);
         }
-        if (_lastMove.dest == "O-O-O")
+        if (_gameInfo._lastMove.dest == "O-O-O")
         {
             atValue = getAtValue("a1");
             if (_board.at(atValue).piece == NULL
@@ -46,12 +46,12 @@ bool    chessBoard::isCastlingPossible(void)
                 return (false);
         }
     }
-    if (_color == "black")
+    if (_gameInfo._color == "black")
     {
-        if (_blackCastle == false)
+        if (_gameInfo._blackCastle == false)
             return (false);
 
-        if (_lastMove.dest == "O-O")
+        if (_gameInfo._lastMove.dest == "O-O")
         {
             atValue = getAtValue("h8");
             if (_board.at(atValue).piece == NULL
@@ -69,7 +69,7 @@ bool    chessBoard::isCastlingPossible(void)
                 || doesItResolveCheck("e8g8") == false)
                 return (false);
         }
-        if (_lastMove.dest == "O-O-O")
+        if (_gameInfo._lastMove.dest == "O-O-O")
         {
             atValue = getAtValue("a8");
             if (_board.at(atValue).piece == NULL
@@ -98,9 +98,9 @@ bool    chessBoard::isTheDestinationSafe(void) const
     coords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _color)
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
         {
-            if (_board.at(i).piece->isOnMyWay(_lastMove.dest, coords, 1, _enPassantDest) == true)
+            if (_board.at(i).piece->isOnMyWay(_gameInfo._lastMove.dest, coords, 1, _gameInfo._enPassantDest) == true)
                 return (false);
         }
     }
@@ -111,9 +111,9 @@ bool    chessBoard::isRightSide(void) const
 {
     int     atValue;
 
-    atValue = getAtValue(_lastMove.src);
+    atValue = getAtValue(_gameInfo._lastMove.src);
     if (_board.at(atValue).piece == NULL
-        || _board.at(atValue).piece->getColor() == _color)
+        || _board.at(atValue).piece->getColor() == _gameInfo._color)
         return (true);
     return (false);
 }
@@ -132,8 +132,8 @@ bool    chessBoard::isThereAlly(void) const
 {
     int     atValue;
 
-    atValue = getAtValue(_lastMove.dest);
-    if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == _color)
+    atValue = getAtValue(_gameInfo._lastMove.dest);
+    if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == _gameInfo._color)
         return (true);
     return (false);
 }

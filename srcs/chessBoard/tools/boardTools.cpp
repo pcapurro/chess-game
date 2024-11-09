@@ -33,7 +33,8 @@ vector<string>  chessBoard::getAvailaibleMoves(void)
         for (int k = 0; k != 8; k++)
         {
             string coord = "abcdefgh"[i] + to_string(k + 1);
-            if (_board.at(getAtValue(coord)).piece != NULL && _board.at(getAtValue(coord)).piece->getColor() == _color)
+            if (_board.at(getAtValue(coord)).piece != NULL 
+                && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
             {
                 availaibleMoves = getPossibleMoves(coord);
                 for (int j = 0; j != availaibleMoves.size(); j++)
@@ -52,11 +53,11 @@ vector<string>	chessBoard::getLegalMoves(void)
 	legalMoves = getAvailaibleMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
-		_lastMove.action = '-';
-		_lastMove.obj = legalMoves.at(i)[0];
+		_gameInfo._lastMove.action = '-';
+		_gameInfo._lastMove.obj = legalMoves.at(i)[0];
 		
-		_lastMove.src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
-		_lastMove.dest = legalMoves.at(i).c_str() + 3;
+		_gameInfo._lastMove.src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
+		_gameInfo._lastMove.dest = legalMoves.at(i).c_str() + 3;
 		
 		if (isLegal() == false)
 			legalMoves.at(i) = "";
@@ -96,9 +97,9 @@ string  chessBoard::getColor(const string coord) const
 
 int chessBoard::getStateValue(void) const
 {
-    if (_checkmate == true)
+    if (_gameInfo._checkmate == true)
         return (1);
-    if (_draw == true || isAllocated() == false)
+    if (_gameInfo._draw == true || isAllocated() == false)
         return (2);
     return (0);
 }

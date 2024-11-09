@@ -20,6 +20,24 @@ typedef struct s_square
 
 }   t_square;
 
+typedef struct s_game_info
+{
+    bool    _checkmate;
+    bool    _draw;
+
+    t_move  _lastMove;
+    bool    _moveFailed;
+
+    bool    _whiteCastle;
+    bool    _blackCastle;
+    bool    _enPassant;
+    string  _enPassantDest;
+
+    int     _turn;
+    string  _color;
+
+}   t_game_info;
+
 typedef struct s_counter
 {
     int whiteKing;
@@ -53,13 +71,13 @@ class chessBoard
 
         ~chessBoard(void);
 
-        bool    fail(void) const { return (_moveFailed); };
+        bool    fail(void) const { return (_gameInfo._moveFailed); };
         bool    isAllocated(void) const;
 
         char    getType(const string coord) const;
         string  getColor(const string coord) const;
 
-        int     getActualTurn(void) const { return (_turn); };
+        int     getActualTurn(void) const { return (_gameInfo._turn); };
         int     getStateValue(void) const;
 
         bool    isGameOver(void);
@@ -148,26 +166,12 @@ class chessBoard
         bool                _allocated;
         bool                _free;
 
-        bool                _checkmate;
-        bool                _draw;
-
-        string              _checkMateMove;
-
-        t_move              _lastMove;
-        bool                _moveFailed;
-
-        bool                _whiteCastle;
-        bool                _blackCastle;
-        bool                _enPassant;
-        string              _enPassantDest;
-
-        stack<chessPiece*>  _savedObjects;
-
-        int                 _turn;
-        string              _color;
+        t_game_info         _gameInfo;
 
         t_counter           _boardCount;
         vector<string>      _history;
+
+        stack<chessPiece*>  _savedObjects;
 };
 
 #endif

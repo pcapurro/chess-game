@@ -9,7 +9,7 @@ bool    chessBoard::isCheck(void)
     boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _color)
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _gameInfo._color)
             kingPos = _board.at(i).coord, kingColor = _board.at(i).piece->getColor();
     }
     for (int i = 0; i != 64; i++)
@@ -30,12 +30,12 @@ bool    chessBoard::canAnyAllyPieceMove(void)
     boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _color
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
             && _board.at(i).piece->getType() != 'K')
         {
             for (int k = 0; k != 64; k++)
             {
-                if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords, 0, _enPassantDest) == true
+                if (_board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords, 0, _gameInfo._enPassantDest) == true
                     && doesItResolveCheck(_board.at(i).coord + _board.at(k).coord) == true)
                     return (true);
             }
@@ -95,7 +95,7 @@ bool    chessBoard::canTheKingMove(void)
 
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _color)
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _gameInfo._color)
             kingPos = i, kingColor = _board.at(i).piece->getColor();
     }
     for (int i = 0; i != 64; i++)
@@ -116,7 +116,7 @@ bool    chessBoard::isDraw(void)
     if (isCheck() == false)
     {
         if (isCheckMateImpossible() == true || (canTheKingMove() == false && canAnyAllyPieceMove() == false))
-            { _draw = true; return (true); }
+            { _gameInfo._draw = true; return (true); }
     }
     return (false);
 }
@@ -193,16 +193,16 @@ vector<string>  chessBoard::getPossibleMoves(const string coord, const bool reve
     actualCoords = "a0";
 
     if (reverse == false)
-        color = _color;
+        color = _gameInfo._color;
     else
-        _color == "white" ? color = "black" : color = "white";
+        _gameInfo._color == "white" ? color = "black" : color = "white";
 
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
         {
             actualCoords[1] = actualCoords[1] + 1;
-            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords, 0, _enPassantDest) == true)
+            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords, 0, _gameInfo._enPassantDest) == true)
             {
                 if ((_board.at(getAtValue(actualCoords)).piece == NULL 
                     || _board.at(getAtValue(actualCoords)).piece->getColor() != color))
@@ -224,7 +224,7 @@ bool    chessBoard::isCheckMate(const int value)
 
         for (int i = 0; i != 64; i++)
         {
-            if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _color)
+            if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
             {
                 sources = getPossibleMoves(_board.at(i).coord);
                 for (size_t k = 0; k != sources.size(); k++)
@@ -236,7 +236,7 @@ bool    chessBoard::isCheckMate(const int value)
             sources.clear();
         }
         if (value == 0)
-            _checkmate = true;
+            _gameInfo._checkmate = true;
         return (true);
     }
     return (false);

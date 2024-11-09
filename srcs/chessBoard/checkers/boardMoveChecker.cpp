@@ -2,68 +2,70 @@
 
 int chessBoard::checkPawnDest(void) const
 {
-    int atValue;
+    string  src = _gameInfo._lastMove.src;
+    string  dest = _gameInfo._lastMove.dest;
+    int     atValue;
 
-    atValue = getAtValue(_lastMove.dest);
+    atValue = getAtValue(dest);
 
     if ((_board.at(atValue).coord[1] == '8' || _board.at(atValue).coord[1] == '1')
-        && (_lastMove.dest.length() != 3 || algebraParser::isChessPiece(_lastMove.dest[2]) == false
-        || _lastMove.dest[2] == 'K'))
+        && (dest.length() != 3 || algebraParser::isChessPiece(dest[2]) == false
+        || dest[2] == 'K'))
         return (FAIL);
 
-    if (_board.at(atValue).coord[0] != _lastMove.src[0])
+    if (_board.at(atValue).coord[0] != src[0])
     {
-        if (_board.at(atValue).coord[0] - 1 != _lastMove.src[0]
-            && _board.at(atValue).coord[0] + 1 != _lastMove.src[0])
+        if (_board.at(atValue).coord[0] - 1 != src[0]
+            && _board.at(atValue).coord[0] + 1 != src[0])
             return (FAIL);
 
         if (_board.at(atValue).piece == NULL)
         {
-            if ((_enPassant == false || _enPassantDest != _lastMove.dest))
+            if ((_gameInfo._enPassant == false || _gameInfo._enPassantDest != dest))
                 return (FAIL);
         }
         else
         {
-            if (_color == "white" && _lastMove.src[1] != _lastMove.dest[1] - 1)
+            if (_gameInfo._color == "white" && src[1] != dest[1] - 1)
                 return (FAIL);
-            if (_color == "black" && _lastMove.src[1] != _lastMove.dest[1] + 1)
+            if (_gameInfo._color == "black" && src[1] != dest[1] + 1)
                 return (FAIL);
         }
     }
 
-    if (_board.at(atValue).coord[0] == _lastMove.src[0])
+    if (_board.at(atValue).coord[0] == src[0])
     {
-        if (isThereSomething(_lastMove.dest) == true)
+        if (isThereSomething(dest) == true)
             return (FAIL);
 
-        if (_color == "white" 
-            && _lastMove.dest[1] - _lastMove.src[1] != 2
-            && _lastMove.dest[1] - _lastMove.src[1] != 1)
+        if (_gameInfo._color == "white" 
+            && dest[1] - src[1] != 2
+            && dest[1] - src[1] != 1)
             return (FAIL);
 
-        if (_color == "black" 
-            && _lastMove.src[1] - _lastMove.dest[1] != 2
-            && _lastMove.src[1] - _lastMove.dest[1] != 1)
+        if (_gameInfo._color == "black" 
+            && src[1] - dest[1] != 2
+            && src[1] - dest[1] != 1)
             return (FAIL);
 
-        if (_color == "white" 
-            && _lastMove.dest[1] - _lastMove.src[1] == 2
-            && _lastMove.src[1] != '2')
+        if (_gameInfo._color == "white" 
+            && dest[1] - src[1] == 2
+            && src[1] != '2')
             return (FAIL);
 
-        if (_color == "black" 
-            && _lastMove.src[1] - _lastMove.dest[1] == 2
-            && _lastMove.src[1] != '7')
+        if (_gameInfo._color == "black" 
+            && src[1] - dest[1] == 2
+            && src[1] != '7')
             return (FAIL);
 
-        string  newDest = _lastMove.dest;
-        if (_board.at(atValue).coord[1] == _lastMove.dest[1] + 2)
+        string  newDest = dest;
+        if (_board.at(atValue).coord[1] == dest[1] + 2)
         {
             newDest[1] = newDest[1] + 1;
             if (isThereSomething(newDest) == true)
                 return (FAIL);
         }
-        if (_board.at(atValue).coord[1] == _lastMove.dest[1] - 2)
+        if (_board.at(atValue).coord[1] == dest[1] - 2)
         {
             newDest[1] = newDest[1] - 1;
             if (isThereSomething(newDest) == true)
@@ -79,22 +81,25 @@ int chessBoard::checkPawnSource(void)
     int     atValue;
     string  source;
 
-    atValue = getAtValue(_lastMove.dest);
+    string  src = _gameInfo._lastMove.src;
+    string  dest = _gameInfo._lastMove.dest;
+
+    atValue = getAtValue(dest);
     if (_board.at(atValue).piece != NULL)
         return (FAIL);
-    for (size_t i = 0; i != _lastMove.src.length(); i++)
+    for (size_t i = 0; i != src.length(); i++)
     {
-        source = source + _lastMove.src.at(i);
+        source = source + src.at(i);
         if (source.length() == 2)
         {
             if (_board.at(getAtValue(source)).piece != NULL
                 && _board.at(getAtValue(source)).piece->getType() == 'P')
             {
-                if (source[1] == _lastMove.dest[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
+                if (source[1] == dest[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
                     return (FAIL);
-                if (source[1] == _lastMove.dest[1] + 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
+                if (source[1] == dest[1] + 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
                     return (FAIL);
-                _lastMove.src = source;
+                src = source;
                 return (SUCCESS);
             }
             else
@@ -108,62 +113,69 @@ int chessBoard::checkNormalSource(void)
 {
     vector<string>  boardCoords;
     string          source;
+
+    string          src = _gameInfo._lastMove.src;
+    string          dest = _gameInfo._lastMove.dest;
     
     boardCoords = getPiecesCoords();
-    source = _lastMove.src;
-    _lastMove.src.clear();
+    source = src;
+    src.clear();
     for (int i = 0; i != 64; i++)
     {
         if (source.find(_board.at(i).coord) != string::npos && _board.at(i).piece != NULL)
         {
-            if (_board.at(i).piece->getColor() == _color && _board.at(i).piece->getType() == _lastMove.obj)
+            if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).piece->getType() == _gameInfo._lastMove.obj)
             {
-                if (_board.at(i).piece->isOnMyWay(_lastMove.dest, boardCoords) == true)
-                    _lastMove.src = _lastMove.src + _board.at(i).coord;
+                if (_board.at(i).piece->isOnMyWay(dest, boardCoords) == true)
+                    src = src + _board.at(i).coord;
             }
         }
     }
 
-    if (_lastMove.src.length() != 2)
+    if (src.length() != 2)
         return (FAIL);
     return (SUCCESS);
 }
 
 int chessBoard::checkNormalDest(void) const
 {
-    if (_lastMove.obj == 'Q')
-    {
-        Queen   queen("white", _lastMove.src);
+    char    obj = _gameInfo._lastMove.obj;
+    string  src = _gameInfo._lastMove.src;
+    string  dest = _gameInfo._lastMove.dest;
 
-        if (queen.isOnMyWay(_lastMove.dest) == false)
+    if (obj == 'Q')
+    {
+        Queen   queen("white", src);
+
+        if (queen.isOnMyWay(dest) == false)
             return (FAIL);
     }
-    if (_lastMove.obj == 'K')
+    if (obj == 'K')
     {
-        King   king("white", _lastMove.src);
+        King   king("white", src);
 
-        if (king.isOnMyWay(_lastMove.dest) == false)
+        if (king.isOnMyWay(dest) == false)
             return (FAIL);
     }
-    if (_lastMove.obj == 'B')
+    if (obj == 'B')
     {
-        Bishop   bishop("white", _lastMove.src);
+        Bishop   bishop("white", src);
 
-        if (bishop.isOnMyWay(_lastMove.dest) == false)
+        if (bishop.isOnMyWay(dest) == false)
             return (FAIL);
     }
-    if (_lastMove.obj == 'N')
+    if (obj == 'N')
     {
-        Knight   knight("white", _lastMove.src);
+        Knight   knight("white", src);
 
-        if (knight.isOnMyWay(_lastMove.dest) == false)
+        if (knight.isOnMyWay(dest) == false)
             return (FAIL);
     }
-    if (_lastMove.obj == 'R')
+    if (obj == 'R')
     {
-        Rook   rook("white", _lastMove.src);
+        Rook   rook("white", src);
 
-        if (rook.isOnMyWay(_lastMove.dest) == false)
+        if (rook.isOnMyWay(dest) == false)
             return (FAIL);
     }
     return (SUCCESS);
@@ -171,7 +183,7 @@ int chessBoard::checkNormalDest(void) const
 
 bool    chessBoard::isThereValidSource(void)
 {
-    if (_lastMove.obj == 'P')
+    if (_gameInfo._lastMove.obj == 'P')
     {
         if (checkPawnSource() == FAIL)
             return (false);
@@ -185,28 +197,34 @@ bool    chessBoard::isItValidSource(void) const
 {
     int     atValue;
 
-    atValue = getAtValue(_lastMove.src);
-    if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getType() != _lastMove.obj)
+    atValue = getAtValue(_gameInfo._lastMove.src);
+    if (_board.at(atValue).piece == NULL
+        || _board.at(atValue).piece->getType() != _gameInfo._lastMove.obj)
         return (false);
     return (true);
 }
 
 bool    chessBoard::isLegal(void)
 {
-    if (_lastMove.dest == "O-O-O" || _lastMove.dest == "O-O")
+    char    obj = _gameInfo._lastMove.obj;
+    string  src = _gameInfo._lastMove.src;
+    string  dest = _gameInfo._lastMove.dest;
+
+    if (dest == "O-O-O" || dest == "O-O")
     {
         if (isCastlingPossible() == false || isCheck() == true)
             return (false);
     }
     else
     {
-        if (_lastMove.action == 'x' && isThereSomething(_lastMove.dest) == false)
+        if (_gameInfo._lastMove.action == 'x' && isThereSomething(dest) == false)
         {
-            if (_lastMove.obj != 'P' || _enPassant == false || _enPassantDest != _lastMove.dest)
+            if (obj != 'P' || _gameInfo._enPassant == false 
+                || _gameInfo._enPassantDest != dest)
                 return (false);
         }
 
-        if (_lastMove.src.length() != 2)
+        if (src.length() != 2)
         {
             if (isThereValidSource() == false)
                 return (false);
@@ -214,7 +232,7 @@ bool    chessBoard::isLegal(void)
         else if (isItValidSource() == false)
             return (false);
 
-        if (_lastMove.obj == 'P')
+        if (obj == 'P')
         {
             if (checkPawnDest() == FAIL)
                 return (false);
@@ -224,14 +242,14 @@ bool    chessBoard::isLegal(void)
                 return (false);
 
         if (isThereAlly() == true || isRightSide() == false
-            || (_lastMove.obj == 'K' && isTheDestinationSafe() == false))
+            || (obj == 'K' && isTheDestinationSafe() == false))
             return (false);
 
-        if (isCheck() == false && doesItResolveCheck(_lastMove.src + _lastMove.dest) == false)
+        if (isCheck() == false && doesItResolveCheck(src + dest) == false)
             return (false);
 
         if (isCheck() == true 
-            && doesItResolveCheck(_lastMove.src + _lastMove.dest) == false)
+            && doesItResolveCheck(src + dest) == false)
             return (false);
     }
     return (true);

@@ -2,21 +2,25 @@
 
 void    chessBoard::enableDisableEnPassant(void)
 {
-    if (_lastMove.obj == 'P')
-    {
-        if ((_color == "white" && _lastMove.dest[1] == _lastMove.src[1] + 2 && _lastMove.dest[1] == '4')
-            || (_color == "black" && _lastMove.dest[1] == _lastMove.src[1] - 2 && _lastMove.dest[1] == '5'))
-        {
-            _enPassant = true;
-            _enPassantDest = _lastMove.dest;
+    char    obj = _gameInfo._lastMove.obj;
+    string  src = _gameInfo._lastMove.src;
+    string  dest = _gameInfo._lastMove.dest;
 
-            if (_color == "white")
-                _enPassantDest[1] = _enPassantDest[1] - 1;
+    if (obj == 'P')
+    {
+        if ((_gameInfo._color == "white" && dest[1] == src[1] + 2 && dest[1] == '4') || (_gameInfo._color == "black" 
+            && dest[1] == src[1] - 2 && dest[1] == '5'))
+        {
+            _gameInfo._enPassant = true;
+            _gameInfo._enPassantDest = dest;
+
+            if (_gameInfo._color == "white")
+                _gameInfo._enPassantDest[1] = _gameInfo._enPassantDest[1] - 1;
             else
-                _enPassantDest[1] = _enPassantDest[1] + 1;
+                _gameInfo._enPassantDest[1] = _gameInfo._enPassantDest[1] + 1;
         }
         else
-            _enPassant = false, _enPassantDest.clear();
+            _gameInfo._enPassant = false, _gameInfo._enPassantDest.clear();
     }
 }
 
@@ -26,19 +30,19 @@ void    chessBoard::priseEnPassant(const bool free)
     size_t      atValue;
     string      newCoordUpdated;
 
-    atValue = getAtValue(_lastMove.src); 
+    atValue = getAtValue(_gameInfo._lastMove.src); 
     piece = _board.at(atValue).piece;
     _board.at(atValue).piece = NULL;
 
-    atValue = getAtValue(_lastMove.dest);
+    atValue = getAtValue(_gameInfo._lastMove.dest);
     _board.at(atValue).piece = piece;
     _board.at(atValue).piece->move();
-    _board.at(atValue).piece->updatePos(_lastMove.dest);
+    _board.at(atValue).piece->updatePos(_gameInfo._lastMove.dest);
 
-    newCoordUpdated = _lastMove.dest;
-    if (_color == "white")
+    newCoordUpdated = _gameInfo._lastMove.dest;
+    if (_gameInfo._color == "white")
         newCoordUpdated[1] = newCoordUpdated[1] - 1;
-    if (_color == "black")
+    if (_gameInfo._color == "black")
         newCoordUpdated[1] = newCoordUpdated[1] + 1;
 
     removePiece(newCoordUpdated, free);
@@ -104,21 +108,21 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord, 
     if (_board.at(atValue).piece->getType() == 'K')
     {
         if (_board.at(atValue).piece->getColor() == "white")
-            _whiteCastle = false;
+            _gameInfo._whiteCastle = false;
         if (_board.at(atValue).piece->getColor() == "black")
-            _blackCastle = false;
+            _gameInfo._blackCastle = false;
     }
 }
 
 
 void    chessBoard::whiteCastles(void)
 {
-    if (_lastMove.dest == "O-O")
+    if (_gameInfo._lastMove.dest == "O-O")
     {
         movePiece("h1", "f1");
         movePiece("e1", "g1");
     }
-    if (_lastMove.dest == "O-O-O")
+    if (_gameInfo._lastMove.dest == "O-O-O")
     {
         movePiece("e1", "c1");
         movePiece("a1", "d1");
@@ -127,12 +131,12 @@ void    chessBoard::whiteCastles(void)
 
 void    chessBoard::blackCastles(void)
 {
-    if (_lastMove.dest == "O-O")
+    if (_gameInfo._lastMove.dest == "O-O")
     {
         movePiece("e8", "g8");
         movePiece("h8", "f8");
     }
-    if (_lastMove.dest == "O-O-O")
+    if (_gameInfo._lastMove.dest == "O-O-O")
     {
         movePiece("e8", "c8");
         movePiece("a8", "d8");
@@ -141,52 +145,62 @@ void    chessBoard::blackCastles(void)
 
 void    chessBoard::addToHistory(void)
 {
-    if (_lastMove.action == 'x')
+    char    action = _gameInfo._lastMove.action;
+    char    obj = _gameInfo._lastMove.obj;
+    string  src = _gameInfo._lastMove.src;
+    string  dest = _gameInfo._lastMove.dest;
+
+    if (action == 'x')
     {
-        if (_lastMove.obj != 'P')
-            _history.push_back(_lastMove.obj + _lastMove.src + "x" + _lastMove.dest);
+        if (obj != 'P')
+            _history.push_back(obj + src + "x" + dest);
         else
-            _history.push_back(_lastMove.src + "x" + _lastMove.dest);
+            _history.push_back(src + "x" + dest);
     }
     else
     {
-        if (_lastMove.obj != 'P')
-            _history.push_back(_lastMove.obj + _lastMove.src + "-" + _lastMove.dest);
+        if (obj != 'P')
+            _history.push_back(obj + src + "-" + dest);
         else
-            _history.push_back(_lastMove.dest);
+            _history.push_back(dest);
     }
 }
 
 int chessBoard::playMove(t_move move, const bool free)
 {
-    _lastMove = move;
+    _gameInfo._lastMove = move;
     if (isLegal() == false)
     {
-        _moveFailed = true;
+        _gameInfo._moveFailed = true;
         return (FAIL);
     }
     else
     {
-        _moveFailed = false;
+        _gameInfo._moveFailed = false;
 
-        if (_lastMove.dest == "O-O" || _lastMove.dest == "O-O-O")
+        string  src = _gameInfo._lastMove.src;
+        string  dest = _gameInfo._lastMove.dest;
+        char    action = _gameInfo._lastMove.action;
+
+        if (_gameInfo._lastMove.dest == "O-O"
+            || _gameInfo._lastMove.dest == "O-O-O")
         {
-            if (_color == "white")
+            if (_gameInfo._color == "white")
                 whiteCastles();
-            if (_color == "black")
+            if (_gameInfo._color == "black")
                 blackCastles();
         }
         else
         {
-            if ((_lastMove.action == 'x' || _lastMove.action == '-')
-                && isThereSomething(_lastMove.dest) == false
-                && _enPassant == true && _enPassantDest == _lastMove.dest)
+            if ((_gameInfo._lastMove.action == 'x' || _gameInfo._lastMove.action == '-')
+                && isThereSomething(dest) == false
+                && _gameInfo._enPassant == true && _gameInfo._enPassantDest == dest)
                 priseEnPassant(free);
             else
             {
-                movePiece(_lastMove.src, _lastMove.dest, free);
-                if (algebraParser::isChessPiece(_lastMove.dest.at(_lastMove.dest.length() - 1)) == true)
-                    promotePiece(_lastMove.dest, _lastMove.dest[_lastMove.dest.length() - 1], free);
+                movePiece(src, dest, free);
+                if (algebraParser::isChessPiece(dest.at(dest.length() - 1)) == true)
+                    promotePiece(dest, dest[dest.length() - 1], free);
                 
                 if (_allocated == false)
                     return (ERR);
@@ -195,7 +209,7 @@ int chessBoard::playMove(t_move move, const bool free)
         enableDisableEnPassant();
         addToHistory();
 
-        ++_turn % 2 == 0 ? _color = "white" : _color = "black";
+        ++_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
     }
     return (SUCCESS);
 }
