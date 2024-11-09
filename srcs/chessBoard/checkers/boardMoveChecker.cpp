@@ -139,43 +139,44 @@ int chessBoard::checkNormalSource(void)
 
 int chessBoard::checkNormalDest(void) const
 {
-    char    obj = _gameInfo._lastMove.obj;
-    string  src = _gameInfo._lastMove.src;
-    string  dest = _gameInfo._lastMove.dest;
+    char            obj = _gameInfo._lastMove.obj;
+    string          src = _gameInfo._lastMove.src;
+    string          dest = _gameInfo._lastMove.dest;
+    vector<string>  boardCoords = getPiecesCoords();
 
     if (obj == 'Q')
     {
         Queen   queen("white", src);
 
-        if (queen.isOnMyWay(dest) == false)
+        if (queen.isOnMyWay(dest, boardCoords) == false)
             return (FAIL);
     }
     if (obj == 'K')
     {
         King   king("white", src);
 
-        if (king.isOnMyWay(dest) == false)
+        if (king.isOnMyWay(dest, boardCoords) == false)
             return (FAIL);
     }
     if (obj == 'B')
     {
         Bishop   bishop("white", src);
 
-        if (bishop.isOnMyWay(dest) == false)
+        if (bishop.isOnMyWay(dest, boardCoords) == false)
             return (FAIL);
     }
     if (obj == 'N')
     {
         Knight   knight("white", src);
 
-        if (knight.isOnMyWay(dest) == false)
+        if (knight.isOnMyWay(dest, boardCoords) == false)
             return (FAIL);
     }
     if (obj == 'R')
     {
         Rook   rook("white", src);
 
-        if (rook.isOnMyWay(dest) == false)
+        if (rook.isOnMyWay(dest, boardCoords) == false)
             return (FAIL);
     }
     return (SUCCESS);
