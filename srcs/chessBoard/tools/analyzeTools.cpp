@@ -116,7 +116,7 @@ string	chessBoard::getCounterCheckMate(void)
         undoMove(legalMoves.at(i).c_str() + 1);
     }
 
-    srand((unsigned int)((uintptr_t)this));
+    srand(time(nullptr));
 
     if (newLegalMoves.size() == 1)
         move = newLegalMoves.at(0);
@@ -140,8 +140,12 @@ string  chessBoard::getRandomMove(void)
     int             value;
 
     legalMoves = getLegalMoves();
-    srand((unsigned int)((uintptr_t)this));
+    srand(time(nullptr));
 	value = rand() % legalMoves.size();
+
+        cout << "random value > " << value << endl;
+    cout << "nb of possible moves > " << legalMoves.size() << endl;
+
 	move = legalMoves.at(value);
     return (move);
 }
