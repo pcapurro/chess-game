@@ -45,6 +45,25 @@ vector<string>  chessBoard::getAvailaibleMoves(void)
     return (legalMoves);
 }
 
+vector<string>	chessBoard::getLegalMoves(void)
+{
+	vector<string>	legalMoves;
+
+	legalMoves = getAvailaibleMoves();
+	for (int i = 0; i != legalMoves.size(); i++)
+	{
+		_lastMove.action = '-';
+		_lastMove.obj = legalMoves.at(i)[0];
+		
+		_lastMove.src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
+		_lastMove.dest = legalMoves.at(i).c_str() + 3;
+		
+		if (isLegal() == false)
+			legalMoves.at(i) = "";
+	}
+	return (legalMoves);
+}
+
 char    chessBoard::getType(const string coord) const
 {
     int     atValue;

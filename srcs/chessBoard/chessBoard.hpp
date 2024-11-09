@@ -78,6 +78,13 @@ class chessBoard
         vector<string>      getAvailaibleMoves(void);
         vector<string>      getPossibleMoves(const string coord, const bool reverse = false) const;
         vector<string>      getPiecesCoords(void) const;
+        vector<string>	    getLegalMoves(void);
+
+        string              getCheckMateMove(void);
+        string              getCounterStrike(void);
+        string              getCounterCheckMate(void);
+        string              getCounterCheck(void);
+        string              getCounterAttack(void);
 
         void    printWhiteBoard(void) const;
         void    printBlackBoard(void) const;
@@ -125,8 +132,9 @@ class chessBoard
         bool    canTheKingMove(void);
         bool    canAnyAllyPieceMove(void);
 
-        bool    isCheckMateNextMove(const bool reverse, const bool switchPlayers = false);
+        bool    canItBeCheckMate(const bool reverse, const bool switchPlayers = false);
         bool    isAttacked(void);
+        bool    isProtected(void);
         bool    isEndGame(void);
 
         bool    isCheck(void);

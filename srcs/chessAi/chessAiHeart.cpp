@@ -6,7 +6,7 @@ void	chessAi::checkMateMove(void)
 		return ;
 	
 	cout << "checkmate move" << endl;
-	_nextMove = _newBoard._checkMateMove;
+	_nextMove = _newBoard.getCheckMateMove();
 }
 
 void	chessAi::attackMove(void)
@@ -14,6 +14,7 @@ void	chessAi::attackMove(void)
 	if (_nextMove != "")
 		return ;
 	
+	_nextMove = _newBoard.getCounterStrike();
 	cout << "attack move" << endl;
 }
 
@@ -30,12 +31,20 @@ void	chessAi::defendMove(void)
 	if (_nextMove != "")
 		return ;
 
-	if (_newBoard.isCheck() == true)
-		cout << "counter check move" << endl;
-	if (_newBoard.isCheckMateNextMove(true) == true)
+	if (_newBoard.canItBeCheckMate(true) == true || _newBoard.isCheck() == true)
+	{
 		cout << "counter checkmate move" << endl;
+		if (_newBoard.canItBeCheckMate(true) == true)
+			{ _nextMove = _newBoard.getCounterCheckMate(); return ; }
+
+		cout << "counter check move" << endl;
+		if (_newBoard.isCheck() == true)
+			{ _nextMove = _newBoard.getCounterCheck(); return ; }
+	}
+
+	cout << "ally defend move" << endl;
 	if (_newBoard.isAttacked() == true)
-		cout << "ally defend move" << endl;
+		{ _nextMove = _newBoard.getCounterAttack(); return ; }
 }
 
 void	chessAi::endGameMove(void)
@@ -59,28 +68,28 @@ void	chessAi::randomMove(void)
 
 string	chessAi::getNextMove(void)
 {
-	_legalMoves = getLegalMoves();
+	_legalMoves = _newBoard.getLegalMoves();
 
 	// sleep(1); //
 
-	if (_newBoard.isCheckMateNextMove(true, true) == true)
-		checkMateMove();
-	else
-	{
-		if (_newBoard.isCheckMateNextMove(true) == true
-			|| _newBoard.isCheck() == true || _newBoard.isAttacked() == true)
-			defendMove();
-		else
-		{
-			if (_newBoard.isEndGame() == true)
-				endGameMove();
-			else
-			{
-				attackMove();
-				passiveMove();
-			}
-		}
-	}
+	// if (_newBoard.canItBeCheckMate(true, true) == true)
+	// 	checkMateMove();
+	// else
+	// {
+	// 	if (_newBoard.canItBeCheckMate(true) == true
+	// 		|| _newBoard.isCheck() == true || _newBoard.isAttacked() == true)
+	// 		defendMove();
+	// 	else
+	// 	{
+	// 		if (_newBoard.isEndGame() == true)
+	// 			endGameMove();
+	// 		else
+	// 		{
+	// 			attackMove();
+	// 			passiveMove();
+	// 		}
+	// 	}
+	// }
 	randomMove();
 	cout << "-" << endl;
 
