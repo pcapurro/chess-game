@@ -11,6 +11,7 @@ string  visualGame::getVisualAnswer(void)
         { chessAi ai(_board); return (ai.getNextMove()); }
     else
         answer = waitForEvent();
+
     return (answer);
 }
 
@@ -22,10 +23,10 @@ int		visualGame::visualLoop(void)
     {
         displayGame();
         answer = getVisualAnswer();
-        if (answer == "error" || answer == "end")
+        if (answer == "end")
             { _board->printEndGame(1); return (2); }
 
-        if (_board->playMove({answer, '-', answer[0], \
+        if (answer == "error" || _board->playMove({answer, '-', answer[0], \
             (string(1, answer[1]) + answer[2]), answer.c_str() + 3, false}) == FAIL)
             continue ;
         else if (_board->isAllocated() == false)
