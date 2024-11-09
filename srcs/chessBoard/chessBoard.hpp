@@ -53,8 +53,6 @@ class chessBoard
 
         ~chessBoard(void);
 
-        void    operator=(const chessBoard *originalBoard);
-
         bool    fail(void) const { return (_moveFailed); };
         bool    isAllocated(void) const;
 
@@ -77,6 +75,7 @@ class chessBoard
     private:
 
         size_t              getAtValue(const string coord) const;
+        vector<string>      getAvailaibleMoves(void);
         vector<string>      getPossibleMoves(const string coord, const bool reverse = false) const;
         vector<string>      getPiecesCoords(void) const;
 

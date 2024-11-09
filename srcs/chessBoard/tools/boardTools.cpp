@@ -23,6 +23,28 @@ vector<string>  chessBoard::getPiecesCoords(void) const
     return (coords);
 }
 
+vector<string>  chessBoard::getAvailaibleMoves(void)
+{
+    vector<string>  legalMoves;
+    vector<string>  availaibleMoves;
+
+    for (int i = 0; i != 8; i++)
+    {
+        for (int k = 0; k != 8; k++)
+        {
+            string coord = "abcdefgh"[i] + to_string(k + 1);
+            if (_board.at(getAtValue(coord)).piece != NULL && _board.at(getAtValue(coord)).piece->getColor() == _color)
+            {
+                availaibleMoves = getPossibleMoves(coord);
+                for (int j = 0; j != availaibleMoves.size(); j++)
+                    legalMoves.push_back(_board.at(getAtValue(coord)).piece->getType() + availaibleMoves.at(j));
+                availaibleMoves.clear();
+            }
+        }
+    }
+    return (legalMoves);
+}
+
 char    chessBoard::getType(const string coord) const
 {
     int     atValue;

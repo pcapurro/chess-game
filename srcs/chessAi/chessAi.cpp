@@ -7,6 +7,15 @@ chessAi::~chessAi(void) {;}
 string	chessAi::getNextMove(const chessBoard *board, const int aiSide)
 {
 	chessBoard	newBoard(board);
+	string			nextMove;
+	vector<string>	legalMoves;
+	
+	legalMoves = newBoard.getAvailaibleMoves();
+
+	cout << "possibles moves for ai >" << endl;
+	for (int i = 0; i != legalMoves.size(); i++)
+		cout << legalMoves.at(i) << " ; ";
+	cout << endl;
 
 	// if (newBoard.isCheckMateNextMove(true) == true) // defeat in 1 move
 	// 	cout << "player can checkmate next move" << endl;
