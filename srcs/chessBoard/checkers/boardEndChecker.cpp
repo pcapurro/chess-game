@@ -228,6 +228,8 @@ bool    chessBoard::isAttacked(void)
 
 bool    chessBoard::isCheckMateNextMove(const bool reverse, const bool switchPlayers)
 {
+    char    type;
+
     if (switchPlayers == true)
         ++_turn % 2 == 0 ? _color = "white" : _color = "black";
 
@@ -238,6 +240,7 @@ bool    chessBoard::isCheckMateNextMove(const bool reverse, const bool switchPla
             string coord = "abcdefgh"[i] + to_string(k + 1);
             if (_board.at(getAtValue(coord)).piece != NULL && _board.at(getAtValue(coord)).piece->getColor() != _color)
             {
+                type = _board.at(getAtValue(coord)).piece->getType();
                 vector<string>  moves = getPossibleMoves(coord, reverse);
                 for (int k = 0; k != moves.size(); k++)
                 {
@@ -245,6 +248,7 @@ bool    chessBoard::isCheckMateNextMove(const bool reverse, const bool switchPla
 
                     if (isCheckMate(-1) == true)
                     {
+                        _checkMateMove = string(1, type) + moves.at(k);
                         undoMove(moves.at(k));
                         if (switchPlayers == true)
                             --_turn % 2 == 0 ? _color = "white" : _color = "black";

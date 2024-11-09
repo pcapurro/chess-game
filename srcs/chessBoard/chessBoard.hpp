@@ -143,6 +143,8 @@ class chessBoard
         bool                _checkmate;
         bool                _draw;
 
+        string              _checkMateMove;
+
         t_move              _lastMove;
         bool                _moveFailed;
 
