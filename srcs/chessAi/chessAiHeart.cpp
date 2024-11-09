@@ -1,76 +1,64 @@
 #include "chessAi.hpp"
 
-void	chessAi::checkMateMove(string *nextMove)
+void	chessAi::checkMateMove(void)
 {
-	if (*nextMove != "")
+	if (_nextMove != "")
 		return ;
 }
 
-void	chessAi::attackMove(string *nextMove)
+void	chessAi::attackMove(void)
 {
-	if (*nextMove != "")
+	if (_nextMove != "")
 		return ;
 }
 
-void	chessAi::passiveMove(string *nextMove)
+void	chessAi::passiveMove(void)
 {
-	if (*nextMove != "")
+	if (_nextMove != "")
 		return ;
 }
 
-void	chessAi::defendMove(string *nextMove)
+void	chessAi::defendMove(void)
 {
-	if (*nextMove != "")
+	if (_nextMove != "")
 		return ;
 }
 
-void	chessAi::endGameMove(string *nextMove)
+void	chessAi::endGameMove(void)
 {
-	if (*nextMove != "")
+	if (_nextMove != "")
 		return ;
 }
 
-void	chessAi::randomMove(string *nextMove)
+void	chessAi::randomMove(void)
 {
-	if (*nextMove != "")
+	if (_nextMove != "")
 		return ;
 }
 
-string	chessAi::getNextMove(const chessBoard *board, const int aiSide)
+string	chessAi::getNextMove(void)
 {
-	string			nextMove;
+	_legalMoves = getLegalMoves();
 
-	chessBoard		newBoard(board);
-	vector<string>	legalMoves = getLegalMoves(&newBoard);
-
-	if (newBoard.isCheckMateNextMove(true) == true)
-		checkMateMove(&nextMove);
+	if (_newBoard.isCheckMateNextMove(true) == true)
+		checkMateMove();
 	else
 	{
-		if (newBoard.isCheckMateNextMove(true, true) == true)
-			defendMove(&nextMove);
+		if (_newBoard.isCheckMateNextMove(true, true) == true
+			|| _newBoard.isCheck() == true || _newBoard.isAttacked() == true)
+			defendMove();
 		else
 		{
-			if (newBoard.isEndGame() == false)
-				attackMove(&nextMove), passiveMove(&nextMove);
+			if (_newBoard.isEndGame() == true)
+				endGameMove();
 			else
-				endGameMove(&nextMove);
+			{
+				attackMove();
+				passiveMove();
+			}
 		}
 	}
-	randomMove(&nextMove);
+	randomMove();
 
-	static int i = 0;
-
-	i++;
-
-	if (i == 1)
-		return ("Pe7e5");
-	if (i == 2)
-		return ("Qd8f6");
-	if (i == 3)
-		return ("Bf8c5");
-	if (i == 4)
-		return ("Qf6f2");
-
-	return ("Qf6f2");
+	return (_nextMove);
 }

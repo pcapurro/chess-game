@@ -221,6 +221,11 @@ bool    chessBoard::isEndGame(void)
     return (false);
 }
 
+bool    chessBoard::isAttacked(void)
+{
+   return (false);
+}
+
 bool    chessBoard::isCheckMateNextMove(const bool reverse, const bool switchPlayers)
 {
     if (switchPlayers == true)

@@ -8,7 +8,7 @@ string  visualGame::getVisualAnswer(void)
 
     if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
-        return (chessAi::getNextMove(_board, _aiSide));
+        { chessAi ai(_board); return (ai.getNextMove()); }
     else
         answer = waitForEvent();
     return (answer);

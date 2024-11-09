@@ -126,6 +126,7 @@ class chessBoard
         bool    canAnyAllyPieceMove(void);
 
         bool    isCheckMateNextMove(const bool reverse, const bool switchPlayers = false);
+        bool    isAttacked(void);
         bool    isEndGame(void);
 
         bool    isCheck(void);

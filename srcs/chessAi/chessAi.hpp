@@ -6,20 +6,27 @@
 class chessAi
 {
 	public:
-		static string	getNextMove(const chessBoard *board, const int aiSide);
 
-	private:
-		chessAi(void) {};
+		chessAi(const chessBoard *board) : _newBoard(board) {};
 		~chessAi(void) {};
 
-		static void				checkMateMove(string *nextMove);
-		static void				attackMove(string *nextMove);
-		static void				passiveMove(string *nextMove);
-		static void				defendMove(string *nextMove);
-		static void				endGameMove(string *nextMove);
-		static void				randomMove(string *nextMove);
+		string	getNextMove(void);
 
-		static vector<string>	getLegalMoves(chessBoard *newBoard);
+	private:
+
+		void	checkMateMove(void);
+		void	attackMove(void);
+		void	passiveMove(void);
+		void	defendMove(void);
+		void	endGameMove(void);
+		void	randomMove(void);
+
+		vector<string>	getLegalMoves(void);
+
+		string			_nextMove;
+
+		chessBoard		_newBoard;
+		vector<string>	_legalMoves;
 
 };
 
