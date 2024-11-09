@@ -116,12 +116,47 @@ string	chessBoard::getCounterCheckMate(void)
         undoMove(legalMoves.at(i).c_str() + 1);
     }
 
-    srand(time(nullptr));
+    if (newLegalMoves.size() == 0)
+        return (move);
+    else
+    {
+        vector<string>  attackMoves;
+        vector<string>  shieldMoves;
+        vector<string>  runAwayMoves;
 
-    if (newLegalMoves.size() == 1)
-        move = newLegalMoves.at(0);
-    else if (newLegalMoves.size() > 1)
-        move = newLegalMoves.at(rand() % newLegalMoves.size());
+        for (int i = 0; i != newLegalMoves.size(); i++)
+        {
+            if (isThereSomething(newLegalMoves.at(i).c_str() + newLegalMoves.at(i).size() - 2) == true)
+                attackMoves.push_back(newLegalMoves.at(i));
+            else
+            {
+                if (newLegalMoves.at(i)[0] == 'K')
+                    runAwayMoves.push_back(newLegalMoves.at(i));
+                else
+                    shieldMoves.push_back(newLegalMoves.at(i));
+            }
+        }
+
+        vector<string>  *moves;
+
+        if (attackMoves.size() != 0)
+            moves = &attackMoves;
+        else
+        {
+            if (shieldMoves.size() != 0)
+                moves = &shieldMoves;
+            else
+            {
+                if (runAwayMoves.size() != 0)
+                    moves = &runAwayMoves;
+            }
+        }
+
+        if (moves->size() == 1)
+            move = moves->at(0);
+        if (moves->size() > 1)
+            move = moves->at(rand() % moves->size());
+    }
 
     return (move);
 }

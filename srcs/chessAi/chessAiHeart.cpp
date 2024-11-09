@@ -36,6 +36,10 @@ void	chessAi::defendMove(void)
 	{
 		cout << "counter checkmate/check move" << endl;
 		_nextMove = _newBoard.getCounterCheckMate();
+
+		if (_nextMove == "")
+			attackMove(), passiveMove();
+
 		return ;
 	}
 
