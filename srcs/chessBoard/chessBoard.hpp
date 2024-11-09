@@ -125,7 +125,8 @@ class chessBoard
         bool    canTheKingMove(void);
         bool    canAnyAllyPieceMove(void);
 
-        bool    isCheckMateNextMove(const bool reverse);
+        bool    isCheckMateNextMove(const bool reverse, const bool switchPlayers = false);
+        bool    isEndGame(void);
 
         bool    isCheck(void);
         bool    isCheckMate(const int value = 0);

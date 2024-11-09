@@ -216,8 +216,16 @@ vector<string>  chessBoard::getPossibleMoves(const string coord, const bool reve
     return (moves);
 }
 
-bool    chessBoard::isCheckMateNextMove(const bool reverse)
+bool    chessBoard::isEndGame(void)
 {
+    return (false);
+}
+
+bool    chessBoard::isCheckMateNextMove(const bool reverse, const bool switchPlayers)
+{
+    if (switchPlayers == true)
+        ++_turn % 2 == 0 ? _color = "white" : _color = "black";
+
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
@@ -231,13 +239,21 @@ bool    chessBoard::isCheckMateNextMove(const bool reverse)
                     tryMove(moves.at(k));
 
                     if (isCheckMate(-1) == true)
-                        { undoMove(moves.at(k)); return (true); }
+                    {
+                        undoMove(moves.at(k));
+                        if (switchPlayers == true)
+                            --_turn % 2 == 0 ? _color = "white" : _color = "black";
+                        return (true);
+                    }
     
                     undoMove(moves.at(k));
                 }
             }
         }
     }
+
+    if (switchPlayers == true)
+        --_turn % 2 == 0 ? _color = "white" : _color = "black";
 
     return (false);
 }

@@ -159,8 +159,6 @@ void    chessBoard::addToHistory(void)
 
 int chessBoard::playMove(t_move move, const bool free)
 {
-    // printBoard(1);
-
     _lastMove = move;
     if (isLegal() == false)
     {
