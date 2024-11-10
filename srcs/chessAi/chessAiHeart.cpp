@@ -112,5 +112,13 @@ string	chessAi::getNextMove(void)
 		randomMove();
 	}
 
+    if (_nextMove == "O-O" || _nextMove == "O-O-O")
+    {
+        if (_newBoard._gameInfo._color == "white")
+            _nextMove = "Ke1" + _nextMove;
+        else
+            _nextMove = "Ke8" + _nextMove;
+    }
+
 	return (_nextMove);
 }

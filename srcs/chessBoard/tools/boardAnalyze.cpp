@@ -422,14 +422,6 @@ string	chessBoard::getCounterProtect(void)
         }
     }
 
-    if (move == "O-O" || move == "O-O-O")
-    {
-        if (_gameInfo._color == "white")
-            move = "Ke1" + move;
-        else
-            move = "Ke8" + move;
-    }
-
     cout << "proposed solution > " << move << endl;
 
     return (move);
