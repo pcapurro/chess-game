@@ -140,6 +140,28 @@ string  chessBoard::getColor(const string coord) const
     return (color);
 }
 
+stack<chessPiece *> chessBoard::orderMaterialsByValueReversed(vector<chessPiece *> materials)
+{
+    int                 value;
+    stack<chessPiece *> stack;
+
+    for (int i = 0; i != 4; i++)
+    {
+        for (int k = 0; k != materials.size(); k++)
+        {
+            if (i == 0 && materials.at(k)->getType() == 'P')
+                stack.push(materials.at(k));
+            if (i == 1 && (materials.at(k)->getType() == 'B' || materials.at(k)->getType() == 'N'))
+                stack.push(materials.at(k));
+            if (i == 2 && materials.at(k)->getType() == 'R')
+                stack.push(materials.at(k));
+            if (i == 3 && materials.at(k)->getType() == 'Q')
+                stack.push(materials.at(k));
+        }
+    }
+    return (stack);
+}
+
 stack<chessPiece *> chessBoard::orderMaterialsByValue(vector<chessPiece *> materials)
 {
     int                 value;

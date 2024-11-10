@@ -331,7 +331,7 @@ string	chessBoard::getCounterProtect(void)
                 targetsList.push_back(_board.at(i).piece);
         }
     }
-    orderedTargets = orderMaterialsByValue(targetsList);
+    orderedTargets = orderMaterialsByValueReversed(targetsList);
     attackedOne = orderedTargets.top();
 
     cout << "attacked :" << endl;

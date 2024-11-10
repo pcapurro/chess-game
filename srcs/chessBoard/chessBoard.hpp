@@ -102,6 +102,7 @@ class chessBoard
 
         int                 getMaterialValue(const char type);
         stack<chessPiece *> orderMaterialsByValue(vector<chessPiece *> materials);
+        stack<chessPiece *> orderMaterialsByValueReversed(vector<chessPiece *> materials);
 
         string              getBestCounterMateCheck(vector<string> legalMoves);
         string              getCheckMateMove(void);
