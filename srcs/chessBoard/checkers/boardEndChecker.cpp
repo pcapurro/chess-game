@@ -131,7 +131,7 @@ void    chessBoard::unSwitchPlayers(void)
     --_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
 }
 
-void    chessBoard::tryMove(const string srcdest)
+void    chessBoard::tryMove(string srcdest)
 {
     int         atValueSrc;
     int         atValueDest;
@@ -139,26 +139,37 @@ void    chessBoard::tryMove(const string srcdest)
     string      src;
     string      dest;
 
-    src = string(1, srcdest[0]) + string(1, srcdest[1]);
-    dest = srcdest.c_str() + 2;
-
-    atValueSrc = getAtValue(src);
-    atValueDest = getAtValue(dest);
-
-    if (_board.at(atValueDest).piece != NULL)
+    if (srcdest == "O-O" || srcdest == "O-O-O")
     {
-        _savedObjects.push(_board.at(atValueDest).piece);
-        _board.at(atValueDest).piece = NULL;
+        vector<string>  castling;
+        
+        castling = getCastlingSrcsDests(srcdest);
+        tryMove(castling.at(0));
+        tryMove(castling.at(1));
     }
     else
-        _savedObjects.push(NULL);
+    {
+        src = string(1, srcdest[0]) + string(1, srcdest[1]);
+        dest = srcdest.c_str() + 2;
 
-    _board.at(atValueDest).piece = _board.at(atValueSrc).piece;
-    _board.at(atValueDest).piece->updatePos(_board.at(atValueDest).coord);
-    _board.at(atValueSrc).piece = NULL;
+        atValueSrc = getAtValue(src);
+        atValueDest = getAtValue(dest);
+
+        if (_board.at(atValueDest).piece != NULL)
+        {
+            _savedObjects.push(_board.at(atValueDest).piece);
+            _board.at(atValueDest).piece = NULL;
+        }
+        else
+            _savedObjects.push(NULL);
+
+        _board.at(atValueDest).piece = _board.at(atValueSrc).piece;
+        _board.at(atValueDest).piece->updatePos(_board.at(atValueDest).coord);
+        _board.at(atValueSrc).piece = NULL;
+    }
 }
 
-void    chessBoard::undoMove(const string srcdest)
+void    chessBoard::undoMove(string srcdest)
 {
     int         atValueSrc;
     int         atValueDest;
@@ -166,17 +177,28 @@ void    chessBoard::undoMove(const string srcdest)
     string      src;
     string      dest;
 
-    src = string(1, srcdest[0]) + string(1, srcdest[1]);
-    dest = srcdest.c_str() + 2;
+    if (srcdest == "O-O" || srcdest == "O-O-O")
+    {
+        vector<string>  castling;
+        
+        castling = getCastlingSrcsDests(srcdest);
+        undoMove(castling.at(0));
+        undoMove(castling.at(1));
+    }
+    else
+    {
+        src = string(1, srcdest[0]) + string(1, srcdest[1]);
+        dest = srcdest.c_str() + 2;
 
-    atValueSrc = getAtValue(src);
-    atValueDest = getAtValue(dest);
+        atValueSrc = getAtValue(src);
+        atValueDest = getAtValue(dest);
 
-    _board.at(atValueSrc).piece = _board.at(atValueDest).piece;
-    _board.at(atValueSrc).piece->updatePos(_board.at(atValueSrc).coord);
-    _board.at(atValueDest).piece = _savedObjects.top();
+        _board.at(atValueSrc).piece = _board.at(atValueDest).piece;
+        _board.at(atValueSrc).piece->updatePos(_board.at(atValueSrc).coord);
+        _board.at(atValueDest).piece = _savedObjects.top();
 
-    _savedObjects.pop();
+        _savedObjects.pop();
+    }
 }
 
 bool    chessBoard::doesItResolveCheck(const string srcdest)

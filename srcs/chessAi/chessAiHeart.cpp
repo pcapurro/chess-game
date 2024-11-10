@@ -80,6 +80,13 @@ string	chessAi::getNextMove(void)
 {
 	// sleep(1); //
 
+	vector<string>	legalMoves;
+	legalMoves = _newBoard.getLegalMoves();
+	cout << "legal moves: " << endl;
+	for (int i = 0; i != legalMoves.size(); i++)
+		cout << legalMoves.at(i) << " ; ";
+	cout << endl;
+
 	if (_newBoard.isCheck() == true)
 		defendMove();
 	else

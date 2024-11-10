@@ -72,6 +72,7 @@ bool    chessBoard::isSomethingNotProtected(void)
                 return (true);
         }
     }
+    return (false);
 }
 
 bool    chessBoard::isSomethingAttacked(void)
@@ -84,6 +85,9 @@ bool    chessBoard::isSomethingAttacked(void)
                 return (true);
         }
     }
+
+    cout << "nothing attacked" << endl;
+
     return (false);
 }
 
@@ -132,7 +136,7 @@ bool    chessBoard::canItBeCheckMateNow(void)
         if (_board.at(getAtValue(coord)).piece != NULL
             && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
         {
-            vector<string>  moves = getPossibleMoves(coord);
+            vector<string>  moves = getPossibleMoves(coord, true);
             for (int k = 0; k != moves.size(); k++)
             {
                 tryMove(moves.at(k));
@@ -175,7 +179,7 @@ string	chessBoard::getCheckMateMove(void)
             && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
         {
             type = _board.at(getAtValue(coord)).piece->getType();
-            moves = getPossibleMoves(coord);
+            moves = getPossibleMoves(coord, true);
 
             for (int k = 0; k != moves.size(); k++)
             {
@@ -409,13 +413,10 @@ string  chessBoard::getRandomMove(void)
     int             value;
 
     legalMoves = getLegalMoves();
-
-    for (int i = 0; i != legalMoves.size(); i++)
-        cout << legalMoves.at(i) << " ; ";
-    cout << endl;
-
     srand(time(nullptr));
+
 	value = rand() % legalMoves.size();
 	move = legalMoves.at(value);
+
     return (move);
 }

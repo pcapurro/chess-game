@@ -97,6 +97,8 @@ class chessBoard
         vector<string>      getPossibleMoves(const string coord, const int value = 0) const;
         vector<string>      getPiecesCoords(void) const;
         vector<string>	    getLegalMoves(void);
+        
+        vector<string>      getCastlingSrcsDests(const string srcdest);
 
         int                 getMaterialValue(const char type);
         stack<chessPiece *> orderMaterialsByValue(vector<chessPiece *> materials);
@@ -132,8 +134,8 @@ class chessBoard
         void    movePiece(const string initialCoord, const string newCoord, const bool free = true);
         void    removePiece(const string coord, const bool free = true);
 
-        void    tryMove(const string srcdest);
-        void    undoMove(const string srcdest);
+        void    tryMove(string srcdest);
+        void    undoMove(string srcdest);
 
         void    switchPlayers(void);
         void    unSwitchPlayers(void);

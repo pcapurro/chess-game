@@ -36,7 +36,7 @@ vector<string>  chessBoard::getAvailaibleMoves(void)
             if (_board.at(getAtValue(coord)).piece != NULL 
                 && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
             {
-                availaibleMoves = getPossibleMoves(coord);
+                availaibleMoves = getPossibleMoves(coord, true);
                 for (int j = 0; j != availaibleMoves.size(); j++)
                     legalMoves.push_back(_board.at(getAtValue(coord)).piece->getType() + availaibleMoves.at(j));
                 availaibleMoves.clear();
@@ -52,18 +52,55 @@ vector<string>	chessBoard::getLegalMoves(void)
     vector<string>	newLegalMoves;
 
 	legalMoves = getAvailaibleMoves();
+    legalMoves.push_back("O-O"), legalMoves.push_back("O-O-O");
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
-		_gameInfo._lastMove.action = '-';
-		_gameInfo._lastMove.obj = legalMoves.at(i)[0];
-		
-		_gameInfo._lastMove.src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
-		_gameInfo._lastMove.dest = legalMoves.at(i).c_str() + 3;
+        if (legalMoves.at(i) == "O-O-O" || legalMoves.at(i) == "O-O")
+        {
+            if (legalMoves.at(i) == "O-O-O")
+                _gameInfo._lastMove.dest = "O-O-O";
+            else
+                _gameInfo._lastMove.dest = "O-O";
+        }
+        else
+        {
+            _gameInfo._lastMove.action = '-';
+            _gameInfo._lastMove.obj = legalMoves.at(i)[0];
+            
+            _gameInfo._lastMove.src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
+            _gameInfo._lastMove.dest = legalMoves.at(i).c_str() + 3;
+        }
 		
 		if (isLegal() == true)
 			newLegalMoves.push_back(legalMoves.at(i));
 	}
 	return (newLegalMoves);
+}
+
+vector<string>  chessBoard::getCastlingSrcsDests(const string srcdest)
+{
+    char            y;
+    string          src;
+    string          dest;
+    vector<string>  srcsDests;
+
+    _gameInfo._color == "white" ? y = '1' : y = '8';
+
+    if (srcdest == "O-O")
+    {
+        src = "e" + y, dest = "g" + y;
+        srcsDests.push_back(src + dest);
+        src = "h" + y, dest = "f" + y;
+        srcsDests.push_back(src + dest);
+    }
+    else
+    {
+        src = "e" + y, dest = "c" + y;
+        srcsDests.push_back(src + dest);
+        src = "a" + y, dest = "d" + y;
+        srcsDests.push_back(src + dest);
+    }
+    return (srcsDests);
 }
 
 char    chessBoard::getType(const string coord) const
