@@ -336,13 +336,21 @@ string	chessBoard::getCounterProtect(void)
     cout << "priority set for " << attackedOne->getCoord() << endl;
 
     legalMoves = getLegalMoves();
+
+    string  testingMove;
+
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        tryMove(legalMoves.at(i).c_str() + 1);
-        cout << "testing " << legalMoves.at(i) << endl;
+        if (legalMoves.at(i) == "O-O" || legalMoves.at(i) == "O-O-O")
+            testingMove = legalMoves.at(i);
+        else
+            testingMove = legalMoves.at(i).c_str() + 1;
+
+        tryMove(testingMove);
+        cout << "testing " << testingMove << endl;
         if (isAttacked(attackedOne->getCoord()) == false)
             moves.push_back(legalMoves.at(i));
-        undoMove(legalMoves.at(i).c_str() + 1);
+        undoMove(testingMove);
     }
 
     cout << "possible solutions :" << endl;
