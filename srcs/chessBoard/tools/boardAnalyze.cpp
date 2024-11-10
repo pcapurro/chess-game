@@ -52,8 +52,10 @@ bool    chessBoard::isProtected(const string coord)
 
     while (attackers.size() != 0 && defenders.size() != 0)
     {
-        defenderMaterialsEearned += getMaterialValue(attackers.top()->getType()), attackers.pop();
         attackerMaterialsEarned += getMaterialValue(defenders.top()->getType()), defenders.pop();
+        if (defenders.size() == 0)
+            break ;
+        defenderMaterialsEearned += getMaterialValue(attackers.top()->getType()), attackers.pop();
     }
 
     if (attackerMaterialsEarned > defenderMaterialsEearned)
@@ -345,6 +347,13 @@ string	chessBoard::getCounterProtect(void)
             testingMove = legalMoves.at(i);
         else
             testingMove = legalMoves.at(i).c_str() + 1;
+
+        if (testingMove == "O-O" || testingMove == "O-O-O")
+        {
+            cout << "returning castle" << endl;
+            sleep(1);
+            return (testingMove);
+        }
 
         tryMove(testingMove);
         cout << "testing " << testingMove << endl;
