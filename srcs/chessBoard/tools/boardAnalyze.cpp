@@ -328,10 +328,62 @@ string	chessBoard::getCounterProtect(void)
         undoMove(legalMoves.at(i).c_str() + 1);
     }
 
-    if (moves.size() == 1)
-        move = moves.at(0);
-    if (moves.size() > 1)
-        srand(time(nullptr)), move = moves.at(rand() % moves.size());
+    vector<string>  runAway;
+    vector<string>  protectNormal;
+    vector<string>  protectWithPawn;
+    string          src;
+
+    for (int i = 0; i != moves.size(); i++)
+    {
+        src = string(1, moves.at(i)[1]) + moves.at(i)[2];
+        if (src == attackedOne->getCoord())
+            runAway.push_back(moves.at(i));
+        else
+        {
+            if (moves.at(i)[0] == 'P')
+                protectWithPawn.push_back(moves.at(i));
+            else
+                protectNormal.push_back(moves.at(i));
+        }
+    }
+
+    srand(time(nullptr));
+
+    if (isAttackedByPawn(attackedOne->getCoord()) == true
+        && attackedOne->getType() != 'P')
+    {
+        if (runAway.size() == 1)
+            move = runAway.at(0);
+        if (runAway.size() > 1)
+            move = runAway.at(rand() % runAway.size());
+    }
+    else
+    {
+        if (protectWithPawn.size() >= 1)
+        {
+            if (protectWithPawn.size() == 1)
+                move = protectWithPawn.at(0);
+            else
+                move = protectWithPawn.at(rand() % protectWithPawn.size());
+        }
+        else
+        {
+            if (protectNormal.size() >= 1)
+            {
+                if (protectNormal.size() == 1)
+                    move = protectNormal.at(0);
+                else
+                    move = protectNormal.at(rand() % protectNormal.size());
+            }
+            else if (runAway.size() >= 1)
+            {
+                if (runAway.size() == 1)
+                    move = runAway.at(0);
+                else
+                    move = runAway.at(rand() % runAway.size());
+            }
+        }
+    }
 
     cout << "proposed solution > " << move << endl;
 
