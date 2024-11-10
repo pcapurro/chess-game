@@ -7,6 +7,8 @@ bool    chessBoard::isEndGame(void)
 
 bool    chessBoard::isProtected(const string coord)
 {
+    int                     attackerMaterialsEarned = 0;
+    int                     defenderMaterialsEearned = 0;
     vector<chessPiece *>    attackMaterials;
     vector<chessPiece *>    defMaterials;
     stack<chessPiece *>     attackers;
@@ -28,8 +30,13 @@ bool    chessBoard::isProtected(const string coord)
             }
         }
     }
-    attackers = orderMaterialsByValue(attackMaterials);
     defenders = orderMaterialsByValue(defMaterials);
+
+    if (defenders.size() == 0)
+        return (false);
+
+    defenders.push(_board.at(getAtValue(coord)).piece);
+    attackers = orderMaterialsByValue(attackMaterials);
 
     cout << "attackers >" << endl;
     while (attackers.size() != 0)
@@ -39,14 +46,18 @@ bool    chessBoard::isProtected(const string coord)
     while (defenders.size() != 0)
         cout << defenders.top()->getType() << endl, defenders.pop();
 
-    // if (defenders.size() == 0)
-    //     return (true);
+    defenders = orderMaterialsByValue(defMaterials);
+    defenders.push(_board.at(getAtValue(coord)).piece);
+    attackers = orderMaterialsByValue(attackMaterials);
 
-    // if (attackers.size() > defenders.size())
-    // {
-    //     cout << "more attackers than defenders" << endl;
-    //     return (true);
-    // }
+    while (attackers.size() != 0 && defenders.size() != 0)
+    {
+        defenderMaterialsEearned += getMaterialValue(attackers.top()->getType()), attackers.pop();
+        attackerMaterialsEarned += getMaterialValue(defenders.top()->getType()), defenders.pop();
+    }
+
+    if (attackerMaterialsEarned > defenderMaterialsEearned)
+        return (false);
 
     return (true);
 }
@@ -75,8 +86,7 @@ bool    chessBoard::isAttacked(const string coord)
         {
             if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
             {
-                if ((_board.at(i).piece->getType() == 'P' && _board.at(getAtValue(coord)).piece->getType() != 'P')
-                    || isProtected(coord) == false)
+                if (isProtected(coord) == false)
                 {
                     cout << coord << " is attacked and not protected" << endl;
                     return (true);
