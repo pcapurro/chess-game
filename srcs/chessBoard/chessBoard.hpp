@@ -94,7 +94,7 @@ class chessBoard
 
         size_t              getAtValue(const string coord) const;
         vector<string>      getAvailaibleMoves(void);
-        vector<string>      getPossibleMoves(const string coord) const;
+        vector<string>      getPossibleMoves(const string coord, const int value = 0) const;
         vector<string>      getPiecesCoords(void) const;
         vector<string>	    getLegalMoves(void);
 
@@ -144,6 +144,9 @@ class chessBoard
 
         bool    isItValidSource(void) const;
 
+        bool    isProtected(const string coord);
+        bool    isAttacked(const string coord);
+
         bool    isThereSomething(const string coord) const;
         bool    isThereAlly(void) const;
         bool    isRightSide(void) const;
@@ -159,8 +162,6 @@ class chessBoard
 
         bool    canItBeCheckMateNow(void);
         bool    canItBeCheckMateNext(void);
-        bool    isAttacked(void);
-        bool    isProtected(void);
         bool    isEndGame(void);
 
         bool    isCheck(void);

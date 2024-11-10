@@ -190,7 +190,7 @@ bool    chessBoard::doesItResolveCheck(const string srcdest)
     return (true);
 }
 
-vector<string>  chessBoard::getPossibleMoves(const string coord) const
+vector<string>  chessBoard::getPossibleMoves(const string coord, const int value) const
 {
     int             atValue;
     vector<string>  moves;
@@ -206,7 +206,7 @@ vector<string>  chessBoard::getPossibleMoves(const string coord) const
         for (int k = 0; k != 8; k++)
         {
             actualCoords[1] = actualCoords[1] + 1;
-            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords, 0, _gameInfo._enPassantDest) == true)
+            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords, value, _gameInfo._enPassantDest) == true)
             {
                 if ((_board.at(getAtValue(actualCoords)).piece == NULL 
                     || _board.at(getAtValue(actualCoords)).piece->getColor() != _gameInfo._color))

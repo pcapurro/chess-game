@@ -5,14 +5,40 @@ bool    chessBoard::isEndGame(void)
     return (false);
 }
 
-bool    chessBoard::isProtected(void)
+bool    chessBoard::isProtected(const string coord)
 {
-   return (false);
+    vector<string>  boardCoords;
+
+    boardCoords = getPiecesCoords();
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color
+            && _board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
+        {
+            ;
+        }
+    }
+
+    return (false);
 }
 
-bool    chessBoard::isAttacked(void)
+bool    chessBoard::isAttacked(const string coord)
 {
-   return (false);
+    vector<string>  boardCoords;
+
+    boardCoords = getPiecesCoords();
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
+        {
+            if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
+            {
+                if (_board.at(i).piece->getType() == 'P' || isProtected(coord) == false)
+                    return (true);
+            }
+        }
+    }
+    return (false);
 }
 
 bool    chessBoard::canItBeCheckMateNow(void)
