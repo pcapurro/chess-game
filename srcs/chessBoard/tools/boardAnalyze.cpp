@@ -114,11 +114,14 @@ bool    chessBoard::isAttacked(const string coord)
 
 bool    chessBoard::isAttackedByPawn(const string coord)
 {
+    vector<string>  boardCoords;
+
+    boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
         {
-            if (_board.at(i).piece->isOnMyWay(coord) == true && _board.at(i).piece->getType() == 'P')
+            if (_board.at(i).piece->getType() == 'P' && _board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
                 return (true);
         }
     }
@@ -333,7 +336,7 @@ string	chessBoard::getCounterProtect(void)
 
     cout << "attacked :" << endl;
     for (int i = 0; i != targetsList.size(); i++)
-        cout << targetsList.at(i)->getCoord() << " ; ";
+        cout << targetsList.at(i)->getCoord() << "-" << targetsList.at(i)->getType() << " ; ";
     cout << endl;
     cout << "priority set for " << attackedOne->getCoord() << endl;
 

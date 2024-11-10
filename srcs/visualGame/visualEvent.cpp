@@ -4,6 +4,9 @@ string visualGame::getInput(const string coord)
 {
     string  input;
 
+    if (_droppedSrc == "none" || coord == "none")
+        return ("none");
+
     input = input + _board->getType(_droppedSrc);
     input = input + _droppedSrc + coord;
 
