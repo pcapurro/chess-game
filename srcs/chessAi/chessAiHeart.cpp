@@ -53,7 +53,10 @@ void	chessAi::defendMove(void)
 
 	cout << "ally defend move" << endl;
 	if (_newBoard.isSomethingAttacked() == true)
-		_nextMove = _newBoard.getCounterAttack();
+		_nextMove = _newBoard.getCounterProtect();
+
+	if (_nextMove == "")
+		attackMove(), passiveMove();
 }
 
 void	chessAi::endGameMove(void)

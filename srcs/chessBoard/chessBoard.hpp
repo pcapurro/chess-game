@@ -107,7 +107,7 @@ class chessBoard
 
         string              getCounterStrike(void);
         string              getCounterCheckMate(void);
-        string              getCounterAttack(void);
+        string              getCounterProtect(void);
         string              getRandomMove(void);
 
         void    printWhiteBoard(void) const;
@@ -149,6 +149,7 @@ class chessBoard
 
         bool    isProtected(const string coord);
         bool    isAttacked(const string coord);
+        bool    isAttackedByPawn(const string coord);
 
         bool    isSomethingAttacked(void);
 

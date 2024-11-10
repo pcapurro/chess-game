@@ -38,17 +38,17 @@ bool    chessBoard::isProtected(const string coord)
     defenders.push(_board.at(getAtValue(coord)).piece);
     attackers = orderMaterialsByValue(attackMaterials);
 
-    cout << "attackers >" << endl;
-    while (attackers.size() != 0)
-        cout << attackers.top()->getType() << endl, attackers.pop();
-    cout << endl;
-    cout << "defenders >" << endl;
-    while (defenders.size() != 0)
-        cout << defenders.top()->getType() << endl, defenders.pop();
+    // cout << "attackers >" << endl;
+    // while (attackers.size() != 0)
+    //     cout << attackers.top()->getType() << endl, attackers.pop();
+    // cout << endl;
+    // cout << "defenders >" << endl;
+    // while (defenders.size() != 0)
+    //     cout << defenders.top()->getType() << endl, defenders.pop();
 
-    defenders = orderMaterialsByValue(defMaterials);
-    defenders.push(_board.at(getAtValue(coord)).piece);
-    attackers = orderMaterialsByValue(attackMaterials);
+    // defenders = orderMaterialsByValue(defMaterials);
+    // defenders.push(_board.at(getAtValue(coord)).piece);
+    // attackers = orderMaterialsByValue(attackMaterials);
 
     while (attackers.size() != 0 && defenders.size() != 0)
     {
@@ -87,11 +87,21 @@ bool    chessBoard::isAttacked(const string coord)
             if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
             {
                 if (isProtected(coord) == false)
-                {
-                    cout << coord << " is attacked and not protected" << endl;
                     return (true);
-                }
             }
+        }
+    }
+    return (false);
+}
+
+bool    chessBoard::isAttackedByPawn(const string coord)
+{
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
+        {
+            if (_board.at(i).piece->isOnMyWay(coord) == true && _board.at(i).piece->getType() == 'P')
+                return (true);
         }
     }
     return (false);
@@ -281,9 +291,49 @@ string	chessBoard::getCounterCheckMate(void)
     return (move);
 }
 
-string	chessBoard::getCounterAttack(void)
+string	chessBoard::getCounterProtect(void)
 {
-	string  move;
+	string                  move;
+    vector<chessPiece *>    targetsList;
+    vector<string>          legalMoves;
+    vector<string>          moves;
+    stack<chessPiece *>     orderedTargets;
+    chessPiece              *attackedOne;
+
+    cout << "getting counter protect..." << endl;
+
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+        {
+            if (isAttacked(_board.at(i).coord) == true)
+                targetsList.push_back(_board.at(i).piece);
+        }
+    }
+    orderedTargets = orderMaterialsByValue(targetsList);
+    attackedOne = orderedTargets.top();
+
+    cout << "attacked :" << endl;
+    for (int i = 0; i != targetsList.size(); i++)
+        cout << targetsList.at(i)->getCoord() << " ; ";
+    cout << endl;
+    cout << "priority set for " << attackedOne->getCoord() << endl;
+
+    legalMoves = getLegalMoves();
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        tryMove(legalMoves.at(i).c_str() + 1);
+        if (isAttacked(attackedOne->getCoord()) == false)
+            moves.push_back(legalMoves.at(i));
+        undoMove(legalMoves.at(i).c_str() + 1);
+    }
+
+    if (moves.size() == 1)
+        move = moves.at(0);
+    if (moves.size() > 1)
+        srand(time(nullptr)), move = moves.at(rand() % moves.size());
+
+    cout << "proposed solution > " << move << endl;
 
     return (move);
 }
