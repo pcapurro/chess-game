@@ -36,7 +36,7 @@ vector<string>  chessBoard::getAvailaibleMoves(void)
             if (_board.at(getAtValue(coord)).piece != NULL 
                 && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
             {
-                availaibleMoves = getPossibleMoves(coord, true);
+                availaibleMoves = getPossibleMoves(coord);
                 for (int j = 0; j != availaibleMoves.size(); j++)
                     legalMoves.push_back(_board.at(getAtValue(coord)).piece->getType() + availaibleMoves.at(j));
                 availaibleMoves.clear();
