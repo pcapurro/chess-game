@@ -27,7 +27,7 @@ SRCS = srcs/main.cpp \
 	srcs/chessBoard/tools/boardCounter.cpp \
 	srcs/chessBoard/tools/boardPrint.cpp \
 	srcs/chessBoard/tools/boardTools.cpp \
-	srcs/chessBoard/tools/analyzeTools.cpp \
+	srcs/chessBoard/tools/boardAnalyze.cpp \
 	srcs/chessBoard/boardInit.cpp \
 	srcs/chessBoard/boardFree.cpp \
 	srcs/chessBoard/checkers/boardEndChecker.cpp \

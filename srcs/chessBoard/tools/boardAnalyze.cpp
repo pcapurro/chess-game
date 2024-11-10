@@ -100,6 +100,81 @@ string	chessBoard::getCounterStrike(void)
     return (move);
 }
 
+string  chessBoard::getBestCounterMateCheck(vector<string> legalMoves)
+{
+    string          src;
+    string          dest;
+    string          move;
+
+    vector<string>  attackMoves;
+    vector<string>  shieldMoves;
+    vector<string>  runAwayMoves;
+
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        src = string(1, legalMoves.at(i)[0]) + legalMoves.at(i)[1];
+        dest = legalMoves.at(i).c_str() + legalMoves.at(i).length() - 3;
+        if (algebraParser::isChessPiece(dest[dest.length() - 1]) == true)
+            dest.erase(dest.length() - 1);
+        else
+            dest = dest.c_str() + 1;
+        
+        if (_board.at(getAtValue(dest)).piece != NULL
+            && _board.at(getAtValue(dest)).piece->isOnMyWay(src) == false)
+            attackMoves.push_back(legalMoves.at(i));
+        else
+        {
+            if (legalMoves.at(i)[0] == 'K')
+                runAwayMoves.push_back(legalMoves.at(i));
+            else
+                shieldMoves.push_back(legalMoves.at(i));
+        }
+    }
+
+    vector<string>  *moves;
+
+    if (attackMoves.size() != 0)
+        moves = &attackMoves;
+    else
+    {
+        if (shieldMoves.size() != 0)
+            moves = &shieldMoves;
+        else
+        {
+            if (runAwayMoves.size() != 0)
+                moves = &runAwayMoves;
+        }
+    }
+
+    if (moves->size() == 1)
+        move = moves->at(0);
+    if (moves->size() > 1)
+        move = moves->at(rand() % moves->size());
+
+    return (move);
+}
+
+string  chessBoard::getCounterCheck(void)
+{
+    string          move;
+    vector<string>  legalMoves;
+    vector<string>  newLegalMoves;
+
+    legalMoves = getLegalMoves();
+
+    for (int i = 0; i != legalMoves.size(); i++)
+    {   
+        tryMove(legalMoves.at(i).c_str() + 1);
+        if (isCheck() == false)
+            newLegalMoves.push_back(legalMoves.at(i));
+        undoMove(legalMoves.at(i).c_str() + 1);
+    }
+
+    move = getBestCounterMateCheck(newLegalMoves);
+
+    return (move);
+}
+
 string	chessBoard::getCounterCheckMate(void)
 {
     string          move;
@@ -119,55 +194,7 @@ string	chessBoard::getCounterCheckMate(void)
     if (newLegalMoves.size() == 0)
         return (move);
     else
-    {
-        string          src;
-        string          dest;
-
-        vector<string>  attackMoves;
-        vector<string>  shieldMoves;
-        vector<string>  runAwayMoves;
-
-        for (int i = 0; i != newLegalMoves.size(); i++)
-        {
-            src = string(1, newLegalMoves.at(i)[0]) + newLegalMoves.at(i)[1];
-            dest = newLegalMoves.at(i).c_str() + newLegalMoves.at(i).length() - 3;
-            if (algebraParser::isChessPiece(dest[dest.length() - 1]) == true)
-                dest.erase(dest.length() - 1);
-            else
-                dest = dest.c_str() + 1;
-            
-            if (_board.at(getAtValue(dest)).piece != NULL
-                && _board.at(getAtValue(dest)).piece->isOnMyWay(src) == false)
-                attackMoves.push_back(newLegalMoves.at(i));
-            else
-            {
-                if (newLegalMoves.at(i)[0] == 'K')
-                    runAwayMoves.push_back(newLegalMoves.at(i));
-                else
-                    shieldMoves.push_back(newLegalMoves.at(i));
-            }
-        }
-
-        vector<string>  *moves;
-
-        if (attackMoves.size() != 0)
-            moves = &attackMoves;
-        else
-        {
-            if (shieldMoves.size() != 0)
-                moves = &shieldMoves;
-            else
-            {
-                if (runAwayMoves.size() != 0)
-                    moves = &runAwayMoves;
-            }
-        }
-
-        if (moves->size() == 1)
-            move = moves->at(0);
-        if (moves->size() > 1)
-            move = moves->at(rand() % moves->size());
-    }
+        move = getBestCounterMateCheck(newLegalMoves);
 
     return (move);
 }
@@ -186,6 +213,11 @@ string  chessBoard::getRandomMove(void)
     int             value;
 
     legalMoves = getLegalMoves();
+
+    for (int i = 0; i != legalMoves.size(); i++)
+        cout << legalMoves.at(i) << " ; ";
+    cout << endl;
+
     srand(time(nullptr));
 	value = rand() % legalMoves.size();
 	move = legalMoves.at(value);

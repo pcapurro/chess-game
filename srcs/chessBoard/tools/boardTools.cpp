@@ -49,6 +49,7 @@ vector<string>  chessBoard::getAvailaibleMoves(void)
 vector<string>	chessBoard::getLegalMoves(void)
 {
 	vector<string>	legalMoves;
+    vector<string>	newLegalMoves;
 
 	legalMoves = getAvailaibleMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
@@ -59,8 +60,8 @@ vector<string>	chessBoard::getLegalMoves(void)
 		_gameInfo._lastMove.src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
 		_gameInfo._lastMove.dest = legalMoves.at(i).c_str() + 3;
 		
-		if (isLegal() == false)
-			legalMoves.at(i) = "";
+		if (isLegal() == true)
+			newLegalMoves.push_back(legalMoves.at(i));
 	}
 	return (legalMoves);
 }

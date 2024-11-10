@@ -98,7 +98,10 @@ class chessBoard
         vector<string>      getPiecesCoords(void) const;
         vector<string>	    getLegalMoves(void);
 
+        string              getBestCounterMateCheck(vector<string> legalMoves);
         string              getCheckMateMove(void);
+        string              getCounterCheck(void);
+
         string              getCounterStrike(void);
         string              getCounterCheckMate(void);
         string              getCounterAttack(void);
