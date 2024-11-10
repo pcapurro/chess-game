@@ -348,13 +348,6 @@ string	chessBoard::getCounterProtect(void)
         else
             testingMove = legalMoves.at(i).c_str() + 1;
 
-        if (testingMove == "O-O" || testingMove == "O-O-O")
-        {
-            cout << "returning castle" << endl;
-            sleep(1);
-            return (testingMove);
-        }
-
         tryMove(testingMove);
         cout << "testing " << testingMove << endl;
         if (isAttacked(attackedOne->getCoord()) == false)
@@ -427,6 +420,14 @@ string	chessBoard::getCounterProtect(void)
                     move = runAway.at(rand() % runAway.size());
             }
         }
+    }
+
+    if (move == "O-O" || move == "O-O-O")
+    {
+        if (_gameInfo._color == "white")
+            move = "Ke1" + move;
+        else
+            move = "Ke8" + move;
     }
 
     cout << "proposed solution > " << move << endl;
