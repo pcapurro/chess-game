@@ -7,19 +7,48 @@ bool    chessBoard::isEndGame(void)
 
 bool    chessBoard::isProtected(const string coord)
 {
-    vector<string>  boardCoords;
+    vector<chessPiece *>    attackMaterials;
+    vector<chessPiece *>    defMaterials;
+    stack<chessPiece *>     attackers;
+    stack<chessPiece *>     defenders;
 
-    boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color
-            && _board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
+        if (_board.at(i).piece != NULL)
         {
-            ;
+            if (_board.at(i).piece->getColor() != _gameInfo._color)
+            {
+                if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
+                    attackMaterials.push_back(_board.at(i).piece);
+            }
+            else if (_board.at(i).coord != coord)
+            {
+                if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
+                    defMaterials.push_back(_board.at(i).piece);
+            }
         }
     }
+    attackers = orderMaterialsByValue(attackMaterials);
+    defenders = orderMaterialsByValue(defMaterials);
 
-    return (false);
+    cout << "attackers >" << endl;
+    while (attackers.size() != 0)
+        cout << attackers.top()->getType() << endl, attackers.pop();
+    cout << endl;
+    cout << "defenders >" << endl;
+    while (defenders.size() != 0)
+        cout << defenders.top()->getType() << endl, defenders.pop();
+
+    // if (defenders.size() == 0)
+    //     return (true);
+
+    // if (attackers.size() > defenders.size())
+    // {
+    //     cout << "more attackers than defenders" << endl;
+    //     return (true);
+    // }
+
+    return (true);
 }
 
 bool    chessBoard::isSomethingAttacked(void)
@@ -46,8 +75,12 @@ bool    chessBoard::isAttacked(const string coord)
         {
             if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
             {
-                if (_board.at(i).piece->getType() == 'P' || isProtected(coord) == false)
+                if ((_board.at(i).piece->getType() == 'P' && _board.at(getAtValue(coord)).piece->getType() != 'P')
+                    || isProtected(coord) == false)
+                {
+                    cout << coord << " is attacked and not protected" << endl;
                     return (true);
+                }
             }
         }
     }

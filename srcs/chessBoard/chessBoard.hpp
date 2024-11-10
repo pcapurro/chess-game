@@ -98,6 +98,9 @@ class chessBoard
         vector<string>      getPiecesCoords(void) const;
         vector<string>	    getLegalMoves(void);
 
+        int                 getMaterialValue(const char type);
+        stack<chessPiece *> orderMaterialsByValue(vector<chessPiece *> materials);
+
         string              getBestCounterMateCheck(vector<string> legalMoves);
         string              getCheckMateMove(void);
         string              getCounterCheck(void);
