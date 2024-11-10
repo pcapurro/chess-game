@@ -86,7 +86,7 @@ bool    chessBoard::isAttacked(const string coord)
         {
             if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
             {
-                if (isProtected(coord) == false)
+                if (isProtected(coord) == false && isProtected(_board.at(i).coord))
                     return (true);
             }
         }

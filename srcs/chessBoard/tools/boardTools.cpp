@@ -63,7 +63,7 @@ vector<string>	chessBoard::getLegalMoves(void)
 		if (isLegal() == true)
 			newLegalMoves.push_back(legalMoves.at(i));
 	}
-	return (legalMoves);
+	return (newLegalMoves);
 }
 
 char    chessBoard::getType(const string coord) const
