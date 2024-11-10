@@ -22,6 +22,19 @@ bool    chessBoard::isProtected(const string coord)
     return (false);
 }
 
+bool    chessBoard::isSomethingAttacked(void)
+{
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+        {
+            if (isAttacked(_board.at(i).coord) == true)
+                return (true);
+        }
+    }
+    return (false);
+}
+
 bool    chessBoard::isAttacked(const string coord)
 {
     vector<string>  boardCoords;

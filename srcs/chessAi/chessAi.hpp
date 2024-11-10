@@ -3,6 +3,12 @@
 
 # include "../chessBoard/chessBoard.hpp"
 
+# define P 1
+# define N 3
+# define B 3
+# define R 5
+# define Q 9
+
 class chessAi
 {
 	public:

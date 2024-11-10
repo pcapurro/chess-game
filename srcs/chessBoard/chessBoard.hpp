@@ -147,6 +147,8 @@ class chessBoard
         bool    isProtected(const string coord);
         bool    isAttacked(const string coord);
 
+        bool    isSomethingAttacked(void);
+
         bool    isThereSomething(const string coord) const;
         bool    isThereAlly(void) const;
         bool    isRightSide(void) const;
