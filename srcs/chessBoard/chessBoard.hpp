@@ -152,6 +152,7 @@ class chessBoard
         bool    isAttackedByPawn(const string coord);
 
         bool    isSomethingAttacked(void);
+        bool    isSomethingNotProtected(void);
 
         bool    isThereSomething(const string coord) const;
         bool    isThereAlly(void) const;

@@ -62,6 +62,18 @@ bool    chessBoard::isProtected(const string coord)
     return (true);
 }
 
+bool    chessBoard::isSomethingNotProtected(void)
+{
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
+        {
+            if (isProtected(_board.at(i).coord) == false)
+                return (true);
+        }
+    }
+}
+
 bool    chessBoard::isSomethingAttacked(void)
 {
     for (int i = 0; i != 64; i++)
