@@ -177,6 +177,52 @@ string  chessBoard::getPassiveMove(void)
         return ("O-O-O");
     _gameInfo._lastMove.dest.clear();
 
+    cout << "no castling" << endl;
+
+    vector<string>  legalMoves;
+
+    legalMoves = getLegalMoves();
+
+    string nb1, nb2;
+
+    if (_gameInfo._color == "white")
+        nb1 = "1", nb2 = "3";
+    else
+        nb1 = "8", nb2 = "6";
+
+    cout << "analyzing dev" << endl;
+
+    if (_board.at(getAtValue(string(1, 'g') + nb1)).piece != NULL && _board.at(getAtValue(string(1, 'g') + nb1)).piece->getType() == 'N'
+        && _board.at(getAtValue(string(1, 'g') + nb1)).piece->getColor() == _gameInfo._color)
+    {
+        cout << "ok1" << endl;
+        cout << "testing if " << "Ng" + nb1 + 'f' + nb2 << " is in legalmoves" << endl;
+        if (find(legalMoves.begin(), legalMoves.end(), "Ng" + nb1 + 'f' + nb2) != legalMoves.end())
+        {
+            cout << "ok2" << endl;
+            cout << "testing " << "Ng" + nb1 + 'f' + nb2 << endl;
+            tryMove("g" + nb1 + 'f' + nb2);
+            if (isProtected("Ng" + nb1 + 'f' + nb2) == true)
+                { undoMove("g" + nb1 + 'f' + nb2); cout << "developing cav" << endl; return ("Ng" + nb1 + 'f' + nb2); }
+            undoMove("g" + nb1 + 'f' + nb2);
+        }
+    }
+    if (_board.at(getAtValue(string(1, 'b') + nb1)).piece != NULL && _board.at(getAtValue(string(1, 'b') + nb1)).piece->getType() == 'N'
+        && _board.at(getAtValue(string(1, 'b') + nb1)).piece->getColor() == _gameInfo._color)
+    {
+        cout << "ok1" << endl;
+        cout << "testing if " << "Nb" + nb1 + 'c' + nb2 << " is in legalmoves" << endl;
+        if (find(legalMoves.begin(), legalMoves.end(), "Nb" + nb1 + 'c' + nb2) != legalMoves.end())
+        {
+            cout << "ok2" << endl;
+            cout << "testing " << "Nb" + nb1 + 'c' + nb2 << endl;
+            tryMove("b" + nb1 + 'c' + nb2);
+            if (isProtected("Nb" + nb1 + 'c' + nb2) == true)
+                { undoMove("b" + nb1 + 'c' + nb2); cout << "developing cav" << endl; return ("Nb" + nb1 + 'c' + nb2); }
+            undoMove("b" + nb1 + 'c' + nb2);
+        }
+    }
+
     return ("");
 }
 

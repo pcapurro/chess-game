@@ -28,8 +28,8 @@ void	chessAi::passiveMove(void)
 	if (_nextMove != "")
 		return ;
 
-	_nextMove = _newBoard.getPassiveMove();
 	cout << "passive move" << endl;
+	_nextMove = _newBoard.getPassiveMove();
 }
 
 void	chessAi::defendMove(void)
@@ -105,13 +105,13 @@ string	chessAi::getNextMove(void)
 			// 	defendMove();
 			// else
 			// {
-				if (_newBoard.isEndGame() == true)
-					endGameMove();
-				else
-				{
-					attackMove();
+				// if (_newBoard.isEndGame() == true)
+					// endGameMove();
+				// else
+				// {
+					// attackMove();
 					passiveMove();
-				}
+				// }
 			// }
 		}
 		randomMove();
