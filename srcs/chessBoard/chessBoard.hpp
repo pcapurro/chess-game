@@ -114,7 +114,7 @@ class chessBoard
         string              getKnightsDev(void);
         string              getPassiveMove(void);
 
-        string              preventCastling(void);
+        string              preventCastling(const string castle);
         string              getCounterStrike(void);
 
         string              getCounterCheck(void);

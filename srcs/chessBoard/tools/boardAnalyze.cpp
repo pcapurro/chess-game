@@ -352,8 +352,27 @@ string	chessBoard::getCheckMateMove(void)
     return ("");
 }
 
-string  chessBoard::preventCastling(void)
+string  chessBoard::preventCastling(const string castle)
 {
+    vector<string>  legalMoves;
+
+    unSwitchPlayers();
+    legalMoves = getLegalMoves();
+    switchPlayers();
+
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        tryMove(legalMoves.at(i).c_str() + 1);
+        if (isCastlingPossible(castle) == false)
+        {
+            unSwitchPlayers();
+            if (isProtected(legalMoves.at(i).c_str() + 3) == true)
+                { switchPlayers(); undoMove(legalMoves.at(i).c_str() + 1); cout << "proposed anti castling solution >" << legalMoves.at(i) << endl; return (legalMoves.at(i)); }
+            switchPlayers();
+        }
+        undoMove(legalMoves.at(i).c_str() + 1);
+    }
+    
     return ("");
 }
 
@@ -366,11 +385,15 @@ string	chessBoard::getCounterStrike(void)
     {
         cout << "analyzing castling..." << endl;
         if (isCastlingPossible("O-O") == true)
+        {
             cout << "enemy can O-O" << endl;
-            // move = preventCastling();
+            move = preventCastling("O-O");
+        }
         if (isCastlingPossible("O-O-O") == true)
+        {
             cout << "enemy can O-O-O" << endl;
-            // move = preventCastling();
+            move = preventCastling("O-O-O");
+        }
     }
     unSwitchPlayers();
 
