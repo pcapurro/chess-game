@@ -15,7 +15,12 @@ void	chessAi::attackMove(void)
 		return ;
 	
 	_nextMove = _newBoard.getCounterStrike();
-	cout << "attack move" << endl;
+	cout << "searching for attack move" << endl;
+
+	if (_nextMove == "")
+		cout << "no attack found" << endl;
+	else
+		cout << "attack found > " << _nextMove << endl;
 }
 
 void	chessAi::passiveMove(void)
@@ -95,17 +100,17 @@ string	chessAi::getNextMove(void)
 			checkMateMove();
 		else
 		{
-			if (_newBoard.isDefeatNext() == true || _newBoard.isAllyAttacked() == true)
-				defendMove();
+			// if (_newBoard.isDefeatNext() == true || _newBoard.isAllyAttacked() == true)
+			// 	defendMove();
 			// else
 			// {
-			// 	if (_newBoard.isEndGame() == true)
-			// 		endGameMove();
-			// 	else
-			// 	{
-			// 		attackMove();
-			// 		passiveMove();
-			// 	}
+				if (_newBoard.isEndGame() == true)
+					endGameMove();
+				else
+				{
+					attackMove();
+					passiveMove();
+				}
 			// }
 		}
 		randomMove();

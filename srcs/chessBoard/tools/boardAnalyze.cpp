@@ -32,26 +32,19 @@ bool    chessBoard::isProtected(const string coord)
     }
     if (attackMaterials.size() == 0)
         return (true);
+
+    cout << "attackers >" << endl;
+    for (int i = 0; i != attackMaterials.size(); i++)
+        cout << attackMaterials.at(i) << " ; ";
+    cout << endl;
+
     if (defMaterials.size() == 0)
         return (false);
 
-    cout << "defendersmaterials for " << coord << " > " << endl;
-    for (int i = 0; i != defMaterials.size(); i++)
-        cout << defMaterials.at(i)->getType() << " ; ";
-    cout << endl;
-
-    defenders = orderMaterialsByValue(defMaterials);
-    defenders.push(_board.at(getAtValue(coord)).piece);
-    attackers = orderMaterialsByValue(attackMaterials);
-
-    cout << "attackers >" << endl;
-    while (attackers.size() != 0)
-        cout << attackers.top()->getType() << endl, attackers.pop();
-    cout << endl;
     cout << "defenders >" << endl;
-
-    while (defenders.size() != 0)
-        cout << defenders.top()->getType() << endl, defenders.pop();
+    for (int i = 0; i != defMaterials.size(); i++)
+        cout << defMaterials.at(i) << " ; ";
+    cout << endl;
 
     defenders = orderMaterialsByValue(defMaterials);
     defenders.push(_board.at(getAtValue(coord)).piece);

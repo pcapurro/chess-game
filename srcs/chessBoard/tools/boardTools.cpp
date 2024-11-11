@@ -44,7 +44,7 @@ vector<string>  chessBoard::getAvailaibleMoves(void)
                     type = _board.at(getAtValue(coord)).piece->getType();
                     move = string(1, type) + availaibleMoves.at(j);
                     
-                    if (move.at(move.length() - 1) == '8' || move.at(move.length() - 1) == '1' && type == 'P')
+                    if ((move.at(move.length() - 1) == '8' || move.at(move.length() - 1) == '1') && type == 'P')
                         legalMoves.push_back(move + 'Q'), legalMoves.push_back(move + 'B'), \
                         legalMoves.push_back(move + 'N'), legalMoves.push_back(move + 'R');
                     else
