@@ -5,6 +5,16 @@ bool    chessBoard::isEndGame(void)
     return (false);
 }
 
+bool    chessBoard::isShortCastlingPossible(const string color)
+{
+    return (false);
+}
+
+bool    chessBoard::isLongCastlingPossible(const string color)
+{
+    return (false);
+}
+
 bool    chessBoard::isProtected(const string coord)
 {
     int                     attackerMaterialsEarned = 0;
@@ -13,6 +23,8 @@ bool    chessBoard::isProtected(const string coord)
     vector<chessPiece *>    defMaterials;
     stack<chessPiece *>     attackers;
     stack<chessPiece *>     defenders;
+
+    cout << "evaluating if " << coord << " is protected..." << endl;
 
     for (int i = 0; i != 64; i++)
     {
@@ -350,6 +362,11 @@ string	chessBoard::getCheckMateMove(void)
         }
     }
 
+    return ("");
+}
+
+string  chessBoard::preventCastling(void)
+{
     return ("");
 }
 

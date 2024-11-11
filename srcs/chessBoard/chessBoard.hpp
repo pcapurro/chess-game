@@ -28,8 +28,10 @@ typedef struct s_game_info
     t_move  _lastMove;
     bool    _moveFailed;
 
-    bool    _whiteCastle;
-    bool    _blackCastle;
+    bool    _whiteShortCastle;
+    bool    _whiteLongCastle;
+    bool    _blackShortCastle;
+    bool    _blackLongCastle;
     bool    _enPassant;
     string  _enPassantDest;
 
@@ -111,10 +113,11 @@ class chessBoard
         string              getBishopsDev(void);
         string              getKnightsDev(void);
         string              getPassiveMove(void);
-        
-        string              getCounterCheck(void);
 
+        string              preventCastling(void);
         string              getCounterStrike(void);
+
+        string              getCounterCheck(void);
         string              getCounterCheckMate(void);
         string              getCounterProtect(void);
         string              getRandomMove(void);
@@ -168,6 +171,8 @@ class chessBoard
         bool    isRightSide(void) const;
         bool    isTheDestinationSafe(void) const;
         bool    isCastlingPossible(void);
+        bool    isShortCastlingPossible(const string color);
+        bool    isLongCastlingPossible(const string color);
 
         bool    isLegal(void);
 

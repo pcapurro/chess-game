@@ -6,11 +6,11 @@ bool    chessBoard::isCastlingPossible(void)
 
     if (_gameInfo._color == "white")
     {
-        if (_gameInfo._whiteCastle == false)
-            return (false);
-
         if (_gameInfo._lastMove.dest == "O-O")
         {
+            if (_gameInfo._whiteShortCastle == false)
+                return (false);
+
             atValue = getAtValue("h1");
             if (_board.at(atValue).piece == NULL
                 || _board.at(atValue).piece->getMoves() != 0)
@@ -29,6 +29,9 @@ bool    chessBoard::isCastlingPossible(void)
         }
         if (_gameInfo._lastMove.dest == "O-O-O")
         {
+            if (_gameInfo._whiteLongCastle == false)
+                return (false);
+
             atValue = getAtValue("a1");
             if (_board.at(atValue).piece == NULL
                 || _board.at(atValue).piece->getMoves() != 0)
@@ -48,11 +51,11 @@ bool    chessBoard::isCastlingPossible(void)
     }
     if (_gameInfo._color == "black")
     {
-        if (_gameInfo._blackCastle == false)
-            return (false);
-
         if (_gameInfo._lastMove.dest == "O-O")
         {
+            if (_gameInfo._blackShortCastle == false)
+                return (false);
+
             atValue = getAtValue("h8");
             if (_board.at(atValue).piece == NULL
                 || _board.at(atValue).piece->getMoves() != 0)
@@ -71,6 +74,9 @@ bool    chessBoard::isCastlingPossible(void)
         }
         if (_gameInfo._lastMove.dest == "O-O-O")
         {
+            if (_gameInfo._blackLongCastle == false)
+                return (false);
+
             atValue = getAtValue("a8");
             if (_board.at(atValue).piece == NULL
                 || _board.at(atValue).piece->getMoves() != 0)

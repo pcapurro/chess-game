@@ -14,8 +14,8 @@ void	chessAi::attackMove(void)
 	if (_nextMove != "")
 		return ;
 	
-	_nextMove = _newBoard.getCounterStrike();
 	cout << "searching for attack move" << endl;
+	_nextMove = _newBoard.getCounterStrike();
 
 	if (_nextMove == "")
 		cout << "no attack found" << endl;
@@ -101,10 +101,10 @@ string	chessAi::getNextMove(void)
 			checkMateMove();
 		else
 		{
-			if (_newBoard.isDefeatNext() == true || _newBoard.isAllyAttacked() == true)
-				defendMove();
-			else
-			{
+			// if (_newBoard.isDefeatNext() == true || _newBoard.isAllyAttacked() == true)
+				// defendMove();
+			// else
+			// {
 				if (_newBoard.isEndGame() == true)
 					endGameMove();
 				else
@@ -112,7 +112,7 @@ string	chessAi::getNextMove(void)
 					attackMove();
 					passiveMove();
 				}
-			}
+			// }
 		}
 		randomMove();
 	}

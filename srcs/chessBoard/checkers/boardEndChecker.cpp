@@ -143,13 +143,9 @@ void    chessBoard::tryMove(string srcdest)
     {
         vector<string>  castling;
         
-        cout << "ok" << endl;
         castling = getCastlingSrcsDests(srcdest);
-        cout << "ok3" << endl;
         tryMove(castling.at(0));
-        cout << "ok4" << endl;
         tryMove(castling.at(1));
-        cout << "ok5" << endl;
     }
     else
     {

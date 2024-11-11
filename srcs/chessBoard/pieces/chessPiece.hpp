@@ -15,6 +15,7 @@ class chessPiece
             _color = color;
             _moves = 0;
 
+            _originalPos = pos;
             _pos = pos;
 
             _x = pos[0] - 97;
@@ -29,6 +30,7 @@ class chessPiece
         int             getMoves(void) { return (_moves); }
 
         string          getCoord(void) { return (_pos); }
+        string          getOriginalCoord(void) { return (_originalPos); }
         int             getX(void) { return (_x); }
         int             getY(void) { return (_y); }
         void            move(void) { _moves++; };
@@ -51,6 +53,7 @@ class chessPiece
 
         int     _moves;
 
+        string  _originalPos;
         string  _pos;
         int     _x;
         int     _y;
