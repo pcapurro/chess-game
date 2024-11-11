@@ -25,6 +25,8 @@ vector<string>  chessBoard::getPiecesCoords(void) const
 
 vector<string>  chessBoard::getAvailaibleMoves(void)
 {
+    char            type;
+    string          move;
     vector<string>  legalMoves;
     vector<string>  availaibleMoves;
 
@@ -38,7 +40,16 @@ vector<string>  chessBoard::getAvailaibleMoves(void)
             {
                 availaibleMoves = getPossibleMoves(coord);
                 for (int j = 0; j != availaibleMoves.size(); j++)
-                    legalMoves.push_back(_board.at(getAtValue(coord)).piece->getType() + availaibleMoves.at(j));
+                {
+                    type = _board.at(getAtValue(coord)).piece->getType();
+                    move = string(1, type) + availaibleMoves.at(j);
+                    
+                    if (move.at(move.length() - 1) == '8' || move.at(move.length() - 1) == '1' && type == 'P')
+                        legalMoves.push_back(move + 'Q'), legalMoves.push_back(move + 'B'), \
+                        legalMoves.push_back(move + 'N'), legalMoves.push_back(move + 'R');
+                    else
+                        legalMoves.push_back(move);
+                }
                 availaibleMoves.clear();
             }
         }
