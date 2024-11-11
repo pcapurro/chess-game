@@ -5,16 +5,6 @@ bool    chessBoard::isEndGame(void)
     return (false);
 }
 
-bool    chessBoard::isShortCastlingPossible(const string color)
-{
-    return (false);
-}
-
-bool    chessBoard::isLongCastlingPossible(const string color)
-{
-    return (false);
-}
-
 bool    chessBoard::isProtected(const string coord)
 {
     int                     attackerMaterialsEarned = 0;
@@ -257,13 +247,10 @@ string  chessBoard::getKnightsDev(void)
 
 string  chessBoard::getCastling(void)
 {
-    _gameInfo._lastMove.dest = "O-O";
-    if (isCastlingPossible() == true)
+    if (isCastlingPossible("O-O") == true && isCheck() == false)
         return ("O-O");
-    _gameInfo._lastMove.dest = "O-O-O";
-    if (isCastlingPossible() == true)
+    if (isCastlingPossible("O-O-O") == true && isCheck() == false)
         return ("O-O-O");
-    _gameInfo._lastMove.dest.clear();
 
     cout << "no castling" << endl;
 
@@ -373,6 +360,19 @@ string  chessBoard::preventCastling(void)
 string	chessBoard::getCounterStrike(void)
 {
 	string          move;
+
+    switchPlayers();
+    if (isCheck() == false)
+    {
+        cout << "analyzing castling..." << endl;
+        if (isCastlingPossible("O-O") == true)
+            cout << "enemy can O-O" << endl;
+            // move = preventCastling();
+        if (isCastlingPossible("O-O-O") == true)
+            cout << "enemy can O-O-O" << endl;
+            // move = preventCastling();
+    }
+    unSwitchPlayers();
 
     return (move);
 }

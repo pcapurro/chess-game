@@ -213,7 +213,7 @@ bool    chessBoard::isLegal(void)
 
     if (dest == "O-O-O" || dest == "O-O")
     {
-        if (isCastlingPossible() == false || isCheck() == true)
+        if (isCastlingPossible(dest) == false || isCheck() == true)
             return (false);
     }
     else

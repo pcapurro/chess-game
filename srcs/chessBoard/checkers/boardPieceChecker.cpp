@@ -1,12 +1,12 @@
 #include "../chessBoard.hpp"
 
-bool    chessBoard::isCastlingPossible(void)
+bool    chessBoard::isCastlingPossible(const string castle)
 {
     int atValue;
 
     if (_gameInfo._color == "white")
     {
-        if (_gameInfo._lastMove.dest == "O-O")
+        if (castle == "O-O")
         {
             if (_gameInfo._whiteShortCastle == false)
                 return (false);
@@ -27,7 +27,7 @@ bool    chessBoard::isCastlingPossible(void)
                 || doesItResolveCheck("e1f1") == false)
                 return (false);
         }
-        if (_gameInfo._lastMove.dest == "O-O-O")
+        if (castle == "O-O-O")
         {
             if (_gameInfo._whiteLongCastle == false)
                 return (false);
@@ -37,6 +37,9 @@ bool    chessBoard::isCastlingPossible(void)
                 || _board.at(atValue).piece->getMoves() != 0)
                 return (false);
             
+            atValue = getAtValue("d1");
+            if (_board.at(atValue).piece != NULL)
+                return (false);
             atValue = getAtValue("b1");
             if (_board.at(atValue).piece != NULL)
                 return (false);
@@ -51,7 +54,7 @@ bool    chessBoard::isCastlingPossible(void)
     }
     if (_gameInfo._color == "black")
     {
-        if (_gameInfo._lastMove.dest == "O-O")
+        if (castle == "O-O")
         {
             if (_gameInfo._blackShortCastle == false)
                 return (false);
@@ -72,7 +75,7 @@ bool    chessBoard::isCastlingPossible(void)
                 || doesItResolveCheck("e8g8") == false)
                 return (false);
         }
-        if (_gameInfo._lastMove.dest == "O-O-O")
+        if (castle == "O-O-O")
         {
             if (_gameInfo._blackLongCastle == false)
                 return (false);
@@ -81,7 +84,10 @@ bool    chessBoard::isCastlingPossible(void)
             if (_board.at(atValue).piece == NULL
                 || _board.at(atValue).piece->getMoves() != 0)
                 return (false);
-            
+
+            atValue = getAtValue("d8");
+            if (_board.at(atValue).piece != NULL)
+                return (false);
             atValue = getAtValue("b8");
             if (_board.at(atValue).piece != NULL)
                 return (false);

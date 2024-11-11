@@ -105,13 +105,13 @@ string	chessAi::getNextMove(void)
 				// defendMove();
 			// else
 			// {
-				if (_newBoard.isEndGame() == true)
-					endGameMove();
-				else
-				{
+				// if (_newBoard.isEndGame() == true)
+					// endGameMove();
+				// else
+				// {
 					attackMove();
-					passiveMove();
-				}
+					// passiveMove();
+				// }
 			// }
 		}
 		randomMove();
