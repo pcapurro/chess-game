@@ -221,7 +221,7 @@ string  chessBoard::getBestCounterMateCheck(vector<string> legalMoves)
 
     vector<string>  attackMoves;
     vector<string>  shieldMoves;
-    vector<string>  runAwayMoves;
+    vector<string>  othersMoves;
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
@@ -233,12 +233,13 @@ string  chessBoard::getBestCounterMateCheck(vector<string> legalMoves)
             dest = dest.c_str() + 1;
         
         if (_board.at(getAtValue(dest)).piece != NULL
-            && _board.at(getAtValue(dest)).piece->isOnMyWay(src) == false)
+            && _board.at(getAtValue(dest)).piece->isOnMyWay(src) == false
+            && legalMoves.at(i)[0] != 'K')
             attackMoves.push_back(legalMoves.at(i));
         else
         {
             if (legalMoves.at(i)[0] == 'K')
-                runAwayMoves.push_back(legalMoves.at(i));
+                othersMoves.push_back(legalMoves.at(i));
             else
                 shieldMoves.push_back(legalMoves.at(i));
         }
@@ -254,8 +255,8 @@ string  chessBoard::getBestCounterMateCheck(vector<string> legalMoves)
             moves = &shieldMoves;
         else
         {
-            if (runAwayMoves.size() != 0)
-                moves = &runAwayMoves;
+            if (othersMoves.size() != 0)
+                moves = &othersMoves;
         }
     }
 
