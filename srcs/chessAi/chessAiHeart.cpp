@@ -28,6 +28,7 @@ void	chessAi::passiveMove(void)
 	if (_nextMove != "")
 		return ;
 
+	_nextMove = _newBoard.getPassiveMove();
 	cout << "passive move" << endl;
 }
 

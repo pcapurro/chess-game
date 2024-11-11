@@ -105,6 +105,7 @@ class chessBoard
 
         string              getBestCounterMateCheck(vector<string> legalMoves);
         string              getCheckMateMove(void);
+        string              getPassiveMove(void);
         string              getCounterCheck(void);
 
         string              getCounterStrike(void);

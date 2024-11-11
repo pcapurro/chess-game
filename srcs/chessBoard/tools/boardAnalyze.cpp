@@ -35,7 +35,7 @@ bool    chessBoard::isProtected(const string coord)
 
     cout << "attackers >" << endl;
     for (int i = 0; i != attackMaterials.size(); i++)
-        cout << attackMaterials.at(i) << " ; ";
+        cout << attackMaterials.at(i)->getCoord() << " ; ";
     cout << endl;
 
     if (defMaterials.size() == 0)
@@ -43,7 +43,7 @@ bool    chessBoard::isProtected(const string coord)
 
     cout << "defenders >" << endl;
     for (int i = 0; i != defMaterials.size(); i++)
-        cout << defMaterials.at(i) << " ; ";
+        cout << defMaterials.at(i)->getCoord() << " ; ";
     cout << endl;
 
     defenders = orderMaterialsByValue(defMaterials);
@@ -165,6 +165,19 @@ bool    chessBoard::isDefeatNext(void)
     unSwitchPlayers();
     
     return (false);
+}
+
+string  chessBoard::getPassiveMove(void)
+{
+    _gameInfo._lastMove.dest = "O-O";
+    if (isCastlingPossible() == true)
+        return ("O-O");
+    _gameInfo._lastMove.dest = "O-O-O";
+    if (isCastlingPossible() == true)
+        return ("O-O-O");
+    _gameInfo._lastMove.dest.clear();
+
+    return ("");
 }
 
 string	chessBoard::getCheckMateMove(void)
