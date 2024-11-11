@@ -102,7 +102,6 @@ class chessBoard
 
         int                 getMaterialValue(const char type);
         stack<chessPiece *> orderMaterialsByValue(vector<chessPiece *> materials);
-        stack<chessPiece *> orderMaterialsByValueReversed(vector<chessPiece *> materials);
 
         string              getBestCounterMateCheck(vector<string> legalMoves);
         string              getCheckMateMove(void);
@@ -154,7 +153,7 @@ class chessBoard
         bool    isAttacked(const string coord);
         bool    isAttackedByPawn(const string coord);
 
-        bool    isSomethingAttacked(void);
+        bool    isAllyAttacked(void);
         bool    isSomethingNotProtected(void);
 
         bool    isThereSomething(const string coord) const;
@@ -170,8 +169,8 @@ class chessBoard
         bool    canTheKingMove(void);
         bool    canAnyAllyPieceMove(void);
 
-        bool    canItBeCheckMateNow(void);
-        bool    canItBeCheckMateNext(void);
+        bool    isVictoryNext(void);
+        bool    isDefeatNext(void);
         bool    isEndGame(void);
 
         bool    isCheck(void);

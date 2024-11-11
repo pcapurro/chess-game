@@ -39,7 +39,7 @@ void	chessAi::defendMove(void)
 	}
 	else
 	{
-		if (_newBoard.canItBeCheckMateNext() == true)
+		if (_newBoard.isDefeatNext() == true)
 		{
 			cout << "counter checkmate" << endl;
 			_nextMove = _newBoard.getCounterCheckMate();
@@ -52,7 +52,7 @@ void	chessAi::defendMove(void)
 	}
 
 	cout << "ally defend move" << endl;
-	if (_newBoard.isSomethingAttacked() == true)
+	if (_newBoard.isAllyAttacked() == true)
 		_nextMove = _newBoard.getCounterProtect();
 
 	if (_nextMove == "")
@@ -91,12 +91,11 @@ string	chessAi::getNextMove(void)
 		defendMove();
 	else
 	{
-		if (_newBoard.canItBeCheckMateNow() == true)
+		if (_newBoard.isVictoryNext() == true)
 			checkMateMove();
 		else
 		{
-			if (_newBoard.canItBeCheckMateNext() == true
-				|| _newBoard.isCheck() == true || _newBoard.isSomethingAttacked() == true)
+			if (_newBoard.isDefeatNext() == true || _newBoard.isAllyAttacked() == true)
 				defendMove();
 			// else
 			// {

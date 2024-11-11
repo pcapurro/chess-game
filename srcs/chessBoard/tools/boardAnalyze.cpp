@@ -30,11 +30,12 @@ bool    chessBoard::isProtected(const string coord)
             }
         }
     }
-    defenders = orderMaterialsByValue(defMaterials);
-
-    if (defenders.size() == 0)
+    if (attackMaterials.size() == 0)
+        return (true);
+    if (defMaterials.size() == 0)
         return (false);
 
+    defenders = orderMaterialsByValue(defMaterials);
     defenders.push(_board.at(getAtValue(coord)).piece);
     attackers = orderMaterialsByValue(attackMaterials);
 
@@ -77,7 +78,7 @@ bool    chessBoard::isSomethingNotProtected(void)
     return (false);
 }
 
-bool    chessBoard::isSomethingAttacked(void)
+bool    chessBoard::isAllyAttacked(void)
 {
     for (int i = 0; i != 64; i++)
     {
@@ -128,7 +129,7 @@ bool    chessBoard::isAttackedByPawn(const string coord)
     return (false);
 }
 
-bool    chessBoard::canItBeCheckMateNow(void)
+bool    chessBoard::isVictoryNext(void)
 {
     string  coord;
 
@@ -157,10 +158,10 @@ bool    chessBoard::canItBeCheckMateNow(void)
     return (false);
 }
 
-bool    chessBoard::canItBeCheckMateNext(void)
+bool    chessBoard::isDefeatNext(void)
 {
     switchPlayers();
-    if (canItBeCheckMateNow() == true)
+    if (isVictoryNext() == true)
         { unSwitchPlayers(); return (true); }
     unSwitchPlayers();
     
@@ -300,7 +301,7 @@ string	chessBoard::getCounterCheckMate(void)
     for (int i = 0; i != legalMoves.size(); i++)
     {   
         tryMove(legalMoves.at(i).c_str() + 1);
-        if (canItBeCheckMateNext() == false)
+        if (isDefeatNext() == false)
             newLegalMoves.push_back(legalMoves.at(i));
         undoMove(legalMoves.at(i).c_str() + 1);
     }
@@ -332,8 +333,8 @@ string	chessBoard::getCounterProtect(void)
                 targetsList.push_back(_board.at(i).piece);
         }
     }
-    orderedTargets = orderMaterialsByValueReversed(targetsList);
-    attackedOne = orderedTargets.top();
+    while (orderedTargets.size() != 0)
+        attackedOne = orderedTargets.top(), orderedTargets.pop();
 
     cout << "attacked :" << endl;
     for (int i = 0; i != targetsList.size(); i++)
