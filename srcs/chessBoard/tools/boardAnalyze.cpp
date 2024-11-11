@@ -169,8 +169,36 @@ bool    chessBoard::isDefeatNext(void)
 
 string  chessBoard::getPawnsDev(void)
 {
-    
+    int value = 0;
 
+    srand(time(nullptr));
+    value = rand() % 10;
+    if (_gameInfo._turn == 0)
+    {
+        if (value < 6)
+            return ("Pe2e4");
+        if (value == 6 || value == 7 || value == 8)
+            return ("Pd2d3");
+    }
+    if (_gameInfo._turn == 1)
+    {
+        if (_board.at(getAtValue("e4")).piece != NULL)
+        {
+            if (value == 0)
+                return ("Pd7d5");
+            if (value < 6)
+                return ("Pe7e5");
+            if (value >= 6 && value < 9)
+                return ("Pd7d6");
+        }
+        if (_board.at(getAtValue("d4")).piece != NULL)
+        {
+            if (value < 7)
+                return ("Pd7d5");
+            if (value > 7)
+                return ("Pe7e6");
+        }
+    }
     return ("");
 }
 
@@ -275,13 +303,13 @@ string  chessBoard::getPassiveMove(void)
 {
     string  move;
 
-    move = getCastling();
-    if (move == "")
-        move = getPawnsDev();
+    move = getPawnsDev();
     if (move == "")
         move = getBishopsDev();
     if (move == "")
         move = getKnightsDev();
+    if (move == "")
+        move = getCastling();
 
     return (move);
 }
