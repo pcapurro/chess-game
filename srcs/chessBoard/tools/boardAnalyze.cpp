@@ -73,7 +73,7 @@ bool    chessBoard::isSomethingNotProtected(void)
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
         {
             if (isProtected(_board.at(i).coord) == false)
-                return (true);
+                { cout << _board.at(i).coord << " not protected" << endl; return (true); }
         }
     }
     return (false);
@@ -379,6 +379,41 @@ string  chessBoard::preventCastling(const string castle)
 string	chessBoard::getCounterStrike(void)
 {
 	string          move;
+
+    vector<string>          legalMoves;
+    vector<chessPiece *>    targets;
+    stack<chessPiece *>     orderedTargets;
+    chessPiece              *target;
+
+    cout << "detecting not protected targets..." << endl;
+
+    switchPlayers();
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+            && isProtected(_board.at(i).coord) == false)
+            targets.push_back(_board.at(i).piece);
+    }
+    unSwitchPlayers();
+
+    cout << targets.size() << " not protected" << endl;
+
+    if (targets.size() != 0)
+    {
+        orderedTargets = orderMaterialsByValue(targets);
+        while (orderedTargets.size() != 0)
+            target = orderedTargets.top(), orderedTargets.pop();
+
+        cout << target->getType() << " selected" << endl;
+
+        legalMoves = getLegalMoves();
+        for (int i = 0; i != legalMoves.size(); i++)
+        {
+            string dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+            if (dest == target->getCoord())
+                { cout << "proposed attack for " << target->getCoord() << " > " << legalMoves.at(i) << endl; return (legalMoves.at(i)); }
+        }
+    }
 
     switchPlayers();
     if (isCheck() == false)
