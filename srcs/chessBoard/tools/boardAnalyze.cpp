@@ -267,9 +267,9 @@ string  chessBoard::getBishopsDev(void)
     string nb1, nb2;
 
     if (_gameInfo._color == "white")
-        nb1 = "1", nb2 = "4";
+        nb1 = "1", rand() % 2 == 0 ? nb2 = "4" : nb2 = "5";
     else
-        nb1 = "8", nb2 = "5";
+        nb1 = "8", rand() % 2 == 0 ? nb2 = "5" : nb2 = "4";
 
     cout << "analyzing bishop dev" << endl;
 

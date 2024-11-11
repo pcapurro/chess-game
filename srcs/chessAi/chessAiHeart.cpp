@@ -101,18 +101,18 @@ string	chessAi::getNextMove(void)
 			checkMateMove();
 		else
 		{
-			// if (_newBoard.isDefeatNext() == true || _newBoard.isAllyAttacked() == true)
-			// 	defendMove();
-			// else
-			// {
-				// if (_newBoard.isEndGame() == true)
-					// endGameMove();
-				// else
-				// {
-					// attackMove();
+			if (_newBoard.isDefeatNext() == true || _newBoard.isAllyAttacked() == true)
+				defendMove();
+			else
+			{
+				if (_newBoard.isEndGame() == true)
+					endGameMove();
+				else
+				{
+					attackMove();
 					passiveMove();
-				// }
-			// }
+				}
+			}
 		}
 		randomMove();
 	}
