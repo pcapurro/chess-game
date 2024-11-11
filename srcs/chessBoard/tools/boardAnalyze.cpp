@@ -167,18 +167,13 @@ bool    chessBoard::isDefeatNext(void)
     return (false);
 }
 
-string  chessBoard::getPassiveMove(void)
+string  chessBoard::getPawnsDev(void)
 {
-    _gameInfo._lastMove.dest = "O-O";
-    if (isCastlingPossible() == true)
-        return ("O-O");
-    _gameInfo._lastMove.dest = "O-O-O";
-    if (isCastlingPossible() == true)
-        return ("O-O-O");
-    _gameInfo._lastMove.dest.clear();
+    return ("");
+}
 
-    cout << "no castling" << endl;
-
+string  chessBoard::getKnightsDev(void)
+{
     vector<string>  legalMoves;
 
     legalMoves = getLegalMoves();
@@ -222,8 +217,41 @@ string  chessBoard::getPassiveMove(void)
             undoMove("b" + nb1 + 'c' + nb2);
         }
     }
+}
+
+string  chessBoard::getCastling(void)
+{
+    _gameInfo._lastMove.dest = "O-O";
+    if (isCastlingPossible() == true)
+        return ("O-O");
+    _gameInfo._lastMove.dest = "O-O-O";
+    if (isCastlingPossible() == true)
+        return ("O-O-O");
+    _gameInfo._lastMove.dest.clear();
+
+    cout << "no castling" << endl;
 
     return ("");
+}
+
+string  chessBoard::getBishopsDev(void)
+{
+    return ("");
+}
+
+string  chessBoard::getPassiveMove(void)
+{
+    string  move;
+
+    move = getCastling();
+    if (move == "")
+        move = getPawnsDev();
+    if (move == "")
+        move = getBishopsDev();
+    if (move == "")
+        move = getKnightsDev();
+
+    return (move);
 }
 
 string	chessBoard::getCheckMateMove(void)
