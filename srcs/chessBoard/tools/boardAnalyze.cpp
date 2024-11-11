@@ -169,6 +169,8 @@ bool    chessBoard::isDefeatNext(void)
 
 string  chessBoard::getPawnsDev(void)
 {
+    
+
     return ("");
 }
 
@@ -185,19 +187,15 @@ string  chessBoard::getKnightsDev(void)
     else
         nb1 = "8", nb2 = "6";
 
-    cout << "analyzing dev" << endl;
+    cout << "analyzing cav dev" << endl;
 
     if (_board.at(getAtValue(string(1, 'g') + nb1)).piece != NULL && _board.at(getAtValue(string(1, 'g') + nb1)).piece->getType() == 'N'
         && _board.at(getAtValue(string(1, 'g') + nb1)).piece->getColor() == _gameInfo._color)
     {
-        cout << "ok1" << endl;
-        cout << "testing if " << "Ng" + nb1 + 'f' + nb2 << " is in legalmoves" << endl;
         if (find(legalMoves.begin(), legalMoves.end(), "Ng" + nb1 + 'f' + nb2) != legalMoves.end())
         {
-            cout << "ok2" << endl;
-            cout << "testing " << "Ng" + nb1 + 'f' + nb2 << endl;
             tryMove("g" + nb1 + 'f' + nb2);
-            if (isProtected("Ng" + nb1 + 'f' + nb2) == true)
+            if (isProtected(string(1, 'f') + nb2) == true)
                 { undoMove("g" + nb1 + 'f' + nb2); cout << "developing cav" << endl; return ("Ng" + nb1 + 'f' + nb2); }
             undoMove("g" + nb1 + 'f' + nb2);
         }
@@ -205,18 +203,16 @@ string  chessBoard::getKnightsDev(void)
     if (_board.at(getAtValue(string(1, 'b') + nb1)).piece != NULL && _board.at(getAtValue(string(1, 'b') + nb1)).piece->getType() == 'N'
         && _board.at(getAtValue(string(1, 'b') + nb1)).piece->getColor() == _gameInfo._color)
     {
-        cout << "ok1" << endl;
-        cout << "testing if " << "Nb" + nb1 + 'c' + nb2 << " is in legalmoves" << endl;
         if (find(legalMoves.begin(), legalMoves.end(), "Nb" + nb1 + 'c' + nb2) != legalMoves.end())
         {
-            cout << "ok2" << endl;
-            cout << "testing " << "Nb" + nb1 + 'c' + nb2 << endl;
             tryMove("b" + nb1 + 'c' + nb2);
-            if (isProtected("Nb" + nb1 + 'c' + nb2) == true)
+            if (isProtected(string(1, 'c') + nb2) == true)
                 { undoMove("b" + nb1 + 'c' + nb2); cout << "developing cav" << endl; return ("Nb" + nb1 + 'c' + nb2); }
             undoMove("b" + nb1 + 'c' + nb2);
         }
     }
+
+    return ("");
 }
 
 string  chessBoard::getCastling(void)
@@ -236,6 +232,42 @@ string  chessBoard::getCastling(void)
 
 string  chessBoard::getBishopsDev(void)
 {
+    vector<string>  legalMoves;
+
+    legalMoves = getLegalMoves();
+
+    string nb1, nb2;
+
+    if (_gameInfo._color == "white")
+        nb1 = "1", nb2 = "4";
+    else
+        nb1 = "8", nb2 = "5";
+
+    cout << "analyzing bishop dev" << endl;
+
+    if (_board.at(getAtValue(string(1, 'f') + nb1)).piece != NULL && _board.at(getAtValue(string(1, 'f') + nb1)).piece->getType() == 'B'
+        && _board.at(getAtValue(string(1, 'f') + nb1)).piece->getColor() == _gameInfo._color)
+    {
+        if (find(legalMoves.begin(), legalMoves.end(), "Bf" + nb1 + 'c' + nb2) != legalMoves.end())
+        {
+            tryMove("f" + nb1 + 'c' + nb2);
+            if (isProtected(string(1, 'c') + nb2) == true)
+                { undoMove("f" + nb1 + 'c' + nb2); cout << "developing bishop" << endl; return ("Bf" + nb1 + 'c' + nb2); }
+            undoMove("f" + nb1 + 'c' + nb2);
+        }
+    }
+    if (_board.at(getAtValue(string(1, 'c') + nb1)).piece != NULL && _board.at(getAtValue(string(1, 'c') + nb1)).piece->getType() == 'B'
+        && _board.at(getAtValue(string(1, 'c') + nb1)).piece->getColor() == _gameInfo._color)
+    {
+        if (find(legalMoves.begin(), legalMoves.end(), "Bc" + nb1 + 'f' + nb2) != legalMoves.end())
+        {
+            tryMove("c" + nb1 + 'f' + nb2);
+            if (isProtected(string(1, 'f') + nb2) == true)
+                { undoMove("c" + nb1 + 'f' + nb2); cout << "developing cav" << endl; return ("Bc" + nb1 + 'f' + nb2); }
+            undoMove("c" + nb1 + 'f' + nb2);
+        }
+    }
+
     return ("");
 }
 
