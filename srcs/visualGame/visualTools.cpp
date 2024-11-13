@@ -53,10 +53,11 @@ SDL_Rect    visualGame::getRectangle(const string coords) const
             y = 8 - (y + 1);
         else
             x = 7 - x;
-
+    
         obj.h = _height / 10, obj.w = _width / 10;
         obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
     }
+    
     return (obj);
 }
 
@@ -88,6 +89,22 @@ string  visualGame::getCoord(const int x, const int y) const
         }
     }
     return ("none");
+}
+
+string  visualGame::getKingCoords(const string color)
+{
+    string      coords;
+
+    for (int i = 0; i != 8; i++)
+    {
+        for (int k = 0; k != 8; k++)
+        {
+            coords = string(1, "hgfedcba"[k]) + string(1, "87654321"[i]);
+            if (_board->getType(coords) == 'K' && _board->getColor(coords) == color)
+                return (coords);
+        }
+    }
+    return (coords);
 }
 
 string  visualGame::getTurnColor(void) const

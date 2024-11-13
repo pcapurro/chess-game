@@ -22,6 +22,7 @@ typedef struct s_square
 
 typedef struct s_game_info
 {
+    bool    _check;
     bool    _checkmate;
     bool    _draw;
 
@@ -82,6 +83,7 @@ class chessBoard
         int     getActualTurn(void) const { return (_gameInfo._turn); };
         int     getStateValue(void) const;
 
+        bool    isItCheck(void) { return (_gameInfo._check); };
         bool    isGameOver(void);
         int     playMove(t_move move, const bool free = true);
 

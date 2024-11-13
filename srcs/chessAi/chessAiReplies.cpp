@@ -238,8 +238,7 @@ string  chessAi::preventCastling(const string castle)
 
 string	chessAi::getCounterStrike(void)
 {
-	string          move;
-
+	string                  move;
     vector<string>          legalMoves;
     vector<chessPiece *>    targets;
     stack<chessPiece *>     orderedTargets;
@@ -259,6 +258,10 @@ string	chessAi::getCounterStrike(void)
     cout << targets.size() << " not protected" << endl;
 
     legalMoves = getLegalMoves();
+
+    if (targets.size() == 0)
+        // menace
+
     if (targets.size() != 0)
     {
         orderedTargets = orderMaterialsByValue(targets);
@@ -291,8 +294,6 @@ string	chessAi::getCounterStrike(void)
         }
     }
     unSwitchPlayers();
-
-    // menace
 
     return (move);
 }

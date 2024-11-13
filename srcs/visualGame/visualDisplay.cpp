@@ -74,6 +74,20 @@ void    visualGame::loadBoard(const string color, const int cx, const int cy)
     }
 }
 
+void    visualGame::loadCheck(void)
+{
+    string      color;
+    string      kingCoords;
+    SDL_Rect    obj;
+
+    _turn % 2 == 0 ? color = "white" : color = "black";
+    kingCoords = getKingCoords(color);
+    obj = getRectangle(getKingCoords(color));
+
+    SDL_SetRenderDrawColor(_mainRenderer, 0, 190, 60, 255);
+    SDL_RenderFillRect(_mainRenderer, &obj);
+}
+
 void    visualGame::displayGame(const int cx, const int cy)
 {
     int         stateValue;
@@ -83,10 +97,16 @@ void    visualGame::displayGame(const int cx, const int cy)
 
     obj = getRectangle("default");
 
+    SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
+    SDL_RenderFillRect(_mainRenderer, &obj);
+
     if (_aiSide != 0)
         SDL_RenderCopy(_mainRenderer, _whiteBoardTexture, NULL, &obj);
     else
         SDL_RenderCopy(_mainRenderer, _blackBoardTexture, NULL, &obj);
+
+    if (_board->isItCheck() == true)
+        loadCheck();
 
     if (_turn % 2 == 0)
         loadBoard("black", cx, cy), loadBoard("white", cx, cy);

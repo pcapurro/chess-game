@@ -246,6 +246,9 @@ bool    chessBoard::isCheckMate(const int value)
 {
     if (isCheck() == true)
     {
+        if (value == 0)
+            _gameInfo._check = true;
+
         vector<string>      sources;
 
         for (int i = 0; i != 64; i++)
@@ -257,8 +260,6 @@ bool    chessBoard::isCheckMate(const int value)
                 {
                     if (doesItResolveCheck(sources.at(k)) == true)
                         return (false);
-                    else
-                        cout << sources.at(k) << " can't resolve checkmate" << endl;
                 }
             }
             sources.clear();
@@ -267,6 +268,10 @@ bool    chessBoard::isCheckMate(const int value)
             _gameInfo._checkmate = true;
         return (true);
     }
+    else
+        if (value == 0)
+            _gameInfo._check = false;
+
     return (false);
 }
 
