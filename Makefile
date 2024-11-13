@@ -24,6 +24,8 @@ SRCS = srcs/main.cpp \
 	srcs/algebraParser/algebraTools.cpp \
 	srcs/chessAi/chessAiHeart.cpp \
 	srcs/chessAi/chessAiTools.cpp \
+	srcs/chessAi/chessAiReplies.cpp \
+	srcs/chessAi/chessAiCheckers.cpp \
 	srcs/chessBoard/boardHeart.cpp \
 	srcs/chessBoard/tools/boardCounter.cpp \
 	srcs/chessBoard/tools/boardPrint.cpp \
