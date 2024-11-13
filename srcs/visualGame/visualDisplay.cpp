@@ -60,7 +60,8 @@ void    visualGame::loadBoard(const string color, const int cx, const int cy)
             objType = _board->getType(coords);
             objColor = _board->getColor(coords);
 
-            if (objType != ' ' && objColor == color)
+            if (objType != ' ' && objColor == color
+                && (_aiSide == -1 || coords != (string(1, _lastMove[3]) + _lastMove[4])) || objType == 'N')
             {
                 if (coords != _droppedSrc)
                     obj = getRectangle(coords);
@@ -106,6 +107,45 @@ void    visualGame::loadCheckMate(void)
     SDL_RenderCopy(_mainRenderer, getTexture('c', color), NULL, &obj);
 }
 
+void    visualGame::loadMove(void)
+{
+    char        objType;
+    string      objColor;
+
+    string      src;
+    string      dest;
+    SDL_Rect    obj;
+
+    src = string(1, _lastMove[1]) + _lastMove[2];
+    dest = string(1, _lastMove[3]) + _lastMove[4];
+    objType = _board->getType(dest);
+    objColor = _board->getColor(dest);
+
+    int src_x = src[0] - 97;
+    int src_y = atoi(src.c_str() + 1);
+
+    int dest_x = dest[0] - 97;
+    int dest_y = atoi(dest.c_str() + 1);
+
+    // if (src[0] == dest[0] && src[1] != dest[1]) // déplacement vertical
+        // ;
+
+    // if (src[0] != dest[0] && src[1] == dest[1]) // déplacement horizontal
+    //     ;
+    // if (src[0] != dest[0] && src[1] != dest[1]) // déplacement diagonal
+    //     ;
+
+    obj = getRectangle(dest, 0, (_height / 10) / 2);
+    SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), \
+    NULL, &obj);
+
+    sleep(2);
+
+    obj = getRectangle(dest);
+    SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), \
+    NULL, &obj);
+}
+
 void    visualGame::displayGame(const int cx, const int cy)
 {
     int         stateValue;
@@ -132,6 +172,10 @@ void    visualGame::displayGame(const int cx, const int cy)
         loadBoard("black", cx, cy), loadBoard("white", cx, cy);
     else
         loadBoard("white", cx, cy), loadBoard("black", cx, cy);
+
+    if (_aiSide != -1 && _turn % 2 == _aiSide
+        && _lastMove[0] != 'N')
+        loadMove();
 
     stateValue = _board->getStateValue();
 

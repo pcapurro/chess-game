@@ -8,9 +8,14 @@ string  visualGame::getVisualAnswer(void)
 
     if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
-        { chessAi ai(_board); return (ai.getNextMove()); }
+    {
+        chessAi ai(_board);
+        answer = ai.getNextMove();
+    }
     else
         answer = waitForEvent();
+
+    _lastMove = answer;
 
     return (answer);
 }

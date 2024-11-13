@@ -5,7 +5,7 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
     _error = false;
 
 	_aiSide = -1;
-    srand((unsigned int)((uintptr_t)this));
+    srand(time(nullptr));
    	if (_sandBoxMode == false)
 		_aiSide = rand() % 2;
 

@@ -52,7 +52,7 @@ class visualGame
         void        loadTextures(void);
 
         SDL_Texture *getTexture(const char type, const string color) const;
-        SDL_Rect    getRectangle(const string coords) const;
+        SDL_Rect    getRectangle(const string coords, const float fx = 0, const float fy = 0) const;
 
         string      getKingCoords(const string color);
 
@@ -64,6 +64,7 @@ class visualGame
         void        loadArrow(const int value);
         void        loadCheck(void);
         void        loadCheckMate(void);
+        void        loadMove(void);
         void        displayGame(const int cx = 0, const int cy = 0);
     
         string      waitForEvent(void);
@@ -101,6 +102,8 @@ class visualGame
 
         bool            _dropped;
         string          _droppedSrc;
+
+        string          _lastMove;
 
         int             _aiSide;
         int             _turn;
