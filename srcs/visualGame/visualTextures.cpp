@@ -146,6 +146,38 @@ void    visualGame::loadBoardTextures(void)
     SDL_FreeSurface(_baseSurface);
 
     _baseCheck = 0;
+
+    cout << "ok" << endl;
+
+    _baseSurface = SDL_LoadBMP("./materials/images/checkmate-white.bmp");
+    if (_baseSurface == NULL)
+        { _error = true; return ; }
+    _baseCheck = 1;
+
+    _checkMateWhiteTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (_checkMateWhiteTexture == NULL)
+        { _error = true; return ; }
+
+    SDL_FreeSurface(_baseSurface);
+
+    cout << "ok" << endl;
+
+    _baseCheck = 0;
+
+    _baseSurface = SDL_LoadBMP("./materials/images/checkmate-black.bmp");
+    if (_baseSurface == NULL)
+        { _error = true; return ; }
+    _baseCheck = 1;
+
+    _checkMateBlackTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (_checkMateBlackTexture == NULL)
+        { _error = true; return ; }
+
+    SDL_FreeSurface(_baseSurface);
+
+    cout << "ok" << endl;
+
+    _baseCheck = 0;
 }
 
 void    visualGame::loadArrowTexture(void)

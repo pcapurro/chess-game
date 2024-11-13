@@ -63,6 +63,7 @@ class visualGame
         void        loadText(const int value);
         void        loadArrow(const int value);
         void        loadCheck(void);
+        void        loadCheckMate(void);
         void        displayGame(const int cx = 0, const int cy = 0);
     
         string      waitForEvent(void);
@@ -89,6 +90,8 @@ class visualGame
 
         SDL_Texture     *_blackBoardTexture;
         SDL_Texture     *_whiteBoardTexture;
+        SDL_Texture     *_checkMateWhiteTexture;
+        SDL_Texture     *_checkMateBlackTexture;
         SDL_Texture     *_arrowTexture;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;

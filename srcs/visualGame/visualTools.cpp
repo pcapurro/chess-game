@@ -4,6 +4,9 @@ SDL_Texture *visualGame::getTexture(const char type, const string color) const
 {
     if (color == "white")
     {
+        if (type == 'c')
+            return (_checkMateBlackTexture);
+
         if (type == 'K')
             return (_whiteTextures.king);
         if (type == 'Q')
@@ -19,6 +22,9 @@ SDL_Texture *visualGame::getTexture(const char type, const string color) const
     }
     if (color == "black")
     {
+        if (type == 'c')
+            return (_checkMateWhiteTexture);
+
         if (type == 'K')
             return (_blackTextures.king);
         if (type == 'Q')
