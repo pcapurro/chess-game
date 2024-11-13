@@ -15,6 +15,7 @@ bool    chessAi::isProtected(const string coord)
     stack<chessPiece *>     defenders;
 
     cout << "evaluating if " << coord << " is protected..." << endl;
+    sleep(5);
 
     for (int i = 0; i != 64; i++)
     {
@@ -132,11 +133,9 @@ bool    chessAi::isAttackedByPawn(const string coord)
 
 bool    chessAi::isVictoryNextNext(void)
 {
-    int             o = 0;
     string          move;
-    string          src;
-    string          dest;
     vector<string>  legalMoves;
+    vector<string>  newLegalMoves;
 
     cout << "testing isVictoryNextNext" << endl;
 
@@ -144,36 +143,33 @@ bool    chessAi::isVictoryNextNext(void)
     for (int i = 0; i != legalMoves.size(); i++)
     {
         move = legalMoves.at(i);
-        src = string(1, move[1]) + move[2];
-        dest = string(1, move[3]) + move[4];
-
         tryMove(move.c_str() + 1);
-        for (int k = 0; k != legalMoves.size(); k++)
+
+        if (isProtected(move.c_str() + 3) == true)
         {
-            if (string(1, legalMoves.at(k)[1]) + legalMoves.at(k)[2] != src
-                && string(1, legalMoves.at(k)[3]) + legalMoves.at(k)[4] != dest)
+            newLegalMoves = getLegalMoves();
+            for (int k = 0; k != newLegalMoves.size(); k++)
             {
-                cout << "testing " << move.c_str() + 1 << " > " << legalMoves.at(k).c_str() + 1 << endl;
-                tryMove(legalMoves.at(k).c_str() + 1);
-                o++;
+                tryMove(newLegalMoves.at(k).c_str() + 1);
                 switchPlayers();
                 if (isCheckMate(-1) == true)
                 {
-                    undoMove(legalMoves.at(k).c_str() + 1);
+                    undoMove(newLegalMoves.at(k).c_str() + 1);
                     undoMove(move.c_str() + 1);
                     unSwitchPlayers();
-                    cout << legalMoves.at(i) << " and " << legalMoves.at(k) << " is checkmate" << endl;
+                    cout << legalMoves.at(i) << " and " << newLegalMoves.at(k) << " is checkmate" << endl;
+                    sleep(20);
+                    exit(0);
                     return (true);
                 }
-                undoMove(legalMoves.at(k).c_str() + 1);
+                undoMove(newLegalMoves.at(k).c_str() + 1);
                 unSwitchPlayers();
             }
         }
         undoMove(move.c_str() + 1);
     }
 
-    cout << o << " tested" << endl;
-    exit(0);
+    cout << "no checkmate in 2 moves found" << endl;
 
     return (false);
 }

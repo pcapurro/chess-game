@@ -93,10 +93,9 @@ string	chessAi::getNextMove(void)
 		cout << legalMoves.at(i) << " ; ";
 	cout << endl;
 
-	cout << _gameInfo._turn << endl;
-	exit(0);
+	isVictoryNextNext();
 
-	// isVictoryNextNext();
+	// exit(0);
 
 	// if (isCheck() == true)
 	// 	defendMove();
