@@ -130,6 +130,54 @@ bool    chessAi::isAttackedByPawn(const string coord)
     return (false);
 }
 
+bool    chessAi::isVictoryNextNext(void)
+{
+    int             o = 0;
+    string          move;
+    string          src;
+    string          dest;
+    vector<string>  legalMoves;
+
+    cout << "testing isVictoryNextNext" << endl;
+
+    legalMoves = getLegalMoves();
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        src = string(1, move[1]) + move[2];
+        dest = string(1, move[3]) + move[4];
+
+        tryMove(move.c_str() + 1);
+        for (int k = 0; k != legalMoves.size(); k++)
+        {
+            if (string(1, legalMoves.at(k)[1]) + legalMoves.at(k)[2] != src
+                && string(1, legalMoves.at(k)[3]) + legalMoves.at(k)[4] != dest)
+            {
+                cout << "testing " << move.c_str() + 1 << " > " << legalMoves.at(k).c_str() + 1 << endl;
+                tryMove(legalMoves.at(k).c_str() + 1);
+                o++;
+                switchPlayers();
+                if (isCheckMate(-1) == true)
+                {
+                    undoMove(legalMoves.at(k).c_str() + 1);
+                    undoMove(move.c_str() + 1);
+                    unSwitchPlayers();
+                    cout << legalMoves.at(i) << " and " << legalMoves.at(k) << " is checkmate" << endl;
+                    return (true);
+                }
+                undoMove(legalMoves.at(k).c_str() + 1);
+                unSwitchPlayers();
+            }
+        }
+        undoMove(move.c_str() + 1);
+    }
+
+    cout << o << " tested" << endl;
+    exit(0);
+
+    return (false);
+}
+
 bool    chessAi::isVictoryNext(void)
 {
     string  coord;

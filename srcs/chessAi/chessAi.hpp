@@ -49,6 +49,7 @@ class chessAi : protected chessBoard
         bool    isAllyAttacked(void);
         bool    isSomethingNotProtected(void);
 
+        bool    isVictoryNextNext(void);
         bool    isVictoryNext(void);
         bool    isDefeatNext(void);
         bool    isEndGame(void);

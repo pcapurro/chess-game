@@ -93,29 +93,34 @@ string	chessAi::getNextMove(void)
 		cout << legalMoves.at(i) << " ; ";
 	cout << endl;
 
-	if (isCheck() == true)
-		defendMove();
-	else
-	{
-		if (isVictoryNext() == true)
-			checkMateMove();
-		else
-		{
-			if (isDefeatNext() == true || isAllyAttacked() == true)
-				defendMove();
-			else
-			{
-				if (isEndGame() == true)
-					endGameMove();
-				else
-				{
-					attackMove();
-					passiveMove();
-				}
-			}
-		}
+	isVictoryNextNext();
+
+	// if (isCheck() == true)
+	// 	defendMove();
+	// else
+	// {
+	// 	if (isVictoryNext() == true)
+	// 		checkMateMove();
+
+	// 	if (isVictoryNextNext() == true)
+	// 		attackMove();
+	// 	else
+	// 	{
+	// 		if (isDefeatNext() == true || isAllyAttacked() == true)
+	// 			defendMove();
+	// 		else
+	// 		{
+	// 			if (isEndGame() == true)
+	// 				endGameMove();
+	// 			else
+	// 			{
+	// 				attackMove();
+	// 				passiveMove();
+	// 			}
+	// 		}
+	// 	}
 		randomMove();
-	}
+	// }
 
     if (_nextMove == "O-O" || _nextMove == "O-O-O")
     {
