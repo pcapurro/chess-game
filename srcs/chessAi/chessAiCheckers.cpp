@@ -32,8 +32,35 @@ bool    chessAi::isProtected(const string coord)
             }
         }
     }
+
+    cout << "defenders retrieved" << endl;
+
+    for (int i = 0; i != defMaterials.size(); i++)
+    {
+        if (defMaterials.at(i)->getType() == 'P' || defMaterials.at(i)->getType() == 'Q'
+            || defMaterials.at(i)->getType() == 'B')
+        {
+            string coord = defMaterials.at(i)->getColor();
+            for (int i = 0; i != 64; i++)
+            {
+                if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+                {
+                    if (_board.at(i).piece->getType() == 'P' || _board.at(i).piece->getType() == 'Q'
+                        || _board.at(i).piece->getType() == 'B')
+                    {
+                        vector<string> boardCoords = getPiecesCoords();
+                        if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
+                            defMaterials.push_back(_board.at(i).piece);
+                    }
+                }
+            }
+        }
+    }
+
+    cout << "defenders retrieved2" << endl;
+
     if (attackMaterials.size() == 0)
-        return (true);
+        { cout << "no attackers" << endl; return (true); }
 
     cout << "attackers >" << endl;
     for (int i = 0; i != attackMaterials.size(); i++)

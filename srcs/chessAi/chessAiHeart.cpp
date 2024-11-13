@@ -105,7 +105,7 @@ string	chessAi::getNextMove(void)
 		// 			endGameMove();
 		// 		else
 		// 		{
-					attackMove();
+					// attackMove();
 					passiveMove();
 				// }
 		// 	}

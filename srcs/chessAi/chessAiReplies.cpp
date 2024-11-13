@@ -132,8 +132,10 @@ string  chessAi::getBishopsDev(void)
 
 string  chessAi::getPassiveMove(void)
 {
-    string          move;
-    vector<string>  legalMoves;
+    int               value;
+    string            move;
+    vector<string>    legalMoves;
+    vector<string>    pawns;
 
     move = getPawnsDev();
     if (move == "")
@@ -146,17 +148,26 @@ string  chessAi::getPassiveMove(void)
     if (move == "")
     {
         legalMoves = getLegalMoves();
+
         for (int i = 0; i != legalMoves.size(); i++)
         {
-            if (legalMoves.at(i)[0] == 'P')
+            srand(time(nullptr));
+            if (legalMoves.at(i)[0] == 'P' && rand() % 2 == 0)
             {
                 move = legalMoves.at(i);
                 tryMove(move.c_str() + 1);
-                if (isProtected(move) == true)
-                    { undoMove(move.c_str() + 1); cout << "proposed passive move : " << move << endl; return (move); }
+                if (isProtected(string(1, move[3]) + move[4]) == true)
+                    pawns.push_back(move);
                 undoMove(move.c_str() + 1);
             }
         }
+
+        cout << "ok" << endl;
+
+        if (pawns.size() == 1)
+            return (pawns.at(0));
+        else if (pawns.size() > 1)
+            return (pawns.at(rand() % pawns.size()));
     }
 
     return (move);
@@ -247,6 +258,7 @@ string	chessAi::getCounterStrike(void)
 
     cout << targets.size() << " not protected" << endl;
 
+    legalMoves = getLegalMoves();
     if (targets.size() != 0)
     {
         orderedTargets = orderMaterialsByValue(targets);
@@ -255,7 +267,6 @@ string	chessAi::getCounterStrike(void)
 
         cout << target->getType() << " selected" << endl;
 
-        legalMoves = getLegalMoves();
         for (int i = 0; i != legalMoves.size(); i++)
         {
             string dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
@@ -280,6 +291,8 @@ string	chessAi::getCounterStrike(void)
         }
     }
     unSwitchPlayers();
+
+    // menace
 
     return (move);
 }
