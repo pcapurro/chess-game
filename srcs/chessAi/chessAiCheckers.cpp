@@ -15,7 +15,6 @@ bool    chessAi::isProtected(const string coord)
     stack<chessPiece *>     defenders;
 
     cout << "evaluating if " << coord << " is protected..." << endl;
-    sleep(5);
 
     for (int i = 0; i != 64; i++)
     {

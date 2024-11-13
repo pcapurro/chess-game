@@ -42,21 +42,19 @@ class chessAi : protected chessBoard
 		void		endGameMove(void);
 		void		randomMove(void);
 
-        bool    isProtected(const string coord);
-        bool    isAttacked(const string coord);
-        bool    isAttackedByPawn(const string coord);
+        bool        isProtected(const string coord);
+        bool        isAttacked(const string coord);
+        bool        isAttackedByPawn(const string coord);
 
-        bool    isAllyAttacked(void);
-        bool    isSomethingNotProtected(void);
+        bool        isAllyAttacked(void);
+        bool        isSomethingNotProtected(void);
 
-        bool    isVictoryNextNext(void);
-        bool    isVictoryNext(void);
-        bool    isDefeatNext(void);
-        bool    isEndGame(void);
+        bool        isVictoryNextNext(void);
+        bool        isVictoryNext(void);
+        bool        isDefeatNext(void);
+        bool        isEndGame(void);
 
 		string		_nextMove;
-		chessBoard	_newBoard;
-
 };
 
 #endif

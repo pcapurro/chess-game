@@ -2,7 +2,7 @@
 
 string  chessAi::getPawnsDev(void)
 {
-    int value = 0;
+    int value;
 
     srand(time(nullptr));
     value = rand() % 10;
@@ -32,6 +32,7 @@ string  chessAi::getPawnsDev(void)
                 return ("Pe7e6");
         }
     }
+
     return ("");
 }
 
@@ -131,7 +132,8 @@ string  chessAi::getBishopsDev(void)
 
 string  chessAi::getPassiveMove(void)
 {
-    string  move;
+    string          move;
+    vector<string>  legalMoves;
 
     move = getPawnsDev();
     if (move == "")
@@ -140,6 +142,22 @@ string  chessAi::getPassiveMove(void)
         move = getKnightsDev();
     if (move == "")
         move = getCastling();
+
+    if (move == "")
+    {
+        legalMoves = getLegalMoves();
+        for (int i = 0; i != legalMoves.size(); i++)
+        {
+            if (legalMoves.at(i)[0] == 'P')
+            {
+                move = legalMoves.at(i);
+                tryMove(move.c_str() + 1);
+                if (isProtected(move) == true)
+                    { undoMove(move.c_str() + 1); cout << "proposed passive move : " << move << endl; return (move); }
+                undoMove(move.c_str() + 1);
+            }
+        }
+    }
 
     return (move);
 }

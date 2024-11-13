@@ -93,23 +93,23 @@ string	chessAi::getNextMove(void)
 		if (isVictoryNext() == true)
 			checkMateMove();
 
-		if (isVictoryNextNext() == true)
-			attackMove();
-		else
-		{
-			if (isDefeatNext() == true || isAllyAttacked() == true)
-				defendMove();
-			else
-			{
-				if (isEndGame() == true)
-					endGameMove();
-				else
-				{
+		// if (isVictoryNextNext() == true)
+		// 	attackMove();
+		// else
+		// {
+		// 	if (isDefeatNext() == true || isAllyAttacked() == true)
+		// 		defendMove();
+		// 	else
+		// 	{
+		// 		if (isEndGame() == true)
+		// 			endGameMove();
+		// 		else
+		// 		{
 					attackMove();
 					passiveMove();
-				}
-			}
-		}
+				// }
+		// 	}
+		// }
 		randomMove();
 	}
 
