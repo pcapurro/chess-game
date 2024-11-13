@@ -7,7 +7,7 @@ class chessAi : protected chessBoard
 {
 	public:
 
-		chessAi(const chessBoard *board) : _newBoard(board) {};
+		chessAi(const chessBoard *board) : chessBoard(board) {};
 		~chessAi(void) {};
 
 		string	getNextMove(void);
