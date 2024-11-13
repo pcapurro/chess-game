@@ -257,6 +257,8 @@ bool    chessBoard::isCheckMate(const int value)
                 {
                     if (doesItResolveCheck(sources.at(k)) == true)
                         return (false);
+                    else
+                        cout << sources.at(k) << " can't resolve checkmate" << endl;
                 }
             }
             sources.clear();

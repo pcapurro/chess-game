@@ -86,43 +86,32 @@ string	chessAi::getNextMove(void)
 {
 	// sleep(1); //
 
-	vector<string>	legalMoves;
-	legalMoves = getLegalMoves();
-	cout << "legal moves: " << endl;
-	for (int i = 0; i != legalMoves.size(); i++)
-		cout << legalMoves.at(i) << " ; ";
-	cout << endl;
+	if (isCheck() == true)
+		defendMove();
+	else
+	{
+		if (isVictoryNext() == true)
+			checkMateMove();
 
-	isVictoryNextNext();
-
-	// exit(0);
-
-	// if (isCheck() == true)
-	// 	defendMove();
-	// else
-	// {
-	// 	if (isVictoryNext() == true)
-	// 		checkMateMove();
-
-	// 	if (isVictoryNextNext() == true)
-	// 		attackMove();
-	// 	else
-	// 	{
-	// 		if (isDefeatNext() == true || isAllyAttacked() == true)
-	// 			defendMove();
-	// 		else
-	// 		{
-	// 			if (isEndGame() == true)
-	// 				endGameMove();
-	// 			else
-	// 			{
-	// 				attackMove();
-	// 				passiveMove();
-	// 			}
-	// 		}
-	// 	}
+		if (isVictoryNextNext() == true)
+			attackMove();
+		else
+		{
+			if (isDefeatNext() == true || isAllyAttacked() == true)
+				defendMove();
+			else
+			{
+				if (isEndGame() == true)
+					endGameMove();
+				else
+				{
+					attackMove();
+					passiveMove();
+				}
+			}
+		}
 		randomMove();
-	// }
+	}
 
     if (_nextMove == "O-O" || _nextMove == "O-O-O")
     {

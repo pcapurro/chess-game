@@ -133,44 +133,6 @@ bool    chessAi::isAttackedByPawn(const string coord)
 
 bool    chessAi::isVictoryNextNext(void)
 {
-    string          move;
-    vector<string>  legalMoves;
-    vector<string>  newLegalMoves;
-
-    cout << "testing isVictoryNextNext" << endl;
-
-    legalMoves = getLegalMoves();
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        move = legalMoves.at(i);
-        tryMove(move.c_str() + 1);
-
-        if (isProtected(move.c_str() + 3) == true)
-        {
-            newLegalMoves = getLegalMoves();
-            for (int k = 0; k != newLegalMoves.size(); k++)
-            {
-                tryMove(newLegalMoves.at(k).c_str() + 1);
-                switchPlayers();
-                if (isCheckMate(-1) == true)
-                {
-                    undoMove(newLegalMoves.at(k).c_str() + 1);
-                    undoMove(move.c_str() + 1);
-                    unSwitchPlayers();
-                    cout << legalMoves.at(i) << " and " << newLegalMoves.at(k) << " is checkmate" << endl;
-                    sleep(20);
-                    exit(0);
-                    return (true);
-                }
-                undoMove(newLegalMoves.at(k).c_str() + 1);
-                unSwitchPlayers();
-            }
-        }
-        undoMove(move.c_str() + 1);
-    }
-
-    cout << "no checkmate in 2 moves found" << endl;
-
     return (false);
 }
 
