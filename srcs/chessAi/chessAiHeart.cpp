@@ -37,7 +37,7 @@ void	chessAi::defendMove(void)
 	if (_nextMove != "")
 		return ;
 
-	if (_newBoard.isCheck() == true)
+	if (isCheck() == true)
 	{
 		cout << "counter check" << endl;
 		_nextMove = getCounterCheck();
@@ -101,25 +101,25 @@ string	chessAi::getNextMove(void)
 			checkMateMove();
 		else
 		{
-			// if (_newBoard.isDefeatNext() == true || _newBoard.isAllyAttacked() == true)
-				// defendMove();
-			// else
-			// {
-				// if (_newBoard.isEndGame() == true)
-					// endGameMove();
-				// else
-				// {
+			if (isDefeatNext() == true || isAllyAttacked() == true)
+				defendMove();
+			else
+			{
+				if (isEndGame() == true)
+					endGameMove();
+				else
+				{
 					attackMove();
-					// passiveMove();
-				// }
-			// }
+					passiveMove();
+				}
+			}
 		}
 		randomMove();
 	}
 
     if (_nextMove == "O-O" || _nextMove == "O-O-O")
     {
-        if (_newBoard._gameInfo._color == "white")
+        if (_gameInfo._color == "white")
             _nextMove = "Ke1" + _nextMove;
         else
             _nextMove = "Ke8" + _nextMove;

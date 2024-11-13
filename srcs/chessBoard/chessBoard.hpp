@@ -90,8 +90,6 @@ class chessBoard
         void    printEndGame(const int value = 0);
         void    printBoard(const int aiSide) const;
 
-        friend class chessAi;
-
     protected:
 
         size_t              getAtValue(const string coord) const;
@@ -134,6 +132,9 @@ class chessBoard
         void    tryMove(string srcdest);
         void    undoMove(string srcdest);
 
+        vector<t_square>    _board;
+        t_game_info         _gameInfo;
+
     private:
 
         void    printWhiteBoard(void) const;
@@ -161,11 +162,8 @@ class chessBoard
         void    countPiecesOnBoard(void);
         void    resetCount(void);
 
-        vector<t_square>    _board;
         bool                _allocated;
         bool                _free;
-
-        t_game_info         _gameInfo;
 
         t_counter           _boardCount;
         vector<string>      _history;
