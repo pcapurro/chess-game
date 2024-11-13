@@ -23,11 +23,11 @@ SRCS = srcs/main.cpp \
 	srcs/algebraParser/algebraParser.cpp \
 	srcs/algebraParser/algebraTools.cpp \
 	srcs/chessAi/chessAiHeart.cpp \
+	srcs/chessAi/chessAiTools.cpp \
 	srcs/chessBoard/boardHeart.cpp \
 	srcs/chessBoard/tools/boardCounter.cpp \
 	srcs/chessBoard/tools/boardPrint.cpp \
 	srcs/chessBoard/tools/boardTools.cpp \
-	srcs/chessBoard/tools/boardAnalyze.cpp \
 	srcs/chessBoard/boardInit.cpp \
 	srcs/chessBoard/boardFree.cpp \
 	srcs/chessBoard/checkers/boardEndChecker.cpp \

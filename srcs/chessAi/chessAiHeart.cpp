@@ -6,7 +6,7 @@ void	chessAi::checkMateMove(void)
 		return ;
 	
 	cout << "checkmate move" << endl;
-	_nextMove = _newBoard.getCheckMateMove();
+	_nextMove = getCheckMateMove();
 }
 
 void	chessAi::attackMove(void)
@@ -15,7 +15,7 @@ void	chessAi::attackMove(void)
 		return ;
 	
 	cout << "searching for attack move" << endl;
-	_nextMove = _newBoard.getCounterStrike();
+	_nextMove = getCounterStrike();
 
 	if (_nextMove == "")
 		cout << "no attack found" << endl;
@@ -29,7 +29,7 @@ void	chessAi::passiveMove(void)
 		return ;
 
 	cout << "passive move" << endl;
-	_nextMove = _newBoard.getPassiveMove();
+	_nextMove = getPassiveMove();
 }
 
 void	chessAi::defendMove(void)
@@ -40,15 +40,15 @@ void	chessAi::defendMove(void)
 	if (_newBoard.isCheck() == true)
 	{
 		cout << "counter check" << endl;
-		_nextMove = _newBoard.getCounterCheck();
+		_nextMove = getCounterCheck();
 		return ;
 	}
 	else
 	{
-		if (_newBoard.isDefeatNext() == true)
+		if (isDefeatNext() == true)
 		{
 			cout << "counter checkmate" << endl;
-			_nextMove = _newBoard.getCounterCheckMate();
+			_nextMove = getCounterCheckMate();
 
 			if (_nextMove == "")
 				cout << "no counter checkmate move found, attacking..." << endl, attackMove(), passiveMove();
@@ -58,8 +58,8 @@ void	chessAi::defendMove(void)
 	}
 
 	cout << "ally defend move" << endl;
-	if (_newBoard.isAllyAttacked() == true)
-		_nextMove = _newBoard.getCounterProtect();
+	if (isAllyAttacked() == true)
+		_nextMove = getCounterProtect();
 
 	if (_nextMove == "")
 		attackMove(), passiveMove();
@@ -79,7 +79,7 @@ void	chessAi::randomMove(void)
 		return ;
 
 	cout << "random move" << endl;
-	_nextMove = _newBoard.getRandomMove();
+	_nextMove = getRandomMove();
 }
 
 string	chessAi::getNextMove(void)
@@ -87,17 +87,17 @@ string	chessAi::getNextMove(void)
 	// sleep(1); //
 
 	vector<string>	legalMoves;
-	legalMoves = _newBoard.getLegalMoves();
+	legalMoves = getLegalMoves();
 	cout << "legal moves: " << endl;
 	for (int i = 0; i != legalMoves.size(); i++)
 		cout << legalMoves.at(i) << " ; ";
 	cout << endl;
 
-	if (_newBoard.isCheck() == true)
+	if (isCheck() == true)
 		defendMove();
 	else
 	{
-		if (_newBoard.isVictoryNext() == true)
+		if (isVictoryNext() == true)
 			checkMateMove();
 		else
 		{

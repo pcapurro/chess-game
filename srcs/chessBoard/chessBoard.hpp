@@ -92,7 +92,7 @@ class chessBoard
 
         friend class chessAi;
 
-    private:
+    protected:
 
         size_t              getAtValue(const string coord) const;
         vector<string>      getAvailaibleMoves(void);
@@ -102,25 +102,39 @@ class chessBoard
         
         vector<string>      getCastlingSrcsDests(const string srcdest);
 
-        int                 getMaterialValue(const char type);
-        stack<chessPiece *> orderMaterialsByValue(vector<chessPiece *> materials);
+        int     checkNormalSource(void);
+        int     checkPawnSource(void);
+        bool    isThereValidSource(void);
 
-        string              getBestCounterMateCheck(vector<string> legalMoves);
-        string              getCheckMateMove(void);
+        int     checkPawnDest(void) const;
+        int     checkNormalDest(void) const;
 
-        string              getPawnsDev(void);
-        string              getCastling(void);
-        string              getBishopsDev(void);
-        string              getKnightsDev(void);
-        string              getPassiveMove(void);
+        bool    isItValidSource(void) const;
 
-        string              preventCastling(const string castle);
-        string              getCounterStrike(void);
+        bool    isThereSomething(const string coord) const;
+        bool    isThereAlly(void) const;
+        bool    isRightSide(void) const;
+        bool    isTheDestinationSafe(void) const;
+        bool    isCastlingPossible(const string castle);
 
-        string              getCounterCheck(void);
-        string              getCounterCheckMate(void);
-        string              getCounterProtect(void);
-        string              getRandomMove(void);
+        bool    isLegal(void);
+
+        bool    doesItResolveCheck(const string srcdest);
+        bool    isCheckMateImpossible(void);
+        bool    canTheKingMove(void);
+        bool    canAnyAllyPieceMove(void);
+
+        bool    isCheck(void);
+        bool    isCheckMate(const int value = 0);
+        bool    isDraw(void);
+
+        void    switchPlayers(void);
+        void    unSwitchPlayers(void);
+
+        void    tryMove(string srcdest);
+        void    undoMove(string srcdest);
+
+    private:
 
         void    printWhiteBoard(void) const;
         void    printBlackBoard(void) const;
@@ -143,49 +157,6 @@ class chessBoard
         void    promotePiece(const string initialCoord, char pieceType, const bool free = true);
         void    movePiece(const string initialCoord, const string newCoord, const bool free = true);
         void    removePiece(const string coord, const bool free = true);
-
-        void    tryMove(string srcdest);
-        void    undoMove(string srcdest);
-
-        void    switchPlayers(void);
-        void    unSwitchPlayers(void);
-
-        int     checkNormalSource(void);
-        int     checkPawnSource(void);
-        bool    isThereValidSource(void);
-
-        int     checkPawnDest(void) const;
-        int     checkNormalDest(void) const;
-
-        bool    isItValidSource(void) const;
-
-        bool    isProtected(const string coord);
-        bool    isAttacked(const string coord);
-        bool    isAttackedByPawn(const string coord);
-
-        bool    isAllyAttacked(void);
-        bool    isSomethingNotProtected(void);
-
-        bool    isThereSomething(const string coord) const;
-        bool    isThereAlly(void) const;
-        bool    isRightSide(void) const;
-        bool    isTheDestinationSafe(void) const;
-        bool    isCastlingPossible(const string castle);
-
-        bool    isLegal(void);
-
-        bool    doesItResolveCheck(const string srcdest);
-        bool    isCheckMateImpossible(void);
-        bool    canTheKingMove(void);
-        bool    canAnyAllyPieceMove(void);
-
-        bool    isVictoryNext(void);
-        bool    isDefeatNext(void);
-        bool    isEndGame(void);
-
-        bool    isCheck(void);
-        bool    isCheckMate(const int value = 0);
-        bool    isDraw(void);
 
         void    countPiecesOnBoard(void);
         void    resetCount(void);

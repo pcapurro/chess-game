@@ -1,175 +1,6 @@
-#include "../chessBoard.hpp"
+#include "chessAi.hpp"
 
-bool    chessBoard::isEndGame(void)
-{
-    return (false);
-}
-
-bool    chessBoard::isProtected(const string coord)
-{
-    int                     attackerMaterialsEarned = 0;
-    int                     defenderMaterialsEearned = 0;
-    vector<chessPiece *>    attackMaterials;
-    vector<chessPiece *>    defMaterials;
-    stack<chessPiece *>     attackers;
-    stack<chessPiece *>     defenders;
-
-    cout << "evaluating if " << coord << " is protected..." << endl;
-
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL)
-        {
-            if (_board.at(i).piece->getColor() != _gameInfo._color)
-            {
-                if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
-                    attackMaterials.push_back(_board.at(i).piece);
-            }
-            else if (_board.at(i).coord != coord)
-            {
-                if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
-                    defMaterials.push_back(_board.at(i).piece);
-            }
-        }
-    }
-    if (attackMaterials.size() == 0)
-        return (true);
-
-    cout << "attackers >" << endl;
-    for (int i = 0; i != attackMaterials.size(); i++)
-        cout << attackMaterials.at(i)->getCoord() << " ; ";
-    cout << endl;
-
-    if (defMaterials.size() == 0)
-        return (false);
-
-    cout << "defenders >" << endl;
-    for (int i = 0; i != defMaterials.size(); i++)
-        cout << defMaterials.at(i)->getCoord() << " ; ";
-    cout << endl;
-
-    defenders = orderMaterialsByValue(defMaterials);
-    defenders.push(_board.at(getAtValue(coord)).piece);
-    attackers = orderMaterialsByValue(attackMaterials);
-
-    while (attackers.size() != 0 && defenders.size() != 0)
-    {
-        attackerMaterialsEarned += getMaterialValue(defenders.top()->getType()), defenders.pop();
-        if (defenders.size() == 0)
-            break ;
-        defenderMaterialsEearned += getMaterialValue(attackers.top()->getType()), attackers.pop();
-    }
-
-    if (attackerMaterialsEarned > defenderMaterialsEearned)
-        return (false);
-
-    return (true);
-}
-
-bool    chessBoard::isSomethingNotProtected(void)
-{
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
-        {
-            if (isProtected(_board.at(i).coord) == false)
-                { cout << _board.at(i).coord << " not protected" << endl; return (true); }
-        }
-    }
-    return (false);
-}
-
-bool    chessBoard::isAllyAttacked(void)
-{
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
-        {
-            if (isAttacked(_board.at(i).coord) == true)
-                return (true);
-        }
-    }
-
-    cout << "nothing attacked" << endl;
-
-    return (false);
-}
-
-bool    chessBoard::isAttacked(const string coord)
-{
-    vector<string>  boardCoords;
-
-    boardCoords = getPiecesCoords();
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
-        {
-            if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
-            {
-                if (isProtected(coord) == false)
-                    return (true);
-            }
-        }
-    }
-    return (false);
-}
-
-bool    chessBoard::isAttackedByPawn(const string coord)
-{
-    vector<string>  boardCoords;
-
-    boardCoords = getPiecesCoords();
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
-        {
-            if (_board.at(i).piece->getType() == 'P' && _board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
-                return (true);
-        }
-    }
-    return (false);
-}
-
-bool    chessBoard::isVictoryNext(void)
-{
-    string  coord;
-
-    for (int i = 0, k = 0; i != 64; i++, k++)
-    {
-        if (i % 8 == 0)
-            k = 0;
-        coord = "abcdefgh"[i / 8] + to_string(k + 1);
-
-        if (_board.at(getAtValue(coord)).piece != NULL
-            && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
-        {
-            vector<string>  moves = getPossibleMoves(coord, true);
-            for (int k = 0; k != moves.size(); k++)
-            {
-                tryMove(moves.at(k));
-                switchPlayers();
-                if (isCheckMate(-1) == true)
-                    { undoMove(moves.at(k)); unSwitchPlayers(); return (true); }
-                unSwitchPlayers();
-                undoMove(moves.at(k));
-            }
-        }
-    }
-
-    return (false);
-}
-
-bool    chessBoard::isDefeatNext(void)
-{
-    switchPlayers();
-    if (isVictoryNext() == true)
-        { unSwitchPlayers(); return (true); }
-    unSwitchPlayers();
-    
-    return (false);
-}
-
-string  chessBoard::getPawnsDev(void)
+string  chessAi::getPawnsDev(void)
 {
     int value = 0;
 
@@ -204,7 +35,7 @@ string  chessBoard::getPawnsDev(void)
     return ("");
 }
 
-string  chessBoard::getKnightsDev(void)
+string  chessAi::getKnightsDev(void)
 {
     vector<string>  legalMoves;
 
@@ -245,7 +76,7 @@ string  chessBoard::getKnightsDev(void)
     return ("");
 }
 
-string  chessBoard::getCastling(void)
+string  chessAi::getCastling(void)
 {
     if (isCastlingPossible("O-O") == true && isCheck() == false)
         return ("O-O");
@@ -257,7 +88,7 @@ string  chessBoard::getCastling(void)
     return ("");
 }
 
-string  chessBoard::getBishopsDev(void)
+string  chessAi::getBishopsDev(void)
 {
     vector<string>  legalMoves;
 
@@ -298,7 +129,7 @@ string  chessBoard::getBishopsDev(void)
     return ("");
 }
 
-string  chessBoard::getPassiveMove(void)
+string  chessAi::getPassiveMove(void)
 {
     string  move;
 
@@ -313,7 +144,7 @@ string  chessBoard::getPassiveMove(void)
     return (move);
 }
 
-string	chessBoard::getCheckMateMove(void)
+string	chessAi::getCheckMateMove(void)
 {
     char            type;
     string          move;
@@ -352,7 +183,7 @@ string	chessBoard::getCheckMateMove(void)
     return ("");
 }
 
-string  chessBoard::preventCastling(const string castle)
+string  chessAi::preventCastling(const string castle)
 {
     vector<string>  legalMoves;
 
@@ -376,7 +207,7 @@ string  chessBoard::preventCastling(const string castle)
     return ("");
 }
 
-string	chessBoard::getCounterStrike(void)
+string	chessAi::getCounterStrike(void)
 {
 	string          move;
 
@@ -435,7 +266,7 @@ string	chessBoard::getCounterStrike(void)
     return (move);
 }
 
-string  chessBoard::getBestCounterMateCheck(vector<string> legalMoves)
+string  chessAi::getBestCounterMateCheck(vector<string> legalMoves)
 {
     string          src;
     string          dest;
@@ -490,7 +321,7 @@ string  chessBoard::getBestCounterMateCheck(vector<string> legalMoves)
     return (move);
 }
 
-string  chessBoard::getCounterCheck(void)
+string  chessAi::getCounterCheck(void)
 {
     string          move;
     vector<string>  legalMoves;
@@ -511,7 +342,7 @@ string  chessBoard::getCounterCheck(void)
     return (move);
 }
 
-string	chessBoard::getCounterCheckMate(void)
+string	chessAi::getCounterCheckMate(void)
 {
     string          move;
     vector<string>  legalMoves;
@@ -535,7 +366,7 @@ string	chessBoard::getCounterCheckMate(void)
     return (move);
 }
 
-string	chessBoard::getCounterProtect(void)
+string	chessAi::getCounterProtect(void)
 {
 	string                  move;
     vector<chessPiece *>    targetsList;
@@ -655,7 +486,7 @@ string	chessBoard::getCounterProtect(void)
     return (move);
 }
 
-string  chessBoard::getRandomMove(void)
+string  chessAi::getRandomMove(void)
 {
     vector<string>  legalMoves;
     string          move;
@@ -669,3 +500,209 @@ string  chessBoard::getRandomMove(void)
 
     return (move);
 }
+
+stack<chessPiece *> chessAi::orderMaterialsByValue(vector<chessPiece *> materials)
+{
+    int                 value;
+    stack<chessPiece *> stack;
+
+    for (int i = 0; i != 4; i++)
+    {
+        for (int k = 0; k != materials.size(); k++)
+        {
+            if (i == 0 && materials.at(k)->getType() == 'Q')
+                stack.push(materials.at(k));
+            if (i == 1 && materials.at(k)->getType() == 'R')
+                stack.push(materials.at(k));
+            if (i == 2 && (materials.at(k)->getType() == 'B' || materials.at(k)->getType() == 'N'))
+                stack.push(materials.at(k));
+            if (i == 3 && materials.at(k)->getType() == 'P')
+                stack.push(materials.at(k));
+        }
+    }
+    return (stack);
+}
+
+
+int chessAi::getMaterialValue(const char type)
+{
+    if (type == 'P')
+        return (1);
+    if (type == 'N' || type == 'B')
+        return (3);
+    if (type == 'R')
+        return (5);
+    if (type == 'Q')
+        return (9);
+    return (0);
+}
+
+bool    chessAi::isEndGame(void)
+{
+    return (false);
+}
+
+bool    chessAi::isProtected(const string coord)
+{
+    int                     attackerMaterialsEarned = 0;
+    int                     defenderMaterialsEearned = 0;
+    vector<chessPiece *>    attackMaterials;
+    vector<chessPiece *>    defMaterials;
+    stack<chessPiece *>     attackers;
+    stack<chessPiece *>     defenders;
+
+    cout << "evaluating if " << coord << " is protected..." << endl;
+
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL)
+        {
+            if (_board.at(i).piece->getColor() != _gameInfo._color)
+            {
+                if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
+                    attackMaterials.push_back(_board.at(i).piece);
+            }
+            else if (_board.at(i).coord != coord)
+            {
+                if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
+                    defMaterials.push_back(_board.at(i).piece);
+            }
+        }
+    }
+    if (attackMaterials.size() == 0)
+        return (true);
+
+    cout << "attackers >" << endl;
+    for (int i = 0; i != attackMaterials.size(); i++)
+        cout << attackMaterials.at(i)->getCoord() << " ; ";
+    cout << endl;
+
+    if (defMaterials.size() == 0)
+        return (false);
+
+    cout << "defenders >" << endl;
+    for (int i = 0; i != defMaterials.size(); i++)
+        cout << defMaterials.at(i)->getCoord() << " ; ";
+    cout << endl;
+
+    defenders = orderMaterialsByValue(defMaterials);
+    defenders.push(_board.at(getAtValue(coord)).piece);
+    attackers = orderMaterialsByValue(attackMaterials);
+
+    while (attackers.size() != 0 && defenders.size() != 0)
+    {
+        attackerMaterialsEarned += getMaterialValue(defenders.top()->getType()), defenders.pop();
+        if (defenders.size() == 0)
+            break ;
+        defenderMaterialsEearned += getMaterialValue(attackers.top()->getType()), attackers.pop();
+    }
+
+    if (attackerMaterialsEarned > defenderMaterialsEearned)
+        return (false);
+
+    return (true);
+}
+
+bool    chessAi::isSomethingNotProtected(void)
+{
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
+        {
+            if (isProtected(_board.at(i).coord) == false)
+                { cout << _board.at(i).coord << " not protected" << endl; return (true); }
+        }
+    }
+    return (false);
+}
+
+bool    chessAi::isAllyAttacked(void)
+{
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+        {
+            if (isAttacked(_board.at(i).coord) == true)
+                return (true);
+        }
+    }
+
+    cout << "nothing attacked" << endl;
+
+    return (false);
+}
+
+bool    chessAi::isAttacked(const string coord)
+{
+    vector<string>  boardCoords;
+
+    boardCoords = getPiecesCoords();
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
+        {
+            if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
+            {
+                if (isProtected(coord) == false)
+                    return (true);
+            }
+        }
+    }
+    return (false);
+}
+
+bool    chessAi::isAttackedByPawn(const string coord)
+{
+    vector<string>  boardCoords;
+
+    boardCoords = getPiecesCoords();
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
+        {
+            if (_board.at(i).piece->getType() == 'P' && _board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
+                return (true);
+        }
+    }
+    return (false);
+}
+
+bool    chessAi::isVictoryNext(void)
+{
+    string  coord;
+
+    for (int i = 0, k = 0; i != 64; i++, k++)
+    {
+        if (i % 8 == 0)
+            k = 0;
+        coord = "abcdefgh"[i / 8] + to_string(k + 1);
+
+        if (_board.at(getAtValue(coord)).piece != NULL
+            && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
+        {
+            vector<string>  moves = getPossibleMoves(coord, true);
+            for (int k = 0; k != moves.size(); k++)
+            {
+                tryMove(moves.at(k));
+                switchPlayers();
+                if (isCheckMate(-1) == true)
+                    { undoMove(moves.at(k)); unSwitchPlayers(); return (true); }
+                unSwitchPlayers();
+                undoMove(moves.at(k));
+            }
+        }
+    }
+
+    return (false);
+}
+
+bool    chessAi::isDefeatNext(void)
+{
+    switchPlayers();
+    if (isVictoryNext() == true)
+        { unSwitchPlayers(); return (true); }
+    unSwitchPlayers();
+    
+    return (false);
+}
+
