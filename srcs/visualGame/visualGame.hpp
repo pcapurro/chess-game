@@ -103,7 +103,7 @@ class visualGame
         bool            _dropped;
         string          _droppedSrc;
 
-        string          _lastMove;
+        string          _lastAiMove;
 
         int             _aiSide;
         int             _turn;

@@ -6,16 +6,14 @@ string  visualGame::getVisualAnswer(void)
 {
     string  answer;
 
-    if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
-        || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
+    if (_sandBoxMode == false && _turn % 2 == _aiSide)
     {
         chessAi ai(_board);
         answer = ai.getNextMove();
+        _lastAiMove = answer;
     }
     else
-        answer = waitForEvent();
-
-    _lastMove = answer;
+        answer = waitForEvent(), _lastAiMove.clear();
 
     return (answer);
 }

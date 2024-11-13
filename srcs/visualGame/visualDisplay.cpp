@@ -61,7 +61,7 @@ void    visualGame::loadBoard(const string color, const int cx, const int cy)
             objColor = _board->getColor(coords);
 
             if (objType != ' ' && objColor == color
-                && (_aiSide == -1 || coords != (string(1, _lastMove[3]) + _lastMove[4])) || objType == 'N')
+                && (_aiSide == -1 || _lastAiMove == "" || coords != (string(1, _lastAiMove[3]) + _lastAiMove[4])) || objType == 'N')
             {
                 if (coords != _droppedSrc)
                     obj = getRectangle(coords);
@@ -116,8 +116,10 @@ void    visualGame::loadMove(void)
     string      dest;
     SDL_Rect    obj;
 
-    src = string(1, _lastMove[1]) + _lastMove[2];
-    dest = string(1, _lastMove[3]) + _lastMove[4];
+    cout << "ai move displaying... (" << _lastAiMove << ")" << endl;
+
+    src = string(1, _lastAiMove[1]) + _lastAiMove[2];
+    dest = string(1, _lastAiMove[3]) + _lastAiMove[4];
     objType = _board->getType(dest);
     objColor = _board->getColor(dest);
 
@@ -134,16 +136,6 @@ void    visualGame::loadMove(void)
     //     ;
     // if (src[0] != dest[0] && src[1] != dest[1]) // déplacement diagonal
     //     ;
-
-    obj = getRectangle(dest, 0, (_height / 10) / 2);
-    SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), \
-    NULL, &obj);
-
-    sleep(2);
-
-    obj = getRectangle(dest);
-    SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), \
-    NULL, &obj);
 }
 
 void    visualGame::displayGame(const int cx, const int cy)
@@ -173,9 +165,9 @@ void    visualGame::displayGame(const int cx, const int cy)
     else
         loadBoard("white", cx, cy), loadBoard("black", cx, cy);
 
-    if (_aiSide != -1 && _turn % 2 == _aiSide
-        && _lastMove[0] != 'N')
-        loadMove();
+    if (_aiSide != -1 && _turn % 2 != _aiSide
+        && _lastAiMove != "" && _lastAiMove[0] != 'N')
+        loadMove(), _lastAiMove = "";
 
     stateValue = _board->getStateValue();
 
