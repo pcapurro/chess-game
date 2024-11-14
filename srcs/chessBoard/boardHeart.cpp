@@ -24,7 +24,7 @@ void    chessBoard::enableDisableEnPassant(void)
     }
 }
 
-void    chessBoard::priseEnPassant(const bool free)
+void    chessBoard::priseEnPassant()
 {
     chessPiece  *piece;
     size_t      atValue;
@@ -45,21 +45,20 @@ void    chessBoard::priseEnPassant(const bool free)
     if (_gameInfo._color == "black")
         newCoordUpdated[1] = newCoordUpdated[1] + 1;
 
-    removePiece(newCoordUpdated, free);
+    removePiece(newCoordUpdated);
 }
 
-void    chessBoard::removePiece(const string coord, const bool free)
+void    chessBoard::removePiece(const string coord)
 {
     size_t  atValue = getAtValue(coord);
     if (_board.at(atValue).piece != NULL)
     {
-        if (free == true)
-            delete _board.at(atValue).piece;
+        delete _board.at(atValue).piece;
         _board.at(atValue).piece = NULL;
     }
 }
 
-void    chessBoard::promotePiece(const string initialCoord, char pieceType, const bool free)
+void    chessBoard::promotePiece(const string initialCoord, char pieceType)
 {
     string  initialCoordUpdated;
     string  color;
@@ -70,7 +69,7 @@ void    chessBoard::promotePiece(const string initialCoord, char pieceType, cons
     atValue = getAtValue(initialCoordUpdated);
     color = _board.at(atValue).piece->getColor();
     
-    removePiece(initialCoord, free);
+    removePiece(initialCoord);
     if (pieceType == 'Q')
         _board.at(atValue).piece = new (nothrow) Queen(color, initialCoordUpdated);
     if (pieceType == 'N')
@@ -84,7 +83,7 @@ void    chessBoard::promotePiece(const string initialCoord, char pieceType, cons
         _allocated = false, _board.at(atValue).piece = NULL;
 }
 
-void    chessBoard::movePiece(const string initialCoord, const string newCoord, const bool free)
+void    chessBoard::movePiece(const string initialCoord, const string newCoord)
 {
     chessPiece  *piece;
     size_t      atValue;
@@ -98,7 +97,7 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord, 
     if (newCoord.length() == 3)
         newCoordUpdated = newCoord, newCoordUpdated[2] = '\0';
     
-    removePiece(newCoordUpdated, free);
+    removePiece(newCoordUpdated);
     atValue = getAtValue(newCoordUpdated);
     _board.at(atValue).piece = piece;
 
@@ -176,14 +175,25 @@ void    chessBoard::addToHistory(void)
     }
 }
 
-int chessBoard::playMove(t_move move, const bool free)
+void    chessBoard::loadMove(const string move)
 {
-    _gameInfo._lastMove = move;
+    _gameInfo._lastMove.move = move;
+    _gameInfo._lastMove.action = '-';
+    _gameInfo._lastMove.obj = move[0];
+    _gameInfo._lastMove.src = string(1, move[1]) + move[2];
+    _gameInfo._lastMove.dest = move.c_str() + 3;
+    _gameInfo._lastMove.error = false;
+}
+
+int chessBoard::playMove(t_move structureMove, const string stringMove)
+{
+    if (stringMove == "")
+        _gameInfo._lastMove = structureMove;
+    else
+        loadMove(stringMove);
+
     if (isLegal() == false)
-    {
-        _gameInfo._moveFailed = true;
-        return (FAIL);
-    }
+        { _gameInfo._moveFailed = true; return (FAIL); }
     else
     {
         _gameInfo._moveFailed = false;
@@ -205,12 +215,12 @@ int chessBoard::playMove(t_move move, const bool free)
             if ((_gameInfo._lastMove.action == 'x' || _gameInfo._lastMove.action == '-')
                 && isThereSomething(dest) == false
                 && _gameInfo._enPassant == true && _gameInfo._enPassantDest == dest)
-                priseEnPassant(free);
+                priseEnPassant();
             else
             {
-                movePiece(src, dest, free);
+                movePiece(src, dest);
                 if (algebraParser::isChessPiece(dest.at(dest.length() - 1)) == true)
-                    promotePiece(dest, dest[dest.length() - 1], free);
+                    promotePiece(dest, dest[dest.length() - 1]);
                 
                 if (_allocated == false)
                     return (ERR);

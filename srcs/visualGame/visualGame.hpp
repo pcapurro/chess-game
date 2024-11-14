@@ -67,6 +67,7 @@ class visualGame
         void        loadDraw(void);
         void        loadCheckMate(void);
         void        loadMove(void);
+        void        displayPromotion(const char type, const string coord);
         void        displayGame(const int cx = 0, const int cy = 0);
     
         string      waitForEvent(void);
@@ -77,6 +78,8 @@ class visualGame
 
         string      getCoord(const int x, const int y) const;
         string      getTurnColor(void) const;
+
+        bool        isAbovePromotion(const int x, const int y, SDL_Rect obj);
 
         const bool		_sandBoxMode;
 
@@ -106,6 +109,7 @@ class visualGame
 
         string          _droppedSrc;
         string          _clickSrc;
+        string          _droppedDest;
 
         string          _lastAiMove;
 

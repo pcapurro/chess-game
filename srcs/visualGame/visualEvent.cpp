@@ -20,6 +20,7 @@ string visualGame::getInput(const string coord)
 
     _droppedSrc.clear();
     _clickSrc.clear();
+    _droppedDest.clear();
 
     return (input);
 }
@@ -55,13 +56,16 @@ int visualGame::waitForNewGame(void)
 
 string  visualGame::waitForPromotion(const string coord)
 {
-    SDL_Event   event;
-    SDL_Rect    obj;
+    int             i = 0;
+    string          coords;
+    vector<char>    types;
+    SDL_Event       event;
+    SDL_Rect        obj;
 
-    displayGame();
+    types.push_back('Q'), types.push_back('B'), types.push_back('N');
     obj = getRectangle(coord, 0, 0, "promotion");
-    SDL_RenderCopy(_mainRenderer, _promotionTexture, NULL, &obj);
-    SDL_RenderPresent(_mainRenderer);
+
+    displayPromotion(types.at(i), coord);
 
     while (1)
     {
@@ -70,8 +74,30 @@ string  visualGame::waitForPromotion(const string coord)
             if (event.type == SDL_QUIT)
                 return (string("end"));
 
-            if (event.type == SDL_MOUSEMOTION)
-                ;
+            coords = getCoord(event.button.x, event.button.y);
+
+            if (isAbovePromotion(event.button.x, event.button.y, obj) == true)
+            {
+                SDL_SetCursor(_playCursor);
+
+                if (event.type == SDL_MOUSEBUTTONUP)
+                {
+                    if (event.button.x > obj.x && event.button.x < obj.x + (_width / 40)
+                        && event.button.y < obj.y + (_height / 16) && i != 0)
+                        i--;
+                    if (event.button.x > obj.x + (_width / 9) && event.button.x < (obj.x + obj.w)
+                        && event.button.y < obj.y + (_height / 16) && i != 2)
+                        i++;
+
+                    if (event.button.x > obj.x + (_width / 25) && event.button.x < (obj.x + obj.w) - (_width / 25)
+                        && event.button.y > obj.y + (_height / 16) && event.button.y < (obj.y + obj.h))
+                        {  displayGame(); return (coord + types.at(i)); }
+                    
+                    displayPromotion(types.at(i), coord);
+                }
+            }
+            else
+                SDL_SetCursor(_normalCursor);
         }
     }
 }
@@ -112,11 +138,11 @@ string  visualGame::waitForEvent(void)
                         if (_droppedSrc == "")
                             _droppedSrc = _clickSrc;
 
-                        cout << "coord > " << coord << endl;
+                        _droppedDest = coord;
 
-                        if (_board->getType(_droppedSrc) == 'P'
-                            && ((coord[1] == '8' && _droppedSrc[1] == '7')
-                            || (coord[1] == '1' && _droppedSrc[1] == '2')))
+                        if (_board->getType(_droppedSrc) == 'P' && ((coord[1] == '8' && _droppedSrc[1] == '7')
+                            || (coord[1] == '1' && _droppedSrc[1] == '2'))
+                            && _board->isLegal(string(1, 'P') + _droppedSrc + coord + 'Q') == true)
                             coord = waitForPromotion(coord);
 
                         return (getInput(coord));

@@ -24,6 +24,7 @@ void    visualGame::setToDefault(void)
     _turn = 0;
     _clickSrc.clear();
     _droppedSrc.clear();
+    _droppedDest.clear();
 }
 
 void    visualGame::setToNullPtr(void)

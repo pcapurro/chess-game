@@ -61,15 +61,16 @@ void    visualGame::loadBoard(const string color, const int cx, const int cy)
             objColor = _board->getColor(coords);
 
             if (objType != ' ' && objColor == color
-                && (_aiSide == -1 || _lastAiMove == "" || coords != (string(1, _lastAiMove[3]) + _lastAiMove[4])) || objType == 'N')
+                && (_aiSide == -1 || _lastAiMove == "" || coords != (string(1, _lastAiMove[3]) + _lastAiMove[4]) || objType == 'N')
+                && coords != _droppedDest)
             {
                 if (coords != _droppedSrc)
                     obj = getRectangle(coords);
                 else
                     obj.x = cx - ((_width / 10) / 2), obj.y = cy - ((_height / 10) / 2);
-                
-                SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), \
-                    NULL, &obj);
+
+                if (obj.x > 0 && obj.y > 0 && obj.x < _width && obj.y << _height)
+                    SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), NULL, &obj);
             }
         }
     }
@@ -154,6 +155,24 @@ void    visualGame::loadMove(void)
     //     ;
     // if (src[0] != dest[0] && src[1] != dest[1]) // déplacement diagonal
     //     ;
+}
+
+void    visualGame::displayPromotion(const char type, const string coord)
+{
+    SDL_Rect    obj;
+    string      color;
+
+    displayGame();
+
+    _turn % 2 == 0 ? color = "white" : color = "black";
+
+    obj = getRectangle(coord);
+    SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
+    SDL_RenderPresent(_mainRenderer);
+
+    obj = getRectangle(coord, 0, 0, "promotion");
+    SDL_RenderCopy(_mainRenderer, _promotionTexture, NULL, &obj);
+    SDL_RenderPresent(_mainRenderer);
 }
 
 void    visualGame::displayGame(const int cx, const int cy)

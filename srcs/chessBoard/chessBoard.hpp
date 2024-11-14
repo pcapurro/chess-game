@@ -87,7 +87,9 @@ class chessBoard
         bool    isItDraw(void) { return (_gameInfo._draw); };
         bool    isItCheckMate(void) { return (_gameInfo._checkmate); }
         bool    isGameOver(void);
-        int     playMove(t_move move, const bool free = true);
+
+        bool    isLegal(const string move = "");
+        int     playMove(t_move structureMove, const string stringMove = "");
 
         void    printEvent(const bool cfail, const bool bfail,\
                             const bool blindMode);
@@ -119,8 +121,6 @@ class chessBoard
         bool    isTheDestinationSafe(void) const;
         bool    isCastlingPossible(const string castle);
 
-        bool    isLegal(void);
-
         bool    doesItResolveCheck(const string srcdest);
         bool    isCheckMateImpossible(void);
         bool    canTheKingMove(void);
@@ -135,6 +135,8 @@ class chessBoard
 
         void    tryMove(string srcdest);
         void    undoMove(string srcdest);
+
+        void    loadMove(const string move);
 
         vector<t_square>    _board;
         t_game_info         _gameInfo;
@@ -154,14 +156,14 @@ class chessBoard
 
         bool    checkBoardAllocation(void) const;
 
-        void    priseEnPassant(const bool free = true);
+        void    priseEnPassant(void);
         void    enableDisableEnPassant(void);
         void    whiteCastles(void);
         void    blackCastles(void);
 
-        void    promotePiece(const string initialCoord, char pieceType, const bool free = true);
-        void    movePiece(const string initialCoord, const string newCoord, const bool free = true);
-        void    removePiece(const string coord, const bool free = true);
+        void    promotePiece(const string initialCoord, char pieceType);
+        void    movePiece(const string initialCoord, const string newCoord);
+        void    removePiece(const string coord);
 
         void    countPiecesOnBoard(void);
         void    resetCount(void);

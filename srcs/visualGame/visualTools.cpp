@@ -126,3 +126,20 @@ string  visualGame::getTurnColor(void) const
         return (string("white"));
     return (string("black"));
 }
+
+bool    visualGame::isAbovePromotion(const int x, const int y, SDL_Rect obj)
+{
+    if (x > obj.x && x < obj.x + (_width / 40)
+        && y > obj.y + (_width / 40) && y <= obj.y + (_width / 40) + (_width / 20))
+        return (true);
+
+    if (x > obj.x + (_width / 9) && x < (obj.x + obj.w)
+        && y > obj.y + (_width / 40) && y <= obj.y + (_width / 40) + (_width / 20))
+        return (true);
+
+    if (x > obj.x + (_width / 25) && x < (obj.x + obj.w) - (_width / 25)
+        && y > obj.y + (_height / 16) && y < (obj.y + obj.h))
+        return (true);
+
+    return (false);
+}

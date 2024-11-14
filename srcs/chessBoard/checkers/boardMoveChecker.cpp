@@ -205,11 +205,18 @@ bool    chessBoard::isItValidSource(void) const
     return (true);
 }
 
-bool    chessBoard::isLegal(void)
+bool    chessBoard::isLegal(const string move)
 {
-    char    obj = _gameInfo._lastMove.obj;
-    string  src = _gameInfo._lastMove.src;
-    string  dest = _gameInfo._lastMove.dest;
+    char    obj;
+    string  src;
+    string  dest;
+
+    if (move != "")
+        loadMove(move);
+
+    obj = _gameInfo._lastMove.obj;
+    src = _gameInfo._lastMove.src;
+    dest = _gameInfo._lastMove.dest;
 
     if (dest == "O-O-O" || dest == "O-O")
     {
