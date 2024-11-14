@@ -172,6 +172,19 @@ void    visualGame::loadBoardTextures(void)
     SDL_FreeSurface(_baseSurface);
 
     _baseCheck = 0;
+
+    _baseSurface = SDL_LoadBMP("./materials/images/promotion.bmp");
+    if (_baseSurface == NULL)
+        { _error = true; return ; }
+    _baseCheck = 1;
+
+    _promotionTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (_promotionTexture == NULL)
+        { _error = true; return ; }
+
+    SDL_FreeSurface(_baseSurface);
+
+    _baseCheck = 0;
 }
 
 void    visualGame::loadArrowTexture(void)

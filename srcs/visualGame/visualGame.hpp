@@ -95,6 +95,7 @@ class visualGame
         SDL_Texture     *_whiteBoardTexture;
         SDL_Texture     *_checkMateWhiteTexture;
         SDL_Texture     *_checkMateBlackTexture;
+        SDL_Texture     *_promotionTexture;
         SDL_Texture     *_arrowTexture;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
