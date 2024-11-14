@@ -63,6 +63,7 @@ class visualGame
         void        loadText(const int value);
         void        loadArrow(const int value);
         void        loadCheck(void);
+        void        loadDraw(void);
         void        loadCheckMate(void);
         void        loadMove(void);
         void        displayGame(const int cx = 0, const int cy = 0);

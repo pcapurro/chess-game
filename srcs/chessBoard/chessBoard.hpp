@@ -84,6 +84,7 @@ class chessBoard
         int     getStateValue(void) const;
 
         bool    isItCheck(void) { return (_gameInfo._check); };
+        bool    isItDraw(void) { return (_gameInfo._draw); };
         bool    isItCheckMate(void) { return (_gameInfo._checkmate); }
         bool    isGameOver(void);
         int     playMove(t_move move, const bool free = true);

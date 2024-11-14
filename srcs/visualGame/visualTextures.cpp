@@ -147,8 +147,6 @@ void    visualGame::loadBoardTextures(void)
 
     _baseCheck = 0;
 
-    cout << "ok" << endl;
-
     _baseSurface = SDL_LoadBMP("./materials/images/checkmate-white.bmp");
     if (_baseSurface == NULL)
         { _error = true; return ; }
@@ -159,8 +157,6 @@ void    visualGame::loadBoardTextures(void)
         { _error = true; return ; }
 
     SDL_FreeSurface(_baseSurface);
-
-    cout << "ok" << endl;
 
     _baseCheck = 0;
 
@@ -174,8 +170,6 @@ void    visualGame::loadBoardTextures(void)
         { _error = true; return ; }
 
     SDL_FreeSurface(_baseSurface);
-
-    cout << "ok" << endl;
 
     _baseCheck = 0;
 }

@@ -89,6 +89,24 @@ void    visualGame::loadCheck(void)
     SDL_RenderFillRect(_mainRenderer, &obj);
 }
 
+void    visualGame::loadDraw(void)
+{
+    string      color;
+    SDL_Rect    obj;
+
+    _turn % 2 == 0 ? color = "white" : color = "black";
+    obj = getRectangle(getKingCoords(color));
+
+    SDL_SetRenderDrawColor(_mainRenderer, 128, 128, 128, 255);
+    SDL_RenderFillRect(_mainRenderer, &obj);
+
+    _turn % 2 == 0 ? color = "black" : color = "white";
+    obj = getRectangle(getKingCoords(color));
+
+    SDL_SetRenderDrawColor(_mainRenderer, 128, 128, 128, 255);
+    SDL_RenderFillRect(_mainRenderer, &obj);
+}
+
 void    visualGame::loadCheckMate(void)
 {
     string      color;
@@ -159,6 +177,8 @@ void    visualGame::displayGame(const int cx, const int cy)
         loadCheckMate();
     else if (_board->isItCheck() == true)
         loadCheck();
+    else if (_board->isItDraw() == true)
+        loadDraw();
 
     if (_turn % 2 == 0)
         loadBoard("black", cx, cy), loadBoard("white", cx, cy);

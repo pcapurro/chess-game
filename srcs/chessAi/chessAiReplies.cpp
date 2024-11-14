@@ -162,8 +162,6 @@ string  chessAi::getPassiveMove(void)
             }
         }
 
-        cout << "ok" << endl;
-
         if (pawns.size() == 1)
             return (pawns.at(0));
         else if (pawns.size() > 1)

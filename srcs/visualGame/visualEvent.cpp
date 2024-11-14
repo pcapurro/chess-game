@@ -25,8 +25,6 @@ string visualGame::getInput(const string coord)
             input = input + 'Q';
     }
 
-    cout << " sending " << input << endl;
-
     _dropped = true;
     _droppedSrc.clear();
 

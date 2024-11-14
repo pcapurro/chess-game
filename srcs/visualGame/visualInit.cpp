@@ -38,6 +38,8 @@ void    visualGame::setToNullPtr(void)
 
     _whiteBoardTexture = nullptr;
     _blackBoardTexture = nullptr;
+    _checkMateWhiteTexture = nullptr;
+    _checkMateBlackTexture = nullptr;
     _arrowTexture = nullptr;
     _baseSurface = nullptr;
     _baseCheck = 0;
