@@ -69,6 +69,7 @@ class visualGame
         void        displayGame(const int cx = 0, const int cy = 0);
     
         string      waitForEvent(void);
+        string      waitForPromotion(const string coord);
         int         waitForNewGame(void);
 
         string      getInput(const string coord);

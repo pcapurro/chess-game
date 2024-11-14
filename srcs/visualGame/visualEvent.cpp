@@ -4,15 +4,6 @@ string visualGame::getInput(const string coord)
 {
     string  input;
 
-    if (_droppedSrc == "none" || coord == "none")
-        return ("none");
-
-    cout << "droppedSrc > " << _droppedSrc << endl;
-    cout << "dest > " << coord << endl;
-
-    if (_droppedSrc == "")
-        _droppedSrc = _clickSrc;
-
     input = input + _board->getType(_droppedSrc);
     input = input + _droppedSrc + coord;
 
@@ -22,13 +13,6 @@ string visualGame::getInput(const string coord)
             input[3] = 'O', input[4] = '-', input = input + "O";
         if ((coord == "c1" && _droppedSrc == "e1") || (coord == "c8" && _droppedSrc == "e8"))
             input[3] = 'O', input[4] = '-', input = input + "O-O";
-    }
-
-    if (input[0] == 'P')
-    {
-        if ((coord[1] == '8' && _droppedSrc[1] == '7')
-            || (coord[1] == '1' && _droppedSrc[1] == '2'))
-            input = input + 'Q';
     }
 
     _droppedSrc.clear();
@@ -66,6 +50,24 @@ int visualGame::waitForNewGame(void)
     return (0);
 }
 
+string  visualGame::waitForPromotion(const string coord)
+{
+    SDL_Event   event;
+
+    cout << "waiting for promotion" << endl;
+    while (1)
+    {
+        if (SDL_PollEvent(&event) == true)
+        {
+            if (event.type == SDL_QUIT)
+                return (string("end"));
+
+            if (event.type == SDL_MOUSEBUTTONUP)
+                ;
+        }
+    }
+}
+
 string  visualGame::waitForEvent(void)
 {
     SDL_Event   event;
@@ -96,7 +98,21 @@ string  visualGame::waitForEvent(void)
                     if (_droppedSrc == coord)
                         _clickSrc = coord, _droppedSrc.clear();
                     else
+                    {
+                        if (_droppedSrc == "none" || coord == "none")
+                            return ("none");
+                        if (_droppedSrc == "")
+                            _droppedSrc = _clickSrc;
+
+                        cout << "coord > " << coord << endl;
+
+                        if (_board->getType(_droppedSrc) == 'P'
+                            && ((coord[1] == '8' && _droppedSrc[1] == '7')
+                            || (coord[1] == '1' && _droppedSrc[1] == '2')))
+                            coord = waitForPromotion(coord);
+
                         return (getInput(coord));
+                    }
                 }
 
                 displayGame(event.button.x, event.button.y);
