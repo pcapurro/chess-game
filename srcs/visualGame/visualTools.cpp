@@ -46,25 +46,35 @@ SDL_Rect    visualGame::getRectangle(const string coords, const float fx, const 
     SDL_Rect    obj;
 
     if (coords == "default")
-        obj.h = _height, obj.w = _width, obj.x = 0, obj.y = 0;
-    else
     {
-        float   x;
-        float   y;
-
-        x = coords[0] - 97;
-        y = atoi(coords.c_str() + 1) - 1;
-
-        if (_aiSide != 0)
-            y = 8 - (y + 1);
-        else
-            x = 7 - x;
-    
-        obj.h = _height / 10, obj.w = _width / 10;
-        obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
-
-        obj.x = obj.x - fx, obj.y = obj.y - fy;
+        obj.h = _height, obj.w = _width;
+        obj.x = 0, obj.y = 0;
+        return (obj);
     }
+
+    float   x;
+    float   y;
+
+    x = coords[0] - 97;
+    y = atoi(coords.c_str() + 1) - 1;
+
+    if (_aiSide != 0)
+        y = 8 - (y + 1);
+    else
+        x = 7 - x;
+
+    obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
+
+    if (fx == -1 || fy == -1)
+    {
+        obj.x = obj.x - 4, obj.y = obj.y - 4;
+        obj.h = _height / 10, obj.w = _width / 7;
+
+        return (obj);
+    }
+
+    obj.x = obj.x - fx, obj.y = obj.y - fy;
+    obj.h = _height / 10, obj.w = _width / 10;
     
     return (obj);
 }

@@ -4,6 +4,9 @@ string visualGame::getInput(const string coord)
 {
     string  input;
 
+    if (coord == "end" || coord == "none" || coord == "error")
+        return (coord);
+
     input = input + _board->getType(_droppedSrc);
     input = input + _droppedSrc + coord;
 
@@ -53,8 +56,13 @@ int visualGame::waitForNewGame(void)
 string  visualGame::waitForPromotion(const string coord)
 {
     SDL_Event   event;
+    SDL_Rect    obj;
 
-    cout << "waiting for promotion" << endl;
+    displayGame();
+    obj = getRectangle(coord, -1, -1);
+    SDL_RenderCopy(_mainRenderer, _promotionTexture, NULL, &obj);
+    SDL_RenderPresent(_mainRenderer);
+
     while (1)
     {
         if (SDL_PollEvent(&event) == true)
