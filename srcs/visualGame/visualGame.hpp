@@ -101,8 +101,8 @@ class visualGame
 
         chessBoard      *_board;
 
-        bool            _dropped;
         string          _droppedSrc;
+        string          _clickSrc;
 
         string          _lastAiMove;
 

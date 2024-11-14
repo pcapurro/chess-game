@@ -22,8 +22,7 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 void    visualGame::setToDefault(void)
 {
     _turn = 0;
-
-    _dropped = true;
+    _clickSrc.clear();
     _droppedSrc.clear();
 }
 

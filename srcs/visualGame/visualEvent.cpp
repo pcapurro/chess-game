@@ -7,6 +7,12 @@ string visualGame::getInput(const string coord)
     if (_droppedSrc == "none" || coord == "none")
         return ("none");
 
+    cout << "droppedSrc > " << _droppedSrc << endl;
+    cout << "dest > " << coord << endl;
+
+    if (_droppedSrc == "")
+        _droppedSrc = _clickSrc;
+
     input = input + _board->getType(_droppedSrc);
     input = input + _droppedSrc + coord;
 
@@ -25,8 +31,8 @@ string visualGame::getInput(const string coord)
             input = input + 'Q';
     }
 
-    _dropped = true;
     _droppedSrc.clear();
+    _clickSrc.clear();
 
     return (input);
 }
@@ -80,13 +86,18 @@ string  visualGame::waitForEvent(void)
                 {
                     SDL_SetCursor(_playCursor);
                     if (event.type == SDL_MOUSEBUTTONDOWN)
-                        _dropped = false, _droppedSrc = coord;
+                        _droppedSrc = coord;
                 }
                 else
                     SDL_SetCursor(_normalCursor);
                 
                 if (event.type == SDL_MOUSEBUTTONUP)
-                    return (getInput(coord));
+                {
+                    if (_droppedSrc == coord)
+                        _clickSrc = coord, _droppedSrc.clear();
+                    else
+                        return (getInput(coord));
+                }
 
                 displayGame(event.button.x, event.button.y);
             }
