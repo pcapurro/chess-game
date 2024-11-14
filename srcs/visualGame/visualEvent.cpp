@@ -59,7 +59,7 @@ string  visualGame::waitForPromotion(const string coord)
     SDL_Rect    obj;
 
     displayGame();
-    obj = getRectangle(coord, -1, -1);
+    obj = getRectangle(coord, 0, 0, "promotion");
     SDL_RenderCopy(_mainRenderer, _promotionTexture, NULL, &obj);
     SDL_RenderPresent(_mainRenderer);
 
@@ -70,7 +70,7 @@ string  visualGame::waitForPromotion(const string coord)
             if (event.type == SDL_QUIT)
                 return (string("end"));
 
-            if (event.type == SDL_MOUSEBUTTONUP)
+            if (event.type == SDL_MOUSEMOTION)
                 ;
         }
     }

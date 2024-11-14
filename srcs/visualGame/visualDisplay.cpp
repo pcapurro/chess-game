@@ -163,7 +163,7 @@ void    visualGame::displayGame(const int cx, const int cy)
 
     SDL_RenderClear(_mainRenderer);
 
-    obj = getRectangle("default");
+    obj = getRectangle("", 0, 0, "default");
 
     SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
     SDL_RenderFillRect(_mainRenderer, &obj);
