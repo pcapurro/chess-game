@@ -136,7 +136,7 @@ string  visualGame::waitForEvent(void)
                     else
                     {
                         if (_droppedSrc == "none" || coord == "none"
-                            || _droppedSrc == "" || coord == "")
+                            || coord == "")
                             return ("none");
                         if (_droppedSrc == "")
                             _droppedSrc = _clickSrc;
