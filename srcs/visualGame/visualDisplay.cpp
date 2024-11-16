@@ -124,25 +124,20 @@ void    visualGame::loadCheckMate(void)
     SDL_RenderCopy(_mainRenderer, getTexture('c', color), NULL, &obj);
 }
 
-void    visualGame::displayAiMove(const string src, const string dest)
+void    visualGame::displayAiMove(void)
 {
     int         destX, destY;
-    char        type;
-    string      color;
-    SDL_Texture *texture;
+    string      src, dest;
     SDL_Rect    obj;
+
+    src = string(1, _lastAiMove[1]) + _lastAiMove[2];
+    dest = string(1, _lastAiMove[3]) + _lastAiMove[4];
 
     obj.x = getRectangle(src).x;
     obj.y = getRectangle(src).y;
 
     destX = getRectangle(dest).x;
     destY = getRectangle(dest).y;
-
-    type = _board->getType(src);
-    color = _board->getColor(src);
-
-    texture = getTexture(type, color);
-    obj.h = _height / 10, obj.w = _width / 10;
 
     _droppedSrc = src;
     while (obj.y != destY || obj.x != destX)

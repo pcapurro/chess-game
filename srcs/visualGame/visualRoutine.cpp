@@ -12,11 +12,9 @@ string  visualGame::getVisualAnswer(void)
     {
         answer = ai.getNextMove();
         _lastAiMove = answer;
+
         if (_lastAiMove.find('O') == string::npos)
-        {
-            displayAiMove(string(1, _lastAiMove[1]) + _lastAiMove[2], \
-                string(1, _lastAiMove[3]) + _lastAiMove[4]);
-        }
+            displayAiMove();
     }
     else
         answer = waitForEvent(), _lastAiMove.clear();
