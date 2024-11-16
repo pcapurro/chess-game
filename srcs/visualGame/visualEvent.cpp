@@ -62,7 +62,7 @@ string  visualGame::waitForPromotion(const string coord)
     SDL_Event       event;
     SDL_Rect        obj;
 
-    types.push_back('Q'), types.push_back('B'), types.push_back('N');
+    types.push_back('Q'), types.push_back('B'), types.push_back('N'), types.push_back('R');
     obj = getRectangle(coord, 0, 0, "promotion");
 
     displayPromotion(types.at(i), coord);
@@ -86,12 +86,12 @@ string  visualGame::waitForPromotion(const string coord)
                         && event.button.y < obj.y + (_height / 16) && i != 0)
                         i--;
                     if (event.button.x > obj.x + (_width / 9) && event.button.x < (obj.x + obj.w)
-                        && event.button.y < obj.y + (_height / 16) && i != 2)
+                        && event.button.y < obj.y + (_height / 16) && i != 3)
                         i++;
 
                     if (event.button.x > obj.x + (_width / 25) && event.button.x < (obj.x + obj.w) - (_width / 25)
                         && event.button.y > obj.y + (_height / 16) && event.button.y < (obj.y + obj.h))
-                        {  displayGame(); return (coord + types.at(i)); }
+                        break ;
                     
                     displayPromotion(types.at(i), coord);
                 }
@@ -100,6 +100,8 @@ string  visualGame::waitForPromotion(const string coord)
                 SDL_SetCursor(_normalCursor);
         }
     }
+    displayGame();
+    return (coord + types.at(i));
 }
 
 string  visualGame::waitForEvent(void)
@@ -133,25 +135,23 @@ string  visualGame::waitForEvent(void)
                         _clickSrc = coord, _droppedSrc.clear();
                     else
                     {
-                        if (_droppedSrc == "none" || coord == "none")
+                        if (_droppedSrc == "none" || coord == "none"
+                            || _droppedSrc == "" || coord == "")
                             return ("none");
                         if (_droppedSrc == "")
                             _droppedSrc = _clickSrc;
 
                         _droppedDest = coord;
 
-                        if (_board->getType(_droppedSrc) == 'P' && ((coord[1] == '8' && _droppedSrc[1] == '7')
-                            || (coord[1] == '1' && _droppedSrc[1] == '2'))
-                            && _board->isLegal(string(1, 'P') + _droppedSrc + coord + 'Q') == true)
+                        if (isPromotion(coord) == true)
                             coord = waitForPromotion(coord);
 
                         return (getInput(coord));
                     }
                 }
-
                 displayGame(event.button.x, event.button.y);
             }
         }
     }
-    return ("");
+    return ("error");
 }

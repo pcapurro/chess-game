@@ -80,6 +80,7 @@ class visualGame
         string      getTurnColor(void) const;
 
         bool        isAbovePromotion(const int x, const int y, SDL_Rect obj);
+        bool        isPromotion(const string coord);
 
         const bool		_sandBoxMode;
 

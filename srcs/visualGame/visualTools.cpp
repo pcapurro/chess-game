@@ -127,6 +127,23 @@ string  visualGame::getTurnColor(void) const
     return (string("black"));
 }
 
+bool    visualGame::isPromotion(const string coord)
+{
+    if (_board->getType(_droppedSrc) == 'P')
+    {
+        if ((coord[1] == '8' && _droppedSrc[1] == '7')
+            || (coord[1] == '1' && _droppedSrc[1] == '2'))
+        {
+            if (coord[0] == _droppedSrc[0] && _board->getType(coord) == ' ')
+                return (true);
+            if (coord[0] != _droppedSrc[0] && (coord[0] - _droppedSrc[0] != 1 || coord[0] - _droppedSrc[0] != -1)
+                && _board->getType(coord) != ' ')
+                return (true);
+        }
+    }
+    return (false);
+}
+
 bool    visualGame::isAbovePromotion(const int x, const int y, SDL_Rect obj)
 {
     if (x > obj.x && x < obj.x + (_width / 40)

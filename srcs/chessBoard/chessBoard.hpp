@@ -88,7 +88,6 @@ class chessBoard
         bool    isItCheckMate(void) { return (_gameInfo._checkmate); }
         bool    isGameOver(void);
 
-        bool    isLegal(const string move = "");
         int     playMove(t_move structureMove, const string stringMove = "");
 
         void    printEvent(const bool cfail, const bool bfail,\
@@ -126,6 +125,7 @@ class chessBoard
         bool    canTheKingMove(void);
         bool    canAnyAllyPieceMove(void);
 
+        bool    isLegal(const string move = "");
         bool    isCheck(void);
         bool    isCheckMate(const int value = 0);
         bool    isDraw(void);
