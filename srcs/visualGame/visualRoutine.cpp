@@ -12,11 +12,8 @@ string  visualGame::getVisualAnswer(void)
     {
         answer = ai.getNextMove();
         _lastAiMove = answer;
-        cout << "playing '" << _lastAiMove.c_str() + 3 << "'" << endl;
-        cout << _lastAiMove.size() << endl;
-        if (_lastAiMove.c_str() + 3 != "O-O" && _lastAiMove.c_str() + 3 != "O-O-O")
+        if (_lastAiMove.find('O') == string::npos)
         {
-            cout << "ok" << endl;
             displayAiMove(string(1, _lastAiMove[1]) + _lastAiMove[2], \
                 string(1, _lastAiMove[3]) + _lastAiMove[4]);
         }
