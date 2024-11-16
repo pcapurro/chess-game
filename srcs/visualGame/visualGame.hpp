@@ -66,9 +66,10 @@ class visualGame
         void        loadCheck(void);
         void        loadDraw(void);
         void        loadCheckMate(void);
-        void        loadMove(void);
+
         void        displayPromotion(const char type, const string coord);
         void        displayGame(const int cx = 0, const int cy = 0);
+        void        displayAiMove(void);
     
         string      waitForEvent(void);
         string      waitForPromotion(const string coord);

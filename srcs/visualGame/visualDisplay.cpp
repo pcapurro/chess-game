@@ -126,7 +126,7 @@ void    visualGame::loadCheckMate(void)
     SDL_RenderCopy(_mainRenderer, getTexture('c', color), NULL, &obj);
 }
 
-void    visualGame::loadMove(void)
+void    visualGame::displayAiMove(void)
 {
     char        objType;
     string      objColor;
@@ -203,10 +203,6 @@ void    visualGame::displayGame(const int cx, const int cy)
         loadBoard("black", cx, cy), loadBoard("white", cx, cy);
     else
         loadBoard("white", cx, cy), loadBoard("black", cx, cy);
-
-    if (_aiSide != -1 && _turn % 2 != _aiSide
-        && _lastAiMove != "" && _lastAiMove[0] != 'N')
-        loadMove(), _lastAiMove = "";
 
     stateValue = _board->getStateValue();
 

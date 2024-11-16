@@ -4,13 +4,15 @@
 
 string  visualGame::getVisualAnswer(void)
 {
-    string  answer;
+    string      answer;
+    chessAi     ai(_board);
 
+    displayGame();
     if (_sandBoxMode == false && _turn % 2 == _aiSide)
     {
-        chessAi ai(_board);
         answer = ai.getNextMove();
         _lastAiMove = answer;
+        displayAiMove();
     }
     else
         answer = waitForEvent(), _lastAiMove.clear();
@@ -24,7 +26,6 @@ int		visualGame::visualLoop(void)
 
     while (_board->isGameOver() == false)
     {
-        displayGame();
         answer = getVisualAnswer();
         if (answer == "end")
             { _board->printEndGame(1); return (2); }
