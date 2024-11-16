@@ -41,7 +41,7 @@ SDL_Texture *visualGame::getTexture(const char type, const string color) const
     return (nullptr);
 }
 
-SDL_Rect    visualGame::getRectangle(const string coords, const float fx, const float fy, const string type) const
+SDL_Rect    visualGame::getRectangle(const string coords, const string type) const
 {
     SDL_Rect    obj;
 
@@ -52,11 +52,8 @@ SDL_Rect    visualGame::getRectangle(const string coords, const float fx, const 
         return (obj);
     }
 
-    float   x;
-    float   y;
-
-    x = coords[0] - 97;
-    y = atoi(coords.c_str() + 1) - 1;
+    int x = coords[0] - 97;
+    int y = atoi(coords.c_str() + 1) - 1;
 
     if (_aiSide != 0)
         y = 8 - (y + 1);
@@ -64,7 +61,7 @@ SDL_Rect    visualGame::getRectangle(const string coords, const float fx, const 
         x = 7 - x;
 
     obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
-    obj.x = obj.x + fx, obj.y = obj.y + fy;
+    obj.x = obj.x, obj.y = obj.y;
 
     if (type == "promotion")
         obj.x = obj.x - _height / 47, obj.h = _height / 8, obj.w = _width / 7;

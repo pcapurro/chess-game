@@ -172,7 +172,7 @@ void    visualGame::displayPromotion(const char type, const string coord)
     SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
     SDL_RenderPresent(_mainRenderer);
 
-    obj = getRectangle(coord, 0, 0, "promotion");
+    obj = getRectangle(coord, "promotion");
     SDL_RenderCopy(_mainRenderer, _promotionTexture, NULL, &obj);
     SDL_RenderPresent(_mainRenderer);
 }
@@ -184,7 +184,7 @@ void    visualGame::displayGame(const int cx, const int cy)
 
     SDL_RenderClear(_mainRenderer);
 
-    obj = getRectangle("", 0, 0, "default");
+    obj = getRectangle("", "default");
 
     SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
     SDL_RenderFillRect(_mainRenderer, &obj);

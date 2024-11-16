@@ -63,7 +63,7 @@ string  visualGame::waitForPromotion(const string coord)
     SDL_Rect        obj;
 
     types.push_back('Q'), types.push_back('B'), types.push_back('N'), types.push_back('R');
-    obj = getRectangle(coord, 0, 0, "promotion");
+    obj = getRectangle(coord, "promotion");
 
     displayPromotion(types.at(i), coord);
 

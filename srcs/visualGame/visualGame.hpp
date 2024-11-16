@@ -52,8 +52,7 @@ class visualGame
         void        loadTextures(void);
 
         SDL_Texture *getTexture(const char type, const string color) const;
-        SDL_Rect    getRectangle(const string coords, const float fx = 0, \
-                                    const float fy = 0, const string type = "") const;
+        SDL_Rect    getRectangle(const string coords, const string type = "") const;
 
         string      getKingCoords(const string color);
 
