@@ -126,34 +126,34 @@ void    visualGame::loadCheckMate(void)
 
 void    visualGame::displayAiMove(const string src, const string dest)
 {
-    int         src_x, src_y;
-    int         dest_x, dest_y;
+    int         destX, destY;
     char        type;
     string      color;
+    SDL_Texture *texture;
     SDL_Rect    obj;
 
-    src_x = getRectangle(src).x;
-    src_y = getRectangle(src).y;
+    obj.x = getRectangle(src).x;
+    obj.y = getRectangle(src).y;
 
-    dest_x = getRectangle(dest).x;
-    dest_y = getRectangle(dest).y;
+    destX = getRectangle(dest).x;
+    destY = getRectangle(dest).y;
 
     type = _board->getType(src);
     color = _board->getColor(src);
 
+    texture = getTexture(type, color);
     obj.h = _height / 10, obj.w = _width / 10;
 
     _droppedSrc = src;
-    while (src_y != dest_y || src_x != dest_x)
+    while (obj.y != destY || obj.x != destX)
     {
         if ((src[0] == dest[0] && src[1] != dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
-            dest_y > src_y ? src_y++ : src_y--;
+            destY > obj.y ? obj.y++ : obj.y--;
         if ((src[0] != dest[0] && src[1] == dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
-            dest_x > src_x ? src_x++ : src_x--;
-        obj.x = src_x, obj.y = src_y;
+            destX > obj.x ? obj.x++ : obj.x--;
 
         displayGame();
-        SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
+        SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
         SDL_RenderPresent(_mainRenderer);
         usleep(1000);
     }
