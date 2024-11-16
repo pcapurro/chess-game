@@ -139,17 +139,37 @@ void    visualGame::displayAiMove(void)
 
     src = string(1, _lastAiMove[1]) + _lastAiMove[2];
     dest = string(1, _lastAiMove[3]) + _lastAiMove[4];
-    objType = _board->getType(dest);
-    objColor = _board->getColor(dest);
+    objType = _board->getType(src);
+    objColor = _board->getColor(src);
 
-    int src_x = src[0] - 97;
-    int src_y = atoi(src.c_str() + 1);
+    int src_x = getRectangle(src).x;
+    int src_y = getRectangle(src).y;
 
-    int dest_x = dest[0] - 97;
-    int dest_y = atoi(dest.c_str() + 1);
+    int dest_x = getRectangle(dest).x;
+    int dest_y = getRectangle(dest).y;
 
-    // if (src[0] == dest[0] && src[1] != dest[1]) // déplacement vertical
-        // ;
+    cout << src_x << " ; " << src_y << endl;
+    cout << "> " << dest_x << " ; " << dest_y << endl;
+
+    _droppedSrc = src;
+    obj.h = _height / 10, obj.w = _width / 10;
+
+    if (src[0] == dest[0] && src[1] != dest[1]) // déplacement vertical
+    {
+        while (src_y != dest_y)
+        {
+            if (dest_y > src_y)
+                src_y++;
+            else
+                src_y--;
+
+            displayGame();
+            obj.x = src_x, obj.y = src_y;
+            SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), NULL, &obj);
+            SDL_RenderPresent(_mainRenderer);
+            usleep(1000);
+        }
+    }
 
     // if (src[0] != dest[0] && src[1] == dest[1]) // déplacement horizontal
     //     ;

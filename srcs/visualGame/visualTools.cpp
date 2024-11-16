@@ -64,7 +64,7 @@ SDL_Rect    visualGame::getRectangle(const string coords, const float fx, const 
         x = 7 - x;
 
     obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
-    obj.x = obj.x - fx, obj.y = obj.y - fy;
+    obj.x = obj.x + fx, obj.y = obj.y + fy;
 
     if (type == "promotion")
         obj.x = obj.x - _height / 47, obj.h = _height / 8, obj.w = _width / 7;
