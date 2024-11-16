@@ -152,9 +152,7 @@ void    visualGame::displayAiMove(const string src, const string dest)
         if ((src[0] != dest[0] && src[1] == dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
             destX > obj.x ? obj.x++ : obj.x--;
 
-        displayGame();
-        SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
-        SDL_RenderPresent(_mainRenderer);
+        displayGame(obj.x + ((_width / 10) / 2), obj.y + ((_height / 10) / 2));
         usleep(1000);
     }
 }
