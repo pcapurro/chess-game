@@ -60,9 +60,7 @@ void    visualGame::loadBoard(const string color, const int cx, const int cy)
             objType = _board->getType(coords);
             objColor = _board->getColor(coords);
 
-            if (objType != ' ' && objColor == color
-                && (_aiSide == -1 || _lastAiMove == "" || coords != (string(1, _lastAiMove[3]) + _lastAiMove[4]) || objType == 'N')
-                && coords != _droppedDest)
+            if (objType != ' ' && objColor == color && coords != _droppedDest)
             {
                 if (coords != _droppedSrc)
                     obj = getRectangle(coords);
@@ -126,55 +124,39 @@ void    visualGame::loadCheckMate(void)
     SDL_RenderCopy(_mainRenderer, getTexture('c', color), NULL, &obj);
 }
 
-void    visualGame::displayAiMove(void)
+void    visualGame::displayAiMove(const string src, const string dest)
 {
-    char        objType;
-    string      objColor;
-
-    string      src;
-    string      dest;
+    int         src_x, src_y;
+    int         dest_x, dest_y;
+    char        type;
+    string      color;
     SDL_Rect    obj;
 
-    cout << "ai move displaying... (" << _lastAiMove << ")" << endl;
+    src_x = getRectangle(src).x;
+    src_y = getRectangle(src).y;
 
-    src = string(1, _lastAiMove[1]) + _lastAiMove[2];
-    dest = string(1, _lastAiMove[3]) + _lastAiMove[4];
-    objType = _board->getType(src);
-    objColor = _board->getColor(src);
+    dest_x = getRectangle(dest).x;
+    dest_y = getRectangle(dest).y;
 
-    int src_x = getRectangle(src).x;
-    int src_y = getRectangle(src).y;
+    type = _board->getType(src);
+    color = _board->getColor(src);
 
-    int dest_x = getRectangle(dest).x;
-    int dest_y = getRectangle(dest).y;
-
-    cout << src_x << " ; " << src_y << endl;
-    cout << "> " << dest_x << " ; " << dest_y << endl;
-
-    _droppedSrc = src;
     obj.h = _height / 10, obj.w = _width / 10;
 
-    if (src[0] == dest[0] && src[1] != dest[1]) // déplacement vertical
+    _droppedSrc = src;
+    while (src_y != dest_y || src_x != dest_x)
     {
-        while (src_y != dest_y)
-        {
-            if (dest_y > src_y)
-                src_y++;
-            else
-                src_y--;
+        if ((src[0] == dest[0] && src[1] != dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
+            dest_y > src_y ? src_y++ : src_y--;
+        if ((src[0] != dest[0] && src[1] == dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
+            dest_x > src_x ? src_x++ : src_x--;
+        obj.x = src_x, obj.y = src_y;
 
-            displayGame();
-            obj.x = src_x, obj.y = src_y;
-            SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), NULL, &obj);
-            SDL_RenderPresent(_mainRenderer);
-            usleep(1000);
-        }
+        displayGame();
+        SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
+        SDL_RenderPresent(_mainRenderer);
+        usleep(1000);
     }
-
-    // if (src[0] != dest[0] && src[1] == dest[1]) // déplacement horizontal
-    //     ;
-    // if (src[0] != dest[0] && src[1] != dest[1]) // déplacement diagonal
-    //     ;
 }
 
 void    visualGame::displayPromotion(const char type, const string coord)
