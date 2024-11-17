@@ -104,15 +104,13 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord)
     _board.at(atValue).piece->move();
     _board.at(atValue).piece->updatePos(newCoord);
 
-    if (_board.at(atValue).piece->getType() == 'K' || _board.at(atValue).piece->getType() == 'R')
+    if (_board.at(atValue).piece->getType() == 'K')
     {
-        if (_board.at(atValue).piece->getOriginalCoord() == "a1" || _board.at(atValue).piece->getOriginalCoord() == "h1"
-            || _board.at(atValue).piece->getOriginalCoord() == "e1")
-            _gameInfo._whiteShortCastle = false, _gameInfo._whiteLongCastle = false;
-        
-        if (_board.at(atValue).piece->getOriginalCoord() == "a8" || _board.at(atValue).piece->getOriginalCoord() == "h8"
-            || _board.at(atValue).piece->getOriginalCoord() == "e8")
-            _gameInfo._blackShortCastle = false, _gameInfo._blackLongCastle = false;
+        if (_board.at(atValue).piece->getOriginalCoord() == "e1")
+            _gameInfo._whiteCastle = false;
+
+        if (_board.at(atValue).piece->getOriginalCoord() == "e8")
+            _gameInfo._blackCastle = false;
     }
 }
 
@@ -129,7 +127,6 @@ void    chessBoard::whiteCastles(void)
         movePiece("e1", "c1");
         movePiece("a1", "d1");
     }
-    _gameInfo._whiteShortCastle = false, _gameInfo._whiteLongCastle = false;
 }
 
 void    chessBoard::blackCastles(void)
@@ -144,7 +141,6 @@ void    chessBoard::blackCastles(void)
         movePiece("e8", "c8");
         movePiece("a8", "d8");
     }
-    _gameInfo._blackShortCastle = false, _gameInfo._blackLongCastle = false;
 }
 
 void    chessBoard::addToHistory(void)

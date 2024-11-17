@@ -9,11 +9,8 @@ chessBoard::chessBoard(void)
 
     _gameInfo._moveFailed = false;
 
-    _gameInfo._whiteShortCastle = true;
-    _gameInfo._whiteLongCastle = true;
-
-    _gameInfo._blackShortCastle = true;
-    _gameInfo._blackLongCastle = true;
+    _gameInfo._whiteCastle = true;
+    _gameInfo._blackCastle = true;
     
     _gameInfo._draw = false;
     _gameInfo._checkmate = false;
@@ -33,11 +30,8 @@ chessBoard::chessBoard(const chessBoard *originalBoard)
     _gameInfo._turn = originalBoard->_gameInfo._turn;
     _gameInfo._color = originalBoard->_gameInfo._color;
 
-    _gameInfo._whiteShortCastle = originalBoard->_gameInfo._whiteShortCastle;
-    _gameInfo._whiteLongCastle = originalBoard->_gameInfo._whiteLongCastle;
-
-    _gameInfo._blackShortCastle = originalBoard->_gameInfo._blackShortCastle;
-    _gameInfo._blackLongCastle = originalBoard->_gameInfo._blackLongCastle;
+    _gameInfo._whiteCastle = originalBoard->_gameInfo._whiteCastle;
+    _gameInfo._blackCastle = originalBoard->_gameInfo._blackCastle;
 
     _gameInfo._enPassant = originalBoard->_gameInfo._enPassant;
     _gameInfo._enPassantDest = originalBoard->_gameInfo._enPassantDest;

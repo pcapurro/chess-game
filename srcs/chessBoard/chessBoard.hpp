@@ -29,10 +29,8 @@ typedef struct s_game_info
     t_move  _lastMove;
     bool    _moveFailed;
 
-    bool    _whiteShortCastle;
-    bool    _whiteLongCastle;
-    bool    _blackShortCastle;
-    bool    _blackLongCastle;
+    bool    _whiteCastle;
+    bool    _blackCastle;
     bool    _enPassant;
     string  _enPassantDest;
 
