@@ -1,7 +1,7 @@
 #ifndef algebraParser_HPP
 # define algebraParser_HPP
 
-# include "../../include/chessGame.hpp"
+# include "../../includes/game.hpp"
 
 using namespace std;
 

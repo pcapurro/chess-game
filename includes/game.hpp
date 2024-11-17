@@ -10,8 +10,6 @@
 # include <cstdlib>
 # include <unistd.h>
 
-# include <SDL2/SDL.h>
-
 using namespace std;
 
 # define ERR -1
@@ -28,21 +26,7 @@ using namespace std;
 
 # define COLOR_E "\033[0m"
 
-void    printTitle(void);
-void    initWelcome(void);
-
-void    printGradually(const string str, const int value);
-void    printLoading(void);
-
 int     memoryFailed(void);
 int     systemFailed(void);
-
-int 	initializeShellGame(const bool sandBoxMode, const bool blindMode);
-int 	initializeVisualGame(const bool sandBoxMode);
-
-void    printInvalidArguments(void);
-int 	validateArguments(const int argc, const char **argv);
-
-int     main(const int argc, const char **argv);
 
 #endif

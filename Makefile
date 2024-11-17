@@ -4,20 +4,11 @@
 
 ## === VARIABLES === ##
 
-NAME = chess-game
+NAMEV = chess-game
 
-SRCS = srcs/main.cpp \
-	srcs/print.cpp \
-	srcs/visualGame/visualDisplay.cpp \
-	srcs/visualGame/visualRoutine.cpp \
-	srcs/visualGame/visualFree.cpp \
-	srcs/visualGame/visualInit.cpp \
-	srcs/visualGame/visualTextures.cpp \
-	srcs/visualGame/visualEvent.cpp \
-	srcs/visualGame/visualTools.cpp \
-	srcs/shellGame/shellInit.cpp \
-	srcs/shellGame/shellRoutine.cpp \
-	srcs/shellGame/shellFree.cpp \
+NAMES = shell-chess
+
+SRCSO = srcs/failPrint.cpp \
 	srcs/algebraParser/algebraBase.cpp \
 	srcs/algebraParser/algebraChecker.cpp \
 	srcs/algebraParser/algebraParser.cpp \
@@ -36,25 +27,50 @@ SRCS = srcs/main.cpp \
 	srcs/chessBoard/checkers/boardMoveChecker.cpp \
 	srcs/chessBoard/checkers/boardPieceChecker.cpp \
 
+SRCS_V = srcs/visualGame.cpp \
+	srcs/visualGame/visualDisplay.cpp \
+	srcs/visualGame/visualRoutine.cpp \
+	srcs/visualGame/visualFree.cpp \
+	srcs/visualGame/visualInit.cpp \
+	srcs/visualGame/visualTextures.cpp \
+	srcs/visualGame/visualEvent.cpp \
+	srcs/visualGame/visualTools.cpp \
+	$(SRCSO)
+
+SRCS_S = srcs/shellGame.cpp \
+	srcs/shellGame/shellInit.cpp \
+	srcs/shellGame/shellRoutine.cpp \
+	srcs/shellGame/shellFree.cpp \
+	$(SRCSO)
+
 CXX = c++
 
 CXXFLAGS = # -Wall -Wextra -Werror
 
 SDLFLAG = -lSDL2
 
-OBJS = $(SRCS:.cpp=.o)
+OBJSV = $(SRCS_V:.cpp=.o)
+
+OBJSS = $(SRCS_S:.cpp=.o)
 
 ## === RULES === ##
 
-all: $(NAME)
+classic: $(NAMEV)
 
-$(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME) $(SDLFLAG)
+shell: $(NAMES)
+
+all: $(NAMEV) $(NAMES)
+
+$(NAMEV): $(OBJSV)
+	$(CXX) $(CXXFLAGS) $(OBJSV) -o $(NAMEV) $(SDLFLAG)
+
+$(NAMES): $(OBJSS)
+	$(CXX) $(CXXFLAGS) $(OBJSS) -o $(NAMES)
 
 re: fclean all
 
 clean:
-	@rm -rf $(OBJS)
+	@rm -rf $(OBJSS) $(OBJSV)
 
 fclean: clean
-	@rm -rf $(NAME)
+	@rm -rf $(NAMEV) $(NAMES)

@@ -1,7 +1,8 @@
 #ifndef SHELLGAME_HPP
 # define SHELLGAME_HPP
 
-# include "../../include/chessGame.hpp"
+# include "../../includes/game.hpp"
+# include "../../includes/shell.hpp"
 # include "../chessBoard/chessBoard.hpp"
 # include "../algebraParser/algebraParser.hpp"
 

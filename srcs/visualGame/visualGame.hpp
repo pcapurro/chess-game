@@ -1,8 +1,10 @@
 #ifndef VISUALGAME_HPP
 # define VISUALGAME_HPP
 
-# include "../../include/chessGame.hpp"
+# include "../../includes/visual.hpp"
 # include "../chessBoard/chessBoard.hpp"
+
+# include <SDL2/SDL.h>
 
 typedef struct s_textures
 {

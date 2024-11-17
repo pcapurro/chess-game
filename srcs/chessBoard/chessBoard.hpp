@@ -1,7 +1,7 @@
 #ifndef CHESSBOARD
 # define CHESSBOARD
 
-# include "../../include/chessGame.hpp"
+# include "../../includes/game.hpp"
 
 # include "pieces/chessPiece.hpp"
 # include "pieces/king.hpp"
