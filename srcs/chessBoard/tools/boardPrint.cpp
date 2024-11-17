@@ -135,13 +135,13 @@ void    chessBoard::printEndGame(const int value)
     if (isCheckMate() == true)
     {
         if (value == 0)
-            cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
+            cout << "\033[1A" << ERASE_LINE << endl << ERASE_LINE;
         cout << "Checkmate. " << GREEN << player << " won the game" << COLOR_E << "! 🎉" << endl;
     }
     if (isDraw() == true)
     {
         if (value == 0)
-            cout << "\033[2A" << ERASE_LINE << endl << ERASE_LINE;
+            cout << "\033[1A" << ERASE_LINE << endl << ERASE_LINE;
         cout << "Draw. " << GREY << "No one won the game" << COLOR_E << "." << endl;
     }
     printHistory();
