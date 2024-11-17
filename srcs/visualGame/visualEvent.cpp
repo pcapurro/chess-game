@@ -136,12 +136,16 @@ string  visualGame::waitForEvent(void)
                     else
                     {
                         if (_droppedSrc == "none" || coord == "none"
-                            || coord == "")
+                            || _clickSrc == "none" || coord == "" || _clickSrc == "")
                             return ("none");
-                        if (_droppedSrc == "")
-                            _droppedSrc = _clickSrc;
 
                         _droppedDest = coord;
+                        if (_droppedSrc == "")
+                        {
+                            _droppedSrc = _clickSrc;
+                            if (_board->isLegal(_board->getType(_droppedSrc) + _droppedSrc + _droppedDest))
+                                displayMoveAnimation(_droppedSrc + _droppedDest);
+                        }
 
                         if (isPromotion(coord) == true)
                             coord = waitForPromotion(coord);

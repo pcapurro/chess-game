@@ -14,7 +14,7 @@ string  visualGame::getVisualAnswer(void)
         _lastAiMove = answer;
 
         if (_lastAiMove.find('O') == string::npos)
-            displayAiMove();
+            displayMoveAnimation(_lastAiMove.c_str() + 1);
     }
     else
         answer = waitForEvent(), _lastAiMove.clear();

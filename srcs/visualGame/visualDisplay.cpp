@@ -124,14 +124,14 @@ void    visualGame::loadCheckMate(void)
     SDL_RenderCopy(_mainRenderer, getTexture('c', color), NULL, &obj);
 }
 
-void    visualGame::displayAiMove(void)
+void    visualGame::displayMoveAnimation(const string move)
 {
     int         destX, destY;
     string      src, dest;
     SDL_Rect    obj;
 
-    src = string(1, _lastAiMove[1]) + _lastAiMove[2];
-    dest = string(1, _lastAiMove[3]) + _lastAiMove[4];
+    src = string(1, move[0]) + move[1];
+    dest = string(1, move[2]) + move[3];
 
     obj.x = getRectangle(src).x;
     obj.y = getRectangle(src).y;

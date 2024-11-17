@@ -70,7 +70,7 @@ class visualGame
 
         void        displayPromotion(const char type, const string coord);
         void        displayGame(const int cx = 0, const int cy = 0);
-        void        displayAiMove(void);
+        void        displayMoveAnimation(const string move);
     
         string      waitForEvent(void);
         string      waitForPromotion(const string coord);

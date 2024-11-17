@@ -83,6 +83,7 @@ class chessBoard
         int     getActualTurn(void) const { return (_gameInfo._turn); };
         int     getStateValue(void) const;
 
+        bool    isLegal(const string move = "");
         bool    isItCheck(void) { return (_gameInfo._check); };
         bool    isItDraw(void) { return (_gameInfo._draw); };
         bool    isItCheckMate(void) { return (_gameInfo._checkmate); }
@@ -125,7 +126,6 @@ class chessBoard
         bool    canTheKingMove(void);
         bool    canAnyAllyPieceMove(void);
 
-        bool    isLegal(const string move = "");
         bool    isCheck(void);
         bool    isCheckMate(const int value = 0);
         bool    isDraw(void);
