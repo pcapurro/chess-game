@@ -78,7 +78,7 @@ void	chessAi::randomMove(void)
 	if (_nextMove != "")
 		return ;
 
-	cout << "random move" << endl;
+	// cout << "random move" << endl;
 	_nextMove = getRandomMove();
 }
 
@@ -86,12 +86,12 @@ string	chessAi::getNextMove(void)
 {
 	// sleep(1); //
 
-	if (isCheck() == true)
-		defendMove();
-	else
-	{
-		if (isVictoryNext() == true)
-			checkMateMove();
+	// if (isCheck() == true)
+		// defendMove();
+	// else
+	// {
+		// if (isVictoryNext() == true)
+			// checkMateMove();
 
 		// if (isVictoryNextNext() == true)
 		// 	attackMove();
@@ -106,12 +106,12 @@ string	chessAi::getNextMove(void)
 		// 		else
 		// 		{
 					// attackMove();
-					passiveMove();
+					// passiveMove();
 				// }
 		// 	}
 		// }
 		randomMove();
-	}
+	// }
 
     if (_nextMove == "O-O" || _nextMove == "O-O-O")
     {

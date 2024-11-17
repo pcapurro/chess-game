@@ -8,7 +8,17 @@ string  shellGame::getShellAnswer(void) const
 
     if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
-        { chessAi ai(_board); return (ai.getNextMove()); }
+    {
+        chessAi ai(_board);
+        answer = ai.getNextMove();
+
+        if (answer[0] != 'P')
+            answer = string(1, answer[0]) + answer[1] + answer[2] + "-" + (answer.c_str() + 3);
+        else
+            answer = string(1, answer[1]) + answer[2] + "-" + (answer.c_str() + 3);
+
+        return (answer);
+    }
     else
     {
         cout << ERASE_LINE << "> ";
