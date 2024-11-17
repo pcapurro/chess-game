@@ -136,7 +136,7 @@ string  visualGame::waitForEvent(void)
                     else
                     {
                         if (_droppedSrc == "none" || coord == "none"
-                            || _clickSrc == "none" || coord == "" || _clickSrc == "")
+                            || _clickSrc == "none" || coord == "")
                             return ("none");
 
                         _droppedDest = coord;
@@ -147,7 +147,8 @@ string  visualGame::waitForEvent(void)
                                 displayMoveAnimation(_droppedSrc + _droppedDest);
                         }
 
-                        if (isPromotion(coord) == true)
+                        if (isPromotion(coord) == true
+                            && _board->isLegal(_board->getType(_droppedSrc) + _droppedSrc + _droppedDest + 'Q') == true)
                             coord = waitForPromotion(coord);
 
                         return (getInput(coord));
