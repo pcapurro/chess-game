@@ -173,12 +173,22 @@ void    chessBoard::addToHistory(void)
 
 void    chessBoard::loadMove(const string move)
 {
-    _gameInfo._lastMove.move = move;
-    _gameInfo._lastMove.action = '-';
-    _gameInfo._lastMove.obj = move[0];
-    _gameInfo._lastMove.src = string(1, move[1]) + move[2];
-    _gameInfo._lastMove.dest = move.c_str() + 3;
-    _gameInfo._lastMove.error = false;
+    if (move == "O-O-O" || move == "O-O")
+    {
+        if (move == "O-O-O")
+            _gameInfo._lastMove.dest = "O-O-O";
+        else
+            _gameInfo._lastMove.dest = "O-O";
+    }
+    else
+    {
+        _gameInfo._lastMove.move = move;
+        _gameInfo._lastMove.action = '-';
+        _gameInfo._lastMove.obj = move[0];
+        _gameInfo._lastMove.src = string(1, move[1]) + move[2];
+        _gameInfo._lastMove.dest = move.c_str() + 3;
+        _gameInfo._lastMove.error = false;
+    }
 }
 
 int chessBoard::playMove(t_move structureMove, const string stringMove)

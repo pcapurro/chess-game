@@ -23,12 +23,16 @@ vector<string>  chessBoard::getPiecesCoords(void) const
     return (coords);
 }
 
-vector<string>  chessBoard::getAvailaibleMoves(void)
+vector<string>  chessBoard::getLegalMoves(void)
 {
     char            type;
     string          move;
+    vector<string>  possibleMoves;
     vector<string>  legalMoves;
-    vector<string>  availaibleMoves;
+    vector<string>  availaibleTargets;
+
+    possibleMoves.push_back("O-O");
+    possibleMoves.push_back("O-O-O");
 
     for (int i = 0; i != 8; i++)
     {
@@ -38,54 +42,32 @@ vector<string>  chessBoard::getAvailaibleMoves(void)
             if (_board.at(getAtValue(coord)).piece != NULL 
                 && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
             {
-                availaibleMoves = getPossibleMoves(coord);
-                for (int j = 0; j != availaibleMoves.size(); j++)
+                availaibleTargets = getPossibleTargets(coord);
+                for (int j = 0; j != availaibleTargets.size(); j++)
                 {
                     type = _board.at(getAtValue(coord)).piece->getType();
-                    move = string(1, type) + availaibleMoves.at(j);
+                    move = string(1, type) + availaibleTargets.at(j);
                     
                     if ((move.at(move.length() - 1) == '8' || move.at(move.length() - 1) == '1') && type == 'P')
-                        legalMoves.push_back(move + 'Q'), legalMoves.push_back(move + 'B'), \
-                        legalMoves.push_back(move + 'N'), legalMoves.push_back(move + 'R');
+                        possibleMoves.push_back(move + 'Q'), possibleMoves.push_back(move + 'B'), \
+                        possibleMoves.push_back(move + 'N'), possibleMoves.push_back(move + 'R');
                     else
-                        legalMoves.push_back(move);
+                        possibleMoves.push_back(move);
                 }
-                availaibleMoves.clear();
+                availaibleTargets.clear();
             }
         }
     }
+
+    cout << "legal moves :" << endl;
+    for (int i = 0; i != possibleMoves.size(); i++)
+    {
+        if (isLegal(possibleMoves.at(i)) == true)
+            legalMoves.push_back(possibleMoves.at(i)), cout << possibleMoves.at(i) << " ; ";
+    }
+    cout << endl;
+
     return (legalMoves);
-}
-
-vector<string>	chessBoard::getLegalMoves(void)
-{
-	vector<string>	legalMoves;
-    vector<string>	newLegalMoves;
-
-	legalMoves = getAvailaibleMoves();
-    legalMoves.push_back("O-O"), legalMoves.push_back("O-O-O");
-	for (int i = 0; i != legalMoves.size(); i++)
-	{
-        if (legalMoves.at(i) == "O-O-O" || legalMoves.at(i) == "O-O")
-        {
-            if (legalMoves.at(i) == "O-O-O")
-                _gameInfo._lastMove.dest = "O-O-O";
-            else
-                _gameInfo._lastMove.dest = "O-O";
-        }
-        else
-        {
-            _gameInfo._lastMove.action = '-';
-            _gameInfo._lastMove.obj = legalMoves.at(i)[0];
-            
-            _gameInfo._lastMove.src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
-            _gameInfo._lastMove.dest = legalMoves.at(i).c_str() + 3;
-        }
-		
-		if (isLegal() == true)
-			newLegalMoves.push_back(legalMoves.at(i));
-	}
-	return (newLegalMoves);
 }
 
 vector<string>  chessBoard::getCastlingSrcsDests(const string srcdest)

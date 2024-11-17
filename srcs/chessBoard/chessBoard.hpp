@@ -97,10 +97,9 @@ class chessBoard
     protected:
 
         size_t              getAtValue(const string coord) const;
-        vector<string>      getAvailaibleMoves(void);
-        vector<string>      getPossibleMoves(const string coord, const int value = 0) const;
+        vector<string>      getLegalMoves(void);
+        vector<string>      getPossibleTargets(const string coord, const int value = 0) const;
         vector<string>      getPiecesCoords(void) const;
-        vector<string>	    getLegalMoves(void);
         
         vector<string>      getCastlingSrcsDests(const string srcdest);
 

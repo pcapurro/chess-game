@@ -188,7 +188,7 @@ string	chessAi::getCheckMateMove(void)
             && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
         {
             type = _board.at(getAtValue(coord)).piece->getType();
-            moves = getPossibleMoves(coord, true);
+            moves = getPossibleTargets(coord, true);
 
             for (int k = 0; k != moves.size(); k++)
             {

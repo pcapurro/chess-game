@@ -212,7 +212,7 @@ bool    chessBoard::doesItResolveCheck(const string srcdest)
     return (true);
 }
 
-vector<string>  chessBoard::getPossibleMoves(const string coord, const int value) const
+vector<string>  chessBoard::getPossibleTargets(const string coord, const int value) const
 {
     int             atValue;
     vector<string>  moves;
@@ -255,7 +255,7 @@ bool    chessBoard::isCheckMate(const int value)
         {
             if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
             {
-                sources = getPossibleMoves(_board.at(i).coord);
+                sources = getPossibleTargets(_board.at(i).coord);
                 for (size_t k = 0; k != sources.size(); k++)
                 {
                     if (doesItResolveCheck(sources.at(k)) == true)

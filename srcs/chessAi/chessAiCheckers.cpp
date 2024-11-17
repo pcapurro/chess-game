@@ -175,7 +175,7 @@ bool    chessAi::isVictoryNext(void)
         if (_board.at(getAtValue(coord)).piece != NULL
             && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
         {
-            vector<string>  moves = getPossibleMoves(coord, true);
+            vector<string>  moves = getPossibleTargets(coord, true);
             for (int k = 0; k != moves.size(); k++)
             {
                 tryMove(moves.at(k));
