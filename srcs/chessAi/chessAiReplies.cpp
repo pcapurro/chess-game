@@ -173,40 +173,25 @@ string  chessAi::getPassiveMove(void)
 
 string	chessAi::getCheckMateMove(void)
 {
-    char            type;
     string          move;
-    string          coord;
-    vector<string>  moves;
+    vector<string>  legalMoves;
 
-    for (int i = 0, k = 0; i != 64; i++, k++)
+    legalMoves = getLegalMoves();
+    for (int i = 0; i != legalMoves.size(); i++)
     {
-        if (i % 8 == 0)
-            k = 0;
-        coord = "abcdefgh"[i / 8] + to_string(k + 1);
+        move = legalMoves.at(i).c_str() + 1;
 
-        if (_board.at(getAtValue(coord)).piece != NULL
-            && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
+        tryMove(move);
+        switchPlayers();
+        if (isCheckMate(-1) == true)
         {
-            type = _board.at(getAtValue(coord)).piece->getType();
-            moves = getPossibleTargets(coord, true);
-
-            for (int k = 0; k != moves.size(); k++)
-            {
-                tryMove(moves.at(k));
-                switchPlayers();
-                if (isCheckMate(-1) == true)
-                {
-                    undoMove(moves.at(k));
-                    unSwitchPlayers();
-                    return (string(1, type) + moves.at(k)[0] \
-                            + moves.at(k)[1] + (moves.at(k).c_str() + 2));
-                }
-                unSwitchPlayers();
-                undoMove(moves.at(k));
-            }
+            undoMove(move);
+            unSwitchPlayers();
+            return (legalMoves.at(i));
         }
+        unSwitchPlayers();
+        undoMove(move);
     }
-
     return ("");
 }
 

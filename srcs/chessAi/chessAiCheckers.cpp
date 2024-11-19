@@ -164,28 +164,24 @@ bool    chessAi::isVictoryNextNext(void)
 
 bool    chessAi::isVictoryNext(void)
 {
-    string  coord;
+    string          move;
+    vector<string>  legalMoves;
 
-    for (int i = 0, k = 0; i != 64; i++, k++)
+    legalMoves = getLegalMoves();
+    for (int i = 0; i != legalMoves.size(); i++)
     {
-        if (i % 8 == 0)
-            k = 0;
-        coord = "abcdefgh"[i / 8] + to_string(k + 1);
+        move = legalMoves.at(i).c_str() + 1;
 
-        if (_board.at(getAtValue(coord)).piece != NULL
-            && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
+        tryMove(move);
+        switchPlayers();
+        if (isCheckMate(-1) == true)
         {
-            vector<string>  moves = getPossibleTargets(coord, true);
-            for (int k = 0; k != moves.size(); k++)
-            {
-                tryMove(moves.at(k));
-                switchPlayers();
-                if (isCheckMate(-1) == true)
-                    { undoMove(moves.at(k)); unSwitchPlayers(); return (true); }
-                unSwitchPlayers();
-                undoMove(moves.at(k));
-            }
+            undoMove(move);
+            unSwitchPlayers();
+            return (true);
         }
+        unSwitchPlayers();
+        undoMove(move);
     }
 
     return (false);

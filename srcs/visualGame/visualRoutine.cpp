@@ -32,6 +32,8 @@ int		visualGame::visualLoop(void)
         if (answer == "end")
             { _board->printEndGame(1); return (2); }
 
+        cout << "playing '" << answer << "'" << endl;
+
         if (answer == "error" || _board->playMove({}, answer) == FAIL)
             continue ;
         else if (_board->isAllocated() == false)
