@@ -450,10 +450,9 @@ string	chessAi::getCounterProtect(void)
         if (isAttacked(attackedOne->getCoord()) == false)
         {
             if (isProtected(string(1, testingMove[2]) + testingMove[3]) == true)
-                moves.push_back(legalMoves.at(i));
-            undoMove(testingMove);
-            if (equalValues(testingMove) == true)
-                moves.push_back(legalMoves.at(i));
+                undoMove(testingMove), moves.push_back(legalMoves.at(i));
+            else if (equalValues(testingMove) == true)
+                undoMove(testingMove), moves.push_back(legalMoves.at(i));
         }
         else
             undoMove(testingMove);
@@ -475,12 +474,12 @@ string	chessAi::getCounterProtect(void)
     for (int i = 0; i != moves.size(); i++)
     {
         src = string(1, moves.at(i)[1]) + moves.at(i)[2];
-        if (src == attackedOne->getCoord())
+        dest = string(1, moves.at(i)[3]) + moves.at(i)[4];
+        if (src == attackedOne->getCoord() && _board.at(getAtValue(dest)).piece == NULL)
             runAway.push_back(moves.at(i));
         else
         {
-            dest = string(1, moves.at(i)[3]) + moves.at(i)[4];
-            if (_board.at(getAtValue(dest)).piece != NULL && _board.at(getAtValue(dest)).piece->getColor() != _gameInfo._color)
+            if (_board.at(getAtValue(dest)).piece != NULL)
                 protectAttack.push_back(moves.at(i));
             else
             {
@@ -499,23 +498,23 @@ string	chessAi::getCounterProtect(void)
 
     srand(time(nullptr));
 
-    if (isAttackedByPawn(attackedOne->getCoord()) == true
-        && attackedOne->getType() != 'P')
+    if (protectAttack.size() >= 1)
     {
-        cout << "attacked by pawn" << endl;
-        if (runAway.size() == 1)
-            move = runAway.at(0);
-        if (runAway.size() > 1)
-            move = runAway.at(rand() % runAway.size());
+        if (protectAttack.size() == 1)
+            move = protectAttack.at(0);
+        else
+            move = protectAttack.at(rand() % protectAttack.size());
     }
     else
     {
-        if (protectAttack.size() >= 1)
+        if (isAttackedByPawn(attackedOne->getCoord()) == true
+            && attackedOne->getType() != 'P')
         {
-            if (protectAttack.size() == 1)
-                move = protectAttack.at(0);
-            else
-                move = protectAttack.at(rand() % protectAttack.size());
+            cout << "attacked by pawn" << endl;
+            if (runAway.size() == 1)
+                move = runAway.at(0);
+            if (runAway.size() > 1)
+                move = runAway.at(rand() % runAway.size());
         }
         else
         {
