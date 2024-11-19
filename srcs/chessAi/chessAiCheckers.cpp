@@ -58,7 +58,10 @@ bool    chessAi::isProtected(const string coord)
 
     defenders = orderMaterialsByValue(defMaterials);
     defenders.push(_board.at(getAtValue(coord)).piece);
+    cout << "ok1" << endl;
     attackers = orderMaterialsByValue(attackMaterials);
+
+    cout << "ok" << endl;
 
     while (attackers.size() != 0 && defenders.size() != 0)
     {
@@ -67,6 +70,11 @@ bool    chessAi::isProtected(const string coord)
             break ;
         defenderMaterialsEearned += getMaterialValue(attackers.top()->getType()), attackers.pop();
     }
+
+    cout << "ok" << endl;
+
+    cout << attackerMaterialsEarned << " < attackerMaterialsEarned" << endl;
+    cout << defenderMaterialsEearned << " < defenderMaterialsEearned" << endl;
 
     if (attackerMaterialsEarned > defenderMaterialsEearned)
         return (false);

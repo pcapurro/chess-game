@@ -468,9 +468,13 @@ string	chessAi::getCounterProtect(void)
         if (isAttacked(attackedOne->getCoord()) == false)
         {
             if (isProtected(string(1, testingMove[2]) + testingMove[3]) == true)
-                undoMove(testingMove), moves.push_back(legalMoves.at(i));
-            else if (equalValues(testingMove) == true)
-                undoMove(testingMove), moves.push_back(legalMoves.at(i));
+                moves.push_back(legalMoves.at(i)), undoMove(testingMove);
+            else
+            {
+                undoMove(testingMove);
+                if (equalValues(testingMove) == true)
+                    moves.push_back(legalMoves.at(i));
+            }
         }
         else
             undoMove(testingMove);
@@ -509,25 +513,22 @@ string	chessAi::getCounterProtect(void)
         }
     }
 
-    cout << "protectAttacks :" << endl;
-    for (int i = 0; i != protectAttack.size(); i++)
-        cout << protectAttack.at(i) << " ; ";
-    cout << endl;
-
     if (protectAttack.size() != 0)
     {
+        while (orderedTargets.size() != 0)
+            orderedTargets.pop();
+        targets.clear();
+
         cout << "ok" << endl;
         for (int i = 0; i != protectAttack.size(); i++)
         {
-            string dest = string(1, protectAttack.at(i)[3]) + protectAttack.at(i)[4];
-            cout << "adding " << dest << endl;
-            targets.push_back(_board.at(getAtValue(dest)).piece);
+            string destCoords = string(1, protectAttack.at(i)[3]) + protectAttack.at(i)[4];
+            targets.push_back(_board.at(getAtValue(destCoords)).piece);
         }
 
         orderedTargets = orderMaterialsByValue(targets);
         while (orderedTargets.size() != 0)
             target = orderedTargets.top(), orderedTargets.pop();
-        target = orderedTargets.top();
     }
 
     cout << runAway.size() << " solutions of runaway" << endl;
