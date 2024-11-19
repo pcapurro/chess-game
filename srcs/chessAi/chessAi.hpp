@@ -57,12 +57,12 @@ class chessAi : protected chessBoard
 
 		string		    _nextMove;
 
-        vector<string>  _attackedAlly;
-
         bool            _victoryNextNext;
         bool            _defeatNext;
         bool            _allyAttacked;
         bool            _check;
+
+        vector<chessPiece *>  _attackedAlly;
 };
 
 #endif

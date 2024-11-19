@@ -395,7 +395,6 @@ string	chessAi::getCounterCheckMate(void)
 string	chessAi::getCounterProtect(void)
 {
 	string                  move;
-    vector<chessPiece *>    targetsList;
     vector<string>          legalMoves;
     vector<string>          moves;
     stack<chessPiece *>     orderedTargets;
@@ -403,22 +402,13 @@ string	chessAi::getCounterProtect(void)
 
     cout << "getting counter protect..." << endl;
 
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
-        {
-            if (isAttacked(_board.at(i).coord) == true)
-                targetsList.push_back(_board.at(i).piece);
-        }
-    }
-
-    orderedTargets = orderMaterialsByValue(targetsList);
+    orderedTargets = orderMaterialsByValue(_attackedAlly);
     while (orderedTargets.size() != 0)
         attackedOne = orderedTargets.top(), orderedTargets.pop();
 
     cout << "attacked :" << endl;
-    for (int i = 0; i != targetsList.size(); i++)
-        cout << targetsList.at(i)->getCoord() << "-" << targetsList.at(i)->getType() << " ; ";
+    for (int i = 0; i != _attackedAlly.size(); i++)
+        cout << _attackedAlly.at(i)->getCoord() << "-" << _attackedAlly.at(i)->getType() << " ; ";
     cout << endl;
     cout << "priority set for " << attackedOne->getCoord() << endl;
 
