@@ -249,7 +249,10 @@ string	chessAi::getCounterStrike(void)
     }
     unSwitchPlayers();
 
-    cout << targets.size() << " enemies not protected" << endl;
+    cout << targets.size() << " enemies not protected:" << endl;
+    for (int i = 0; i != targets.size(); i++)
+        cout << targets.at(i)->getType() << " ; ";
+    cout << endl;
 
     legalMoves = getLegalMoves();
 
@@ -428,7 +431,8 @@ string	chessAi::getCounterProtect(void)
 
         tryMove(testingMove);
         cout << "testing " << testingMove << endl;
-        if (isAttacked(attackedOne->getCoord()) == false)
+        if (isAttacked(attackedOne->getCoord()) == false
+            && isProtected(string(1, testingMove[2]) + testingMove[3]))
             moves.push_back(legalMoves.at(i));
         undoMove(testingMove);
     }

@@ -17,6 +17,8 @@ stack<chessPiece *> chessAi::orderMaterialsByValue(vector<chessPiece *> material
                 stack.push(materials.at(k));
             if (i == 3 && materials.at(k)->getType() == 'P')
                 stack.push(materials.at(k));
+            if (i == 4 && materials.at(k)->getType() == 'K')
+                stack.push(materials.at(k));
         }
     }
     return (stack);
