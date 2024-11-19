@@ -137,6 +137,8 @@ string  chessAi::getPassiveMove(void)
     vector<string>    legalMoves;
     vector<string>    pawns;
 
+    cout << "searching basic dev or castling..." << endl;
+
     move = getPawnsDev();
     if (move == "")
         move = getBishopsDev();
@@ -145,10 +147,13 @@ string  chessAi::getPassiveMove(void)
     if (move == "")
         move = getCastling();
 
+    cout << "basic dev or castling found." << endl;
+
     if (move == "")
     {
-        legalMoves = getLegalMoves();
+        cout << "searching for passive pawn dev..." << endl;
 
+        legalMoves = getLegalMoves();
         for (int i = 0; i != legalMoves.size(); i++)
         {
             srand(time(nullptr));
@@ -163,9 +168,12 @@ string  chessAi::getPassiveMove(void)
         }
 
         if (pawns.size() == 1)
-            return (pawns.at(0));
+            move = pawns.at(0);
         else if (pawns.size() > 1)
-            return (pawns.at(rand() % pawns.size()));
+            move = (pawns.at(rand() % pawns.size()));
+
+        if (move != "")
+            cout << "passive pawn dev found." << endl;
     }
 
     return (move);
@@ -238,12 +246,12 @@ string	chessAi::getCounterStrike(void)
     }
     unSwitchPlayers();
 
-    cout << targets.size() << " not protected" << endl;
+    cout << targets.size() << " enemies not protected" << endl;
 
     legalMoves = getLegalMoves();
 
-    if (targets.size() == 0)
-        // menace
+    if (targets.size() == 0) // menace
+        ;
 
     if (targets.size() != 0)
     {
@@ -277,6 +285,9 @@ string	chessAi::getCounterStrike(void)
         }
     }
     unSwitchPlayers();
+
+    if (move == "")
+        cout << "can't prevent castling." << endl;
 
     return (move);
 }

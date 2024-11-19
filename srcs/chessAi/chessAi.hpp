@@ -7,33 +7,14 @@ class chessAi : protected chessBoard
 {
 	public:
 
-		chessAi(const chessBoard *board) : chessBoard(board) {};
+		chessAi(const chessBoard *board);
 		~chessAi(void) {};
 
 		string	getNextMove(void);
 
 	private:
 
-		stack<chessPiece *> orderMaterialsByValue(vector<chessPiece *> materials);
-
-        int			getMaterialValue(const char type);
-
-        string		getBestCounterMateCheck(vector<string> legalMoves);
-        string		getCheckMateMove(void);
-
-        string		getPawnsDev(void);
-        string		getCastling(void);
-        string		getBishopsDev(void);
-        string		getKnightsDev(void);
-        string		getPassiveMove(void);
-
-        string		preventCastling(const string castle);
-        string		getCounterStrike(void);
-
-        string		getCounterCheck(void);
-        string		getCounterCheckMate(void);
-        string		getCounterProtect(void);
-        string		getRandomMove(void);
+        void        analyzeBoard(void);
 
 		void		checkMateMove(void);
 		void		attackMove(void);
@@ -54,7 +35,34 @@ class chessAi : protected chessBoard
         bool        isDefeatNext(void);
         bool        isEndGame(void);
 
-		string		_nextMove;
+		stack<chessPiece *> orderMaterialsByValue(vector<chessPiece *> materials);
+        int			        getMaterialValue(const char type);
+
+        string		getBestCounterMateCheck(vector<string> legalMoves);
+        string		getCheckMateMove(void);
+
+        string		getPawnsDev(void);
+        string		getCastling(void);
+        string		getBishopsDev(void);
+        string		getKnightsDev(void);
+        string		getPassiveMove(void);
+
+        string		preventCastling(const string castle);
+        string		getCounterStrike(void);
+
+        string		getCounterCheck(void);
+        string		getCounterCheckMate(void);
+        string		getCounterProtect(void);
+        string		getRandomMove(void);
+
+		string		    _nextMove;
+
+        vector<string>  _attackedAlly;
+
+        bool            _victoryNextNext;
+        bool            _defeatNext;
+        bool            _allyAttacked;
+        bool            _check;
 };
 
 #endif

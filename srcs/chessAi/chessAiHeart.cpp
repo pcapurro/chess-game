@@ -45,29 +45,25 @@ void	chessAi::defendMove(void)
 	if (_nextMove != "")
 		return ;
 
-	if (isCheck() == true)
+	if (_check == true)
 	{
 		cout << "counter check" << endl;
 		_nextMove = getCounterCheck();
 		return ;
 	}
-	else
+	else if (_defeatNext == true)
 	{
-		if (isDefeatNext() == true)
-		{
-			cout << "counter checkmate" << endl;
-			_nextMove = getCounterCheckMate();
+		cout << "counter checkmate" << endl;
+		_nextMove = getCounterCheckMate();
 
-			if (_nextMove == "")
-				cout << "no counter checkmate move found, attacking..." << endl, attackMove(), passiveMove();
+		if (_nextMove == "")
+			cout << "no counter checkmate move found, attacking..." << endl, attackMove(), passiveMove();
 
-			return ;
-		}
+		return ;
 	}
 
-	cout << "ally defend move" << endl;
-	if (isAllyAttacked() == true)
-		_nextMove = getCounterProtect();
+	if (_allyAttacked == true)
+		cout << "ally defense" << endl, _nextMove = getCounterProtect();
 
 	if (_nextMove == "")
 		attackMove(), passiveMove();
@@ -90,22 +86,39 @@ void	chessAi::randomMove(void)
 	_nextMove = getRandomMove();
 }
 
+void	chessAi::analyzeBoard(void)
+{
+	if (isCheck() == true)
+		{ _check = true; return ; }
+	
+	if (isVictoryNextNext() == true)
+		{ _victoryNextNext = true; return ; }
+	
+	if (isDefeatNext() == true)
+		{ _defeatNext = true; return ; }
+
+	if (isAllyAttacked() == true)
+		{ _allyAttacked = true; return ; }
+}
+
 string	chessAi::getNextMove(void)
 {
 	// sleep(1); //
+	
+	analyzeBoard();
 
-	if (isCheck() == true) // v
+	if (_check == true) // v
 		defendMove(); // x
 	else
 	{
 		if (isVictoryNext() == true) // v
 			checkMateMove(); // v
 
-		if (isVictoryNextNext() == true)
+		if (_victoryNextNext == true) // v
 			attackMove();
 		else
 		{
-			if (isDefeatNext() == true || isAllyAttacked() == true)
+			if (_defeatNext == true || _allyAttacked == true)
 				defendMove();
 			else
 			{
@@ -118,7 +131,15 @@ string	chessAi::getNextMove(void)
 		randomMove();
 	}
 
-	cout << "'" << _nextMove << "'" << endl;
+	cout << endl << "Legal moves: " << endl;
+	vector<string>	legalMoves;
+	legalMoves = getLegalMoves();
+	for (int i = 0; i != legalMoves.size(); i++)
+		cout << legalMoves.at(i) << " ; ";
+	cout << endl << "-" << endl;
+
+	cout << "solution => '" << _nextMove << "'" << endl;
+	cout << endl;
 
 	return (_nextMove);
 }

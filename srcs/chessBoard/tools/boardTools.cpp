@@ -59,13 +59,11 @@ vector<string>  chessBoard::getLegalMoves(void)
         }
     }
 
-    cout << "legal moves :" << endl;
     for (int i = 0; i != possibleMoves.size(); i++)
     {
         if (isLegal(possibleMoves.at(i)) == true)
-            legalMoves.push_back(possibleMoves.at(i)), cout << possibleMoves.at(i) << " ; ";
+            legalMoves.push_back(possibleMoves.at(i));
     }
-    cout << endl;
 
     return (legalMoves);
 }

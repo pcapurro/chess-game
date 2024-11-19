@@ -57,10 +57,8 @@ bool    chessAi::isProtected(const string coord)
         }
     }
 
-    cout << "defenders retrieved2" << endl;
-
     if (attackMaterials.size() == 0)
-        { cout << "no attackers" << endl; return (true); }
+        { cout << "no attackers, protected" << endl; return (true); }
 
     cout << "attackers >" << endl;
     for (int i = 0; i != attackMaterials.size(); i++)
@@ -68,7 +66,7 @@ bool    chessAi::isProtected(const string coord)
     cout << endl;
 
     if (defMaterials.size() == 0)
-        return (false);
+        { cout << "no defenders, not protected" << endl; return (false); }
 
     cout << "defenders >" << endl;
     for (int i = 0; i != defMaterials.size(); i++)
@@ -113,9 +111,12 @@ bool    chessAi::isAllyAttacked(void)
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
         {
             if (isAttacked(_board.at(i).coord) == true)
-                return (true);
+                _attackedAlly.push_back(_board.at(i).coord);
         }
     }
+
+    if (_attackedAlly.size() != 0)
+        return (true);
 
     cout << "nothing attacked" << endl;
 
