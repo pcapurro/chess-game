@@ -140,10 +140,10 @@ string  chessAi::getPassiveMove(void)
     cout << "searching basic dev or castling..." << endl;
 
     move = getPawnsDev();
-    if (move == "")
-        move = getBishopsDev();
-    if (move == "")
-        move = getKnightsDev();
+    // if (move == "")
+        // move = getBishopsDev();
+    // if (move == "")
+        // move = getKnightsDev();
     if (move == "")
         move = getCastling();
 
@@ -234,6 +234,9 @@ string	chessAi::getCounterStrike(void)
     vector<chessPiece *>    targets;
     stack<chessPiece *>     orderedTargets;
     chessPiece              *target;
+
+    if (_victoryNextNext == true)
+        return (_attackMove);
 
     cout << "detecting not protected targets..." << endl;
 

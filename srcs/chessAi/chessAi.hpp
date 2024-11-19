@@ -57,6 +57,8 @@ class chessAi : protected chessBoard
 
 		string		    _nextMove;
 
+        string          _attackMove;
+
         bool            _victoryNextNext;
         bool            _defeatNext;
         bool            _allyAttacked;

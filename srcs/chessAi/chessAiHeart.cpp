@@ -91,14 +91,14 @@ void	chessAi::analyzeBoard(void)
 	if (isCheck() == true)
 		{ _check = true; return ; }
 	
-	if (isVictoryNextNext() == true)
-		{ _victoryNextNext = true; return ; }
-	
 	if (isDefeatNext() == true)
 		{ _defeatNext = true; return ; }
 
+	if (isVictoryNextNext() == true)
+		_victoryNextNext = true;
+
 	if (isAllyAttacked() == true)
-		{ _allyAttacked = true; return ; }
+		_allyAttacked = true;
 }
 
 string	chessAi::getNextMove(void)

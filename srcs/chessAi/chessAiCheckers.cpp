@@ -98,6 +98,8 @@ bool    chessAi::isAllyAttacked(void)
         }
     }
 
+    cout << _attackedAlly.size() << " ]" << endl;
+
     if (_attackedAlly.size() != 0)
         return (true);
 
@@ -143,29 +145,62 @@ bool    chessAi::isAttackedByPawn(const string coord)
 
 bool    chessAi::isVictoryNextNext(void)
 {
+    string          move;
+    vector<string>  legalMoves;
+
+    legalMoves = getLegalMoves();
+    cout << "searching for checkmate in 2..." << endl;
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        tryMove(move);
+
+        if (isVictoryNext() == true && (count(move.begin(), move.end(), 'O') != 0
+            || isProtected(string(1, move[2]) + move[3]) == true))
+        {
+            undoMove(move);
+            _attackMove = legalMoves.at(i);
+            cout << "(before " << legalMoves.at(i) << ")" << endl;
+            return (true);
+        }
+
+        undoMove(move);
+    }
+    cout << "no checkmate in 2 found." << endl;
     return (false);
 }
 
 bool    chessAi::isVictoryNext(void)
 {
     string          move;
+    string          target;
     vector<string>  legalMoves;
 
     legalMoves = getLegalMoves();
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        move = legalMoves.at(i).c_str() + 1;
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1, target = string(1, move[2]) + move[3];
 
-        tryMove(move);
-        switchPlayers();
-        if (isCheckMate(-1) == true)
+        if (move[0] != 'O' && _board.at(getAtValue(target)).piece != NULL
+            && _board.at(getAtValue(target)).piece->getType() != 'K')
         {
-            undoMove(move);
+            tryMove(move);
+            switchPlayers();
+            if (isCheckMate(-1) == true)
+            {
+                cout << "checkmate found with " << move << endl;
+                undoMove(move);
+                unSwitchPlayers();
+                return (true);
+            }
             unSwitchPlayers();
-            return (true);
+            undoMove(move);
         }
-        unSwitchPlayers();
-        undoMove(move);
     }
 
     return (false);
