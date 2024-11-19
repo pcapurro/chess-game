@@ -35,8 +35,10 @@ class chessAi : protected chessBoard
         bool        isDefeatNext(void);
         bool        isEndGame(void);
 
+        bool        equalValues(const string move);
+        int         getMaterialValue(const char type);
+
 		stack<chessPiece *> orderMaterialsByValue(vector<chessPiece *> materials);
-        int			        getMaterialValue(const char type);
 
         string		getBestCounterMateCheck(vector<string> legalMoves);
         string		getCheckMateMove(void);

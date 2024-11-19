@@ -140,10 +140,10 @@ string  chessAi::getPassiveMove(void)
     cout << "searching basic dev or castling..." << endl;
 
     move = getPawnsDev();
-    // if (move == "")
-        // move = getBishopsDev();
-    // if (move == "")
-        // move = getKnightsDev();
+    if (move == "")
+        move = getBishopsDev();
+    if (move == "")
+        move = getKnightsDev();
     if (move == "")
         move = getCastling();
 
@@ -233,7 +233,10 @@ string	chessAi::getCounterStrike(void)
     vector<string>          legalMoves;
     vector<chessPiece *>    targets;
     stack<chessPiece *>     orderedTargets;
+    vector<chessPiece *>    attackers;
+    stack<chessPiece *>     orderedAttackers;
     chessPiece              *target;
+    chessPiece              *attacker;
 
     if (_victoryNextNext == true)
         return (_attackMove);
@@ -262,6 +265,7 @@ string	chessAi::getCounterStrike(void)
     if (targets.size() != 0)
     {
         orderedTargets = orderMaterialsByValue(targets);
+        cout << "ordered targets size > " << orderedTargets.size() << endl;
         while (orderedTargets.size() != 0)
             target = orderedTargets.top(), orderedTargets.pop();
 
@@ -269,10 +273,22 @@ string	chessAi::getCounterStrike(void)
 
         for (int i = 0; i != legalMoves.size(); i++)
         {
-            string dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+            string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
+            string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+
             if (dest == target->getCoord())
-                { cout << "proposed attack for " << target->getCoord() << " > " << legalMoves.at(i) << endl; return (legalMoves.at(i)); }
+                attackers.push_back(_board.at(getAtValue(src)).piece);
         }
+
+        cout << attackers.size() << " attackers found" << endl;
+
+        orderedAttackers = orderMaterialsByValue(attackers);
+        attacker = orderedAttackers.top();
+
+        cout << attacker->getType() << " selected by priority" << endl;
+
+        cout << "proposed attack for " << target->getCoord() << " > " << attacker->getCoord() << target->getCoord() << endl;
+        return (string(1, attacker->getType()) + attacker->getCoord() + target->getCoord());
     }
 
     switchPlayers();
@@ -431,10 +447,17 @@ string	chessAi::getCounterProtect(void)
 
         tryMove(testingMove);
         cout << "testing " << testingMove << endl;
-        if (isAttacked(attackedOne->getCoord()) == false
-            && isProtected(string(1, testingMove[2]) + testingMove[3]))
-            moves.push_back(legalMoves.at(i));
-        undoMove(testingMove);
+        if (isAttacked(attackedOne->getCoord()) == false)
+        {
+            if (isProtected(string(1, testingMove[2]) + testingMove[3]) == true)
+                moves.push_back(legalMoves.at(i));
+            undoMove(testingMove);
+            if (equalValues(testingMove) == true)
+                moves.push_back(legalMoves.at(i));
+        }
+        else
+            undoMove(testingMove);
+        cout << testingMove << " tested." << endl;
     }
 
     cout << "possible solutions :" << endl;
@@ -444,8 +467,10 @@ string	chessAi::getCounterProtect(void)
 
     vector<string>  runAway;
     vector<string>  protectNormal;
+    vector<string>  protectAttack;
     vector<string>  protectWithPawn;
     string          src;
+    string          dest;
 
     for (int i = 0; i != moves.size(); i++)
     {
@@ -454,14 +479,21 @@ string	chessAi::getCounterProtect(void)
             runAway.push_back(moves.at(i));
         else
         {
-            if (moves.at(i)[0] == 'P')
-                protectWithPawn.push_back(moves.at(i));
+            dest = string(1, moves.at(i)[3]) + moves.at(i)[4];
+            if (_board.at(getAtValue(dest)).piece != NULL && _board.at(getAtValue(dest)).piece->getColor() != _gameInfo._color)
+                protectAttack.push_back(moves.at(i));
             else
-                protectNormal.push_back(moves.at(i));
+            {
+                if (moves.at(i)[0] == 'P')
+                    protectWithPawn.push_back(moves.at(i));
+                else
+                    protectNormal.push_back(moves.at(i));
+            }
         }
     }
 
     cout << runAway.size() << " solutions of runaway" << endl;
+    cout << protectAttack.size() << " solutions of protectAttack" << endl;
     cout << protectWithPawn.size() << " solutions of protectWithPawn" << endl;
     cout << protectNormal.size() << " solutions of protectNormal" << endl;
 
@@ -478,28 +510,38 @@ string	chessAi::getCounterProtect(void)
     }
     else
     {
-        if (protectWithPawn.size() >= 1)
+        if (protectAttack.size() >= 1)
         {
-            if (protectWithPawn.size() == 1)
-                move = protectWithPawn.at(0);
+            if (protectAttack.size() == 1)
+                move = protectAttack.at(0);
             else
-                move = protectWithPawn.at(rand() % protectWithPawn.size());
+                move = protectAttack.at(rand() % protectAttack.size());
         }
         else
         {
-            if (protectNormal.size() >= 1)
+            if (protectWithPawn.size() >= 1)
             {
-                if (protectNormal.size() == 1)
-                    move = protectNormal.at(0);
+                if (protectWithPawn.size() == 1)
+                    move = protectWithPawn.at(0);
                 else
-                    move = protectNormal.at(rand() % protectNormal.size());
+                    move = protectWithPawn.at(rand() % protectWithPawn.size());
             }
-            else if (runAway.size() >= 1)
+            else
             {
-                if (runAway.size() == 1)
-                    move = runAway.at(0);
-                else
-                    move = runAway.at(rand() % runAway.size());
+                if (protectNormal.size() >= 1)
+                {
+                    if (protectNormal.size() == 1)
+                        move = protectNormal.at(0);
+                    else
+                        move = protectNormal.at(rand() % protectNormal.size());
+                }
+                else if (runAway.size() >= 1)
+                {
+                    if (runAway.size() == 1)
+                        move = runAway.at(0);
+                    else
+                        move = runAway.at(rand() % runAway.size());
+                }
             }
         }
     }

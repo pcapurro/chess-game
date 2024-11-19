@@ -120,10 +120,13 @@ bool    chessAi::isAttacked(const string coord)
             if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
             {
                 if (isProtected(coord) == false)
-                    return (true);
+                    { cout << coord << " attacked" << endl; return (true); }
+                else
+                    cout << coord << " attacked but protected" << endl;
             }
         }
     }
+    cout << coord << " not attacked" << endl;
     return (false);
 }
 
@@ -158,6 +161,8 @@ bool    chessAi::isVictoryNextNext(void)
 
         tryMove(move);
 
+        cout << "trying " << move << endl;
+
         if (isVictoryNext() == true && (count(move.begin(), move.end(), 'O') != 0
             || isProtected(string(1, move[2]) + move[3]) == true))
         {
@@ -167,7 +172,11 @@ bool    chessAi::isVictoryNextNext(void)
             return (true);
         }
 
+        cout << "undoing " << move << endl;
+
         undoMove(move);
+
+        cout << move << " undone" << endl;
     }
     cout << "no checkmate in 2 found." << endl;
     return (false);
