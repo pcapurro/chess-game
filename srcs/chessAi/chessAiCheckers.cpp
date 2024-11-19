@@ -80,8 +80,14 @@ bool    chessAi::isSomethingNotProtected(void)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
         {
+            switchPlayers();
             if (isProtected(_board.at(i).coord) == false)
-                { cout << _board.at(i).coord << " not protected" << endl; return (true); }
+            {
+                unSwitchPlayers();
+                cout << _board.at(i).coord << " not protected" << endl;
+                return (true);
+            }
+            unSwitchPlayers();
         }
     }
     return (false);
@@ -120,7 +126,7 @@ bool    chessAi::isAttacked(const string coord)
             if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
             {
                 if (isProtected(coord) == false)
-                    { cout << coord << " attacked" << endl; return (true); }
+                    { cout << coord << " attacked by " << _board.at(i).piece->getCoord() << endl; return (true); }
                 else
                     cout << coord << " attacked but protected" << endl;
             }
