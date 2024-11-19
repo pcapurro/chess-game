@@ -23,6 +23,10 @@ bool    chessBoard::isCastlingPossible(const string castle)
             if (_board.at(atValue).piece != NULL)
                 return (false);
 
+            atValue = getAtValue("e1");
+            if (_board.at(atValue).piece == NULL)
+                return (false);
+
             if (doesItResolveCheck("e1g1") == false
                 || doesItResolveCheck("e1f1") == false)
                 return (false);
@@ -42,6 +46,10 @@ bool    chessBoard::isCastlingPossible(const string castle)
                 return (false);
             atValue = getAtValue("c1");
             if (_board.at(atValue).piece != NULL)
+                return (false);
+
+            atValue = getAtValue("e1");
+            if (_board.at(atValue).piece == NULL)
                 return (false);
 
             if (doesItResolveCheck("e1d1") == false
@@ -68,6 +76,10 @@ bool    chessBoard::isCastlingPossible(const string castle)
             if (_board.at(atValue).piece != NULL)
                 return (false);
 
+            atValue = getAtValue("e8");
+            if (_board.at(atValue).piece == NULL)
+                return (false);
+
             if (doesItResolveCheck("e8f8") == false
                 || doesItResolveCheck("e8g8") == false)
                 return (false);
@@ -87,6 +99,10 @@ bool    chessBoard::isCastlingPossible(const string castle)
                 return (false);
             atValue = getAtValue("c8");
             if (_board.at(atValue).piece != NULL)
+                return (false);
+
+            atValue = getAtValue("e8");
+            if (_board.at(atValue).piece == NULL)
                 return (false);
 
             if (doesItResolveCheck("e8d8") == false

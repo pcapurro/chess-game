@@ -167,10 +167,6 @@ void    chessBoard::tryMove(string srcdest)
         _board.at(atValueDest).piece->updatePos(_board.at(atValueDest).coord);
         _board.at(atValueSrc).piece = NULL;
     }
-
-    cout << endl << endl << endl << endl << endl << endl << endl << endl << endl << endl;
-    cout << "move tried, actual baord >" << endl;
-    printBoard(1);
 }
 
 void    chessBoard::undoMove(string srcdest)
@@ -184,22 +180,10 @@ void    chessBoard::undoMove(string srcdest)
     if (srcdest == "O-O" || srcdest == "O-O-O")
     {
         vector<string>  castling;
-        
-        cout << endl << endl << endl << endl << endl << endl << endl << endl << endl;
-        printBoard(1);
 
         castling = getCastlingSrcsDests(srcdest);
-        cout << "trying " << castling.at(1) << endl;
         undoMove(castling.at(1));
-        cout << "ok for " << castling.at(1) << endl;
-        cout << "trying " << castling.at(0) << endl;
         undoMove(castling.at(0));
-        cout << "ok for " << castling.at(0) << endl;
-
-        cout << endl << endl << endl << endl << endl << endl << endl << endl << endl;
-        printBoard(1);
-
-        exit(0);
     }
     else
     {
