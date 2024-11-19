@@ -263,16 +263,19 @@ string	chessAi::getCounterStrike(void)
     {
         for (int i = 0; i != legalMoves.size(); i++)
         {
-            string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
-
-            tryMove(legalMoves.at(i).c_str() + 1);
-            if (isSomethingNotProtected() == true && isProtected(dest) == true)
+            if (count(legalMoves.at(i).begin(), legalMoves.at(i).end(), 'O') == 0)
             {
+                string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+
+                tryMove(legalMoves.at(i).c_str() + 1);
+                if (isSomethingNotProtected() == true && isProtected(dest) == true)
+                {
+                    undoMove(legalMoves.at(i).c_str() + 1);
+                    cout << "threat found with " << legalMoves.at(i) << endl;
+                    return (legalMoves.at(i));
+                }
                 undoMove(legalMoves.at(i).c_str() + 1);
-                cout << "threat found with " << legalMoves.at(i) << endl;
-                return (legalMoves.at(i));
             }
-            undoMove(legalMoves.at(i).c_str() + 1);
         }
     }
     else
@@ -401,6 +404,8 @@ string  chessAi::getCounterCheck(void)
         undoMove(legalMoves.at(i).c_str() + 1);
     }
 
+    // trier
+
     move = getBestCounterMateCheck(newLegalMoves);
 
     return (move);
@@ -442,14 +447,15 @@ string	chessAi::getCounterProtect(void)
 
     cout << "getting counter protect..." << endl;
 
-    orderedTargets = orderMaterialsByValue(_attackedAlly);
-    while (orderedTargets.size() != 0)
-        attackedOne = orderedTargets.top(), orderedTargets.pop();
-
     cout << "attacked :" << endl;
     for (int i = 0; i != _attackedAlly.size(); i++)
         cout << _attackedAlly.at(i)->getCoord() << "-" << _attackedAlly.at(i)->getType() << " ; ";
     cout << endl;
+
+    orderedTargets = orderMaterialsByValue(_attackedAlly);
+    while (orderedTargets.size() != 0)
+        attackedOne = orderedTargets.top(), orderedTargets.pop();
+
     cout << "priority set for " << attackedOne->getCoord() << endl;
 
     legalMoves = getLegalMoves();
@@ -468,12 +474,12 @@ string	chessAi::getCounterProtect(void)
         if (isAttacked(attackedOne->getCoord()) == false)
         {
             if (isProtected(string(1, testingMove[2]) + testingMove[3]) == true)
-                moves.push_back(legalMoves.at(i)), undoMove(testingMove);
+                moves.push_back(legalMoves.at(i)), undoMove(testingMove), cout << "classic move protecting with " << testingMove << ", added..." << endl;
             else
             {
                 undoMove(testingMove);
                 if (equalValues(testingMove) == true)
-                    moves.push_back(legalMoves.at(i));
+                    moves.push_back(legalMoves.at(i)), cout << "equal moves for " << testingMove << endl;
             }
         }
         else

@@ -58,10 +58,7 @@ bool    chessAi::isProtected(const string coord)
 
     defenders = orderMaterialsByValue(defMaterials);
     defenders.push(_board.at(getAtValue(coord)).piece);
-    cout << "ok1" << endl;
     attackers = orderMaterialsByValue(attackMaterials);
-
-    cout << "ok" << endl;
 
     while (attackers.size() != 0 && defenders.size() != 0)
     {
@@ -69,9 +66,9 @@ bool    chessAi::isProtected(const string coord)
         if (defenders.size() == 0)
             break ;
         defenderMaterialsEearned += getMaterialValue(attackers.top()->getType()), attackers.pop();
+        if (attackerMaterialsEarned > defenderMaterialsEearned)
+            break ;
     }
-
-    cout << "ok" << endl;
 
     cout << attackerMaterialsEarned << " < attackerMaterialsEarned" << endl;
     cout << defenderMaterialsEearned << " < defenderMaterialsEearned" << endl;
@@ -108,7 +105,9 @@ bool    chessAi::isAllyAttacked(void)
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
         {
             if (isAttacked(_board.at(i).coord) == true)
-                _attackedAlly.push_back(_board.at(i).piece);
+                _attackedAlly.push_back(_board.at(i).piece), cout << _board.at(i).coord << " attacked";
+            else
+                cout << _board.at(i).coord << " not attacked";
         }
     }
 
