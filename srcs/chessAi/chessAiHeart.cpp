@@ -30,6 +30,14 @@ void	chessAi::passiveMove(void)
 
 	cout << "passive move" << endl;
 	_nextMove = getPassiveMove();
+
+	if (_nextMove == "O-O" || _nextMove == "O-O-O")
+	{
+		if (_gameInfo._color == "white")
+			_nextMove = "Ke1" + _nextMove;
+		if (_gameInfo._color == "black")
+			_nextMove = "Ke8" + _nextMove;
+	}
 }
 
 void	chessAi::defendMove(void)
@@ -104,22 +112,11 @@ string	chessAi::getNextMove(void)
 				if (isEndGame() == true)
 					endGameMove();
 				else
-				{
-					attackMove();
-					passiveMove();
-				}
+					attackMove(), passiveMove();
 			}
 		}
 		randomMove();
 	}
-
-    if (_nextMove == "O-O" || _nextMove == "O-O-O")
-    {
-        if (_gameInfo._color == "white")
-            _nextMove = "Ke1" + _nextMove;
-        else
-            _nextMove = "Ke8" + _nextMove;
-    }
 
 	return (_nextMove);
 }
