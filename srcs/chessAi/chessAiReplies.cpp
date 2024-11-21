@@ -478,7 +478,8 @@ string	chessAi::getCounterProtect(void)
             else
             {
                 undoMove(testingMove);
-                if (equalValues(testingMove) == true)
+                if (_board.at(getAtValue(string(1, testingMove[2]) + testingMove[3])).piece != NULL
+                    && equalValues(testingMove) == true)
                     moves.push_back(legalMoves.at(i)), cout << "equal moves for " << testingMove << endl;
             }
         }
@@ -515,6 +516,21 @@ string	chessAi::getCounterProtect(void)
                     protectWithPawn.push_back(moves.at(i));
                 else
                     protectNormal.push_back(moves.at(i));
+            }
+        }
+    }
+
+    if (moves.size() != 1 && runAway.size() > 1
+        && _gameInfo._turn < 21)
+    {
+        for (int i = 0; i != runAway.size(); i++)
+        {
+            if (runAway.at(i)[0] == 'N' || runAway.at(i)[0] == 'B')
+            {
+                if (_gameInfo._color == "white" && runAway.at(i)[4] == '1')
+                    runAway.erase(runAway.begin() + i), i = 0;
+                if (_gameInfo._color == "black" && runAway.at(i)[4] == '8')
+                    runAway.erase(runAway.begin() + i), i = 0;
             }
         }
     }
