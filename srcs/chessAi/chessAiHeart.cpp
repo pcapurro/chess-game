@@ -113,9 +113,6 @@ string	chessAi::getNextMove(void)
 	{
 		if (isVictoryNext() == true) // v
 			checkMateMove(); // v
-
-		if (_victoryNextNext == true) // v
-			attackMove();
 		else
 		{
 			if (_defeatNext == true || _allyAttacked == true)
