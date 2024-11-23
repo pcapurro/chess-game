@@ -97,7 +97,7 @@ void	chessAi::analyzeBoard(void)
 	if (isVictoryNextNext() == true)
 		_victoryNextNext = true;
 
-	if (isAllyAttacked() == true)
+	if (isAllyAttacked() == true && isDefenseWorth() == true)
 		_allyAttacked = true;
 }
 

@@ -111,6 +111,34 @@ bool    chessAi::isSomethingNotProtected(void)
     return (false);
 }
 
+bool    chessAi::isDefenseWorth(void)
+{
+    int targets = 0;
+    int attacked = 0;
+
+    for (int i = 0; i != 64; i++)
+    {
+        switchPlayers();
+
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color
+            && isAttacked(_board.at(i).coord) == true)
+            targets += getMaterialValue(_board.at(i).piece->getType());
+        
+        unSwitchPlayers();
+
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+            && isAttacked(_board.at(i).coord) == true)
+            attacked += getMaterialValue(_board.at(i).piece->getType());
+    }
+
+    if (targets >= attacked)
+        { cout << "attack is better" << endl; return (false); }
+
+    cout << "defense is worth" << endl;
+
+    return (true);
+}
+
 bool    chessAi::isAllyAttacked(void)
 {
     for (int i = 0; i != 64; i++)
