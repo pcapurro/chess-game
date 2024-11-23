@@ -160,10 +160,13 @@ string  chessAi::getPassiveMove(void)
             if (legalMoves.at(i)[0] == 'P' && rand() % 2 == 0)
             {
                 move = legalMoves.at(i);
-                tryMove(move.c_str() + 1);
-                if (isProtected(string(1, move[3]) + move[4]) == true)
-                    pawns.push_back(move);
-                undoMove(move.c_str() + 1);
+                if (count(move.begin(), move.end(), 'O') == 0)
+                    move = move.c_str() + 1,
+
+                tryMove(move);
+                if (isProtected(string(1, move[2]) + move[3]) == true)
+                    pawns.push_back(legalMoves.at(i));
+                undoMove(move);
             }
         }
 
@@ -187,7 +190,9 @@ string	chessAi::getCheckMateMove(void)
     legalMoves = getLegalMoves();
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        move = legalMoves.at(i).c_str() + 1;
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
 
         tryMove(move);
         switchPlayers();
@@ -206,6 +211,7 @@ string	chessAi::getCheckMateMove(void)
 string  chessAi::preventCastling(const string castle)
 {
     vector<string>  legalMoves;
+    string          move;
 
     unSwitchPlayers();
     legalMoves = getLegalMoves();
@@ -213,15 +219,19 @@ string  chessAi::preventCastling(const string castle)
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        tryMove(legalMoves.at(i).c_str() + 1);
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        tryMove(move);
         if (isCastlingPossible(castle) == false)
         {
             unSwitchPlayers();
-            if (isProtected(legalMoves.at(i).c_str() + 3) == true)
-                { switchPlayers(); undoMove(legalMoves.at(i).c_str() + 1); cout << "proposed anti castling solution >" << legalMoves.at(i) << endl; return (legalMoves.at(i)); }
+            if (isProtected(string(1, move[2]) + move[3]) == true)
+                { switchPlayers(); undoMove(move); cout << "proposed anti castling solution >" << legalMoves.at(i) << endl; return (legalMoves.at(i)); }
             switchPlayers();
         }
-        undoMove(legalMoves.at(i).c_str() + 1);
+        undoMove(move);
     }
     
     return ("");
@@ -230,6 +240,7 @@ string  chessAi::preventCastling(const string castle)
 string	chessAi::getCounterStrike(void)
 {
 	string                  move;
+    string                  testMove;
     vector<string>          legalMoves;
     vector<chessPiece *>    targets;
     stack<chessPiece *>     orderedTargets;
@@ -267,14 +278,18 @@ string	chessAi::getCounterStrike(void)
             {
                 string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
 
-                tryMove(legalMoves.at(i).c_str() + 1);
+                testMove = legalMoves.at(i);
+                if (count(testMove.begin(), testMove.end(), 'O') == 0)
+                    testMove = testMove.c_str() + 1;
+
+                tryMove(testMove);
                 if (isSomethingNotProtected() == true && isProtected(dest) == true)
                 {
-                    undoMove(legalMoves.at(i).c_str() + 1);
+                    undoMove(testMove);
                     cout << "threat found with " << legalMoves.at(i) << endl;
                     return (legalMoves.at(i));
                 }
-                undoMove(legalMoves.at(i).c_str() + 1);
+                undoMove(testMove);
             }
         }
     }
@@ -391,17 +406,22 @@ string  chessAi::getBestCounterMateCheck(vector<string> legalMoves)
 string  chessAi::getCounterCheck(void)
 {
     string          move;
+    string          testMove;
     vector<string>  legalMoves;
     vector<string>  newLegalMoves;
 
     legalMoves = getLegalMoves();
 
     for (int i = 0; i != legalMoves.size(); i++)
-    {   
-        tryMove(legalMoves.at(i).c_str() + 1);
+    {
+        testMove = legalMoves.at(i);
+        if (count(testMove.begin(), testMove.end(), 'O') == 0)
+            testMove = testMove.c_str() + 1;
+
+        tryMove(testMove);
         if (isCheck() == false)
             newLegalMoves.push_back(legalMoves.at(i));
-        undoMove(legalMoves.at(i).c_str() + 1);
+        undoMove(testMove);
     }
 
     // trier
@@ -460,32 +480,31 @@ string	chessAi::getCounterProtect(void)
 
     legalMoves = getLegalMoves();
 
-    string  testingMove;
+    string  testMove;
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        if (legalMoves.at(i) == "O-O" || legalMoves.at(i) == "O-O-O")
-            testingMove = legalMoves.at(i);
-        else
-            testingMove = legalMoves.at(i).c_str() + 1;
+        testMove = legalMoves.at(i);
+        if (count(testMove.begin(), testMove.end(), 'O') == 0)
+            testMove = testMove.c_str() + 1;
 
-        tryMove(testingMove);
-        cout << "testing " << testingMove << endl;
+        tryMove(testMove);
+        cout << "testing " << testMove << endl;
         if (isAttacked(attackedOne->getCoord()) == false)
         {
-            if (isProtected(string(1, testingMove[2]) + testingMove[3]) == true)
-                moves.push_back(legalMoves.at(i)), undoMove(testingMove), cout << "classic move protecting with " << testingMove << ", added..." << endl;
+            if (isProtected(string(1, testMove[2]) + testMove[3]) == true)
+                moves.push_back(legalMoves.at(i)), undoMove(testMove), cout << "classic move protecting with " << testMove << ", added..." << endl;
             else
             {
-                undoMove(testingMove);
-                if (_board.at(getAtValue(string(1, testingMove[2]) + testingMove[3])).piece != NULL
-                    && equalValues(testingMove) == true)
-                    moves.push_back(legalMoves.at(i)), cout << "equal moves for " << testingMove << endl;
+                undoMove(testMove);
+                if (_board.at(getAtValue(string(1, testMove[2]) + testMove[3])).piece != NULL
+                    && equalValues(testMove) == true)
+                    moves.push_back(legalMoves.at(i)), cout << "equal moves for " << testMove << endl;
             }
         }
         else
-            undoMove(testingMove);
-        cout << testingMove << " tested." << endl;
+            undoMove(testMove);
+        cout << testMove << " tested." << endl;
     }
 
     cout << "possible solutions :" << endl;
