@@ -539,10 +539,10 @@ string	chessAi::getCounterProtect(void)
         }
     }
 
-    if (moves.size() != 1 && runAway.size() > 1
+    if (moves.size() == runAway.size() && runAway.size() > 1
         && _gameInfo._turn < 21)
     {
-        for (int i = 0; i != runAway.size(); i++)
+        for (int i = 0; i != runAway.size() && runAway.size() > 1; i++)
         {
             if (runAway.at(i)[0] == 'N' || runAway.at(i)[0] == 'B')
             {
