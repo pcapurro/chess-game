@@ -5,7 +5,7 @@ bool    chessAi::isEndGame(void)
     return (false);
 }
 
-int     chessAi::getProtectedNumber(void)
+int     chessAi::getAttackedNumber(void)
 {
     int nb = 0;
 

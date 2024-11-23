@@ -491,14 +491,14 @@ string	chessAi::getCounterProtect(void)
             testMove = testMove.c_str() + 1;
 
         capture = false;
-        attacked = getProtectedNumber();
+        attacked = getAttackedNumber();
         if (_board.at(getAtValue(string(1, testMove[2]) + testMove[3])).piece != NULL)
             capture = true;
 
         tryMove(testMove);
         if (isProtected(attackedOne->getCoord()) == true && isProtected(string(1, testMove[2]) + testMove[3]) == true)
             moves.push_back(legalMoves.at(i));
-        if (capture == true && attacked <= getProtectedNumber())
+        if (capture == true && attacked <= getAttackedNumber())
             moves.push_back(legalMoves.at(i));
         undoMove(testMove);
     }
@@ -512,6 +512,7 @@ string	chessAi::getCounterProtect(void)
     vector<string>  protectNormal;
     vector<string>  protectAttack;
     vector<string>  protectWithPawn;
+    vector<string>  protectExchange;
     string          src;
     string          dest;
 
@@ -524,7 +525,21 @@ string	chessAi::getCounterProtect(void)
         else
         {
             if (_board.at(getAtValue(dest)).piece != NULL)
-                protectAttack.push_back(moves.at(i));
+            {
+                if (src == attackedOne->getCoord() && attackedOne->getType() == _board.at(getAtValue(dest)).piece->getType())
+                    protectExchange.push_back(moves.at(i));
+                else
+                {
+                    int attacked = getAttackedNumber();
+
+                    cout << "attacked > " << attacked << endl;
+
+                    tryMove(moves.at(i).c_str() + 1);
+                    if (getAttackedNumber() < attacked)
+                        protectAttack.push_back(moves.at(i)), cout << getAttackedNumber() << " < attacked now" << endl;
+                    undoMove(moves.at(i).c_str() + 1);
+                }
+            }
             else
             {
                 if (moves.at(i)[0] == 'P')
@@ -556,7 +571,6 @@ string	chessAi::getCounterProtect(void)
             orderedTargets.pop();
         targets.clear();
 
-        cout << "ok" << endl;
         for (int i = 0; i != protectAttack.size(); i++)
         {
             string destCoords = string(1, protectAttack.at(i)[3]) + protectAttack.at(i)[4];
@@ -572,17 +586,23 @@ string	chessAi::getCounterProtect(void)
     cout << protectAttack.size() << " solutions of protectAttack" << endl;
     cout << protectWithPawn.size() << " solutions of protectWithPawn" << endl;
     cout << protectNormal.size() << " solutions of protectNormal" << endl;
+    cout << protectExchange.size() << " solutions of protectExchange" << endl;
 
     srand(time(nullptr));
 
-    if (protectAttack.size() >= 1)
+    if (protectAttack.size() >= 1 || protectExchange.size() >= 1)
     {
-        for (int i = 0; i != protectAttack.size(); i++)
+        if (protectAttack.size() >= 1)
         {
-            string dest = string(1, protectAttack.at(i)[3]) + protectAttack.at(i)[4];
-            if (dest == target->getCoord())
-                return (protectAttack.at(i));
+            for (int i = 0; i != protectAttack.size(); i++)
+            {
+                string dest = string(1, protectAttack.at(i)[3]) + protectAttack.at(i)[4];
+                if (dest == target->getCoord())
+                    return (protectAttack.at(i));
+            }
         }
+        if ((protectExchange.size() >= 1 && protectExchange.size() == moves.size()) || rand() % 2 == 0)
+            return (protectExchange.at(0));
     }
     else
     {

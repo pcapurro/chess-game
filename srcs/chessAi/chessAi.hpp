@@ -23,7 +23,7 @@ class chessAi : protected chessBoard
 		void		endGameMove(void);
 		void		randomMove(void);
 
-        int         getProtectedNumber(void);
+        int         getAttackedNumber(void);
 
         bool        isProtected(const string coord);
         bool        isAttacked(const string coord);
