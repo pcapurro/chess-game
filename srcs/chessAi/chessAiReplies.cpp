@@ -481,6 +481,8 @@ string	chessAi::getCounterProtect(void)
     legalMoves = getLegalMoves();
 
     string  testMove;
+    int     attacked;
+    bool    capture;
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
@@ -488,23 +490,17 @@ string	chessAi::getCounterProtect(void)
         if (count(testMove.begin(), testMove.end(), 'O') == 0)
             testMove = testMove.c_str() + 1;
 
+        capture = false;
+        attacked = getProtectedNumber();
+        if (_board.at(getAtValue(string(1, testMove[2]) + testMove[3])).piece != NULL)
+            capture = true;
+
         tryMove(testMove);
-        cout << "testing " << testMove << endl;
-        if (isAttacked(attackedOne->getCoord()) == false)
-        {
-            if (isProtected(string(1, testMove[2]) + testMove[3]) == true)
-                moves.push_back(legalMoves.at(i)), undoMove(testMove), cout << "classic move protecting with " << testMove << ", added..." << endl;
-            else
-            {
-                undoMove(testMove);
-                if (_board.at(getAtValue(string(1, testMove[2]) + testMove[3])).piece != NULL
-                    && equalValues(testMove) == true)
-                    moves.push_back(legalMoves.at(i)), cout << "equal moves for " << testMove << endl;
-            }
-        }
-        else
-            undoMove(testMove);
-        cout << testMove << " tested." << endl;
+        if (isProtected(attackedOne->getCoord()) == true && isProtected(string(1, testMove[2]) + testMove[3]) == true)
+            moves.push_back(legalMoves.at(i));
+        if (capture == true && attacked <= getProtectedNumber())
+            moves.push_back(legalMoves.at(i));
+        undoMove(testMove);
     }
 
     cout << "possible solutions :" << endl;

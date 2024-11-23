@@ -5,6 +5,19 @@ bool    chessAi::isEndGame(void)
     return (false);
 }
 
+int     chessAi::getProtectedNumber(void)
+{
+    int nb = 0;
+
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+            && isAttacked(_board.at(i).coord) == true)
+            nb++;
+    }
+    return (nb);
+}
+
 bool    chessAi::isProtected(const string coord)
 {
     int                     attackerMaterialsEarned = 0;
