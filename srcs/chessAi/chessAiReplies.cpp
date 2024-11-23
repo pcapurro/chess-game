@@ -386,12 +386,12 @@ string  chessAi::getBestCounterMateCheck(vector<string> legalMoves)
         moves = &attackMoves;
     else
     {
-        if (shieldMoves.size() != 0)
-            moves = &shieldMoves;
+        if (othersMoves.size() != 0)
+            moves = &othersMoves;
         else
         {
-            if (othersMoves.size() != 0)
-                moves = &othersMoves;
+            if (shieldMoves.size() != 0)
+                moves = &shieldMoves;
         }
     }
 
