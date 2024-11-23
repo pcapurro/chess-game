@@ -157,7 +157,7 @@ string  chessAi::getPassiveMove(void)
         for (int i = 0; i != legalMoves.size(); i++)
         {
             srand(time(nullptr));
-            if (legalMoves.at(i)[0] == 'P' && rand() % 2 == 0)
+            if (legalMoves.at(i)[0] == 'P')
             {
                 move = legalMoves.at(i);
                 if (count(move.begin(), move.end(), 'O') == 0)
