@@ -6,7 +6,7 @@ void	chessAi::checkMateMove(void)
 		return ;
 	
 	cout << "checkmate move" << endl;
-	_nextMove = getCheckMateMove();
+	_nextMove = getCheckMateInOneMove();
 }
 
 void	chessAi::attackMove(void)
@@ -116,7 +116,7 @@ string	chessAi::getNextMove(void)
 	legalMoves = getLegalMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 		cout << legalMoves.at(i) << " ; ";
-	cout << endl << "-" << endl;
+	cout << endl << "-" << endl << endl;
 	
 	analyzeBoard();
 
@@ -144,7 +144,7 @@ string	chessAi::getNextMove(void)
 	}
 	randomMove(); // v
 
-	cout << "solution => '" << _nextMove << "'" << endl << endl;
+	cout << "solution => '" << _nextMove << "'" << endl;
 
 	return (_nextMove);
 }

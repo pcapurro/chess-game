@@ -193,22 +193,18 @@ bool    chessAi::checkMateInOne(void)
     {
         move = legalMoves.at(i);
         if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1, target = string(1, move[2]) + move[3];
+            move = move.c_str() + 1;
 
-        if (move[0] != 'O' && _board.at(getAtValue(target)).piece != NULL
-            && _board.at(getAtValue(target)).piece->getType() != 'K')
+        tryMove(move);
+        switchPlayers();
+        if (isCheckMate(-1) == true)
         {
-            tryMove(move);
-            switchPlayers();
-            if (isCheckMate(-1) == true)
-            {
-                undoMove(move);
-                unSwitchPlayers();
-                return (true);
-            }
-            unSwitchPlayers();
             undoMove(move);
+            unSwitchPlayers();
+            return (true);
         }
+        unSwitchPlayers();
+        undoMove(move);
     }
 
     return (false);

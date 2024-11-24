@@ -1,6 +1,6 @@
 #include "chessAi.hpp"
 
-string	chessAi::getCheckMateMove(void)
+string	chessAi::getCheckMateInOneMove(void)
 {
     string          move;
     vector<string>  legalMoves;
@@ -24,6 +24,33 @@ string	chessAi::getCheckMateMove(void)
         undoMove(move);
     }
     return ("");
+}
+
+string	chessAi::getCheckMateInTwoMove(void)
+{
+    string          move;
+    vector<string>  legalMoves;
+
+    legalMoves = getLegalMoves();
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        tryMove(move);
+        if (checkMateInOne() == true && (count(move.begin(), move.end(), 'O') != 0
+            || isProtected(string(1, move[2]) + move[3]) == true))
+        {
+			undoMove(move);
+			return (legalMoves.at(i));
+		}
+        undoMove(move);
+    }
+
+	move.clear();
+
+    return (move);
 }
 
 string  chessAi::preventCastling(const string castle)
@@ -118,7 +145,12 @@ string	chessAi::getCounterStrike(void)
 	targets = getTargets();
 
     if (targets.size() == 0)
-		move = getThreat();
+	{
+		if (_checkMateInTwo == true)
+			move = getCheckMateInTwoMove();
+		else
+			move = getThreat();
+	}
     else
 		move = getBestAttacker(targets);
 

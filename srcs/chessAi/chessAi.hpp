@@ -53,7 +53,8 @@ class chessAi : protected chessBoard
         string	        getBestAttacker(stack<cP *> targets);
         string	        getThreat(void);
 
-        string		    getCheckMateMove(void);
+        string		    getCheckMateInOneMove(void);
+        string          getCheckMateInTwoMove(void);
 
         string		    getPawnsOpening(void);
         string          getPawnsDev(void);
