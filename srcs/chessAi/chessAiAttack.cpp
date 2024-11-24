@@ -78,19 +78,18 @@ string	chessAi::getThreat(void)
 	return ("");
 }
 
-string	chessAi::getBestAttacker(vector<cP *> targets)
+string	chessAi::getBestAttacker(stack<cP *> targets)
 {
 	string			move;
 	chessPiece		*target;
 	vector<string>	legalMoves;
-	vector<cP *>    attackers;
-	stack<cP *>     orderedTargets;
+	stack<cP *>    	attackers;
 
 	legalMoves = getLegalMoves();
 
-	orderedTargets = orderMaterialsByValue(targets);
-	while (orderedTargets.size() != 0)
-		target = orderedTargets.top(), orderedTargets.pop();
+	targets = orderMaterialsByValue(targets);
+	while (targets.size() != 0)
+		target = targets.top(), targets.pop();
 
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
@@ -98,7 +97,7 @@ string	chessAi::getBestAttacker(vector<cP *> targets)
 		string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
 
 		if (dest == target->getCoord())
-			attackers.push_back(_board.at(getAtValue(src)).piece);
+			attackers.push(_board.at(getAtValue(src)).piece);
 	}
 
 	if (attackers.size() != 0)
@@ -113,8 +112,8 @@ string	chessAi::getBestAttacker(vector<cP *> targets)
 
 string	chessAi::getCounterStrike(void)
 {
-	string			move;
-    vector<cP *>    targets;
+	string		move;
+    stack<cP *>	targets;
 
     if (_victoryNextNext == true)
         return (_attackMove);

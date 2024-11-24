@@ -32,37 +32,21 @@ bool    chessAi::isProtected(const string coord)
 {
     int                     attackerMaterialsEarned = 0;
     int                     defenderMaterialsEearned = 0;
-    vector<chessPiece *>    attackMaterials;
-    vector<chessPiece *>    defMaterials;
     stack<chessPiece *>     attackers;
     stack<chessPiece *>     defenders;
 
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL)
-        {
-            if (_board.at(i).piece->getColor() != _gameInfo._color)
-            {
-                if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
-                    attackMaterials.push_back(_board.at(i).piece);
-            }
-            else if (_board.at(i).coord != coord)
-            {
-                if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
-                    defMaterials.push_back(_board.at(i).piece);
-            }
-        }
-    }
-
-    if (attackMaterials.size() == 0)
+    attackers = getAttackers(coord);
+    if (attackers.size() == 0)
         return (true);
 
-    if (defMaterials.size() == 0)
+    defenders = getDefenders(coord);
+    if (defenders.size() == 0)
         return (false);
 
-    defenders = orderMaterialsByValue(defMaterials);
+    attackers = orderMaterialsByValue(attackers);
+
+    defenders = orderMaterialsByValue(defenders);
     defenders.push(_board.at(getAtValue(coord)).piece);
-    attackers = orderMaterialsByValue(attackMaterials);
 
     while (attackers.size() != 0 && defenders.size() != 0)
     {

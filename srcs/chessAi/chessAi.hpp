@@ -43,11 +43,14 @@ class chessAi : protected chessBoard
         int             getAttackedNumber(void);
         int             getMaterialValue(const char type);
         string		    getBestCounterMateCheck(vector<string> legalMoves);
-        vector<cP *>    getTargets(void);
-        stack<cP *>     orderMaterialsByValue(vector<cP *> materials);
+        stack<cP *>     orderMaterialsByValue(stack<cP *> materials);
+        stack<cP *>     getTargets(void);
+
+        stack<cP *>     getDefenders(const string coord);
+        stack<cP *>     getAttackers(const string coord);
 
         string		    preventCastling(const string castle);
-        string	        getBestAttacker(vector<cP *> targets);
+        string	        getBestAttacker(stack<cP *> targets);
         string	        getThreat(void);
 
         string		    getCheckMateMove(void);
