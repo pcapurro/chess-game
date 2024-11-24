@@ -1,11 +1,12 @@
 #include "chessAi.hpp"
 
-string  chessAi::getPawnsDev(void)
+string  chessAi::getPawnsOpening(void)
 {
     int value;
 
     srand(time(nullptr));
     value = rand() % 10;
+
     if (_gameInfo._turn == 0)
     {
         if (value < 6)
@@ -13,6 +14,7 @@ string  chessAi::getPawnsDev(void)
         if (value == 6 || value == 7 || value == 8)
             return ("Pd2d3");
     }
+
     if (_gameInfo._turn == 1)
     {
         if (_board.at(getAtValue("e4")).piece != NULL)
@@ -33,16 +35,62 @@ string  chessAi::getPawnsDev(void)
         }
     }
 
+    srand(time(nullptr));
+    value = rand() % 2;
+
+	if (_gameInfo._turn == 2)
+	{
+		if (_board.at(getAtValue("d3")).piece != NULL)
+			return ("Pe2e4");
+		if (_board.at(getAtValue("e4")).piece != NULL)
+		{
+			if (value % 2 == 0)
+				return ("Pd2d3");
+			else
+				return ("Pd2d4");
+		}
+	}
+
     return ("");
+}
+
+string  chessAi::getPawnsDev(void)
+{
+	string			move;
+	vector<string>	legalMoves;
+	vector<string>	pawns;
+
+	legalMoves = getLegalMoves();
+	for (int i = 0; i != legalMoves.size(); i++)
+	{
+		srand(time(nullptr));
+		if (legalMoves.at(i)[0] == 'P')
+		{
+			move = legalMoves.at(i);
+			if (count(move.begin(), move.end(), 'O') == 0)
+				move = move.c_str() + 1,
+
+			tryMove(move);
+			if (isProtected(string(1, move[2]) + move[3]) == true)
+				pawns.push_back(legalMoves.at(i));
+			undoMove(move);
+		}
+	}
+
+	if (pawns.size() == 1)
+		move = pawns.at(0);
+	if (pawns.size() > 1)
+		move = (pawns.at(rand() % pawns.size()));
+
+    return (move);
 }
 
 string  chessAi::getKnightsDev(void)
 {
     vector<string>  legalMoves;
+	string			nb1, nb2;
 
     legalMoves = getLegalMoves();
-
-    string nb1, nb2;
 
     if (_gameInfo._color == "white")
         nb1 = "1", nb2 = "3";
@@ -88,10 +136,9 @@ string  chessAi::getCastling(void)
 string  chessAi::getBishopsDev(void)
 {
     vector<string>  legalMoves;
+	string			nb1, nb2;
 
     legalMoves = getLegalMoves();
-
-    string nb1, nb2;
 
     if (_gameInfo._color == "white")
         nb1 = "1", rand() % 2 == 0 ? nb2 = "4" : nb2 = "5";
@@ -126,43 +173,20 @@ string  chessAi::getBishopsDev(void)
 
 string  chessAi::getPassiveMove(void)
 {
-    int               value;
-    string            move;
-    vector<string>    legalMoves;
-    vector<string>    pawns;
+    string	move;
 
-    move = getPawnsDev();
+    move = getPawnsOpening();
+
     if (move == "")
         move = getBishopsDev();
     if (move == "")
         move = getKnightsDev();
+
     if (move == "")
         move = getCastling();
 
     if (move == "")
-    {
-        legalMoves = getLegalMoves();
-        for (int i = 0; i != legalMoves.size(); i++)
-        {
-            srand(time(nullptr));
-            if (legalMoves.at(i)[0] == 'P')
-            {
-                move = legalMoves.at(i);
-                if (count(move.begin(), move.end(), 'O') == 0)
-                    move = move.c_str() + 1,
-
-                tryMove(move);
-                if (isProtected(string(1, move[2]) + move[3]) == true)
-                    pawns.push_back(legalMoves.at(i));
-                undoMove(move);
-            }
-        }
-
-        if (pawns.size() == 1)
-            move = pawns.at(0);
-        else if (pawns.size() > 1)
-            move = (pawns.at(rand() % pawns.size()));
-    }
+		move = getPawnsDev();
 
     return (move);
 }

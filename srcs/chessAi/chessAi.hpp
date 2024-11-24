@@ -52,7 +52,8 @@ class chessAi : protected chessBoard
 
         string		    getCheckMateMove(void);
 
-        string		    getPawnsDev(void);
+        string		    getPawnsOpening(void);
+        string          getPawnsDev(void);
         string		    getCastling(void);
         string		    getBishopsDev(void);
         string		    getKnightsDev(void);

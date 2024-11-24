@@ -57,8 +57,7 @@ string  chessAi::preventCastling(const string castle)
 
 string	chessAi::getThreat(void)
 {
-	string			dest;
-	string			testMove;
+	string			dest, testMove;
 	vector<string>	legalMoves;
 
 	legalMoves = getLegalMoves();
