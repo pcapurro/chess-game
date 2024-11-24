@@ -30,10 +30,8 @@ bool    chessAi::equalValues(const string move)
 
 bool    chessAi::isProtected(const string coord)
 {
-    int                     attackerMaterialsEarned = 0;
-    int                     defenderMaterialsEearned = 0;
-    stack<chessPiece *>     attackers;
-    stack<chessPiece *>     defenders;
+    int         attMaterials, defMaterials;
+    stack<cP *> defenders, attackers;
 
     defenders = getDefenders(coord);
     if (defenders.size() == 0)
@@ -48,17 +46,20 @@ bool    chessAi::isProtected(const string coord)
     defenders = orderMaterialsByValue(defenders);
     defenders.push(_board.at(getAtValue(coord)).piece);
 
+    attMaterials = 0;
+    defMaterials = 0;
+
     while (attackers.size() != 0 && defenders.size() != 0)
     {
-        attackerMaterialsEarned += getMaterialValue(defenders.top()->getType()), defenders.pop();
+        attMaterials +=  getMaterialValue(defenders.top()->getType()), defenders.pop();
         if (defenders.size() == 0)
             break ;
-        defenderMaterialsEearned += getMaterialValue(attackers.top()->getType()), attackers.pop();
-        if (attackerMaterialsEarned > defenderMaterialsEearned)
+        defMaterials += getMaterialValue(attackers.top()->getType()), attackers.pop();
+        if (attMaterials > defMaterials)
             break ;
     }
 
-    if (attackerMaterialsEarned > defenderMaterialsEearned)
+    if (attMaterials > defMaterials)
         return (false);
 
     return (true);

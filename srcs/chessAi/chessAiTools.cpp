@@ -35,7 +35,7 @@ stack<cP *>    chessAi::getTargets(void)
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-            && isProtected(_board.at(i).coord) == false)
+            && isProtected(_board.at(i).coord) == false && isAttacked(_board.at(i).coord) == true)
             targets.push(_board.at(i).piece);
     }
     unSwitchPlayers();

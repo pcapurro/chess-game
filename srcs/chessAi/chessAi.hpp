@@ -50,7 +50,7 @@ class chessAi : protected chessBoard
         stack<cP *>     getAttackers(const string coord);
 
         string		    preventCastling(const string castle);
-        string	        getBestAttacker(stack<cP *> targets);
+        string	        getBestAttack(stack<cP *> targets);
         string	        getThreat(void);
 
         string		    getCheckMateInOneMove(void);

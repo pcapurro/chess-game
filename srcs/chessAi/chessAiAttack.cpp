@@ -105,7 +105,7 @@ string	chessAi::getThreat(void)
 	return ("");
 }
 
-string	chessAi::getBestAttacker(stack<cP *> targets)
+string	chessAi::getBestAttack(stack<cP *> targets)
 {
 	string			move;
 	chessPiece		*target;
@@ -118,6 +118,8 @@ string	chessAi::getBestAttacker(stack<cP *> targets)
 	while (targets.size() != 0)
 		target = targets.top(), targets.pop();
 
+	cout << target->getType() << " selected" << endl;
+
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
 		string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
@@ -126,6 +128,8 @@ string	chessAi::getBestAttacker(stack<cP *> targets)
 		if (dest == target->getCoord())
 			attackers.push(_board.at(getAtValue(src)).piece);
 	}
+
+	cout << attackers.size() << " possible attackers" << endl;
 
 	if (attackers.size() != 0)
 	{
@@ -152,7 +156,7 @@ string	chessAi::getCounterStrike(void)
 			move = getThreat();
 	}
     else
-		move = getBestAttacker(targets);
+		move = getBestAttack(targets);
 
 	if (move == "")
 	{
