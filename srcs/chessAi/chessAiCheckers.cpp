@@ -35,13 +35,13 @@ bool    chessAi::isProtected(const string coord)
     stack<chessPiece *>     attackers;
     stack<chessPiece *>     defenders;
 
-    attackers = getAttackers(coord);
-    if (attackers.size() == 0)
-        return (true);
-
     defenders = getDefenders(coord);
     if (defenders.size() == 0)
         return (false);
+
+    attackers = getAttackers(coord);
+    if (attackers.size() == 0)
+        return (true);
 
     attackers = orderMaterialsByValue(attackers);
 

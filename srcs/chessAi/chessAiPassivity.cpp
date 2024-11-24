@@ -63,7 +63,6 @@ string  chessAi::getPawnsDev(void)
 	legalMoves = getLegalMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
-		srand(time(nullptr));
 		if (legalMoves.at(i)[0] == 'P')
 		{
 			move = legalMoves.at(i);
@@ -76,6 +75,8 @@ string  chessAi::getPawnsDev(void)
 			undoMove(move);
 		}
 	}
+
+    srand(time(nullptr));
 
 	if (pawns.size() == 1)
 		move = pawns.at(0);
