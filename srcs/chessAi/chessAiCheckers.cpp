@@ -27,10 +27,6 @@ bool    chessAi::isProtected(const string coord)
     stack<chessPiece *>     attackers;
     stack<chessPiece *>     defenders;
 
-    cout << "evaluating if " << coord << " is protected..." << endl;
-
-    cout << "getting direct defenders..." << endl;
-
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL)
@@ -47,27 +43,12 @@ bool    chessAi::isProtected(const string coord)
             }
         }
     }
-    cout << "direct defenders retrieved." << endl;
-
-    cout << "getting indirect defenders..." << endl;
-
-    cout << "indirect defenders retrived." << endl;
 
     if (attackMaterials.size() == 0)
-        { cout << "no attackers, protected" << endl; return (true); }
-
-    cout << "attackers >" << endl;
-    for (int i = 0; i != attackMaterials.size(); i++)
-        cout << attackMaterials.at(i)->getCoord() << " ; ";
-    cout << endl;
+        return (true);
 
     if (defMaterials.size() == 0)
-        { cout << "no defenders, not protected" << endl; return (false); }
-
-    cout << "defenders >" << endl;
-    for (int i = 0; i != defMaterials.size(); i++)
-        cout << defMaterials.at(i)->getCoord() << " ; ";
-    cout << endl;
+        return (false);
 
     defenders = orderMaterialsByValue(defMaterials);
     defenders.push(_board.at(getAtValue(coord)).piece);
@@ -82,9 +63,6 @@ bool    chessAi::isProtected(const string coord)
         if (attackerMaterialsEarned > defenderMaterialsEearned)
             break ;
     }
-
-    cout << attackerMaterialsEarned << " < attackerMaterialsEarned" << endl;
-    cout << defenderMaterialsEearned << " < defenderMaterialsEearned" << endl;
 
     if (attackerMaterialsEarned > defenderMaterialsEearned)
         return (false);
@@ -102,7 +80,6 @@ bool    chessAi::isSomethingNotProtected(void)
             if (isProtected(_board.at(i).coord) == false)
             {
                 unSwitchPlayers();
-                cout << _board.at(i).coord << " not protected" << endl;
                 return (true);
             }
             unSwitchPlayers();
@@ -132,9 +109,7 @@ bool    chessAi::isDefenseWorth(void)
     }
 
     if (targets >= attacked)
-        { cout << "attack is better" << endl; return (false); }
-
-    cout << "defense is worth" << endl;
+        return (false);
 
     return (true);
 }
@@ -146,18 +121,12 @@ bool    chessAi::isAllyAttacked(void)
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
         {
             if (isAttacked(_board.at(i).coord) == true)
-                _attackedAlly.push_back(_board.at(i).piece), cout << _board.at(i).coord << " attacked";
-            else
-                cout << _board.at(i).coord << " not attacked";
+                _attackedAlly.push_back(_board.at(i).piece);
         }
     }
 
-    cout << _attackedAlly.size() << " ]" << endl;
-
     if (_attackedAlly.size() != 0)
         return (true);
-
-    cout << "nothing attacked" << endl;
 
     return (false);
 }
@@ -174,13 +143,10 @@ bool    chessAi::isAttacked(const string coord)
             if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
             {
                 if (isProtected(coord) == false)
-                    { cout << coord << " attacked by " << _board.at(i).piece->getCoord() << endl; return (true); }
-                else
-                    cout << coord << " attacked but protected" << endl;
+                    return (true);
             }
         }
     }
-    cout << coord << " not attacked" << endl;
     return (false);
 }
 
@@ -206,7 +172,6 @@ bool    chessAi::isVictoryNextNext(void)
     vector<string>  legalMoves;
 
     legalMoves = getLegalMoves();
-    cout << "searching for checkmate in 2..." << endl;
     for (int i = 0; i != legalMoves.size(); i++)
     {
         move = legalMoves.at(i);
@@ -220,13 +185,11 @@ bool    chessAi::isVictoryNextNext(void)
         {
             undoMove(move);
             _attackMove = legalMoves.at(i);
-            cout << "(before " << legalMoves.at(i) << ")" << endl;
             return (true);
         }
 
         undoMove(move);
     }
-    cout << "no checkmate in 2 found." << endl;
     return (false);
 }
 
@@ -250,7 +213,6 @@ bool    chessAi::isVictoryNext(void)
             switchPlayers();
             if (isCheckMate(-1) == true)
             {
-                cout << "checkmate found with " << move << endl;
                 undoMove(move);
                 unSwitchPlayers();
                 return (true);

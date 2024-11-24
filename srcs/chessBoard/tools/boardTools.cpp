@@ -81,23 +81,16 @@ vector<string>  chessBoard::getCastlingSrcsDests(const string srcdest)
     {
         src = string(1, 'e') + y, dest = string(1, 'g') + y;
         srcsDests.push_back(src + dest);
-        cout << "adding " << src << dest << endl;
         src = string(1, 'h') + y, dest = string(1, 'f') + y;
         srcsDests.push_back(src + dest);
-        cout << "adding " << src << dest << endl;
     }
     else
     {
         src = string(1, 'e') + y, dest = string(1, 'c') + y;
         srcsDests.push_back(src + dest);
-        cout << "adding " << src << dest << endl;
         src = string(1, 'a') + y, dest = string(1, 'd') + y;
         srcsDests.push_back(src + dest);
-        cout << "adding " << src << dest << endl;
     }
-
-    cout << "pushing " << srcsDests.at(0) << " ; " << srcsDests.at(1) << endl;
-
     return (srcsDests);
 }
 
