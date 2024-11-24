@@ -24,27 +24,33 @@ stack<chessPiece *> chessAi::orderMaterialsByValue(vector<chessPiece *> material
     return (stack);
 }
 
-bool    chessAi::equalValues(const string move)
+vector<cP *>    chessAi::getTargets(void)
 {
-    int     oneValue;
-    int     twoValue;
-    string  coordOne;
-    string  coordTwo;
+    vector<cP *>  targets;
 
-    coordOne = string(1, move[0]) + move[1];
-    coordTwo = string(1, move[2]) + move[3];
+    switchPlayers();
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+            && isProtected(_board.at(i).coord) == false)
+            targets.push_back(_board.at(i).piece);
+    }
+    unSwitchPlayers();
 
-    oneValue = getMaterialValue(_board.at(getAtValue(coordOne)).piece->getType());
+    return (targets);
+}
 
-    if (_board.at(getAtValue(coordTwo)).piece != NULL)
-        twoValue = getMaterialValue(_board.at(getAtValue(coordTwo)).piece->getType());
-    else
-        return (true);
+int     chessAi::getAttackedNumber(void)
+{
+    int nb = 0;
 
-    if (oneValue == twoValue)
-        return (true);
-
-    return (false);
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+            && isAttacked(_board.at(i).coord) == true)
+            nb++;
+    }
+    return (nb);
 }
 
 int chessAi::getMaterialValue(const char type)

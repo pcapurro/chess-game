@@ -5,17 +5,27 @@ bool    chessAi::isEndGame(void)
     return (false);
 }
 
-int     chessAi::getAttackedNumber(void)
+bool    chessAi::equalValues(const string move)
 {
-    int nb = 0;
+    int     oneValue;
+    int     twoValue;
+    string  coordOne;
+    string  coordTwo;
 
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-            && isAttacked(_board.at(i).coord) == true)
-            nb++;
-    }
-    return (nb);
+    coordOne = string(1, move[0]) + move[1];
+    coordTwo = string(1, move[2]) + move[3];
+
+    oneValue = getMaterialValue(_board.at(getAtValue(coordOne)).piece->getType());
+
+    if (_board.at(getAtValue(coordTwo)).piece != NULL)
+        twoValue = getMaterialValue(_board.at(getAtValue(coordTwo)).piece->getType());
+    else
+        return (true);
+
+    if (oneValue == twoValue)
+        return (true);
+
+    return (false);
 }
 
 bool    chessAi::isProtected(const string coord)
