@@ -3,9 +3,10 @@
 chessAi::chessAi(const chessBoard *board) : chessBoard(board)
 {
 	_nextMove.clear();
-	_attackedAlly.clear();
 
-	_victoryNextNext = false;
+	_endGame = false;
+	_checkMateInOne = false;
+	_checkMateInTwo = false;
 	_defeatNext = false;
 	_allyAttacked = false;
 	_check = false;

@@ -89,44 +89,27 @@ void	chessAi::randomMove(void)
 void	chessAi::analyzeBoard(void)
 {
 	if (isCheck() == true)
-		{ _check = true; return ; }
+		_check = true;
 	
 	if (isDefeatNext() == true)
-		{ _defeatNext = true; return ; }
+		_defeatNext = true;
 
-	if (isVictoryNextNext() == true)
-		_victoryNextNext = true;
+	if (checkMateInOne() == true)
+		_checkMateInOne = true;
+
+	if (checkMateInTwo() == true)
+		_checkMateInTwo = true;
 
 	if (isAllyAttacked() == true && isDefenseWorth() == true)
 		_allyAttacked = true;
+
+	if (isEndGame() == true)
+		_endGame = true;
 }
 
 string	chessAi::getNextMove(void)
 {
-	// sleep(1); //
-	
-	analyzeBoard();
-
-	if (_check == true) // v
-		defendMove(); // x
-	else
-	{
-		if (isVictoryNext() == true) // v
-			checkMateMove(); // v
-		else
-		{
-			if (_defeatNext == true || _allyAttacked == true)
-				defendMove();
-			else
-			{
-				if (isEndGame() == true)
-					endGameMove();
-				else
-					attackMove(), passiveMove();
-			}
-		}
-		randomMove();
-	}
+	// sleep(1);
 
 	cout << endl << "Legal moves: " << endl;
 	vector<string>	legalMoves;
@@ -134,9 +117,34 @@ string	chessAi::getNextMove(void)
 	for (int i = 0; i != legalMoves.size(); i++)
 		cout << legalMoves.at(i) << " ; ";
 	cout << endl << "-" << endl;
+	
+	analyzeBoard();
 
-	cout << "solution => '" << _nextMove << "'" << endl;
-	cout << endl;
+	if (_check == true)
+		defendMove(); // x
+	else
+	{
+		if (_checkMateInOne == true)
+			checkMateMove(); // v
+		else
+		{
+			if (_defeatNext == true || _allyAttacked == true)
+				defendMove(); // x
+			else
+			{
+				if (_endGame == true)
+					endGameMove(); // x
+				else
+				{
+					attackMove(); // v
+					passiveMove(); // v
+				}
+			}
+		}
+	}
+	randomMove(); // v
+
+	cout << "solution => '" << _nextMove << "'" << endl << endl;
 
 	return (_nextMove);
 }

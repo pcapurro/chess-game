@@ -35,8 +35,8 @@ class chessAi : protected chessBoard
 
         bool        equalValues(const string move);
 
-        bool        isVictoryNextNext(void);
-        bool        isVictoryNext(void);
+        bool        checkMateInTwo(void);
+        bool        checkMateInOne(void);
         bool        isDefeatNext(void);
         bool        isEndGame(void);
 
@@ -72,14 +72,14 @@ class chessAi : protected chessBoard
 
 		string		    _nextMove;
 
-        string          _attackMove;
-
-        bool            _victoryNextNext;
+        bool            _endGame;
+        bool            _checkMateInOne;
+        bool            _checkMateInTwo;
         bool            _defeatNext;
         bool            _allyAttacked;
         bool            _check;
 
-        vector<cP *>    _attackedAlly;
+        string          _attackMove;
 };
 
 #endif

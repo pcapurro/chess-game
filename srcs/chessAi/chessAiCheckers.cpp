@@ -115,13 +115,9 @@ bool    chessAi::isAllyAttacked(void)
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
         {
             if (isAttacked(_board.at(i).coord) == true)
-                _attackedAlly.push_back(_board.at(i).piece);
+                return (true);
         }
     }
-
-    if (_attackedAlly.size() != 0)
-        return (true);
-
     return (false);
 }
 
@@ -160,7 +156,7 @@ bool    chessAi::isAttackedByPawn(const string coord)
     return (false);
 }
 
-bool    chessAi::isVictoryNextNext(void)
+bool    chessAi::checkMateInTwo(void)
 {
     string          move;
     vector<string>  legalMoves;
@@ -174,11 +170,10 @@ bool    chessAi::isVictoryNextNext(void)
 
         tryMove(move);
 
-        if (isVictoryNext() == true && (count(move.begin(), move.end(), 'O') != 0
+        if (checkMateInOne() == true && (count(move.begin(), move.end(), 'O') != 0
             || isProtected(string(1, move[2]) + move[3]) == true))
         {
             undoMove(move);
-            _attackMove = legalMoves.at(i);
             return (true);
         }
 
@@ -187,7 +182,7 @@ bool    chessAi::isVictoryNextNext(void)
     return (false);
 }
 
-bool    chessAi::isVictoryNext(void)
+bool    chessAi::checkMateInOne(void)
 {
     string          move;
     string          target;
@@ -222,7 +217,7 @@ bool    chessAi::isVictoryNext(void)
 bool    chessAi::isDefeatNext(void)
 {
     switchPlayers();
-    if (isVictoryNext() == true)
+    if (checkMateInOne() == true)
         { unSwitchPlayers(); return (true); }
     unSwitchPlayers();
     

@@ -115,9 +115,6 @@ string	chessAi::getCounterStrike(void)
 	string		move;
     stack<cP *>	targets;
 
-    if (_victoryNextNext == true)
-        return (_attackMove);
-
 	targets = getTargets();
 
     if (targets.size() == 0)
