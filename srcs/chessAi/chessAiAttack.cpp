@@ -163,13 +163,13 @@ string	chessAi::getPromotion(void)
 		}
 	}
 
+	move.clear();
+
 	for (int i = 0; i != pawns.size(); i++)
 	{
 		if (pawns.at(i).size() == 6 && pawns.at(i)[5] == 'Q')
 			move = pawns.at(i);
 	}
-
-	move.clear();
 
 	if (move == "")
 	{
