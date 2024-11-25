@@ -28,13 +28,17 @@ bool    chessAi::isProtected(const string coord)
     int         attMaterials, defMaterials;
     stack<cP *> defenders, attackers;
 
+    cout << "checking if " << coord << " is protected" << endl;
+
     defenders = getOthers(coord);
+    cout << "defenders > '" << defenders.size() << "'" << endl;
     if (defenders.size() == 0)
         return (false);
 
     switchPlayers();
     attackers = getOthers(coord);
     unSwitchPlayers();
+    cout << "attackers > '" << attackers.size() << "'" << endl;
     if (attackers.size() == 0)
         return (true);
 

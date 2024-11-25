@@ -12,5 +12,8 @@ string  chessAi::getRandomMove(void)
 	value = rand() % legalMoves.size();
 	move = legalMoves.at(value);
 
+    if (move.size() == 6)
+        move[5] = 'Q';
+
     return (move);
 }

@@ -84,7 +84,7 @@ string  chessAi::preventCastling(const string castle)
 
 string	chessAi::getThreat(void)
 {
-	string			dest, testMove;
+	string			move, dest, testMove;
 	vector<string>	legalMoves;
 
 	legalMoves = getLegalMoves();
@@ -97,12 +97,21 @@ string	chessAi::getThreat(void)
 
 			tryMove(testMove);
 			if (isSomethingAttacked() == true && isProtected(dest) == true)
-				{ undoMove(testMove); return (legalMoves.at(i)); }
+			{
+				undoMove(testMove);
+				move = legalMoves.at(i);
+
+				srand(time(nullptr));
+				if (rand() % 2 != 0)
+					move.clear();
+
+				break ;
+			}
 			undoMove(testMove);
 		}
 	}
 
-	return ("");
+	return (move);
 }
 
 string	chessAi::getExchange(void)
@@ -224,12 +233,6 @@ string	chessAi::getCounterStrike(void)
 			move = getCheckMateInTwoMove();
 		else
 		{
-			if (_gameInfo._turn > 21)
-				move = getPromotion();
-
-			if (move == "")
-				move = getThreat();
-
 			if (move == "")
 				move = getExchange();
 		}
@@ -249,6 +252,12 @@ string	chessAi::getCounterStrike(void)
 		}
 		unSwitchPlayers();
 	}
+
+	if (move == "" && _gameInfo._turn > 21)
+		move = getPromotion();
+
+	if (move == "")
+		move = getThreat();
 
     return (move);
 }
