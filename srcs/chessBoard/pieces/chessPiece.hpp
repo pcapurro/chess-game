@@ -20,9 +20,14 @@ class chessPiece
 
             _x = pos[0] - 97;
             _y = atoi(pos.c_str() + 1);
+
+            _visible = true;
         }
 
         virtual ~chessPiece() {};
+
+        bool            isVisible(void) const { return (_visible); }
+        void            setVisibility(void) { _visible == true ? _visible = false : _visible = true; }
 
         string          getColor() const { return (_color); }
         char            getType() const { return (_type); }
@@ -57,6 +62,8 @@ class chessPiece
         string  _pos;
         int     _x;
         int     _y;
+
+        bool    _visible;
 
 };
 

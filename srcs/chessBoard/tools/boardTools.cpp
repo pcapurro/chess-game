@@ -17,7 +17,7 @@ vector<string>  chessBoard::getPiecesCoords(void) const
 
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL)
+        if (_board.at(i).piece != NULL && _board.at(i).piece->isVisible() == true)
             coords.push_back(_board.at(i).coord);
     }
     return (coords);
