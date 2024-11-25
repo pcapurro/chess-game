@@ -143,6 +143,49 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 	return (move);
 }
 
+string	chessAi::getPromotion(void)
+{
+	string			move;
+	vector<string>	legalMoves;
+	vector<string>	pawns;
+
+	cout << "getting promotion" << endl;
+
+	legalMoves = getLegalMoves();
+	for (int i = 0; i != legalMoves.size(); i++)
+	{
+		if (legalMoves.at(i)[0] == 'P')
+		{
+			move = legalMoves.at(i).c_str() + 1;
+
+			tryMove(move);
+			if (isProtected(string(1, move[2]) + move[3]) == true)
+				pawns.push_back(legalMoves.at(i));
+			undoMove(move);
+		}
+	}
+
+	for (int i = 0; i != pawns.size(); i++)
+	{
+		if (pawns.at(i).size() == 6 && pawns.at(i)[5] == 'Q')
+			move = pawns.at(i);
+	}
+
+	move.clear();
+
+	if (move == "")
+	{
+		srand(time(nullptr));
+
+		if (pawns.size() == 1)
+			move = pawns.at(0);
+		if (pawns.size() > 1)
+			move = (pawns.at(rand() % pawns.size()));
+	}
+
+	return (move);
+}
+
 string	chessAi::getCounterStrike(void)
 {
 	string		move;
@@ -156,6 +199,9 @@ string	chessAi::getCounterStrike(void)
 			move = getCheckMateInTwoMove();
 		else
 			move = getThreat();
+
+		if (move == "" && _gameInfo._turn > 21)
+			move = getPromotion();
 	}
     else
 		move = getBestAttack(targets);
