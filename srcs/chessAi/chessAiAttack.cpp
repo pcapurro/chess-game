@@ -119,8 +119,6 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 	while (targets.size() != 0)
 		target = targets.top(), targets.pop();
 
-	cout << target->getType() << " selected" << endl;
-
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
 		string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];

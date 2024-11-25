@@ -7,8 +7,6 @@ string  chessAi::getPawnsOpening(void)
     srand(time(nullptr));
     value = rand() % 10;
 
-    cout << "pawn opening" << endl;
-
     if (_gameInfo._turn == 0)
     {
         if (value < 6)
@@ -62,8 +60,6 @@ string  chessAi::getPawnsDev(void)
 	vector<string>	legalMoves;
 	vector<string>	pawns;
 
-    cout << "pawn dev" << endl;
-
 	legalMoves = getLegalMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
@@ -79,6 +75,8 @@ string  chessAi::getPawnsDev(void)
 			undoMove(move);
 		}
 	}
+
+    move.clear();
 
     srand(time(nullptr));
 
@@ -96,8 +94,6 @@ string  chessAi::getKnightsDev(void)
 	string			nb1, nb2;
 
     legalMoves = getLegalMoves();
-
-    cout << "knights dev" << endl;
 
     if (_gameInfo._color == "white")
         nb1 = "1", nb2 = "3";
@@ -132,8 +128,6 @@ string  chessAi::getKnightsDev(void)
 
 string  chessAi::getCastling(void)
 {
-    cout << "castling dev" << endl;
-
     if (isCastlingPossible("O-O") == true && isCheck() == false)
         return ("O-O");
     if (isCastlingPossible("O-O-O") == true && isCheck() == false)
@@ -146,8 +140,6 @@ string  chessAi::getBishopsDev(void)
 {
     vector<string>  legalMoves;
 	string			nb1, nb2;
-
-    cout << "bishops dev" << endl;
 
     legalMoves = getLegalMoves();
 
