@@ -23,18 +23,32 @@ bool    chessAi::equalValues(const string move)
     return (false);
 }
 
+bool    chessAi::isFree(const string coord)
+{
+    stack<cP *> attackers;
+
+    switchPlayers();
+    attackers = getOthers(coord);
+    unSwitchPlayers();
+
+    if (attackers.size() == 0)
+        return (true);
+
+    return (false);
+}
+
 bool    chessAi::isProtected(const string coord)
 {
     int         attMaterials, defMaterials;
     stack<cP *> defenders, attackers;
 
     defenders = getOthers(coord);
+    if (defenders.size() == 0)
+        return (false);
+
     switchPlayers();
     attackers = getOthers(coord);
     unSwitchPlayers();
-
-    if (defenders.size() == 0 && attackers.size() != 0)
-        return (false);
     if (attackers.size() == 0)
         return (true);
 

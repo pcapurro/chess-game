@@ -191,7 +191,8 @@ string	chessAi::getPromotion(void)
 			move = legalMoves.at(i).c_str() + 1;
 
 			tryMove(move);
-			if (isProtected(string(1, move[2]) + move[3]) == true)
+			if (isFree(string(1, move[2]) + move[3]) == true
+				|| isProtected(string(1, move[2]) + move[3]) == true)
 				pawns.push_back(legalMoves.at(i));
 			undoMove(move);
 		}
