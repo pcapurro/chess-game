@@ -149,8 +149,6 @@ string	chessAi::getPromotion(void)
 	vector<string>	legalMoves;
 	vector<string>	pawns;
 
-	cout << "getting promotion" << endl;
-
 	legalMoves = getLegalMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
@@ -198,10 +196,13 @@ string	chessAi::getCounterStrike(void)
 		if (_checkMateInTwo == true)
 			move = getCheckMateInTwoMove();
 		else
-			move = getThreat();
+		{
+			if (_gameInfo._turn > 21)
+				move = getPromotion();
 
-		if (move == "" && _gameInfo._turn > 21)
-			move = getPromotion();
+			if (move == "")
+				move = getThreat();
+		}
 	}
     else
 		move = getBestAttack(targets);
