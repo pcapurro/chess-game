@@ -22,6 +22,8 @@ void    chessBoard::enableDisableEnPassant(void)
         else
             _gameInfo._enPassant = false, _gameInfo._enPassantDest.clear();
     }
+    else
+        _gameInfo._enPassant = false, _gameInfo._enPassantDest.clear();
 }
 
 void    chessBoard::priseEnPassant()
