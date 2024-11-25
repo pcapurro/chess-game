@@ -120,8 +120,6 @@ string	chessAi::getExchange(void)
 	string			dest;
 	vector<string>	legalMoves;
 
-	cout << "getting exchange..." << endl;
-
 	legalMoves = getLegalMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
