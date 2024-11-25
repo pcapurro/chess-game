@@ -105,6 +105,33 @@ string	chessAi::getThreat(void)
 	return ("");
 }
 
+string	chessAi::getExchange(void)
+{
+	string			move;
+	string			dest;
+	vector<string>	legalMoves;
+
+	cout << "getting exchange..." << endl;
+
+	legalMoves = getLegalMoves();
+	for (int i = 0; i != legalMoves.size(); i++)
+	{
+		dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+
+		if (_board.at(getAtValue(dest)).piece != NULL)
+		{
+			if (legalMoves.at(i)[0] == _board.at(getAtValue(dest)).piece->getType())
+			{
+				move = legalMoves.at(i);
+				if (rand() % 4 != 0)
+					move.clear();
+				break ;
+			}
+		}
+	}
+	return (move);
+}
+
 string	chessAi::getBestAttack(stack<cP *> targets)
 {
 	string			move;
@@ -202,6 +229,9 @@ string	chessAi::getCounterStrike(void)
 
 			if (move == "")
 				move = getThreat();
+
+			if (move == "")
+				move = getExchange();
 		}
 	}
     else

@@ -51,6 +51,7 @@ class chessAi : protected chessBoard
         string	        getBestAttack(stack<cP *> targets);
         string          getPromotion(void);
         string	        getThreat(void);
+        string          getExchange(void);
 
         string		    getCheckMateInOneMove(void);
         string          getCheckMateInTwoMove(void);
