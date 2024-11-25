@@ -102,9 +102,6 @@ void	chessAi::analyzeBoard(void)
 
 	if (isAllyAttacked() == true && isDefenseWorth() == true)
 		_allyAttacked = true, cout << "allyAttacked detected" << endl;
-
-	if (isEndGame() == true)
-		_endGame = true, cout << "endgame detected" << endl;
 }
 
 string	chessAi::getNextMove(void)
@@ -132,13 +129,8 @@ string	chessAi::getNextMove(void)
 				defendMove(); // x
 			else
 			{
-				if (_endGame == true)
-					endGameMove(); // x
-				else
-				{
-					attackMove(); // v
-					passiveMove(); // v
-				}
+				attackMove(); // v
+				passiveMove(); // v
 			}
 		}
 	}

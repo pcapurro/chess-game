@@ -38,7 +38,6 @@ class chessAi : protected chessBoard
         bool        checkMateInTwo(void);
         bool        checkMateInOne(void);
         bool        isDefeatNext(void);
-        bool        isEndGame(void);
 
         int             getAttackedNumber(void);
         int             getMaterialValue(const char type);
@@ -73,7 +72,6 @@ class chessAi : protected chessBoard
 
 		string		    _nextMove;
 
-        bool            _endGame;
         bool            _checkMateInOne;
         bool            _checkMateInTwo;
         bool            _defeatNext;

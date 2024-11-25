@@ -1,10 +1,5 @@
 #include "chessAi.hpp"
 
-bool    chessAi::isEndGame(void)
-{
-    return (false);
-}
-
 bool    chessAi::equalValues(const string move)
 {
     int     oneValue;

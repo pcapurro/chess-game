@@ -4,7 +4,6 @@ chessAi::chessAi(const chessBoard *board) : chessBoard(board)
 {
 	_nextMove.clear();
 
-	_endGame = false;
 	_checkMateInOne = false;
 	_checkMateInTwo = false;
 	_defeatNext = false;
