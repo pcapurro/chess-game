@@ -96,7 +96,7 @@ string	chessAi::getThreat(void)
 			testMove = legalMoves.at(i).c_str() + 1;
 
 			tryMove(testMove);
-			if (isSomethingNotProtected() == true && isProtected(dest) == true)
+			if (isSomethingAttacked() == true && isProtected(dest) == true)
 				{ undoMove(testMove); return (legalMoves.at(i)); }
 			undoMove(testMove);
 		}

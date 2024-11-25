@@ -31,7 +31,7 @@ class chessAi : protected chessBoard
 
         bool        isAllyAttacked(void);
         bool        isDefenseWorth(void);
-        bool        isSomethingNotProtected(void);
+        bool        isSomethingAttacked(void);
 
         bool        equalValues(const string move);
 
@@ -46,8 +46,7 @@ class chessAi : protected chessBoard
         stack<cP *>     orderMaterialsByValue(stack<cP *> materials);
         stack<cP *>     getTargets(void);
 
-        stack<cP *>     getDefenders(const string coord);
-        stack<cP *>     getAttackers(const string coord);
+        stack<cP *>     getOthers(const string coord);
 
         string		    preventCastling(const string castle);
         string	        getBestAttack(stack<cP *> targets);

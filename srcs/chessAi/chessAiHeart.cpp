@@ -89,22 +89,22 @@ void	chessAi::randomMove(void)
 void	chessAi::analyzeBoard(void)
 {
 	if (isCheck() == true)
-		_check = true;
+		_check = true, cout << "check detected" << endl;
 	
 	if (isDefeatNext() == true)
-		_defeatNext = true;
+		_defeatNext = true, cout << "defeatNext detected" << endl;
 
 	if (checkMateInOne() == true)
-		_checkMateInOne = true;
+		_checkMateInOne = true, cout << "checkMateInOne detected" << endl;
 
 	if (checkMateInTwo() == true)
-		_checkMateInTwo = true;
+		_checkMateInTwo = true, cout << "checkMateInTwo detected" << endl;
 
 	if (isAllyAttacked() == true && isDefenseWorth() == true)
-		_allyAttacked = true;
+		_allyAttacked = true, cout << "allyAttacked detected" << endl;
 
 	if (isEndGame() == true)
-		_endGame = true;
+		_endGame = true, cout << "endgame detected" << endl;
 }
 
 string	chessAi::getNextMove(void)

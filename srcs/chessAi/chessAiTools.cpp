@@ -43,28 +43,9 @@ stack<cP *>    chessAi::getTargets(void)
     return (targets);
 }
 
-stack<cP *>    chessAi::getAttackers(const string coord)
+stack<cP *> chessAi::getOthers(const string coord)
 {
-    stack<chessPiece *>    attackMaterials;
-
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL)
-        {
-            if (_board.at(i).piece->getColor() != _gameInfo._color)
-            {
-                if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
-                    attackMaterials.push(_board.at(i).piece);
-            }
-        }
-    }
-
-    return (attackMaterials);
-}
-
-stack<cP *>    chessAi::getDefenders(const string coord)
-{
-    stack<chessPiece *>    defMaterials;
+    stack<chessPiece *>    materials;
 
     for (int i = 0; i != 64; i++)
     {
@@ -73,12 +54,11 @@ stack<cP *>    chessAi::getDefenders(const string coord)
             if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord)
             {
                 if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
-                    defMaterials.push(_board.at(i).piece);
+                    materials.push(_board.at(i).piece);
             }
         }
     }
-
-    return (defMaterials);
+    return (materials);
 }
 
 int     chessAi::getAttackedNumber(void)

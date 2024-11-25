@@ -33,11 +33,13 @@ bool    chessAi::isProtected(const string coord)
     int         attMaterials, defMaterials;
     stack<cP *> defenders, attackers;
 
-    defenders = getDefenders(coord);
+    defenders = getOthers(coord);
     if (defenders.size() == 0)
         return (false);
 
-    attackers = getAttackers(coord);
+    switchPlayers();
+    attackers = getOthers(coord);
+    unSwitchPlayers();
     if (attackers.size() == 0)
         return (true);
 
@@ -65,14 +67,14 @@ bool    chessAi::isProtected(const string coord)
     return (true);
 }
 
-bool    chessAi::isSomethingNotProtected(void)
+bool    chessAi::isSomethingAttacked(void)
 {
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
         {
             switchPlayers();
-            if (isProtected(_board.at(i).coord) == false)
+            if (isAttacked(_board.at(i).coord) == true)
             {
                 unSwitchPlayers();
                 return (true);
