@@ -45,19 +45,29 @@ stack<cP *>    chessAi::getTargets(void)
 
 stack<cP *> chessAi::getOthers(const string coord)
 {
-    stack<chessPiece *>    materials;
+    vector<chessPiece *>    vMaterials;
+    stack<chessPiece *>     materials;
 
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL)
         {
-            if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord)
+            if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord
+                && _board.at(i).piece->isVisible() == true)
             {
                 if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
-                    materials.push(_board.at(i).piece);
+                {
+                    vMaterials.push_back(_board.at(i).piece);
+                    _board.at(i).piece->setVisibility();
+                    i = 0;
+                }
             }
         }
     }
+
+    for (int i = 0; i != vMaterials.size(); i++)
+        vMaterials.at(i)->setVisibility(), materials.push(vMaterials.at(i));
+
     return (materials);
 }
 
