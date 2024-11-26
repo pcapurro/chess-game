@@ -8,6 +8,7 @@ string  visualGame::getVisualAnswer(void)
     chessAi     ai(_board);
 
     displayGame();
+    SDL_RenderPresent(_mainRenderer);
     if (_sandBoxMode == false && _turn % 2 == _aiSide)
     {
         answer = ai.getNextMove();
@@ -39,6 +40,8 @@ int		visualGame::visualLoop(void)
         _turn++;
     }
     displayGame();
+    SDL_RenderPresent(_mainRenderer);
+
     _board->printEndGame(1);
 
     return (0);

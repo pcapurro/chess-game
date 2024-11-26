@@ -101,6 +101,7 @@ string  visualGame::waitForPromotion(const string coord)
         }
     }
     displayGame();
+    SDL_RenderPresent(_mainRenderer);
     return (coord + types.at(i));
 }
 
@@ -155,6 +156,7 @@ string  visualGame::waitForEvent(void)
                     }
                 }
                 displayGame(event.button.x, event.button.y);
+                SDL_RenderPresent(_mainRenderer);
             }
         }
     }

@@ -148,6 +148,7 @@ void    visualGame::displayMoveAnimation(const string move)
             destX > obj.x ? obj.x++ : obj.x--;
 
         displayGame(obj.x + ((_width / 10) / 2), obj.y + ((_height / 10) / 2));
+        SDL_RenderPresent(_mainRenderer);
         usleep(1000);
     }
 }
@@ -163,10 +164,10 @@ void    visualGame::displayPromotion(const char type, const string coord)
 
     obj = getRectangle(coord);
     SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
-    SDL_RenderPresent(_mainRenderer);
 
     obj = getRectangle(coord, "promotion");
     SDL_RenderCopy(_mainRenderer, _promotionTexture, NULL, &obj);
+
     SDL_RenderPresent(_mainRenderer);
 }
 
