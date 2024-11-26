@@ -13,6 +13,8 @@ string  chessAi::getPawnsOpening(void)
             return ("Pe2e4");
         if (value == 6 || value == 7 || value == 8)
             return ("Pd2d3");
+        if (value == 9)
+            return ("Pd2d4");
     }
 
     if (_gameInfo._turn == 1)
@@ -33,6 +35,13 @@ string  chessAi::getPawnsOpening(void)
             if (value > 7)
                 return ("Pe7e6");
         }
+
+        if (value < 6)
+            return ("Pe7e6");
+        if (value == 6 || value == 7 || value == 8)
+            return ("Pe7e5");
+        if (value == 9)
+            return ("Pd7d5");
     }
 
     srand(time(nullptr));
@@ -49,6 +58,14 @@ string  chessAi::getPawnsOpening(void)
 			else
 				return ("Pd2d4");
 		}
+	}
+
+	if (_gameInfo._turn == 3)
+	{
+        if (_board.at(getAtValue("e6")).piece != NULL)
+            return ("Pd7d5");
+        if (_board.at(getAtValue("e5")).piece != NULL)
+            return ("Pd7d6");
 	}
 
     return ("");
