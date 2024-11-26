@@ -204,6 +204,4 @@ void    visualGame::displayGame(const int cx, const int cy)
 
     loadText(stateValue);
     loadArrow(stateValue);
-
-    SDL_RenderPresent(_mainRenderer);
 }
