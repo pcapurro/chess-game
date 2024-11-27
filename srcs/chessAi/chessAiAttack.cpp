@@ -84,9 +84,11 @@ string  chessAi::preventCastling(const string castle)
 
 string	chessAi::getThreat(void)
 {
+	int				attackedAllies;
 	string			move, dest, testMove;
 	vector<string>	legalMoves;
 
+	attackedAllies = getAttackedNumber();
 	legalMoves = getLegalMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
@@ -96,7 +98,8 @@ string	chessAi::getThreat(void)
 			testMove = legalMoves.at(i).c_str() + 1;
 
 			tryMove(testMove);
-			if (isSomethingAttacked() == true && isProtected(dest) == true)
+			if (isSomethingAttacked() == true && isProtected(dest) == true
+				&& getAttackedNumber() <= attackedAllies)
 			{
 				undoMove(testMove);
 				move = legalMoves.at(i);

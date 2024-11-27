@@ -90,7 +90,12 @@ string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
         
         if (_board.at(getAtValue(dest)).piece != NULL
             && legalMoves.at(i)[0] != 'K' && _board.at(getAtValue(dest)).piece->isOnMyWay(src) == false)
-            othersAttackMoves.push_back(legalMoves.at(i));
+        {
+            tryMove(legalMoves.at(i).c_str() + 1);
+            if (isProtected(string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4]) == true)
+                othersAttackMoves.push_back(legalMoves.at(i));
+            undoMove(legalMoves.at(i).c_str() + 1);
+        }
         else
         {
             if (_board.at(getAtValue(dest)).piece != NULL
@@ -101,7 +106,12 @@ string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
                 if (legalMoves.at(i)[0] == 'K')
                     kingRunAwayMoves.push_back(legalMoves.at(i));
                 else
-                    shieldMoves.push_back(legalMoves.at(i));
+                {
+                    tryMove(legalMoves.at(i).c_str() + 1);
+                    if (isProtected(string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4]) == true)
+                        shieldMoves.push_back(legalMoves.at(i));
+                    undoMove(legalMoves.at(i).c_str() + 1);
+                }
             }
         }
     }
@@ -111,7 +121,10 @@ string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
     else
     {
         if (othersAttackMoves.size() != 0)
-            return (othersAttackMoves.at(rand() % othersAttackMoves.size()));
+        {
+            if (othersAttackMoves.size() == 1)
+                return (othersAttackMoves.at(rand() % othersAttackMoves.size()));
+        }
         else
         {
             if (shieldMoves.size() != 0)
