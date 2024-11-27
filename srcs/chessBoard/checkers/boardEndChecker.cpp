@@ -16,7 +16,7 @@ bool    chessBoard::isCheck(void)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != kingColor)
         {
-            if (_board.at(i).piece->isOnMyWay(kingPos, boardCoords) == true)
+            if (_board.at(i).piece->isOnMyWay(kingPos, boardCoords, 1) == true)
                 return (true);
         }
     }
