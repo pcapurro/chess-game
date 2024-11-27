@@ -1,60 +1,5 @@
 #include "chessAi.hpp"
 
-string  chessAi::getBestCounterMateCheck(vector<string> legalMoves)
-{
-    string          src;
-    string          dest;
-    string          move;
-
-    vector<string>  attackMoves;
-    vector<string>  shieldMoves;
-    vector<string>  othersMoves;
-
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        src = string(1, legalMoves.at(i)[0]) + legalMoves.at(i)[1];
-        dest = legalMoves.at(i).c_str() + legalMoves.at(i).length() - 3;
-        if (algebraParser::isChessPiece(dest[dest.length() - 1]) == true)
-            dest.erase(dest.length() - 1);
-        else
-            dest = dest.c_str() + 1;
-        
-        if (_board.at(getAtValue(dest)).piece != NULL
-            && _board.at(getAtValue(dest)).piece->isOnMyWay(src) == false
-            && legalMoves.at(i)[0] != 'K')
-            attackMoves.push_back(legalMoves.at(i));
-        else
-        {
-            if (legalMoves.at(i)[0] == 'K')
-                othersMoves.push_back(legalMoves.at(i));
-            else
-                shieldMoves.push_back(legalMoves.at(i));
-        }
-    }
-
-    vector<string>  *moves;
-
-    if (attackMoves.size() != 0)
-        moves = &attackMoves;
-    else
-    {
-        if (othersMoves.size() != 0)
-            moves = &othersMoves;
-        else
-        {
-            if (shieldMoves.size() != 0)
-                moves = &shieldMoves;
-        }
-    }
-
-    if (moves->size() == 1)
-        move = moves->at(0);
-    if (moves->size() > 1)
-        move = moves->at(rand() % moves->size());
-
-    return (move);
-}
-
 string  chessAi::getCounterCheck(void)
 {
     string          move;
@@ -76,9 +21,7 @@ string  chessAi::getCounterCheck(void)
         undoMove(testMove);
     }
 
-    move = getBestCounterMateCheck(newLegalMoves);
-
-    return (move);
+    return (getCounterMateCheckMoves(newLegalMoves));
 }
 
 string	chessAi::getCounterCheckMate(void)
@@ -99,10 +42,8 @@ string	chessAi::getCounterCheckMate(void)
 
     if (newLegalMoves.size() == 0)
         return (move);
-    else
-        move = getBestCounterMateCheck(newLegalMoves);
 
-    return (move);
+    return (getCounterMateCheckMoves(newLegalMoves));
 }
 
 string	chessAi::getCounterProtect(void)

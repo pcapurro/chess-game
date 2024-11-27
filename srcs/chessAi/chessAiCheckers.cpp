@@ -28,7 +28,7 @@ bool    chessAi::isFree(const string coord)
     stack<cP *> attackers;
 
     switchPlayers();
-    attackers = getOthers(coord);
+    attackers = getWatchers(coord);
     unSwitchPlayers();
 
     if (attackers.size() == 0)
@@ -42,12 +42,12 @@ bool    chessAi::isProtected(const string coord)
     int         attMaterials, defMaterials;
     stack<cP *> defenders, attackers;
 
-    defenders = getOthers(coord);
+    defenders = getWatchers(coord);
     if (defenders.size() == 0)
         return (false);
 
     switchPlayers();
-    attackers = getOthers(coord);
+    attackers = getWatchers(coord);
     unSwitchPlayers();
     if (attackers.size() == 0)
         return (true);

@@ -3,7 +3,7 @@
 
 # include "../chessBoard/chessBoard.hpp"
 
-typedef chessPiece cP;
+typedef chessPiece      cP;
 
 class chessAi : protected chessBoard
 {
@@ -42,11 +42,13 @@ class chessAi : protected chessBoard
 
         int             getAttackedNumber(void);
         int             getMaterialValue(const char type);
-        string		    getBestCounterMateCheck(vector<string> legalMoves);
+        string		    getCounterMateCheckMoves(vector<string> legalMoves);
+        string          sortCounterMoves(vector<string> kingAttackMoves, vector<string> kingRunAwayMoves, \
+                                        vector<string> shieldMoves, vector<string> othersAttackMoves);
         stack<cP *>     orderMaterialsByValue(stack<cP *> materials);
-        stack<cP *>     getTargets(void);
+        stack<cP *>     getEnemyTargets(void);
 
-        stack<cP *>     getOthers(const string coord);
+        stack<cP *>     getWatchers(const string coord);
 
         string		    preventCastling(const string castle);
         string	        getBestAttack(stack<cP *> targets);

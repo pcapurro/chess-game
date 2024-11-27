@@ -224,7 +224,7 @@ string	chessAi::getCounterStrike(void)
 	string		move;
     stack<cP *>	targets;
 
-	targets = getTargets();
+	targets = getEnemyTargets();
 
     if (targets.size() == 0)
 	{

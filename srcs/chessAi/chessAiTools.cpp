@@ -27,7 +27,7 @@ stack<chessPiece *> chessAi::orderMaterialsByValue(stack<chessPiece *> materials
     return (stack);
 }
 
-stack<cP *>    chessAi::getTargets(void)
+stack<cP *>    chessAi::getEnemyTargets(void)
 {
     stack<cP *>  targets;
 
@@ -43,7 +43,7 @@ stack<cP *>    chessAi::getTargets(void)
     return (targets);
 }
 
-stack<cP *> chessAi::getOthers(const string coord)
+stack<cP *> chessAi::getWatchers(const string coord)
 {
     vector<chessPiece *>    vMaterials;
     stack<chessPiece *>     materials;
@@ -69,6 +69,65 @@ stack<cP *> chessAi::getOthers(const string coord)
         vMaterials.at(i)->setVisibility(), materials.push(vMaterials.at(i));
 
     return (materials);
+}
+
+string  chessAi::sortCounterMoves(vector<string> kingAttackMoves, vector<string> kingRunAwayMoves, \
+                                    vector<string> shieldMoves, vector<string> othersAttackMoves)
+{
+    if (othersAttackMoves.size() == 0 && kingAttackMoves.size() != 0)
+        return (kingAttackMoves.at(rand() % kingAttackMoves.size()));
+    else
+    {
+        if (othersAttackMoves.size() != 0)
+            return (kingAttackMoves.at(rand() % kingAttackMoves.size()));
+        else
+        {
+            if (shieldMoves.size() != 0)
+                return (shieldMoves.at(rand() % shieldMoves.size()));
+            else
+                return (kingRunAwayMoves.at(rand() % kingRunAwayMoves.size()));
+        }
+    }
+
+    return ("");
+}
+
+string  chessAi::getCounterMateCheckMoves(vector<string> legalMoves)
+{
+    vector<string>  kingAttackMoves;
+    vector<string>  othersAttackMoves;
+    vector<string>  shieldMoves;
+    vector<string>  kingRunAwayMoves;
+
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        string src = string(1, legalMoves.at(i)[0]) + legalMoves.at(i)[1];
+        string dest = legalMoves.at(i).c_str() + legalMoves.at(i).length() - 3;
+
+        if (algebraParser::isChessPiece(dest[dest.length() - 1]) == true)
+            dest.erase(dest.length() - 1);
+        else
+            dest = dest.c_str() + 1;
+        
+        if (_board.at(getAtValue(dest)).piece != NULL
+            && legalMoves.at(i)[0] != 'K' && _board.at(getAtValue(dest)).piece->isOnMyWay(src) == false)
+            othersAttackMoves.push_back(legalMoves.at(i));
+        else
+        {
+            if (_board.at(getAtValue(dest)).piece != NULL
+                && legalMoves.at(i)[0] == 'K')
+                kingAttackMoves.push_back(legalMoves.at(i));
+            else
+            {
+                if (legalMoves.at(i)[0] == 'K')
+                    kingRunAwayMoves.push_back(legalMoves.at(i));
+                else
+                    shieldMoves.push_back(legalMoves.at(i));
+            }
+        }
+    }
+
+    return (sortCounterMoves(kingAttackMoves, kingRunAwayMoves, shieldMoves, othersAttackMoves));
 }
 
 int     chessAi::getAttackedNumber(void)

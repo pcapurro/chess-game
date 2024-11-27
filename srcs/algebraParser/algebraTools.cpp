@@ -60,7 +60,7 @@ string  algebraParser::getRightSequence(void) const
     return (right);
 }
 
-vector<string>  getOthersSequence(const char type, const string move, const char sign)
+vector<string>  getWatchersSequence(const char type, const string move, const char sign)
 {
     vector<string>  coords;
     string          newCoords;
