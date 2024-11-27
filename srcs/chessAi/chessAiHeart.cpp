@@ -48,13 +48,13 @@ void	chessAi::defendMove(void)
 	if (_check == true)
 	{
 		cout << "counter check" << endl;
-		_nextMove = getCounterCheck();
+		_nextMove = getCounterCheckMate(0);
 		return ;
 	}
 	else if (_defeatNext == true)
 	{
 		cout << "counter checkmate" << endl;
-		_nextMove = getCounterCheckMate();
+		_nextMove = getCounterCheckMate(1);
 
 		if (_nextMove == "")
 			cout << "no counter checkmate move found, attacking..." << endl, attackMove(), passiveMove();

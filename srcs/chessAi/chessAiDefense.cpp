@@ -1,8 +1,7 @@
 #include "chessAi.hpp"
 
-string  chessAi::getCounterCheck(void)
+string	chessAi::getCounterCheckMate(const int value)
 {
-    string          move;
     string          testMove;
     vector<string>  legalMoves;
     vector<string>  newLegalMoves;
@@ -15,35 +14,20 @@ string  chessAi::getCounterCheck(void)
         if (count(testMove.begin(), testMove.end(), 'O') == 0)
             testMove = testMove.c_str() + 1;
 
-        tryMove(testMove);
-        if (isCheck() == false)
-            newLegalMoves.push_back(legalMoves.at(i));
-        undoMove(testMove);
-    }
-
-    return (getCounterMateCheckMoves(newLegalMoves));
-}
-
-string	chessAi::getCounterCheckMate(void)
-{
-    string          move;
-    vector<string>  legalMoves;
-    vector<string>  newLegalMoves;
-
-    legalMoves = getLegalMoves();
-
-    for (int i = 0; i != legalMoves.size(); i++)
-    {   
         tryMove(legalMoves.at(i).c_str() + 1);
-        if (isDefeatNext() == false)
+
+        if (value == 0 && isCheck() == false)
             newLegalMoves.push_back(legalMoves.at(i));
+        if (value == 1 && isDefeatNext() == false)
+            newLegalMoves.push_back(legalMoves.at(i));
+
         undoMove(legalMoves.at(i).c_str() + 1);
     }
 
-    if (newLegalMoves.size() == 0)
-        return (move);
+    if (newLegalMoves.size() != 0)
+        return (sortCounterCheckMoves(newLegalMoves));
 
-    return (getCounterMateCheckMoves(newLegalMoves));
+    return ("");
 }
 
 string	chessAi::getCounterProtect(void)

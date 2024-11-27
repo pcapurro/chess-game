@@ -71,33 +71,14 @@ stack<cP *> chessAi::getWatchers(const string coord)
     return (materials);
 }
 
-string  chessAi::sortCounterMoves(vector<string> kingAttackMoves, vector<string> kingRunAwayMoves, \
-                                    vector<string> shieldMoves, vector<string> othersAttackMoves)
-{
-    if (othersAttackMoves.size() == 0 && kingAttackMoves.size() != 0)
-        return (kingAttackMoves.at(rand() % kingAttackMoves.size()));
-    else
-    {
-        if (othersAttackMoves.size() != 0)
-            return (kingAttackMoves.at(rand() % kingAttackMoves.size()));
-        else
-        {
-            if (shieldMoves.size() != 0)
-                return (shieldMoves.at(rand() % shieldMoves.size()));
-            else
-                return (kingRunAwayMoves.at(rand() % kingRunAwayMoves.size()));
-        }
-    }
-
-    return ("");
-}
-
-string  chessAi::getCounterMateCheckMoves(vector<string> legalMoves)
+string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
 {
     vector<string>  kingAttackMoves;
     vector<string>  othersAttackMoves;
     vector<string>  shieldMoves;
     vector<string>  kingRunAwayMoves;
+
+    cout << "sorting new legal moves..." << endl;
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
@@ -127,7 +108,32 @@ string  chessAi::getCounterMateCheckMoves(vector<string> legalMoves)
         }
     }
 
-    return (sortCounterMoves(kingAttackMoves, kingRunAwayMoves, shieldMoves, othersAttackMoves));
+    cout << "getting best move..." << endl;
+
+    if (othersAttackMoves.size() == 0 && kingAttackMoves.size() != 0)
+        return (kingAttackMoves.at(rand() % kingAttackMoves.size()));
+    else
+    {
+        if (othersAttackMoves.size() != 0)
+            return (kingAttackMoves.at(rand() % kingAttackMoves.size()));
+        else
+        {
+            if (shieldMoves.size() != 0)
+            {
+                for (int i = 0; i != shieldMoves.size(); i++)
+                {
+                    if (shieldMoves.at(i)[0] == 'P')
+                        return (shieldMoves.at(i));
+                    return (shieldMoves.at(rand() % shieldMoves.size()));
+                }
+            }
+            else
+                if (kingRunAwayMoves.size() != 0)
+                    return (kingRunAwayMoves.at(rand() % kingRunAwayMoves.size()));
+        }
+    }
+
+    return ("");
 }
 
 int     chessAi::getAttackedNumber(void)

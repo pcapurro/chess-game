@@ -42,9 +42,7 @@ class chessAi : protected chessBoard
 
         int             getAttackedNumber(void);
         int             getMaterialValue(const char type);
-        string		    getCounterMateCheckMoves(vector<string> legalMoves);
-        string          sortCounterMoves(vector<string> kingAttackMoves, vector<string> kingRunAwayMoves, \
-                                        vector<string> shieldMoves, vector<string> othersAttackMoves);
+        string          sortCounterCheckMoves(vector<string> legalMoves);
         stack<cP *>     orderMaterialsByValue(stack<cP *> materials);
         stack<cP *>     getEnemyTargets(void);
 
@@ -68,8 +66,7 @@ class chessAi : protected chessBoard
 
         string		    getCounterStrike(void);
 
-        string		    getCounterCheck(void);
-        string		    getCounterCheckMate(void);
+        string          getCounterCheckMate(const int value);
         string		    getCounterProtect(void);
 
         string		    getRandomMove(void);
