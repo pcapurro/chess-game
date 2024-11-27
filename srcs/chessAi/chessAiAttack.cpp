@@ -38,14 +38,18 @@ string	chessAi::getCheckMateInTwoMove(void)
         if (count(move.begin(), move.end(), 'O') == 0)
             move = move.c_str() + 1;
 
-        tryMove(move);
-        if (checkMateInOne() == true && (count(move.begin(), move.end(), 'O') != 0
-            || isProtected(string(1, move[2]) + move[3]) == true))
-        {
+		if (_board.at(getAtValue(string(1, move[2]) + move[3])).piece == NULL
+			|| isProtected(string(1, move[2]) + move[3]) == false)
+		{
+			tryMove(move);
+			if (checkMateInOne() == true && (count(move.begin(), move.end(), 'O') != 0
+				|| isProtected(string(1, move[2]) + move[3]) == true))
+			{
+				undoMove(move);
+				return (legalMoves.at(i));
+			}
 			undoMove(move);
-			return (legalMoves.at(i));
 		}
-        undoMove(move);
     }
 
 	move.clear();
