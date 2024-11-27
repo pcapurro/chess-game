@@ -63,6 +63,7 @@ int chessAi::getWatchersNumber(const string coord)
 
 stack<cP *> chessAi::getWatchers(const string coord)
 {
+    vector<string>          baordCoords;
     stack<cP *>             material;
     stack<cP *>             material2;
     stack<cP *>             material3;
@@ -70,6 +71,8 @@ stack<cP *> chessAi::getWatchers(const string coord)
 
     while (getWatchersNumber(coord) != 0)
     {
+        baordCoords = getPiecesCoords();
+
         for (int i = 0; i != 64; i++)
         {
             if (_board.at(i).piece != NULL)
@@ -77,7 +80,7 @@ stack<cP *> chessAi::getWatchers(const string coord)
                 if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord
                     && _board.at(i).piece->isVisible() == true)
                 {
-                    if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
+                    if (_board.at(i).piece->isOnMyWay(coord, baordCoords, 1, _gameInfo._enPassantDest) == true)
                     {
                         material.push(_board.at(i).piece);
                         _board.at(i).piece->setVisibility();
