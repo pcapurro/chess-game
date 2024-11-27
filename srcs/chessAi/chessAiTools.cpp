@@ -121,10 +121,7 @@ string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
     else
     {
         if (othersAttackMoves.size() != 0)
-        {
-            if (othersAttackMoves.size() == 1)
-                return (othersAttackMoves.at(rand() % othersAttackMoves.size()));
-        }
+            return (othersAttackMoves.at(rand() % othersAttackMoves.size()));
         else
         {
             if (shieldMoves.size() != 0)
@@ -171,5 +168,8 @@ int chessAi::getMaterialValue(const char type)
         return (5);
     if (type == 'Q')
         return (9);
+    if (type == 'K')
+        return (10);
+
     return (0);
 }
