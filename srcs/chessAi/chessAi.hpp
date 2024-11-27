@@ -63,6 +63,7 @@ class chessAi : protected chessBoard
         string		    getBishopsDev(void);
         string		    getKnightsDev(void);
         string		    getPassiveMove(void);
+        string          getRandomDev(void);
 
         string		    getCounterStrike(void);
 

@@ -191,6 +191,29 @@ string  chessAi::getBishopsDev(void)
     return ("");
 }
 
+string  chessAi::getRandomDev(void)
+{
+    string          move, dest;
+	vector<string>	legalMoves;
+
+	legalMoves = getLegalMoves();
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+
+        tryMove(legalMoves.at(i).c_str() + 1);
+        if (isProtected(dest) == true)
+        {
+            undoMove(legalMoves.at(i).c_str() + 1);
+            move = legalMoves.at(i);
+            break ;
+        }
+        undoMove(legalMoves.at(i).c_str() + 1);
+    }
+
+    return (move);
+}
+
 string  chessAi::getPassiveMove(void)
 {
     string	move;
@@ -207,6 +230,9 @@ string  chessAi::getPassiveMove(void)
 
     if (move == "")
 		move = getPawnsDev();
+
+    if (move == "")
+        move = getRandomDev();
 
     return (move);
 }
