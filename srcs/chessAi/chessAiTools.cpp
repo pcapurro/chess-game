@@ -111,15 +111,17 @@ string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
     else
     {
         if (othersAttackMoves.size() != 0)
-            return (kingAttackMoves.at(rand() % kingAttackMoves.size()));
+            return (othersAttackMoves.at(rand() % othersAttackMoves.size()));
         else
         {
             if (shieldMoves.size() != 0)
             {
                 for (int i = 0; i != shieldMoves.size(); i++)
                 {
-                    if (shieldMoves.at(i)[0] == 'P')
+                    tryMove(shieldMoves.at(i).c_str() + 1);
+                    if (isProtected(string(1, shieldMoves.at(i)[3]) + shieldMoves.at(i)[4]) == true)
                         return (shieldMoves.at(i));
+                    undoMove(shieldMoves.at(i).c_str() + 1);
                 }
                 if (kingRunAwayMoves.size() == 0)
                     return (shieldMoves.at(rand() % shieldMoves.size()));
