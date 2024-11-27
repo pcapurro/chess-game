@@ -24,8 +24,6 @@ string	chessAi::getCounterCheckMate(const int value)
         undoMove(legalMoves.at(i).c_str() + 1);
     }
 
-    cout << "new legal moves registered. sorting..." << endl;
-
     if (newLegalMoves.size() != 0)
         return (sortCounterCheckMoves(newLegalMoves));
 
