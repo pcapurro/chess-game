@@ -80,37 +80,43 @@ string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        string src = string(1, legalMoves.at(i)[0]) + legalMoves.at(i)[1];
-        string dest = legalMoves.at(i).c_str() + legalMoves.at(i).length() - 3;
+        if (legalMoves.at(i) == "O-O" || legalMoves.at(i) == "O-O-O")
+            kingRunAwayMoves.push_back(legalMoves.at(i));
+        else
+        {
+            string src = string(1, legalMoves.at(i)[0]) + legalMoves.at(i)[1];
+            string dest = legalMoves.at(i).c_str() + legalMoves.at(i).length() - 3;
 
-        if (algebraParser::isChessPiece(dest[dest.length() - 1]) == true)
-            dest.erase(dest.length() - 1);
-        else
-            dest = dest.c_str() + 1;
-        
-        if (_board.at(getAtValue(dest)).piece != NULL
-            && legalMoves.at(i)[0] != 'K' && _board.at(getAtValue(dest)).piece->isOnMyWay(src) == false)
-        {
-            tryMove(legalMoves.at(i).c_str() + 1);
-            if (isProtected(string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4]) == true)
-                othersAttackMoves.push_back(legalMoves.at(i));
-            undoMove(legalMoves.at(i).c_str() + 1);
-        }
-        else
-        {
+            if (algebraParser::isChessPiece(dest[dest.length() - 1]) == true)
+                dest.erase(dest.length() - 1);
+            else
+                dest = dest.c_str() + 1;
+            
             if (_board.at(getAtValue(dest)).piece != NULL
-                && legalMoves.at(i)[0] == 'K')
-                kingAttackMoves.push_back(legalMoves.at(i));
+                && legalMoves.at(i)[0] != 'K' && _board.at(getAtValue(dest)).piece->isOnMyWay(src) == false)
+            {
+                tryMove(legalMoves.at(i).c_str() + 1);
+                if (isProtected(string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4]) == true
+                    || legalMoves.at(i)[0] == _board.at(getAtValue(dest)).piece->getType())
+                    othersAttackMoves.push_back(legalMoves.at(i));
+                undoMove(legalMoves.at(i).c_str() + 1);
+            }
             else
             {
-                if (legalMoves.at(i)[0] == 'K')
-                    kingRunAwayMoves.push_back(legalMoves.at(i));
+                if (_board.at(getAtValue(dest)).piece != NULL
+                    && legalMoves.at(i)[0] == 'K')
+                    kingAttackMoves.push_back(legalMoves.at(i));
                 else
                 {
-                    tryMove(legalMoves.at(i).c_str() + 1);
-                    if (isProtected(string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4]) == true)
-                        shieldMoves.push_back(legalMoves.at(i));
-                    undoMove(legalMoves.at(i).c_str() + 1);
+                    if (legalMoves.at(i)[0] == 'K')
+                        kingRunAwayMoves.push_back(legalMoves.at(i));
+                    else
+                    {
+                        tryMove(legalMoves.at(i).c_str() + 1);
+                        if (isProtected(string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4]) == true)
+                            shieldMoves.push_back(legalMoves.at(i));
+                        undoMove(legalMoves.at(i).c_str() + 1);
+                    }
                 }
             }
         }
