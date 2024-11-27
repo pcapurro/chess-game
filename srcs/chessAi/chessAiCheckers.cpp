@@ -52,9 +52,6 @@ bool    chessAi::isProtected(const string coord)
     if (attackers.size() == 0)
         return (true);
 
-    attackers = orderMaterialsByValue(attackers);
-
-    defenders = orderMaterialsByValue(defenders);
     defenders.push(_board.at(getAtValue(coord)).piece);
 
     attMaterials = 0;

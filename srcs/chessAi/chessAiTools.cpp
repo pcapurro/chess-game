@@ -43,11 +43,9 @@ stack<cP *>    chessAi::getEnemyTargets(void)
     return (targets);
 }
 
-stack<cP *> chessAi::getWatchers(const string coord)
-{
-    vector<chessPiece *>    vMaterials;
-    stack<chessPiece *>     materials;
 
+int chessAi::getWatchersNumber(const string coord)
+{
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL)
@@ -56,19 +54,47 @@ stack<cP *> chessAi::getWatchers(const string coord)
                 && _board.at(i).piece->isVisible() == true)
             {
                 if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
-                {
-                    vMaterials.push_back(_board.at(i).piece);
-                    _board.at(i).piece->setVisibility();
-                    i = 0;
-                }
+                    return (1);
             }
         }
     }
+    return (0);
+}
+
+stack<cP *> chessAi::getWatchers(const string coord)
+{
+    vector<chessPiece *>    vMaterials;
+    stack<chessPiece *>     materials1;
+    stack<chessPiece *>     materials2;
+
+    while (getWatchersNumber(coord) != 0)
+    {
+        for (int i = 0; i != 64; i++)
+        {
+            if (_board.at(i).piece != NULL)
+            {
+                if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord
+                    && _board.at(i).piece->isVisible() == true)
+                {
+                    if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
+                    {
+                        vMaterials.push_back(_board.at(i).piece);
+                        materials1.push(_board.at(i).piece);
+                        _board.at(i).piece->setVisibility();
+                    }
+                }
+            }
+        }
+        materials1 = orderMaterialsByValue(materials1);
+
+        while (materials1.size() != 0)
+            materials2.push(materials1.top()), materials1.pop();
+    }
 
     for (int i = 0; i != vMaterials.size(); i++)
-        vMaterials.at(i)->setVisibility(), materials.push(vMaterials.at(i));
+        vMaterials.at(i)->setVisibility();
 
-    return (materials);
+    return (materials2);
 }
 
 string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)

@@ -41,6 +41,7 @@ class chessAi : protected chessBoard
         bool        isDefeatNext(void);
 
         int             getAttackedNumber(void);
+        int             getWatchersNumber(const string coord);
         int             getMaterialValue(const char type);
         string          sortCounterCheckMoves(vector<string> legalMoves);
         stack<cP *>     orderMaterialsByValue(stack<cP *> materials);
