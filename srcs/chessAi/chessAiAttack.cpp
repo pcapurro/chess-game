@@ -173,10 +173,8 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 		string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
 		string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
 
-		switchPlayers();
 		if (dest == target->getCoord() && isAttacked(dest) == true)
 			attackers.push(_board.at(getAtValue(src)).piece);
-		unSwitchPlayers();
 	}
 
 	if (attackers.size() != 0)
