@@ -38,26 +38,14 @@ string	chessAi::getCheckMateInTwoMove(void)
         if (count(move.begin(), move.end(), 'O') == 0)
             move = move.c_str() + 1;
 
-		if (count(move.begin(), move.end(), 'O') != 0
-			|| _board.at(getAtValue(string(1, move[2]) + move[3])).piece == NULL)
+		tryMove(move);
+		if (checkMateInOne() == true && (count(move.begin(), move.end(), 'O') != 0
+			|| isProtected(string(1, move[2]) + move[3]) == true || isFree(string(1, move[2]) + move[3]) == true))
 		{
-			switchPlayers();
-			if (isProtected(string(1, move[2]) + move[3]) == false)
-			{
-				unSwitchPlayers();
-
-				tryMove(move);
-				if (checkMateInOne() == true && (count(move.begin(), move.end(), 'O') != 0
-					|| isProtected(string(1, move[2]) + move[3]) == true))
-				{
-					undoMove(move);
-					return (legalMoves.at(i));
-				}
-				undoMove(move);
-			}
-			else
-				unSwitchPlayers();
+			undoMove(move);
+			return (legalMoves.at(i));
 		}
+		undoMove(move);
     }
 
 	move.clear();
@@ -84,8 +72,13 @@ string  chessAi::preventCastling(const string castle)
         if (isCastlingPossible(castle) == false)
         {
             unSwitchPlayers();
-            if (isProtected(string(1, move[2]) + move[3]) == true)
-                { switchPlayers(); undoMove(move); return (legalMoves.at(i)); }
+            if (isProtected(string(1, move[2]) + move[3]) == true
+				|| isFree(string(1, move[2]) + move[3]) == true)
+            {
+				switchPlayers();
+				undoMove(move);
+				return (legalMoves.at(i));
+			}
             switchPlayers();
         }
         undoMove(move);
@@ -110,7 +103,7 @@ string	chessAi::getThreat(void)
 			testMove = legalMoves.at(i).c_str() + 1;
 
 			tryMove(testMove);
-			if (isSomethingAttacked() == true && isProtected(dest) == true
+			if (isSomethingAttacked() == true && (isProtected(dest) == true || isFree(dest) == true)
 				&& getAttackedNumber() <= attackedAllies)
 			{
 				undoMove(testMove);
@@ -173,8 +166,13 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 		string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
 		string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
 
-		if (dest == target->getCoord() && isAttacked(dest) == true)
-			attackers.push(_board.at(getAtValue(src)).piece);
+		if (dest == target->getCoord())
+		{
+			tryMove(src + dest);
+			if (isProtected(dest) == true || isFree(dest) == true)
+				attackers.push(_board.at(getAtValue(dest)).piece);
+			undoMove(src + dest);
+		}
 	}
 
 	if (attackers.size() != 0)
