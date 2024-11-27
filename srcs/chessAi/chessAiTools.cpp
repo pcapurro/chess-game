@@ -78,8 +78,6 @@ string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
     vector<string>  shieldMoves;
     vector<string>  kingRunAwayMoves;
 
-    cout << "sorting new legal moves..." << endl;
-
     for (int i = 0; i != legalMoves.size(); i++)
     {
         string src = string(1, legalMoves.at(i)[0]) + legalMoves.at(i)[1];
@@ -108,8 +106,6 @@ string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
         }
     }
 
-    cout << "getting best move..." << endl;
-
     if (othersAttackMoves.size() == 0 && kingAttackMoves.size() != 0)
         return (kingAttackMoves.at(rand() % kingAttackMoves.size()));
     else
@@ -124,8 +120,9 @@ string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
                 {
                     if (shieldMoves.at(i)[0] == 'P')
                         return (shieldMoves.at(i));
-                    return (shieldMoves.at(rand() % shieldMoves.size()));
                 }
+                if (kingRunAwayMoves.size() == 0)
+                    return (shieldMoves.at(rand() % shieldMoves.size()));
             }
             else
                 if (kingRunAwayMoves.size() != 0)
