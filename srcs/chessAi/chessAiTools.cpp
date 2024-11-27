@@ -63,9 +63,10 @@ int chessAi::getWatchersNumber(const string coord)
 
 stack<cP *> chessAi::getWatchers(const string coord)
 {
-    vector<chessPiece *>    vMaterials;
-    stack<chessPiece *>     materials1;
-    stack<chessPiece *>     materials2;
+    stack<cP *>             material;
+    stack<cP *>             material2;
+    stack<cP *>             material3;
+    vector<stack<cP *>>     materials;
 
     while (getWatchersNumber(coord) != 0)
     {
@@ -78,23 +79,38 @@ stack<cP *> chessAi::getWatchers(const string coord)
                 {
                     if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
                     {
-                        vMaterials.push_back(_board.at(i).piece);
-                        materials1.push(_board.at(i).piece);
+                        material.push(_board.at(i).piece);
                         _board.at(i).piece->setVisibility();
                     }
                 }
             }
         }
-        materials1 = orderMaterialsByValue(materials1);
 
-        while (materials1.size() != 0)
-            materials2.push(materials1.top()), materials1.pop();
+        material2 = orderMaterialsByValue(material);
+        while (material.size() != 0)
+            material.pop();
+        while (material2.size() != 0)
+            material.push(material2.top()), material2.pop();
+
+        materials.push_back(material);
+        while (material.size() != 0)
+            material.pop();
     }
 
-    for (int i = 0; i != vMaterials.size(); i++)
-        vMaterials.at(i)->setVisibility();
+    if (materials.size() != 0)
+    {
+        for (int i = materials.size() - 1; i != -1; i--)
+        {
+            while (materials.at(i).size() != 0)
+            {
+                material3.push(materials.at(i).top());
+                material3.top()->setVisibility();
+                materials.at(i).pop();
+            }
+        }
+    }
 
-    return (materials2);
+    return (material3);
 }
 
 string  chessAi::sortCounterCheckMoves(vector<string> legalMoves)
