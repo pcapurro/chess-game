@@ -184,10 +184,12 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 
 string	chessAi::getPromotion(void)
 {
+	int				attackedAllies;
 	string			move;
 	vector<string>	legalMoves;
 	vector<string>	pawns;
 
+	attackedAllies = getAttackedNumber();
 	legalMoves = getLegalMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
@@ -198,7 +200,10 @@ string	chessAi::getPromotion(void)
 			tryMove(move);
 			if (isFree(string(1, move[2]) + move[3]) == true
 				|| isProtected(string(1, move[2]) + move[3]) == true)
-				pawns.push_back(legalMoves.at(i));
+			{
+				if (getAttackedNumber() <= attackedAllies)
+					pawns.push_back(legalMoves.at(i));
+			}
 			undoMove(move);
 		}
 	}
