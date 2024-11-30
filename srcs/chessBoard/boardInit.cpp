@@ -19,8 +19,8 @@ chessBoard::chessBoard(void)
     _gameInfo._enPassantDest = "";
 
     initBoard();
-    // if (checkBoardAllocation() == false)
-        // _allocated = false;
+    if (checkBoardAllocation() == false)
+        _allocated = false;
 }
 
 chessBoard::chessBoard(const chessBoard *originalBoard)
@@ -77,37 +77,16 @@ void    chessBoard::initBoard(void)
         for (int k = 0; k != 8; k++)
         {
             string coord = "abcdefgh"[i] + to_string(k + 1);
-
-            if (coord == "e5" || coord == "f2" || coord == "a1" || coord == "a8"
-                || coord == "e6" || coord == "e1")
-            {
-                if (coord == "a1")
-                    _board.push_back({new (nothrow) King ("white", coord), coord});
-                if (coord == "a8")
-                    _board.push_back({new (nothrow) King ("black", coord), coord});
-
-                if (coord == "e5")
-                    _board.push_back({new (nothrow) Pawn ("black", coord), coord});
-                if (coord == "f2")
-                    _board.push_back({new (nothrow) Bishop ("white", coord), coord});
-                if (coord == "e1")
-                    _board.push_back({new (nothrow) Rook ("white", coord), coord});
-                if (coord == "e6")
-                    _board.push_back({new (nothrow) Queen ("black", coord), coord});
-            }
-            else
-                _board.push_back({NULL, coord});
-
-            // if (k + 1 == 2)
-            //     _board.push_back({new (nothrow) Pawn ("white", coord), coord});
-            // if (k + 1 == 7)
-            //     _board.push_back({new (nothrow) Pawn ("black", coord), coord});
+            if (k + 1 == 2)
+                _board.push_back({new (nothrow) Pawn ("white", coord), coord});
+            if (k + 1 == 7)
+                _board.push_back({new (nothrow) Pawn ("black", coord), coord});
             
-            // if (k + 1 >= 3 && k + 1 <= 6)
-                // _board.push_back({NULL, coord});
+            if (k + 1 >= 3 && k + 1 <= 6)
+                _board.push_back({NULL, coord});
         }
     }
-    // initRooksKnights();
-    // initBishops();
-    // initQueensKings();
+    initRooksKnights();
+    initBishops();
+    initQueensKings();
 }
