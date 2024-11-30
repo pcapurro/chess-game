@@ -181,7 +181,7 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 			attacker = orderMaterialsByValue(attackers).top();
 			move = string(1, attacker->getType()) + attacker->getCoord() + target->getCoord();
 
-			if (move[0] == 'P' && (move[4] == '8') || move[4] == '1')
+			if (move[0] == 'P' && (move[4] == '8' || move[4] == '1'))
 				move = move + 'Q';
 
 			return (move);

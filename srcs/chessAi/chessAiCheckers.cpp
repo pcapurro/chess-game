@@ -33,6 +33,9 @@ bool    chessAi::isMoveWorth(const string move)
         if (isProtected(string(1, move[3]) + move[4]) == true
             || isFree(string(1, move[3]) + move[4]) == true)
         {
+            cout << move << " is worth" << endl;
+            cout << "attacked before > " << attacked << endl;
+            cout << "attacked after > " << getAttackedNumber() << endl;
             undoMove(move);
             return (true);
         }
@@ -176,7 +179,8 @@ bool    chessAi::isAttackedByPawn(const string coord)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
         {
-            if (_board.at(i).piece->getType() == 'P' && _board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
+            if (_board.at(i).piece->getType() == 'P'
+                && _board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
                 return (true);
         }
     }
