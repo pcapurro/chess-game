@@ -2,7 +2,9 @@
 
 string  chessAi::getPawnsOpening(void)
 {
-    int value;
+    int             value;
+    string          move;
+    vector<string>  legalMoves;
 
     srand(time(nullptr));
     value = rand() % 10;
@@ -10,11 +12,11 @@ string  chessAi::getPawnsOpening(void)
     if (_gameInfo._turn == 0)
     {
         if (value < 6)
-            return ("Pe2e4");
+            move = "Pe2e4";
         if (value == 6 || value == 7 || value == 8)
-            return ("Pd2d3");
+            move = "Pd2d3";
         if (value == 9)
-            return ("Pd2d4");
+            move = "Pd2d4";
     }
 
     if (_gameInfo._turn == 1)
@@ -22,26 +24,29 @@ string  chessAi::getPawnsOpening(void)
         if (_board.at(getAtValue("e4")).piece != NULL)
         {
             if (value == 0)
-                return ("Pd7d5");
+                move = "Pd7d5";
             if (value < 6)
-                return ("Pe7e5");
+                move = "Pe7e5";
             if (value >= 6 && value < 9)
-                return ("Pd7d6");
+                move = "Pd7d6";
         }
-        if (_board.at(getAtValue("d4")).piece != NULL)
+        if (move == "" && _board.at(getAtValue("d4")).piece != NULL)
         {
             if (value < 7)
-                return ("Pd7d5");
+                move = "Pd7d5";
             if (value > 7)
-                return ("Pe7e6");
+                move = "Pe7e6";
         }
 
-        if (value < 6)
-            return ("Pe7e6");
-        if (value == 6 || value == 7 || value == 8)
-            return ("Pe7e5");
-        if (value == 9)
-            return ("Pd7d5");
+        if (move == "")
+        {
+            if (value < 6)
+                move = "Pe7e6";
+            if (value == 6 || value == 7 || value == 8)
+                move = "Pe7e5";
+            if (value == 9)
+                move = "Pd7d5";
+        }
     }
 
     srand(time(nullptr));
@@ -50,25 +55,30 @@ string  chessAi::getPawnsOpening(void)
 	if (_gameInfo._turn == 2)
 	{
 		if (_board.at(getAtValue("d3")).piece != NULL)
-			return ("Pe2e4");
-		if (_board.at(getAtValue("e4")).piece != NULL)
+			move = "Pe2e4";
+		if (move == "" && _board.at(getAtValue("e4")).piece != NULL)
 		{
 			if (value % 2 == 0)
-				return ("Pd2d3");
+				move = "Pd2d3";
 			else
-				return ("Pd2d4");
+				move = "Pd2d4";
 		}
 	}
 
 	if (_gameInfo._turn == 3)
 	{
         if (_board.at(getAtValue("e6")).piece != NULL)
-            return ("Pd7d5");
+            move = "Pd7d5";
         if (_board.at(getAtValue("e5")).piece != NULL)
-            return ("Pd7d6");
+            move = "Pd7d6";
 	}
 
-    return ("");
+    legalMoves = getLegalMoves();
+
+    if (find(legalMoves.begin(), legalMoves.end(), move) == legalMoves.end())
+        move.clear();
+
+    return (move);
 }
 
 string  chessAi::getPawnsDev(void)
