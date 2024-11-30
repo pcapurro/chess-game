@@ -53,6 +53,7 @@ class chessAi : protected chessBoard
         string		    preventCastling(const string castle);
         string	        getBestAttack(stack<cP *> targets);
         string          getPromotion(void);
+        string	        getPromotionNow(void);
         string	        getThreat(void);
         string          getExchange(void);
 

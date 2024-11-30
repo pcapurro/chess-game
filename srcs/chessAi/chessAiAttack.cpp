@@ -187,14 +187,34 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 	return (move);
 }
 
+string	chessAi::getPromotionNow(void)
+{
+	string			move;
+	vector<string>	legalMoves;
+
+	legalMoves = getLegalMoves();
+
+	for (int i = 0; i != legalMoves.size(); i++)
+	{
+		if (legalMoves.at(i)[0] == 'P' && legalMoves.at(i).size() == 6)
+		{
+			move = legalMoves.at(i);
+			if (isMoveWorth(move.c_str() + 1) == true)
+				{ move[5] = 'Q'; return (move); }
+		}
+	}
+
+	move.clear();
+
+	return (move);
+}
+
 string	chessAi::getPromotion(void)
 {
-	int				attackedAllies;
 	string			move;
 	vector<string>	legalMoves;
 	vector<string>	pawns;
 
-	attackedAllies = getAttackedNumber();
 	legalMoves = getLegalMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
@@ -202,14 +222,8 @@ string	chessAi::getPromotion(void)
 		{
 			move = legalMoves.at(i).c_str() + 1;
 
-			tryMove(move);
-			if (isFree(string(1, move[2]) + move[3]) == true
-				|| isProtected(string(1, move[2]) + move[3]) == true)
-			{
-				if (getAttackedNumber() <= attackedAllies)
-					pawns.push_back(legalMoves.at(i));
-			}
-			undoMove(move);
+			if (isMoveWorth(move) == true)
+				pawns.push_back(legalMoves.at(i));
 		}
 	}
 
@@ -247,6 +261,9 @@ string	chessAi::getCounterStrike(void)
 			move = getCheckMateInTwoMove();
 		else
 		{
+			if (move == "")
+				move = getPromotionNow();
+
 			if (move == "")
 				move = getExchange();
 		}
