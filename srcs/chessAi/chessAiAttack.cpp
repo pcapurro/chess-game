@@ -167,13 +167,19 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 
 		for (int i = 0; i != legalMoves.size(); i++)
 		{
-			string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
-			string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+        	if (count(move.begin(), move.end(), 'O') == 0)
+			{
+				string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
+				string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
 
-			switchPlayers();
-			if (dest == target->getCoord() && isProtected(dest) == false && isMoveWorth(legalMoves.at(i).c_str() + 1) == true)
-				attackers.push(_board.at(getAtValue(src)).piece);
-			unSwitchPlayers();
+				if (isMoveWorth(src + dest) == true)
+				{
+					switchPlayers();
+					if (dest == target->getCoord() && isProtected(dest) == false)
+						attackers.push(_board.at(getAtValue(src)).piece);
+					unSwitchPlayers();
+				}
+			}
 		}
 
 		if (attackers.size() != 0)

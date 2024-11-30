@@ -204,7 +204,7 @@ int     chessAi::getAttackedNumber(void)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
             && isAttacked(_board.at(i).coord) == true)
-            nb++;
+            nb = nb + _board.at(i).piece->getType();
     }
     return (nb);
 }
