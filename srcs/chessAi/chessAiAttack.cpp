@@ -149,40 +149,46 @@ string	chessAi::getExchange(void)
 
 string	chessAi::getBestAttack(stack<cP *> targets)
 {
+	int				nb = 0;
 	string			move;
-	chessPiece 		*attacker;
-	chessPiece		*target;
+	chessPiece 		*attacker, *target;
 	vector<string>	legalMoves;
 	stack<cP *>    	attackers;
 
 	legalMoves = getLegalMoves();
 
-	targets = orderMaterialsByValue(targets);
-	while (targets.size() != 0)
-		target = targets.top(), targets.pop();
-
-	for (int i = 0; i != legalMoves.size(); i++)
+	while (nb != targets.size())
 	{
-		string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
-		string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+		targets = orderMaterialsByValue(targets);
+		while (targets.size() != 0)
+			target = targets.top(), targets.pop();
+		
+		nb++;
 
-		switchPlayers();
-		if (dest == target->getCoord() && isProtected(dest) == false)
-			attackers.push(_board.at(getAtValue(src)).piece), cout << legalMoves.at(i) << " is worth" << endl;
-		unSwitchPlayers();
+		for (int i = 0; i != legalMoves.size(); i++)
+		{
+			string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
+			string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+
+			switchPlayers();
+			if (dest == target->getCoord() && isProtected(dest) == false && isMoveWorth(legalMoves.at(i).c_str() + 1) == true)
+				attackers.push(_board.at(getAtValue(src)).piece);
+			unSwitchPlayers();
+		}
+
+		if (attackers.size() != 0)
+		{
+			attacker = orderMaterialsByValue(attackers).top();
+			move = string(1, attacker->getType()) + attacker->getCoord() + target->getCoord();
+
+			if (move[0] == 'P' && (move[4] == '8') || move[4] == '1')
+				move = move + 'Q';
+
+			return (move);
+		}
 	}
 
-	if (attackers.size() != 0)
-	{
-		attacker = orderMaterialsByValue(attackers).top();
-		move = string(1, attacker->getType()) + attacker->getCoord() + target->getCoord();
-
-		if ((move[0] == 'P' && move[4] == '8' && _gameInfo._color == "white")
-			|| (move[0] == 'P' && move[4] == '1' && _gameInfo._color == "black"))
-			move = move + 'Q';
-
-		return (move);
-	}
+	move.clear();
 
 	return (move);
 }
