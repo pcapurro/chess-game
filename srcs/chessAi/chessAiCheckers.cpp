@@ -25,19 +25,32 @@ bool    chessAi::equalValues(const string move)
 
 bool    chessAi::isMoveWorth(const string move)
 {
-    int attacked = getAttackedNumber();
+    int     earned = 0;
+    int     attacked = getAttackedNumber();
+    string  dest;
+    
+    dest = string(1, move[2]) + move[3];
+
+    if (_board.at(getAtValue(dest)).piece != NULL)
+        earned = earned + getMaterialValue(_board.at(getAtValue(dest)).piece->getType());
 
     tryMove(move);
-    if (getAttackedNumber() <= attacked)
+
+    if (getAttackedNumber() - earned < attacked)
+        { undoMove(move); return (true); }
+    
+    if (getAttackedNumber() - earned == attacked)
     {
-        if (isProtected(string(1, move[3]) + move[4]) == true
-            || isFree(string(1, move[3]) + move[4]) == true)
+        if (isProtected(dest) == true
+            || isFree(dest) == true)
         {
             undoMove(move);
             return (true);
         }
     }
+
     undoMove(move);
+
     return (false);
 }
 

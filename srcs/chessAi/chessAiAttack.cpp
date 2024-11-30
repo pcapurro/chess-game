@@ -163,7 +163,7 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 		
 		for (int i = 0; i != legalMoves.size(); i++)
 		{
-        	if (count(move.begin(), move.end(), 'O') == 0)
+        	if (count(legalMoves.at(i).begin(), legalMoves.at(i).end(), 'O') == 0)
 			{
 				string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
 				string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
