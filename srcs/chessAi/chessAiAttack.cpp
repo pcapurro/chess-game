@@ -155,7 +155,7 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 	stack<cP *>    	attackers;
 
 	legalMoves = getLegalMoves();
-	targets = orderMaterialsByValue(targets);
+	targets = orderByValueRev(targets);
 
 	while (targets.size() != 0)
 	{
@@ -180,7 +180,7 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 
 		if (attackers.size() != 0)
 		{
-			attacker = orderMaterialsByValue(attackers).top();
+			attacker = orderByValue(attackers).top();
 			move = string(1, attacker->getType()) + attacker->getCoord() + target->getCoord();
 
 			if (move[0] == 'P' && (move[4] == '8' || move[4] == '1'))

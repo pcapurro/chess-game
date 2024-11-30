@@ -1,6 +1,6 @@
 #include "chessAi.hpp"
 
-stack<chessPiece *> chessAi::orderMaterialsByValue(stack<chessPiece *> materials)
+stack<chessPiece *> chessAi::orderByValue(stack<chessPiece *> materials)
 {
     stack<cP *>     stack;
     vector<cP *>    vMaterials;
@@ -21,6 +21,33 @@ stack<chessPiece *> chessAi::orderMaterialsByValue(stack<chessPiece *> materials
             if (i == 3 && (vMaterials.at(k)->getType() == 'B' || vMaterials.at(k)->getType() == 'N'))
                 stack.push(vMaterials.at(k));
             if (i == 4 && vMaterials.at(k)->getType() == 'P')
+                stack.push(vMaterials.at(k));
+        }
+    }
+    return (stack);
+}
+
+stack<chessPiece *> chessAi::orderByValueRev(stack<chessPiece *> materials)
+{
+    stack<cP *>     stack;
+    vector<cP *>    vMaterials;
+
+    while (materials.size() != 0)
+        vMaterials.push_back(materials.top()), materials.pop();
+
+    for (int i = 0; i != 5; i++)
+    {
+        for (int k = 0; k != vMaterials.size(); k++)
+        {
+            if (i == 4 && vMaterials.at(k)->getType() == 'K')
+                stack.push(vMaterials.at(k));
+            if (i == 3 && vMaterials.at(k)->getType() == 'Q')
+                stack.push(vMaterials.at(k));
+            if (i == 2 && vMaterials.at(k)->getType() == 'R')
+                stack.push(vMaterials.at(k));
+            if (i == 1 && (vMaterials.at(k)->getType() == 'B' || vMaterials.at(k)->getType() == 'N'))
+                stack.push(vMaterials.at(k));
+            if (i == 0 && vMaterials.at(k)->getType() == 'P')
                 stack.push(vMaterials.at(k));
         }
     }
@@ -65,7 +92,6 @@ stack<cP *> chessAi::getWatchers(const string coord)
 {
     vector<string>          baordCoords;
     stack<cP *>             material;
-    stack<cP *>             material2;
     stack<cP *>             material3;
     vector<stack<cP *>>     materials;
 
@@ -88,13 +114,7 @@ stack<cP *> chessAi::getWatchers(const string coord)
                 }
             }
         }
-
-        material2 = orderMaterialsByValue(material);
-        while (material.size() != 0)
-            material.pop();
-        while (material2.size() != 0)
-            material.push(material2.top()), material2.pop();
-
+        material = orderByValueRev(material);
         materials.push_back(material);
         while (material.size() != 0)
             material.pop();

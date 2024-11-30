@@ -45,7 +45,8 @@ class chessAi : protected chessBoard
         int             getWatchersNumber(const string coord);
         int             getMaterialValue(const char type);
         string          sortCounterCheckMoves(vector<string> legalMoves);
-        stack<cP *>     orderMaterialsByValue(stack<cP *> materials);
+        stack<cP *>     orderByValue(stack<cP *> materials);
+        stack<cP *>     orderByValueRev(stack<cP *> materials);
         stack<cP *>     getEnemyTargets(void);
 
         stack<cP *>     getWatchers(const string coord);
