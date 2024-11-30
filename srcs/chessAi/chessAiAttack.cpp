@@ -149,22 +149,18 @@ string	chessAi::getExchange(void)
 
 string	chessAi::getBestAttack(stack<cP *> targets)
 {
-	int				nb = 0;
 	string			move;
 	chessPiece 		*attacker, *target;
 	vector<string>	legalMoves;
 	stack<cP *>    	attackers;
 
 	legalMoves = getLegalMoves();
+	targets = orderMaterialsByValue(targets);
 
-	while (nb != targets.size())
+	while (targets.size() != 0)
 	{
-		targets = orderMaterialsByValue(targets);
-		while (targets.size() != 0)
-			target = targets.top(), targets.pop();
+		target = targets.top(), targets.pop();
 		
-		nb++;
-
 		for (int i = 0; i != legalMoves.size(); i++)
 		{
         	if (count(move.begin(), move.end(), 'O') == 0)
