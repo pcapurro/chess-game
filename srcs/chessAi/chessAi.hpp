@@ -28,6 +28,7 @@ class chessAi : protected chessBoard
         bool        isProtected(const string coord);
         bool        isFree(const string coord);
         bool        isAttacked(const string coord);
+        bool        isMoveWorth(const string move);
         bool        isAttackedByPawn(const string coord);
 
         bool        isAllyAttacked(void);

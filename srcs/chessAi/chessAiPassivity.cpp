@@ -78,6 +78,23 @@ string  chessAi::getPawnsDev(void)
 	vector<string>	pawns;
 
 	legalMoves = getLegalMoves();
+
+    if (find(legalMoves.begin(), legalMoves.end(), "Pe2e3") != legalMoves.end()
+        && isMoveWorth("e2e3") == true)
+        return ("Pe2e3");
+
+    if (find(legalMoves.begin(), legalMoves.end(), "Pe7e6") != legalMoves.end()
+        && isMoveWorth("e7e6") == true)
+        return ("Pe7e6");
+
+    if (find(legalMoves.begin(), legalMoves.end(), "Pd2d3") != legalMoves.end()
+        && isMoveWorth("d2d3") == true)
+        return ("Pd2d3");
+
+    if (find(legalMoves.begin(), legalMoves.end(), "Pd7d6") != legalMoves.end()
+        && isMoveWorth("d7d6") == true)
+        return ("Pd7d6");
+
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
 		if (legalMoves.at(i)[0] == 'P')
@@ -107,37 +124,88 @@ string  chessAi::getPawnsDev(void)
 
 string  chessAi::getKnightsDev(void)
 {
+    char            line;
+    string          knightOne, knightTwo;
     vector<string>  legalMoves;
-	string			nb1, nb2;
+
+    if (_gameInfo._color == "white")
+        knightOne = "b1", knightTwo = "g1", line = '3';
+    if (_gameInfo._color == "black")
+        knightOne = "b8", knightTwo = "g8", line = '6';
 
     legalMoves = getLegalMoves();
 
-    if (_gameInfo._color == "white")
-        nb1 = "1", nb2 = "3";
-    else
-        nb1 = "8", nb2 = "6";
+    if (_board.at(getAtValue(knightOne)).piece != NULL && _board.at(getAtValue(knightOne)).piece->getType() == 'N'
+        && _board.at(getAtValue(knightOne)).piece->getMoves() == 0)
+    {
+        string  move;
 
-    if (_board.at(getAtValue(string(1, 'g') + nb1)).piece != NULL && _board.at(getAtValue(string(1, 'g') + nb1)).piece->getType() == 'N'
-        && _board.at(getAtValue(string(1, 'g') + nb1)).piece->getColor() == _gameInfo._color)
-    {
-        if (find(legalMoves.begin(), legalMoves.end(), "Ng" + nb1 + 'f' + nb2) != legalMoves.end())
-        {
-            tryMove("g" + nb1 + 'f' + nb2);
-            if (isProtected(string(1, 'f') + nb2) == true)
-                { undoMove("g" + nb1 + 'f' + nb2); return ("Ng" + nb1 + 'f' + nb2); }
-            undoMove("g" + nb1 + 'f' + nb2);
-        }
+        move = "N" + knightOne + "c" + line;
+        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end())
+            return (move);
+        move = "N" + knightOne + "a" + line;
+        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end())
+            return (move);
     }
-    if (_board.at(getAtValue(string(1, 'b') + nb1)).piece != NULL && _board.at(getAtValue(string(1, 'b') + nb1)).piece->getType() == 'N'
-        && _board.at(getAtValue(string(1, 'b') + nb1)).piece->getColor() == _gameInfo._color)
+    if (_board.at(getAtValue(knightTwo)).piece != NULL && _board.at(getAtValue(knightTwo)).piece->getType() == 'N'
+        && _board.at(getAtValue(knightTwo)).piece->getMoves() == 0)
     {
-        if (find(legalMoves.begin(), legalMoves.end(), "Nb" + nb1 + 'c' + nb2) != legalMoves.end())
-        {
-            tryMove("b" + nb1 + 'c' + nb2);
-            if (isProtected(string(1, 'c') + nb2) == true)
-                { undoMove("b" + nb1 + 'c' + nb2); return ("Nb" + nb1 + 'c' + nb2); }
-            undoMove("b" + nb1 + 'c' + nb2);
-        }
+        string  move;
+
+        move = "N" + knightTwo + "f" + line;
+        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end())
+            return (move);
+        move = "N" + knightTwo + "h" + line;
+        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end())
+            return (move);
+    }
+
+    return ("");
+}
+
+string  chessAi::getBishopsDev(void)
+{
+    int             attackedValue;
+    string          coord1, coord2, numbers;
+    vector<string>  legalMoves;
+
+    if (_gameInfo._color == "white")
+        coord1 = "f1", coord2 = "c1", numbers = "452";
+    if (_gameInfo._color == "black")
+        coord1 = "f8", coord2 = "c8", numbers = "547";
+
+    legalMoves = getLegalMoves();
+
+    if (_board.at(getAtValue(coord1)).piece != NULL && _board.at(getAtValue(coord1)).piece->getType() == 'B'
+        && _board.at(getAtValue(coord1)).piece->getMoves() == 0)
+    {
+        if (find(legalMoves.begin(), legalMoves.end(), "B" + coord1 + "c" + numbers[0]) != legalMoves.end()
+            && isMoveWorth(coord1 + "c" + numbers[0]) == true)
+            return ("B" + coord1 + "c" + numbers[0]);
+
+        if (find(legalMoves.begin(), legalMoves.end(), "B" + coord1 + "b" + numbers[1]) != legalMoves.end()
+            && isMoveWorth(coord1 + "b" + numbers[1]) == true)
+            return ("B" + coord1 + "b" + numbers[1]);
+
+        if (find(legalMoves.begin(), legalMoves.end(), "B" + coord1 + "e" + numbers[2]) != legalMoves.end()
+            && isMoveWorth(coord1 + "e" + numbers[2]) == true)
+            return ("B" + coord1 + "e" + numbers[2]);
+    }
+
+    if (_board.at(getAtValue(coord2)).piece != NULL && _board.at(getAtValue(coord2)).piece->getType() == 'B'
+        && _board.at(getAtValue(coord2)).piece->getMoves() == 0)
+    {        
+        if (find(legalMoves.begin(), legalMoves.end(), "B" + coord2 + "f" + numbers[0]) != legalMoves.end()
+            && isMoveWorth(coord2 + "f" + numbers[0]) == true)
+            return ("B" + coord2 + "f" + numbers[0]);
+
+        if (find(legalMoves.begin(), legalMoves.end(), "B" + coord2 + "g" + numbers[1]) != legalMoves.end()
+            && isMoveWorth(coord2 + "g" + numbers[1]) == true)
+            return ("B" + coord2 + "g" + numbers[1]);
+
+        if (find(legalMoves.begin(), legalMoves.end(), "B" + coord2 + "d" + numbers[2]) != legalMoves.end()
+            && isMoveWorth(coord2 + "d" + numbers[2]) == true)
+            return ("B" + coord2 + "d" + numbers[2]);
     }
 
     return ("");
@@ -149,44 +217,6 @@ string  chessAi::getCastling(void)
         return ("O-O");
     if (isCastlingPossible("O-O-O") == true && isCheck() == false)
         return ("O-O-O");
-
-    return ("");
-}
-
-string  chessAi::getBishopsDev(void)
-{
-    vector<string>  legalMoves;
-	string			nb1, nb2;
-
-    legalMoves = getLegalMoves();
-
-    if (_gameInfo._color == "white")
-        nb1 = "1", rand() % 2 == 0 ? nb2 = "4" : nb2 = "5";
-    else
-        nb1 = "8", rand() % 2 == 0 ? nb2 = "5" : nb2 = "4";
-
-    if (_board.at(getAtValue(string(1, 'f') + nb1)).piece != NULL && _board.at(getAtValue(string(1, 'f') + nb1)).piece->getType() == 'B'
-        && _board.at(getAtValue(string(1, 'f') + nb1)).piece->getColor() == _gameInfo._color)
-    {
-        if (find(legalMoves.begin(), legalMoves.end(), "Bf" + nb1 + 'c' + nb2) != legalMoves.end())
-        {
-            tryMove("f" + nb1 + 'c' + nb2);
-            if (isProtected(string(1, 'c') + nb2) == true)
-                { undoMove("f" + nb1 + 'c' + nb2); return ("Bf" + nb1 + 'c' + nb2); }
-            undoMove("f" + nb1 + 'c' + nb2);
-        }
-    }
-    if (_board.at(getAtValue(string(1, 'c') + nb1)).piece != NULL && _board.at(getAtValue(string(1, 'c') + nb1)).piece->getType() == 'B'
-        && _board.at(getAtValue(string(1, 'c') + nb1)).piece->getColor() == _gameInfo._color)
-    {
-        if (find(legalMoves.begin(), legalMoves.end(), "Bc" + nb1 + 'f' + nb2) != legalMoves.end())
-        {
-            tryMove("c" + nb1 + 'f' + nb2);
-            if (isProtected(string(1, 'f') + nb2) == true)
-                { undoMove("c" + nb1 + 'f' + nb2); return ("Bc" + nb1 + 'f' + nb2); }
-            undoMove("c" + nb1 + 'f' + nb2);
-        }
-    }
 
     return ("");
 }

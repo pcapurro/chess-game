@@ -23,6 +23,24 @@ bool    chessAi::equalValues(const string move)
     return (false);
 }
 
+bool    chessAi::isMoveWorth(const string move)
+{
+    int attacked = getAttackedNumber();
+
+    tryMove(move);
+    if (getAttackedNumber() <= attacked)
+    {
+        if (isProtected(string(1, move[3]) + move[4]) == true
+            || isFree(string(1, move[3]) + move[4]) == true)
+        {
+            undoMove(move);
+            return (true);
+        }
+    }
+    undoMove(move);
+    return (false);
+}
+
 bool    chessAi::isFree(const string coord)
 {
     stack<cP *> attackers;
