@@ -223,9 +223,11 @@ string  chessAi::getBishopsDev(void)
 
 string  chessAi::getCastling(void)
 {
-    if (isCastlingPossible("O-O") == true && isCheck() == false)
+    if (isCastlingPossible("O-O") == true && isCheck() == false
+        && isMoveWorth("O-O") == true)
         return ("O-O");
-    if (isCastlingPossible("O-O-O") == true && isCheck() == false)
+    if (isCastlingPossible("O-O-O") == true && isCheck() == false
+        && isMoveWorth("O-O-O") == true)
         return ("O-O-O");
 
     return ("");
