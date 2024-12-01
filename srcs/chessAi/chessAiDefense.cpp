@@ -2,33 +2,44 @@
 
 vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
 {
-    bool            value;
+    bool            attack = false;
+    bool            defense = false;
     string          dest;
     vector<string>  newAnswers;
 
-    value = false;
     for (int i = 0; i != answers.size(); i++)
     {
         dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
 
         if (_board.at(getAtValue(dest)).piece != NULL)
-            { value = true; break ; }
+            attack = true;
+        if (_board.at(getAtValue(dest)).piece == NULL && answers.at(i)[0] == 'P')
+            defense = true;
     }
 
-    if (value == true)
+    if (attack == true)
     {
         for (int i = 0; i != answers.size(); i++)
         {
             dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
-
             if (_board.at(getAtValue(dest)).piece != NULL)
-                newAnswers.push_back(answers.at(i));
+                newAnswers.push_back(answers.at(i)), cout << answers.at(i) << " selected for attack" << endl;
         }
+        return (newAnswers);
     }
-    else
-        newAnswers = answers;
 
-    return (newAnswers);
+    if (defense == true)
+    {
+        for (int i = 0; i != answers.size(); i++)
+        {
+            dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
+            if (_board.at(getAtValue(dest)).piece == NULL && answers.at(i)[0] == 'P')
+                newAnswers.push_back(answers.at(i)), cout << answers.at(i) << " selected for defense" << endl;
+        }
+        return (newAnswers);
+    }
+
+    return (answers);
 }
 
 vector<string>  chessAi::getProtectAnswers(chessPiece *target)
