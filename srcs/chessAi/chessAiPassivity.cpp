@@ -151,10 +151,10 @@ string  chessAi::getKnightsDev(void)
         string  move;
 
         move = "N" + knightOne + "c" + line;
-        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end())
+        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end() && isMoveWorth(move.c_str() + 1) == true)
             return (move);
         move = "N" + knightOne + "a" + line;
-        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end())
+        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end() && isMoveWorth(move.c_str() + 1) == true)
             return (move);
     }
     if (_board.at(getAtValue(knightTwo)).piece != NULL && _board.at(getAtValue(knightTwo)).piece->getType() == 'N'
@@ -163,10 +163,10 @@ string  chessAi::getKnightsDev(void)
         string  move;
 
         move = "N" + knightTwo + "f" + line;
-        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end())
+        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end() && isMoveWorth(move.c_str() + 1) == true)
             return (move);
         move = "N" + knightTwo + "h" + line;
-        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end())
+        if (find(legalMoves.begin(), legalMoves.end(), move) != legalMoves.end() && isMoveWorth(move.c_str() + 1) == true)
             return (move);
     }
 
