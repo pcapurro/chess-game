@@ -64,6 +64,7 @@ vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
         {
             for (int i = 0; i != newAnswers.size(); i++)
             {
+                dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
                 if ((dest[1] == '8' && _gameInfo._color == "black") || (dest[1] == '1' && _gameInfo._color == "white"))
                     newAnswers.erase(newAnswers.begin() + i);
             }
