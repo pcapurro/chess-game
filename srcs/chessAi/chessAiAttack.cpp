@@ -151,7 +151,7 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 {
 	string			move;
 	chessPiece 		*attacker, *target;
-	vector<string>	legalMoves;
+	vector<string>	legalMoves, attacks;
 	stack<cP *>    	attackers;
 
 	legalMoves = getLegalMoves();
@@ -160,20 +160,21 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 	while (targets.size() != 0)
 	{
 		target = targets.top(), targets.pop();
-		
+
 		for (int i = 0; i != legalMoves.size(); i++)
 		{
         	if (count(legalMoves.at(i).begin(), legalMoves.at(i).end(), 'O') == 0)
 			{
-				string  src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
-				string  dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+				move = legalMoves.at(i);
+				attacker = _board.at(getAtValue(string(1, move[1]) + move[2])).piece;
 
-				if (isMoveWorth(src + dest) == true)
+				if (isMoveWorth(move.c_str() + 1) == true)
 				{
-					switchPlayers();
-					if (dest == target->getCoord() && isProtected(dest) == false)
-						attackers.push(_board.at(getAtValue(src)).piece);
-					unSwitchPlayers();
+					tryMove(move.c_str() + 1);
+					if (_board.at(getAtValue(target->getCoord())).piece == NULL
+						|| _board.at(getAtValue(target->getCoord())).piece->getColor() == _gameInfo._color)
+						attackers.push(attacker), attacks.push_back(move);
+					undoMove(move.c_str() + 1);
 				}
 			}
 		}
@@ -181,7 +182,14 @@ string	chessAi::getBestAttack(stack<cP *> targets)
 		if (attackers.size() != 0)
 		{
 			attacker = orderByValue(attackers).top();
-			move = string(1, attacker->getType()) + attacker->getCoord() + target->getCoord();
+
+			for (int i = 0; i != legalMoves.size(); i++)
+			{
+				move = legalMoves.at(i);
+				if (find(attacks.begin(), attacks.end(), move) != attacks.end()
+					&& string(1, move[1]) + move[2] == attacker->getCoord())
+					break ;
+			}
 
 			if (move[0] == 'P' && (move[4] == '8' || move[4] == '1'))
 				move = move + 'Q';

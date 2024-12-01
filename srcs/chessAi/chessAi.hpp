@@ -34,6 +34,7 @@ class chessAi : protected chessBoard
 
         bool        isAllyAttacked(void);
         bool        isDefenseWorth(void);
+        bool        isEnPassantTarget(const string coord);
         bool        isSomethingAttacked(void);
 
         bool        equalValues(const string move);

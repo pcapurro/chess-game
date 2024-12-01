@@ -158,6 +158,22 @@ bool    chessAi::isSomethingAttacked(void)
     return (false);
 }
 
+bool    chessAi::isEnPassantTarget(const string coord)
+{
+    string  target;
+
+    target = _gameInfo._enPassantDest;
+    if (_gameInfo._turn % 2 == 0)
+        target[1] = target[1] + 1;
+    if (_gameInfo._turn % 2 == 1)
+        target[1] = target[1] - 1;
+
+    if (target == coord)
+        return (true);
+
+    return (false);
+}
+
 bool    chessAi::isDefenseWorth(void)
 {
     int targets = 0;
@@ -202,6 +218,7 @@ bool    chessAi::isAttacked(const string coord)
     vector<string>  boardCoords;
 
     boardCoords = getPiecesCoords();
+
     for (int i = 0; i != 64; i++)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
@@ -213,6 +230,13 @@ bool    chessAi::isAttacked(const string coord)
             }
         }
     }
+
+    if (isEnPassantTarget(coord) == true)
+    {
+        if (isAttacked(_gameInfo._enPassantDest) == true)
+            return (true);
+    }
+
     return (false);
 }
 

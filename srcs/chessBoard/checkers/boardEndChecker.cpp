@@ -133,8 +133,6 @@ void    chessBoard::unSwitchPlayers(void)
 
 void    chessBoard::tryEnPassant(string srcdest)
 {
-    cout << "trying en passant " << srcdest << endl;
-
     int         atValueSrc;
     int         atValueDestOne;
     int         atValueDestTwo;
