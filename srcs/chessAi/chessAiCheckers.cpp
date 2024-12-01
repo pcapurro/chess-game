@@ -119,7 +119,10 @@ bool    chessAi::isProtected(const string coord)
     if (attackers.size() == 0)
         return (true);
 
-    defenders.push(_board.at(getAtValue(coord)).piece);
+    if (coord == _gameInfo._enPassantDest)
+        defenders.push(_board.at(getAtValue(getEnPassantTarget())).piece);
+    else
+        defenders.push(_board.at(getAtValue(coord)).piece);
 
     attMaterials = 0;
     defMaterials = 0;
@@ -155,22 +158,6 @@ bool    chessAi::isSomethingAttacked(void)
             unSwitchPlayers();
         }
     }
-    return (false);
-}
-
-bool    chessAi::isEnPassantTarget(const string coord)
-{
-    string  target;
-
-    target = _gameInfo._enPassantDest;
-    if (_gameInfo._turn % 2 == 0)
-        target[1] = target[1] + 1;
-    if (_gameInfo._turn % 2 == 1)
-        target[1] = target[1] - 1;
-
-    if (target == coord)
-        return (true);
-
     return (false);
 }
 
@@ -231,7 +218,7 @@ bool    chessAi::isAttacked(const string coord)
         }
     }
 
-    if (isEnPassantTarget(coord) == true)
+    if (getEnPassantTarget() == coord)
     {
         if (isAttacked(_gameInfo._enPassantDest) == true)
             return (true);

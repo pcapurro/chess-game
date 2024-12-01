@@ -68,6 +68,18 @@ stack<cP *>    chessAi::getTargets(void)
     return (targets);
 }
 
+string  chessAi::getEnPassantTarget(void)
+{
+    string  target;
+
+    target = _gameInfo._enPassantDest;
+    if (_gameInfo._turn % 2 == 0)
+        target[1] = target[1] + 1;
+    if (_gameInfo._turn % 2 == 1)
+        target[1] = target[1] - 1;
+    
+    return (target);
+}
 
 int chessAi::getWatchersNumber(const string coord)
 {
