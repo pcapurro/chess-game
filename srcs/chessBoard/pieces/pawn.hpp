@@ -29,6 +29,9 @@ class Pawn : public chessPiece
                     && src_x + 1 == dest_x && src_y + 1 == dest_y)
                     return (true);
 
+                if (enPassant.empty() != true && move == enPassant && newCoord == move && _y == 5)
+                    return (true);
+
                 newCoord = "abcdefgh"[src_x - 1] + to_string(src_y + 1);
                 if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
                     && src_x - 1 == dest_x && src_y + 1 == dest_y)
@@ -61,12 +64,15 @@ class Pawn : public chessPiece
                     && src_x + 1 == dest_x && src_y - 1 == dest_y)
                     return (true);
 
+                if (enPassant.empty() != true && move == enPassant && newCoord == move && _y == 4)
+                    return (true);
+
                 newCoord = "abcdefgh"[src_x - 1] + to_string(src_y - 1);
                 if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
                     && src_x - 1 == dest_x && src_y - 1 == dest_y)
                     return (true);
 
-                if (enPassant.empty() != true && move == enPassant && _y == 4)
+                if (enPassant.empty() != true && move == enPassant && newCoord == move && _y == 4)
                     return (true);
 
                 if (value == 0)
