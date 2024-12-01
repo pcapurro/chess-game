@@ -241,16 +241,19 @@ string  chessAi::getRandomDev(void)
 	legalMoves = getLegalMoves();
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
-
-        tryMove(legalMoves.at(i).c_str() + 1);
-        if (isProtected(dest) == true)
+        if (isMoveWorth(legalMoves.at(i).c_str() + 1) == true)
         {
+            dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+
+            tryMove(legalMoves.at(i).c_str() + 1);
+            if (isProtected(dest) == true)
+            {
+                undoMove(legalMoves.at(i).c_str() + 1);
+                move = legalMoves.at(i);
+                break ;
+            }
             undoMove(legalMoves.at(i).c_str() + 1);
-            move = legalMoves.at(i);
-            break ;
         }
-        undoMove(legalMoves.at(i).c_str() + 1);
     }
 
     return (move);
