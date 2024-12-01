@@ -98,7 +98,7 @@ class chessBoard
 
         size_t              getAtValue(const string coord) const;
         vector<string>      getLegalMoves(void);
-        vector<string>      getPossibleTargets(const string coord, const int value = 0) const;
+        vector<string>      getPossibleTargets(const string coord) const;
         vector<string>      getPiecesCoords(void) const;
         
         vector<string>      getCastlingSrcsDests(const string srcdest);
