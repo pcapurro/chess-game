@@ -29,10 +29,13 @@ bool    chessAi::isMoveWorth(const string move)
     int     attacked = getAttackedNumber();
     string  dest;
     
-    dest = string(1, move[2]) + move[3];
+    if (move != "O-O" && move != "O-O-O")
+    {
+        dest = string(1, move[2]) + move[3];
 
-    if (_board.at(getAtValue(dest)).piece != NULL)
-        earned = earned + getMaterialValue(_board.at(getAtValue(dest)).piece->getType());
+        if (_board.at(getAtValue(dest)).piece != NULL)
+            earned = earned + getMaterialValue(_board.at(getAtValue(dest)).piece->getType());
+    }
 
     tryMove(move);
 
@@ -41,8 +44,8 @@ bool    chessAi::isMoveWorth(const string move)
     
     if (getAttackedNumber() - earned == attacked)
     {
-        if (isProtected(dest) == true
-            || isFree(dest) == true)
+        if (move == "O-O" || move == "O-O-O"
+            || isProtected(dest) == true || isFree(dest) == true)
         {
             undoMove(move);
             return (true);
