@@ -46,8 +46,7 @@ vector<string>  chessAi::getOthersAttacks(vector <string> legalMoves)
         src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
         dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
 
-        if (_board.at(getAtValue(dest)).piece != NULL
-            && legalMoves.at(i)[0] != 'K' && _board.at(getAtValue(dest)).piece->isOnMyWay(src) == false)
+        if (_board.at(getAtValue(dest)).piece != NULL && legalMoves.at(i)[0] != 'K')
         {
             tryMove(legalMoves.at(i).c_str() + 1);
             if (isProtected(string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4]) == true
