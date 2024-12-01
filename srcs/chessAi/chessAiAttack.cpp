@@ -294,7 +294,8 @@ string	chessAi::getCounterStrike(void)
 		unSwitchPlayers();
 	}
 
-	if (move == "" && _gameInfo._turn > 21)
+	if (move == "" && _gameInfo._turn > 21
+		&& isDeveloped() == true)
 		move = getPromotion();
 
 	if (move == "")
