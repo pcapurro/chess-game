@@ -158,9 +158,7 @@ void    chessBoard::tryEnPassant(string srcdest)
     _board.at(atValueDestOne).piece->updatePos(_board.at(atValueDestOne).coord);
     _board.at(atValueSrc).piece = NULL;
 
-    _gameInfo._enPassant = false, _gameInfo._enPassantDest.clear();
-
-    cout << "undoing en passant " << srcdest << endl;
+    _gameInfo._enPassant = false;
 }
 
 void    chessBoard::undoEnPassant(string srcdest)
@@ -189,7 +187,7 @@ void    chessBoard::undoEnPassant(string srcdest)
 
     _savedObjects.pop();
 
-    _gameInfo._enPassant = true, _gameInfo._enPassantDest = destOne;
+    _gameInfo._enPassant = true;
 }
 
 void    chessBoard::tryMove(string srcdest)
@@ -202,7 +200,7 @@ void    chessBoard::tryMove(string srcdest)
 
     if (srcdest == "O-O" || srcdest == "O-O-O"
         || (string(1, srcdest[2]) + srcdest[3] == _gameInfo._enPassantDest
-            && getType(string(1, srcdest[0]) + srcdest[1]) == 'P'))
+            && (getType(string(1, srcdest[0]) + srcdest[1]) == 'P' || getType(string(1, srcdest[2]) + srcdest[3]) == 'P')))
     {
         if (srcdest[0] == 'O')
         {
@@ -247,7 +245,7 @@ void    chessBoard::undoMove(string srcdest)
 
     if (srcdest == "O-O" || srcdest == "O-O-O"
         || (string(1, srcdest[2]) + srcdest[3] == _gameInfo._enPassantDest
-            && getType(string(1, srcdest[0]) + srcdest[1]) == 'P'))
+            && (getType(string(1, srcdest[0]) + srcdest[1]) == 'P' || getType(string(1, srcdest[2]) + srcdest[3]) == 'P')))
     {
         if (srcdest[0] == 'O')
         {
