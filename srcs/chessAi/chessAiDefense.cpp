@@ -4,6 +4,7 @@ vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
 {
     bool            attack = false;
     bool            defense = false;
+    bool            runaway = false;
     string          dest;
     vector<string>  newAnswers;
 
@@ -13,8 +14,13 @@ vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
 
         if (_board.at(getAtValue(dest)).piece != NULL)
             attack = true;
-        if (_board.at(getAtValue(dest)).piece == NULL && answers.at(i)[0] == 'P')
-            defense = true;
+        if (_board.at(getAtValue(dest)).piece == NULL)
+        {
+            if (answers.at(i)[0] == 'P')
+                defense = true;
+            else
+                runaway = true;
+        }
     }
 
     if (attack == true)
@@ -23,7 +29,7 @@ vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
         {
             dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
             if (_board.at(getAtValue(dest)).piece != NULL)
-                newAnswers.push_back(answers.at(i)), cout << answers.at(i) << " selected for attack" << endl;
+                newAnswers.push_back(answers.at(i));
         }
         return (newAnswers);
     }
@@ -34,7 +40,33 @@ vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
         {
             dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
             if (_board.at(getAtValue(dest)).piece == NULL && answers.at(i)[0] == 'P')
-                newAnswers.push_back(answers.at(i)), cout << answers.at(i) << " selected for defense" << endl;
+                newAnswers.push_back(answers.at(i));
+        }
+        return (newAnswers);
+    }
+
+    if (runaway == true)
+    {
+        int value = 0;
+
+        for (int i = 0; i != answers.size(); i++)
+        {
+            dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
+            if (_board.at(getAtValue(dest)).piece == NULL && answers.at(i)[0] != 'P')
+            {
+                newAnswers.push_back(answers.at(i));
+                if ((dest[1] == '8' && _gameInfo._color == "black") || (dest[1] == '1' && _gameInfo._color == "white"))
+                    value++;
+            }
+        }
+
+        if (value != answers.size())
+        {
+            for (int i = 0; i != newAnswers.size(); i++)
+            {
+                if ((dest[1] == '8' && _gameInfo._color == "black") || (dest[1] == '1' && _gameInfo._color == "white"))
+                    newAnswers.erase(newAnswers.begin() + i);
+            }
         }
         return (newAnswers);
     }
@@ -90,6 +122,7 @@ string	chessAi::getCounterProtect(void)
         targets.pop();
 
         answers = getProtectAnswers(target);
+        answers = sortProtectAnswers(answers);
         if (answers.size() != 0)
             move = answers.at(rand() % answers.size());
 

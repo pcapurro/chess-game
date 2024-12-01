@@ -88,7 +88,7 @@ vector<string>  chessAi::getShieldMoves(vector <string> legalMoves)
 		for (int i = 0; i != shieldMoves.size(); i++)
 		{
 			if (shieldMoves.at(i)[0] != 'P')
-				shieldMoves.erase(shieldMoves.begin() + i), i = 0;
+				shieldMoves.erase(shieldMoves.begin() + i);
 		}
 	}
 
