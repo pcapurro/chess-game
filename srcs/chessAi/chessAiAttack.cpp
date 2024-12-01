@@ -261,7 +261,9 @@ string	chessAi::getCounterStrike(void)
 	string		move;
     stack<cP *>	targets;
 
-	targets = getEnemyTargets();
+	switchPlayers();
+	targets = getTargets();
+	unSwitchPlayers();
 
     if (targets.size() == 0)
 	{
