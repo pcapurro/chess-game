@@ -194,6 +194,27 @@ bool    chessBoard::isThereValidSource(void)
     return (true);
 }
 
+bool    chessBoard::isValidEnPassant(void) const
+{
+    if (_gameInfo._lastMove.obj != 'P' || _gameInfo._enPassant == false 
+        || _gameInfo._enPassantDest != _gameInfo._lastMove.dest)
+        return (false);
+
+    string  color, otherColor;
+    string  dest;
+
+    dest = _gameInfo._enPassantDest;
+    dest[1] = _gameInfo._lastMove.src[1];
+    
+    color = _board.at(getAtValue(_gameInfo._lastMove.src)).piece->getColor();
+    otherColor = _board.at(getAtValue(dest)).piece->getColor();
+
+    if (color == otherColor)
+        return (false);
+
+    return (true);
+}
+
 bool    chessBoard::isItValidSource(void) const
 {
     int     atValue;
@@ -227,8 +248,7 @@ bool    chessBoard::isLegal(const string move)
     {
         if (_gameInfo._lastMove.action == 'x' && isThereSomething(*dest) == false)
         {
-            if (*obj != 'P' || _gameInfo._enPassant == false 
-                || _gameInfo._enPassantDest != *dest)
+            if (isValidEnPassant() == false)
                 return (false);
         }
 

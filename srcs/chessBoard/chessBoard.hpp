@@ -112,6 +112,8 @@ class chessBoard
 
         bool    isItValidSource(void) const;
 
+        bool    isValidEnPassant(void) const;
+
         bool    isThereSomething(const string coord) const;
         bool    isThereAlly(void) const;
         bool    isRightSide(void) const;

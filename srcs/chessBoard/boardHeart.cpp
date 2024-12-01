@@ -184,11 +184,17 @@ void    chessBoard::loadMove(const string move)
     }
     else
     {
-        _gameInfo._lastMove.move = move;
-        _gameInfo._lastMove.action = '-';
         _gameInfo._lastMove.obj = move[0];
+
+        _gameInfo._lastMove.move = move;
         _gameInfo._lastMove.src = string(1, move[1]) + move[2];
         _gameInfo._lastMove.dest = move.c_str() + 3;
+
+        if (_gameInfo._lastMove.dest == _gameInfo._enPassantDest)
+            _gameInfo._lastMove.action = 'x';
+        else
+            _gameInfo._lastMove.action = '-';
+        
         _gameInfo._lastMove.error = false;
     }
 }

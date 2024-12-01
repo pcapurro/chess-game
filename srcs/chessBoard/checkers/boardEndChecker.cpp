@@ -133,6 +133,8 @@ void    chessBoard::unSwitchPlayers(void)
 
 void    chessBoard::tryEnPassant(string srcdest)
 {
+    cout << "trying en passant " << srcdest << endl;
+
     int         atValueSrc;
     int         atValueDestOne;
     int         atValueDestTwo;
@@ -155,6 +157,10 @@ void    chessBoard::tryEnPassant(string srcdest)
     _board.at(atValueDestOne).piece = _board.at(atValueSrc).piece;
     _board.at(atValueDestOne).piece->updatePos(_board.at(atValueDestOne).coord);
     _board.at(atValueSrc).piece = NULL;
+
+    _gameInfo._enPassant = false, _gameInfo._enPassantDest.clear();
+
+    cout << "undoing en passant " << srcdest << endl;
 }
 
 void    chessBoard::undoEnPassant(string srcdest)
@@ -182,6 +188,8 @@ void    chessBoard::undoEnPassant(string srcdest)
     _board.at(atValueDestTwo).piece = _savedObjects.top();
 
     _savedObjects.pop();
+
+    _gameInfo._enPassant = true, _gameInfo._enPassantDest = destOne;
 }
 
 void    chessBoard::tryMove(string srcdest)
