@@ -1,5 +1,36 @@
 #include "chessAi.hpp"
 
+vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
+{
+    bool            value;
+    string          dest;
+    vector<string>  newAnswers;
+
+    value = false;
+    for (int i = 0; i != answers.size(); i++)
+    {
+        dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
+
+        if (_board.at(getAtValue(dest)).piece != NULL)
+            { value = true; break ; }
+    }
+
+    if (value == true)
+    {
+        for (int i = 0; i != answers.size(); i++)
+        {
+            dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
+
+            if (_board.at(getAtValue(dest)).piece != NULL)
+                newAnswers.push_back(answers.at(i));
+        }
+    }
+    else
+        newAnswers = answers;
+
+    return (newAnswers);
+}
+
 vector<string>  chessAi::getProtectAnswers(chessPiece *target)
 {
     string          testMove;
