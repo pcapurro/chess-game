@@ -116,6 +116,17 @@ void    visualGame::loadCheckMate(void)
     kingCoords = getKingCoords(color);
     obj = getRectangle(getKingCoords(color));
 
+    SDL_SetRenderDrawColor(_mainRenderer, 215, 0, 21, 255);
+    SDL_RenderFillRect(_mainRenderer, &obj);
+
+    obj = getRectangle(kingCoords);
+    obj.h = obj.h / 3, obj.w = obj.w / 3;
+    SDL_RenderCopy(_mainRenderer, getTexture('c', color), NULL, &obj);
+
+    color == "white" ? color = "black" : color = "white";
+    kingCoords = getKingCoords(color);
+    obj = getRectangle(getKingCoords(color));
+
     SDL_SetRenderDrawColor(_mainRenderer, 0, 190, 60, 255);
     SDL_RenderFillRect(_mainRenderer, &obj);
 
