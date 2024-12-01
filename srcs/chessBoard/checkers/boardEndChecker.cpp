@@ -131,6 +131,24 @@ void    chessBoard::unSwitchPlayers(void)
     --_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
 }
 
+void    chessBoard::tryEnPassant(string srcdest)
+{
+    int         atValueSrc;
+    int         atValueDest;
+    
+    string      src;
+    string      dest;
+}
+
+void    chessBoard::undoEnPassant(string srcdest)
+{
+    int         atValueSrc;
+    int         atValueDest;
+    
+    string      src;
+    string      dest;
+}
+
 void    chessBoard::tryMove(string srcdest)
 {
     int         atValueSrc;
@@ -139,13 +157,19 @@ void    chessBoard::tryMove(string srcdest)
     string      src;
     string      dest;
 
-    if (srcdest == "O-O" || srcdest == "O-O-O")
+    if (srcdest == "O-O" || srcdest == "O-O-O"
+        || srcdest[0] == 'P' && string(1, srcdest[3]) + srcdest[4] == _gameInfo._enPassantDest)
     {
-        vector<string>  castling;
+        if (srcdest[0] == 'O')
+        {
+            vector<string>  castling;
         
-        castling = getCastlingSrcsDests(srcdest);
-        tryMove(castling.at(0));
-        tryMove(castling.at(1));
+            castling = getCastlingSrcsDests(srcdest);
+            tryMove(castling.at(0));
+            tryMove(castling.at(1));
+        }
+        else
+            tryEnPassant(srcdest);
     }
     else
     {
@@ -177,13 +201,19 @@ void    chessBoard::undoMove(string srcdest)
     string      src;
     string      dest;
 
-    if (srcdest == "O-O" || srcdest == "O-O-O")
+    if (srcdest == "O-O" || srcdest == "O-O-O"
+        || srcdest[0] == 'P' && string(1, srcdest[3]) + srcdest[4] == _gameInfo._enPassantDest)
     {
-        vector<string>  castling;
+        if (srcdest[0] == 'O')
+        {
+            vector<string>  castling;
 
-        castling = getCastlingSrcsDests(srcdest);
-        undoMove(castling.at(1));
-        undoMove(castling.at(0));
+            castling = getCastlingSrcsDests(srcdest);
+            undoMove(castling.at(1));
+            undoMove(castling.at(0));
+        }
+        else
+            undoEnPassant(srcdest);
     }
     else
     {
