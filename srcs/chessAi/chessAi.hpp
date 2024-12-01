@@ -44,7 +44,6 @@ class chessAi : protected chessBoard
         int             getAttackedNumber(void);
         int             getWatchersNumber(const string coord);
         int             getMaterialValue(const char type);
-        string          sortCounterCheckMoves(vector<string> legalMoves);
         stack<cP *>     orderByValue(stack<cP *> materials);
         stack<cP *>     orderByValueRev(stack<cP *> materials);
         stack<cP *>     getTargets(void);
@@ -70,6 +69,12 @@ class chessAi : protected chessBoard
         string          getRandomDev(void);
 
         string		    getCounterStrike(void);
+
+        vector<string>  getKingAttacks(vector <string> legalMoves);
+        vector<string>  getKingRunAwayMoves(vector <string> legalMoves);
+        vector<string>  getOthersAttacks(vector <string> legalMoves);
+        vector<string>  getShieldMoves(vector <string> legalMoves);
+        string          sortCounterCheckMoves(vector<string> legalMoves);
 
         string          getCounterCheckMate(const int value);
         vector<string>  getProtectAnswers(chessPiece *target);

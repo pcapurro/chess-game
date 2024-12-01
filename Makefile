@@ -17,6 +17,7 @@ SRCSO = srcs/failPrint.cpp \
 	srcs/chessAi/chessAiHeart.cpp \
 	srcs/chessAi/chessAiTools.cpp \
 	srcs/chessAi/chessAiAttack.cpp \
+	srcs/chessAi/chessAiCounter.cpp \
 	srcs/chessAi/chessAiDefense.cpp \
 	srcs/chessAi/chessAiPassivity.cpp \
 	srcs/chessAi/chessAiRandom.cpp \
