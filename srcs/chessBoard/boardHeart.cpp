@@ -212,6 +212,9 @@ int chessBoard::playMove(t_move structureMove, const string stringMove)
     {
         _gameInfo._moveFailed = false;
 
+        if (_board.at(getAtValue(_gameInfo._lastMove.dest)).piece != NULL)
+            _gameInfo._lastMove.action = 'x';
+
         string  src = _gameInfo._lastMove.src;
         string  dest = _gameInfo._lastMove.dest;
         char    action = _gameInfo._lastMove.action;
