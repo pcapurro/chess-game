@@ -94,8 +94,11 @@ vector<string>  chessAi::getProtectAnswers(chessPiece *target)
         if (isMoveWorth(testMove) == true)
         {
             tryMove(testMove);
-            if (isAttacked(target->getCoord()) == false && isAttacked(string(1, testMove[2]) + testMove[3]) == false)
-                answers.push_back(legalMoves.at(i)), cout << legalMoves.at(i) << " can save it." << endl;
+            if (isAttacked(target->getCoord()) == false)
+            {
+                if (count(testMove.begin(), testMove.end(), 'O') != 0 || isAttacked(string(1, testMove[2]) + testMove[3]) == false)
+                    answers.push_back(legalMoves.at(i)), cout << legalMoves.at(i) << " can save it." << endl;
+            }
             undoMove(testMove);
         }
     }
