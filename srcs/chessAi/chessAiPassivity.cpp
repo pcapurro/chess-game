@@ -1,69 +1,89 @@
 #include "chessAi.hpp"
 
-string  chessAi::getPawnsOpening(void)
+string  chessAi::getWhiteOpenings(void)
 {
-    int             value;
-    string          move;
-    vector<string>  legalMoves;
+    int     value;
+    string  move;
 
     srand(time(nullptr));
-    value = rand() % 10;
+
+    if (_gameInfo._turn == 0)
+        value = rand() % 10;
+    else
+        value = rand() % 2;
 
     if (_gameInfo._turn == 0)
     {
         if (value < 6)
             move = "Pe2e4";
-        if (value == 6 || value == 7 || value == 8)
-            move = "Pd2d3";
-        if (value == 9)
+        if (value == 6)
             move = "Pd2d4";
+        if (value == 7 || value == 8 || value == 9)
+            move = "Pd2d3";
     }
-
-    if (_gameInfo._turn == 1)
-    {
-        if (_board.at(getAtValue("e4")).piece != NULL)
-        {
-            if (value == 0)
-                move = "Pd7d5";
-            if (value < 6)
-                move = "Pe7e5";
-            if (value >= 6 && value < 9)
-                move = "Pd7d6";
-        }
-        if (move == "" && _board.at(getAtValue("d4")).piece != NULL)
-        {
-            if (value < 7)
-                move = "Pd7d5";
-            if (value > 7)
-                move = "Pe7e6";
-        }
-
-        if (move == "")
-        {
-            if (value < 6)
-                move = "Pe7e6";
-            if (value == 6 || value == 7 || value == 8)
-                move = "Pe7e5";
-            if (value == 9)
-                move = "Pd7d5";
-        }
-    }
-
-    srand(time(nullptr));
-    value = rand() % 2;
 
 	if (_gameInfo._turn == 2)
 	{
 		if (_board.at(getAtValue("d3")).piece != NULL)
 			move = "Pe2e4";
-		if (move == "" && _board.at(getAtValue("e4")).piece != NULL)
+		if (_board.at(getAtValue("e4")).piece != NULL)
 		{
-			if (value % 2 == 0)
-				move = "Pd2d3";
-			else
-				move = "Pd2d4";
+            if (move == "")
+            {
+                if (value % 2 == 0)
+                    move = "Pd2d3";
+                else
+                    move = "Pd2d4";
+            }
 		}
 	}
+
+    return (move);
+}
+
+string  chessAi::getBlackOpenings(void)
+{
+    int     value;
+    string  move;
+
+    srand(time(nullptr));
+
+    if (_gameInfo._turn == 1)
+        value = rand() % 10;
+    else
+        value = rand() % 2;
+
+    if (_gameInfo._turn == 1)
+    {
+        if (_board.at(getAtValue("e4")).piece != NULL)
+        {
+            if (value < 5)
+                move = "Pe7e5";
+            if (value == 6)
+                move = "Pd7d5";
+            if (value > 6 && value < 8)
+                move = "Pd7d6";
+        }
+        if (move == "")
+        {
+            if (_board.at(getAtValue("d4")).piece != NULL)
+            {
+                if (value < 7)
+                    move = "Pd7d5";
+                if (value > 7)
+                    move = "Pe7e6";
+            }
+            else
+            {
+                if (value < 6)
+                    move = "Pe7e6";
+                if (value == 6 || value == 7 || value == 8)
+                    move = "Pe7e5";
+                if (value == 9)
+                    move = "Pd7d5";
+            }
+        }
+    }
 
 	if (_gameInfo._turn == 3)
 	{
@@ -72,6 +92,19 @@ string  chessAi::getPawnsOpening(void)
         if (_board.at(getAtValue("e5")).piece != NULL)
             move = "Pd7d6";
 	}
+
+    return (move);
+}
+
+string  chessAi::getPawnsOpening(void)
+{
+    string          move;
+    vector<string>  legalMoves;
+
+    if (_gameInfo._turn % 2 == 0)
+        move = getWhiteOpenings();
+    if (_gameInfo._turn % 2 != 0)
+        move = getBlackOpenings();
 
     legalMoves = getLegalMoves();
 

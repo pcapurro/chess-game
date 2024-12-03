@@ -62,6 +62,8 @@ class chessAi : protected chessBoard
         string		    getCheckMateInOneMove(void);
         string          getCheckMateInTwoMove(void);
 
+        string          getWhiteOpenings(void);
+        string          getBlackOpenings(void);
         string		    getPawnsOpening(void);
         string          getPawnsDev(void);
         string		    getCastling(void);
