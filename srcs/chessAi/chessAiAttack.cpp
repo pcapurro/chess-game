@@ -124,23 +124,24 @@ string	chessAi::getThreat(void)
 
 string	chessAi::getExchange(void)
 {
-	string			move;
-	string			dest;
+	string			move, dest;
 	vector<string>	legalMoves;
 
 	legalMoves = getLegalMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
-		dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
-
-		if (_board.at(getAtValue(dest)).piece != NULL)
+		if (count(legalMoves.at(i).begin(), legalMoves.at(i).end(), 'O') == 0)
 		{
-			if (legalMoves.at(i)[0] == _board.at(getAtValue(dest)).piece->getType())
+			dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+			if (_board.at(getAtValue(dest)).piece != NULL)
 			{
-				move = legalMoves.at(i);
-				if (rand() % 4 != 0)
-					move.clear();
-				break ;
+				if (legalMoves.at(i)[0] == _board.at(getAtValue(dest)).piece->getType())
+				{
+					move = legalMoves.at(i);
+					if (rand() % 4 != 0)
+						move.clear();
+					break ;
+				}
 			}
 		}
 	}

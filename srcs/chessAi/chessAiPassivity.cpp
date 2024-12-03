@@ -235,24 +235,26 @@ string  chessAi::getCastling(void)
 
 string  chessAi::getRandomDev(void)
 {
-    string          move, dest;
+    string          move, testMove, dest;
 	vector<string>	legalMoves;
 
 	legalMoves = getLegalMoves();
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        if (isMoveWorth(legalMoves.at(i).c_str() + 1) == true)
+        testMove = legalMoves.at(i);
+        if (count(testMove.begin(), testMove.end(), 'O') == 0
+            && isMoveWorth(testMove.c_str() + 1) == true)
         {
-            dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+            dest = string(1, testMove[3]) + testMove[4];
 
-            tryMove(legalMoves.at(i).c_str() + 1);
+            tryMove(testMove.c_str() + 1);
             if (isProtected(dest) == true)
             {
-                undoMove(legalMoves.at(i).c_str() + 1);
+                undoMove(testMove.c_str() + 1);
                 move = legalMoves.at(i);
                 break ;
             }
-            undoMove(legalMoves.at(i).c_str() + 1);
+            undoMove(testMove.c_str() + 1);
         }
     }
 
