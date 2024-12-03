@@ -3,14 +3,17 @@
 vector<string>  chessAi::getKingAttacks(vector <string> legalMoves)
 {
     vector<string>  kingAttacks;
-    string          dest;
+    string          move, dest;
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
-
-        if (_board.at(getAtValue(dest)).piece != NULL && legalMoves.at(i)[0] == 'K')
-            kingAttacks.push_back(legalMoves.at(i));
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+        {
+            dest = string(1, move[3]) + move[4];
+            if (_board.at(getAtValue(dest)).piece != NULL && move[0] == 'K')
+                kingAttacks.push_back(legalMoves.at(i));
+        }
     }
 
     return (kingAttacks);
@@ -39,20 +42,25 @@ vector<string>  chessAi::getKingRunAwayMoves(vector <string> legalMoves)
 vector<string>  chessAi::getOthersAttacks(vector <string> legalMoves)
 {
     vector<string>  othersAttacks;
-    string          src, dest;
+    string          move, src, dest;
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        src = string(1, legalMoves.at(i)[1]) + legalMoves.at(i)[2];
-        dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
+        move = legalMoves.at(i);
 
-        if (_board.at(getAtValue(dest)).piece != NULL && legalMoves.at(i)[0] != 'K')
+        if (count(move.begin(), move.end(), 'O') == 0)
         {
-            tryMove(legalMoves.at(i).c_str() + 1);
-            if (isProtected(string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4]) == true
-                || legalMoves.at(i)[0] == _board.at(getAtValue(dest)).piece->getType())
-                othersAttacks.push_back(legalMoves.at(i));
-            undoMove(legalMoves.at(i).c_str() + 1);
+            src = string(1, move[1]) + move[2];
+            dest = string(1, move[3]) + move[4];
+
+            if (_board.at(getAtValue(dest)).piece != NULL && move[0] != 'K')
+            {
+                tryMove(move.c_str() + 1);
+                if (isProtected(string(1, move[3]) + move[4]) == true
+                    || move[0] == _board.at(getAtValue(dest)).piece->getType())
+                    othersAttacks.push_back(legalMoves.at(i));
+                undoMove(move.c_str() + 1);
+            }
         }
     }
 
@@ -62,24 +70,28 @@ vector<string>  chessAi::getOthersAttacks(vector <string> legalMoves)
 vector<string>  chessAi::getShieldMoves(vector <string> legalMoves)
 {
 	bool			value;
-	string          dest;
+	string          move, dest;
     vector<string>  shieldMoves;
 
 	value = false;
     for (int i = 0; i != legalMoves.size(); i++)
     {
-        dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
-
-        if (_board.at(getAtValue(dest)).piece == NULL && legalMoves.at(i)[0] != 'K')
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
         {
-            tryMove(legalMoves.at(i).c_str() + 1);
-            if (isProtected(string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4]) == true)
-			{
-                shieldMoves.push_back(legalMoves.at(i));
-				if (legalMoves.at(i)[0] == 'P')
-					value = true;
-			}
-            undoMove(legalMoves.at(i).c_str() + 1);
+            dest = string(1, move[3]) + move[4];
+
+            if (_board.at(getAtValue(dest)).piece == NULL && move[0] != 'K')
+            {
+                tryMove(move.c_str() + 1);
+                if (isProtected(string(1, move[3]) + move[4]) == true)
+                {
+                    shieldMoves.push_back(legalMoves.at(i));
+                    if (move[0] == 'P')
+                        value = true;
+                }
+                undoMove(move.c_str() + 1);
+            }
         }
     }
 
