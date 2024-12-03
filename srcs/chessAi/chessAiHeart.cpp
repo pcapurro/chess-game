@@ -14,13 +14,16 @@ void	chessAi::attackMove(void)
 	if (_nextMove != "")
 		return ;
 	
-	cout << "searching for attack move" << endl;
-	_nextMove = getCounterStrike();
+	if (_gameInfo._turn > 1)
+	{
+		cout << "searching for attack move" << endl;
+		_nextMove = getCounterStrike();
 
-	if (_nextMove == "")
-		cout << "no attack found" << endl;
-	else
-		cout << "attack found > " << _nextMove << endl;
+		if (_nextMove == "")
+			cout << "no attack found" << endl;
+		else
+			cout << "attack found > " << _nextMove << endl;
+	}
 }
 
 void	chessAi::passiveMove(void)

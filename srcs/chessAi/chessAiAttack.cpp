@@ -281,17 +281,20 @@ string	chessAi::getCounterStrike(void)
 		else
 		{
 			if (move == "")
-				move = getPromotionNow();
+				move = getPromotionNow(), cout << "getting promotion now" << endl;
 
 			if (move == "")
-				move = getExchange();
+				move = getExchange(), cout << "getting exchange now" << endl;
 		}
 	}
     else
 		move = getBestAttack(targets);
 
-	if (move == "")
+	srand(time(nullptr));
+
+	if (move == "" && rand() % 4 == 0)
 	{
+		cout << "getting preventCastling now" << endl;
 		switchPlayers();
 		if (isCheck() == false)
 		{
@@ -305,10 +308,10 @@ string	chessAi::getCounterStrike(void)
 
 	if (move == "" && _gameInfo._turn > 21
 		&& isDeveloped() == true)
-		move = getPromotion();
+		move = getPromotion(), cout << "getting getPromotion now" << endl;
 
-	if (move == "")
-		move = getThreat();
+	if (move == "" && rand() % 3 == 1)
+		move = getThreat(), cout << "getting getThreat now" << endl;
 
     return (move);
 }
