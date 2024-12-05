@@ -240,6 +240,17 @@ bool    chessAi::isAllyDoubleAttacked(void)
     return (false);
 }
 
+bool    chessAi::willAllyBeAttacked(void)
+{
+    if (getNextAttacked() != "")
+    {
+        cout << getNextAttacked() << " will be dead next" << endl;
+        return (true);
+    }
+
+    return (false);
+}
+
 bool    chessAi::isAllyAttacked(void)
 {
     for (int i = 0; i != 64; i++)

@@ -98,6 +98,53 @@ int chessAi::getWatchersNumber(const string coord)
     return (0);
 }
 
+string  chessAi::getNextAttacked(void)
+{
+    string          move;
+    string          attackedAlly;
+    vector<string>  attacked;
+    vector<string>  legalMoves;
+
+    attacked = getAttackedAllies();
+
+    switchPlayers();
+    legalMoves = getLegalMoves();
+    unSwitchPlayers();
+
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        tryMove(move);
+        if (getAttackedAllies().size() > attacked.size())
+        {
+            for (int k = 0; k != attacked.size(); k++)
+                _board.at(getAtValue(attacked.at(k))).piece->setVisibility();
+
+            attackedAlly = getAttackedAllies().at(0);
+
+            if (getCounterProtect() == "")
+            {
+                undoMove(move);
+                for (int k = 0; k != attacked.size(); k++)
+                    _board.at(getAtValue(attacked.at(k))).piece->setVisibility();
+                return (attackedAlly);
+            }
+
+            for (int k = 0; k != attacked.size(); k++)
+                _board.at(getAtValue(attacked.at(k))).piece->setVisibility();
+        }
+
+        undoMove(move);
+    }
+
+    move.clear();
+
+    return ("");
+}
+
 string  chessAi::getDoubleAttack(void)
 {
     int             attacked;
@@ -123,6 +170,19 @@ string  chessAi::getDoubleAttack(void)
     move.clear();
 
     return (move);
+}
+
+vector<string>  chessAi::getAttackedAllies(void)
+{
+    vector<string>  attackedCoords;
+
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+            && isAttacked(_board.at(i).coord) == true)
+            attackedCoords.push_back(_board.at(i).coord);
+    }
+    return (attackedCoords);
 }
 
 stack<cP *> chessAi::getWatchers(const string coord)
