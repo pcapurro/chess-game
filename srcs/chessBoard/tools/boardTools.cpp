@@ -31,8 +31,8 @@ vector<string>  chessBoard::getLegalMoves(void)
     vector<string>  legalMoves;
     vector<string>  availaibleTargets;
 
-    possibleMoves.push_back("O-O");
-    possibleMoves.push_back("O-O-O");
+    // possibleMoves.push_back("O-O");
+    // possibleMoves.push_back("O-O-O");
 
     for (int i = 0; i != 8; i++)
     {

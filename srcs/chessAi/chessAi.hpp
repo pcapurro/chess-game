@@ -37,6 +37,7 @@ class chessAi : protected chessBoard
         bool        willAllyBeAttacked(void);
         bool        isDoubleAttacking(string move);
         bool        isDefenseWorth(void);
+        bool        isNextDefenseWorth(void);
         bool        willDefenseBeWorth(void);
         bool        isSomethingAttacked(void);
 
@@ -50,14 +51,17 @@ class chessAi : protected chessBoard
         int             getAttackedNumber(void);
         int             getWatchersNumber(const string coord);
         int             getMaterialValue(const char type);
-        string          getEnPassantTarget(void);
-        string          getNextAttacked(void);
+
         stack<cP *>     orderByValue(stack<cP *> materials);
         stack<cP *>     orderByValueRev(stack<cP *> materials);
         stack<cP *>     getTargets(void);
 
         stack<cP *>     getWatchers(const string coord);
+
         vector<string>  getAttackedAllies(void);
+        vector<string>  getNextAttacked(void);
+
+        string          getEnPassantTarget(void);
 
         string		    preventCastling(const string castle);
         string	        getBestAttack(stack<cP *> targets);

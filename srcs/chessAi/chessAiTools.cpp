@@ -98,10 +98,13 @@ int chessAi::getWatchersNumber(const string coord)
     return (0);
 }
 
-string  chessAi::getNextAttacked(void)
+vector<string>  chessAi::getNextAttacked(void)
 {
+    int             attacked;
+    string          move, testMove;
+    vector<string>  nextAttacked;
 
-    return ("");
+    return (nextAttacked);
 }
 
 vector<string>  chessAi::getAttackedAllies(void)

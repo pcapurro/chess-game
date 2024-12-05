@@ -205,6 +205,14 @@ bool    chessAi::willDefenseBeWorth(void)
     return (true);
 }
 
+bool    chessAi::isNextDefenseWorth(void)
+{
+    int directAttacked = 0;
+    int indirectAttacked = 0;
+
+    return (false);
+}
+
 bool    chessAi::isDefenseWorth(void)
 {
     int targets = 0;
@@ -258,9 +266,9 @@ bool    chessAi::isDoubleAttacking(string move)
 
 bool    chessAi::willAllyBeAttacked(void)
 {
-    if (getNextAttacked() != "")
+    if (getNextAttacked().size() != 0)
     {
-        cout << getNextAttacked() << " will be dead next" << endl;
+        cout << getNextAttacked().at(0) << " will be dead next" << endl;
         return (true);
     }
 
