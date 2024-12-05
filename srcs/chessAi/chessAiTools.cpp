@@ -100,9 +100,13 @@ int chessAi::getWatchersNumber(const string coord)
 
 string  chessAi::getNextLost(void)
 {
-    string  lost;
-
-    return (lost);
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+            && isSafeNext(_board.at(i).coord) == false)
+            return (_board.at(i).coord);
+    }
+    return ("");
 }
 
 vector<string>  chessAi::getNextAttacked(void)

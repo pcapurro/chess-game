@@ -110,6 +110,48 @@ bool    chessAi::isMoveWorth(const string move)
     return (false);
 }
 
+bool    chessAi::isSafeNext(const string coord)
+{
+    vector<string>  legalMoves;
+    vector<string>  enemyLegalMoves;
+    chessPiece      *attacked;
+
+    switchPlayers();
+    enemyLegalMoves = getLegalMoves();
+    unSwitchPlayers();
+
+    attacked = _board.at(getAtValue(coord)).piece;
+
+    for (int i = 0; i != enemyLegalMoves.size(); i++)
+    {
+        string move = enemyLegalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        tryMove(move);
+        if (isProtected(attacked->getCoord()) == false && isFree(attacked->getCoord()) == false)
+        {
+            bool state = true;
+            legalMoves = getLegalMoves();
+            for (int k = 0; k != legalMoves.size(); k++)
+            {
+                string testMove = legalMoves.at(k);
+                if (count(testMove.begin(), testMove.end(), 'O') == 0)
+                    testMove = testMove.c_str() + 1;
+                
+                tryMove(testMove);
+                if (isProtected(attacked->getCoord()) == true || isFree(attacked->getCoord()) == true)
+                    state = false;
+                undoMove(testMove);
+            }
+            if (state == true)
+                { undoMove(move); return (false); }
+        }
+        undoMove(move);
+    }
+    return (true);
+}
+
 bool    chessAi::isFree(const string coord)
 {
     stack<cP *> attackers;
@@ -207,7 +249,31 @@ bool    chessAi::willDefenseBeWorth(void)
 
 bool    chessAi::isNextAllyDefenseWorth(void)
 {
-    return (false);
+    int             value;
+    string          nextLost;
+    vector<string>  nowAttacked;
+
+    nowAttacked = getAttackedAllies();
+    nextLost = getNextLost();
+
+    int bestNowAttacked = 0;
+    for (int i = 0; i != nowAttacked.size(); i++)
+    {
+        value = getMaterialValue(_board.at(getAtValue(nowAttacked.at(i))).piece->getType());
+        if (value > bestNowAttacked)
+            bestNowAttacked = value, cout << "adding " << _board.at(getAtValue(nowAttacked.at(i))).coord << " as now attacked" << endl;
+    }
+
+    int bestNextAttacked = getMaterialValue(_board.at(getAtValue(nextLost)).piece->getType());
+    cout << "adding " << _board.at(getAtValue(nextLost)).coord << " as next attacked" << endl;
+
+    cout << "bestNextAttacked >" << bestNextAttacked << endl;
+    cout << "bestNowAttacked >" << bestNowAttacked << endl;
+
+    if (bestNextAttacked > bestNowAttacked)
+        return (true);
+
+    return (true);
 }
 
 bool    chessAi::isNextAlliesDefenseWorth(void)
@@ -294,7 +360,7 @@ bool    chessAi::isDoubleAttacking(string move)
 
 bool    chessAi::willAllyBeLost(void)
 {
-    if (getNextLost() == "")
+    if (getNextLost() != "")
         return (true);
 
     return (false);

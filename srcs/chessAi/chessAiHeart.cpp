@@ -24,6 +24,9 @@ void	chessAi::attackMove(void)
 		else
 			cout << "attack found > " << _nextMove << endl;
 	}
+
+	if (_nextMove.size() == 6)
+		_nextMove[5] = 'Q';
 }
 
 void	chessAi::passiveMove(void)
@@ -41,6 +44,9 @@ void	chessAi::passiveMove(void)
 		if (_gameInfo._color == "black")
 			_nextMove = "Ke8" + _nextMove;
 	}
+
+	if (_nextMove.size() == 6)
+		_nextMove[5] = 'Q';
 }
 
 void	chessAi::defendMove(void)
@@ -73,6 +79,9 @@ void	chessAi::defendMove(void)
 
 	if (_allyLost == true && _allyAttacked == false && _allyAttackedNext == false)
 		cout << "ally lost defense" << endl, _nextMove = getCounterNextLost();
+
+	if (_nextMove.size() == 6)
+		_nextMove[5] = 'Q';
 
 	if (_nextMove == "")
 		attackMove(), passiveMove();
@@ -118,9 +127,8 @@ void	chessAi::analyzeBoard(void)
 	if (willAlliesBeAttacked() == true && (_allyAttacked == false || isNextAlliesDefenseWorth() == true))
 		_allyAttackedNext = true, cout << "allyAttackedNext detected" << endl;
 
-	// if (willAllyBeLost() == true && _allyAttackedNext == false
-		// && (_allyAttacked == false || isNextAllyDefenseWorth() == true))
-		// _allyLost = true, cout << "allyLost detected" << endl;
+	if (willAllyBeLost() == true && _allyAttackedNext == false && _allyAttacked == false)
+		_allyLost = true, cout << "allyLost detected" << endl;
 }
 
 string	chessAi::getNextMove(void)
@@ -145,7 +153,7 @@ string	chessAi::getNextMove(void)
 		else
 		{
 			if (_defeatNext == true || _allyAttacked == true
-				|| _allyAttackedNext == true)
+				|| _allyAttackedNext == true || _allyLost == true)
 				defendMove(); // x
 			else
 			{
