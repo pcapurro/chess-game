@@ -16,14 +16,14 @@ vector<string>  chessAi::reEvaluateProtectAnswers(vector<string> answers)
         tryMove(move);
 
         if (i == 0)
-            value = getAttackedNumber(), bestValue = value;
+            value = getAttackedValues(), bestValue = value;
         else
         {
-            if (value != getAttackedNumber())
+            if (value != getAttackedValues())
             {
                 state = true;
-                if (getAttackedNumber() < value)
-                    bestValue = getAttackedNumber();
+                if (getAttackedValues() < value)
+                    bestValue = getAttackedValues();
             }
         }
         undoMove(move);
@@ -39,7 +39,7 @@ vector<string>  chessAi::reEvaluateProtectAnswers(vector<string> answers)
             move = answers.at(i).c_str() + 1;
         
         tryMove(move);
-        if (getAttackedNumber() != bestValue)
+        if (getAttackedValues() != bestValue)
             answers.erase(answers.begin() + i), i = 0;
         undoMove(move);
     }

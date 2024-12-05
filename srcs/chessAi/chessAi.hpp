@@ -34,6 +34,7 @@ class chessAi : protected chessBoard
         bool        isAttackedByPawn(const string coord);
 
         bool        isAllyAttacked(void);
+        bool        isAllyDoubleAttacked(void);
         bool        isDefenseWorth(void);
         bool        isSomethingAttacked(void);
 
@@ -43,6 +44,7 @@ class chessAi : protected chessBoard
         bool        checkMateInOne(void);
         bool        isDefeatNext(void);
 
+        int             getAttackedValues(void);
         int             getAttackedNumber(void);
         int             getWatchersNumber(const string coord);
         int             getMaterialValue(const char type);
@@ -95,6 +97,7 @@ class chessAi : protected chessBoard
         bool            _checkMateInTwo;
         bool            _defeatNext;
         bool            _allyAttacked;
+        bool            _allyDoubleAttacked;
         bool            _check;
 
         string          _attackMove;

@@ -103,7 +103,10 @@ void	chessAi::analyzeBoard(void)
 	if (checkMateInTwo() == true && _checkMateInOne != true)
 		_checkMateInTwo = true, cout << "checkMateInTwo detected" << endl;
 
-	if (isAllyAttacked() == true && isDefenseWorth() == true)
+	if (isAllyDoubleAttacked() == true)
+		_allyDoubleAttacked = true;
+
+	if (isAllyAttacked() == true && isDefenseWorth() == true && _allyDoubleAttacked == false)
 		_allyAttacked = true, cout << "allyAttacked detected" << endl;
 }
 

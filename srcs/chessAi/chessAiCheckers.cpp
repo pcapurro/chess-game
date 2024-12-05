@@ -79,7 +79,7 @@ bool    chessAi::isExchangeWorth(void)
 bool    chessAi::isMoveWorth(const string move)
 {
     int     earned = 0;
-    int     attacked = getAttackedNumber();
+    int     attacked = getAttackedValues();
     string  dest;
     
     if (move != "O-O" && move != "O-O-O")
@@ -92,10 +92,10 @@ bool    chessAi::isMoveWorth(const string move)
 
     tryMove(move);
 
-    if (getAttackedNumber() - earned < attacked)
+    if (getAttackedValues() - earned < attacked)
         { undoMove(move); return (true); }
     
-    if (getAttackedNumber() - earned == attacked)
+    if (getAttackedValues() - earned == attacked)
     {
         if (move == "O-O" || move == "O-O-O"
             || isProtected(dest) == true || isFree(dest) == true)
@@ -205,6 +205,36 @@ bool    chessAi::isDefenseWorth(void)
         return (false);
 
     return (true);
+}
+
+bool    chessAi::isAllyDoubleAttacked(void)
+{
+    int             attacked;
+    string          move;
+    vector<string>  legalMoves;
+
+    attacked = getAttackedNumber();
+
+    switchPlayers();
+    legalMoves = getLegalMoves();
+
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+        
+        tryMove(move);
+        unSwitchPlayers();
+        if (getAttackedNumber() - attacked > 1)
+        {
+            cout << "double attacked" << endl;
+            return (true);
+        }
+        switchPlayers();
+        undoMove(move);
+    }
+    return (false);
 }
 
 bool    chessAi::isAllyAttacked(void)

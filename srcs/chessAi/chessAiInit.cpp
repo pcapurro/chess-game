@@ -8,5 +8,6 @@ chessAi::chessAi(const chessBoard *board) : chessBoard(board)
 	_checkMateInTwo = false;
 	_defeatNext = false;
 	_allyAttacked = false;
+	_allyDoubleAttacked = false;
 	_check = false;
 }

@@ -93,7 +93,7 @@ string	chessAi::getThreat(void)
 	string			move, dest, testMove;
 	vector<string>	legalMoves;
 
-	attackedAllies = getAttackedNumber();
+	attackedAllies = getAttackedValues();
 	legalMoves = getLegalMoves();
 	for (int i = 0; i != legalMoves.size(); i++)
 	{
@@ -104,7 +104,7 @@ string	chessAi::getThreat(void)
 
 			tryMove(testMove);
 			if (isSomethingAttacked() == true && (isProtected(dest) == true || isFree(dest) == true)
-				&& getAttackedNumber() <= attackedAllies)
+				&& getAttackedValues() <= attackedAllies)
 			{
 				undoMove(testMove);
 				move = legalMoves.at(i);

@@ -154,6 +154,19 @@ int     chessAi::getAttackedNumber(void)
     {
         if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
             && isAttacked(_board.at(i).coord) == true)
+            nb++;
+    }
+    return (nb);
+}
+
+int     chessAi::getAttackedValues(void)
+{
+    int nb = 0;
+
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+            && isAttacked(_board.at(i).coord) == true)
             nb = nb + getMaterialValue(_board.at(i).piece->getType());
     }
     return (nb);
