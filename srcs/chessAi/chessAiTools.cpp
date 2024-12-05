@@ -116,7 +116,7 @@ string  chessAi::getDoubleAttack(void)
         if (count(move.begin(), move.end(), 'O') == 0)
             move = move.c_str() + 1;
 
-        if (move != "O-O-O" && move != "O-O" && isDoubleAttacking(move) == true)
+        if (isDoubleAttacking(move) == true)
             return (move);
     }
 
