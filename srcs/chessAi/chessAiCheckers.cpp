@@ -56,6 +56,26 @@ bool    chessAi::isDeveloped(void)
     return (true);
 }
 
+bool    chessAi::isExchangeWorth(void)
+{
+    int materials = 0;
+    int enemyMaterials = 0;
+
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+            materials = materials + getMaterialValue(_board.at(i).piece->getType());
+
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
+            enemyMaterials = enemyMaterials + getMaterialValue(_board.at(i).piece->getType());
+    }
+
+    if (materials > enemyMaterials)
+        return (true);
+
+    return (false);
+}
+
 bool    chessAi::isMoveWorth(const string move)
 {
     int     earned = 0;

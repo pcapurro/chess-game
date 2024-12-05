@@ -283,7 +283,9 @@ string	chessAi::getCounterStrike(void)
 			if (move == "")
 				move = getPromotionNow(), cout << "getting promotion now" << endl;
 
-			if (move == "")
+			srand(time(nullptr));
+
+			if (move == "" && (rand() % 4 == 2 || isExchangeWorth() == true))
 				move = getExchange(), cout << "getting exchange now" << endl;
 		}
 	}
