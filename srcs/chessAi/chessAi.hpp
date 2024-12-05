@@ -81,8 +81,8 @@ class chessAi : protected chessBoard
         string          sortCounterCheckMoves(vector<string> legalMoves);
 
         string          getCounterCheckMate(const int value);
+        vector<string>  reEvaluateProtectAnswers(vector<string> answers);
         vector<string>  sortProtectAnswers(vector<string> answers);
-        vector<string>  getBestProtectAnswers(vector<string> answers);
         vector<string>  getProtectAnswers(chessPiece *target);
         string		    getCounterProtect(void);
 

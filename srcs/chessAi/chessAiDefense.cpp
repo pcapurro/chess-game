@@ -1,16 +1,66 @@
 #include "chessAi.hpp"
 
+vector<string>  chessAi::reEvaluateProtectAnswers(vector<string> answers)
+{
+    int             value;
+    int             bestValue;
+    bool            state;
+
+    state = false;
+    for (int i = 0; i != answers.size(); i++)
+    {
+        string move = answers.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = answers.at(i).c_str() + 1;
+        
+        tryMove(move);
+
+        if (i == 0)
+            value = getAttackedNumber(), bestValue = value;
+        else
+        {
+            if (value != getAttackedNumber())
+            {
+                state = true;
+                if (getAttackedNumber() < value)
+                    bestValue = getAttackedNumber();
+            }
+        }
+        undoMove(move);
+    }
+
+    if (state == false)
+        return (answers);
+    
+    for (int i = 0; i != answers.size(); i++)
+    {
+        string move = answers.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = answers.at(i).c_str() + 1;
+        
+        tryMove(move);
+        if (getAttackedNumber() != bestValue)
+            answers.erase(answers.begin() + i), i = 0;
+        undoMove(move);
+    }
+
+    for (int i = 0; i != answers.size(); i++)
+        cout << answers.at(i) << " can save it better." << endl;
+
+    return (answers);
+}
+
 vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
 {
-    bool            attack = false;
-    bool            defense = false;
-    bool            runaway = false;
-    string          dest;
+    bool            attack, defense, runaway;
     vector<string>  newAnswers;
+
+    attack = false, defense = false, runaway = false;
+    answers = reEvaluateProtectAnswers(answers);
 
     for (int i = 0; i != answers.size(); i++)
     {
-        dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
+        string dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
 
         if (_board.at(getAtValue(dest)).piece != NULL)
             attack = true;
@@ -27,7 +77,7 @@ vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
     {
         for (int i = 0; i != answers.size(); i++)
         {
-            dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
+            string dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
             if (_board.at(getAtValue(dest)).piece != NULL)
                 newAnswers.push_back(answers.at(i));
         }
@@ -38,7 +88,7 @@ vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
     {
         for (int i = 0; i != answers.size(); i++)
         {
-            dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
+            string dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
             if (_board.at(getAtValue(dest)).piece == NULL && answers.at(i)[0] == 'P')
                 newAnswers.push_back(answers.at(i));
         }
@@ -51,7 +101,7 @@ vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
 
         for (int i = 0; i != answers.size(); i++)
         {
-            dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
+            string dest = string(1, answers.at(i)[3]) + answers.at(i)[4];
             if (_board.at(getAtValue(dest)).piece == NULL && answers.at(i)[0] != 'P')
             {
                 newAnswers.push_back(answers.at(i));
@@ -64,7 +114,7 @@ vector<string>  chessAi::sortProtectAnswers(vector<string> answers)
         {
             for (int i = 0; i != newAnswers.size(); i++)
             {
-                dest = string(1, newAnswers.at(i)[3]) + newAnswers.at(i)[4];
+                string dest = string(1, newAnswers.at(i)[3]) + newAnswers.at(i)[4];
                 if ((dest[1] == '8' && _gameInfo._color == "black") || (dest[1] == '1' && _gameInfo._color == "white"))
                     newAnswers.erase(newAnswers.begin() + i), i = 0;
             }
