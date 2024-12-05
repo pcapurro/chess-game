@@ -205,10 +205,38 @@ bool    chessAi::willDefenseBeWorth(void)
     return (true);
 }
 
-bool    chessAi::isNextDefenseWorth(void)
+bool    chessAi::isNextAllyDefenseWorth(void)
 {
-    int directAttacked = 0;
-    int indirectAttacked = 0;
+    return (false);
+}
+
+bool    chessAi::isNextAlliesDefenseWorth(void)
+{
+    int             value;
+    vector<string>  nextAttacked;
+    vector<string>  nowAttacked;
+
+    nextAttacked = getNextAttacked();
+    nowAttacked = getAttackedAllies();
+
+    int bestNextAttacked = 10;
+    for (int i = 0; i != nextAttacked.size(); i++)
+    {
+        value = getMaterialValue(_board.at(getAtValue(nextAttacked.at(i))).piece->getType());
+        if (value < bestNextAttacked)
+            bestNextAttacked = value;
+    }
+
+    int bestNowAttacked = 0;
+    for (int i = 0; i != nowAttacked.size(); i++)
+    {
+        value = getMaterialValue(_board.at(getAtValue(nowAttacked.at(i))).piece->getType());
+        if (value > bestNowAttacked)
+            bestNowAttacked = value;
+    }
+
+    if (bestNextAttacked > bestNowAttacked)
+        return (true);
 
     return (false);
 }
@@ -264,13 +292,18 @@ bool    chessAi::isDoubleAttacking(string move)
     return (false);
 }
 
-bool    chessAi::willAllyBeAttacked(void)
+bool    chessAi::willAllyBeLost(void)
+{
+    if (getNextLost() == "")
+        return (true);
+
+    return (false);
+}
+
+bool    chessAi::willAlliesBeAttacked(void)
 {
     if (getNextAttacked().size() != 0)
-    {
-        cout << getNextAttacked().at(0) << " will be dead next" << endl;
         return (true);
-    }
 
     return (false);
 }

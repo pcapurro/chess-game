@@ -98,11 +98,60 @@ int chessAi::getWatchersNumber(const string coord)
     return (0);
 }
 
+string  chessAi::getNextLost(void)
+{
+    string  lost;
+
+    return (lost);
+}
+
 vector<string>  chessAi::getNextAttacked(void)
 {
-    int             attacked;
-    string          move, testMove;
+    int             attacked, value;
+    string          move, testMove, src, dest;
     vector<string>  nextAttacked;
+    vector<string>  enemyLegalMoves;
+
+    switchPlayers();
+    enemyLegalMoves = getLegalMoves();
+    unSwitchPlayers();
+
+    for (int i = 0; i != enemyLegalMoves.size(); i++)
+    {
+        testMove = enemyLegalMoves.at(i);
+        if (count(testMove.begin(), testMove.end(), 'O') == 0)
+            testMove = testMove.c_str() + 1;
+
+        dest = string(1, testMove[2]) + testMove[3];
+
+        tryMove(testMove);
+        switchPlayers();
+        if (isProtected(dest) == true)
+        {
+            unSwitchPlayers();
+
+            value = 0;
+            for (int k = 0; k != 64; k++)
+            {
+                if (_board.at(k).piece != NULL && _board.at(k).piece->getColor() == _gameInfo._color)
+                {
+                    if (_board.at(getAtValue(dest)).piece->isOnMyWay(_board.at(k).coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
+                    {
+                        if (isProtected(_board.at(k).coord) == false
+                            && _board.at(k).piece->getType() != _board.at(getAtValue(dest)).piece->getType())
+                            value++, nextAttacked.push_back(_board.at(k).coord);
+                    }
+                }
+            }
+            if (value > 1)
+                { undoMove(testMove); return (nextAttacked); }
+            else
+                nextAttacked.clear();
+        }
+        else
+            unSwitchPlayers();
+        undoMove(testMove);
+    }
 
     return (nextAttacked);
 }

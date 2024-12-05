@@ -151,6 +151,13 @@ vector<string>  chessAi::getProtectAnswers(chessPiece *target)
     return (answers);
 }
 
+string  chessAi::getCounterNextLost(void)
+{
+    string  move;
+
+    return (move);
+}
+
 string  chessAi::getCounterNextAttack(void)
 {
     string          move;
