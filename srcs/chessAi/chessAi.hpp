@@ -34,6 +34,7 @@ class chessAi : protected chessBoard
         bool        isAttackedByPawn(const string coord);
 
         bool        isAllyAttacked(void);
+        bool        isDoubleAttacking(string move);
         bool        isAllyDoubleAttacked(void);
         bool        isDefenseWorth(void);
         bool        isSomethingAttacked(void);
@@ -49,6 +50,7 @@ class chessAi : protected chessBoard
         int             getWatchersNumber(const string coord);
         int             getMaterialValue(const char type);
         string          getEnPassantTarget(void);
+        string          getDoubleAttack(void);
         stack<cP *>     orderByValue(stack<cP *> materials);
         stack<cP *>     orderByValueRev(stack<cP *> materials);
         stack<cP *>     getTargets(void);
@@ -88,6 +90,7 @@ class chessAi : protected chessBoard
         vector<string>  sortProtectAnswers(vector<string> answers);
         vector<string>  getProtectAnswers(chessPiece *target);
         string		    getCounterProtect(void);
+        string          getCounterDoubleAttack(void);
 
         string		    getRandomMove(void);
 

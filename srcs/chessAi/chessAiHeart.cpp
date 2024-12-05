@@ -65,7 +65,10 @@ void	chessAi::defendMove(void)
 		return ;
 	}
 
-	if (_allyAttacked == true)
+	if (_allyDoubleAttacked == true)
+		cout << "ally double attacked defense" << endl, _nextMove = getCounterDoubleAttack();
+
+	if (_allyAttacked == true && _nextMove == "")
 		cout << "ally defense" << endl, _nextMove = getCounterProtect();
 
 	if (_nextMove == "")
@@ -106,7 +109,7 @@ void	chessAi::analyzeBoard(void)
 	if (isAllyDoubleAttacked() == true)
 		_allyDoubleAttacked = true;
 
-	if (isAllyAttacked() == true && isDefenseWorth() == true && _allyDoubleAttacked == false)
+	if (isAllyAttacked() == true && isDefenseWorth() == true)
 		_allyAttacked = true, cout << "allyAttacked detected" << endl;
 }
 
@@ -131,7 +134,8 @@ string	chessAi::getNextMove(void)
 			checkMateMove(); // v
 		else
 		{
-			if (_defeatNext == true || _allyAttacked == true)
+			if (_defeatNext == true || _allyAttacked == true
+				|| _allyDoubleAttacked == true)
 				defendMove(); // x
 			else
 			{

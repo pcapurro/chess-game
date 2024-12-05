@@ -158,6 +158,37 @@ vector<string>  chessAi::getProtectAnswers(chessPiece *target)
     return (answers);
 }
 
+string  chessAi::getCounterDoubleAttack(void)
+{
+    string          move;
+    vector<string>  legalMoves;
+    vector<string>  answers;
+
+    legalMoves = getLegalMoves();
+
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        if (isMoveWorth(move) == true)
+        {
+            tryMove(move);
+            if (getDoubleAttack() == "")
+                answers.push_back(legalMoves.at(i));
+            undoMove(move);
+        }
+    }
+
+    move.clear();
+
+    if (answers.size() != 0)
+        move = answers.at(rand() % answers.size());
+
+    return (move);
+}
+
 string	chessAi::getCounterProtect(void)
 {
     string          move;

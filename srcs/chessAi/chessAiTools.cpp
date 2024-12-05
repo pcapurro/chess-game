@@ -98,6 +98,33 @@ int chessAi::getWatchersNumber(const string coord)
     return (0);
 }
 
+string  chessAi::getDoubleAttack(void)
+{
+    int             attacked;
+    string          move;
+    vector<string>  legalMoves;
+
+    attacked = getAttackedNumber();
+
+    switchPlayers();
+    legalMoves = getLegalMoves();
+    unSwitchPlayers();
+
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        if (move != "O-O-O" && move != "O-O" && isDoubleAttacking(move) == true)
+            return (move);
+    }
+
+    move.clear();
+
+    return (move);
+}
+
 stack<cP *> chessAi::getWatchers(const string coord)
 {
     vector<string>          baordCoords;

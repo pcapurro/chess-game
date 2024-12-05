@@ -207,33 +207,36 @@ bool    chessAi::isDefenseWorth(void)
     return (true);
 }
 
-bool    chessAi::isAllyDoubleAttacked(void)
+bool    chessAi::isDoubleAttacking(string move)
 {
-    int             attacked;
-    string          move;
-    vector<string>  legalMoves;
+    int     attacked = getAttackedNumber();
 
-    attacked = getAttackedNumber();
+    tryMove(move);
 
-    switchPlayers();
-    legalMoves = getLegalMoves();
-
-    for (int i = 0; i != legalMoves.size(); i++)
+    if (getAttackedNumber() - attacked > 1)
     {
-        move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1;
-        
-        tryMove(move);
-        unSwitchPlayers();
-        if (getAttackedNumber() - attacked > 1)
+        string dest = string(1, move[2]) + move[3];
+
+        switchPlayers();
+        if (isProtected(dest) == true || isFree(dest) == true)
         {
-            cout << "double attacked" << endl;
+            undoMove(move);
+            unSwitchPlayers();
             return (true);
         }
-        switchPlayers();
-        undoMove(move);
+        unSwitchPlayers();
     }
+
+    undoMove(move);
+
+    return (false);
+}
+
+bool    chessAi::isAllyDoubleAttacked(void)
+{
+    if (getDoubleAttack() != "")
+        return (true);
+
     return (false);
 }
 
