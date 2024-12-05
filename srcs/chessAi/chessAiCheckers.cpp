@@ -181,6 +181,30 @@ bool    chessAi::isSomethingAttacked(void)
     return (false);
 }
 
+bool    chessAi::willDefenseBeWorth(void)
+{
+    string          move;
+    vector<string>  legalMoves;
+
+    switchPlayers();
+    legalMoves = getLegalMoves();
+    unSwitchPlayers();
+
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        tryMove(move);
+        if (isDefenseWorth() == false)
+            { undoMove(move); return (false); }
+        undoMove(move);
+    }
+
+    return (true);
+}
+
 bool    chessAi::isDefenseWorth(void)
 {
     int targets = 0;

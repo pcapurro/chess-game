@@ -38,6 +38,7 @@ class chessAi : protected chessBoard
         bool        isDoubleAttacking(string move);
         bool        isAllyDoubleAttacked(void);
         bool        isDefenseWorth(void);
+        bool        willDefenseBeWorth(void);
         bool        isSomethingAttacked(void);
 
         bool        equalValues(const string move);
@@ -96,6 +97,7 @@ class chessAi : protected chessBoard
         string          getCounterDoubleAttack(void);
         string          getCounterNextAttack(void);
 
+        string          getRandomLogicMove(void);
         string		    getRandomMove(void);
 
 		string		    _nextMove;

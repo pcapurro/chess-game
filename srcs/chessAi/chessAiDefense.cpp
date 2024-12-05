@@ -44,9 +44,6 @@ vector<string>  chessAi::reEvaluateProtectAnswers(vector<string> answers)
         undoMove(move);
     }
 
-    for (int i = 0; i != answers.size(); i++)
-        cout << answers.at(i) << " can save it better." << endl;
-
     return (answers);
 }
 
@@ -133,8 +130,6 @@ vector<string>  chessAi::getProtectAnswers(chessPiece *target)
 
     legalMoves = getLegalMoves();
 
-    cout << target->getType() << " (" << target->getCoord() << ") selected." << endl;
-
     for (int i = 0; i != legalMoves.size(); i++)
     {
         testMove = legalMoves.at(i);
@@ -147,13 +142,11 @@ vector<string>  chessAi::getProtectAnswers(chessPiece *target)
             if (isAttacked(target->getCoord()) == false)
             {
                 if (count(testMove.begin(), testMove.end(), 'O') != 0 || isAttacked(string(1, testMove[2]) + testMove[3]) == false)
-                    answers.push_back(legalMoves.at(i)), cout << legalMoves.at(i) << " can save it." << endl;
+                    answers.push_back(legalMoves.at(i));
             }
             undoMove(testMove);
         }
     }
-
-    cout << answers.size() << " can save " << target->getType() << " (" << target->getCoord() << ")" << endl;
 
     return (answers);
 }
@@ -161,9 +154,11 @@ vector<string>  chessAi::getProtectAnswers(chessPiece *target)
 string  chessAi::getCounterNextAttack(void)
 {
     string          move;
+    string          attackedAlly;
     vector<string>  legalMoves;
     vector<string>  answers;
 
+    attackedAlly = getNextAttacked();
     legalMoves = getLegalMoves();
 
     for (int i = 0; i != legalMoves.size(); i++)
@@ -175,7 +170,7 @@ string  chessAi::getCounterNextAttack(void)
         if (isMoveWorth(move) == true)
         {
             tryMove(move);
-            if (getNextAttacked() == "")
+            if (getNextAttacked() != attackedAlly)
                 answers.push_back(legalMoves.at(i));
             undoMove(move);
         }
@@ -229,8 +224,6 @@ string	chessAi::getCounterProtect(void)
 
     targets = getTargets();
     targets = orderByValueRev(targets);
-
-    cout << targets.size() << " allied attacked" << endl;
 
     while (targets.size() != 0)
     {
