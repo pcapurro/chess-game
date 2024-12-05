@@ -154,32 +154,6 @@ vector<string>  chessAi::getProtectAnswers(chessPiece *target)
 string  chessAi::getCounterNextAttack(void)
 {
     string          move;
-    string          attackedAlly;
-    vector<string>  legalMoves;
-    vector<string>  answers;
-
-    attackedAlly = getNextAttacked();
-    legalMoves = getLegalMoves();
-
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1;
-
-        if (isMoveWorth(move) == true)
-        {
-            tryMove(move);
-            if (getNextAttacked() != attackedAlly)
-                answers.push_back(legalMoves.at(i));
-            undoMove(move);
-        }
-    }
-
-    move.clear();
-
-    if (answers.size() != 0)
-        move = answers.at(rand() % answers.size());
     
     return (move);
 }

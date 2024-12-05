@@ -100,47 +100,6 @@ int chessAi::getWatchersNumber(const string coord)
 
 string  chessAi::getNextAttacked(void)
 {
-    string          move;
-    string          attackedAlly;
-    vector<string>  attacked;
-    vector<string>  legalMoves;
-
-    attacked = getAttackedAllies();
-
-    switchPlayers();
-    legalMoves = getLegalMoves();
-    unSwitchPlayers();
-
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1;
-
-        tryMove(move);
-        if (getAttackedAllies().size() > attacked.size())
-        {
-            for (int k = 0; k != attacked.size(); k++)
-                _board.at(getAtValue(attacked.at(k))).piece->setVisibility();
-
-            attackedAlly = getAttackedAllies().at(0);
-
-            if (getCounterProtect() == "")
-            {
-                undoMove(move);
-                for (int k = 0; k != attacked.size(); k++)
-                    _board.at(getAtValue(attacked.at(k))).piece->setVisibility();
-                return (attackedAlly);
-            }
-
-            for (int k = 0; k != attacked.size(); k++)
-                _board.at(getAtValue(attacked.at(k))).piece->setVisibility();
-        }
-
-        undoMove(move);
-    }
-
-    move.clear();
 
     return ("");
 }
