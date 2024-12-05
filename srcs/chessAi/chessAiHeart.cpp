@@ -25,7 +25,7 @@ void	chessAi::attackMove(void)
 			cout << "attack found > " << _nextMove << endl;
 	}
 
-	if (_nextMove.size() == 6)
+	if (_nextMove[0] == 'P' && _nextMove.size() == 6)
 		_nextMove[5] = 'Q';
 }
 
@@ -45,7 +45,7 @@ void	chessAi::passiveMove(void)
 			_nextMove = "Ke8" + _nextMove;
 	}
 
-	if (_nextMove.size() == 6)
+	if (_nextMove[0] == 'P' && _nextMove.size() == 6)
 		_nextMove[5] = 'Q';
 }
 
@@ -80,7 +80,7 @@ void	chessAi::defendMove(void)
 	if (_allyLost == true && _allyAttacked == false && _allyAttackedNext == false)
 		cout << "ally lost defense" << endl, _nextMove = getCounterNextLost();
 
-	if (_nextMove.size() == 6)
+	if (_nextMove[0] == 'P' && _nextMove.size() == 6)
 		_nextMove[5] = 'Q';
 
 	if (_nextMove == "")
