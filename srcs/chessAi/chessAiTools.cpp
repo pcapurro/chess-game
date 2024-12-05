@@ -145,33 +145,6 @@ string  chessAi::getNextAttacked(void)
     return ("");
 }
 
-string  chessAi::getDoubleAttack(void)
-{
-    int             attacked;
-    string          move;
-    vector<string>  legalMoves;
-
-    attacked = getAttackedNumber();
-
-    switchPlayers();
-    legalMoves = getLegalMoves();
-    unSwitchPlayers();
-
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1;
-
-        if (isDoubleAttacking(move) == true)
-            return (move);
-    }
-
-    move.clear();
-
-    return (move);
-}
-
 vector<string>  chessAi::getAttackedAllies(void)
 {
     vector<string>  attackedCoords;

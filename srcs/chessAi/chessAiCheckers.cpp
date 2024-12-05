@@ -256,14 +256,6 @@ bool    chessAi::isDoubleAttacking(string move)
     return (false);
 }
 
-bool    chessAi::isAllyDoubleAttacked(void)
-{
-    if (getDoubleAttack() != "")
-        return (true);
-
-    return (false);
-}
-
 bool    chessAi::willAllyBeAttacked(void)
 {
     if (getNextAttacked() != "")
