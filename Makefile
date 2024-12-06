@@ -14,6 +14,7 @@ SRCSO = srcs/failPrint.cpp \
 	srcs/algebraParser/algebraParser.cpp \
 	srcs/algebraParser/algebraTools.cpp \
 	srcs/chessAi/chessAiInit.cpp \
+	srcs/chessAi/chessAiEvaluate.cpp \
 	srcs/chessAi/chessAiHeart.cpp \
 	srcs/chessAi/chessAiTools.cpp \
 	srcs/chessAi/chessAiAttack.cpp \

@@ -16,6 +16,12 @@ class chessAi : protected chessBoard
 
 	private:
 
+        int		    evaluateMaterial(void);
+        int		    evaluateCenter(void);
+        int		    getScore(void);
+
+        void	    evaluateBoard(void);
+
         void        analyzeBoard(void);
 
 		void		checkMateMove(void);

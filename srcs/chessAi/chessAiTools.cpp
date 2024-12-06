@@ -183,7 +183,7 @@ int chessAi::getMaterialValue(const char type)
     if (type == 'Q')
         return (9);
     if (type == 'K')
-        return (10);
+        return (100);
 
     return (0);
 }

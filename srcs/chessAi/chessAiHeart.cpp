@@ -134,6 +134,8 @@ string	chessAi::getNextMove(void)
 	for (int i = 0; i != legalMoves.size(); i++)
 		cout << legalMoves.at(i) << " ; ";
 	cout << endl << "-" << endl << endl;
+
+	evaluateBoard();
 	
 	analyzeBoard();
 
@@ -162,47 +164,3 @@ string	chessAi::getNextMove(void)
 	return (_nextMove);
 }
 
-// – évaluation –
-
-// 1.
-///////////////////
-// – matériel
-// (valeur totale)
-///////////////////
-
-// 2.
-/////////////////////////////////////////////
-// – protection
-// (nb de pièces protégées)
-
-// – attaques
-// (nb d'attaques possible)
-
-// – contrôle du roi adverse
-// (visée alliée case alentours)
-
-// – mobilité
-// (nb de coups possible pour chaque pièces)
-
-// – promotion
-// (pions proches)
-////////////////////////////////////////////
-
-// 3.
-//////////////////////////////////////////
-// – contrôle du centre
-// (visée du centre = e4/e5/d4/d5)
-
-// – sécurité du roi allié
-// (visée adverse case alentours)
-
-// – structure de pions
-// (doublés/isolés/en arrière)
-// (défendus/structurés/en avant)
-
-// – développement
-// (cavaliers/fous/roque)
-
-// – positionnement
-// (occupation du centre = e4/e5/d4/d5)
-//////////////////////////////////////////
