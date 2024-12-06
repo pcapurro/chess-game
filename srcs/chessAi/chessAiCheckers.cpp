@@ -207,6 +207,38 @@ bool    chessAi::isDefenseWorth(void)
     return (true);
 }
 
+bool    chessAi::willBeCheck(void)
+{
+    string          move;
+    vector<string>  legalMoves;
+
+    switchPlayers();
+
+    legalMoves = getLegalMoves();
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        if (isMoveWorth(move) == true)
+        {
+            unSwitchPlayers();
+
+            tryMove(move);
+            if (isCheck() == true)
+                { undoMove(move); return (true); }
+            undoMove(move);
+
+            switchPlayers();
+        }
+    }
+
+    unSwitchPlayers();
+
+    return (false);
+}
+
 bool    chessAi::isAllyAttacked(void)
 {
     for (int i = 0; i != 64; i++)

@@ -151,6 +151,45 @@ vector<string>  chessAi::getProtectAnswers(chessPiece *target)
     return (answers);
 }
 
+string  chessAi::getCounterCheck(void)
+{
+    string          move;
+    vector<string>  legalMoves;
+    vector<string>  answers;
+    vector<string>  newAnswers;
+
+    legalMoves = getLegalMoves();
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        if (isMoveWorth(move) == true)
+        {
+            tryMove(move);
+            if (willBeCheck() == false)
+                answers.push_back(legalMoves.at(i));
+            undoMove(move);
+        }
+    }
+
+    move.clear();
+
+    if (answers.size() != 0)
+    {
+        srand(time(nullptr));
+
+        newAnswers = reEvaluateProtectAnswers(answers);
+        if (newAnswers.size() != 0)
+            move = newAnswers.at(rand() % newAnswers.size());
+        else
+            move = answers.at(rand() % answers.size());
+    }
+
+    return (move);
+}
+
 string	chessAi::getCounterProtect(void)
 {
     string          move;

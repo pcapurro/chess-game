@@ -74,6 +74,9 @@ void	chessAi::defendMove(void)
 	if (_allyAttacked == true)
 		cout << "ally defense" << endl, _nextMove = getCounterProtect();
 
+	if (_allyAttacked == false && _nextMove == "")
+		cout << "counter check defense" << endl, _nextMove = getCounterCheck();
+
 	if (_nextMove[0] == 'P' && _nextMove.size() == 6)
 		_nextMove[5] = 'Q';
 
@@ -117,6 +120,9 @@ void	chessAi::analyzeBoard(void)
 
 	if (isAllyAttacked() == true && isDefenseWorth() == true)
 		_allyAttacked = true, cout << "allyAttacked detected" << endl;
+
+	if (willBeCheck() == true && isDefenseWorth() == true)
+		_checkNext = true, cout << "checkNext detected" << endl;
 }
 
 string	chessAi::getNextMove(void)

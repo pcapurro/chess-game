@@ -33,6 +33,8 @@ class chessAi : protected chessBoard
         bool        isExchangeWorth(void);
         bool        isAttackedByPawn(const string coord);
 
+        bool        willBeCheck(void);
+
         bool        isAllyAttacked(void);
         bool        isDefenseWorth(void);
         bool        isSomethingAttacked(void);
@@ -85,6 +87,8 @@ class chessAi : protected chessBoard
         string          sortCounterCheckMoves(vector<string> legalMoves);
 
         string          getCounterCheckMate(const int value);
+        string          getCounterCheck(void);
+
         vector<string>  reEvaluateProtectAnswers(vector<string> answers);
         vector<string>  sortProtectAnswers(vector<string> answers);
         vector<string>  getProtectAnswers(chessPiece *target);
@@ -98,6 +102,7 @@ class chessAi : protected chessBoard
         bool            _checkMateInOne;
         bool            _checkMateInTwo;
         bool            _defeatNext;
+        bool            _checkNext;
         bool            _allyAttacked;
         bool            _check;
 
