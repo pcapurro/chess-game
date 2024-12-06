@@ -27,7 +27,6 @@ class chessAi : protected chessBoard
 
         bool        isProtected(const string coord);
         bool        isFree(const string coord);
-        bool        isSafeNext(const string coord);
         bool        isAttacked(const string coord);
         bool        isMoveWorth(const string move);
         bool        isDeveloped(void);
@@ -35,13 +34,7 @@ class chessAi : protected chessBoard
         bool        isAttackedByPawn(const string coord);
 
         bool        isAllyAttacked(void);
-        bool        willAlliesBeAttacked(void);
-        bool        willAllyBeLost(void);
-        bool        isDoubleAttacking(string move);
         bool        isDefenseWorth(void);
-        bool        isNextAlliesDefenseWorth(void);
-        bool        isNextAllyDefenseWorth(void);
-        bool        willDefenseBeWorth(void);
         bool        isSomethingAttacked(void);
 
         bool        equalValues(const string move);
@@ -60,10 +53,6 @@ class chessAi : protected chessBoard
         stack<cP *>     getTargets(void);
 
         stack<cP *>     getWatchers(const string coord);
-
-        vector<string>  getAttackedAllies(void);
-        vector<string>  getNextAttacked(void);
-        string          getNextLost(void);
 
         string          getEnPassantTarget(void);
 
@@ -100,8 +89,6 @@ class chessAi : protected chessBoard
         vector<string>  sortProtectAnswers(vector<string> answers);
         vector<string>  getProtectAnswers(chessPiece *target);
         string		    getCounterProtect(void);
-        string          getCounterNextLost(void);
-        string          getCounterNextAttack(void);
 
         string          getRandomLogicMove(void);
         string		    getRandomMove(void);
@@ -112,8 +99,6 @@ class chessAi : protected chessBoard
         bool            _checkMateInTwo;
         bool            _defeatNext;
         bool            _allyAttacked;
-        bool            _allyLost;
-        bool            _allyAttackedNext;
         bool            _check;
 
         string          _attackMove;

@@ -110,48 +110,6 @@ bool    chessAi::isMoveWorth(const string move)
     return (false);
 }
 
-bool    chessAi::isSafeNext(const string coord)
-{
-    vector<string>  legalMoves;
-    vector<string>  enemyLegalMoves;
-    chessPiece      *attacked;
-
-    switchPlayers();
-    enemyLegalMoves = getLegalMoves();
-    unSwitchPlayers();
-
-    attacked = _board.at(getAtValue(coord)).piece;
-
-    for (int i = 0; i != enemyLegalMoves.size(); i++)
-    {
-        string move = enemyLegalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1;
-
-        tryMove(move);
-        if (isProtected(attacked->getCoord()) == false && isFree(attacked->getCoord()) == false)
-        {
-            bool state = true;
-            legalMoves = getLegalMoves();
-            for (int k = 0; k != legalMoves.size(); k++)
-            {
-                string testMove = legalMoves.at(k);
-                if (count(testMove.begin(), testMove.end(), 'O') == 0)
-                    testMove = testMove.c_str() + 1;
-                
-                tryMove(testMove);
-                if (isProtected(attacked->getCoord()) == true || isFree(attacked->getCoord()) == true)
-                    state = false;
-                undoMove(testMove);
-            }
-            if (state == true)
-                { undoMove(move); return (false); }
-        }
-        undoMove(move);
-    }
-    return (true);
-}
-
 bool    chessAi::isFree(const string coord)
 {
     stack<cP *> attackers;
@@ -223,90 +181,6 @@ bool    chessAi::isSomethingAttacked(void)
     return (false);
 }
 
-bool    chessAi::willDefenseBeWorth(void)
-{
-    string          move;
-    vector<string>  legalMoves;
-
-    switchPlayers();
-    legalMoves = getLegalMoves();
-    unSwitchPlayers();
-
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1;
-
-        tryMove(move);
-        if (isDefenseWorth() == false)
-            { undoMove(move); return (false); }
-        undoMove(move);
-    }
-
-    return (true);
-}
-
-bool    chessAi::isNextAllyDefenseWorth(void)
-{
-    int             value;
-    string          nextLost;
-    vector<string>  nowAttacked;
-
-    nowAttacked = getAttackedAllies();
-    nextLost = getNextLost();
-
-    int bestNowAttacked = 0;
-    for (int i = 0; i != nowAttacked.size(); i++)
-    {
-        value = getMaterialValue(_board.at(getAtValue(nowAttacked.at(i))).piece->getType());
-        if (value > bestNowAttacked)
-            bestNowAttacked = value, cout << "adding " << _board.at(getAtValue(nowAttacked.at(i))).coord << " as now attacked" << endl;
-    }
-
-    int bestNextAttacked = getMaterialValue(_board.at(getAtValue(nextLost)).piece->getType());
-    cout << "adding " << _board.at(getAtValue(nextLost)).coord << " as next attacked" << endl;
-
-    cout << "bestNextAttacked >" << bestNextAttacked << endl;
-    cout << "bestNowAttacked >" << bestNowAttacked << endl;
-
-    if (bestNextAttacked > bestNowAttacked)
-        return (true);
-
-    return (true);
-}
-
-bool    chessAi::isNextAlliesDefenseWorth(void)
-{
-    int             value;
-    vector<string>  nextAttacked;
-    vector<string>  nowAttacked;
-
-    nextAttacked = getNextAttacked();
-    nowAttacked = getAttackedAllies();
-
-    int bestNextAttacked = 10;
-    for (int i = 0; i != nextAttacked.size(); i++)
-    {
-        value = getMaterialValue(_board.at(getAtValue(nextAttacked.at(i))).piece->getType());
-        if (value < bestNextAttacked)
-            bestNextAttacked = value;
-    }
-
-    int bestNowAttacked = 0;
-    for (int i = 0; i != nowAttacked.size(); i++)
-    {
-        value = getMaterialValue(_board.at(getAtValue(nowAttacked.at(i))).piece->getType());
-        if (value > bestNowAttacked)
-            bestNowAttacked = value;
-    }
-
-    if (bestNextAttacked > bestNowAttacked)
-        return (true);
-
-    return (false);
-}
-
 bool    chessAi::isDefenseWorth(void)
 {
     int targets = 0;
@@ -331,47 +205,6 @@ bool    chessAi::isDefenseWorth(void)
         return (false);
 
     return (true);
-}
-
-bool    chessAi::isDoubleAttacking(string move)
-{
-    int     attacked = getAttackedNumber();
-
-    tryMove(move);
-
-    if (getAttackedNumber() - attacked > 1)
-    {
-        string dest = string(1, move[2]) + move[3];
-
-        switchPlayers();
-        if (isProtected(dest) == true || isFree(dest) == true)
-        {
-            undoMove(move);
-            unSwitchPlayers();
-            return (true);
-        }
-        unSwitchPlayers();
-    }
-
-    undoMove(move);
-
-    return (false);
-}
-
-bool    chessAi::willAllyBeLost(void)
-{
-    if (getNextLost() != "")
-        return (true);
-
-    return (false);
-}
-
-bool    chessAi::willAlliesBeAttacked(void)
-{
-    if (getNextAttacked().size() != 0)
-        return (true);
-
-    return (false);
 }
 
 bool    chessAi::isAllyAttacked(void)

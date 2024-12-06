@@ -151,61 +151,6 @@ vector<string>  chessAi::getProtectAnswers(chessPiece *target)
     return (answers);
 }
 
-string  chessAi::getCounterNextLost(void)
-{
-    string          answer, move, lost;
-    vector<string>  answers;
-    vector<string>  legalMoves;
-    chessPiece      *attacked;
-
-    attacked = _board.at(getAtValue(getNextLost())).piece;
-    legalMoves = getLegalMoves();
-
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1;
-
-        if (isMoveWorth(move) == true)
-        {
-            tryMove(move);
-            if (isSafeNext(attacked->getCoord()) == true)
-                answer = legalMoves.at(i);
-            undoMove(move);
-        }
-    }
-
-    return (answer);
-}
-
-string  chessAi::getCounterNextAttack(void)
-{
-    string          move;
-    vector<string>  legalMoves;
-
-    legalMoves = getLegalMoves();
-    
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1;
-
-        if (isMoveWorth(move) == true)
-        {
-            tryMove(move);
-            if (getNextAttacked().size() == 0)
-                { undoMove(move); return (legalMoves.at(i)); }
-            undoMove(move);
-        }
-    }
-
-    move.clear();
-
-    return (move);
-}
-
 string	chessAi::getCounterProtect(void)
 {
     string          move;
