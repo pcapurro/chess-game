@@ -33,6 +33,7 @@ class chessAi : protected chessBoard
         bool        isExchangeWorth(void);
         bool        isAttackedByPawn(const string coord);
 
+        bool        isEndGame(void);
         bool        willBeCheck(void);
 
         bool        isAllyAttacked(void);

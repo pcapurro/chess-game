@@ -74,7 +74,7 @@ void	chessAi::defendMove(void)
 	if (_allyAttacked == true)
 		cout << "ally defense" << endl, _nextMove = getCounterProtect();
 
-	if (_allyAttacked == false && _nextMove == "")
+	if (_checkNext == true && _allyAttacked == false && _nextMove == "")
 		cout << "counter check defense" << endl, _nextMove = getCounterCheck();
 
 	if (_nextMove[0] == 'P' && _nextMove.size() == 6)
@@ -118,11 +118,10 @@ void	chessAi::analyzeBoard(void)
 	if (_checkMateInOne != true && checkMateInTwo() == true)
 		_checkMateInTwo = true, cout << "checkMateInTwo detected" << endl;
 
-	if (isAllyAttacked() == true && isDefenseWorth() == true)
-		_allyAttacked = true, cout << "allyAttacked detected" << endl;
-
-	if (willBeCheck() == true && isDefenseWorth() == true)
+	if (willBeCheck() == true)
 		_checkNext = true, cout << "checkNext detected" << endl;
+	else
+		cout << "no future check detected" << endl;
 }
 
 string	chessAi::getNextMove(void)
@@ -146,7 +145,8 @@ string	chessAi::getNextMove(void)
 			checkMateMove(); // v
 		else
 		{
-			if (_defeatNext == true || _allyAttacked == true)
+			if (_defeatNext == true || _allyAttacked == true
+				|| _checkNext == true)
 				defendMove(); // x
 			else
 			{

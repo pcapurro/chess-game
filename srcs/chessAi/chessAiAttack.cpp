@@ -102,20 +102,13 @@ string	chessAi::getThreat(void)
 			dest = string(1, legalMoves.at(i)[3]) + legalMoves.at(i)[4];
 			testMove = legalMoves.at(i).c_str() + 1;
 
-			tryMove(testMove);
-			if (isSomethingAttacked() == true && (isProtected(dest) == true || isFree(dest) == true)
-				&& getAttackedValues() <= attackedAllies)
+			if (isMoveWorth(testMove) == true)
 			{
-				undoMove(testMove);
-				move = legalMoves.at(i);
-
 				srand(time(nullptr));
 				if (rand() % 2 != 0)
-					move.clear();
-
+					move = legalMoves.at(i);
 				break ;
 			}
-			undoMove(testMove);
 		}
 	}
 

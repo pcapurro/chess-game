@@ -207,10 +207,18 @@ bool    chessAi::isDefenseWorth(void)
     return (true);
 }
 
+bool    chessAi::isEndGame(void)
+{
+    return (false);
+}
+
 bool    chessAi::willBeCheck(void)
 {
     string          move;
     vector<string>  legalMoves;
+
+    if (isCheck() == true)
+        return (false);
 
     switchPlayers();
 
@@ -226,7 +234,7 @@ bool    chessAi::willBeCheck(void)
             unSwitchPlayers();
 
             tryMove(move);
-            if (isCheck() == true)
+            if ((legalMoves.at(i)[0] == 'P' || isEndGame() == false) && isCheck() == true)
                 { undoMove(move); return (true); }
             undoMove(move);
 
