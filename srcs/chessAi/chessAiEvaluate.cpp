@@ -262,18 +262,25 @@ int		chessAi::evaluateCenter(void)
 int		chessAi::evaluateDev(void)
 {
 	int		value = 0;
+	int		atValue;
     char    nb;
 
 	_gameInfo._color == "white" ? nb = '1' : nb = '8';
 
-	if (_board.at(getAtValue("b" + nb)).piece != NULL && _board.at(getAtValue("b" + nb)).piece->getMoves() == 0)
+	atValue = getAtValue(string(1, 'b') + nb);
+	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
 		value += 3;
-	if (_board.at(getAtValue("g" + nb)).piece != NULL && _board.at(getAtValue("g" + nb)).piece->getMoves() == 0)
+	
+	atValue = getAtValue(string(1, 'g') + nb);
+	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
 		value += 3;
 
-	if (_board.at(getAtValue("c" + nb)).piece != NULL && _board.at(getAtValue("c" + nb)).piece->getMoves() == 0)
+	atValue = getAtValue(string(1, 'c') + nb);
+	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
 		value += 3;
-	if (_board.at(getAtValue("f" + nb)).piece != NULL && _board.at(getAtValue("f" + nb)).piece->getMoves() == 0)
+	
+	atValue = getAtValue(string(1, 'f') + nb);
+	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
 		value += 3;
 	
 	if (_gameInfo._color == "white")
