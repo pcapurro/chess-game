@@ -324,7 +324,7 @@ int		chessAi::getScore(void)
 	int	coefficient = 1;
 
 	if (_endGame == true)
-		coefficient = 4;
+		cout << "end game mode" << endl, coefficient = 4;
 
 	score += evaluateMaterial() * coefficient;
 

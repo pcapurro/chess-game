@@ -213,6 +213,21 @@ bool    chessAi::isDefenseWorth(void)
 
 bool    chessAi::isEndGame(void)
 {
+    int whiteMaterials = 0;
+    int blackMaterials = 0;
+
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == "white")
+            whiteMaterials += getMaterialValue(_board.at(i).piece->getType());
+
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == "black")
+            blackMaterials += getMaterialValue(_board.at(i).piece->getType());
+    }
+
+    if (whiteMaterials < 21 && blackMaterials < 21)
+        return (true);
+
     return (false);
 }
 
