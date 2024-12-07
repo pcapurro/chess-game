@@ -225,7 +225,7 @@ bool    chessAi::isEndGame(void)
             blackMaterials += getMaterialValue(_board.at(i).piece->getType());
     }
 
-    if (whiteMaterials < 21 && blackMaterials < 21)
+    if (whiteMaterials < 21 || blackMaterials < 21)
         return (true);
 
     return (false);
