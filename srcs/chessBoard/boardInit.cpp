@@ -11,6 +11,9 @@ chessBoard::chessBoard(void)
 
     _gameInfo._whiteCastle = true;
     _gameInfo._blackCastle = true;
+
+    _gameInfo._whiteCastled = false;
+    _gameInfo._blackCastled = false;
     
     _gameInfo._draw = false;
     _gameInfo._checkmate = false;
@@ -32,6 +35,9 @@ chessBoard::chessBoard(const chessBoard *originalBoard)
 
     _gameInfo._whiteCastle = originalBoard->_gameInfo._whiteCastle;
     _gameInfo._blackCastle = originalBoard->_gameInfo._blackCastle;
+
+    _gameInfo._whiteCastled = originalBoard->_gameInfo._whiteCastled;
+    _gameInfo._blackCastled = originalBoard->_gameInfo._blackCastled;
 
     _gameInfo._enPassant = originalBoard->_gameInfo._enPassant;
     _gameInfo._enPassantDest = originalBoard->_gameInfo._enPassantDest;

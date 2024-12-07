@@ -7,15 +7,8 @@ int		chessAi::evaluateMaterial(void)
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
-			value = value + getMaterialValue(_board.at(i).piece->getType());
+			value += getMaterialValue(_board.at(i).piece->getType());
 	}
-
-	return (value);
-}
-
-int		chessAi::evaluateCenter(void)
-{
-	int	value = 0;
 
 	return (value);
 }
@@ -29,7 +22,7 @@ int		chessAi::evaluateDefense(void)
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
 		{
 			if (isSafe(_board.at(i).coord) == true)
-				value = value + getMaterialValue(_board.at(i).piece->getType());
+				value += getMaterialValue(_board.at(i).piece->getType());
 		}
 	}
 
@@ -45,7 +38,7 @@ int		chessAi::evaluateAttack(void)
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
 		{
 			if (isAttacked(_board.at(i).coord) == true)
-				value = value + getMaterialValue(_board.at(i).piece->getType());
+				value += getMaterialValue(_board.at(i).piece->getType());
 		}
 	}
 
@@ -80,12 +73,10 @@ int		chessAi::evaluateKingControl(void)
 
 	for (int i = 0; i != kingWays.size(); i++)
 	{
-		switchPlayers();
 		watchers = getWatchers(kingWays.at(i));
-		unSwitchPlayers();
 
 		for (; watchers.size() != 0; watchers.pop())
-			value = value + (getMaterialValue(watchers.top()->getType()) * (-1));
+			value += (getMaterialValue(watchers.top()->getType()));
 	}
 
 	return (value);
@@ -121,7 +112,7 @@ int		chessAi::evaluateKingDefense(void)
 	{
 		watchers = getWatchers(kingWays.at(i));
 		for (; watchers.size() != 0; watchers.pop())
-			value = value + getMaterialValue(watchers.top()->getType());
+			value += getMaterialValue(watchers.top()->getType());
 	}
 
 	return (value);
@@ -129,21 +120,159 @@ int		chessAi::evaluateKingDefense(void)
 
 int		chessAi::evaluateMobility(void)
 {
-	;
+	int				value = 0;
+	vector<string>	possibleMoves;
+
+	for (int i = 0; i != 64; i++)
+	{
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		{
+			if (_board.at(i).piece->getType() != 'K')
+				value += ((getPossibleTargets(_board.at(i).coord).size()) * _board.at(i).piece->getType());
+			else
+				value += getPossibleTargets(_board.at(i).coord).size();
+		}
+	}
+
+	return (value);
+}
+
+int		chessAi::evaluatePromotion(void)
+{
+	int		value = 0;
+
+	for (int i = 0; i != 64; i++)
+	{
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		{
+			if (_board.at(i).piece->getType() == 'P' && isSafe(_board.at(i).coord) == true)
+				value += _board.at(i).piece->getMoves();
+		}
+	}
+
+	return (value);
+}
+
+int		chessAi::evaluatePawns(void)
+{
+	int			value = 0;
+	stack<cP *>	watchers;
+
+	for (int i = 0; i != 64; i++)
+	{
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		{
+			if (_board.at(i).piece->getType() == 'P' && isSafe(_board.at(i).coord) == true)
+			{
+				watchers = getWatchers(_board.at(i).coord);
+				while (watchers.size() != 0)
+				{
+					if (watchers.top()->getType() == 'P')
+						value++;
+					watchers.pop();
+				}
+			}
+		}
+	}
+
+	return (value);
+}
+
+int		chessAi::evaluateCenter(void)
+{
+	int				value = 0;
+	string			targets[] = {"e4", "e5", "d4", "d5"};
+	vector<string>	boardCoords;
+
+	boardCoords = getPiecesCoords();
+	for (int i = 0; i != 64; i++)
+	{
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		{
+			for (int k = 0; k != 4; k++)
+			{
+				if (_board.at(i).piece->isOnMyWay(targets[k], boardCoords, 1, _gameInfo._enPassantDest) == true)
+				{
+					if (_board.at(i).piece->getType() != 'K')
+						value += getMaterialValue(_board.at(i).piece->getType());
+					else
+						value++;
+				}
+			}
+		}
+	}
+
+	for (int i = 0; i != 64; i++)
+	{
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		{
+			if (_board.at(i).coord == "e4" || _board.at(i).coord == "e5"
+				|| _board.at(i).coord == "d4" || _board.at(i).coord == "d5")
+			{
+				if (_board.at(i).piece->getType() != 'K')
+					value += getMaterialValue(_board.at(i).piece->getType());
+				else
+					value++;
+
+				if (isSafe(_board.at(i).coord) == true)
+					value++;
+			}
+		}
+	}
+
+	return (value);
+}
+
+int		chessAi::evaluateDev(void)
+{
+	int		value = 0;
+    char    nb;
+
+	_gameInfo._color == "white" ? nb = '1' : nb = '8';
+
+	if (_board.at(getAtValue("b" + nb)).piece != NULL && _board.at(getAtValue("b" + nb)).piece->getMoves() == 0)
+		value += 3;
+	if (_board.at(getAtValue("g" + nb)).piece != NULL && _board.at(getAtValue("g" + nb)).piece->getMoves() == 0)
+		value += 3;
+
+	if (_board.at(getAtValue("c" + nb)).piece != NULL && _board.at(getAtValue("c" + nb)).piece->getMoves() == 0)
+		value += 3;
+	if (_board.at(getAtValue("f" + nb)).piece != NULL && _board.at(getAtValue("f" + nb)).piece->getMoves() == 0)
+		value += 3;
+	
+	if (_gameInfo._color == "white")
+	{
+		if (_gameInfo._whiteCastled == true)
+			value + value + 5;
+	}
+
+	if (_gameInfo._color == "black")
+	{
+		if (_gameInfo._blackCastled == true)
+			value + value + 5;
+	}
+
+	return (value);
 }
 
 int		chessAi::getScore(void)
 {
 	int	score = 0;
 
-	score = score + evaluateMaterial();
-	score = score + evaluateDefense();
+	score += evaluateMaterial();
 
-	score = score + evaluateKingControl();
-	score = score + evaluateKingDefense();
+	score += evaluateDefense();
+	score += evaluateAttack();
 
-	score = score + evaluateCenter();
-	// ...
+	score += evaluateKingControl();
+	score += evaluateKingDefense();
+
+	score += evaluateMobility();
+	score += evaluatePromotion();
+	score += evaluatePawns();
+
+	score += evaluateCenter();
+	score += evaluateDev();
 
 	return (score);
 }
@@ -177,24 +306,24 @@ void	chessAi::evaluateBoard(void)
 // – contrôle du roi adverse v
 // (visée alliée case alentours)
 
-// – mobilité
+// – mobilité v
 // (nb de coups possible pour chaque pièces)
 
-// – promotion
+// – promotion v
 // (pions proches)
 
-// – contrôle du centre
+// – contrôle du centre v
 // (visée du centre = e4/e5/d4/d5)
+
+// – positionnement v
+// (occupation du centre = e4/e5/d4/d5)
 
 // – sécurité du roi allié v
 // (visée adverse case alentours)
 
-// – structure de pions
-// (doublés/isolés/en arrière)
+// – structure de pions v
+// (doublés/isolés)
 // (défendus/structurés/en avant)
 
-// – développement
+// – développement v
 // (cavaliers/fous/roque)
-
-// – positionnement
-// (occupation du centre = e4/e5/d4/d5)

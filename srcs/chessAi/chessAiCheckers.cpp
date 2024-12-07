@@ -32,25 +32,22 @@ bool    chessAi::isDeveloped(void)
     if (_gameInfo._color == "white")
         nb = '8';
 
-    if (_gameInfo._color == "white")
+    if (_board.at(getAtValue("b" + nb)).piece != NULL && _board.at(getAtValue("b" + nb)).piece->getMoves() == 0)
+        return (false);
+    if (_board.at(getAtValue("c" + nb)).piece != NULL && _board.at(getAtValue("c" + nb)).piece->getMoves() == 0)
+        return (false);
+
+    if (_board.at(getAtValue("f" + nb)).piece != NULL && _board.at(getAtValue("f" + nb)).piece->getMoves() == 0)
+        return (false);
+    if (_board.at(getAtValue("g" + nb)).piece != NULL && _board.at(getAtValue("g" + nb)).piece->getMoves() == 0)
+        return (false);
+
+    if (_board.at(getAtValue("e" + nb)).piece != NULL && _board.at(getAtValue("e" + nb)).piece->getMoves() == 0)
     {
-        if (_board.at(getAtValue("b" + nb)).piece != NULL && _board.at(getAtValue("b" + nb)).piece->getMoves() == 0)
+        if (_board.at(getAtValue("a" + nb)).piece != NULL && _board.at(getAtValue("a" + nb)).piece->getMoves() == 0)
             return (false);
-        if (_board.at(getAtValue("c" + nb)).piece != NULL && _board.at(getAtValue("c" + nb)).piece->getMoves() == 0)
+        if (_board.at(getAtValue("h" + nb)).piece != NULL && _board.at(getAtValue("h" + nb)).piece->getMoves() == 0)
             return (false);
-
-        if (_board.at(getAtValue("f" + nb)).piece != NULL && _board.at(getAtValue("f" + nb)).piece->getMoves() == 0)
-            return (false);
-        if (_board.at(getAtValue("g" + nb)).piece != NULL && _board.at(getAtValue("g" + nb)).piece->getMoves() == 0)
-            return (false);
-
-        if (_board.at(getAtValue("e" + nb)).piece != NULL && _board.at(getAtValue("e" + nb)).piece->getMoves() == 0)
-        {
-            if (_board.at(getAtValue("a" + nb)).piece != NULL && _board.at(getAtValue("a" + nb)).piece->getMoves() == 0)
-                return (false);
-            if (_board.at(getAtValue("h" + nb)).piece != NULL && _board.at(getAtValue("h" + nb)).piece->getMoves() == 0)
-                return (false);
-        }
     }
 
     return (true);

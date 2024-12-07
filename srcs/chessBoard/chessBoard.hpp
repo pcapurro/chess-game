@@ -31,6 +31,8 @@ typedef struct s_game_info
 
     bool    _whiteCastle;
     bool    _blackCastle;
+    bool    _whiteCastled;
+    bool    _blackCastled;
     bool    _enPassant;
     string  _enPassantDest;
 

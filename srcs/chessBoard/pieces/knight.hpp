@@ -10,17 +10,17 @@ class Knight : public chessPiece
         Knight(const string color, const string pos) : chessPiece(color, pos) { _type = 'N'; }
         ~Knight() {};
 
-        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, \
+        virtual bool  isOnMyWay(const string target, const vector<string> boardCoords = {}, \
                                     const int value = 0, const string enPassant = "") const
         {
-            int dest_x = move[0] - 97;
-            int dest_y = atoi(move.c_str() + 1);
+            int dest_x = target[0] - 97;
+            int dest_y = atoi(target.c_str() + 1);
 
             (void) boardCoords;
             (void) value;
 
-            if (algebraParser::isChessCoord(move[0]) != true
-                || algebraParser::isChessDigit(move[1]) != true)
+            if (algebraParser::isChessCoord(target[0]) != true
+                || algebraParser::isChessDigit(target[1]) != true)
                 return (false);
 
             if ((_x - 1 == dest_x && _y + 2 == dest_y) || (_x + 1 == dest_x && _y + 2 == dest_y))

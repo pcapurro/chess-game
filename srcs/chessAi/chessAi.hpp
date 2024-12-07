@@ -17,8 +17,6 @@ class chessAi : protected chessBoard
 	private:
 
         int		    evaluateMaterial(void);
-    
-        int		    evaluateCenter(void);
 
         int         evaluateDefense(void);
         int		    evaluateAttack(void);
@@ -27,6 +25,11 @@ class chessAi : protected chessBoard
         int		    evaluateKingDefense(void);
 
         int         evaluateMobility(void);
+        int         evaluatePromotion(void);
+        int         evaluatePawns(void);
+
+        int		    evaluateCenter(void);
+        int         evaluateDev(void);
 
         int		    getScore(void);
 

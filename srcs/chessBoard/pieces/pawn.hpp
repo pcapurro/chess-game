@@ -11,14 +11,14 @@ class Pawn : public chessPiece
 
         ~Pawn() {};
 
-        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, \
+        virtual bool  isOnMyWay(const string target, const vector<string> boardCoords = {}, \
                                     const int value = 0, const string enPassant = "") const
         {
             int src_x = _x;
             int src_y = _y;
     
-            int dest_x = move[0] - 97;
-            int dest_y = atoi(move.c_str() + 1);
+            int dest_x = target[0] - 97;
+            int dest_y = atoi(target.c_str() + 1);
 
             string newCoord;
 
@@ -29,7 +29,7 @@ class Pawn : public chessPiece
                     && src_x + 1 == dest_x && src_y + 1 == dest_y)
                     return (true);
 
-                if (enPassant.empty() != true && move == enPassant && newCoord == move && _y == 5)
+                if (enPassant.empty() != true && target == enPassant && newCoord == target && _y == 5)
                     return (true);
 
                 newCoord = "abcdefgh"[src_x - 1] + to_string(src_y + 1);
@@ -37,7 +37,7 @@ class Pawn : public chessPiece
                     && src_x - 1 == dest_x && src_y + 1 == dest_y)
                     return (true);
 
-                if (enPassant.empty() != true && move == enPassant && newCoord == move && _y == 5)
+                if (enPassant.empty() != true && target == enPassant && newCoord == target && _y == 5)
                     return (true);
 
                 if (value == 0)
@@ -64,7 +64,7 @@ class Pawn : public chessPiece
                     && src_x + 1 == dest_x && src_y - 1 == dest_y)
                     return (true);
 
-                if (enPassant.empty() != true && move == enPassant && newCoord == move && _y == 4)
+                if (enPassant.empty() != true && target == enPassant && newCoord == target && _y == 4)
                     return (true);
 
                 newCoord = "abcdefgh"[src_x - 1] + to_string(src_y - 1);
@@ -72,7 +72,7 @@ class Pawn : public chessPiece
                     && src_x - 1 == dest_x && src_y - 1 == dest_y)
                     return (true);
 
-                if (enPassant.empty() != true && move == enPassant && newCoord == move && _y == 4)
+                if (enPassant.empty() != true && target == enPassant && newCoord == target && _y == 4)
                     return (true);
 
                 if (value == 0)

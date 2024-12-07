@@ -47,7 +47,7 @@ class chessPiece
             _y = atoi(coord.c_str() + 1);
         }
 
-        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, \
+        virtual bool  isOnMyWay(const string target, const vector<string> boardCoords = {}, \
                                     const int value = 0, const string enPassant = "") const = 0;
 
     protected:

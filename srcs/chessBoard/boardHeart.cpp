@@ -129,6 +129,9 @@ void    chessBoard::whiteCastles(void)
         movePiece("e1", "c1");
         movePiece("a1", "d1");
     }
+
+    _gameInfo._whiteCastle = false;
+    _gameInfo._whiteCastled = true;
 }
 
 void    chessBoard::blackCastles(void)
@@ -143,6 +146,9 @@ void    chessBoard::blackCastles(void)
         movePiece("e8", "c8");
         movePiece("a8", "d8");
     }
+
+    _gameInfo._blackCastle = false;
+    _gameInfo._blackCastled = true;
 }
 
 void    chessBoard::addToHistory(void)

@@ -286,28 +286,25 @@ bool    chessBoard::doesItResolveCheck(const string srcdest)
 vector<string>  chessBoard::getPossibleTargets(const string coord) const
 {
     int             atValue;
-    vector<string>  moves;
+    string          coords;
     vector<string>  boardCoords;
-    string          actualCoords;
+    vector<string>  moves;
 
     atValue = getAtValue(coord);
     boardCoords = getPiecesCoords();
-    actualCoords = "a0";
 
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
         {
-            actualCoords[1] = actualCoords[1] + 1;
-            if (_board.at(atValue).piece->isOnMyWay(actualCoords, boardCoords, 0, _gameInfo._enPassantDest) == true)
+            coords = "abcdefgh"[i] + to_string(k + 1);
+            if (_board.at(atValue).piece->isOnMyWay(coords, boardCoords, 0, _gameInfo._enPassantDest) == true)
             {
-                if ((_board.at(getAtValue(actualCoords)).piece == NULL 
-                    || _board.at(getAtValue(actualCoords)).piece->getColor() != _gameInfo._color))
-                    moves.push_back(coord + actualCoords);
+                if (_board.at(getAtValue(coords)).piece == NULL
+                    || _board.at(getAtValue(coords)).piece->getColor() != _gameInfo._color)
+                    moves.push_back(coord + coords);
             }
         }
-        actualCoords[0] = actualCoords[0] + 1;
-        actualCoords[1] = '0';
     }
 
     return (moves);

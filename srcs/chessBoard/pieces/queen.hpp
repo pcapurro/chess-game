@@ -11,7 +11,7 @@ class Queen : public chessPiece
         Queen(const string color, const string pos) : chessPiece(color, pos) { _type = 'Q'; }
         ~Queen() {};
 
-        virtual bool  isOnMyWay(const string move, const vector<string> boardCoords = {}, \
+        virtual bool  isOnMyWay(const string target, const vector<string> boardCoords = {}, \
                                     const int value = 0, const string enPassant = "") const
         {
             int src_x = _x;
@@ -81,7 +81,7 @@ class Queen : public chessPiece
                 src_y = _y;
             }
 
-            if (coords.find(move) != string::npos)
+            if (coords.find(target) != string::npos)
                 return (true);
             return (false);
         }
