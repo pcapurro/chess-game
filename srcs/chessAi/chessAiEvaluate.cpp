@@ -10,6 +10,8 @@ int		chessAi::evaluateMaterial(void)
 			value += getMaterialValue(_board.at(i).piece->getType());
 	}
 
+	cout << "adding material value > " << value << endl;
+
 	return (value);
 }
 
@@ -26,6 +28,8 @@ int		chessAi::evaluateDefense(void)
 		}
 	}
 
+	cout << "adding defense value > " << value << endl;
+
 	return (value);
 }
 
@@ -41,6 +45,8 @@ int		chessAi::evaluateAttack(void)
 				value += getMaterialValue(_board.at(i).piece->getType());
 		}
 	}
+
+	cout << "adding attack value > " << value << endl;
 
 	return (value);
 }
@@ -78,6 +84,8 @@ int		chessAi::evaluateKingControl(void)
 		for (; watchers.size() != 0; watchers.pop())
 			value += (getMaterialValue(watchers.top()->getType()));
 	}
+	
+	cout << "adding enemy king control value > " << value << endl;
 
 	return (value);
 }
@@ -115,6 +123,8 @@ int		chessAi::evaluateKingDefense(void)
 			value += getMaterialValue(watchers.top()->getType());
 	}
 
+	cout << "adding ally king defense value > " << value << endl;
+
 	return (value);
 }
 
@@ -134,6 +144,8 @@ int		chessAi::evaluateMobility(void)
 		}
 	}
 
+	cout << "adding ally mobility value > " << value << endl;
+
 	return (value);
 }
 
@@ -149,6 +161,8 @@ int		chessAi::evaluatePromotion(void)
 				value += _board.at(i).piece->getMoves();
 		}
 	}
+
+	cout << "adding ally promotion value > " << value << endl;
 
 	return (value);
 }
@@ -174,6 +188,8 @@ int		chessAi::evaluatePawns(void)
 			}
 		}
 	}
+
+	cout << "adding ally pawns dev value > " << value << endl;
 
 	return (value);
 }
@@ -220,6 +236,8 @@ int		chessAi::evaluateCenter(void)
 		}
 	}
 
+	cout << "adding ally center control value > " << value << endl;
+
 	return (value);
 }
 
@@ -252,6 +270,8 @@ int		chessAi::evaluateDev(void)
 			value + value + 5;
 	}
 
+	cout << "adding ally global dev value > " << value << endl;
+
 	return (value);
 }
 
@@ -282,14 +302,21 @@ void	chessAi::evaluateBoard(void)
 	int	whiteScore = 0;
 	int	blackScore = 0;
 
+	cout << "white score >" << endl;
+
 	_gameInfo._color = "white";
 	whiteScore = getScore();
+
+	cout << "white final score > " << whiteScore << endl;
+
+	cout << endl;
+
+	cout << "black score >" << endl;
 
 	_gameInfo._color = "black";
 	blackScore = getScore();
 
-	cout << "white score > " << whiteScore << endl;
-	cout << "black score > " << blackScore << endl;
+	cout << "black final score > " << blackScore << endl;
 }
 
 // – évaluation –
