@@ -124,6 +124,13 @@ bool    chessAi::isFree(const string coord)
     return (false);
 }
 
+bool    chessAi::isSafe(const string coord)
+{
+    if (isProtected(coord) == true || isFree(coord) == true)
+        return (true);
+    return (false);
+}
+
 bool    chessAi::isProtected(const string coord)
 {
     int         attMaterials, defMaterials;

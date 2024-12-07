@@ -17,7 +17,17 @@ class chessAi : protected chessBoard
 	private:
 
         int		    evaluateMaterial(void);
+    
         int		    evaluateCenter(void);
+
+        int         evaluateDefense(void);
+        int		    evaluateAttack(void);
+
+        int		    evaluateKingControl(void);
+        int		    evaluateKingDefense(void);
+
+        int         evaluateMobility(void);
+
         int		    getScore(void);
 
         void	    evaluateBoard(void);
@@ -31,6 +41,7 @@ class chessAi : protected chessBoard
 		void		endGameMove(void);
 		void		randomMove(void);
 
+        bool        isSafe(const string coord);
         bool        isProtected(const string coord);
         bool        isFree(const string coord);
         bool        isAttacked(const string coord);
