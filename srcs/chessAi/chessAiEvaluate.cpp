@@ -35,14 +35,25 @@ int		chessAi::evaluateDefense(void)
 
 int		chessAi::evaluateAttack(void)
 {
-	int	value = 0;
+	int				value = 0;
+	string			move, dest;
+	vector<string>	legalMoves;
 
-	for (int i = 0; i != 64; i++)
+	legalMoves = getLegalMoves();
+
+	for (int i = 0; i != legalMoves.size(); i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
+		move = legalMoves.at(i);
+		if (count(move.begin(), move.end(), 'O') == 0)
 		{
-			if (isAttacked(_board.at(i).coord) == true)
-				value += getMaterialValue(_board.at(i).piece->getType());
+			move = move.c_str() + 1;
+			dest = string(1, move[2]) + move[3];
+
+			if (_board.at(getAtValue(dest)).piece != NULL)
+			{
+				if (isMoveWorth(move) == true)
+					value += _board.at(getAtValue(dest)).piece->getType();
+			}
 		}
 	}
 
