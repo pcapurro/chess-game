@@ -302,21 +302,19 @@ void	chessAi::evaluateBoard(void)
 	int	whiteScore = 0;
 	int	blackScore = 0;
 
-	cout << "white score >" << endl;
+	if (_gameInfo._color == "white")
+		cout << "white score >" << endl << endl, whiteScore = getScore();
+	else
+		cout << "black score >" << endl << endl, blackScore = getScore();
 
-	_gameInfo._color = "white";
-	whiteScore = getScore();
+	switchPlayers();
 
-	cout << "white final score > " << whiteScore << endl;
+	if (_gameInfo._color == "white")
+		cout << "white score >" << endl << endl, whiteScore = getScore();
+	else
+		cout << "black score >" << endl << endl, blackScore = getScore();
 
-	cout << endl;
-
-	cout << "black score >" << endl;
-
-	_gameInfo._color = "black";
-	blackScore = getScore();
-
-	cout << "black final score > " << blackScore << endl;
+	unSwitchPlayers();	
 }
 
 // – évaluation –
