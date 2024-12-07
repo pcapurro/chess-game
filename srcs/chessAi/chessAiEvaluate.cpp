@@ -21,7 +21,8 @@ int		chessAi::evaluateDefense(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+			&& _board.at(i).piece->getType() != 'K')
 		{
 			if (isSafe(_board.at(i).coord) == true)
 				value += getMaterialValue(_board.at(i).piece->getType());
@@ -33,27 +34,44 @@ int		chessAi::evaluateDefense(void)
 	return (value);
 }
 
-int		chessAi::evaluateAttack(void)
+int		chessAi::evaluateThreats(void)
 {
 	int				value = 0;
-	string			move, dest;
-	vector<string>	legalMoves;
+	vector<string>	boardCoords;
 
-	legalMoves = getLegalMoves();
-
-	for (int i = 0; i != legalMoves.size(); i++)
+	boardCoords = getPiecesCoords();
+	for (int i = 0; i != 64; i++)
 	{
-		move = legalMoves.at(i);
-		if (count(move.begin(), move.end(), 'O') == 0)
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+			&& _board.at(i).piece->getType() != 'K')
 		{
-			move = move.c_str() + 1;
-			dest = string(1, move[2]) + move[3];
-
-			if (_board.at(getAtValue(dest)).piece != NULL)
+			for (int k = 0; k != 64; k++)
 			{
-				if (isMoveWorth(move) == true)
-					value += _board.at(getAtValue(dest)).piece->getType();
+				if (_board.at(k).piece != NULL && _board.at(k).piece->getColor() != _gameInfo._color
+					&& _board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords, 0, _gameInfo._enPassantDest) == true)
+					value++;
 			}
+		}
+	}
+
+	cout << "adding threats value > " << value << endl;
+
+	return (value);
+}
+
+int		chessAi::evaluateAttack(void)
+{
+	int		value = 0;
+
+	for (int i = 0; i != 64; i++)
+	{
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color
+			&& _board.at(i).piece->getType() != 'K')
+		{
+			switchPlayers();
+			if (isAttacked(_board.at(i).coord) == true)
+				value += getMaterialValue(_board.at(i).piece->getType());
+			unSwitchPlayers();
 		}
 	}
 
@@ -312,6 +330,7 @@ int		chessAi::getScore(void)
 
 	score += evaluateDefense();
 	score += evaluateAttack();
+	score += evaluateThreats();
 
 	score += evaluateKingControl() * coefficient;
 	score += evaluateKingDefense() * coefficient;

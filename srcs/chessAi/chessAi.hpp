@@ -21,6 +21,7 @@ class chessAi : protected chessBoard
 
         int         evaluateDefense(void);
         int		    evaluateAttack(void);
+        int         evaluateThreats(void);
 
         int		    evaluateKingControl(void);
         int		    evaluateKingDefense(void);
