@@ -80,9 +80,7 @@ int		chessAi::evaluateKingControl(void)
 	for (int i = 0; i != kingWays.size(); i++)
 	{
 		watchers = getWatchers(kingWays.at(i));
-
-		for (; watchers.size() != 0; watchers.pop())
-			value += (getMaterialValue(watchers.top()->getType()));
+		value += watchers.size();
 	}
 	
 	cout << "adding enemy king control value > " << value << endl;
@@ -119,8 +117,7 @@ int		chessAi::evaluateKingDefense(void)
 	for (int i = 0; i != kingWays.size(); i++)
 	{
 		watchers = getWatchers(kingWays.at(i));
-		for (; watchers.size() != 0; watchers.pop())
-			value += getMaterialValue(watchers.top()->getType());
+		value += watchers.size();
 	}
 
 	cout << "adding ally king defense value > " << value << endl;
@@ -138,7 +135,7 @@ int		chessAi::evaluateMobility(void)
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
 		{
 			if (_board.at(i).piece->getType() != 'K')
-				value += ((getPossibleTargets(_board.at(i).coord).size()) * _board.at(i).piece->getType());
+				value += (getPossibleTargets(_board.at(i).coord).size());
 			else
 				value += getPossibleTargets(_board.at(i).coord).size();
 		}
@@ -152,13 +149,23 @@ int		chessAi::evaluateMobility(void)
 int		chessAi::evaluatePromotion(void)
 {
 	int		value = 0;
+	string	next;
 
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
 		{
 			if (_board.at(i).piece->getType() == 'P' && isSafe(_board.at(i).coord) == true)
-				value += _board.at(i).piece->getMoves();
+			{
+				if (_gameInfo._color == "white")
+					next = _board.at(i).coord, next[1] = next[1] + 1;
+				if (_gameInfo._color == "black")
+					next = _board.at(i).coord, next[1] = next[1] - 1;
+
+				if (_board.at(getAtValue(next)).piece == NULL || _board.at(getAtValue(next)).piece->getColor() == _gameInfo._color
+					|| _board.at(getAtValue(next)).piece->getType() != 'P')
+					value += _board.at(i).piece->getMoves();
+			}
 		}
 	}
 
@@ -303,16 +310,16 @@ void	chessAi::evaluateBoard(void)
 	int	blackScore = 0;
 
 	if (_gameInfo._color == "white")
-		cout << "white score >" << endl << endl, whiteScore = getScore();
+		whiteScore = getScore(), cout << "white score > " << whiteScore << endl << endl;
 	else
-		cout << "black score >" << endl << endl, blackScore = getScore();
+		blackScore = getScore(), cout << "black score > " << blackScore << endl << endl;
 
 	switchPlayers();
 
 	if (_gameInfo._color == "white")
-		cout << "white score >" << endl << endl, whiteScore = getScore();
+		whiteScore = getScore(), cout << "white score > " << whiteScore << endl << endl;
 	else
-		cout << "black score >" << endl << endl, blackScore = getScore();
+		blackScore = getScore(), cout << "black score > " << blackScore << endl << endl;
 
 	unSwitchPlayers();	
 }
