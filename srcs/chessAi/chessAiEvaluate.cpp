@@ -11,7 +11,7 @@ int		chessAi::evaluateMaterial(void)
 			value += getMaterialValue(_board.at(i).piece->getType());
 	}
 
-	cout << "adding material value > " << value << endl;
+	// cout << "adding material value > " << value << endl;
 
 	return (value);
 }
@@ -30,7 +30,7 @@ int		chessAi::evaluateDefense(void)
 		}
 	}
 
-	cout << "adding defense value > " << value << endl;
+	// cout << "adding defense value > " << value << endl;
 
 	return (value);
 }
@@ -55,7 +55,7 @@ int		chessAi::evaluateThreats(void)
 		}
 	}
 
-	cout << "adding threats value > " << value << endl;
+	// cout << "adding threats value > " << value << endl;
 
 	return (value);
 }
@@ -76,7 +76,7 @@ int		chessAi::evaluateAttack(void)
 		}
 	}
 
-	cout << "adding attack value > " << value << endl;
+	// cout << "adding attack value > " << value << endl;
 
 	return (value);
 }
@@ -113,7 +113,7 @@ int		chessAi::evaluateKingControl(void)
 		value += watchers.size();
 	}
 	
-	cout << "adding enemy king control value > " << value << endl;
+	// cout << "adding enemy king control value > " << value << endl;
 
 	return (value);
 }
@@ -150,7 +150,7 @@ int		chessAi::evaluateKingDefense(void)
 		value += watchers.size();
 	}
 
-	cout << "adding ally king defense value > " << value << endl;
+	// cout << "adding ally king defense value > " << value << endl;
 
 	return (value);
 }
@@ -171,7 +171,7 @@ int		chessAi::evaluateMobility(void)
 		}
 	}
 
-	cout << "adding ally mobility value > " << value << endl;
+	// cout << "adding ally mobility value > " << value << endl;
 
 	return (value);
 }
@@ -199,7 +199,7 @@ int		chessAi::evaluatePromotion(void)
 		}
 	}
 
-	cout << "adding ally promotion value > " << value << endl;
+	// cout << "adding ally promotion value > " << value << endl;
 
 	return (value);
 }
@@ -226,7 +226,7 @@ int		chessAi::evaluatePawns(void)
 		}
 	}
 
-	cout << "adding ally pawns dev value > " << value << endl;
+	// cout << "adding ally pawns dev value > " << value << endl;
 
 	return (value);
 }
@@ -273,7 +273,7 @@ int		chessAi::evaluateCenter(void)
 		}
 	}
 
-	cout << "adding ally center control value > " << value << endl;
+	// cout << "adding ally center control value > " << value << endl;
 
 	return (value);
 }
@@ -314,7 +314,7 @@ int		chessAi::evaluateDev(void)
 			value + value + 5;
 	}
 
-	cout << "adding ally global dev value > " << value << endl;
+	// cout << "adding ally global dev value > " << value << endl;
 
 	return (value);
 }
@@ -325,7 +325,7 @@ int		chessAi::getScore(void)
 	int	coefficient = 1;
 
 	if (_endGame == true)
-		cout << "- end game mode -" << endl, coefficient = 4;
+		coefficient = 4;
 
 	score += evaluateMaterial() * coefficient;
 
@@ -351,23 +351,20 @@ int		chessAi::getScore(void)
 
 void	chessAi::evaluateBoard(void)
 {
-	int	whiteScore = 0;
-	int	blackScore = 0;
-
 	if (_endGame == false && isEndGame() == true)
 		_endGame = true;
 
 	if (_gameInfo._color == "white")
-		whiteScore = getScore(), cout << "white score > " << whiteScore << endl << endl;
+		_whiteScore = getScore();
 	else
-		blackScore = getScore(), cout << "black score > " << blackScore << endl << endl;
+		_blackScore = getScore();
 
 	switchPlayers();
 
 	if (_gameInfo._color == "white")
-		whiteScore = getScore(), cout << "white score > " << whiteScore << endl;
+		_whiteScore = getScore();
 	else
-		blackScore = getScore(), cout << "black score > " << blackScore << endl;
+		_blackScore = getScore();
 
 	unSwitchPlayers();	
 }

@@ -81,6 +81,44 @@ string  chessAi::getEnPassantTarget(void)
     return (target);
 }
 
+string  chessAi::getBestAnswer(void)
+{
+    int             whiteScore;
+    int             blackScore;
+    string          move, answer;
+    vector<string>  legalMoves;
+
+    switchPlayers();
+    legalMoves = getLegalMoves();
+    unSwitchPlayers();
+
+    evaluateBoard();
+    whiteScore = _whiteScore;
+    blackScore = _blackScore;
+
+    for (int i = 0; i != legalMoves.size(); i++)
+    {
+        move = legalMoves.at(i);
+        if (count(move.begin(), move.end(), 'O') == 0)
+            move = move.c_str() + 1;
+
+        tryMove(move);
+
+        evaluateBoard();
+        if (_gameInfo._color == "white" && _blackScore > blackScore)
+            blackScore = _blackScore, answer = legalMoves.at(i);
+        if (_gameInfo._color == "black" && _whiteScore > whiteScore)
+            whiteScore = _whiteScore, answer = legalMoves.at(i);
+
+        undoMove(move);
+    }
+
+    if (answer == "")
+        srand(time(nullptr)), answer = legalMoves.at(rand() % legalMoves.size());
+
+    return (answer);
+}
+
 int chessAi::getWatchersNumber(const string coord)
 {
     for (int i = 0; i != 64; i++)

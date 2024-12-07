@@ -79,6 +79,8 @@ class chessAi : protected chessBoard
 
         string          getEnPassantTarget(void);
 
+        string          getBestAnswer(void);
+
         string		    preventCastling(const string castle);
         string	        getBestAttack(stack<cP *> targets);
         string          getPromotion(void);
@@ -119,6 +121,9 @@ class chessAi : protected chessBoard
         string		    getRandomMove(void);
 
 		string		    _nextMove;
+
+        int             _whiteScore;
+        int             _blackScore;
 
         bool            _endGame;
 
