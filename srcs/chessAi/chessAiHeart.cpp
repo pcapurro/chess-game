@@ -5,7 +5,6 @@ void	chessAi::checkMateMove(void)
 	if (_nextMove != "")
 		return ;
 	
-	cout << "checkmate move" << endl;
 	_nextMove = getCheckMateInOneMove();
 }
 
@@ -15,15 +14,7 @@ void	chessAi::attackMove(void)
 		return ;
 	
 	if (_gameInfo._turn > 1)
-	{
-		cout << "searching for attack move" << endl;
 		_nextMove = getCounterStrike();
-
-		if (_nextMove == "")
-			cout << "no attack found" << endl;
-		else
-			cout << "attack found > " << _nextMove << endl;
-	}
 
 	if (_nextMove[0] == 'P' && _nextMove.size() == 6)
 		_nextMove[5] = 'Q';
@@ -34,7 +25,6 @@ void	chessAi::passiveMove(void)
 	if (_nextMove != "")
 		return ;
 
-	cout << "passive move" << endl;
 	_nextMove = getPassiveMove();
 
 	if (_nextMove == "O-O" || _nextMove == "O-O-O")
@@ -56,26 +46,24 @@ void	chessAi::defendMove(void)
 
 	if (_check == true)
 	{
-		cout << "counter check" << endl;
 		_nextMove = getCounterCheckMate(0);
 		return ;
 	}
 	else if (_defeatNext == true)
 	{
-		cout << "counter checkmate" << endl;
 		_nextMove = getCounterCheckMate(1);
 
 		if (_nextMove == "")
-			cout << "no counter checkmate move found, attacking..." << endl, attackMove(), passiveMove();
+			attackMove(), passiveMove();
 
 		return ;
 	}
 
 	if (_allyAttacked == true)
-		cout << "ally defense" << endl, _nextMove = getCounterProtect();
+		_nextMove = getCounterProtect();
 
 	if (_checkNext == true && _allyAttacked == false && _nextMove == "")
-		cout << "counter check defense" << endl, _nextMove = getCounterCheck();
+		_nextMove = getCounterCheck();
 
 	if (_nextMove[0] == 'P' && _nextMove.size() == 6)
 		_nextMove[5] = 'Q';
@@ -88,16 +76,12 @@ void	chessAi::endGameMove(void)
 {
 	if (_nextMove != "")
 		return ;
-
-	cout << "end game move" << endl;
 }
 
 void	chessAi::randomMove(void)
 {
 	if (_nextMove != "")
 		return ;
-
-	cout << "random move" << endl;
 
 	_nextMove = getRandomLogicMove();
 	if (_nextMove != "")
@@ -107,35 +91,33 @@ void	chessAi::randomMove(void)
 void	chessAi::analyzeBoard(void)
 {
 	if (isCheck() == true)
-		_check = true, cout << "check detected" << endl;
+		_check = true;
 	
 	if (_check == false && isDefeatNext() == true)
-		_defeatNext = true, cout << "defeatNext detected" << endl;
+		_defeatNext = true;
 
 	if (_check == false && checkMateInOne() == true)
-		_checkMateInOne = true, cout << "checkMateInOne detected" << endl;
+		_checkMateInOne = true;
 
 	if (_checkMateInOne != true && checkMateInTwo() == true)
-		_checkMateInTwo = true, cout << "checkMateInTwo detected" << endl;
+		_checkMateInTwo = true;
 
-	if (willBeCheck() == true)
-		_checkNext = true, cout << "checkNext detected" << endl;
-	else
-		cout << "no future check detected" << endl;
+	// if (willBeCheck() == true)
+	// 	_checkNext = true, cout << "checkNext detected" << endl;
+	// else
+	// 	cout << "no future check detected" << endl;
 }
 
 string	chessAi::getNextMove(void)
 {
 	// sleep(1);
 
-	cout << endl << "Legal moves: " << endl;
-	vector<string>	legalMoves;
-	legalMoves = getLegalMoves();
-	for (int i = 0; i != legalMoves.size(); i++)
-		cout << legalMoves.at(i) << " ; ";
-	cout << endl << "-" << endl << endl;
-
-	evaluateBoard();
+	// cout << endl << "Legal moves: " << endl;
+	// vector<string>	legalMoves;
+	// legalMoves = getLegalMoves();
+	// for (int i = 0; i != legalMoves.size(); i++)
+	// 	cout << legalMoves.at(i) << " ; ";
+	// cout << endl << "-" << endl << endl;
 	
 	analyzeBoard();
 
@@ -159,7 +141,7 @@ string	chessAi::getNextMove(void)
 	}
 	randomMove(); // v
 
-	cout << "solution => '" << _nextMove << "'" << endl;
+	cout << "answer > " << _nextMove << endl;
 
 	return (_nextMove);
 }

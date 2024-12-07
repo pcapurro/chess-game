@@ -12,7 +12,8 @@ class chessAi : protected chessBoard
 		chessAi(const chessBoard *board);
 		~chessAi(void) {};
 
-		string	getNextMove(void);
+		string	    getNextMove(void);
+        void	    evaluateBoard(void);
 
 	private:
 
@@ -32,8 +33,6 @@ class chessAi : protected chessBoard
         int         evaluateDev(void);
 
         int		    getScore(void);
-
-        void	    evaluateBoard(void);
 
         void        analyzeBoard(void);
 

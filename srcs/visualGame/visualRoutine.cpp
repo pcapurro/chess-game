@@ -29,6 +29,10 @@ int		visualGame::visualLoop(void)
 
     while (_board->isGameOver() == false)
     {
+        chessAi     ai(_board);
+        ai.evaluateBoard();
+        cout << endl;
+
         answer = getVisualAnswer();
         if (answer == "end")
             { _board->printEndGame(1); return (2); }
