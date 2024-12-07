@@ -70,7 +70,7 @@ int		chessAi::evaluateAttack(void)
 		{
 			switchPlayers();
 			if (isAttacked(_board.at(i).coord) == true)
-				value += getMaterialValue(_board.at(i).piece->getType());
+				value += (getMaterialValue(_board.at(i).piece->getType()) * 2);
 			unSwitchPlayers();
 		}
 	}
