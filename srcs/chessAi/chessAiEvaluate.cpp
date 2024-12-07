@@ -303,21 +303,28 @@ int		chessAi::evaluateDev(void)
 int		chessAi::getScore(void)
 {
 	int	score = 0;
+	int	coefficient = 1;
 
-	score += evaluateMaterial();
+	if (_endGame == true)
+		coefficient = 4;
+
+	score += evaluateMaterial() * coefficient;
 
 	score += evaluateDefense();
 	score += evaluateAttack();
 
-	score += evaluateKingControl();
-	score += evaluateKingDefense();
+	score += evaluateKingControl() * coefficient;
+	score += evaluateKingDefense() * coefficient;
+
+	score += evaluatePromotion() * coefficient;
 
 	score += evaluateMobility();
-	score += evaluatePromotion();
 	score += evaluatePawns();
 
-	score += evaluateCenter();
 	score += evaluateDev();
+
+	if (_endGame == false)
+		score += evaluateCenter();
 
 	return (score);
 }
@@ -327,6 +334,9 @@ void	chessAi::evaluateBoard(void)
 	int	whiteScore = 0;
 	int	blackScore = 0;
 
+	if (_endGame == false && isEndGame() == true)
+		_endGame = true;
+
 	if (_gameInfo._color == "white")
 		whiteScore = getScore(), cout << "white score > " << whiteScore << endl << endl;
 	else
@@ -335,45 +345,9 @@ void	chessAi::evaluateBoard(void)
 	switchPlayers();
 
 	if (_gameInfo._color == "white")
-		whiteScore = getScore(), cout << "white score > " << whiteScore << endl << endl;
+		whiteScore = getScore(), cout << "white score > " << whiteScore << endl;
 	else
-		blackScore = getScore(), cout << "black score > " << blackScore << endl << endl;
+		blackScore = getScore(), cout << "black score > " << blackScore << endl;
 
 	unSwitchPlayers();	
 }
-
-// – évaluation –
-
-// – matériel v 
-// (valeur totale)
-
-// – protection v
-// (nb de pièces protégées)
-
-// – attaques v
-// (nb d'attaques possible)
-
-// – contrôle du roi adverse v
-// (visée alliée case alentours)
-
-// – mobilité v
-// (nb de coups possible pour chaque pièces)
-
-// – promotion v
-// (pions proches)
-
-// – contrôle du centre v
-// (visée du centre = e4/e5/d4/d5)
-
-// – positionnement v
-// (occupation du centre = e4/e5/d4/d5)
-
-// – sécurité du roi allié v
-// (visée adverse case alentours)
-
-// – structure de pions v
-// (doublés/isolés)
-// (défendus/structurés/en avant)
-
-// – développement v
-// (cavaliers/fous/roque)

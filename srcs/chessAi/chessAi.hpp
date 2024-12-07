@@ -119,6 +119,8 @@ class chessAi : protected chessBoard
 
 		string		    _nextMove;
 
+        bool            _endGame;
+
         bool            _checkMateInOne;
         bool            _checkMateInTwo;
         bool            _defeatNext;
