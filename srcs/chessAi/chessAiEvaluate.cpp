@@ -6,7 +6,8 @@ int		chessAi::evaluateMaterial(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+			&& _board.at(i).piece->getType() != 'K')
 			value += getMaterialValue(_board.at(i).piece->getType());
 	}
 
