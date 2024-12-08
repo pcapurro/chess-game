@@ -45,6 +45,7 @@ class chessAi : protected chessBoard
 		void		randomMove(void);
 
         bool        isSafe(const string coord);
+        bool        isNailed(const string coord);
         bool        isProtected(const string coord);
         bool        isFree(const string coord);
         bool        isAttacked(const string coord);

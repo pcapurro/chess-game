@@ -166,7 +166,7 @@ stack<cP *> chessAi::getWatchers(const string coord)
             if (_board.at(i).piece != NULL)
             {
                 if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord
-                    && _board.at(i).piece->isVisible() == true)
+                    && isNailed(_board.at(i).coord) == false && _board.at(i).piece->isVisible() == true)
                 {
                     if (_board.at(i).piece->isOnMyWay(coord, baordCoords, 1, _gameInfo._enPassantDest) == true)
                     {

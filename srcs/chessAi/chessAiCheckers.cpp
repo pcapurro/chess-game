@@ -128,6 +128,22 @@ bool    chessAi::isSafe(const string coord)
     return (false);
 }
 
+bool    chessAi::isNailed(const string coord)
+{
+    bool        value = false;
+    chessPiece  *object;
+
+    object = _board.at(getAtValue(coord)).piece;
+    _board.at(getAtValue(coord)).piece = NULL;
+
+    if (isCheck() == true)
+        value = true;
+
+    _board.at(getAtValue(coord)).piece = object;
+
+    return (value);
+}
+
 bool    chessAi::isProtected(const string coord)
 {
     int         attMaterials, defMaterials;
