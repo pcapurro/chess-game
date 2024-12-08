@@ -117,12 +117,18 @@ string  chessAi::getBestAnswer(void)
         }
         unSwitchPlayers();
 
-        evaluateBoard();
-
-        if (_gameInfo._color == "white" && _blackScore > blackScore)
-            blackScore = _blackScore, answer = legalMoves.at(i);
-        if (_gameInfo._color == "black" && _whiteScore > whiteScore)
-            whiteScore = _whiteScore, answer = legalMoves.at(i);
+        if (_gameInfo._color == "white")
+        {
+            _blackScore = getScore("black");
+            if (_blackScore > blackScore)
+                blackScore = _blackScore, answer = legalMoves.at(i);
+        }
+        if (_gameInfo._color == "black")
+        {
+            _whiteScore = getScore("white");
+            if (_whiteScore > whiteScore)
+                whiteScore = _whiteScore, answer = legalMoves.at(i);
+        }
 
         undoMove(move);
     }

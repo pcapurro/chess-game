@@ -151,7 +151,7 @@ void	chessAi::analyzeBoard(void)
 
 string	chessAi::getNextMove(void)
 {
-	evaluateBoard();
+	// evaluateBoard();
 
 	switchPlayers();
 	_nextMove = getBestAnswer();

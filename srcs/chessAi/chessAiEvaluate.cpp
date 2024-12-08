@@ -355,16 +355,20 @@ int		chessAi::evaluateDev(void)
 	return (value);
 }
 
-int		chessAi::getScore(void)
+int		chessAi::getScore(const string color)
 {
-	int	score = 0;
-	int	normalCoeff = 1;
-	int	endCoeff = 1;
+	int		score = 0;
+	int		normalCoeff = 1;
+	int		endCoeff = 1;
+	bool	colorSwitch = false;
 
 	if (_normalGame == true)
 		normalCoeff = 4;
 	if (_endGame == true)
 		endCoeff = 4;
+
+	if (_gameInfo._color != color)
+		switchPlayers(), colorSwitch = true;
 
 	score += evaluateMaterial() * 10 * (normalCoeff + endCoeff);
 	cout << "– material > " << evaluateMaterial() * 10 << endl;
@@ -397,6 +401,9 @@ int		chessAi::getScore(void)
 		cout << "– global dev > " << evaluateDev() * normalCoeff << endl;
 	}
 
+	if (colorSwitch == true)
+		unSwitchPlayers();
+
 	return (score);
 }
 
@@ -405,19 +412,15 @@ void	chessAi::evaluateBoard(void)
 	if (_endGame == false && isEndGame() == true)
 		_endGame = true, _normalGame = false;
 
-	if (_gameInfo._color == "white")
-		cout << "white score > " << endl, _whiteScore = getScore(), cout << "total > " << _whiteScore << endl;
-	else
-		cout << "black score > " << endl, _blackScore = getScore(), cout << "total > " << _blackScore << endl;
+	cout << "white score > " << endl;
+	_whiteScore = getScore("white");
+	cout << "total > " << _whiteScore << endl;
 
 	cout << endl;
 
-	switchPlayers();
+	cout << "black score > " << endl;
+	_blackScore = getScore("black");
+	cout << "total > " << _blackScore << endl;
 
-	if (_gameInfo._color == "white")
-		cout << "white score > " << endl, _whiteScore = getScore(), cout << "total > " << _whiteScore << endl;
-	else
-		cout << "black score > " << endl, _blackScore = getScore(), cout << "total > " << _blackScore << endl;
-
-	unSwitchPlayers();	
+	cout << endl;
 }

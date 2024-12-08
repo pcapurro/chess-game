@@ -33,7 +33,7 @@ class chessAi : protected chessBoard
         int		    evaluateCenter(void);
         int         evaluateDev(void);
 
-        int		    getScore(void);
+        int		    getScore(const string color);
 
         void        analyzeBoard(void);
 
