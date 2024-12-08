@@ -367,34 +367,34 @@ int		chessAi::getScore(void)
 		endCoeff = 4;
 
 	score += evaluateMaterial() * 10 * (normalCoeff + endCoeff);
-	// cout << "– material > " << evaluateMaterial() * 10 << endl;
+	cout << "– material > " << evaluateMaterial() * 10 << endl;
 
 	score += evaluateDefense() * 4;
-	// cout << "– defense > " << evaluateDefense() * 4 << endl;
+	cout << "– defense > " << evaluateDefense() * 4 << endl;
 	score += evaluateAttack() * 4;
-	// cout << "– attack > " << evaluateAttack() * 4 << endl;
+	cout << "– attack > " << evaluateAttack() * 4 << endl;
 	score += evaluateThreats() * normalCoeff;
-	// cout << "– threat > " << evaluateThreats() * normalCoeff << endl;
+	cout << "– threat > " << evaluateThreats() * normalCoeff << endl;
 
-	score += evaluateKingControl() * 4;
-	// cout << "– king control > " << evaluateKingControl() * 4 << endl;
-	score += evaluateKingDefense() * 7;
-	// cout << "– king defense > " << evaluateKingDefense() * 4 << endl;
+	score += evaluateKingControl() * 4 * (normalCoeff + endCoeff);
+	cout << "– king control > " << evaluateKingControl() * 4 << endl;
+	score += evaluateKingDefense() * 4 * (normalCoeff + endCoeff);
+	cout << "– king defense > " << evaluateKingDefense() * 4 << endl;
 
-	score += evaluatePromotion() * endCoeff;
-	// cout << "– promotion > " << evaluatePromotion() * endCoeff << endl;
+	score += evaluatePromotion() * (normalCoeff + endCoeff);
+	cout << "– promotion > " << evaluatePromotion() * endCoeff << endl;
 
 	score += evaluateMobility() * normalCoeff;
-	// cout << "– mobility > " << evaluateMobility() * normalCoeff << endl;
+	cout << "– mobility > " << evaluateMobility() * normalCoeff << endl;
 	score += evaluatePawns() * 4 * endCoeff;
-	// cout << "– pawns > " << evaluatePawns() * endCoeff << endl;
+	cout << "– pawns > " << evaluatePawns() * endCoeff << endl;
 
 	if (_endGame == false)
 	{
 		score += evaluateCenter() * normalCoeff;
-		// cout << "– center > " << evaluateCenter() * normalCoeff << endl;
+		cout << "– center > " << evaluateCenter() * normalCoeff << endl;
 		score += evaluateDev() * normalCoeff;
-		// cout << "– global dev > " << evaluateDev() * normalCoeff << endl;
+		cout << "– global dev > " << evaluateDev() * normalCoeff << endl;
 	}
 
 	return (score);

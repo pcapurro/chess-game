@@ -153,11 +153,6 @@ string	chessAi::getNextMove(void)
 {
 	evaluateBoard();
 
-	cout << "initial board > " << endl;
-	cout << "white > " << _whiteScore << endl;
-	cout << "black > " << _blackScore << endl;
-	cout << endl;
-
 	switchPlayers();
 	_nextMove = getBestAnswer();
 	unSwitchPlayers();

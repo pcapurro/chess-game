@@ -91,6 +91,11 @@ string  chessAi::getBestAnswer(void)
     legalMoves = getLegalMoves();
     unSwitchPlayers();
 
+    // cout << "legal moves > " << endl;
+    // for (int i = 0; i != legalMoves.size(); i++)
+    //     cout << legalMoves.at(i) << " ; ";
+    // cout << endl << "-" << endl;
+
     evaluateBoard();
     whiteScore = _whiteScore;
     blackScore = _blackScore;
