@@ -130,16 +130,20 @@ bool    chessAi::isSafe(const string coord)
 
 bool    chessAi::isNailed(const string coord)
 {
-    bool        value = false;
-    chessPiece  *object;
+    bool    value = false;
 
-    object = _board.at(getAtValue(coord)).piece;
-    _board.at(getAtValue(coord)).piece = NULL;
+    if (_board.at(getAtValue(coord)).piece->getType() != 'K')
+    {
+        chessPiece  *object;
 
-    if (isCheck() == true)
-        value = true;
+        object = _board.at(getAtValue(coord)).piece;
+        _board.at(getAtValue(coord)).piece = NULL;
 
-    _board.at(getAtValue(coord)).piece = object;
+        if (isCheck() == true)
+            value = true;
+
+        _board.at(getAtValue(coord)).piece = object;
+    }
 
     return (value);
 }
