@@ -23,7 +23,7 @@ int		chessAi::evaluateMaterial(void)
 		value -= getMaterialValue(attacked.top()->getType());
 	}
 
-	// cout << "material > " << value << endl;
+	cout << "material > " << value << endl;
 
 	return (value);
 }
@@ -42,7 +42,7 @@ int		chessAi::evaluateDefense(void)
 		}
 	}
 
-	// cout << "defense > " << value << endl;
+	cout << "defense > " << value << endl;
 
 	return (value);
 }
@@ -56,7 +56,7 @@ int		chessAi::evaluateThreats(void)
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-			&& _board.at(i).piece->getType() != 'K')
+			&& _board.at(i).piece->getType() != 'K' && isAttacked(_board.at(i).coord) == false)
 		{
 			for (int k = 0; k != 64; k++)
 			{
@@ -67,7 +67,7 @@ int		chessAi::evaluateThreats(void)
 		}
 	}
 
-	// cout << "threats > " << value << endl;
+	cout << "threats > " << value << endl;
 
 	return (value);
 }
@@ -79,7 +79,7 @@ int		chessAi::evaluateAttack(void)
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color
-			&& _board.at(i).piece->getType() != 'K')
+			&& _board.at(i).piece->getType() != 'K' && isAttacked(_board.at(i).coord) == false)
 		{
 			switchPlayers();
 			if (isAttacked(_board.at(i).coord) == true)
@@ -88,7 +88,7 @@ int		chessAi::evaluateAttack(void)
 		}
 	}
 
-	// cout << "attack > " << value << endl;
+	cout << "attack > " << value << endl;
 
 	return (value);
 }
@@ -122,10 +122,15 @@ int		chessAi::evaluateKingControl(void)
 	for (int i = 0; i != kingWays.size(); i++)
 	{
 		watchers = getWatchers(kingWays.at(i));
-		value += watchers.size();
+		while (watchers.size() != 0)
+		{
+			if (isAttacked(watchers.top()->getCoord()) == false)
+				value++;
+			watchers.pop();
+		}
 	}
 	
-	// cout << "enemy control > " << value << endl;
+	cout << "enemy control > " << value << endl;
 
 	return (value);
 }
@@ -159,10 +164,15 @@ int		chessAi::evaluateKingDefense(void)
 	for (int i = 0; i != kingWays.size(); i++)
 	{
 		watchers = getWatchers(kingWays.at(i));
-		value += watchers.size();
+		while (watchers.size() != 0)
+		{
+			if (isAttacked(watchers.top()->getCoord()) == false)
+				value++;
+			watchers.pop();
+		}
 	}
 
-	// cout << "king defense > " << value << endl;
+	cout << "king defense > " << value << endl;
 
 	return (value);
 }
@@ -174,7 +184,8 @@ int		chessAi::evaluateMobility(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+			&& isAttacked(_board.at(i).coord) == false)
 		{
 			if (_board.at(i).piece->getType() != 'K')
 				value += (getPossibleTargets(_board.at(i).coord).size());
@@ -183,7 +194,7 @@ int		chessAi::evaluateMobility(void)
 		}
 	}
 
-	// cout << "mobility > " << value << endl;
+	cout << "mobility > " << value << endl;
 
 	return (value);
 }
@@ -211,7 +222,7 @@ int		chessAi::evaluatePromotion(void)
 		}
 	}
 
-	// cout << "promotion > " << value << endl;
+	cout << "promotion > " << value << endl;
 
 	return (value);
 }
@@ -238,7 +249,7 @@ int		chessAi::evaluatePawns(void)
 		}
 	}
 
-	// cout << "pawns dev > " << value << endl;
+	cout << "pawns dev > " << value << endl;
 
 	return (value);
 }
@@ -252,7 +263,8 @@ int		chessAi::evaluateCenter(void)
 	boardCoords = getPiecesCoords();
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+			&& isAttacked(_board.at(i).coord) == false)
 		{
 			for (int k = 0; k != 4; k++)
 			{
@@ -269,7 +281,8 @@ int		chessAi::evaluateCenter(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+			&& isAttacked(_board.at(i).coord) == false)
 		{
 			if (_board.at(i).coord == "e4" || _board.at(i).coord == "e5"
 				|| _board.at(i).coord == "d4" || _board.at(i).coord == "d5")
@@ -285,7 +298,7 @@ int		chessAi::evaluateCenter(void)
 		}
 	}
 
-	// cout << "center control > " << value << endl;
+	cout << "center control > " << value << endl;
 
 	return (value);
 }
@@ -326,7 +339,7 @@ int		chessAi::evaluateDev(void)
 			value + value + 5;
 	}
 
-	// cout << "global dev > " << value << endl;
+	cout << "global dev > " << value << endl;
 
 	return (value);
 }
