@@ -84,8 +84,7 @@ string  chessAi::getEnPassantTarget(void)
 string  chessAi::getBestAnswer(void)
 {
     int             whiteScore, blackScore;
-    int             atValue, targetValue;
-    string          move, dest, answer;
+    string          move, answer;
     vector<string>  legalMoves;
 
     switchPlayers();
@@ -102,29 +101,14 @@ string  chessAi::getBestAnswer(void)
         if (count(move.begin(), move.end(), 'O') == 0)
             move = move.c_str() + 1;
 
-        dest = string(1, move[2]) + move[3];
-        atValue = getAtValue(dest);
-        
-        targetValue = 0;
-        if (_board.at(atValue).piece != NULL && _board.at(atValue).piece->getColor() == _gameInfo._color)
-            targetValue = getMaterialValue(_board.at(atValue).piece->getType()) * 10;
-
         tryMove(move);
 
         evaluateBoard();
 
-        if (_gameInfo._color == "white")
-        {
-            _blackScore += targetValue;
-            if (_blackScore > blackScore)
-                blackScore = _blackScore, answer = legalMoves.at(i);
-        }
-        if (_gameInfo._color == "black")
-        {
-            _whiteScore += targetValue;
-            if (_whiteScore > whiteScore)
-                whiteScore = _whiteScore, answer = legalMoves.at(i);
-        }
+        if (_gameInfo._color == "white" && _blackScore > blackScore)
+            blackScore = _blackScore, answer = legalMoves.at(i);
+        if (_gameInfo._color == "black" && _whiteScore > whiteScore)
+            whiteScore = _whiteScore, answer = legalMoves.at(i);
 
         undoMove(move);
     }

@@ -3,27 +3,32 @@
 int		chessAi::evaluateMaterial(void)
 {
 	int			value = 0;
+	int			enemyMaterial = 0;
 	stack<cP *>	attacked;
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-			&& _board.at(i).piece->getType() != 'K')
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
 		{
-			value += getMaterialValue(_board.at(i).piece->getType());
+			if (_board.at(i).piece->getColor() == _gameInfo._color)
+			{
+				value += getMaterialValue(_board.at(i).piece->getType());
 
-			if (isAttacked(_board.at(i).coord) == true)
-				attacked.push(_board.at(i).piece);
+				if (isAttacked(_board.at(i).coord) == true)
+					attacked.push(_board.at(i).piece);
+			}
+			else
+				enemyMaterial += getMaterialValue(_board.at(i).piece->getType());
 		}
 	}
+
+	value += 39 - enemyMaterial;
 
 	if (attacked.size() != 0)
 	{
 		attacked = orderByValueRev(attacked);
 		value -= getMaterialValue(attacked.top()->getType());
 	}
-
-	cout << "material > " << value << endl;
 
 	return (value);
 }
@@ -41,8 +46,6 @@ int		chessAi::evaluateDefense(void)
 				value += getMaterialValue(_board.at(i).piece->getType());
 		}
 	}
-
-	cout << "defense > " << value << endl;
 
 	return (value);
 }
@@ -67,8 +70,6 @@ int		chessAi::evaluateThreats(void)
 		}
 	}
 
-	cout << "threats > " << value << endl;
-
 	return (value);
 }
 
@@ -87,8 +88,6 @@ int		chessAi::evaluateAttack(void)
 			unSwitchPlayers();
 		}
 	}
-
-	cout << "attack > " << value << endl;
 
 	return (value);
 }
@@ -129,8 +128,6 @@ int		chessAi::evaluateKingControl(void)
 			watchers.pop();
 		}
 	}
-	
-	cout << "enemy control > " << value << endl;
 
 	return (value);
 }
@@ -172,8 +169,6 @@ int		chessAi::evaluateKingDefense(void)
 		}
 	}
 
-	cout << "king defense > " << value << endl;
-
 	return (value);
 }
 
@@ -193,8 +188,6 @@ int		chessAi::evaluateMobility(void)
 				value += getPossibleTargets(_board.at(i).coord).size();
 		}
 	}
-
-	cout << "mobility > " << value << endl;
 
 	return (value);
 }
@@ -222,8 +215,6 @@ int		chessAi::evaluatePromotion(void)
 		}
 	}
 
-	cout << "promotion > " << value << endl;
-
 	return (value);
 }
 
@@ -248,8 +239,6 @@ int		chessAi::evaluatePawns(void)
 			}
 		}
 	}
-
-	cout << "pawns dev > " << value << endl;
 
 	return (value);
 }
@@ -298,8 +287,6 @@ int		chessAi::evaluateCenter(void)
 		}
 	}
 
-	cout << "center control > " << value << endl;
-
 	return (value);
 }
 
@@ -339,8 +326,6 @@ int		chessAi::evaluateDev(void)
 			value + value + 5;
 	}
 
-	cout << "global dev > " << value << endl;
-
 	return (value);
 }
 
@@ -356,23 +341,34 @@ int		chessAi::getScore(void)
 		endCoeff = 4;
 
 	score += evaluateMaterial() * 10;
+	cout << "– material > " << evaluateMaterial() * 10 << endl;
 
 	score += evaluateDefense() * 4;
+	cout << "– defense > " << evaluateMaterial() * 4 << endl;
 	score += evaluateAttack() * 4;
+	cout << "– attack > " << evaluateMaterial() * 4 << endl;
 	score += evaluateThreats() * normalCoeff;
+	cout << "– threat > " << evaluateMaterial() * normalCoeff << endl;
 
 	score += evaluateKingControl() * 4;
+	cout << "– king control > " << evaluateMaterial() * 4 << endl;
 	score += evaluateKingDefense() * 4;
+	cout << "– king defense > " << evaluateMaterial() * 4 << endl;
 
 	score += evaluatePromotion() * endCoeff;
+	cout << "– promotion > " << evaluateMaterial() * endCoeff << endl;
 
 	score += evaluateMobility() * normalCoeff;
+	cout << "– mobility > " << evaluateMaterial() * normalCoeff << endl;
 	score += evaluatePawns() * endCoeff;
+	cout << "– pawns > " << evaluateMaterial() * endCoeff << endl;
 
 	if (_endGame == false)
 	{
 		score += evaluateCenter() * normalCoeff;
+		cout << "– center > " << evaluateMaterial() * normalCoeff << endl;
 		score += evaluateDev() * normalCoeff;
+		cout << "– global dev > " << evaluateMaterial() * normalCoeff << endl;
 	}
 
 	return (score);
@@ -384,16 +380,18 @@ void	chessAi::evaluateBoard(void)
 		_endGame = true, _normalGame = false;
 
 	if (_gameInfo._color == "white")
-		_whiteScore = getScore();
+		cout << "white score > " << endl, _whiteScore = getScore(), cout << "total > " << _whiteScore << endl;
 	else
-		_blackScore = getScore();
+		cout << "black score > " << endl, _blackScore = getScore(), cout << "total > " << _blackScore << endl;
+
+	cout << endl;
 
 	switchPlayers();
 
 	if (_gameInfo._color == "white")
-		_whiteScore = getScore();
+		cout << "white score > " << endl, _whiteScore = getScore(), cout << "total > " << _whiteScore << endl;
 	else
-		_blackScore = getScore();
+		cout << "black score > " << endl, _blackScore = getScore(), cout << "total > " << _blackScore << endl;
 
 	unSwitchPlayers();	
 }
