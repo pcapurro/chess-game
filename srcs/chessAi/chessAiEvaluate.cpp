@@ -159,6 +159,23 @@ int		chessAi::evaluateKingDefense(void)
 	int		value = 0;
 	bool	castled = false;
 
+	cout << "evaluating king defense..." << endl;
+
+	if (_simulation == true)
+		cout << "_simulation == true" << endl;
+	else
+		cout << "_simulation == false" << endl;
+
+	if (_gameInfo._blackCastle == true)
+		cout << "_blackCastle == true" << endl;
+	else
+		cout << "_blackCastle == false" << endl;
+
+	if (_gameInfo._blackCastled == true)
+		cout << "_blackCastled == true" << endl;
+	else
+		cout << "_blackCastled == false" << endl;
+
 	if (_gameInfo._color == "white")
 	{
 		if (_gameInfo._whiteCastle == false)

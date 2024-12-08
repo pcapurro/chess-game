@@ -221,13 +221,17 @@ void    chessBoard::tryMove(string srcdest)
 
         if (_board.at(atValueSrc).piece->getType() == 'K')
         {
-            if (_board.at(atValueSrc).piece->getColor() == "white"
-                && _gameInfo._whiteCastle == true)
-                _gameInfo._whiteCastleLost = srcdest, _gameInfo._whiteCastle = false, _gameInfo._whiteCastled = true;
+            if (_board.at(atValueSrc).piece->getColor() == "white" && _gameInfo._whiteCastle == true)
+            {
+                _gameInfo._whiteCastleLost = srcdest, _gameInfo._whiteCastle = false;
+                dest == "c1" || dest == "g1" ? _gameInfo._whiteCastled = true : _gameInfo._whiteCastled = false;
+            }
 
-            if (_board.at(atValueSrc).piece->getColor() == "black"
-                && _gameInfo._blackCastle == true)
-                _gameInfo._blackCastleLost = srcdest, _gameInfo._blackCastle = false, _gameInfo._blackCastled = true;
+            if (_board.at(atValueSrc).piece->getColor() == "black" && _gameInfo._blackCastle == true)
+            {
+                _gameInfo._blackCastleLost = srcdest, _gameInfo._blackCastle = false;
+                dest == "c8" || dest == "g8" ? _gameInfo._blackCastled = true : _gameInfo._blackCastled = false;
+            }
         }
 
         if (_board.at(atValueDest).piece != NULL)

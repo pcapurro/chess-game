@@ -81,16 +81,19 @@ vector<string>  chessBoard::getCastlingSrcsDests(const string srcdest)
     {
         src = string(1, 'e') + y, dest = string(1, 'g') + y;
         srcsDests.push_back(src + dest);
+
         src = string(1, 'h') + y, dest = string(1, 'f') + y;
         srcsDests.push_back(src + dest);
     }
-    else
+    if (srcdest == "O-O-O")
     {
         src = string(1, 'e') + y, dest = string(1, 'c') + y;
         srcsDests.push_back(src + dest);
+
         src = string(1, 'a') + y, dest = string(1, 'd') + y;
         srcsDests.push_back(src + dest);
     }
+
     return (srcsDests);
 }
 
