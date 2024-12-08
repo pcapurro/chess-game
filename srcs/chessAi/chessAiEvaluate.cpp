@@ -156,43 +156,14 @@ int		chessAi::evaluateKingControl(void)
 
 int		chessAi::evaluateKingDefense(void)
 {
-	int				value = 0;
-	string			coord, kingCoords;
-	vector<string>	kingWays;
-	stack<cP *>		watchers;
-
-	for (int i = 0; i != 64; i++)
-	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
-		{
-			if (_board.at(i).piece->getType() == 'K')
-				{ kingCoords = _board.at(i).coord; break ; }
-		}
-	}
-
-    for (int i = 0; i != 8; i++)
-    {
-        for (int k = 0; k != 8; k++)
-        {
-            coord = "abcdefgh"[i] + to_string(k + 1);
-			if (King("white", kingCoords).isOnMyWay(coord) == true)
-				kingWays.push_back(coord);
-        }
-    }
-
-	for (int i = 0; i != kingWays.size(); i++)
-	{
-		watchers = getWatchers(kingWays.at(i));
-		while (watchers.size() != 0)
-		{
-			if (isAttacked(watchers.top()->getCoord()) == false)
-				value++;
-			watchers.pop();
-		}
-	}
+	int		value = 0;
+	bool	castled = false;
 
 	if (_gameInfo._color == "white")
 	{
+		if (_gameInfo._whiteCastle == false)
+			castled = true;
+
 		if (_gameInfo._whiteCastled == true)
 			value += 25;
 		if (_gameInfo._whiteCastled == false && _gameInfo._whiteCastle == false)
@@ -201,10 +172,51 @@ int		chessAi::evaluateKingDefense(void)
 
 	if (_gameInfo._color == "black")
 	{
+		if (_gameInfo._blackCastle == false)
+			castled = true;
+
 		if (_gameInfo._blackCastled == true)
 			value += 25;
 		if (_gameInfo._blackCastled == false && _gameInfo._blackCastle == false)
 			value -= 25;
+	}
+
+	if (_simulation == false
+		&& (castled == true || _endGame == true))
+	{
+		string			coord, kingCoords;
+		vector<string>	kingWays;
+		stack<cP *>		watchers;
+
+		for (int i = 0; i != 64; i++)
+		{
+			if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+			{
+				if (_board.at(i).piece->getType() == 'K')
+					{ kingCoords = _board.at(i).coord; break ; }
+			}
+		}
+
+		for (int i = 0; i != 8; i++)
+		{
+			for (int k = 0; k != 8; k++)
+			{
+				coord = "abcdefgh"[i] + to_string(k + 1);
+				if (King("white", kingCoords).isOnMyWay(coord) == true)
+					kingWays.push_back(coord);
+			}
+		}
+
+		for (int i = 0; i != kingWays.size(); i++)
+		{
+			watchers = getWatchers(kingWays.at(i));
+			while (watchers.size() != 0)
+			{
+				if (isAttacked(watchers.top()->getCoord()) == false)
+					value++;
+				watchers.pop();
+			}
+		}
 	}
 
 	return (value);
