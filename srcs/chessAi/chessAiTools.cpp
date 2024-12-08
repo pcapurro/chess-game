@@ -100,6 +100,8 @@ string  chessAi::getBestAnswer(void)
         if (count(move.begin(), move.end(), 'O') == 0)
             move = move.c_str() + 1;
 
+        _simulation = true;
+
         tryMove(move);
 
         if (isCheckMate(-1) == true)
@@ -119,6 +121,8 @@ string  chessAi::getBestAnswer(void)
         }
 
         undoMove(move);
+
+        _simulation = false;
     }
 
     if (answer == "")

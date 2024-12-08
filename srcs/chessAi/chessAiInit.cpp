@@ -4,6 +4,8 @@ chessAi::chessAi(const chessBoard *board) : chessBoard(board)
 {
 	_nextMove.clear();
 
+	_simulation = false;
+
 	_normalGame = true;
 	_endGame = false;
 

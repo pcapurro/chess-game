@@ -126,6 +126,8 @@ class chessAi : protected chessBoard
         int             _whiteScore;
         int             _blackScore;
 
+        bool            _simulation;
+
         bool            _normalGame;
         bool            _endGame;
 

@@ -45,7 +45,7 @@ int		chessAi::evaluateMaterial(void)
 		value -= getMaterialValue(attacked.top()->getType());
 	}
 
-	if (attacking.size() > 1)
+	if (_simulation == false && attacking.size() > 1)
 	{
 		attacking = orderByValueRev(attacking);
 		attacking.pop();
