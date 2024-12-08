@@ -103,6 +103,15 @@ string  chessAi::getBestAnswer(void)
 
         tryMove(move);
 
+        switchPlayers();
+        if (isCheckMate(-1) == true)
+        {
+            unSwitchPlayers();
+            undoMove(move);
+            return (legalMoves.at(i));
+        }
+        unSwitchPlayers();
+
         evaluateBoard();
 
         if (_gameInfo._color == "white" && _blackScore > blackScore)

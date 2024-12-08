@@ -219,6 +219,17 @@ void    chessBoard::tryMove(string srcdest)
         atValueSrc = getAtValue(src);
         atValueDest = getAtValue(dest);
 
+        if (_board.at(atValueSrc).piece->getType() == 'K')
+        {
+            if (_board.at(atValueSrc).piece->getColor() == "white"
+                && _gameInfo._whiteCastle == true)
+                _gameInfo._whiteCastleLost = srcdest, _gameInfo._whiteCastle = false;
+
+            if (_board.at(atValueSrc).piece->getColor() == "black"
+                && _gameInfo._blackCastle == true)
+                _gameInfo._blackCastleLost = srcdest, _gameInfo._blackCastle = false;
+        }
+
         if (_board.at(atValueDest).piece != NULL)
         {
             _savedObjects.push(_board.at(atValueDest).piece);
@@ -263,6 +274,17 @@ void    chessBoard::undoMove(string srcdest)
 
         atValueSrc = getAtValue(src);
         atValueDest = getAtValue(dest);
+
+        if (_board.at(atValueDest).piece->getType() == 'K')
+        {
+            if (_board.at(atValueDest).piece->getColor() == "white"
+                && _gameInfo._whiteCastleLost != "" && _gameInfo._whiteCastleLost == srcdest)
+                _gameInfo._whiteCastleLost.clear(), _gameInfo._whiteCastle = true;
+
+            if (_board.at(atValueDest).piece->getColor() == "black"
+                && _gameInfo._blackCastleLost != "" && _gameInfo._blackCastleLost == srcdest)
+                _gameInfo._blackCastleLost.clear(), _gameInfo._blackCastle = true;
+        }
 
         _board.at(atValueSrc).piece = _board.at(atValueDest).piece;
         _board.at(atValueSrc).piece->updatePos(_board.at(atValueSrc).coord);

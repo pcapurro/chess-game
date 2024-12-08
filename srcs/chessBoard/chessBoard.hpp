@@ -30,9 +30,13 @@ typedef struct s_game_info
     bool    _moveFailed;
 
     bool    _whiteCastle;
-    bool    _blackCastle;
     bool    _whiteCastled;
+    string  _whiteCastleLost;
+
+    bool    _blackCastle;
     bool    _blackCastled;
+    string  _blackCastleLost;
+
     bool    _enPassant;
     string  _enPassantDest;
 
