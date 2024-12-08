@@ -5,18 +5,14 @@ int		chessAi::evaluateMaterial(void)
 	int			value = 0;
 	int			enemyMaterial = 0;
 	stack<cP *>	attacked;
+	stack<cP *>	attacking;
 
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
 		{
 			if (_board.at(i).piece->getColor() == _gameInfo._color)
-			{
 				value += getMaterialValue(_board.at(i).piece->getType());
-
-				if (isAttacked(_board.at(i).coord) == true)
-					attacked.push(_board.at(i).piece);
-			}
 			else
 				enemyMaterial += getMaterialValue(_board.at(i).piece->getType());
 		}
@@ -24,10 +20,36 @@ int		chessAi::evaluateMaterial(void)
 
 	value += 39 - enemyMaterial;
 
+	for (int i = 0; i != 64; i++)
+	{
+		if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
+		{
+			if (_board.at(i).piece->getColor() == _gameInfo._color)
+			{
+				if (isAttacked(_board.at(i).coord) == true)
+					attacked.push(_board.at(i).piece);
+			}
+			else
+			{
+				switchPlayers();
+				if (isAttacked(_board.at(i).coord) == true)
+					attacking.push(_board.at(i).piece);
+				unSwitchPlayers();
+			}
+		}
+	}
+
 	if (attacked.size() != 0)
 	{
 		attacked = orderByValueRev(attacked);
 		value -= getMaterialValue(attacked.top()->getType());
+	}
+
+	if (attacking.size() > 1)
+	{
+		attacking = orderByValueRev(attacking);
+		attacking.pop();
+		value += getMaterialValue(attacking.top()->getType());
 	}
 
 	return (value);
