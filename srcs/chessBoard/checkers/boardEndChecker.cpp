@@ -188,6 +188,66 @@ void    chessBoard::undoEnPassant(string srcdest)
     _gameInfo._enPassant = true;
 }
 
+void    chessBoard::enableCastling(string srcdest)
+{
+    string  dest;
+
+    dest = dest = srcdest.c_str() + 2;
+
+    if (_gameInfo._color == "white" && _gameInfo._whiteCastleLost != "")
+    {
+        _gameInfo._whiteCastled = false;
+        _gameInfo._whiteCastle = true;
+        _gameInfo._whiteCastleLost.clear();
+    }
+
+    if (_gameInfo._color == "black" && _gameInfo._blackCastleLost != "")
+    {
+        _gameInfo._blackCastled = false;
+        _gameInfo._blackCastle = true;
+        _gameInfo._blackCastleLost.clear();
+    }
+}
+
+void    chessBoard::disableCastling(string srcdest)
+{
+    string  dest;
+
+    dest = dest = srcdest.c_str() + 2;
+
+    if (_gameInfo._color == "white" && _gameInfo._whiteCastle == true)
+    {
+        if (dest == "c1" || dest == "g1")
+        {
+            _gameInfo._whiteCastled = true;
+            _gameInfo._whiteCastle = false;
+            _gameInfo._whiteCastleLost = srcdest;
+        }
+        else
+        {
+            _gameInfo._whiteCastled = false;
+            _gameInfo._whiteCastle = false;
+            _gameInfo._whiteCastleLost = srcdest;
+        }
+    }
+
+    if (_gameInfo._color == "black" && _gameInfo._blackCastle == true)
+    {
+        if (dest == "c1" || dest == "g1")
+        {
+            _gameInfo._blackCastled = true;
+            _gameInfo._blackCastle = false;
+            _gameInfo._blackCastleLost = srcdest;
+        }
+        else
+        {
+            _gameInfo._blackCastled = false;
+            _gameInfo._blackCastle = false;
+            _gameInfo._blackCastleLost = srcdest;
+        }
+    }
+}
+
 void    chessBoard::tryMove(string srcdest)
 {
     int         atValueSrc;
@@ -218,6 +278,9 @@ void    chessBoard::tryMove(string srcdest)
 
         atValueSrc = getAtValue(src);
         atValueDest = getAtValue(dest);
+
+        if (_board.at(atValueSrc).piece->getType() == 'K')
+            disableCastling(srcdest);
 
         if (_board.at(atValueDest).piece != NULL)
         {
@@ -263,6 +326,9 @@ void    chessBoard::undoMove(string srcdest)
 
         atValueSrc = getAtValue(src);
         atValueDest = getAtValue(dest);
+
+        if (_board.at(atValueDest).piece->getType() == 'K')
+            enableCastling(srcdest);
 
         _board.at(atValueSrc).piece = _board.at(atValueDest).piece;
         _board.at(atValueSrc).piece->updatePos(_board.at(atValueSrc).coord);

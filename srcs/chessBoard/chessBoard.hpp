@@ -142,6 +142,8 @@ class chessBoard
         void    undoMove(string srcdest);
         void    tryEnPassant(string srcdest);
         void    undoEnPassant(string srcdest);
+        void    enableCastling(string srcdest);
+        void    disableCastling(string srcdest);
 
         void    loadMove(const string move);
 
