@@ -2,16 +2,28 @@
 
 int		chessAi::evaluateMaterial(void)
 {
-	int	value = 0;
+	int			value = 0;
+	stack<cP *>	attacked;
 
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
 			&& _board.at(i).piece->getType() != 'K')
+		{
 			value += getMaterialValue(_board.at(i).piece->getType());
+
+			if (isAttacked(_board.at(i).coord) == true)
+				attacked.push(_board.at(i).piece);
+		}
 	}
 
-	// cout << "adding material value > " << value << endl;
+	if (attacked.size() != 0)
+	{
+		attacked = orderByValueRev(attacked);
+		value -= getMaterialValue(attacked.top()->getType());
+	}
+
+	// cout << "material > " << value << endl;
 
 	return (value);
 }
@@ -30,7 +42,7 @@ int		chessAi::evaluateDefense(void)
 		}
 	}
 
-	// cout << "adding defense value > " << value << endl;
+	// cout << "defense > " << value << endl;
 
 	return (value);
 }
@@ -55,7 +67,7 @@ int		chessAi::evaluateThreats(void)
 		}
 	}
 
-	// cout << "adding threats value > " << value << endl;
+	// cout << "threats > " << value << endl;
 
 	return (value);
 }
@@ -76,7 +88,7 @@ int		chessAi::evaluateAttack(void)
 		}
 	}
 
-	// cout << "adding attack value > " << value << endl;
+	// cout << "attack > " << value << endl;
 
 	return (value);
 }
@@ -113,7 +125,7 @@ int		chessAi::evaluateKingControl(void)
 		value += watchers.size();
 	}
 	
-	// cout << "adding enemy king control value > " << value << endl;
+	// cout << "enemy control > " << value << endl;
 
 	return (value);
 }
@@ -150,7 +162,7 @@ int		chessAi::evaluateKingDefense(void)
 		value += watchers.size();
 	}
 
-	// cout << "adding ally king defense value > " << value << endl;
+	// cout << "king defense > " << value << endl;
 
 	return (value);
 }
@@ -171,7 +183,7 @@ int		chessAi::evaluateMobility(void)
 		}
 	}
 
-	// cout << "adding ally mobility value > " << value << endl;
+	// cout << "mobility > " << value << endl;
 
 	return (value);
 }
@@ -199,7 +211,7 @@ int		chessAi::evaluatePromotion(void)
 		}
 	}
 
-	// cout << "adding ally promotion value > " << value << endl;
+	// cout << "promotion > " << value << endl;
 
 	return (value);
 }
@@ -226,7 +238,7 @@ int		chessAi::evaluatePawns(void)
 		}
 	}
 
-	// cout << "adding ally pawns dev value > " << value << endl;
+	// cout << "pawns dev > " << value << endl;
 
 	return (value);
 }
@@ -273,7 +285,7 @@ int		chessAi::evaluateCenter(void)
 		}
 	}
 
-	// cout << "adding ally center control value > " << value << endl;
+	// cout << "center control > " << value << endl;
 
 	return (value);
 }
@@ -314,7 +326,7 @@ int		chessAi::evaluateDev(void)
 			value + value + 5;
 	}
 
-	// cout << "adding ally global dev value > " << value << endl;
+	// cout << "global dev > " << value << endl;
 
 	return (value);
 }
@@ -322,29 +334,33 @@ int		chessAi::evaluateDev(void)
 int		chessAi::getScore(void)
 {
 	int	score = 0;
-	int	coefficient = 1;
+	int	normalCoeff = 1;
+	int	endCoeff = 1;
 
+	if (_normalGame == true)
+		normalCoeff = 4;
 	if (_endGame == true)
-		coefficient = 4;
+		endCoeff = 4;
 
-	score += evaluateMaterial() * coefficient;
+	score += evaluateMaterial() * 10;
 
-	score += evaluateDefense();
-	score += evaluateAttack();
-	score += evaluateThreats();
+	score += evaluateDefense() * 4;
+	score += evaluateAttack() * 4;
+	score += evaluateThreats() * normalCoeff;
 
-	score += evaluateKingControl() * coefficient;
-	score += evaluateKingDefense() * coefficient;
+	score += evaluateKingControl() * 4;
+	score += evaluateKingDefense() * 4;
 
-	score += evaluatePromotion() * coefficient;
+	score += evaluatePromotion() * endCoeff;
 
-	score += evaluateMobility();
-	score += evaluatePawns();
-
-	score += evaluateDev();
+	score += evaluateMobility() * normalCoeff;
+	score += evaluatePawns() * endCoeff;
 
 	if (_endGame == false)
-		score += evaluateCenter();
+	{
+		score += evaluateCenter() * normalCoeff;
+		score += evaluateDev() * normalCoeff;
+	}
 
 	return (score);
 }
@@ -352,7 +368,7 @@ int		chessAi::getScore(void)
 void	chessAi::evaluateBoard(void)
 {
 	if (_endGame == false && isEndGame() == true)
-		_endGame = true;
+		_endGame = true, _normalGame = false;
 
 	if (_gameInfo._color == "white")
 		_whiteScore = getScore();
