@@ -340,7 +340,7 @@ int		chessAi::getScore(void)
 	if (_endGame == true)
 		endCoeff = 4;
 
-	score += evaluateMaterial() * 10;
+	score += evaluateMaterial() * 10 * (normalCoeff + endCoeff);
 	cout << "– material > " << evaluateMaterial() * 10 << endl;
 
 	score += evaluateDefense() * 4;
