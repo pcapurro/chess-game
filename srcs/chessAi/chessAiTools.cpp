@@ -100,10 +100,19 @@ string  chessAi::getBestAnswer(void)
         if (count(move.begin(), move.end(), 'O') == 0)
             move = move.c_str() + 1;
 
+        cout << "evaluating " << move << endl;
+        cout << "evaluation before > " << endl;
+
+        if (_gameInfo._color == "white")
+            getScore("white");
+        if (_gameInfo._color == "black")
+            getScore("black");
+
         _simulation = true;
 
         tryMove(move);
 
+        cout << "evaluation after > " << endl;
         if (isCheckMate(-1) == true)
             { undoMove(move); return (legalMoves.at(i)); }
 
