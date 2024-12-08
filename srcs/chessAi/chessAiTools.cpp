@@ -116,8 +116,10 @@ string  chessAi::getBestAnswer(void)
         tryMove(move);
 
         cout << "evaluation after > " << endl;
+        switchPlayers();
         if (isCheckMate(-1) == true)
-            { undoMove(move); return (legalMoves.at(i)); }
+            { undoMove(move); unSwitchPlayers(); return (legalMoves.at(i)); }
+        unSwitchPlayers();
 
         if (_gameInfo._color == "white")
         {

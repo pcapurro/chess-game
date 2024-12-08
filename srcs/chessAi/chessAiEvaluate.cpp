@@ -160,28 +160,14 @@ int		chessAi::evaluateKingControl(void)
 int		chessAi::evaluateKingDefense(void)
 {
 	int		value = 0;
-	bool	castled = false;
 
-	if (_gameInfo._color == "white")
-	{
-		if (_gameInfo._whiteCastle == false)
-			castled = true;
+	if (_gameInfo._color == "white" && _gameInfo._whiteCastled == true)
+		value += 15;
 
-		if (_gameInfo._whiteCastled == true)
-			value += 15;
-	}
+	if (_gameInfo._color == "black" && _gameInfo._blackCastled == true)
+		value += 15;
 
-	if (_gameInfo._color == "black")
-	{
-		if (_gameInfo._blackCastle == false)
-			castled = true;
-
-		if (_gameInfo._blackCastled == true)
-			value += 15;
-	}
-
-	if (_simulation == false
-		&& (castled == true || _endGame == true))
+	if (value != 0 || _endGame == true)
 	{
 		string			coord, kingCoords;
 		vector<string>	kingWays;
@@ -405,10 +391,10 @@ int		chessAi::getScore(const string color)
 	score += evaluateThreats() * normalCoeff;
 	cout << "– threat > " << evaluateThreats() * normalCoeff << endl;
 
-	score += evaluateKingControl() * 4 * (normalCoeff + endCoeff);
-	cout << "– king control > " << evaluateKingControl() * 4 * (normalCoeff + endCoeff) << endl;
-	score += evaluateKingDefense() * 4 * (normalCoeff + endCoeff);
-	cout << "– king defense > " << evaluateKingDefense() * 4 * (normalCoeff + endCoeff) << endl;
+	score += evaluateKingControl() * (normalCoeff + endCoeff);
+	cout << "– king control > " << evaluateKingControl() * (normalCoeff + endCoeff) << endl;
+	score += evaluateKingDefense() * (normalCoeff + endCoeff);
+	cout << "– king defense > " << evaluateKingDefense() * (normalCoeff + endCoeff) << endl;
 
 	score += evaluatePromotion() * (normalCoeff + endCoeff);
 	cout << "– promotion > " << evaluatePromotion() * (normalCoeff + endCoeff) << endl;
