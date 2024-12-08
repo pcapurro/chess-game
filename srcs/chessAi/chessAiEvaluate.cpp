@@ -350,19 +350,19 @@ int		chessAi::evaluateDev(void)
 
 	atValue = getAtValue(string(1, 'b') + nb1);
 	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
-		value += 3;
+		value += 4;
 	
 	atValue = getAtValue(string(1, 'g') + nb1);
 	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
-		value += 3;
+		value += 4;
 
 	atValue = getAtValue(string(1, 'c') + nb1);
 	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
-		value += 3;
+		value += 4;
 	
 	atValue = getAtValue(string(1, 'f') + nb1);
 	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
-		value += 3;
+		value += 4;
 
 	atValue = getAtValue(string(1, 'd') + nb2);
 	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)

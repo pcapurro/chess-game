@@ -83,16 +83,19 @@ string  chessAi::getEnPassantTarget(void)
 
 string  chessAi::getBestAnswer(void)
 {
-    int             whiteScore, blackScore;
-    string          move, answer;
+    int             score = 0;
+    int             saveScore = 0;
+    string          move, answer, saveAnswer;
     vector<string>  legalMoves;
 
     legalMoves = getLegalMoves();
 
     if (_gameInfo._color == "white")
-        whiteScore = getScore("white");
+        score = getScore("white");
     if (_gameInfo._color == "black")
-        blackScore = getScore("black");
+        score = getScore("black");
+
+    saveScore = 0;
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
@@ -119,14 +122,18 @@ string  chessAi::getBestAnswer(void)
         if (_gameInfo._color == "white")
         {
             _whiteScore = getScore("white");
-            if (_whiteScore > whiteScore)
-                whiteScore = _whiteScore, answer = legalMoves.at(i);
+            if (_whiteScore > score)
+                score = _whiteScore, answer = legalMoves.at(i);
+            if (_whiteScore > saveScore)
+                saveScore = _whiteScore, saveAnswer = legalMoves.at(i);
         }
         if (_gameInfo._color == "black")
         {
             _blackScore = getScore("black");
-            if (_blackScore > blackScore)
-                blackScore = _blackScore, answer = legalMoves.at(i);
+            if (_blackScore > score)
+                score = _blackScore, answer = legalMoves.at(i);
+            if (_blackScore > saveScore)
+                saveScore = _blackScore, saveAnswer = legalMoves.at(i);
         }
 
         undoMove(move);
@@ -135,7 +142,7 @@ string  chessAi::getBestAnswer(void)
     }
 
     if (answer == "")
-        srand(time(nullptr)), answer = legalMoves.at(rand() % legalMoves.size());
+        return (saveAnswer);
 
     return (answer);
 }
