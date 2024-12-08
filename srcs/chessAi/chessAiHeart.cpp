@@ -153,9 +153,8 @@ string	chessAi::getNextMove(void)
 {
 	// evaluateBoard();
 
-	switchPlayers();
 	_nextMove = getBestAnswer();
-	unSwitchPlayers();
-	cout << "next move > " << _nextMove << endl;
+	cout << "> " << _nextMove << endl;
+
 	return (_nextMove);
 }

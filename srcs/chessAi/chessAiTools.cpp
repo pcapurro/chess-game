@@ -87,18 +87,12 @@ string  chessAi::getBestAnswer(void)
     string          move, answer;
     vector<string>  legalMoves;
 
-    switchPlayers();
     legalMoves = getLegalMoves();
-    unSwitchPlayers();
 
-    // cout << "legal moves > " << endl;
-    // for (int i = 0; i != legalMoves.size(); i++)
-    //     cout << legalMoves.at(i) << " ; ";
-    // cout << endl << "-" << endl;
-
-    evaluateBoard();
-    whiteScore = _whiteScore;
-    blackScore = _blackScore;
+    if (_gameInfo._color == "white")
+        whiteScore = getScore("white");
+    if (_gameInfo._color == "black")
+        blackScore = getScore("black");
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
@@ -108,26 +102,20 @@ string  chessAi::getBestAnswer(void)
 
         tryMove(move);
 
-        switchPlayers();
         if (isCheckMate(-1) == true)
-        {
-            unSwitchPlayers();
-            undoMove(move);
-            return (legalMoves.at(i));
-        }
-        unSwitchPlayers();
+            { undoMove(move); return (legalMoves.at(i)); }
 
         if (_gameInfo._color == "white")
-        {
-            _blackScore = getScore("black");
-            if (_blackScore > blackScore)
-                blackScore = _blackScore, answer = legalMoves.at(i);
-        }
-        if (_gameInfo._color == "black")
         {
             _whiteScore = getScore("white");
             if (_whiteScore > whiteScore)
                 whiteScore = _whiteScore, answer = legalMoves.at(i);
+        }
+        if (_gameInfo._color == "black")
+        {
+            _blackScore = getScore("black");
+            if (_blackScore > blackScore)
+                blackScore = _blackScore, answer = legalMoves.at(i);
         }
 
         undoMove(move);
