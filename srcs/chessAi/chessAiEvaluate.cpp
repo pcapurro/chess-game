@@ -397,7 +397,7 @@ int		chessAi::getScore(const string color)
 		switchPlayers(), colorSwitch = true;
 
 	score += evaluateMaterial() * 10 * (normalCoeff + endCoeff);
-	cout << "– material > " << evaluateMaterial() * 10 << endl;
+	cout << "– material > " << evaluateMaterial() * 10 * (normalCoeff + endCoeff) << endl;
 
 	score += evaluateDefense() * 4;
 	cout << "– defense > " << evaluateDefense() * 4 << endl;
@@ -407,17 +407,17 @@ int		chessAi::getScore(const string color)
 	cout << "– threat > " << evaluateThreats() * normalCoeff << endl;
 
 	score += evaluateKingControl() * 4 * (normalCoeff + endCoeff);
-	cout << "– king control > " << evaluateKingControl() * 4 << endl;
+	cout << "– king control > " << evaluateKingControl() * 4 * (normalCoeff + endCoeff) << endl;
 	score += evaluateKingDefense() * 4 * (normalCoeff + endCoeff);
-	cout << "– king defense > " << evaluateKingDefense() * 4 << endl;
+	cout << "– king defense > " << evaluateKingDefense() * 4 * (normalCoeff + endCoeff) << endl;
 
 	score += evaluatePromotion() * (normalCoeff + endCoeff);
-	cout << "– promotion > " << evaluatePromotion() * endCoeff << endl;
+	cout << "– promotion > " << evaluatePromotion() * (normalCoeff + endCoeff) << endl;
 
-	score += evaluateMobility() * normalCoeff;
+	score += evaluateMobility() * 1;
 	cout << "– mobility > " << evaluateMobility() * 1 << endl;
 	score += evaluatePawns() * 4 * endCoeff;
-	cout << "– pawns > " << evaluatePawns() * endCoeff << endl;
+	cout << "– pawns > " << evaluatePawns() * 4 * endCoeff << endl;
 
 	if (_endGame == false)
 	{
