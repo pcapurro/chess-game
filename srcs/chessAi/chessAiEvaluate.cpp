@@ -124,6 +124,9 @@ int		chessAi::evaluateKingControl(void)
 	vector<string>	kingWays;
 	stack<cP *>		watchers;
 
+	if (_gameInfo._check == false && checkMateInOne() == true)
+		value += 21000;
+
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
@@ -160,6 +163,9 @@ int		chessAi::evaluateKingControl(void)
 int		chessAi::evaluateKingDefense(void)
 {
 	int		value = 0;
+
+	if (_gameInfo._check == false && isDefeatNext() == true)
+        value -= 21000;
 
 	if (_gameInfo._color == "white" && _gameInfo._whiteCastled == true)
 		value += 15;
@@ -334,33 +340,27 @@ int		chessAi::evaluateDev(void)
 	_gameInfo._color == "white" ? nb1 = '1', nb2 = '2' : nb1 = '8', nb2 = '7';
 
 	atValue = getAtValue(string(1, 'b') + nb1);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0
-		|| _board.at(atValue).piece->getColor() != _gameInfo._color)
+	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 	
 	atValue = getAtValue(string(1, 'g') + nb1);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0
-		|| _board.at(atValue).piece->getColor() != _gameInfo._color)
+	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 
 	atValue = getAtValue(string(1, 'c') + nb1);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0
-		|| _board.at(atValue).piece->getColor() != _gameInfo._color)
+	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 	
 	atValue = getAtValue(string(1, 'f') + nb1);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0
-		|| _board.at(atValue).piece->getColor() != _gameInfo._color)
+	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 
 	atValue = getAtValue(string(1, 'd') + nb2);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getType() != 'P'
-		|| _board.at(atValue).piece->getColor() != _gameInfo._color)
+	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getType() != 'P')
 		value += 16;
 
 	atValue = getAtValue(string(1, 'e') + nb2);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getType() != 'P'
-		|| _board.at(atValue).piece->getColor() != _gameInfo._color)
+	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getType() != 'P')
 		value += 16;
 
 	return (value);

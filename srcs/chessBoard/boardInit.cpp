@@ -42,6 +42,10 @@ chessBoard::chessBoard(const chessBoard *originalBoard)
     _gameInfo._enPassant = originalBoard->_gameInfo._enPassant;
     _gameInfo._enPassantDest = originalBoard->_gameInfo._enPassantDest;
 
+    _gameInfo._check = originalBoard->_gameInfo._check;
+    _gameInfo._draw = originalBoard->_gameInfo._draw;
+    _gameInfo._checkmate = originalBoard->_gameInfo._checkmate;
+
     for (int i = 0; i != 64; i++)
         _board.push_back(originalBoard->_board.at(i));
 }
