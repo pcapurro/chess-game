@@ -125,7 +125,7 @@ int		chessAi::evaluateKingControl(void)
 	stack<cP *>		watchers;
 
 	if (_gameInfo._check == false && checkMateInOne() == true)
-		value += 21000;
+		value += 50;
 
 	for (int i = 0; i != 64; i++)
 	{
