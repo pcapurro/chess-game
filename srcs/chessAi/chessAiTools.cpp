@@ -12,33 +12,6 @@ stack<chessPiece *> chessAi::orderByValue(stack<chessPiece *> materials)
     {
         for (int k = 0; k != vMaterials.size(); k++)
         {
-            if (i == 0 && vMaterials.at(k)->getType() == 'K')
-                stack.push(vMaterials.at(k));
-            if (i == 1 && vMaterials.at(k)->getType() == 'Q')
-                stack.push(vMaterials.at(k));
-            if (i == 2 && vMaterials.at(k)->getType() == 'R')
-                stack.push(vMaterials.at(k));
-            if (i == 3 && (vMaterials.at(k)->getType() == 'B' || vMaterials.at(k)->getType() == 'N'))
-                stack.push(vMaterials.at(k));
-            if (i == 4 && vMaterials.at(k)->getType() == 'P')
-                stack.push(vMaterials.at(k));
-        }
-    }
-    return (stack);
-}
-
-stack<chessPiece *> chessAi::orderByValueRev(stack<chessPiece *> materials)
-{
-    stack<cP *>     stack;
-    vector<cP *>    vMaterials;
-
-    while (materials.size() != 0)
-        vMaterials.push_back(materials.top()), materials.pop();
-
-    for (int i = 0; i != 5; i++)
-    {
-        for (int k = 0; k != vMaterials.size(); k++)
-        {
             if (i == 4 && vMaterials.at(k)->getType() == 'K')
                 stack.push(vMaterials.at(k));
             if (i == 3 && vMaterials.at(k)->getType() == 'Q')
@@ -52,20 +25,6 @@ stack<chessPiece *> chessAi::orderByValueRev(stack<chessPiece *> materials)
         }
     }
     return (stack);
-}
-
-stack<cP *>    chessAi::getTargets(void)
-{
-    stack<cP *>  targets;
-
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-            && isAttacked(_board.at(i).coord) == true)
-            targets.push(_board.at(i).piece);
-    }
-
-    return (targets);
 }
 
 string  chessAi::getEnPassantTarget(void)
@@ -95,7 +54,7 @@ string  chessAi::getBestAnswer(void)
     for (int i = 0; i != legalMoves.size(); i++)
     {
         move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
+        if (move[0] != 'O')
             move = move.c_str() + 1;
 
         _simulation = true;
@@ -162,7 +121,7 @@ stack<cP *> chessAi::getWatchers(const string coord)
                 }
             }
         }
-        material = orderByValueRev(material);
+        material = orderByValue(material);
         materials.push_back(material);
         while (material.size() != 0)
             material.pop();
@@ -182,32 +141,6 @@ stack<cP *> chessAi::getWatchers(const string coord)
     }
 
     return (material3);
-}
-
-int     chessAi::getAttackedNumber(void)
-{
-    int nb = 0;
-
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-            && isAttacked(_board.at(i).coord) == true)
-            nb++;
-    }
-    return (nb);
-}
-
-int     chessAi::getAttackedValues(void)
-{
-    int nb = 0;
-
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-            && isAttacked(_board.at(i).coord) == true)
-            nb = nb + getMaterialValue(_board.at(i).piece->getType());
-    }
-    return (nb);
 }
 
 int chessAi::getMaterialValue(const char type)

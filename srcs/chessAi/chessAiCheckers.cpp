@@ -1,112 +1,5 @@
 #include "chessAi.hpp"
 
-bool    chessAi::equalValues(const string move)
-{
-    int     oneValue;
-    int     twoValue;
-    string  coordOne;
-    string  coordTwo;
-
-    coordOne = string(1, move[0]) + move[1];
-    coordTwo = string(1, move[2]) + move[3];
-
-    oneValue = getMaterialValue(_board.at(getAtValue(coordOne)).piece->getType());
-
-    if (_board.at(getAtValue(coordTwo)).piece != NULL)
-        twoValue = getMaterialValue(_board.at(getAtValue(coordTwo)).piece->getType());
-    else
-        return (true);
-
-    if (oneValue == twoValue)
-        return (true);
-
-    return (false);
-}
-
-bool    chessAi::isDeveloped(void)
-{
-    char    nb;
-
-    if (_gameInfo._color == "white")
-        nb = '1';
-    if (_gameInfo._color == "white")
-        nb = '8';
-
-    if (_board.at(getAtValue("b" + nb)).piece != NULL && _board.at(getAtValue("b" + nb)).piece->getMoves() == 0)
-        return (false);
-    if (_board.at(getAtValue("c" + nb)).piece != NULL && _board.at(getAtValue("c" + nb)).piece->getMoves() == 0)
-        return (false);
-
-    if (_board.at(getAtValue("f" + nb)).piece != NULL && _board.at(getAtValue("f" + nb)).piece->getMoves() == 0)
-        return (false);
-    if (_board.at(getAtValue("g" + nb)).piece != NULL && _board.at(getAtValue("g" + nb)).piece->getMoves() == 0)
-        return (false);
-
-    if (_board.at(getAtValue("e" + nb)).piece != NULL && _board.at(getAtValue("e" + nb)).piece->getMoves() == 0)
-    {
-        if (_board.at(getAtValue("a" + nb)).piece != NULL && _board.at(getAtValue("a" + nb)).piece->getMoves() == 0)
-            return (false);
-        if (_board.at(getAtValue("h" + nb)).piece != NULL && _board.at(getAtValue("h" + nb)).piece->getMoves() == 0)
-            return (false);
-    }
-
-    return (true);
-}
-
-bool    chessAi::isExchangeWorth(void)
-{
-    int materials = 0;
-    int enemyMaterials = 0;
-
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
-            materials = materials + getMaterialValue(_board.at(i).piece->getType());
-
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
-            enemyMaterials = enemyMaterials + getMaterialValue(_board.at(i).piece->getType());
-    }
-
-    if (materials > enemyMaterials)
-        return (true);
-
-    return (false);
-}
-
-bool    chessAi::isMoveWorth(const string move)
-{
-    int     earned = 0;
-    int     attacked = getAttackedValues();
-    string  dest;
-    
-    if (move != "O-O" && move != "O-O-O")
-    {
-        dest = string(1, move[2]) + move[3];
-
-        if (_board.at(getAtValue(dest)).piece != NULL)
-            earned = earned + getMaterialValue(_board.at(getAtValue(dest)).piece->getType());
-    }
-
-    tryMove(move);
-
-    if (getAttackedValues() - earned < attacked)
-        { undoMove(move); return (true); }
-    
-    if (getAttackedValues() - earned == attacked)
-    {
-        if (move == "O-O" || move == "O-O-O"
-            || isProtected(dest) == true || isFree(dest) == true)
-        {
-            undoMove(move);
-            return (true);
-        }
-    }
-
-    undoMove(move);
-
-    return (false);
-}
-
 bool    chessAi::isFree(const string coord)
 {
     stack<cP *> attackers;
@@ -126,26 +19,6 @@ bool    chessAi::isSafe(const string coord)
     if (isProtected(coord) == true || isFree(coord) == true)
         return (true);
     return (false);
-}
-
-bool    chessAi::isNailed(const string coord)
-{
-    bool    value = false;
-
-    if (_board.at(getAtValue(coord)).piece->getType() != 'K')
-    {
-        chessPiece  *object;
-
-        object = _board.at(getAtValue(coord)).piece;
-        _board.at(getAtValue(coord)).piece = NULL;
-
-        if (isCheck() == true)
-            value = true;
-
-        _board.at(getAtValue(coord)).piece = object;
-    }
-
-    return (value);
 }
 
 bool    chessAi::isProtected(const string coord)
@@ -187,50 +60,6 @@ bool    chessAi::isProtected(const string coord)
     return (true);
 }
 
-bool    chessAi::isSomethingAttacked(void)
-{
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
-        {
-            switchPlayers();
-            if (isAttacked(_board.at(i).coord) == true)
-            {
-                unSwitchPlayers();
-                return (true);
-            }
-            unSwitchPlayers();
-        }
-    }
-    return (false);
-}
-
-bool    chessAi::isDefenseWorth(void)
-{
-    int targets = 0;
-    int attacked = 0;
-
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
-        {
-            switchPlayers();
-            if (isAttacked(_board.at(i).coord) == true)
-                targets += getMaterialValue(_board.at(i).piece->getType());
-            unSwitchPlayers();
-        }
-
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-            && isAttacked(_board.at(i).coord) == true)
-            attacked += getMaterialValue(_board.at(i).piece->getType());
-    }
-
-    if (targets >= attacked)
-        return (false);
-
-    return (true);
-}
-
 bool    chessAi::isEndGame(void)
 {
     int whiteMaterials = 0;
@@ -251,54 +80,6 @@ bool    chessAi::isEndGame(void)
     if (whiteMaterials < 21 || blackMaterials < 21)
         return (true);
 
-    return (false);
-}
-
-bool    chessAi::willBeCheck(void)
-{
-    string          move;
-    vector<string>  legalMoves;
-
-    if (isCheck() == true)
-        return (false);
-
-    switchPlayers();
-
-    legalMoves = getLegalMoves();
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1;
-
-        if (isMoveWorth(move) == true)
-        {
-            unSwitchPlayers();
-
-            tryMove(move);
-            if ((legalMoves.at(i)[0] == 'P' || isEndGame() == false) && isCheck() == true)
-                { undoMove(move); return (true); }
-            undoMove(move);
-
-            switchPlayers();
-        }
-    }
-
-    unSwitchPlayers();
-
-    return (false);
-}
-
-bool    chessAi::isAllyAttacked(void)
-{
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
-        {
-            if (isAttacked(_board.at(i).coord) == true)
-                return (true);
-        }
-    }
     return (false);
 }
 
@@ -329,49 +110,6 @@ bool    chessAi::isAttacked(const string coord)
     return (false);
 }
 
-bool    chessAi::isAttackedByPawn(const string coord)
-{
-    vector<string>  boardCoords;
-
-    boardCoords = getPiecesCoords();
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
-        {
-            if (_board.at(i).piece->getType() == 'P'
-                && _board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
-                return (true);
-        }
-    }
-    return (false);
-}
-
-bool    chessAi::checkMateInTwo(void)
-{
-    string          move;
-    vector<string>  legalMoves;
-
-    legalMoves = getLegalMoves();
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
-            move = move.c_str() + 1;
-
-        tryMove(move);
-
-        if (checkMateInOne() == true && (count(move.begin(), move.end(), 'O') != 0
-            || isProtected(string(1, move[2]) + move[3]) == true))
-        {
-            undoMove(move);
-            return (true);
-        }
-
-        undoMove(move);
-    }
-    return (false);
-}
-
 bool    chessAi::checkMateInOne(void)
 {
     string          move;
@@ -382,7 +120,7 @@ bool    chessAi::checkMateInOne(void)
     for (int i = 0; i != legalMoves.size(); i++)
     {
         move = legalMoves.at(i);
-        if (count(move.begin(), move.end(), 'O') == 0)
+        if (move[0] != 'O')
             move = move.c_str() + 1;
 
         tryMove(move);
