@@ -23,13 +23,13 @@ class chessAi : protected chessBoard
 
 		string	    getNextMove(void);
         int		    getScore(const string color);
+        string      getBestAnswer(void);
 
 	private:
 
         int             getWatchersNumber(const string coord);
         int             getMaterialValue(const char type);
         string          getEnPassantTarget(void);
-        string          getBestAnswer(void);
         string          getRandomAnswer(void);
 
         stack<cP *>     orderByValue(stack<cP *> materials);

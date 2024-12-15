@@ -42,6 +42,13 @@ int		visualGame::visualLoop(void)
         // score = ai.getScore("black");
         // cout << "total > " << score << endl << endl;
 
+        int i = 0;
+        chessAi ai(_board);
+
+        while (i != 10)
+            i++, ai.getBestAnswer();
+        exit(0);
+
         answer = getVisualAnswer();
         if (answer == "end")
             { _board->printEndGame(1); return (2); }
