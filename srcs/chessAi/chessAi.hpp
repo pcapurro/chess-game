@@ -30,6 +30,7 @@ class chessAi : protected chessBoard
         int             getMaterialValue(const char type);
         string          getEnPassantTarget(void);
         string          getBestAnswer(void);
+        string          getRandomAnswer(void);
 
         stack<cP *>     orderByValue(stack<cP *> materials);
         stack<cP *>     getWatchers(const string coord);

@@ -23,7 +23,8 @@ vector<t_path>	chessAi::getPaths(void)
 		path.push_back(move);
 
 		tryMove(move);
-		answer = getBestAnswer();
+		// answer = getBestAnswer();
+		answer = getRandomAnswer(); //
 		undoMove(move);
 		path.push_back(answer);
 
@@ -33,7 +34,7 @@ vector<t_path>	chessAi::getPaths(void)
 
 	// MAX_LEVEL = 4
 
-	for (int i = 0; i != 1; i++)
+	for (int i = 0; i != 2; i++)
 	{
 		if (paths.size() != 0)
 			oldPaths = paths, paths.clear();
@@ -57,7 +58,9 @@ vector<t_path>	chessAi::getPaths(void)
 				newMoves.push_back(move);
 
 				tryMove(move);
-				answer = getBestAnswer();
+				// answer = getBestAnswer();
+				answer = getRandomAnswer(); //
+
 				newMoves.push_back(answer);
 				undoMove(move);
 
@@ -69,44 +72,16 @@ vector<t_path>	chessAi::getPaths(void)
 		}
 	}
 
-	cout << endl << "total of " << paths.size() << " branches detected." << endl;
+	// cout << endl << "total of " << paths.size() << " branches detected." << endl;
 
-	cout << "possible paths for " << _gameInfo._color << " >" << endl;
-	for (int i = 0; i != paths.size(); i++)
-	{
-		cout << "– ";
-		for (int k = 0; k != paths.at(i).branch.size(); k++)
-			cout << paths.at(i).branch.at(k) << " > ";
-		cout << endl;
-	}
-
-	sleep(500);
-	exit(0);
-
-	// oldPaths :
-
-	// 0 {a2a3}, {\0}
-	// 1 {a2a4}, {\0}
-	// 2 {b2b3}, {\0}
-	// 3 {b2b4}, {\0}
-	// 4 {c2c3}, {\0}
-	// 5 {c2c4}, {\0}
-	// 6 {d2d3}, {\0}
-	// 7 {d2d4}, {\0}
-	// 8 {e2e3}, {\0}
-	// 9 {e2e4}, {\0}
-	// 10 {f2f3}, {\0}
-	// 11 {f2f4}, {\0}
-
-	// 12 {g2g3}, {\0}
-	// 13 {g2g4}, {\0}
-	// 14 {h2h3}, {\0}
-	// 15 {h2h4}, {\0}
-
-	// 16 {g1f3}, {\0}
-	// 17 {g1h3}, {\0}
-	// 18 {b1a3}, {\0}
-	// 19 {b1c3}, {\0}
+	// cout << "possible paths for " << _gameInfo._color << " >" << endl;
+	// for (int i = 0; i != paths.size(); i++)
+	// {
+	// 	cout << "– ";
+	// 	for (int k = 0; k != paths.at(i).branch.size(); k++)
+	// 		cout << paths.at(i).branch.at(k) << " > ";
+	// 	cout << endl;
+	// }
 
 	return (paths);
 }

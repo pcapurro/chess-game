@@ -40,6 +40,23 @@ string  chessAi::getEnPassantTarget(void)
     return (target);
 }
 
+string  chessAi::getRandomAnswer(void)
+{
+    vector<string>  legalMoves;
+    string          answer;
+
+    switchPlayers();
+    legalMoves = getLegalMoves();
+    unSwitchPlayers();
+
+    srand(time(nullptr));
+    answer = legalMoves.at(rand() % legalMoves.size());
+
+    if (answer[0] != 'O')
+        answer = answer.c_str() + 1;
+    return (answer);
+}
+
 string  chessAi::getBestAnswer(void)
 {
     int             actualScore, bestScore, savedScore = 0;
