@@ -127,6 +127,11 @@ int		chessAi::evaluateKingControl(void)
 	if (_gameInfo._check == false && checkMateInOne() == true)
 		value += 50;
 
+	switchPlayers();
+	if (_simulation == true && isCheckMate(-1) == true)
+		value += 21000;
+	unSwitchPlayers();
+
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
@@ -373,10 +378,7 @@ int		chessAi::getScore(const string color)
 	int		endCoeff = 1;
 	bool	colorSwitch = false;
 
-	if (_normalGame == true)
-		normalCoeff = 4;
-	if (_endGame == true)
-		endCoeff = 4;
+	isEndGame() == false ? normalCoeff = 4 : endCoeff = 4;
 
 	if (_gameInfo._color != color)
 		switchPlayers(), colorSwitch = true;
@@ -404,7 +406,7 @@ int		chessAi::getScore(const string color)
 	score += evaluatePawns() * 4 * endCoeff;
 	cout << "– pawns > " << evaluatePawns() * 4 * endCoeff << endl;
 
-	if (_endGame == false)
+	if (normalCoeff == 4)
 	{
 		score += evaluateCenter() * normalCoeff;
 		cout << "– center > " << evaluateCenter() * normalCoeff << endl;
@@ -416,22 +418,4 @@ int		chessAi::getScore(const string color)
 		unSwitchPlayers();
 
 	return (score);
-}
-
-void	chessAi::evaluateBoard(void)
-{
-	if (_endGame == false && isEndGame() == true)
-		_endGame = true, _normalGame = false;
-
-	cout << "white score > " << endl;
-	_whiteScore = getScore("white");
-	cout << "total > " << _whiteScore << endl;
-
-	cout << endl;
-
-	cout << "black score > " << endl;
-	_blackScore = getScore("black");
-	cout << "total > " << _blackScore << endl;
-
-	cout << endl;
 }

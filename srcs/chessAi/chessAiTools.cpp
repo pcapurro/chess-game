@@ -83,19 +83,12 @@ string  chessAi::getEnPassantTarget(void)
 
 string  chessAi::getBestAnswer(void)
 {
-    int             score = 0;
-    int             saveScore = 0;
-    string          move, answer, saveAnswer;
+    int             actualScore, bestScore, savedScore = 0;
+    string          move, answer, savedAnswer;
     vector<string>  legalMoves;
 
     legalMoves = getLegalMoves();
-
-    if (_gameInfo._color == "white")
-        score = getScore("white");
-    if (_gameInfo._color == "black")
-        score = getScore("black");
-
-    saveScore = 0;
+    bestScore = getScore(_gameInfo._color);
 
     for (int i = 0; i != legalMoves.size(); i++)
     {
@@ -103,48 +96,21 @@ string  chessAi::getBestAnswer(void)
         if (count(move.begin(), move.end(), 'O') == 0)
             move = move.c_str() + 1;
 
-        cout << "evaluating " << move << endl;
-        cout << "evaluation before > " << endl;
-
-        if (_gameInfo._color == "white")
-            getScore("white");
-        if (_gameInfo._color == "black")
-            getScore("black");
-
         _simulation = true;
-
         tryMove(move);
 
-        cout << "evaluation after > " << endl;
-        switchPlayers();
-        if (isCheckMate(-1) == true)
-            { undoMove(move); unSwitchPlayers(); return (legalMoves.at(i)); }
-        unSwitchPlayers();
-
-        if (_gameInfo._color == "white")
-        {
-            _whiteScore = getScore("white");
-            if (_whiteScore > score)
-                score = _whiteScore, answer = legalMoves.at(i);
-            if (_whiteScore > saveScore)
-                saveScore = _whiteScore, saveAnswer = legalMoves.at(i);
-        }
-        if (_gameInfo._color == "black")
-        {
-            _blackScore = getScore("black");
-            if (_blackScore > score)
-                score = _blackScore, answer = legalMoves.at(i);
-            if (_blackScore > saveScore)
-                saveScore = _blackScore, saveAnswer = legalMoves.at(i);
-        }
+        actualScore = getScore(_gameInfo._color);
+        if (actualScore > bestScore)
+            bestScore = actualScore, answer = legalMoves.at(i);
+        if (actualScore > savedScore)
+            savedScore = actualScore, savedAnswer = legalMoves.at(i);
 
         undoMove(move);
-
         _simulation = false;
     }
 
     if (answer == "")
-        return (saveAnswer);
+        answer = savedAnswer;
 
     return (answer);
 }
