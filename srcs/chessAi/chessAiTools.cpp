@@ -87,6 +87,8 @@ string  chessAi::getBestAnswer(void)
     string          move, answer, savedAnswer;
     vector<string>  legalMoves;
 
+    switchPlayers();
+
     legalMoves = getLegalMoves();
     bestScore = getScore(_gameInfo._color);
 
@@ -101,9 +103,9 @@ string  chessAi::getBestAnswer(void)
 
         actualScore = getScore(_gameInfo._color);
         if (actualScore > bestScore)
-            bestScore = actualScore, answer = legalMoves.at(i);
+            bestScore = actualScore, answer = move;
         if (actualScore > savedScore)
-            savedScore = actualScore, savedAnswer = legalMoves.at(i);
+            savedScore = actualScore, savedAnswer = move;
 
         undoMove(move);
         _simulation = false;
@@ -111,6 +113,8 @@ string  chessAi::getBestAnswer(void)
 
     if (answer == "")
         answer = savedAnswer;
+
+    unSwitchPlayers();
 
     return (answer);
 }

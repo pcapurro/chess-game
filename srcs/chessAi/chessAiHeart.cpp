@@ -152,9 +152,11 @@ void	chessAi::analyzeBoard(void)
 vector<t_path>	chessAi::getPaths(void)
 {
 	string			move;
+	string			answer;
 	vector<string>	path;
 	vector<string>	legalMoves;
-	vector<string>	moves;
+	vector<string>	moves, newMoves;
+	vector<string>	tested;
 
 	vector<t_path>	paths;
 	vector<t_path>	oldPaths;
@@ -168,6 +170,11 @@ vector<t_path>	chessAi::getPaths(void)
 		if (count(move.begin(), move.end(), 'O') == 0)
 			move = move.c_str() + 1;
 		path.push_back(move);
+
+		tryMove(move);
+		answer = getBestAnswer();
+		undoMove(move);
+		path.push_back(answer);
 
 		oldPaths.push_back({path, 0});
 		path.clear();
@@ -183,23 +190,35 @@ vector<t_path>	chessAi::getPaths(void)
 		for (int k = 0; k != oldPaths.size(); k++)
 		{
 			moves = oldPaths.at(k).branch;
+		
 			for (int j = 0; j != moves.size(); j++)
-				move = moves.at(j),	tryMove(move);
-
+				tryMove(moves.at(j));
+			
 			legalMoves = getLegalMoves();
 
 			for (int j = 0; j != legalMoves.size(); j++)
 			{
-				moves.push_back(legalMoves.at(j));
-				paths.push_back({moves, 0});
-				moves.erase(moves.begin() + (moves.size() - 1));
+				move = legalMoves.at(j);
+				if (count(move.begin(), move.end(), 'O') == 0)
+					move = move.c_str() + 1;
+
+				newMoves = moves;
+				newMoves.push_back(move);
+
+				tryMove(move);
+				answer = getBestAnswer();
+				newMoves.push_back(answer);
+				undoMove(move);
+
+				paths.push_back({newMoves, 0});
 			}
 
-			moves = oldPaths.at(k).branch;
 			for (int j = moves.size() - 1; j != -1; j--)
-				move = moves.at(j),	undoMove(move);
+				undoMove(moves.at(j));
 		}
 	}
+
+	cout << endl << "total of " << paths.size() << " branches detected." << endl;
 
 	cout << "possible paths for " << _gameInfo._color << " >" << endl;
 	for (int i = 0; i != paths.size(); i++)
