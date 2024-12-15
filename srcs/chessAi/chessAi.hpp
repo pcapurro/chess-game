@@ -53,7 +53,6 @@ class chessAi : protected chessBoard
         bool        isSafe(const string coord);
         bool        isProtected(const string coord);
         bool        isFree(const string coord);
-        bool        isAttacked(const string coord);
 
         bool        isEndGame(void);
         bool        isDefeatNext(void);

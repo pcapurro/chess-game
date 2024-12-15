@@ -4,12 +4,20 @@ bool    chessAi::isFree(const string coord)
 {
     stack<cP *> attackers;
 
-    switchPlayers();
-    attackers = getWatchers(coord);
-    unSwitchPlayers();
+    if (getEnPassantTarget() == coord)
+    {
+        if (isFree(_gameInfo._enPassantDest) == true)
+            return (true);
+    }
+    else
+    {
+        switchPlayers();
+        attackers = getWatchers(coord);
+        unSwitchPlayers();
 
-    if (attackers.size() == 0)
-        return (true);
+        if (attackers.size() == 0)
+            return (true);
+    }
 
     return (false);
 }
@@ -79,33 +87,6 @@ bool    chessAi::isEndGame(void)
 
     if (whiteMaterials < 21 || blackMaterials < 21)
         return (true);
-
-    return (false);
-}
-
-bool    chessAi::isAttacked(const string coord)
-{
-    vector<string>  boardCoords;
-
-    boardCoords = getPiecesCoords();
-
-    for (int i = 0; i != 64; i++)
-    {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
-        {
-            if (_board.at(i).piece->isOnMyWay(coord, boardCoords, 1, _gameInfo._enPassantDest) == true)
-            {
-                if (isProtected(coord) == false)
-                    return (true);
-            }
-        }
-    }
-
-    if (getEnPassantTarget() == coord)
-    {
-        if (isAttacked(_gameInfo._enPassantDest) == true)
-            return (true);
-    }
 
     return (false);
 }

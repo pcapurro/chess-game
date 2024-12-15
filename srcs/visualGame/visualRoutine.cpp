@@ -29,18 +29,18 @@ int		visualGame::visualLoop(void)
 
     while (_board->isGameOver() == false)
     {
-        // int         score;
-        // chessAi     ai(_board);
+        int         score;
+        chessAi     ai(_board);
 
-        // cout << "-" << endl << endl;
+        cout << "-" << endl << endl;
 
-        // cout << "white score > " << endl;
-        // score = ai.getScore("white", false);
-        // cout << "total > " << score << endl << endl;
+        cout << "white score > " << endl;
+        score = ai.getScore("white", false);
+        cout << "total > " << score << endl << endl;
 
-        // cout << "black score > " << endl;
-        // score = ai.getScore("black", false);
-        // cout << "total > " << score << endl << endl;
+        cout << "black score > " << endl;
+        score = ai.getScore("black", false);
+        cout << "total > " << score << endl << endl;
 
         answer = getVisualAnswer();
         if (answer == "end")

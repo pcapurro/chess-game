@@ -12,9 +12,9 @@ int		chessAi::evaluateMaterial(const bool simulation)
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
 		{
 			if (_board.at(i).piece->getColor() == _gameInfo._color)
-				value += getMaterialValue(_board.at(i).piece->getType()) * 10;
+				value += getMaterialValue(_board.at(i).piece->getType());
 			else
-				enemyMaterial += getMaterialValue(_board.at(i).piece->getType()) * 10;
+				enemyMaterial += getMaterialValue(_board.at(i).piece->getType());
 		}
 	}
 
@@ -26,13 +26,13 @@ int		chessAi::evaluateMaterial(const bool simulation)
 		{
 			if (_board.at(i).piece->getColor() == _gameInfo._color)
 			{
-				if (isAttacked(_board.at(i).coord) == true)
+				if (isSafe(_board.at(i).coord) == false)
 					attacked.push(_board.at(i).piece);
 			}
 			else
 			{
 				switchPlayers();
-				if (isAttacked(_board.at(i).coord) == true)
+				if (isSafe(_board.at(i).coord) == false)
 					attacking.push(_board.at(i).piece);
 				unSwitchPlayers();
 			}
@@ -42,14 +42,14 @@ int		chessAi::evaluateMaterial(const bool simulation)
 	if (attacked.size() != 0)
 	{
 		attacked = orderByValue(attacked);
-		value -= getMaterialValue(attacked.top()->getType()) * 10;
+		value -= getMaterialValue(attacked.top()->getType());
 	}
 
 	if (simulation == false && attacking.size() > 1)
 	{
 		attacking = orderByValue(attacking);
 		attacking.pop();
-		value += getMaterialValue(attacking.top()->getType()) * 10;
+		value += getMaterialValue(attacking.top()->getType());
 	}
 
 	if (value < 0)
@@ -84,7 +84,7 @@ int		chessAi::evaluateThreats(void)
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-			&& _board.at(i).piece->getType() != 'K' && isAttacked(_board.at(i).coord) == false)
+			&& _board.at(i).piece->getType() != 'K' && isSafe(_board.at(i).coord) == true)
 		{
 			for (int k = 0; k != 64; k++)
 			{
@@ -105,10 +105,10 @@ int		chessAi::evaluateAttack(void)
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color
-			&& _board.at(i).piece->getType() != 'K' && isAttacked(_board.at(i).coord) == false)
+			&& _board.at(i).piece->getType() != 'K' && isSafe(_board.at(i).coord) == true)
 		{
 			switchPlayers();
-			if (isAttacked(_board.at(i).coord) == true)
+			if (isSafe(_board.at(i).coord) == false)
 				value += (getMaterialValue(_board.at(i).piece->getType()) * 2);
 			unSwitchPlayers();
 		}
@@ -156,7 +156,7 @@ int		chessAi::evaluateKingControl(const bool simulation)
 		watchers = getWatchers(kingWays.at(i));
 		while (watchers.size() != 0)
 		{
-			if (isAttacked(watchers.top()->getCoord()) == false)
+			if (isSafe(watchers.top()->getCoord()) == true)
 				value++;
 			watchers.pop();
 		}
@@ -208,7 +208,7 @@ int		chessAi::evaluateKingDefense(void)
 			watchers = getWatchers(kingWays.at(i));
 			while (watchers.size() != 0)
 			{
-				if (isAttacked(watchers.top()->getCoord()) == false)
+				if (isSafe(watchers.top()->getCoord()) == true)
 					value++;
 				watchers.pop();
 			}
@@ -226,7 +226,7 @@ int		chessAi::evaluateMobility(void)
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-			&& isAttacked(_board.at(i).coord) == false)
+			&& isSafe(_board.at(i).coord) == true)
 		{
 			if (_board.at(i).piece->getType() != 'K')
 				value += (getPossibleTargets(_board.at(i).coord).size());
@@ -299,7 +299,7 @@ int		chessAi::evaluateCenter(void)
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-			&& isAttacked(_board.at(i).coord) == false)
+			&& isSafe(_board.at(i).coord) == true)
 		{
 			for (int k = 0; k != 4; k++)
 			{
@@ -317,7 +317,7 @@ int		chessAi::evaluateCenter(void)
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
-			&& isAttacked(_board.at(i).coord) == false)
+			&& isSafe(_board.at(i).coord) == true)
 		{
 			if (_board.at(i).coord == "e4" || _board.at(i).coord == "e5"
 				|| _board.at(i).coord == "d4" || _board.at(i).coord == "d5")
