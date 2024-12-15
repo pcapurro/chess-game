@@ -12,9 +12,9 @@ int		chessAi::evaluateMaterial(const bool simulation)
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
 		{
 			if (_board.at(i).piece->getColor() == _gameInfo._color)
-				value += getMaterialValue(_board.at(i).piece->getType());
+				value += getMaterialValue(_board.at(i).piece->getType()) * 10;
 			else
-				enemyMaterial += getMaterialValue(_board.at(i).piece->getType());
+				enemyMaterial += getMaterialValue(_board.at(i).piece->getType()) * 10;
 		}
 	}
 
@@ -42,14 +42,14 @@ int		chessAi::evaluateMaterial(const bool simulation)
 	if (attacked.size() != 0)
 	{
 		attacked = orderByValue(attacked);
-		value -= getMaterialValue(attacked.top()->getType());
+		value -= getMaterialValue(attacked.top()->getType()) * 10;
 	}
 
 	if (simulation == false && attacking.size() > 1)
 	{
 		attacking = orderByValue(attacking);
 		attacking.pop();
-		value += getMaterialValue(attacking.top()->getType());
+		value += getMaterialValue(attacking.top()->getType()) * 10;
 	}
 
 	if (value < 0)
@@ -384,30 +384,34 @@ int		chessAi::getScore(const string color, const bool simulation)
 		switchPlayers(), colorSwitch = true;
 
 	score += evaluateKingControl(simulation) * (normalCoeff + endCoeff);
+	cout << "– king control > " << evaluateKingControl(simulation) * (normalCoeff + endCoeff) << endl;
 	score += evaluateKingDefense() * (normalCoeff + endCoeff);
+	cout << "– king defense > " << evaluateKingDefense() * (normalCoeff + endCoeff) << endl;
 
-	if (score >= 21000 || score <= -21000)
-	{
-		if (colorSwitch == true)
-			unSwitchPlayers();
-		return (score);
-	}
-
-	score += evaluateMaterial(simulation) * 10 * (normalCoeff + endCoeff);
+	score += evaluateMaterial(simulation) * (normalCoeff + endCoeff);
+	cout << "– material > " << evaluateMaterial(simulation) * 10 * (normalCoeff + endCoeff) << endl;
 
 	score += evaluateDefense() * 4;
+	cout << "– defense > " << evaluateDefense() * 4 << endl;
 	score += evaluateAttack() * 4;
+	cout << "– attack > " << evaluateAttack() * 4 << endl;
 	score += evaluateThreats() * normalCoeff;
+	cout << "– threat > " << evaluateThreats() * normalCoeff << endl;
 
 	score += evaluatePromotion() * (normalCoeff + endCoeff);
+	cout << "– promotion > " << evaluatePromotion() * (normalCoeff + endCoeff) << endl;
 
 	score += evaluateMobility() * 1;
+	cout << "– mobility > " << evaluateMobility() * 1 << endl;
 	score += evaluatePawns() * 4 * endCoeff;
+	cout << "– pawns > " << evaluatePawns() * 4 * endCoeff << endl;
 
 	if (normalCoeff == 4)
 	{
 		score += evaluateCenter() * normalCoeff;
+		// cout << "– center > " << evaluateCenter() * normalCoeff << endl;
 		score += evaluateDev() * normalCoeff;
+		// cout << "– global dev > " << evaluateDev() * normalCoeff << endl;
 	}
 
 	if (colorSwitch == true)
