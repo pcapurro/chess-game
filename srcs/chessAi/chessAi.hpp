@@ -38,7 +38,6 @@ class chessAi : protected chessBoard
 
         int         evaluateDefense(void);
         int		    evaluateAttack(void);
-        int         evaluateThreats(void);
 
         int		    evaluateKingControl(const bool simulation);
         int		    evaluateKingDefense(void);

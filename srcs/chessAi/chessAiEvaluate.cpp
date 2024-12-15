@@ -75,7 +75,7 @@ int		chessAi::evaluateDefense(void)
 	return (value);
 }
 
-int		chessAi::evaluateThreats(void)
+int		chessAi::evaluateAttack(void)
 {
 	int				value = 0;
 	vector<string>	boardCoords;
@@ -92,25 +92,6 @@ int		chessAi::evaluateThreats(void)
 					&& _board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords, 0, _gameInfo._enPassantDest) == true)
 					value++;
 			}
-		}
-	}
-
-	return (value);
-}
-
-int		chessAi::evaluateAttack(void)
-{
-	int		value = 0;
-
-	for (int i = 0; i != 64; i++)
-	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color
-			&& _board.at(i).piece->getType() != 'K' && isSafe(_board.at(i).coord) == true)
-		{
-			switchPlayers();
-			if (isSafe(_board.at(i).coord) == false)
-				value += (getMaterialValue(_board.at(i).piece->getType()) * 2);
-			unSwitchPlayers();
 		}
 	}
 
@@ -395,8 +376,6 @@ int		chessAi::getScore(const string color, const bool simulation)
 	cout << "– defense > " << evaluateDefense() * 4 << endl;
 	score += evaluateAttack() * 4;
 	cout << "– attack > " << evaluateAttack() * 4 << endl;
-	score += evaluateThreats() * normalCoeff;
-	cout << "– threat > " << evaluateThreats() * normalCoeff << endl;
 
 	score += evaluatePromotion() * (normalCoeff + endCoeff);
 	cout << "– promotion > " << evaluatePromotion() * (normalCoeff + endCoeff) << endl;
