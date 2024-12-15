@@ -5,6 +5,13 @@
 
 typedef chessPiece      cP;
 
+typedef struct s_path
+{
+    vector<string>  branch;
+    int             score;
+
+}   t_path;
+
 class chessAi : protected chessBoard
 {
 	public:
@@ -16,6 +23,9 @@ class chessAi : protected chessBoard
         int		    getScore(const string color);
 
 	private:
+
+        vector<t_path>  getPaths(void);
+        void            evaluatePaths(vector<t_path> &paths);
 
         int		    evaluateMaterial(void);
 
@@ -121,13 +131,7 @@ class chessAi : protected chessBoard
 
 		string		    _nextMove;
 
-        int             _whiteScore;
-        int             _blackScore;
-
         bool            _simulation;
-
-        bool            _normalGame;
-        bool            _endGame;
 
         bool            _checkMateInOne;
         bool            _checkMateInTwo;

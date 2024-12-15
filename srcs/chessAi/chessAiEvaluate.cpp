@@ -178,7 +178,7 @@ int		chessAi::evaluateKingDefense(void)
 	if (_gameInfo._color == "black" && _gameInfo._blackCastled == true)
 		value += 15;
 
-	if (value != 0 || _endGame == true)
+	if (value != 0 || isEndGame() == true)
 	{
 		string			coord, kingCoords;
 		vector<string>	kingWays;

@@ -6,9 +6,6 @@ chessAi::chessAi(const chessBoard *board) : chessBoard(board)
 
 	_simulation = false;
 
-	_normalGame = true;
-	_endGame = false;
-
 	_checkMateInOne = false;
 	_checkMateInTwo = false;
 	_defeatNext = false;

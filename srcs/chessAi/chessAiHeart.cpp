@@ -149,11 +149,50 @@ void	chessAi::analyzeBoard(void)
 // 	return (_nextMove);
 // }
 
+vector<t_path>	chessAi::getPaths(void)
+{
+	vector<t_path>	paths;
+
+	return (paths);
+}
+
+void	chessAi::evaluatePaths(vector<t_path> &paths)
+{
+	int		score;
+	string	move;
+
+	for (int i = 0; i != paths.size(); i++)
+	{
+		_simulation = true;
+		for (int k = 0; k != paths.at(i).branch.size(); k++)
+			move = paths.at(i).branch.at(k), tryMove(move);
+
+		score = getScore(_gameInfo._color);
+		paths.at(i).score = score;
+
+		for (int k = paths.at(i).branch.size() - 1; k != -1; k--)
+			move = paths.at(i).branch.at(k), undoMove(move);
+		_simulation = false;
+	}
+}
+
 string	chessAi::getNextMove(void)
 {
-	// evaluateBoard();
+	int				bestScore = 0;
+	vector<t_path>	paths;
 
-	_nextMove = getBestAnswer();
+	paths = getPaths();
+	evaluatePaths(paths);
+
+	for (int i = 0; i != paths.size(); i++)
+	{
+		if (paths.at(i).score > bestScore)
+		{
+			_nextMove = paths.at(i).branch.at(0);
+			bestScore = paths.at(i).score;
+		}
+	}
+
 	cout << "> " << _nextMove << endl;
 
 	return (_nextMove);
