@@ -151,7 +151,92 @@ void	chessAi::analyzeBoard(void)
 
 vector<t_path>	chessAi::getPaths(void)
 {
+	string			move;
+	vector<string>	path;
+	vector<string>	legalMoves;
+	vector<string>	moves;
+
 	vector<t_path>	paths;
+	vector<t_path>	oldPaths;
+
+	legalMoves = getLegalMoves();
+	for (int i = 0; i != legalMoves.size(); i++)
+	{
+		string			move;
+
+		move = legalMoves.at(i);
+		if (count(move.begin(), move.end(), 'O') == 0)
+			move = move.c_str() + 1;
+		path.push_back(move);
+
+		oldPaths.push_back({path, 0});
+		path.clear();
+	}
+
+	// MAX_LEVEL = 4
+
+	for (int i = 0; i != 1; i++)
+	{
+		if (paths.size() != 0)
+			oldPaths = paths, paths.clear();
+
+		for (int k = 0; k != oldPaths.size(); k++)
+		{
+			moves = oldPaths.at(k).branch;
+			for (int j = 0; j != moves.size(); j++)
+				move = moves.at(j),	tryMove(move);
+
+			legalMoves = getLegalMoves();
+
+			for (int j = 0; j != legalMoves.size(); j++)
+			{
+				moves.push_back(legalMoves.at(j));
+				paths.push_back({moves, 0});
+				moves.erase(moves.begin() + (moves.size() - 1));
+			}
+
+			moves = oldPaths.at(k).branch;
+			for (int j = moves.size() - 1; j != -1; j--)
+				move = moves.at(j),	undoMove(move);
+		}
+	}
+
+	cout << "possible paths for " << _gameInfo._color << " >" << endl;
+	for (int i = 0; i != paths.size(); i++)
+	{
+		cout << "– ";
+		for (int k = 0; k != paths.at(i).branch.size(); k++)
+			cout << paths.at(i).branch.at(k) << " > ";
+		cout << endl;
+	}
+
+	sleep(500);
+	exit(0);
+
+	// oldPaths :
+
+	// 0 {a2a3}, {\0}
+	// 1 {a2a4}, {\0}
+	// 2 {b2b3}, {\0}
+	// 3 {b2b4}, {\0}
+	// 4 {c2c3}, {\0}
+	// 5 {c2c4}, {\0}
+	// 6 {d2d3}, {\0}
+	// 7 {d2d4}, {\0}
+	// 8 {e2e3}, {\0}
+	// 9 {e2e4}, {\0}
+	// 10 {f2f3}, {\0}
+	// 11 {f2f4}, {\0}
+
+	// 12 {g2g3}, {\0}
+	// 13 {g2g4}, {\0}
+	// 14 {h2h3}, {\0}
+	// 15 {h2h4}, {\0}
+
+	// 16 {g1f3}, {\0}
+	// 17 {g1h3}, {\0}
+	// 18 {b1a3}, {\0}
+	// 19 {b1c3}, {\0}
 
 	return (paths);
 }

@@ -1,6 +1,8 @@
 #ifndef CHESSAI_HPP
 # define CHESSAI_HPP
 
+# define MAX_LEVEL 4
+
 # include "../chessBoard/chessBoard.hpp"
 
 typedef chessPiece      cP;
