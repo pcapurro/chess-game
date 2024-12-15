@@ -29,26 +29,6 @@ int		visualGame::visualLoop(void)
 
     while (_board->isGameOver() == false)
     {
-        // int         score;
-        // chessAi     ai(_board);
-
-        // cout << "-" << endl << endl;
-
-        // cout << "white score > " << endl;
-        // score = ai.getScore("white");
-        // cout << "total > " << score << endl << endl;
-
-        // cout << "black score > " << endl;
-        // score = ai.getScore("black");
-        // cout << "total > " << score << endl << endl;
-
-        int i = 0;
-        chessAi ai(_board);
-
-        while (i != 10)
-            i++, ai.getBestAnswer();
-        exit(0);
-
         answer = getVisualAnswer();
         if (answer == "end")
             { _board->printEndGame(1); return (2); }
@@ -66,6 +46,19 @@ int		visualGame::visualLoop(void)
 
     return (0);
 }
+
+// int         score;
+// chessAi     ai(_board);
+
+// cout << "-" << endl << endl;
+
+// cout << "white score > " << endl;
+// score = ai.getScore("white", false);
+// cout << "total > " << score << endl << endl;
+
+// cout << "black score > " << endl;
+// score = ai.getScore("black", false);
+// cout << "total > " << score << endl << endl;
 
 void	visualGame::visualRoutine(void)
 {

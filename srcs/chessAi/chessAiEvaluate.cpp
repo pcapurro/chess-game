@@ -1,6 +1,6 @@
 #include "chessAi.hpp"
 
-int		chessAi::evaluateMaterial(void)
+int		chessAi::evaluateMaterial(const bool simulation)
 {
 	int			value = 0;
 	int			enemyMaterial = 0;
@@ -45,7 +45,7 @@ int		chessAi::evaluateMaterial(void)
 		value -= getMaterialValue(attacked.top()->getType());
 	}
 
-	if (_simulation == false && attacking.size() > 1)
+	if (simulation == false && attacking.size() > 1)
 	{
 		attacking = orderByValue(attacking);
 		attacking.pop();
@@ -117,7 +117,7 @@ int		chessAi::evaluateAttack(void)
 	return (value);
 }
 
-int		chessAi::evaluateKingControl(void)
+int		chessAi::evaluateKingControl(const bool simulation)
 {
 	int				value = 0;
 	string			coord, kingCoords;
@@ -128,7 +128,7 @@ int		chessAi::evaluateKingControl(void)
 		value += 50;
 
 	switchPlayers();
-	if (_simulation == true && isCheckMate(-1) == true)
+	if (simulation == true && isCheckMate(-1) == true)
 		value += 21000;
 	unSwitchPlayers();
 
@@ -371,7 +371,7 @@ int		chessAi::evaluateDev(void)
 	return (value);
 }
 
-int		chessAi::getScore(const string color)
+int		chessAi::getScore(const string color, const bool simulation)
 {
 	int		score = 0;
 	int		normalCoeff = 1;
@@ -383,7 +383,7 @@ int		chessAi::getScore(const string color)
 	if (_gameInfo._color != color)
 		switchPlayers(), colorSwitch = true;
 
-	score += evaluateKingControl() * (normalCoeff + endCoeff);
+	score += evaluateKingControl(simulation) * (normalCoeff + endCoeff);
 	score += evaluateKingDefense() * (normalCoeff + endCoeff);
 
 	if (score >= 21000 || score <= -21000)
@@ -393,7 +393,7 @@ int		chessAi::getScore(const string color)
 		return (score);
 	}
 
-	score += evaluateMaterial() * 10 * (normalCoeff + endCoeff);
+	score += evaluateMaterial(simulation) * 10 * (normalCoeff + endCoeff);
 
 	score += evaluateDefense() * 4;
 	score += evaluateAttack() * 4;

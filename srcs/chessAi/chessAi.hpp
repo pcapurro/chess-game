@@ -18,11 +18,11 @@ class chessAi : protected chessBoard
 {
 	public:
 
-		chessAi(const chessBoard *board);
+		chessAi(const chessBoard *board) : chessBoard(board) {};
 		~chessAi(void) {};
 
 		string	    getNextMove(void);
-        int		    getScore(const string color);
+        int		    getScore(const string color, const bool simulation);
         string      getBestAnswer(void);
 
 	private:
@@ -30,21 +30,17 @@ class chessAi : protected chessBoard
         int             getWatchersNumber(const string coord);
         int             getMaterialValue(const char type);
         string          getEnPassantTarget(void);
-        string          getRandomAnswer(void);
 
         stack<cP *>     orderByValue(stack<cP *> materials);
         stack<cP *>     getWatchers(const string coord);
 
-        vector<t_path>  getPaths(void);
-        void            evaluatePaths(vector<t_path> &paths);
-
-        int		    evaluateMaterial(void);
+        int		    evaluateMaterial(const bool simulation);
 
         int         evaluateDefense(void);
         int		    evaluateAttack(void);
         int         evaluateThreats(void);
 
-        int		    evaluateKingControl(void);
+        int		    evaluateKingControl(const bool simulation);
         int		    evaluateKingDefense(void);
 
         int         evaluateMobility(void);
@@ -63,9 +59,6 @@ class chessAi : protected chessBoard
         bool        isDefeatNext(void);
 
         bool        checkMateInOne(void);
-
-		string      _nextMove;
-        bool        _simulation;
 };
 
 #endif

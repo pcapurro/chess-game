@@ -40,61 +40,6 @@ string  chessAi::getEnPassantTarget(void)
     return (target);
 }
 
-string  chessAi::getRandomAnswer(void)
-{
-    vector<string>  legalMoves;
-    string          answer;
-
-    switchPlayers();
-    legalMoves = getLegalMoves();
-    unSwitchPlayers();
-
-    srand(time(nullptr));
-    answer = legalMoves.at(rand() % legalMoves.size());
-
-    if (answer[0] != 'O')
-        answer = answer.c_str() + 1;
-    return (answer);
-}
-
-string  chessAi::getBestAnswer(void)
-{
-    int             actualScore, bestScore, savedScore = 0;
-    string          move, answer, savedAnswer;
-    vector<string>  legalMoves;
-
-    switchPlayers();
-
-    legalMoves = getLegalMoves();
-    bestScore = getScore(_gameInfo._color);
-
-    for (int i = 0; i != legalMoves.size(); i++)
-    {
-        move = legalMoves.at(i);
-        if (move[0] != 'O')
-            move = move.c_str() + 1;
-
-        _simulation = true;
-        tryMove(move);
-
-        actualScore = getScore(_gameInfo._color);
-        if (actualScore > bestScore)
-            bestScore = actualScore, answer = move;
-        if (actualScore > savedScore)
-            savedScore = actualScore, savedAnswer = move;
-
-        undoMove(move);
-        _simulation = false;
-    }
-
-    if (answer == "")
-        answer = savedAnswer;
-
-    unSwitchPlayers();
-
-    return (answer);
-}
-
 int chessAi::getWatchersNumber(const string coord)
 {
     for (int i = 0; i != 64; i++)
