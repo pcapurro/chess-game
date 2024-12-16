@@ -1,6 +1,6 @@
-#include "chessAi.hpp"
+#include "../chessBoard.hpp"
 
-bool    chessAi::isFree(const string coord)
+bool    chessBoard::isFree(const string coord)
 {
     stack<cP *> attackers;
 
@@ -22,14 +22,14 @@ bool    chessAi::isFree(const string coord)
     return (false);
 }
 
-bool    chessAi::isSafe(const string coord)
+bool    chessBoard::isSafe(const string coord)
 {
     if (isProtected(coord) == true || isFree(coord) == true)
         return (true);
     return (false);
 }
 
-bool    chessAi::isProtected(const string coord)
+bool    chessBoard::isProtected(const string coord)
 {
     int         attMaterials, defMaterials;
     stack<cP *> defenders, attackers;
@@ -68,7 +68,7 @@ bool    chessAi::isProtected(const string coord)
     return (true);
 }
 
-bool    chessAi::isEndGame(void)
+bool    chessBoard::isEndGame(void)
 {
     int whiteMaterials = 0;
     int blackMaterials = 0;
@@ -91,7 +91,7 @@ bool    chessAi::isEndGame(void)
     return (false);
 }
 
-bool    chessAi::checkMateInOne(void)
+bool    chessBoard::checkMateInOne(void)
 {
     string          move;
     string          target;
@@ -119,7 +119,7 @@ bool    chessAi::checkMateInOne(void)
     return (false);
 }
 
-bool    chessAi::isDefeatNext(void)
+bool    chessBoard::isDefeatNext(void)
 {
     switchPlayers();
     if (checkMateInOne() == true)

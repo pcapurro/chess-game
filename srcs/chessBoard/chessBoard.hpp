@@ -13,6 +13,8 @@
 
 using namespace std;
 
+typedef chessPiece      cP;
+
 typedef struct s_square
 {
     chessPiece  *piece;
@@ -100,14 +102,41 @@ class chessBoard
         void    printEndGame(const int value = 0);
         void    printBoard(const int aiSide) const;
 
-    protected:
+    private:
 
         size_t              getAtValue(const string coord) const;
+        string              getEnPassantTarget(void);
+
         vector<string>      getLegalMoves(void);
         vector<string>      getPossibleTargets(const string coord) const;
         vector<string>      getPiecesCoords(void) const;
-        
         vector<string>      getCastlingSrcsDests(const string srcdest);
+
+        stack<cP *>         orderByValue(stack<cP *> materials);
+        stack<cP *>         getWatchers(const string coord);
+
+        int     evaluateMaterial(const bool simulation);
+        int     getScore(const string color, const bool simulation);
+
+        int     getWatchersNumber(const string coord);
+        int     getMaterialValue(const char type);
+
+        int     evaluateDefense(void);
+        int     evaluateAttack(void);
+        int     evaluateKingControl(const bool simulation);
+        int     evaluateKingDefense(void);
+        int     evaluateMobility(void);
+        int     evaluatePromotion(void);
+        int     evaluatePawns(void);
+        int     evaluateCenter(void);
+        int     evaluateDev(void);
+
+        bool    isSafe(const string coord);
+        bool    isProtected(const string coord);
+        bool    isFree(const string coord);
+        bool    isEndGame(void);
+        bool    isDefeatNext(void);
+        bool    checkMateInOne(void);
 
         int     checkNormalSource(void);
         int     checkPawnSource(void);
@@ -147,11 +176,6 @@ class chessBoard
 
         void    loadMove(const string move);
 
-        vector<t_square>    _board;
-        t_game_info         _gameInfo;
-
-    private:
-
         void    printWhiteBoard(void) const;
         void    printBlackBoard(void) const;
         void    printPiece(const char type, const string color) const;
@@ -179,6 +203,9 @@ class chessBoard
 
         bool                _allocated;
         bool                _free;
+
+        vector<t_square>    _board;
+        t_game_info         _gameInfo;
 
         t_counter           _boardCount;
         vector<string>      _history;

@@ -1,6 +1,6 @@
-#include "chessAi.hpp"
+#include "chessBoard.hpp"
 
-int		chessAi::evaluateMaterial(const bool simulation)
+int		chessBoard::evaluateMaterial(const bool simulation)
 {
 	int			value = 0;
 	int			enemyMaterial = 0;
@@ -58,7 +58,7 @@ int		chessAi::evaluateMaterial(const bool simulation)
 	return (value);
 }
 
-int		chessAi::evaluateDefense(void)
+int		chessBoard::evaluateDefense(void)
 {
 	int	value = 0;
 
@@ -75,7 +75,7 @@ int		chessAi::evaluateDefense(void)
 	return (value);
 }
 
-int		chessAi::evaluateAttack(void)
+int		chessBoard::evaluateAttack(void)
 {
 	int				value = 0;
 	vector<string>	boardCoords;
@@ -98,7 +98,7 @@ int		chessAi::evaluateAttack(void)
 	return (value);
 }
 
-int		chessAi::evaluateKingControl(const bool simulation)
+int		chessBoard::evaluateKingControl(const bool simulation)
 {
 	int				value = 0;
 	string			coord, kingCoords;
@@ -146,7 +146,7 @@ int		chessAi::evaluateKingControl(const bool simulation)
 	return (value);
 }
 
-int		chessAi::evaluateKingDefense(void)
+int		chessBoard::evaluateKingDefense(void)
 {
 	int		value = 0;
 
@@ -199,7 +199,7 @@ int		chessAi::evaluateKingDefense(void)
 	return (value);
 }
 
-int		chessAi::evaluateMobility(void)
+int		chessBoard::evaluateMobility(void)
 {
 	int				value = 0;
 	vector<string>	possibleMoves;
@@ -219,7 +219,7 @@ int		chessAi::evaluateMobility(void)
 	return (value);
 }
 
-int		chessAi::evaluatePromotion(void)
+int		chessBoard::evaluatePromotion(void)
 {
 	int		value = 0;
 	string	next;
@@ -245,7 +245,7 @@ int		chessAi::evaluatePromotion(void)
 	return (value);
 }
 
-int		chessAi::evaluatePawns(void)
+int		chessBoard::evaluatePawns(void)
 {
 	int			value = 0;
 	stack<cP *>	watchers;
@@ -270,7 +270,7 @@ int		chessAi::evaluatePawns(void)
 	return (value);
 }
 
-int		chessAi::evaluateCenter(void)
+int		chessBoard::evaluateCenter(void)
 {
 	int				value = 0;
 	string			targets[] = {"e4", "e5", "d4", "d5"};
@@ -317,7 +317,7 @@ int		chessAi::evaluateCenter(void)
 	return (value);
 }
 
-int		chessAi::evaluateDev(void)
+int		chessBoard::evaluateDev(void)
 {
 	int		value = 0;
 	int		atValue;
@@ -352,7 +352,7 @@ int		chessAi::evaluateDev(void)
 	return (value);
 }
 
-int		chessAi::getScore(const string color, const bool simulation)
+int		chessBoard::getScore(const string color, const bool simulation)
 {
 	int		score = 0;
 	int		normalCoeff = 1;
@@ -398,34 +398,3 @@ int		chessAi::getScore(const string color, const bool simulation)
 
 	return (score);
 }
-
-	// score += evaluateKingControl() * (normalCoeff + endCoeff);
-	// // cout << "– king control > " << evaluateKingControl() * (normalCoeff + endCoeff) << endl;
-	// score += evaluateKingDefense() * (normalCoeff + endCoeff);
-	// // cout << "– king defense > " << evaluateKingDefense() * (normalCoeff + endCoeff) << endl;
-
-	// score += evaluateMaterial() * 10 * (normalCoeff + endCoeff);
-	// // cout << "– material > " << evaluateMaterial() * 10 * (normalCoeff + endCoeff) << endl;
-
-	// score += evaluateDefense() * 4;
-	// // cout << "– defense > " << evaluateDefense() * 4 << endl;
-	// score += evaluateAttack() * 4;
-	// // cout << "– attack > " << evaluateAttack() * 4 << endl;
-	// score += evaluateThreats() * normalCoeff;
-	// // cout << "– threat > " << evaluateThreats() * normalCoeff << endl;
-
-	// score += evaluatePromotion() * (normalCoeff + endCoeff);
-	// // cout << "– promotion > " << evaluatePromotion() * (normalCoeff + endCoeff) << endl;
-
-	// score += evaluateMobility() * 1;
-	// // cout << "– mobility > " << evaluateMobility() * 1 << endl;
-	// score += evaluatePawns() * 4 * endCoeff;
-	// // cout << "– pawns > " << evaluatePawns() * 4 * endCoeff << endl;
-
-	// if (normalCoeff == 4)
-	// {
-	// 	score += evaluateCenter() * normalCoeff;
-	// 	// cout << "– center > " << evaluateCenter() * normalCoeff << endl;
-	// 	score += evaluateDev() * normalCoeff;
-	// 	// cout << "– global dev > " << evaluateDev() * normalCoeff << endl;
-	// }

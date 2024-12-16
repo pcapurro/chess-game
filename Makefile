@@ -13,19 +13,19 @@ SRCSO = srcs/failPrint.cpp \
 	srcs/algebraParser/algebraChecker.cpp \
 	srcs/algebraParser/algebraParser.cpp \
 	srcs/algebraParser/algebraTools.cpp \
-	srcs/chessAi/chessAiEvaluate.cpp \
-	srcs/chessAi/chessAiHeart.cpp \
-	srcs/chessAi/chessAiTools.cpp \
-	srcs/chessAi/chessAiCheckers.cpp \
+	srcs/chessAi/chessAi.cpp \
 	srcs/chessBoard/boardHeart.cpp \
+	srcs/chessBoard/boardEvaluate.cpp \
 	srcs/chessBoard/tools/boardCounter.cpp \
 	srcs/chessBoard/tools/boardPrint.cpp \
+	srcs/chessBoard/tools/boardTesters.cpp \
 	srcs/chessBoard/tools/boardTools.cpp \
 	srcs/chessBoard/boardInit.cpp \
 	srcs/chessBoard/boardFree.cpp \
-	srcs/chessBoard/checkers/boardEndChecker.cpp \
-	srcs/chessBoard/checkers/boardMoveChecker.cpp \
-	srcs/chessBoard/checkers/boardPieceChecker.cpp \
+	srcs/chessBoard/checkers/boardEndCheckers.cpp \
+	srcs/chessBoard/checkers/boardEvaluateCheckers.cpp \
+	srcs/chessBoard/checkers/boardMoveCheckers.cpp \
+	srcs/chessBoard/checkers/boardPieceCheckers.cpp \
 
 SRCS_V = srcs/visualGame.cpp \
 	srcs/visualGame/visualDisplay.cpp \

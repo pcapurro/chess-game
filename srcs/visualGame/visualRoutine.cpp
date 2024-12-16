@@ -5,13 +5,18 @@
 string  visualGame::getVisualAnswer(void)
 {
     string      answer;
-    chessAi     ai(_board);
 
     displayGame();
     SDL_RenderPresent(_mainRenderer);
+
     if (_sandBoxMode == false && _turn % 2 == _aiSide)
     {
-        answer = ai.getNextMove();
+        srand(time(nullptr)); //
+        if (rand() % 2 == 0)
+            answer = "Pe2e4";
+        else
+            answer = "Pe7e5";
+        
         _lastAiMove = answer;
 
         if (_lastAiMove.find('O') == string::npos)
@@ -29,18 +34,17 @@ int		visualGame::visualLoop(void)
 
     while (_board->isGameOver() == false)
     {
-        int         score;
-        chessAi     ai(_board);
+        int score;
 
-        cout << "-" << endl << endl;
+        // cout << "-" << endl << endl;
 
-        cout << "white score > " << endl;
-        score = ai.getScore("white", false);
-        cout << "total > " << score << endl << endl;
+        // cout << "white score > " << endl;
+        // score = ai.getScore("white", false);
+        // cout << "total > " << score << endl << endl;
 
-        cout << "black score > " << endl;
-        score = ai.getScore("black", false);
-        cout << "total > " << score << endl << endl;
+        // cout << "black score > " << endl;
+        // score = ai.getScore("black", false);
+        // cout << "total > " << score << endl << endl;
 
         answer = getVisualAnswer();
         if (answer == "end")
