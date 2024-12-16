@@ -3,6 +3,7 @@
 
 # include "../../includes/visual.hpp"
 # include "../chessBoard/chessBoard.hpp"
+# include "../chessAi/chessAi.hpp"
 
 typedef struct s_textures
 {
@@ -107,6 +108,7 @@ class visualGame
         t_text          _texts;
 
         chessBoard      *_board;
+        chessAi         _ai;
 
         string          _droppedSrc;
         string          _clickSrc;

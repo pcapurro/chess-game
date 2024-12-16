@@ -11,12 +11,7 @@ string  visualGame::getVisualAnswer(void)
 
     if (_sandBoxMode == false && _turn % 2 == _aiSide)
     {
-        srand(time(nullptr)); //
-        if (rand() % 2 == 0)
-            answer = "Pe2e4";
-        else
-            answer = "Pe7e5";
-        
+        answer = _ai.getBestAnswer(_board->getHistory());
         _lastAiMove = answer;
 
         if (_lastAiMove.find('O') == string::npos)
@@ -34,21 +29,6 @@ int		visualGame::visualLoop(void)
 
     while (_board->isGameOver() == false)
     {
-        int score;
-
-        // cout << "-" << endl << endl;
-
-        // cout << "white score > " << endl;
-        // score = ai.getScore("white", false);
-        // cout << "total > " << score << endl << endl;
-
-        // cout << "black score > " << endl;
-        // score = ai.getScore("black", false);
-        // cout << "total > " << score << endl << endl;
-
-        chessAi ai;
-        ai.getBestAnswer(_board->getHistory());
-
         answer = getVisualAnswer();
         if (answer == "end")
             { _board->printEndGame(1); return (2); }

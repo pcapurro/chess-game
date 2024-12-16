@@ -2,7 +2,7 @@
 
 chessAi::chessAi(void)
 {
-	_stream = popen("stockfish", "w");
+	_stream = popen("stockfish | grep 'bestmove'", "w");
 	if (_stream == NULL || _stream == nullptr)
 		_fail = true;
 	else
@@ -12,16 +12,20 @@ chessAi::chessAi(void)
 void	chessAi::sendCommand(const string command)
 {
 	string	cmd;
-	
+
+	cout << "sending > '" << command << "'" << endl;
+
 	cmd = command + '\n';
 	fprintf(_stream, "%s", cmd.c_str());
-
-	cout << "sending '" << cmd << "'" << endl;
 }
 
 string	chessAi::getAnswer(void)
 {
+	char	str[4096];
 	string	answer;
+
+	fgets(str, 4096, _stream);
+	cout << "answer > '" << str << "'" << endl;
 
 	return (answer);
 }
@@ -31,19 +35,22 @@ string	chessAi::getBestAnswer(vector<string> moves)
 	string	move;
 	string	command;
 
-	command = "position startpos moves ";
-	for (int i = 0; i != moves.size(); i++)
+	if (moves.size() != 0)
 	{
-		move = moves.at(i);
-		if (move.size() == 5)
-			move[4] = tolower(move[4]);
-		command += " " + move;
+		command = "position startpos moves";
+		for (int i = 0; i != moves.size(); i++)
+		{
+			move = moves.at(i);
+			if (move.size() == 5)
+				move[4] = tolower(move[4]);
+			command += " " + move;
+		}
+
+		sendCommand(command);
 	}
 
-	sendCommand(command);
-
-	command += "go movetime 500";
-	sendCommand(command);
+	sendCommand("go movetime 500");
+	sleep(1);
 
 	return (getAnswer());
 }
