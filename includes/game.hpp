@@ -3,14 +3,17 @@
 
 # include <iostream>
 # include <string>
+
 # include <algorithm>
 # include <vector>
 # include <stack>
 # include <map>
-# include <cstdlib>
-# include <unistd.h>
 
-using namespace std;
+# include <cstdlib>
+# include <cstdio>
+# include <fstream>
+
+# include <unistd.h>
 
 # define ERR -1
 # define SUCCESS 0
@@ -25,6 +28,8 @@ using namespace std;
 # define GREEN "\033[32m"
 
 # define COLOR_E "\033[0m"
+
+using namespace std;
 
 int     memoryFailed(void);
 int     systemFailed(void);

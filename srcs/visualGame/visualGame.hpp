@@ -4,8 +4,6 @@
 # include "../../includes/visual.hpp"
 # include "../chessBoard/chessBoard.hpp"
 
-# include <SDL2/SDL.h>
-
 typedef struct s_textures
 {
     SDL_Texture     *king;

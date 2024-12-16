@@ -11,9 +11,7 @@
 # include "pieces/knight.hpp"
 # include "pieces/pawn.hpp"
 
-using namespace std;
-
-typedef chessPiece      cP;
+typedef chessPiece cP;
 
 typedef struct s_square
 {

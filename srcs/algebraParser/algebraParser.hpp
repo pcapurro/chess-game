@@ -3,8 +3,6 @@
 
 # include "../../includes/game.hpp"
 
-using namespace std;
-
 typedef struct s_move
 {
     string  move;

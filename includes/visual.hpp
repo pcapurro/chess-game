@@ -3,6 +3,8 @@
 
 # include "game.hpp"
 
+# include <SDL2/SDL.h>
+
 int 	initializeVisualGame(const bool sandBoxMode);
 
 void    printInvalidArguments(void);
