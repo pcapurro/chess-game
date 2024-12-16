@@ -159,9 +159,18 @@ void    chessBoard::addToHistory(void)
     string  dest = _gameInfo._lastMove.dest;
 
     if (dest == "O-O" || dest == "O-O-O")
+    {
+        char letter, number;
+        dest.size() == 3 ? letter = 'g' : letter = 'c';
+        src == "e1" ? number = '1' : number = '8';
+
+        _simpleHistory.push_back(src + letter + number);
         _history.push_back(dest);
+    }
     else
     {
+        _simpleHistory.push_back(src + dest);
+
         if (action == 'x')
         {
             if (obj != 'P')

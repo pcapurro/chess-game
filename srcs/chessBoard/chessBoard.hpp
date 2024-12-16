@@ -100,6 +100,8 @@ class chessBoard
         void    printEndGame(const int value = 0);
         void    printBoard(const int aiSide) const;
 
+        vector<string>  getHistory(void) { return (_simpleHistory); };
+
     private:
 
         size_t              getAtValue(const string coord) const;
@@ -207,6 +209,7 @@ class chessBoard
 
         t_counter           _boardCount;
         vector<string>      _history;
+        vector<string>      _simpleHistory;
 
         stack<chessPiece*>  _savedObjects;
 };

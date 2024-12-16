@@ -6,18 +6,46 @@ chessAi::chessAi(void)
 	if (_stream == NULL || _stream == nullptr)
 		_fail = true;
 	else
+		_fail = false;
+}
+
+void	chessAi::sendCommand(const string command)
+{
+	string	cmd;
+	
+	cmd = command + '\n';
+	fprintf(_stream, "%s", cmd.c_str());
+
+	cout << "sending '" << cmd << "'" << endl;
+}
+
+string	chessAi::getAnswer(void)
+{
+	string	answer;
+
+	return (answer);
+}
+
+string	chessAi::getBestAnswer(vector<string> moves)
+{
+	string	move;
+	string	command;
+
+	command = "position startpos moves ";
+	for (int i = 0; i != moves.size(); i++)
 	{
-		char str[21];
-
-		fgets(str, 21, _stream);
-		cout << "'" << str << "'" << endl;
-
-		fprintf(_stream, "uci\n");
-		fprintf(_stream, "go movetime 1000\n");
-
-		fgets(str, 21, _stream);
-		cout << "'" << str << "'" << endl;
+		move = moves.at(i);
+		if (move.size() == 5)
+			move[4] = tolower(move[4]);
+		command += " " + move;
 	}
+
+	sendCommand(command);
+
+	command += "go movetime 500";
+	sendCommand(command);
+
+	return (getAnswer());
 }
 
 bool	chessAi::fail(void) const

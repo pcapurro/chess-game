@@ -37,11 +37,8 @@ int	main(const int argc, const char **argv)
         if (argc == 2)
             sandBoxMode = true;
 
-        chessAi ai;
-        sleep(21);
-
-        // if (initializeVisualGame(sandBoxMode) != 0)
-        //     return (1);
+        if (initializeVisualGame(sandBoxMode) != 0)
+            return (1);
     }
 
 	return (0);

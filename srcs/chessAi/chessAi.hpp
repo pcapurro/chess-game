@@ -10,6 +10,11 @@ class chessAi
 		chessAi(void);
 		~chessAi(void);
 
+		string	getBestAnswer(vector<string> moves);
+
+		void	sendCommand(const string command);
+		string	getAnswer(void);
+
 		bool	fail(void) const;
 	
 	private:
