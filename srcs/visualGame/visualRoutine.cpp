@@ -12,6 +12,8 @@ string  visualGame::getVisualAnswer(void)
     if (_sandBoxMode == false && _turn % 2 == _aiSide)
     {
         answer = _ai.getBestMove(_board->getHistory());
+        if (answer == "error")
+            return ("error");
         answer = _board->getType(string(1, answer[0]) + answer[1]) + answer;
 
         if (answer == "Ke1g1" || answer == "Ke8g8")
@@ -37,13 +39,17 @@ int		visualGame::visualLoop(void)
     while (_board->isGameOver() == false)
     {
         answer = getVisualAnswer();
+        if (answer == "error")
+            return (3);
+
         if (answer == "end")
             { _board->printEndGame(1); return (2); }
-
-        if (answer == "error" || _board->playMove({}, answer) == FAIL)
+        
+        if (_board->playMove({}, answer) == FAIL)
             continue ;
         else if (_board->isAllocated() == false)
             return (1);
+        
         _turn++;
     }
     displayGame();
@@ -53,19 +59,6 @@ int		visualGame::visualLoop(void)
 
     return (0);
 }
-
-// int         score;
-// chessAi     ai(_board);
-
-// cout << "-" << endl << endl;
-
-// cout << "white score > " << endl;
-// score = ai.getScore("white", false);
-// cout << "total > " << score << endl << endl;
-
-// cout << "black score > " << endl;
-// score = ai.getScore("black", false);
-// cout << "total > " << score << endl << endl;
 
 void	visualGame::visualRoutine(void)
 {
@@ -87,6 +80,8 @@ void	visualGame::visualRoutine(void)
             { _error = true; memoryFailed(); return ; }
         if (value == 2)
             { return ; }
+        if (value == 3)
+            { _error = true; systemFailed(); return ; }
             
         setToDefault();
         if (waitForNewGame() == 1)

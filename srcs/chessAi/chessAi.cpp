@@ -27,28 +27,38 @@ string	chessAi::getBestMove(vector<string> moves) const
 		history += moves.at(i) + " ";
 
 	command = "position startpos moves " + history;
-	fprintf(_stream, "%s\n", command.c_str());
+	if (fprintf(_stream, "%s\n", command.c_str()) < 0)
+		return ("error");
+	
 	command = "go movetime 500";
-	fprintf(_stream, "%s\n", command.c_str());
-
-	fflush(_stream);
+	if (fprintf(_stream, "%s\n", command.c_str()) < 0)
+		return ("error");
+	else
+		fflush(_stream);
+	
 	sleep(1);
 
-	move = (stringstream() << _line.rdbuf()).str();
+	if (_answer.good() == true && _line.good() == true)
+		move = (stringstream() << _line.rdbuf()).str();
+	if (move == "")
+		return ("error");
 
-	int i = 0;
-	while (i != move.size() && word != "bestmove")
+	int k = 0;
+	while (k != move.size() && word != "bestmove")
 	{
-		if (move[i] == ' ' || move[i] == '\n')
+		if (move[k] == ' ' || move[k] == '\n')
 			word.clear();
 		else
-			word += move[i];
-		i++;
+			word += move[k];
+		k++;
 	}
 
-	move = move.c_str() + i + 1;
+	move = move.c_str() + k + 1;
 	for (int i = 0; move[i] != ' ' && move[i] != '\n' && move[i] != '\0'; i++)
 		bestMove += move[i];
+
+	if (bestMove.size() == 0 || bestMove.size() > 5)
+		return ("error");
 
 	return (bestMove);
 }

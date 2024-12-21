@@ -10,6 +10,9 @@ string  shellGame::getShellAnswer(void) const
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
     {
         answer = _ai.getBestMove(_board->getHistory());
+        if (answer == "error")
+            return ("error");
+
         answer = _board->getType(string(1, answer[0]) + answer[1]) + answer;
 
         if (answer == "Ke1g1" || answer == "Ke8g8")

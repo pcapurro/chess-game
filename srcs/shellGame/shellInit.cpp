@@ -7,19 +7,26 @@ shellGame::shellGame(const bool blindMode, const bool sandBoxMode) : _blindMode(
 
 	_aiSide = -1;
 	srand(time(nullptr));
-	if (_sandBoxMode == false)
+   	if (_sandBoxMode == false)
+    {
+        if (_ai.fail() == true)
+            _systemFail = true;
 		_aiSide = rand() % 2;
+    }
 
 	_board = nullptr;
 	_checker = nullptr;
 
-	_board = new (nothrow) chessBoard;
-	if (!_board || _board == nullptr)
-		_memoryFail = true, memoryFailed();
-	else if (_board->isAllocated() == false)
-		_memoryFail = true, memoryFailed();
+	if (_systemFail == false)
+	{
+		_board = new (nothrow) chessBoard;
+		if (!_board || _board == nullptr)
+			_memoryFail = true, memoryFailed();
+		else if (_board->isAllocated() == false)
+			_memoryFail = true, memoryFailed();
 
-	_checker = new (nothrow) algebraParser;
-	if (!_checker || _checker == nullptr)
-		_memoryFail = true, memoryFailed();
+		_checker = new (nothrow) algebraParser;
+		if (!_checker || _checker == nullptr)
+			_memoryFail = true, memoryFailed();
+	}
 }
