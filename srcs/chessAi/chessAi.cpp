@@ -60,6 +60,9 @@ string	chessAi::getBestMove(vector<string> moves) const
 	if (bestMove.size() == 0 || bestMove.size() > 5)
 		return ("error");
 
+	if (bestMove.size() == 5)
+		bestMove[4] = toupper(bestMove[4]);
+
 	return (bestMove);
 }
 
