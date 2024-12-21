@@ -85,8 +85,8 @@ void    chessBoard::printBlackBoard(void) const
 
 void    chessBoard::printBoard(const int aiSide) const
 {
-    // if (_gameInfo._turn != 0)
-        // cout << "\033[12A";
+    if (_gameInfo._turn != 0)
+        cout << "\033[12A";
 
     cout << ERASE_LINE << "    a  b  c  d  e  f  g  h" << endl;
     if (aiSide == -1 || aiSide == 1)

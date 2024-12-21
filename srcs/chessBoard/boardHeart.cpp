@@ -161,6 +161,7 @@ void    chessBoard::addToHistory(void)
     if (dest == "O-O" || dest == "O-O-O")
     {
         char letter, number;
+        _gameInfo._turn % 2 == 0 ? src = "e1" : src = "e8";
         dest.size() == 3 ? letter = 'g' : letter = 'c';
         src == "e1" ? number = '1' : number = '8';
 
@@ -195,6 +196,8 @@ void    chessBoard::loadMove(const string move)
 {
     if (move == "O-O-O" || move == "O-O")
     {
+        _gameInfo._turn % 2 == 0 ? _gameInfo._lastMove.src = "e1" : _gameInfo._lastMove.src = "e8";
+
         if (move == "O-O-O")
             _gameInfo._lastMove.dest = "O-O-O";
         else

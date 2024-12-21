@@ -10,7 +10,7 @@ class chessAi
 		chessAi(void);
 		~chessAi(void);
 
-		string	getBestMove(vector<string> moves);
+		string	getBestMove(vector<string> moves) const;
 
 		bool	fail(void) const;
 	

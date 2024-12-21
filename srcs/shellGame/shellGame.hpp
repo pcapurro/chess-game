@@ -4,6 +4,7 @@
 # include "../../includes/game.hpp"
 # include "../../includes/shell.hpp"
 # include "../chessBoard/chessBoard.hpp"
+# include "../chessAi/chessAi.hpp"
 # include "../algebraParser/algebraParser.hpp"
 
 class shellGame
@@ -26,6 +27,7 @@ class shellGame
 	private:
 
 		chessBoard		*_board;
+		chessAi         _ai;
 		algebraParser	*_checker;
 
 		const bool		_blindMode;

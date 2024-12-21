@@ -18,7 +18,7 @@ chessAi::chessAi(void)
 	}
 }
 
-string	chessAi::getBestMove(vector<string> moves)
+string	chessAi::getBestMove(vector<string> moves) const
 {
 	string	history, command;
 	string	word, move, bestMove;

@@ -9,13 +9,21 @@ string  shellGame::getShellAnswer(void) const
     if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
     {
-        // chessAi ai(_board);
-        // answer = ai.getNextMove();
+        answer = _ai.getBestMove(_board->getHistory());
+        answer = _board->getType(string(1, answer[0]) + answer[1]) + answer;
 
-        if (answer[0] != 'P')
-            answer = string(1, answer[0]) + answer[1] + answer[2] + "-" + (answer.c_str() + 3);
-        else
-            answer = string(1, answer[1]) + answer[2] + "-" + (answer.c_str() + 3);
+        if (answer == "Ke1g1" || answer == "Ke8g8")
+            answer = "O-O";
+        if (answer == "Ke1c1" || answer == "Ke8c8")
+            answer = "O-O-O";
+
+        if (answer != "O-O" && answer != "O-O-O")
+        {
+            if (answer[0] != 'P')
+                answer = string(1, answer[0]) + answer[1] + answer[2] + "-" + (answer.c_str() + 3);
+            else
+                answer = string(1, answer[1]) + answer[2] + "-" + (answer.c_str() + 3);
+        }
 
         return (answer);
     }
@@ -44,11 +52,13 @@ void	shellGame::shellRoutine(void)
         input = getShellAnswer();
         if (input == "error")
             { _systemFail = true; systemFailed(); return ; }
+
         *_checker = input;
         move = _checker->getParsedMove();
 
         if (move.error == false && (_checker->fail() == true || _board->playMove(move) == FAIL))
             continue ;
+
         if (move.error == true || _board->isAllocated() == false)
             { _memoryFail = true; memoryFailed(); return ; }
 
