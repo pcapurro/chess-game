@@ -2,57 +2,43 @@
 
 chessAi::chessAi(void)
 {
-	_stream = popen("stockfish | grep 'bestmove'", "w");
-	if (_stream == NULL || _stream == nullptr)
+	_fail = false;
+
+	_answer = ofstream(".stockfish.answer");
+	_line = ifstream(".stockfish.answer");
+
+	if (!_answer || !_line)
 		_fail = true;
 	else
-		_fail = false;
+	{
+		string command = "stockfish | grep 'bestmove' | awk '{print $2}' > .stockfish.answer";
+		_stream = popen(command.c_str(), "w");
+		if (!_stream)
+			_fail = true, _stream = nullptr;
+	}
 }
 
-void	chessAi::sendCommand(const string command)
+string	chessAi::getBestMove(vector<string> moves)
 {
-	string	cmd;
-
-	cout << "sending > '" << command << "'" << endl;
-
-	cmd = command + '\n';
-	fprintf(_stream, "%s", cmd.c_str());
-}
-
-string	chessAi::getAnswer(void)
-{
-	char	str[4096];
-	string	answer;
-
-	fgets(str, 4096, _stream);
-	cout << "answer > '" << str << "'" << endl;
-
-	return (answer);
-}
-
-string	chessAi::getBestAnswer(vector<string> moves)
-{
-	string	move;
+	string	answer, history;
 	string	command;
 
-	if (moves.size() != 0)
-	{
-		command = "position startpos moves";
-		for (int i = 0; i != moves.size(); i++)
-		{
-			move = moves.at(i);
-			if (move.size() == 5)
-				move[4] = tolower(move[4]);
-			command += " " + move;
-		}
+	for (int i = 0; i != moves.size(); i++)
+		history += moves.at(i) + " ";
 
-		sendCommand(command);
-	}
+	command = "position startpos moves " + history;
+	fprintf(_stream, "%s\n", command.c_str());
 
-	sendCommand("go movetime 500");
+	command = "go movetime 500";
+	fprintf(_stream, "%s\n", command.c_str());
+
 	sleep(1);
 
-	return (getAnswer());
+	_line >> answer;
+
+	exit(0);
+
+	return (answer);
 }
 
 bool	chessAi::fail(void) const
@@ -64,6 +50,11 @@ bool	chessAi::fail(void) const
 
 chessAi::~chessAi(void)
 {
-	if (_stream != nullptr && _stream != NULL)
+	if (_line)
+		_line.close();
+	if (_answer)
+		_answer.close(), remove(".stockfish.answer");
+
+	if (_stream != nullptr)
 		pclose(_stream);
 }

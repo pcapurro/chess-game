@@ -11,7 +11,7 @@ string  visualGame::getVisualAnswer(void)
 
     if (_sandBoxMode == false && _turn % 2 == _aiSide)
     {
-        answer = _ai.getBestAnswer(_board->getHistory());
+        answer = _ai.getBestMove(_board->getHistory());
         _lastAiMove = answer;
 
         if (_lastAiMove.find('O') == string::npos)

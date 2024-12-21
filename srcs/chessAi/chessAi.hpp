@@ -10,17 +10,18 @@ class chessAi
 		chessAi(void);
 		~chessAi(void);
 
-		string	getBestAnswer(vector<string> moves);
-
-		void	sendCommand(const string command);
-		string	getAnswer(void);
+		string	getBestMove(vector<string> moves);
 
 		bool	fail(void) const;
 	
 	private:
 
 		bool		_fail;
-		FILE 		*_stream;
+
+		ofstream	_answer;
+		ifstream	_line;
+
+		FILE		*_stream;
 };
 
 #endif

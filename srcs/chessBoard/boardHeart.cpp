@@ -169,8 +169,6 @@ void    chessBoard::addToHistory(void)
     }
     else
     {
-        _simpleHistory.push_back(src + dest);
-
         if (action == 'x')
         {
             if (obj != 'P')
@@ -185,6 +183,11 @@ void    chessBoard::addToHistory(void)
             else
                 _history.push_back(dest);
         }
+
+        if (dest.size() == 3)
+            dest[2] = tolower(dest[2]);
+
+        _simpleHistory.push_back(src + dest);
     }
 }
 

@@ -12,6 +12,7 @@
 # include <cstdlib>
 # include <cstdio>
 # include <fstream>
+# include <sstream>
 
 # include <unistd.h>
 
