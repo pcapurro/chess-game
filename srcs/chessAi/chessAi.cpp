@@ -11,7 +11,7 @@ chessAi::chessAi(void)
 		_fail = true;
 	else
 	{
-		string command = "stockfish | grep 'bestmove' | awk '{print $2}' > .stockfish.answer";
+		string command = "stockfish > .stockfish.answer";
 		_stream = popen(command.c_str(), "w");
 		if (!_stream)
 			_fail = true, _stream = nullptr;
@@ -20,25 +20,23 @@ chessAi::chessAi(void)
 
 string	chessAi::getBestMove(vector<string> moves)
 {
-	string	answer, history;
-	string	command;
+	string	history, command;
+	string	word, move;
 
 	for (int i = 0; i != moves.size(); i++)
 		history += moves.at(i) + " ";
 
 	command = "position startpos moves " + history;
 	fprintf(_stream, "%s\n", command.c_str());
-
 	command = "go movetime 500";
 	fprintf(_stream, "%s\n", command.c_str());
 
+	fflush(_stream);
 	sleep(1);
 
-	_line >> answer;
+	cout << "'" << move << "'" << endl;
 
-	exit(0);
-
-	return (answer);
+	return (move);
 }
 
 bool	chessAi::fail(void) const
