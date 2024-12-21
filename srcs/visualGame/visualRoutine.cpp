@@ -12,6 +12,13 @@ string  visualGame::getVisualAnswer(void)
     if (_sandBoxMode == false && _turn % 2 == _aiSide)
     {
         answer = _ai.getBestMove(_board->getHistory());
+        answer = _board->getType(string(1, answer[0]) + answer[1]) + answer;
+
+        if (answer == "Ke1g1" || answer == "Ke8g8")
+            answer = "O-O";
+        if (answer == "Ke1c1" || answer == "Ke8c8")
+            answer = "O-O-O";
+
         _lastAiMove = answer;
 
         if (_lastAiMove.find('O') == string::npos)

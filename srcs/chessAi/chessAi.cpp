@@ -21,7 +21,7 @@ chessAi::chessAi(void)
 string	chessAi::getBestMove(vector<string> moves)
 {
 	string	history, command;
-	string	word, move;
+	string	word, move, bestMove;
 
 	for (int i = 0; i != moves.size(); i++)
 		history += moves.at(i) + " ";
@@ -34,9 +34,23 @@ string	chessAi::getBestMove(vector<string> moves)
 	fflush(_stream);
 	sleep(1);
 
-	cout << "'" << move << "'" << endl;
+	move = (stringstream() << _line.rdbuf()).str();
 
-	return (move);
+	int i = 0;
+	while (i != move.size() && word != "bestmove")
+	{
+		if (move[i] == ' ' || move[i] == '\n')
+			word.clear();
+		else
+			word += move[i];
+		i++;
+	}
+
+	move = move.c_str() + i + 1;
+	for (int i = 0; move[i] != ' ' && move[i] != '\n' && move[i] != '\0'; i++)
+		bestMove += move[i];
+
+	return (bestMove);
 }
 
 bool	chessAi::fail(void) const
