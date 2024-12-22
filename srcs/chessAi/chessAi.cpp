@@ -15,6 +15,22 @@ chessAi::chessAi(void)
 		_stream = popen(command.c_str(), "w");
 		if (!_stream)
 			_fail = true, _stream = nullptr;
+
+		command = "uci";
+		if (fprintf(_stream, "%s\n", command.c_str()) < 0)
+			_fail = true;
+
+		command = "setoption name UCI_LimitStrength value true";
+		if (fprintf(_stream, "%s\n", command.c_str()) < 0)
+			_fail = true;
+
+		srand(time(nullptr));
+		int 	value = rand() % 7;
+		string	elo[] = {"1400", "1500", "1600", "1700", "1800", "1900, 2000"};
+
+		command = "setoption name UCI_Elo " + elo[value];
+		if (fprintf(_stream, "%s\n", command.c_str()) < 0)
+			_fail = true;
 	}
 }
 
