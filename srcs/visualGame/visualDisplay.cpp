@@ -160,7 +160,7 @@ void    visualGame::displayMoveAnimation(const string move)
 
         displayGame(obj.x + ((_width / 10) / 2), obj.y + ((_height / 10) / 2));
         SDL_RenderPresent(_mainRenderer);
-        usleep(1000);
+        usleep(600);
     }
 }
 

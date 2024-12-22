@@ -55,7 +55,7 @@ OBJSS = $(SRCS_S:.cpp=.o)
 
 ## === RULES === ##
 
-classic: $(NAMEV)
+visual: $(NAMEV)
 
 shell: $(NAMES)
 
@@ -66,8 +66,6 @@ $(NAMEV): $(OBJSV)
 
 $(NAMES): $(OBJSS)
 	$(CXX) $(CXXFLAGS) $(OBJSS) -o $(NAMES)
-
-re: fclean all
 
 clean:
 	@rm -rf $(OBJSS) $(OBJSV)
