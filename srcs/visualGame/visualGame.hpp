@@ -5,6 +5,17 @@
 # include "../chessBoard/chessBoard.hpp"
 # include "../chessAi/chessAi.hpp"
 
+# define COLOR_NB 5
+
+# define COLORS \
+{ \
+    {0, 153, 0}, \
+    {0, 0, 153}, \
+    {153, 0, 0}, \
+    {204, 102, 0}, \
+    {102, 0, 102} \
+}
+
 typedef struct s_textures
 {
     SDL_Texture     *king;
@@ -59,7 +70,8 @@ class visualGame
 
         int		    visualLoop(void);
         string      getVisualAnswer(void);
-  
+
+        void        loadMap(void);
         void        loadBoard(const string color, const int cx = 0, const int cy = 0);
         void        loadText(const int value);
         void        loadArrow(const int value);
@@ -87,6 +99,8 @@ class visualGame
 
         const int       _width;
         const int       _height;
+
+        int             _boardColor;
 
         SDL_Window      *_mainWindow;
         SDL_Renderer    *_mainRenderer;

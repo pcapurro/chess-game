@@ -43,6 +43,47 @@ void    visualGame::loadText(const int value)
         SDL_RenderCopy(_mainRenderer, _texts.draw, NULL, &obj);
 }
 
+void    visualGame::loadMap(void)
+{
+    SDL_Rect    obj;
+
+    obj = getRectangle("", "default");
+
+    SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
+    SDL_RenderFillRect(_mainRenderer, &obj);
+
+    if (_aiSide != 0)
+        SDL_RenderCopy(_mainRenderer, _whiteBoardTexture, NULL, &obj);
+    else
+        SDL_RenderCopy(_mainRenderer, _blackBoardTexture, NULL, &obj);
+
+    bool    state = true;
+    int     color[3];
+    int     colors[COLOR_NB][3] = COLORS;
+
+    color[0] = colors[_boardColor][0];
+    color[1] = colors[_boardColor][1];
+    color[2] = colors[_boardColor][2];
+
+    obj.w = _width / 10, obj.h = _height / 10;
+    for (int i = 0; i != 8; i++)
+    {
+        for (int k = 0; k != 8; k++)
+        {
+            string coords = string(1, "hgfedcba"[k]) + string(1, "87654321"[i]);
+
+            if ((state == true && k % 2 == 0)
+                || (state == false && k % 2 != 0))
+            {
+                obj = getRectangle(coords);
+                SDL_SetRenderDrawColor(_mainRenderer, color[0], color[1], color[2], 255);
+                SDL_RenderFillRect(_mainRenderer, &obj);
+            }
+        }
+        state = !state;
+    }
+}
+
 void    visualGame::loadBoard(const string color, const int cx, const int cy)
 {
     char        objType;
@@ -184,20 +225,8 @@ void    visualGame::displayPromotion(const char type, const string coord)
 
 void    visualGame::displayGame(const int cx, const int cy)
 {
-    int         stateValue;
-    SDL_Rect    obj;
-
     SDL_RenderClear(_mainRenderer);
-
-    obj = getRectangle("", "default");
-
-    SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
-    SDL_RenderFillRect(_mainRenderer, &obj);
-
-    if (_aiSide != 0)
-        SDL_RenderCopy(_mainRenderer, _whiteBoardTexture, NULL, &obj);
-    else
-        SDL_RenderCopy(_mainRenderer, _blackBoardTexture, NULL, &obj);
+    loadMap();
 
     if (_board->isItCheckMate() == true)
         loadCheckMate();
@@ -211,7 +240,7 @@ void    visualGame::displayGame(const int cx, const int cy)
     else
         loadBoard("white", cx, cy), loadBoard("black", cx, cy);
 
-    stateValue = _board->getStateValue();
+    int stateValue = _board->getStateValue();
 
     loadText(stateValue);
     loadArrow(stateValue);

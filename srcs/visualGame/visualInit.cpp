@@ -13,6 +13,9 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 		_aiSide = rand() % 2;
     }
 
+    srand(time(nullptr));
+    _boardColor = rand() % COLOR_NB;
+
     setToDefault();
     setToNullPtr();
 
