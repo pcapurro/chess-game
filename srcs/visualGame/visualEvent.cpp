@@ -115,16 +115,18 @@ string  visualGame::waitForEvent(void)
         if (SDL_PollEvent(&event) == true)
         {
             if (event.type == SDL_QUIT)
-                return (string("end"));
+                return ("end");
 
             if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP
                 || event.type == SDL_MOUSEMOTION)
             {
                 coord = getCoord(event.button.x, event.button.y);
-                if (_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
+                if ((_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
+                    || (event.button.x >= _width - (_width / 16) && event.button.x <= _width
+                    && event.button.y >= _height - (_height / 16) && event.button.y <= _height))
                 {
                     SDL_SetCursor(_playCursor);
-                    if (event.type == SDL_MOUSEBUTTONDOWN)
+                    if (event.type == SDL_MOUSEBUTTONDOWN && coord != "none")
                         _droppedSrc = coord;
                 }
                 else
@@ -136,9 +138,14 @@ string  visualGame::waitForEvent(void)
                         _clickSrc = coord, _droppedSrc.clear();
                     else
                     {
-                        if (_droppedSrc == "none" || coord == "none"
-                            || _clickSrc == "none" || coord == "")
+                        if (_droppedSrc == "none" || coord == "none" || _clickSrc == "none" || coord == "")
+                        {
+                            if (event.button.x >= _width - (_width / 16) && event.button.x <= _width
+                                && event.button.y >= _height - (_height / 16) && event.button.y <= _height)
+                                switchMapColor();
+                            
                             return ("none");
+                        }
 
                         _droppedDest = coord;
                         if (_droppedSrc == "")

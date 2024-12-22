@@ -43,6 +43,13 @@ void    visualGame::loadText(const int value)
         SDL_RenderCopy(_mainRenderer, _texts.draw, NULL, &obj);
 }
 
+void    visualGame::switchMapColor(void)
+{
+    _boardColor++;
+    if (_boardColor == COLOR_NB)
+        _boardColor = 0;
+}
+
 void    visualGame::loadMap(void)
 {
     SDL_Rect    obj;
