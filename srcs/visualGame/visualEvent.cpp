@@ -72,7 +72,7 @@ string  visualGame::waitForPromotion(const string coord)
         if (SDL_PollEvent(&event) == true)
         {
             if (event.type == SDL_QUIT)
-                return (string("end"));
+                return ("end");
 
             coords = getCoord(event.button.x, event.button.y);
 

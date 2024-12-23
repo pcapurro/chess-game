@@ -32,7 +32,7 @@
 
 using namespace std;
 
-int     memoryFailed(void);
-int     systemFailed(void);
+int     memoryFailed(const bool value);
+int     systemFailed(const bool value);
 
 #endif

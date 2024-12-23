@@ -41,8 +41,9 @@ void    initWelcome(void)
     printTitle();
     getline(cin, input);
     if (cin.fail() == true)
-        systemFailed();
-    cout << "\033[2A" << ERASE_LINE << endl;
+        systemFailed(true);
+    else
+        cout << "\033[2A" << ERASE_LINE << endl;
 }
 
 int initializeShellGame(const bool sandBoxMode, const bool blindMode)

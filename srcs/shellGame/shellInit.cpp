@@ -21,12 +21,12 @@ shellGame::shellGame(const bool blindMode, const bool sandBoxMode) : _blindMode(
 	{
 		_board = new (nothrow) chessBoard;
 		if (!_board || _board == nullptr)
-			_memoryFail = true, memoryFailed();
+			_memoryFail = true, memoryFailed(true);
 		else if (_board->isAllocated() == false)
-			_memoryFail = true, memoryFailed();
+			_memoryFail = true, memoryFailed(true);
 
 		_checker = new (nothrow) algebraParser;
 		if (!_checker || _checker == nullptr)
-			_memoryFail = true, memoryFailed();
+			_memoryFail = true, memoryFailed(true);
 	}
 }

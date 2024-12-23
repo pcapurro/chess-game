@@ -69,19 +69,19 @@ void	visualGame::visualRoutine(void)
     {
         _board = new (nothrow) chessBoard;
         if (!_board || _board == nullptr)
-            { _error = true; memoryFailed(); return ; }
+            { _error = true; memoryFailed(false); return ; }
         if (_board->isAllocated() == false)
-            { _error = true; memoryFailed(); return ; }
+            { _error = true; memoryFailed(false); return ; }
 
         int value = visualLoop();
 
         delete _board, _board = nullptr;
         if (value == 1)
-            { _error = true; memoryFailed(); return ; }
+            { _error = true; memoryFailed(false); return ; }
         if (value == 2)
             { return ; }
         if (value == 3)
-            { _error = true; systemFailed(); return ; }
+            { _error = true; systemFailed(false); return ; }
             
         setToDefault();
         if (waitForNewGame() == 1)

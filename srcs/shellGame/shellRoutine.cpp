@@ -54,7 +54,7 @@ void	shellGame::shellRoutine(void)
         _board->printEvent(_checker->fail(), _board->fail(), _blindMode);
         input = getShellAnswer();
         if (input == "error")
-            { _systemFail = true; systemFailed(); return ; }
+            { _systemFail = true; systemFailed(true); return ; }
 
         *_checker = input;
         move = _checker->getParsedMove();
@@ -63,7 +63,7 @@ void	shellGame::shellRoutine(void)
             continue ;
 
         if (move.error == true || _board->isAllocated() == false)
-            { _memoryFail = true; memoryFailed(); return ; }
+            { _memoryFail = true; memoryFailed(true); return ; }
 
         if (_blindMode == false)
             _board->printBoard(_aiSide);

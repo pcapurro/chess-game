@@ -61,7 +61,6 @@ SDL_Rect    visualGame::getRectangle(const string coords, const string type) con
         x = 7 - x;
 
     obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
-    obj.x = obj.x, obj.y = obj.y;
 
     if (type == "promotion")
         obj.x = obj.x - _height / 47, obj.h = _height / 8, obj.w = _width / 7;
@@ -120,8 +119,8 @@ string  visualGame::getKingCoords(const string color)
 string  visualGame::getTurnColor(void) const
 {
     if (_turn % 2 == 0)
-        return (string("white"));
-    return (string("black"));
+        return ("white");
+    return ("black");
 }
 
 bool    visualGame::isPromotion(const string coord)
