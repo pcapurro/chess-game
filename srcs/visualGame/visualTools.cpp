@@ -60,7 +60,7 @@ SDL_Rect    visualGame::getRectangle(const string coords, const string type) con
     else
         x = 7 - x;
 
-    obj.x = _width / 10 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
+    obj.x = _width / 14 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
 
     if (type == "promotion")
         obj.x = obj.x - _height / 47, obj.h = _height / 8, obj.w = _width / 7;
@@ -75,7 +75,7 @@ string  visualGame::getCoord(const int x, const int y) const
     int xZone;
     int yZone;
 
-    if (x > 0 && y > 0 && x >= _width / 10 && x <= _width / 10 * 9
+    if (x > 0 && y > 0 && x >= (_width / 14) && x <= ((_width / 10) * 9) + (_width / 14)
         && y >= (_height / 10) && y <= (_height / 10 * 9))
     {
         for (int i = 0; i != 8; i++)
@@ -91,6 +91,7 @@ string  visualGame::getCoord(const int x, const int y) const
                     xZone = (_width / 10 ) * (8 - k);
                 else
                     xZone = (_width / 10 ) * (k + 1);
+                xZone -= (_width / 34);
 
                 if (x >= xZone && x <= xZone + (_width / 10 ) && y >= yZone && y <= yZone + (_height / 10 ))
                     return (string(1, "abcdefgh"[k]) + string(1, "12345678"[i]));

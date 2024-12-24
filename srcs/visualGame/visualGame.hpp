@@ -113,8 +113,7 @@ class visualGame
         SDL_Surface     *_baseSurface;
         int             _baseCheck;
 
-        SDL_Texture     *_blackBoardTexture;
-        SDL_Texture     *_whiteBoardTexture;
+        SDL_Texture     *_boardTexture;
         SDL_Texture     *_checkMateWhiteTexture;
         SDL_Texture     *_checkMateBlackTexture;
         SDL_Texture     *_promotionTexture;

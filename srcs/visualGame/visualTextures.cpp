@@ -121,26 +121,13 @@ void    visualGame::loadBoardTextures(void)
 {
     _baseCheck = 0;
 
-    _baseSurface = SDL_LoadBMP("./materials/images/board-white-sided.bmp");
+    _baseSurface = SDL_LoadBMP("./materials/images/board.bmp");
     if (_baseSurface == NULL)
         { _error = true; return ; }
     _baseCheck = 1;
 
-    _whiteBoardTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
-    if (_whiteBoardTexture == NULL)
-        { _error = true; return ; }
-
-    SDL_FreeSurface(_baseSurface);
-
-    _baseCheck = 0;
-
-    _baseSurface = SDL_LoadBMP("./materials/images/board-black-sided.bmp");
-    if (_baseSurface == NULL)
-        { _error = true; return ; }
-    _baseCheck = 1;
-
-    _blackBoardTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
-    if (_blackBoardTexture == NULL)
+    _boardTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (_boardTexture == NULL)
         { _error = true; return ; }
 
     SDL_FreeSurface(_baseSurface);

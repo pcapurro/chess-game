@@ -22,7 +22,7 @@ void    visualGame::loadText(const int value)
     else
         color = "black";
 
-    obj.x = _width / 4, obj.y = _height / 80;
+    obj.x = _width / 5 + (_width / 266), obj.y = _height / 57;
     obj.w = _width / 2, obj.h = _height / 16;
     if (value == 0)
     {
@@ -67,16 +67,13 @@ void    visualGame::loadMap(void)
     color[2] = colors[_boardColor][2];
 
     obj.w = _width / 10, obj.h = _height / 10;
-    obj.x = _width - (_width / 10), obj.y = _height - (_height / 10);
+    obj.x = _width - (_width / 14), obj.y = _height - (_height / 10);
     SDL_SetRenderDrawColor(_mainRenderer, color[0], color[1], color[2], 255);
     SDL_RenderFillRect(_mainRenderer, &obj);
 
     obj = getRectangle("", "default");
 
-    if (_aiSide != 0)
-        SDL_RenderCopy(_mainRenderer, _whiteBoardTexture, NULL, &obj);
-    else
-        SDL_RenderCopy(_mainRenderer, _blackBoardTexture, NULL, &obj);
+    SDL_RenderCopy(_mainRenderer, _boardTexture, NULL, &obj);
 
     bool    state = true;
 
@@ -121,7 +118,7 @@ void    visualGame::loadBoard(const string color, const int cx, const int cy)
                 if (coords != _droppedSrc)
                     obj = getRectangle(coords);
                 else
-                    obj.x = cx - ((_width / 10) / 2), obj.y = cy - ((_height / 10) / 2);
+                    obj.x = cx - ((_width / 14) / 2), obj.y = cy - ((_height / 10) / 2);
 
                 if (obj.x > 0 && obj.y > 0 && obj.x < _width && obj.y << _height)
                     SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), NULL, &obj);
@@ -214,7 +211,7 @@ void    visualGame::displayMoveAnimation(const string move)
         if ((src[0] != dest[0] && src[1] == dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
             destX > obj.x ? obj.x++ : obj.x--;
 
-        displayGame(obj.x + ((_width / 10) / 2), obj.y + ((_height / 10) / 2));
+        displayGame(obj.x + ((_width / 14) / 2), obj.y + ((_height / 10) / 2));
         SDL_RenderPresent(_mainRenderer);
         usleep(600);
     }

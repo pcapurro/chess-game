@@ -43,8 +43,7 @@ void    visualGame::setToNullPtr(void)
     _normalCursor = nullptr;
     _playCursor = nullptr;
 
-    _whiteBoardTexture = nullptr;
-    _blackBoardTexture = nullptr;
+    _boardTexture = nullptr;
     _checkMateWhiteTexture = nullptr;
     _checkMateBlackTexture = nullptr;
     _promotionTexture = nullptr;

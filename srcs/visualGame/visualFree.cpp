@@ -5,10 +5,8 @@ visualGame::~visualGame()
     if (_board != nullptr)
         delete _board;
 
-    if (_whiteBoardTexture != nullptr && _whiteBoardTexture != NULL)
-        SDL_DestroyTexture(_whiteBoardTexture);
-    if (_blackBoardTexture != nullptr && _blackBoardTexture != NULL)
-        SDL_DestroyTexture(_blackBoardTexture);
+    if (_boardTexture != nullptr && _boardTexture != NULL)
+        SDL_DestroyTexture(_boardTexture);
 
     if (_checkMateWhiteTexture != nullptr && _checkMateWhiteTexture != NULL)
         SDL_DestroyTexture(_checkMateWhiteTexture);
