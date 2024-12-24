@@ -347,42 +347,47 @@ int		chessBoard::getScore(const string color)
 	int		endCoeff = 1;
 	bool	colorSwitch = false;
 
+	cout << "evaluating " << color << endl;
+
 	isEndGame() == false ? normalCoeff = 4 : endCoeff = 4;
 
 	if (_gameInfo._color != color)
 		switchPlayers(), colorSwitch = true;
 
 	score += evaluateKingControl() * (normalCoeff + endCoeff);
-	// cout << "– king control > " << evaluateKingControl() * (normalCoeff + endCoeff) << endl;
+	cout << "– king control > " << evaluateKingControl() * (normalCoeff + endCoeff) << endl;
 	score += evaluateKingDefense() * (normalCoeff + endCoeff);
-	// cout << "– king defense > " << evaluateKingDefense() * (normalCoeff + endCoeff) << endl;
+	cout << "– king defense > " << evaluateKingDefense() * (normalCoeff + endCoeff) << endl;
 
 	score += evaluateMaterial() * (normalCoeff + endCoeff);
-	// cout << "– material > " << evaluateMaterial() * 10 * (normalCoeff + endCoeff) << endl;
+	cout << "– material > " << evaluateMaterial() * 10 * (normalCoeff + endCoeff) << endl;
 
 	score += evaluateDefense() * 4;
-	// cout << "– defense > " << evaluateDefense() * 4 << endl;
+	cout << "– defense > " << evaluateDefense() * 4 << endl;
 	score += evaluateAttack() * 4;
-	// cout << "– attack > " << evaluateAttack() * 4 << endl;
+	cout << "– attack > " << evaluateAttack() * 4 << endl;
 
 	score += evaluatePromotion() * (normalCoeff + endCoeff);
-	// cout << "– promotion > " << evaluatePromotion() * (normalCoeff + endCoeff) << endl;
+	cout << "– promotion > " << evaluatePromotion() * (normalCoeff + endCoeff) << endl;
 
 	score += evaluateMobility() * 1;
-	// cout << "– mobility > " << evaluateMobility() * 1 << endl;
+	cout << "– mobility > " << evaluateMobility() * 1 << endl;
 	score += evaluatePawns() * 4 * endCoeff;
-	// cout << "– pawns > " << evaluatePawns() * 4 * endCoeff << endl;
+	cout << "– pawns > " << evaluatePawns() * 4 * endCoeff << endl;
 
 	if (normalCoeff == 4)
 	{
 		score += evaluateCenter() * normalCoeff;
-		// cout << "– center > " << evaluateCenter() * normalCoeff << endl;
+		cout << "– center > " << evaluateCenter() * normalCoeff << endl;
 		score += evaluateDev() * normalCoeff;
-		// cout << "– global dev > " << evaluateDev() * normalCoeff << endl;
+		cout << "– global dev > " << evaluateDev() * normalCoeff << endl;
 	}
 
 	if (colorSwitch == true)
 		unSwitchPlayers();
+
+	cout << "total > " << score << endl;
+	cout << "-" << endl << endl;
 
 	return (score);
 }

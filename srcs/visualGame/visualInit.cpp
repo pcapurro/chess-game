@@ -25,13 +25,16 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
     if (_error == false)
         loadTexts();
 
+    _evaluation = true;
     _code = true;
 }
 
 void    visualGame::setToDefault(void)
 {
     _turn = 0;
-    _evaluation = false;
+
+    _whiteScore = 0;
+    _blackScore = 0;
 
     _clickSrc.clear();
     _droppedSrc.clear();
