@@ -24,6 +24,8 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
         loadTextures();
     if (_error == false)
         loadTexts();
+
+    _code = true;
 }
 
 void    visualGame::setToDefault(void)

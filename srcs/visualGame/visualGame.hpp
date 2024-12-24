@@ -71,6 +71,8 @@ class visualGame
         int		    visualLoop(void);
         string      getVisualAnswer(void);
 
+        bool        isCodeDetected(void);
+
         void        loadMap(void);
         void        loadEvaluation(void);
         void        loadMapColors(void);
@@ -106,6 +108,9 @@ class visualGame
         vector<int>     _boardColors;
 
         bool            _evaluation;
+
+        bool                _code;
+        vector<SDL_Keycode> _keyHistory;
 
         SDL_Window      *_mainWindow;
         SDL_Renderer    *_mainRenderer;

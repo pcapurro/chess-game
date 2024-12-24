@@ -33,8 +33,13 @@ int visualGame::waitForNewGame(void)
     {
         if (SDL_PollEvent(&event) == true)
         {
-            if (event.type == SDL_QUIT)
+            if (event.type == SDL_QUIT
+                || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
                 return (1);
+
+            if (event.type == SDL_KEYDOWN
+                && event.key.keysym.sym == SDLK_RETURN)
+                break ;
 
             if (event.type == SDL_MOUSEBUTTONDOWN
                 || event.type == SDL_MOUSEMOTION)
@@ -71,8 +76,12 @@ string  visualGame::waitForPromotion(const string coord)
     {
         if (SDL_PollEvent(&event) == true)
         {
-            if (event.type == SDL_QUIT)
+            if (event.type == SDL_QUIT
+                || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
                 return ("end");
+
+            if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
+                break ;
 
             coords = getCoord(event.button.x, event.button.y);
 
@@ -92,7 +101,7 @@ string  visualGame::waitForPromotion(const string coord)
                     if (event.button.x > obj.x + (_width / 25) && event.button.x < (obj.x + obj.w) - (_width / 25)
                         && event.button.y > obj.y + (_height / 16) && event.button.y < (obj.y + obj.h))
                         break ;
-                    
+
                     displayPromotion(types.at(i), coord);
                 }
             }
@@ -105,20 +114,46 @@ string  visualGame::waitForPromotion(const string coord)
     return (coord + types.at(i));
 }
 
+bool    visualGame::isCodeDetected(void)
+{
+    if (_keyHistory.size() == 11)
+    {
+        vector<SDL_Keycode> code = {SDLK_UP, SDLK_UP, SDLK_DOWN, SDLK_DOWN, SDLK_LEFT, \
+            SDLK_RIGHT, SDLK_LEFT, SDLK_RIGHT, SDLK_b, SDLK_a, SDLK_RETURN};
+
+        vector<SDL_Keycode> sequence;
+        for (int i = _keyHistory.size() - 11; i != _keyHistory.size(); i++)
+            sequence.push_back(_keyHistory.at(i));
+
+        if (code == sequence)
+            return (true);
+    }
+
+    return (false);
+}
+
 string  visualGame::waitForEvent(void)
 {
     SDL_Event   event;
     string      coord;
 
-    // activObj.x = _width / 80, activObj.y = _height - (_height / 11);
-    // activObj.w = (_width / 26), activObj.h = (_height / 35);
-
     while (1)
     {
         if (SDL_PollEvent(&event) == true)
         {
-            if (event.type == SDL_QUIT)
+            if (event.type == SDL_QUIT
+                || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
                 return ("end");
+
+            if (event.type == SDL_KEYDOWN && _code == true)
+            {
+                _keyHistory.push_back(event.key.keysym.sym);
+                if (_keyHistory.size() > 11)
+                    _keyHistory.erase(_keyHistory.begin());
+            }
+
+            if (_code == true && isCodeDetected() == true)
+                _code = false, cout << "You're pretty good!" << endl;
 
             if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP
                 || event.type == SDL_MOUSEMOTION)
