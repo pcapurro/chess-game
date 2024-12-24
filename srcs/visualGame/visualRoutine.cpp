@@ -50,6 +50,9 @@ int		visualGame::visualLoop(void)
         else if (_board->isAllocated() == false)
             return (1);
 
+        if (_evaluation == true)
+            _whiteScore = _board->getScore("white"), _blackScore = _board->getScore("black");
+
         _turn++;
     }
     displayGame();

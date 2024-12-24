@@ -108,6 +108,8 @@ class visualGame
         vector<int>     _boardColors;
 
         bool            _evaluation;
+        int             _whiteScore;
+        int             _blackScore;
 
         bool                _code;
         vector<SDL_Keycode> _keyHistory;
