@@ -43,41 +43,63 @@ void    visualGame::loadText(const int value)
         SDL_RenderCopy(_mainRenderer, _texts.draw, NULL, &obj);
 }
 
-void    visualGame::switchMapColor(void)
+void    visualGame::loadEvaluation(void)
 {
-    _boardColor++;
-    if (_boardColor == COLOR_NB)
-        _boardColor = 0;
+    SDL_Rect    activObj;
+    SDL_Rect    evalObj;
+
+    activObj.x = _width / 80, activObj.y = _height - (_height / 11);
+    activObj.w = (_width / 26), activObj.h = (_height / 35);
+
+    evalObj.x = _width / 40, evalObj.y = _height / 10;
+    evalObj.w = _width / 26, evalObj.h = _height - (_height / 5);
+
+    if (_evaluation == true)
+    {
+        SDL_SetRenderDrawColor(_mainRenderer, 76, 153, 0, 255);
+        SDL_RenderFillRect(_mainRenderer, &activObj);
+
+        SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
+        SDL_RenderFillRect(_mainRenderer, &evalObj);
+    }
+    else
+    {
+        SDL_SetRenderDrawColor(_mainRenderer, 153, 0, 0, 255);
+        SDL_RenderFillRect(_mainRenderer, &activObj);
+
+        SDL_SetRenderDrawColor(_mainRenderer, 164, 164, 164, 255);
+        SDL_RenderFillRect(_mainRenderer, &evalObj);
+    }
+}
+
+void    visualGame::loadMapColors(void)
+{
+    int         colors[COLOR_NB][3] = COLORS;
+    SDL_Rect    obj;
+
+    obj = getRectangle("", "default");
+
+    _boardColors.clear();
+    _boardColors.push_back(colors[_boardColor][0]);
+    _boardColors.push_back(colors[_boardColor][1]);
+    _boardColors.push_back(colors[_boardColor][2]);
+
+    obj.w = _width / 10, obj.h = _height / 10;
+    obj.x = _width - (_width / 14), obj.y = _height - (_height / 10);
+    SDL_SetRenderDrawColor(_mainRenderer, _boardColors.at(0), _boardColors.at(1), _boardColors.at(2), 255);
+    SDL_RenderFillRect(_mainRenderer, &obj);
 }
 
 void    visualGame::loadMap(void)
 {
     SDL_Rect    obj;
+    bool        state;
 
+    loadMapColors();
     obj = getRectangle("", "default");
-
-    SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
-    SDL_RenderFillRect(_mainRenderer, &obj);
-
-    int     color[3];
-    int     colors[COLOR_NB][3] = COLORS;
-
-    color[0] = colors[_boardColor][0];
-    color[1] = colors[_boardColor][1];
-    color[2] = colors[_boardColor][2];
-
-    obj.w = _width / 10, obj.h = _height / 10;
-    obj.x = _width - (_width / 14), obj.y = _height - (_height / 10);
-    SDL_SetRenderDrawColor(_mainRenderer, color[0], color[1], color[2], 255);
-    SDL_RenderFillRect(_mainRenderer, &obj);
-
-    obj = getRectangle("", "default");
-
     SDL_RenderCopy(_mainRenderer, _boardTexture, NULL, &obj);
 
-    bool    state = true;
-
-    obj.w = _width / 10, obj.h = _height / 10;
+    state = true;
     for (int i = 0; i != 8; i++)
     {
         for (int k = 0; k != 8; k++)
@@ -88,7 +110,7 @@ void    visualGame::loadMap(void)
                 || (state == false && k % 2 != 0))
             {
                 obj = getRectangle(coords);
-                SDL_SetRenderDrawColor(_mainRenderer, color[0], color[1], color[2], 255);
+                SDL_SetRenderDrawColor(_mainRenderer, _boardColors.at(0), _boardColors.at(1), _boardColors.at(2), 255);
                 SDL_RenderFillRect(_mainRenderer, &obj);
             }
         }
@@ -213,7 +235,7 @@ void    visualGame::displayMoveAnimation(const string move)
 
         displayGame(obj.x + ((_width / 14) / 2), obj.y + ((_height / 10) / 2));
         SDL_RenderPresent(_mainRenderer);
-        usleep(600);
+        usleep(500);
     }
 }
 
@@ -238,6 +260,8 @@ void    visualGame::displayPromotion(const char type, const string coord)
 void    visualGame::displayGame(const int cx, const int cy)
 {
     SDL_RenderClear(_mainRenderer);
+
+    loadEvaluation();
     loadMap();
 
     if (_board->isItCheckMate() == true)

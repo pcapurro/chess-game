@@ -71,9 +71,9 @@ class visualGame
         int		    visualLoop(void);
         string      getVisualAnswer(void);
 
-        void        switchMapColor(void);
-
         void        loadMap(void);
+        void        loadEvaluation(void);
+        void        loadMapColors(void);
         void        loadBoard(const string color, const int cx = 0, const int cy = 0);
         void        loadText(const int value);
         void        loadArrow(const int value);
@@ -103,6 +103,9 @@ class visualGame
         const int       _height;
 
         int             _boardColor;
+        vector<int>     _boardColors;
+
+        bool            _evaluation;
 
         SDL_Window      *_mainWindow;
         SDL_Renderer    *_mainRenderer;

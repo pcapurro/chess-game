@@ -110,6 +110,9 @@ string  visualGame::waitForEvent(void)
     SDL_Event   event;
     string      coord;
 
+    // activObj.x = _width / 80, activObj.y = _height - (_height / 11);
+    // activObj.w = (_width / 26), activObj.h = (_height / 35);
+
     while (1)
     {
         if (SDL_PollEvent(&event) == true)
@@ -122,8 +125,8 @@ string  visualGame::waitForEvent(void)
             {
                 coord = getCoord(event.button.x, event.button.y);
                 if ((_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
-                    || (event.button.x >= _width - (_width / 16) && event.button.x <= _width
-                    && event.button.y >= _height - (_height / 16) && event.button.y <= _height))
+                    || (event.button.x >= _width - (_width / 16) && event.button.x <= _width && event.button.y >= _height - (_height / 16) && event.button.y <= _height)
+                    || (event.button.x >= _width / 80 && event.button.x <= _width / 20 && event.button.y >= _height - (_height / 11) && event.button.y <= _height - (_height / 16)))
                 {
                     SDL_SetCursor(_playCursor);
                     if (event.type == SDL_MOUSEBUTTONDOWN && coord != "none")
@@ -142,7 +145,11 @@ string  visualGame::waitForEvent(void)
                         {
                             if (event.button.x >= _width - (_width / 16) && event.button.x <= _width
                                 && event.button.y >= _height - (_height / 16) && event.button.y <= _height)
-                                switchMapColor();
+                                ++_boardColor == COLOR_NB ? _boardColor = 0 : _boardColor;
+
+                            if ((event.button.x >= _width / 80 && event.button.x <= _width / 20
+                                && event.button.y >= _height - (_height / 11) && event.button.y <= _height - (_height / 16)))
+                                _evaluation = !_evaluation;
                             
                             return ("none");
                         }
