@@ -56,10 +56,29 @@ void    visualGame::loadEvaluation(void)
 
     if (_evaluation == true)
     {
+        int score;
+        int whiteScore = _board->getScore("white");
+        int blackScore = _board->getScore("black");
+
         SDL_SetRenderDrawColor(_mainRenderer, 76, 153, 0, 255);
         SDL_RenderFillRect(_mainRenderer, &activObj);
 
-        SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
+        if (_sandBoxMode == false && _aiSide % 2 == 0)
+        {
+            SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
+            score = whiteScore;
+            SDL_RenderFillRect(_mainRenderer, &evalObj);
+            SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 255);
+        }
+        else
+        {
+            SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 255);
+            score = blackScore;
+            SDL_RenderFillRect(_mainRenderer, &evalObj);
+            SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
+        }
+
+        evalObj.h = (score * (_height - (_height / 5))) / (whiteScore + blackScore);
         SDL_RenderFillRect(_mainRenderer, &evalObj);
     }
     else

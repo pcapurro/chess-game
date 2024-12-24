@@ -1,6 +1,6 @@
 #include "chessBoard.hpp"
 
-int		chessBoard::evaluateMaterial(const bool simulation)
+int		chessBoard::evaluateMaterial(void)
 {
 	int			value = 0;
 	int			enemyMaterial = 0;
@@ -43,13 +43,6 @@ int		chessBoard::evaluateMaterial(const bool simulation)
 	{
 		attacked = orderByValue(attacked);
 		value -= getMaterialValue(attacked.top()->getType());
-	}
-
-	if (simulation == false && attacking.size() > 1)
-	{
-		attacking = orderByValue(attacking);
-		attacking.pop();
-		value += getMaterialValue(attacking.top()->getType());
 	}
 
 	if (value < 0)
@@ -98,7 +91,7 @@ int		chessBoard::evaluateAttack(void)
 	return (value);
 }
 
-int		chessBoard::evaluateKingControl(const bool simulation)
+int		chessBoard::evaluateKingControl(void)
 {
 	int				value = 0;
 	string			coord, kingCoords;
@@ -107,11 +100,6 @@ int		chessBoard::evaluateKingControl(const bool simulation)
 
 	if (_gameInfo._check == false && checkMateInOne() == true)
 		value += 50;
-
-	switchPlayers();
-	if (simulation == true && isCheckMate(-1) == true)
-		value += 21000;
-	unSwitchPlayers();
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -352,7 +340,7 @@ int		chessBoard::evaluateDev(void)
 	return (value);
 }
 
-int		chessBoard::getScore(const string color, const bool simulation)
+int		chessBoard::getScore(const string color)
 {
 	int		score = 0;
 	int		normalCoeff = 1;
@@ -364,26 +352,26 @@ int		chessBoard::getScore(const string color, const bool simulation)
 	if (_gameInfo._color != color)
 		switchPlayers(), colorSwitch = true;
 
-	score += evaluateKingControl(simulation) * (normalCoeff + endCoeff);
-	cout << "– king control > " << evaluateKingControl(simulation) * (normalCoeff + endCoeff) << endl;
+	score += evaluateKingControl() * (normalCoeff + endCoeff);
+	// cout << "– king control > " << evaluateKingControl() * (normalCoeff + endCoeff) << endl;
 	score += evaluateKingDefense() * (normalCoeff + endCoeff);
-	cout << "– king defense > " << evaluateKingDefense() * (normalCoeff + endCoeff) << endl;
+	// cout << "– king defense > " << evaluateKingDefense() * (normalCoeff + endCoeff) << endl;
 
-	score += evaluateMaterial(simulation) * (normalCoeff + endCoeff);
-	cout << "– material > " << evaluateMaterial(simulation) * 10 * (normalCoeff + endCoeff) << endl;
+	score += evaluateMaterial() * (normalCoeff + endCoeff);
+	// cout << "– material > " << evaluateMaterial() * 10 * (normalCoeff + endCoeff) << endl;
 
 	score += evaluateDefense() * 4;
-	cout << "– defense > " << evaluateDefense() * 4 << endl;
+	// cout << "– defense > " << evaluateDefense() * 4 << endl;
 	score += evaluateAttack() * 4;
-	cout << "– attack > " << evaluateAttack() * 4 << endl;
+	// cout << "– attack > " << evaluateAttack() * 4 << endl;
 
 	score += evaluatePromotion() * (normalCoeff + endCoeff);
-	cout << "– promotion > " << evaluatePromotion() * (normalCoeff + endCoeff) << endl;
+	// cout << "– promotion > " << evaluatePromotion() * (normalCoeff + endCoeff) << endl;
 
 	score += evaluateMobility() * 1;
-	cout << "– mobility > " << evaluateMobility() * 1 << endl;
+	// cout << "– mobility > " << evaluateMobility() * 1 << endl;
 	score += evaluatePawns() * 4 * endCoeff;
-	cout << "– pawns > " << evaluatePawns() * 4 * endCoeff << endl;
+	// cout << "– pawns > " << evaluatePawns() * 4 * endCoeff << endl;
 
 	if (normalCoeff == 4)
 	{

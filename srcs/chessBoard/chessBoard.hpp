@@ -81,6 +81,8 @@ class chessBoard
         bool    fail(void) const { return (_gameInfo._moveFailed); };
         bool    isAllocated(void) const;
 
+        int     getScore(const string color);
+
         char    getType(const string coord) const;
         string  getColor(const string coord) const;
 
@@ -115,15 +117,14 @@ class chessBoard
         stack<cP *>         orderByValue(stack<cP *> materials);
         stack<cP *>         getWatchers(const string coord);
 
-        int     evaluateMaterial(const bool simulation);
-        int     getScore(const string color, const bool simulation);
+        int     evaluateMaterial(void);
 
         int     getWatchersNumber(const string coord);
         int     getMaterialValue(const char type);
 
         int     evaluateDefense(void);
         int     evaluateAttack(void);
-        int     evaluateKingControl(const bool simulation);
+        int     evaluateKingControl(void);
         int     evaluateKingDefense(void);
         int     evaluateMobility(void);
         int     evaluatePromotion(void);
