@@ -375,7 +375,7 @@ int		chessBoard::getScore(const string color)
 	score += evaluateKingControl(colorSwitch) * (normalCoeff + endCoeff);
 	score += evaluateKingDefense(colorSwitch) * (normalCoeff + endCoeff);
 
-	score += evaluateMaterial(colorSwitch) * (normalCoeff + normalCoeff + endCoeff);
+	score += evaluateMaterial(colorSwitch) * ((normalCoeff * 2) + endCoeff);
 
 	score += evaluateDefense() * 4;
 	score += evaluateAttack() * 4;

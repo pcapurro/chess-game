@@ -35,25 +35,36 @@ int		visualGame::visualLoop(void)
 
     while (_board->isGameOver() == false)
     {
-        answer = getVisualAnswer();
-        if (answer == "error")
-            return (3);
-        if (answer == "restart")
-            return (4);
-
-        if (answer == "end")
-            { _board->printEndGame(1); return (2); }
-        
-        if (_board->playMove({}, answer) == FAIL)
-            continue ;
-        else if (_board->isAllocated() == false)
-            return (1);
-
         displayGame();
         SDL_RenderPresent(_mainRenderer);
 
+        answer = getVisualAnswer();
+        if (answer == "error" || answer == "restart"
+            || answer == "end")
+        {
+            if (answer == "error")
+                return (3);
+            if (answer == "restart")
+                return (4);
+            if (answer == "end")
+                { _board->printEndGame(1); return (2); }
+        }
+        else
+        {
+            if (_board->playMove({}, answer) == FAIL)
+                continue ;
+            else if (_board->isAllocated() == false)
+                return (1);
+        }
+
         if (_evaluation == true)
-            _whiteScore = _board->getScore("white"), _blackScore = _board->getScore("black");
+        {
+            displayGame();
+            SDL_RenderPresent(_mainRenderer);
+
+            _whiteScore = _board->getScore("white");
+            _blackScore = _board->getScore("black");
+        }
 
         _turn++;
     }
@@ -74,19 +85,27 @@ void	visualGame::visualRoutine(void)
     {
         _board = new (nothrow) chessBoard;
         if (!_board || _board == nullptr)
-            { _error = true; memoryFailed(false); return ; }
+            _error = true;
         if (_board->isAllocated() == false)
-            { _error = true; memoryFailed(false); return ; }
+            _error = true, delete _board;
+
+        if (_error == true)
+            { memoryFailed(false); return ; }
 
         int value = visualLoop();
 
         delete _board, _board = nullptr;
-        if (value == 1)
-            { _error = true; memoryFailed(false); return ; }
+        if (value == 1 || value == 3)
+        {
+            _error = true;
+            if (value == 1)
+                memoryFailed(false);
+            if (value == 3)
+                systemFailed(false);
+            return ;
+        }
         if (value == 2)
-            { return ; }
-        if (value == 3)
-            { _error = true; systemFailed(false); return ; }
+            return ;
             
         setToDefault();
         if (value != 4 && waitForNewGame() == 1)
