@@ -111,10 +111,20 @@ void    visualGame::loadMapColors(void)
 
 void    visualGame::loadPath(void)
 {
+    SDL_Rect    obj;
+
+    if (_droppedSrc != "")
+    {
+        obj = getRectangle(_droppedSrc);
+        SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
+        SDL_RenderFillRect(_mainRenderer, &obj);
+
+        SDL_SetRenderDrawColor(_mainRenderer, 0, 255, 128, 100);
+        SDL_RenderFillRect(_mainRenderer, &obj);
+    }
+
     if (_lastMove != "")
     {
-        SDL_Rect    obj;
-
         obj = getRectangle(string(1, _lastMove[0]) + _lastMove[1]);
         SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
         SDL_RenderFillRect(_mainRenderer, &obj);
