@@ -36,6 +36,9 @@ void    visualGame::setToDefault(void)
     _whiteScore = 0;
     _blackScore = 0;
 
+    _lastMove.clear();
+    _lastAiMove.clear();
+
     _clickSrc.clear();
     _droppedSrc.clear();
     _droppedDest.clear();
@@ -95,6 +98,8 @@ void    visualGame::initializeGame(void)
         SDL_RENDERER_ACCELERATED);
     if (_mainRenderer == NULL)
         { _error = true; return ; }
+
+    SDL_SetRenderDrawBlendMode(_mainRenderer, SDL_BLENDMODE_BLEND);
 
     _normalCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_ARROW);
     _playCursor = SDL_CreateSystemCursor(SDL_SYSTEM_CURSOR_HAND);

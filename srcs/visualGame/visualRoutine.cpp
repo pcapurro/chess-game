@@ -55,6 +55,7 @@ int		visualGame::visualLoop(void)
                 continue ;
             else if (_board->isAllocated() == false)
                 return (1);
+            _lastMove = answer.c_str() + 1;
         }
 
         if (_evaluation == true)

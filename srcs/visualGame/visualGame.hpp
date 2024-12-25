@@ -74,6 +74,7 @@ class visualGame
         bool        isCodeDetected(void);
 
         void        loadMap(void);
+        void        loadPath(void);
         void        loadEvaluation(void);
         void        loadMapColors(void);
         void        loadBoard(const string color, const int cx = 0, const int cy = 0);
@@ -140,6 +141,7 @@ class visualGame
         string          _droppedDest;
 
         string          _lastAiMove;
+        string          _lastMove;
 
         int             _aiSide;
         int             _turn;

@@ -109,6 +109,28 @@ void    visualGame::loadMapColors(void)
     SDL_RenderFillRect(_mainRenderer, &obj);
 }
 
+void    visualGame::loadPath(void)
+{
+    if (_lastMove != "")
+    {
+        SDL_Rect    obj;
+
+        obj = getRectangle(string(1, _lastMove[0]) + _lastMove[1]);
+        SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
+        SDL_RenderFillRect(_mainRenderer, &obj);
+
+        SDL_SetRenderDrawColor(_mainRenderer, 204, 204, 0, 100);
+        SDL_RenderFillRect(_mainRenderer, &obj);
+
+        obj = getRectangle(string(1, _lastMove[2]) + _lastMove[3]);
+        SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
+        SDL_RenderFillRect(_mainRenderer, &obj);
+
+        SDL_SetRenderDrawColor(_mainRenderer, 204, 204, 0, 100);
+        SDL_RenderFillRect(_mainRenderer, &obj);
+    }
+}
+
 void    visualGame::loadMap(void)
 {
     SDL_Rect    obj;
@@ -282,6 +304,7 @@ void    visualGame::displayGame(const int cx, const int cy)
 
     loadEvaluation();
     loadMap();
+    loadPath();
 
     if (_board->isItCheckMate() == true)
         loadCheckMate();
