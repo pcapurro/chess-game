@@ -161,11 +161,17 @@ string  visualGame::waitForEvent(void)
                 coord = getCoord(event.button.x, event.button.y);
                 if ((_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
                     || (event.button.x >= _width - (_width / 16) && event.button.x <= _width && event.button.y >= _height - (_height / 16) && event.button.y <= _height)
-                    || (event.button.x >= _width / 80 && event.button.x <= _width / 20 && event.button.y >= _height - (_height / 11) && event.button.y <= _height - (_height / 16)))
+                    || (event.button.x >= _width / 80 && event.button.x <= _width / 20 && event.button.y >= _height - (_height / 11) && event.button.y <= _height - (_height / 16))
+                    || (event.button.x > _width - (_width / 12) && event.button.y < _height / 12))
                 {
                     SDL_SetCursor(_playCursor);
-                    if (event.type == SDL_MOUSEBUTTONDOWN && coord != "none")
-                        _droppedSrc = coord;
+                    if (event.type == SDL_MOUSEBUTTONDOWN)
+                    {
+                        if (event.button.x > _width - (_width / 12) && event.button.y < _height / 12)
+                            return ("restart");
+                        if (coord != "none")
+                            _droppedSrc = coord;
+                    }
                 }
                 else
                     SDL_SetCursor(_normalCursor);

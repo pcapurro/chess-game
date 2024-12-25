@@ -2,14 +2,11 @@
 
 void    visualGame::loadArrow(const int value)
 {
-    if (value != 0)
-    {
-        SDL_Rect    obj;
+    SDL_Rect    obj;
 
-        obj.x = _width - (_width / 12), obj.y = 0;
-        obj.w = _width / 12, obj.h = _height / 12;
-        SDL_RenderCopy(_mainRenderer, _arrowTexture, NULL, &obj);
-    }
+    obj.x = _width - (_width / 12), obj.y = 0;
+    obj.w = _width / 12, obj.h = _height / 12;
+    SDL_RenderCopy(_mainRenderer, _arrowTexture, NULL, &obj);
 }
 
 void    visualGame::loadText(const int value)

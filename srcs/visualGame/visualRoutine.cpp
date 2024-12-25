@@ -41,6 +41,8 @@ int		visualGame::visualLoop(void)
         answer = getVisualAnswer();
         if (answer == "error")
             return (3);
+        if (answer == "restart")
+            return (4);
 
         if (answer == "end")
             { _board->printEndGame(1); return (2); }
@@ -87,7 +89,7 @@ void	visualGame::visualRoutine(void)
             { _error = true; systemFailed(false); return ; }
             
         setToDefault();
-        if (waitForNewGame() == 1)
+        if (value != 4 && waitForNewGame() == 1)
             break ;
     }
 }
