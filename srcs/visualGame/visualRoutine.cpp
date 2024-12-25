@@ -13,6 +13,8 @@ string  visualGame::getVisualAnswer(void)
             return ("error");
         answer = _board->getType(string(1, answer[0]) + answer[1]) + answer;
 
+        _lastMove = answer.c_str() + 1;
+
         if (answer == "Ke1g1" || answer == "Ke8g8")
             answer = "O-O";
         if (answer == "Ke1c1" || answer == "Ke8c8")
@@ -52,10 +54,9 @@ int		visualGame::visualLoop(void)
         else
         {
             if (_board->playMove({}, answer) == FAIL)
-                continue ;
+                { _lastMove.clear(); continue ; }
             else if (_board->isAllocated() == false)
                 return (1);
-            _lastMove = answer.c_str() + 1;
         }
 
         if (_evaluation == true)

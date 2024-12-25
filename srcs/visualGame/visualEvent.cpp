@@ -7,6 +7,8 @@ string visualGame::getInput(const string coord)
     if (coord == "end" || coord == "none" || coord == "error")
         return (coord);
 
+    _lastMove = _droppedSrc + coord;
+
     input = input + _board->getType(_droppedSrc);
     input = input + _droppedSrc + coord;
 
