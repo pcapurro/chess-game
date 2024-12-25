@@ -40,7 +40,7 @@ void    visualGame::loadText(const int value)
         SDL_RenderCopy(_mainRenderer, _texts.draw, NULL, &obj);
 }
 
-void    visualGame::loadEvaluation(void)
+void    visualGame::loadEvaluation(const int value)
 {
     SDL_Rect    activObj;
     SDL_Rect    evalObj;
@@ -51,7 +51,7 @@ void    visualGame::loadEvaluation(void)
     evalObj.x = _width / 40, evalObj.y = _height / 10;
     evalObj.w = _width / 26, evalObj.h = _height - (_height / 5);
 
-    if (_evaluation == true)
+    if (_evaluation == true && value == 0)
     {
         int score;
 
@@ -74,9 +74,7 @@ void    visualGame::loadEvaluation(void)
         }
 
         if (_whiteScore + _blackScore == 0)
-            _whiteScore = 50, _blackScore = 50;
-        else
-            evalObj.h = (score * (_height - (_height / 5))) / (_whiteScore + _blackScore);
+            _whiteScore = 50, _blackScore = 50, score = 50;
 
         evalObj.h = (score * (_height - (_height / 5))) / (_whiteScore + _blackScore);
         SDL_RenderFillRect(_mainRenderer, &evalObj);
@@ -310,9 +308,11 @@ void    visualGame::displayPromotion(const char type, const string coord)
 
 void    visualGame::displayGame(const int cx, const int cy)
 {
+    int stateValue = _board->getStateValue();
+
     SDL_RenderClear(_mainRenderer);
 
-    loadEvaluation();
+    loadEvaluation(stateValue);
     loadMap();
     loadPath();
 
@@ -327,8 +327,6 @@ void    visualGame::displayGame(const int cx, const int cy)
         loadBoard("black", cx, cy), loadBoard("white", cx, cy);
     else
         loadBoard("white", cx, cy), loadBoard("black", cx, cy);
-
-    int stateValue = _board->getStateValue();
 
     loadText(stateValue);
     loadArrow(stateValue);

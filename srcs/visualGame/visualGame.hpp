@@ -75,7 +75,7 @@ class visualGame
 
         void        loadMap(void);
         void        loadPath(void);
-        void        loadEvaluation(void);
+        void        loadEvaluation(const int value);
         void        loadMapColors(void);
         void        loadBoard(const string color, const int cx = 0, const int cy = 0);
         void        loadText(const int value);
