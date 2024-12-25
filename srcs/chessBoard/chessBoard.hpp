@@ -117,15 +117,14 @@ class chessBoard
         stack<cP *>         orderByValue(stack<cP *> materials);
         stack<cP *>         getWatchers(const string coord);
 
-        int     evaluateMaterial(void);
-
         int     getWatchersNumber(const string coord);
         int     getMaterialValue(const char type);
 
+        int     evaluateMaterial(const bool colorSwitch);
+        int     evaluateKingControl(const bool colorSwitch);
+        int     evaluateKingDefense(const bool colorSwitch);
         int     evaluateDefense(void);
         int     evaluateAttack(void);
-        int     evaluateKingControl(void);
-        int     evaluateKingDefense(void);
         int     evaluateMobility(void);
         int     evaluatePromotion(void);
         int     evaluatePawns(void);

@@ -6,9 +6,6 @@ string  visualGame::getVisualAnswer(void)
 {
     string      answer;
 
-    displayGame();
-    SDL_RenderPresent(_mainRenderer);
-
     if (_sandBoxMode == false && _turn % 2 == _aiSide)
     {
         answer = _ai.getBestMove(_board->getHistory());
@@ -51,6 +48,9 @@ int		visualGame::visualLoop(void)
             continue ;
         else if (_board->isAllocated() == false)
             return (1);
+
+        displayGame();
+        SDL_RenderPresent(_mainRenderer);
 
         if (_evaluation == true)
             _whiteScore = _board->getScore("white"), _blackScore = _board->getScore("black");

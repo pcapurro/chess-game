@@ -1,6 +1,6 @@
 #include "chessBoard.hpp"
 
-int		chessBoard::evaluateMaterial(void)
+int		chessBoard::evaluateMaterial(const bool colorSwitch)
 {
 	int			value = 0;
 	int			enemyMaterial = 0;
@@ -12,13 +12,13 @@ int		chessBoard::evaluateMaterial(void)
 		if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
 		{
 			if (_board.at(i).piece->getColor() == _gameInfo._color)
-				value += getMaterialValue(_board.at(i).piece->getType());
+				value += getMaterialValue(_board.at(i).piece->getType()) * 2;
 			else
-				enemyMaterial += getMaterialValue(_board.at(i).piece->getType());
+				enemyMaterial += getMaterialValue(_board.at(i).piece->getType()) * 2;
 		}
 	}
 
-	value += 39 - enemyMaterial;
+	value += 78 - enemyMaterial;
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -39,10 +39,30 @@ int		chessBoard::evaluateMaterial(void)
 		}
 	}
 
+	if (attacking.size() != 0)
+	{
+		attacking = orderByValue(attacking);
+		if (colorSwitch == false)
+			value += getMaterialValue(attacking.top()->getType()) * 2;
+		else
+		{
+			attacking.pop();
+			if (attacking.size() != 0)
+				value += getMaterialValue(attacking.top()->getType()) * 2;
+		}
+	}
+
 	if (attacked.size() != 0)
 	{
 		attacked = orderByValue(attacked);
-		value -= getMaterialValue(attacked.top()->getType());
+		if (colorSwitch == true)
+			value -= getMaterialValue(attacked.top()->getType()) * 2;
+		else
+		{
+			attacked.pop();
+			if (attacked.size() != 0)
+				value -= getMaterialValue(attacked.top()->getType()) * 2;
+		}
 	}
 
 	if (value < 0)
@@ -91,7 +111,7 @@ int		chessBoard::evaluateAttack(void)
 	return (value);
 }
 
-int		chessBoard::evaluateKingControl(void)
+int		chessBoard::evaluateKingControl(const bool colorSwitch)
 {
 	int				value = 0;
 	string			coord, kingCoords;
@@ -99,7 +119,7 @@ int		chessBoard::evaluateKingControl(void)
 	stack<cP *>		watchers;
 
 	if (_gameInfo._check == false && checkMateInOne() == true)
-		value += 50;
+		colorSwitch == true ? value += 50 : value += 21000;
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -134,12 +154,12 @@ int		chessBoard::evaluateKingControl(void)
 	return (value);
 }
 
-int		chessBoard::evaluateKingDefense(void)
+int		chessBoard::evaluateKingDefense(const bool colorSwitch)
 {
 	int		value = 0;
 
 	if (_gameInfo._check == false && isDefeatNext() == true)
-        value -= 21000;
+        colorSwitch == true ? value -= 21000 : value += 50;
 
 	if (_gameInfo._color == "white" && _gameInfo._whiteCastled == true)
 		value += 15;
@@ -347,47 +367,32 @@ int		chessBoard::getScore(const string color)
 	int		endCoeff = 1;
 	bool	colorSwitch = false;
 
-	cout << "evaluating " << color << endl;
-
 	isEndGame() == false ? normalCoeff = 4 : endCoeff = 4;
 
 	if (_gameInfo._color != color)
 		switchPlayers(), colorSwitch = true;
 
-	score += evaluateKingControl() * (normalCoeff + endCoeff);
-	cout << "– king control > " << evaluateKingControl() * (normalCoeff + endCoeff) << endl;
-	score += evaluateKingDefense() * (normalCoeff + endCoeff);
-	cout << "– king defense > " << evaluateKingDefense() * (normalCoeff + endCoeff) << endl;
+	score += evaluateKingControl(colorSwitch) * (normalCoeff + endCoeff);
+	score += evaluateKingDefense(colorSwitch) * (normalCoeff + endCoeff);
 
-	score += evaluateMaterial() * (normalCoeff + endCoeff);
-	cout << "– material > " << evaluateMaterial() * 10 * (normalCoeff + endCoeff) << endl;
+	score += evaluateMaterial(colorSwitch) * (normalCoeff + normalCoeff + endCoeff);
 
 	score += evaluateDefense() * 4;
-	cout << "– defense > " << evaluateDefense() * 4 << endl;
 	score += evaluateAttack() * 4;
-	cout << "– attack > " << evaluateAttack() * 4 << endl;
 
 	score += evaluatePromotion() * (normalCoeff + endCoeff);
-	cout << "– promotion > " << evaluatePromotion() * (normalCoeff + endCoeff) << endl;
 
 	score += evaluateMobility() * 1;
-	cout << "– mobility > " << evaluateMobility() * 1 << endl;
 	score += evaluatePawns() * 4 * endCoeff;
-	cout << "– pawns > " << evaluatePawns() * 4 * endCoeff << endl;
 
 	if (normalCoeff == 4)
 	{
 		score += evaluateCenter() * normalCoeff;
-		cout << "– center > " << evaluateCenter() * normalCoeff << endl;
 		score += evaluateDev() * normalCoeff;
-		cout << "– global dev > " << evaluateDev() * normalCoeff << endl;
 	}
 
 	if (colorSwitch == true)
 		unSwitchPlayers();
-
-	cout << "total > " << score << endl;
-	cout << "-" << endl << endl;
 
 	return (score);
 }
