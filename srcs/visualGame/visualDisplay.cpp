@@ -169,10 +169,10 @@ void    visualGame::loadMap(void)
 
 void    visualGame::loadCoords(void)
 {
-    visualTexture letters[8] = {_letters.a, _letters.b, _letters.c, _letters.d, \
-        _letters.e, _letters.f, _letters.g, _letters.h};
-    visualTexture numbers[8] = { _numbers.one, _numbers.two, _numbers.three, _numbers.four, \
-        _numbers.five, _numbers.six, _numbers.seven, _numbers.eight };
+    visualTexture *letters[8] = {&_letters.a, &_letters.b, &_letters.c, &_letters.d, \
+        &_letters.e, &_letters.f, &_letters.g, &_letters.h};
+    visualTexture *numbers[8] = { &_numbers.one, &_numbers.two, &_numbers.three, &_numbers.four, \
+        &_numbers.five, &_numbers.six, &_numbers.seven, &_numbers.eight };
 
     SDL_Rect    obj;
 

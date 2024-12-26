@@ -171,7 +171,6 @@ void    visualGame::loadTextures(void)
     loadSymbols();
 
     loadBoardTextures();
-    loadTexts();
     loadArrowTexture();
 
     loadWhiteTextures();
