@@ -45,62 +45,13 @@ void    visualGame::setToDefault(void)
 void    visualGame::setToNullPtr(void)
 {
     _board = nullptr;
+    _baseSurface = nullptr;
+    _baseCheck = 0;
 
     _mainWindow = nullptr;
     _mainRenderer = nullptr;
     _normalCursor = nullptr;
     _playCursor = nullptr;
-
-    _boardTexture = nullptr;
-    _promotion = nullptr;
-    _arrow = nullptr;
-
-    _baseSurface = nullptr;
-    _baseCheck = 0;
-
-    _whiteTextures.bishop = nullptr;
-    _whiteTextures.king = nullptr;
-    _whiteTextures.knight = nullptr;
-    _whiteTextures.pawn = nullptr;
-    _whiteTextures.queen = nullptr;
-    _whiteTextures.rook = nullptr;
-
-    _blackTextures.bishop = nullptr;
-    _blackTextures.king = nullptr;
-    _blackTextures.knight = nullptr;
-    _blackTextures.pawn = nullptr;
-    _blackTextures.queen = nullptr;
-    _blackTextures.rook = nullptr;
-
-    _letters.a = nullptr;
-    _letters.b = nullptr;
-    _letters.c = nullptr;
-    _letters.d = nullptr;
-    _letters.e = nullptr;
-    _letters.f = nullptr;
-    _letters.g = nullptr;
-    _letters.h = nullptr;
-
-    _numbers.one = nullptr;
-    _numbers.two = nullptr;
-    _numbers.three = nullptr;
-    _numbers.four = nullptr;
-    _numbers.five = nullptr;
-    _numbers.six = nullptr;
-    _numbers.seven = nullptr;
-    _numbers.eight = nullptr;
-
-    _symbols.plus = nullptr;
-    _symbols.moins = nullptr;
-
-    _symbols.checkMateWhite = nullptr;
-    _symbols.checkMateBlack = nullptr;
-
-    _texts.blackToPlay = nullptr;
-    _texts.blackWon = nullptr;
-    _texts.draw = nullptr;
-    _texts.whiteToPlay = nullptr;
-    _texts.whiteWon = nullptr;
 }
 
 void    visualGame::initializeGame(void)

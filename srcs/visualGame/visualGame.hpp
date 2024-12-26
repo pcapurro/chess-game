@@ -2,6 +2,7 @@
 # define VISUALGAME_HPP
 
 # include "../../includes/visual.hpp"
+# include "./visualTexture.hpp"
 # include "../chessBoard/chessBoard.hpp"
 # include "../chessAi/chessAi.hpp"
 
@@ -18,60 +19,60 @@
 
 typedef struct s_textures
 {
-    SDL_Texture     *king;
-    SDL_Texture     *queen;
+    visualTexture     king;
+    visualTexture     queen;
 
-    SDL_Texture     *bishop;
-    SDL_Texture     *knight;
-    SDL_Texture     *rook;
+    visualTexture     bishop;
+    visualTexture     knight;
+    visualTexture     rook;
 
-    SDL_Texture     *pawn;
+    visualTexture     pawn;
 
 }   t_textures;
 
 typedef struct s_texts
 {
-    SDL_Texture     *whiteWon;
-    SDL_Texture     *blackWon;
-    SDL_Texture     *whiteToPlay;
-    SDL_Texture     *blackToPlay;
-    SDL_Texture     *draw;
+    visualTexture     whiteWon;
+    visualTexture     blackWon;
+    visualTexture     whiteToPlay;
+    visualTexture     blackToPlay;
+    visualTexture     draw;
 
 }   t_text;
 
 typedef struct s_letters
 {
-    SDL_Texture *a;
-    SDL_Texture *b;
-    SDL_Texture *c;
-    SDL_Texture *d;
-    SDL_Texture *e;
-    SDL_Texture *f;
-    SDL_Texture *g;
-    SDL_Texture *h;
+    visualTexture   a;
+    visualTexture   b;
+    visualTexture   c;
+    visualTexture   d;
+    visualTexture   e;
+    visualTexture   f;
+    visualTexture   g;
+    visualTexture   h;
 
 }   t_letters;
 
 typedef struct s_numbers
 {
-    SDL_Texture *one;
-    SDL_Texture *two;
-    SDL_Texture *three;
-    SDL_Texture *four;
-    SDL_Texture *five;
-    SDL_Texture *six;
-    SDL_Texture *seven;
-    SDL_Texture *eight;
+    visualTexture one;
+    visualTexture two;
+    visualTexture three;
+    visualTexture four;
+    visualTexture five;
+    visualTexture six;
+    visualTexture seven;
+    visualTexture eight;
 
 }   t_numbers;
 
 typedef struct s_symbols
 {
-    SDL_Texture *plus;
-    SDL_Texture *moins;
+    visualTexture plus;
+    visualTexture moins;
 
-    SDL_Texture *checkMateWhite;
-    SDL_Texture *checkMateBlack;
+    visualTexture checkMateWhite;
+    visualTexture checkMateBlack;
 
 }   t_symbols;
 
@@ -99,7 +100,6 @@ class visualGame
         void        loadWhiteTextures(void);
         void        loadBlackTextures(void);
         void        loadArrowTexture(void);
-        void        loadTexture(const char type, const char color, const char *path);
         void        loadTextures(void);
 
         SDL_Texture *getTexture(const char type, const string color) const;
@@ -164,9 +164,9 @@ class visualGame
         SDL_Surface     *_baseSurface;
         int             _baseCheck;
 
-        SDL_Texture     *_boardTexture;
-        SDL_Texture     *_promotion;
-        SDL_Texture     *_arrow;
+        visualTexture   _boardTexture;
+        visualTexture   _promotion;
+        visualTexture   _arrow;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
         t_letters       _letters;

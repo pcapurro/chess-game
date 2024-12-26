@@ -32,7 +32,8 @@ SRCS_V = srcs/visualGame.cpp \
 	srcs/visualGame/visualRoutine.cpp \
 	srcs/visualGame/visualFree.cpp \
 	srcs/visualGame/visualInit.cpp \
-	srcs/visualGame/visualTextures.cpp \
+	srcs/visualGame/visualRessources.cpp \
+	srcs/visualGame/visualTexture.cpp \
 	srcs/visualGame/visualEvent.cpp \
 	srcs/visualGame/visualTools.cpp \
 	$(SRCSO)

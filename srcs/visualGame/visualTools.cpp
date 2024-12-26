@@ -5,38 +5,38 @@ SDL_Texture *visualGame::getTexture(const char type, const string color) const
     if (color == "white")
     {
         if (type == 'c')
-            return (_symbols.checkMateBlack);
+            return (_symbols.checkMateBlack.getTexture());
 
         if (type == 'K')
-            return (_whiteTextures.king);
+            return (_whiteTextures.king.getTexture());
         if (type == 'Q')
-            return (_whiteTextures.queen);
+            return (_whiteTextures.queen.getTexture());
         if (type == 'R')
-            return (_whiteTextures.rook);
+            return (_whiteTextures.rook.getTexture());
         if (type == 'B')
-            return (_whiteTextures.bishop);
+            return (_whiteTextures.bishop.getTexture());
         if (type == 'N')
-            return (_whiteTextures.knight);
+            return (_whiteTextures.knight.getTexture());
         if (type == 'P')
-            return (_whiteTextures.pawn);
+            return (_whiteTextures.pawn.getTexture());
     }
     if (color == "black")
     {
         if (type == 'c')
-            return (_symbols.checkMateWhite);
+            return (_symbols.checkMateWhite.getTexture());
 
         if (type == 'K')
-            return (_blackTextures.king);
+            return (_blackTextures.king.getTexture());
         if (type == 'Q')
-            return (_blackTextures.queen);
+            return (_blackTextures.queen.getTexture());
         if (type == 'R')
-            return (_blackTextures.rook);
+            return (_blackTextures.rook.getTexture());
         if (type == 'B')
-            return (_blackTextures.bishop);
+            return (_blackTextures.bishop.getTexture());
         if (type == 'N')
-            return (_blackTextures.knight);
+            return (_blackTextures.knight.getTexture());
         if (type == 'P')
-            return (_blackTextures.pawn);
+            return (_blackTextures.pawn.getTexture());
     }
     return (nullptr);
 }
