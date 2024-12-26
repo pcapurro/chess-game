@@ -52,12 +52,6 @@ SDL_Rect    visualGame::getRectangle(const string coords, const string type) con
         return (obj);
     }
 
-    if (type == "coords")
-    {
-        obj.h = _height / 22, obj.w = _width / 57;
-        return (obj);
-    }
-
     int x = coords[0] - 97;
     int y = atoi(coords.c_str() + 1) - 1;
 
@@ -68,11 +62,28 @@ SDL_Rect    visualGame::getRectangle(const string coords, const string type) con
 
     obj.x = _width / 14 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
 
+    if (type == "coordsl" || type == "coordsn")
+    {
+        obj.w = _width / 55, obj.h = _height / 22;
+
+        if (type == "coordsl")
+        {
+            obj.x = obj.x + ((_width / 10) / 2) - 7;
+            obj.y = _height - ((_height / 32) * 3);
+        }
+        else
+        {
+            obj.x = (_width / 19) - obj.w;
+            obj.y = obj.y + ((_height / 10) / 2) - (obj.h / 2);
+        }
+        return (obj);
+    }
+
     if (type == "promotion")
         obj.x = obj.x - _height / 47, obj.h = _height / 8, obj.w = _width / 7;
     else
         obj.h = _height / 10, obj.w = _width / 10;
-    
+
     return (obj);
 }
 

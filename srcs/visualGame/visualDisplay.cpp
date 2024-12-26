@@ -169,30 +169,36 @@ void    visualGame::loadMap(void)
 
 void    visualGame::loadCoords(void)
 {
-//     t_letters lttrs = _textures->letters;
-//     t_numbers nb = _textures->numbers;
-
-//     visualTexture *letters[8] = {&lttrs.a, &lttrs.b, &lttrs.c, &lttrs.d, \
-//         &lttrs.e, &lttrs.f, &lttrs.g, &lttrs.h};
-//     visualTexture *numbers[8] = { &nb.one, &nb.two, &nb.three, &nb.four, \
-//         &nb.five, &nb.six, &nb.seven, &nb.eight };
-
     SDL_Rect    obj;
+    string      coords, alph, nbs;
 
-    obj = getRectangle("coords");
+    SDL_Texture *letters[8] = {_textures->letters.a.getTexture(), _textures->letters.b.getTexture(), \
+        _textures->letters.c.getTexture(), _textures->letters.d.getTexture(), \
+        _textures->letters.e.getTexture(), _textures->letters.f.getTexture(), \
+        _textures->letters.g.getTexture(), _textures->letters.h.getTexture()};
+
+    SDL_Texture *numbers[8] = {_textures->numbers.one.getTexture(), _textures->numbers.two.getTexture(), \
+        _textures->numbers.three.getTexture(), _textures->numbers.four.getTexture(), \
+        _textures->numbers.five.getTexture(), _textures->numbers.six.getTexture(), \
+        _textures->numbers.seven.getTexture(), _textures->numbers.eight.getTexture()};
+
     if (_sandBoxMode == false && _aiSide % 2 == 0)
-    {
-        for (int i = 8; i != -1; i--)
-            ;
-        for (int i = 8; i != -1; i--)
-            ;
-    }
+        alph = "hgfedcba", nbs = "87654321";
     else
+        alph = "abcdefgh", nbs = "12345678";
+
+    for (int i = 0; i != 8; i++)
     {
-        for (int i = 0; i != 8; i++)
-            ;
-        for (int i = 0; i != 8; i++)
-            ;
+        coords = string(1, alph[i]) + "1";
+        obj = getRectangle(coords, "coordsl");
+        SDL_RenderCopy(_mainRenderer, letters[i], NULL, &obj);
+    }
+
+    for (int i = 0; i != 8; i++)
+    {
+        coords = string(1, 'h') + nbs[i];
+        obj = getRectangle(coords, "coordsn");
+        SDL_RenderCopy(_mainRenderer, numbers[i], NULL, &obj);
     }
 
 }
