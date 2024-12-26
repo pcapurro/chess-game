@@ -17,7 +17,7 @@
     {102, 0, 102} \
 }
 
-typedef struct s_textures
+typedef struct s_pieces
 {
     visualTexture     king;
     visualTexture     queen;
@@ -28,7 +28,7 @@ typedef struct s_textures
 
     visualTexture     pawn;
 
-}   t_textures;
+}   t_pieces;
 
 typedef struct s_texts
 {
@@ -75,6 +75,24 @@ typedef struct s_symbols
     visualTexture checkMateBlack;
 
 }   t_symbols;
+
+typedef struct s_textures
+{
+    visualTexture   boardTexture;
+    visualTexture   promotion;
+    visualTexture   arrow;
+
+    t_pieces        whiteTextures;
+    t_pieces        blackTextures;
+
+    t_letters       letters;
+    t_numbers       numbers;
+
+    t_symbols       symbols;
+
+    t_text          texts;
+
+}   t_textures;
 
 class visualGame
 {
@@ -161,18 +179,7 @@ class visualGame
         SDL_Cursor      *_normalCursor;
         SDL_Cursor      *_playCursor;
 
-        SDL_Surface     *_baseSurface;
-        int             _baseCheck;
-
-        visualTexture   _boardTexture;
-        visualTexture   _promotion;
-        visualTexture   _arrow;
-        t_textures      _whiteTextures;
-        t_textures      _blackTextures;
-        t_letters       _letters;
-        t_numbers       _numbers;
-        t_symbols       _symbols;
-        t_text          _texts;
+        t_textures      *_textures;
 
         chessBoard      *_board;
         chessAi         _ai;

@@ -6,7 +6,7 @@ void    visualGame::loadArrow(const int value)
 
     obj.x = _width - (_width / 12), obj.y = 0;
     obj.w = _width / 12, obj.h = _height / 12;
-    SDL_RenderCopy(_mainRenderer, _arrow.getTexture(), NULL, &obj);
+    SDL_RenderCopy(_mainRenderer, _textures->arrow.getTexture(), NULL, &obj);
 }
 
 void    visualGame::loadText(const int value)
@@ -24,20 +24,20 @@ void    visualGame::loadText(const int value)
     if (value == 0)
     {
         if (color == "white")
-            SDL_RenderCopy(_mainRenderer, _texts.whiteToPlay.getTexture(), NULL, &obj);
+            SDL_RenderCopy(_mainRenderer, _textures->texts.whiteToPlay.getTexture(), NULL, &obj);
         if (color == "black")
-            SDL_RenderCopy(_mainRenderer, _texts.blackToPlay.getTexture(), NULL, &obj);
+            SDL_RenderCopy(_mainRenderer, _textures->texts.blackToPlay.getTexture(), NULL, &obj);
     }
     if (value == 1)
     {
         if (color == "white")
-            SDL_RenderCopy(_mainRenderer, _texts.blackWon.getTexture(), NULL, &obj);
+            SDL_RenderCopy(_mainRenderer, _textures->texts.blackWon.getTexture(), NULL, &obj);
         if (color == "black")
-            SDL_RenderCopy(_mainRenderer, _texts.whiteWon.getTexture(), NULL, &obj);
+            SDL_RenderCopy(_mainRenderer, _textures->texts.whiteWon.getTexture(), NULL, &obj);
     }
 
     if (value == 2)
-        SDL_RenderCopy(_mainRenderer, _texts.draw.getTexture(), NULL, &obj);
+        SDL_RenderCopy(_mainRenderer, _textures->texts.draw.getTexture(), NULL, &obj);
 }
 
 void    visualGame::loadEvaluation(const int value)
@@ -146,7 +146,7 @@ void    visualGame::loadMap(void)
 
     loadMapColors();
     obj = getRectangle("", "default");
-    SDL_RenderCopy(_mainRenderer, _boardTexture.getTexture(), NULL, &obj);
+    SDL_RenderCopy(_mainRenderer, _textures->boardTexture.getTexture(), NULL, &obj);
 
     state = true;
     for (int i = 0; i != 8; i++)
@@ -169,10 +169,13 @@ void    visualGame::loadMap(void)
 
 void    visualGame::loadCoords(void)
 {
-    visualTexture *letters[8] = {&_letters.a, &_letters.b, &_letters.c, &_letters.d, \
-        &_letters.e, &_letters.f, &_letters.g, &_letters.h};
-    visualTexture *numbers[8] = { &_numbers.one, &_numbers.two, &_numbers.three, &_numbers.four, \
-        &_numbers.five, &_numbers.six, &_numbers.seven, &_numbers.eight };
+//     t_letters lttrs = _textures->letters;
+//     t_numbers nb = _textures->numbers;
+
+//     visualTexture *letters[8] = {&lttrs.a, &lttrs.b, &lttrs.c, &lttrs.d, \
+//         &lttrs.e, &lttrs.f, &lttrs.g, &lttrs.h};
+//     visualTexture *numbers[8] = { &nb.one, &nb.two, &nb.three, &nb.four, \
+//         &nb.five, &nb.six, &nb.seven, &nb.eight };
 
     SDL_Rect    obj;
 
@@ -328,7 +331,7 @@ void    visualGame::displayPromotion(const char type, const string coord)
     SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
 
     obj = getRectangle(coord, "promotion");
-    SDL_RenderCopy(_mainRenderer, _promotion.getTexture(), NULL, &obj);
+    SDL_RenderCopy(_mainRenderer, _textures->promotion.getTexture(), NULL, &obj);
 
     SDL_RenderPresent(_mainRenderer);
 }

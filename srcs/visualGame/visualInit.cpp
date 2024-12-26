@@ -4,7 +4,10 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 {
     _error = false;
 
+    _evaluation = true;
+    _code = true;
 	_aiSide = -1;
+
     srand(time(nullptr));
    	if (_sandBoxMode == false)
     {
@@ -20,11 +23,13 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
     setToNullPtr();
 
     initializeGame();
+
+    _textures = new (nothrow) t_textures;
+    if (_textures == nullptr)
+        _error = true;
+
     if (_error == false)
         loadTextures();
-
-    _evaluation = true;
-    _code = true;
 }
 
 void    visualGame::setToDefault(void)
@@ -45,8 +50,7 @@ void    visualGame::setToDefault(void)
 void    visualGame::setToNullPtr(void)
 {
     _board = nullptr;
-    _baseSurface = nullptr;
-    _baseCheck = 0;
+    _textures = nullptr;
 
     _mainWindow = nullptr;
     _mainRenderer = nullptr;

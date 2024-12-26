@@ -5,38 +5,38 @@ SDL_Texture *visualGame::getTexture(const char type, const string color) const
     if (color == "white")
     {
         if (type == 'c')
-            return (_symbols.checkMateBlack.getTexture());
+            return (_textures->symbols.checkMateBlack.getTexture());
 
         if (type == 'K')
-            return (_whiteTextures.king.getTexture());
+            return (_textures->whiteTextures.king.getTexture());
         if (type == 'Q')
-            return (_whiteTextures.queen.getTexture());
+            return (_textures->whiteTextures.queen.getTexture());
         if (type == 'R')
-            return (_whiteTextures.rook.getTexture());
+            return (_textures->whiteTextures.rook.getTexture());
         if (type == 'B')
-            return (_whiteTextures.bishop.getTexture());
+            return (_textures->whiteTextures.bishop.getTexture());
         if (type == 'N')
-            return (_whiteTextures.knight.getTexture());
+            return (_textures->whiteTextures.knight.getTexture());
         if (type == 'P')
-            return (_whiteTextures.pawn.getTexture());
+            return (_textures->whiteTextures.pawn.getTexture());
     }
     if (color == "black")
     {
         if (type == 'c')
-            return (_symbols.checkMateWhite.getTexture());
+            return (_textures->symbols.checkMateWhite.getTexture());
 
         if (type == 'K')
-            return (_blackTextures.king.getTexture());
+            return (_textures->blackTextures.king.getTexture());
         if (type == 'Q')
-            return (_blackTextures.queen.getTexture());
+            return (_textures->blackTextures.queen.getTexture());
         if (type == 'R')
-            return (_blackTextures.rook.getTexture());
+            return (_textures->blackTextures.rook.getTexture());
         if (type == 'B')
-            return (_blackTextures.bishop.getTexture());
+            return (_textures->blackTextures.bishop.getTexture());
         if (type == 'N')
-            return (_blackTextures.knight.getTexture());
+            return (_textures->blackTextures.knight.getTexture());
         if (type == 'P')
-            return (_blackTextures.pawn.getTexture());
+            return (_textures->blackTextures.pawn.getTexture());
     }
     return (nullptr);
 }
