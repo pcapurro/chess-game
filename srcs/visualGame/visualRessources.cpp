@@ -130,8 +130,6 @@ void    visualGame::loadBoardTextures(void)
 
     value += _textures->promotion.load(_mainRenderer, "./materials/images/promotion.bmp");
 
-    value += _textures->arrow.load(_mainRenderer, "./materials/images/arrow.bmp");
-
     if (value != 0)
         _error = true;
 }

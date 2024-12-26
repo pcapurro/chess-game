@@ -46,7 +46,7 @@ int visualGame::waitForNewGame(void)
             if (event.type == SDL_MOUSEBUTTONDOWN
                 || event.type == SDL_MOUSEMOTION)
             {
-                if (event.button.x > _width - (_width / 12) && event.button.y < _height / 12)
+                if (event.button.x > 782 && event.button.y < 60)
                 {
                     if (event.type == SDL_MOUSEMOTION)
                         SDL_SetCursor(_playCursor);
@@ -93,15 +93,15 @@ string  visualGame::waitForPromotion(const string coord)
 
                 if (event.type == SDL_MOUSEBUTTONUP)
                 {
-                    if (event.button.x > obj.x && event.button.x < obj.x + (_width / 40)
-                        && event.button.y < obj.y + (_height / 16) && i != 0)
+                    if (event.button.x > obj.x && event.button.x < obj.x + 20
+                        && event.button.y < obj.y + 50 && i != 0)
                         i--;
-                    if (event.button.x > obj.x + (_width / 9) && event.button.x < (obj.x + obj.w)
-                        && event.button.y < obj.y + (_height / 16) && i != 3)
+                    if (event.button.x > obj.x + 88 && event.button.x < (obj.x + obj.w)
+                        && event.button.y < obj.y + 50 && i != 3)
                         i++;
 
-                    if (event.button.x > obj.x + (_width / 25) && event.button.x < (obj.x + obj.w) - (_width / 25)
-                        && event.button.y > obj.y + (_height / 16) && event.button.y < (obj.y + obj.h))
+                    if (event.button.x > obj.x + 32 && event.button.x < (obj.x + obj.w) - 32
+                        && event.button.y > obj.y + 50 && event.button.y < (obj.y + obj.h))
                         break ;
 
                     displayPromotion(types.at(i), coord);
@@ -162,14 +162,14 @@ string  visualGame::waitForEvent(void)
             {
                 coord = getCoord(event.button.x, event.button.y);
                 if ((_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
-                    || (event.button.x >= _width - (_width / 16) && event.button.x <= _width && event.button.y >= _height - (_height / 16) && event.button.y <= _height)
-                    || (event.button.x >= _width / 80 && event.button.x <= _width / 20 && event.button.y >= _height - (_height / 11) && event.button.y <= _height - (_height / 16))
-                    || (event.button.x > _width - (_width / 12) && event.button.y < _height / 12))
+                    || (event.button.x >= 777 && event.button.x <= _width && event.button.y >= 724 && event.button.y <= _height)
+                    || (event.button.x >= 26 && event.button.x <= 54 && event.button.y >= 725 && event.button.y <= 752)
+                    || (event.button.x > 780 && event.button.y < 60))
                 {
                     SDL_SetCursor(_playCursor);
                     if (event.type == SDL_MOUSEBUTTONDOWN)
                     {
-                        if (event.button.x > _width - (_width / 12) && event.button.y < _height / 12)
+                        if (event.button.x > 780 && event.button.y < 60)
                             return ("restart");
                         if (coord != "none")
                             _droppedSrc = coord;
@@ -186,12 +186,12 @@ string  visualGame::waitForEvent(void)
                     {
                         if (_droppedSrc == "none" || coord == "none" || _clickSrc == "none" || coord == "")
                         {
-                            if (event.button.x >= _width - (_width / 16) && event.button.x <= _width
-                                && event.button.y >= _height - (_height / 16) && event.button.y <= _height)
+                            if (event.button.x >= 777 && event.button.x <= _width
+                                && event.button.y >= 724 && event.button.y <= _height)
                                 ++_boardColor == COLOR_NB ? _boardColor = 0 : _boardColor;
 
-                            if ((event.button.x >= _width / 80 && event.button.x <= _width / 20
-                                && event.button.y >= _height - (_height / 11) && event.button.y <= _height - (_height / 16)))
+                            if ((event.button.x >= 26 && event.button.x <= 54
+                                && event.button.y >= 725 && event.button.y <= 752))
                                 _evaluation = !_evaluation;
                             
                             return ("none");

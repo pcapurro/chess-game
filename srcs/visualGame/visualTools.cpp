@@ -60,29 +60,26 @@ SDL_Rect    visualGame::getRectangle(const string coords, const string type) con
     else
         x = 7 - x;
 
-    obj.x = _width / 14 + (_width / 10 * x), obj.y = _height / 10 + (_width / 10 * y);
+    obj.x = 105 + (80 * x), obj.y = 80 + (80 * y);
 
     if (type == "coordsl" || type == "coordsn")
     {
-        obj.w = _width / 55, obj.h = _height / 22;
+        obj.w = 14, obj.h = 35;
 
         if (type == "coordsl")
         {
-            obj.x = obj.x + ((_width / 10) / 2) - 7;
-            obj.y = _height - ((_height / 32) * 3);
+            obj.x = obj.x + 40 - 7;
+            obj.y = _height - 75;
         }
         else
-        {
-            obj.x = (_width / 19) - obj.w;
-            obj.y = obj.y + ((_height / 10) / 2) - (obj.h / 2);
-        }
+            obj.x = 75, obj.y = obj.y + 40 - (obj.h / 2);
         return (obj);
     }
 
     if (type == "promotion")
-        obj.x = obj.x - _height / 47, obj.h = _height / 8, obj.w = _width / 7;
+        obj.x = obj.x - 17, obj.h = 100, obj.w = 114;
     else
-        obj.h = _height / 10, obj.w = _width / 10;
+        obj.h = 80, obj.w = 80;
 
     return (obj);
 }
@@ -92,25 +89,25 @@ string  visualGame::getCoord(const int x, const int y) const
     int xZone;
     int yZone;
 
-    if (x > 0 && y > 0 && x >= (_width / 14) && x <= ((_width / 10) * 9) + (_width / 14)
-        && y >= (_height / 10) && y <= (_height / 10 * 9))
+    cout << x << " ; " << y << endl;
+
+    if (x >= 105 && x <= 745 && y >= 80 && y <= 720)
     {
         for (int i = 0; i != 8; i++)
         {
             if (_aiSide == 0)
-                yZone = (_height / 10) * (i + 1);
+                yZone = 80 * (i + 1);
             else
-                yZone = (_height / 10) * (8 - i);
+                yZone = 80 * (8 - i);
 
             for (int k = 0; k != 8; k++)
             {
                 if (_aiSide == 0)
-                    xZone = (_width / 10 ) * (8 - k);
+                    xZone = 80 * (8 - k);
                 else
-                    xZone = (_width / 10 ) * (k + 1);
-                xZone -= (_width / 34);
+                    xZone = 80 * (k + 1);
 
-                if (x >= xZone && x <= xZone + (_width / 10 ) && y >= yZone && y <= yZone + (_height / 10 ))
+                if (x >= xZone && x <= xZone + 105 && y >= yZone && y <= yZone + 105)
                     return (string(1, "abcdefgh"[k]) + string(1, "12345678"[i]));
             }
         }
@@ -160,16 +157,16 @@ bool    visualGame::isPromotion(const string coord)
 
 bool    visualGame::isAbovePromotion(const int x, const int y, SDL_Rect obj)
 {
-    if (x > obj.x && x < obj.x + (_width / 40)
-        && y > obj.y + (_width / 40) && y <= obj.y + (_width / 40) + (_width / 20))
+    if (x > obj.x && x < obj.x + 20
+        && y > obj.y + 20 && y <= obj.y + 20 + 40)
         return (true);
 
-    if (x > obj.x + (_width / 9) && x < (obj.x + obj.w)
-        && y > obj.y + (_width / 40) && y <= obj.y + (_width / 40) + (_width / 20))
+    if (x > obj.x + 88 && x < (obj.x + obj.w)
+        && y > obj.y + 20 && y <= obj.y + 20 + 40)
         return (true);
 
-    if (x > obj.x + (_width / 25) && x < (obj.x + obj.w) - (_width / 25)
-        && y > obj.y + (_height / 16) && y < (obj.y + obj.h))
+    if (x > obj.x + 32 && x < (obj.x + obj.w) - 32
+        && y > obj.y + 50 && y < (obj.y + obj.h))
         return (true);
 
     return (false);

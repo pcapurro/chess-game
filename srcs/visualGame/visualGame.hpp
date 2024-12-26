@@ -6,6 +6,9 @@
 # include "../chessBoard/chessBoard.hpp"
 # include "../chessAi/chessAi.hpp"
 
+# define WIDTH 850
+# define HEIGHT 800
+
 # define COLOR_NB 5
 
 # define COLORS \
@@ -80,7 +83,6 @@ typedef struct s_textures
 {
     visualTexture   boardTexture;
     visualTexture   promotion;
-    visualTexture   arrow;
 
     t_pieces        whiteTextures;
     t_pieces        blackTextures;

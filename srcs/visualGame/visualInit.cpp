@@ -1,6 +1,6 @@
 #include "visualGame.hpp"
 
-visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _width(800), _height(800)
+visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _width(WIDTH), _height(HEIGHT)
 {
     _error = false;
 
