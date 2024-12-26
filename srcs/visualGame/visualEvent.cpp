@@ -161,6 +161,12 @@ string  visualGame::waitForEvent(void)
                 || event.type == SDL_MOUSEMOTION)
             {
                 coord = getCoord(event.button.x, event.button.y);
+
+                if (coord != "none")
+                    _actualCoords = coord;
+                else
+                    _actualCoords.clear();
+
                 if ((_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
                     || (event.button.x >= 777 && event.button.x <= _width && event.button.y >= 724 && event.button.y <= _height)
                     || (event.button.x >= 26 && event.button.x <= 54 && event.button.y >= 725 && event.button.y <= 752)

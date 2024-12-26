@@ -26,15 +26,15 @@ void    visualGame::loadLetters(void)
 
     int value = 0;
 
-    value += _textures->letters.a.load(_mainRenderer, "./materials/letters/a.bmp");
-    value += _textures->letters.b.load(_mainRenderer, "./materials/letters/b.bmp");
-    value += _textures->letters.c.load(_mainRenderer, "./materials/letters/c.bmp");
-    value += _textures->letters.d.load(_mainRenderer, "./materials/letters/d.bmp");
+    value += _textures->letters.a.load(_mainRenderer, "./materials/letters/a.bmp", 'a');
+    value += _textures->letters.b.load(_mainRenderer, "./materials/letters/b.bmp", 'b');
+    value += _textures->letters.c.load(_mainRenderer, "./materials/letters/c.bmp", 'c');
+    value += _textures->letters.d.load(_mainRenderer, "./materials/letters/d.bmp", 'd');
 
-    value += _textures->letters.e.load(_mainRenderer, "./materials/letters/e.bmp");
-    value += _textures->letters.f.load(_mainRenderer, "./materials/letters/f.bmp");
-    value += _textures->letters.g.load(_mainRenderer, "./materials/letters/g.bmp");
-    value += _textures->letters.h.load(_mainRenderer, "./materials/letters/h.bmp");
+    value += _textures->letters.e.load(_mainRenderer, "./materials/letters/e.bmp", 'e');
+    value += _textures->letters.f.load(_mainRenderer, "./materials/letters/f.bmp", 'f');
+    value += _textures->letters.g.load(_mainRenderer, "./materials/letters/g.bmp", 'g');
+    value += _textures->letters.h.load(_mainRenderer, "./materials/letters/h.bmp", 'h');
 
 
     if (value != 0)
@@ -48,15 +48,15 @@ void    visualGame::loadNumbers(void)
 
     int value = 0;
 
-    value += _textures->numbers.one.load(_mainRenderer, "./materials/numbers/1.bmp");
-    value += _textures->numbers.two.load(_mainRenderer, "./materials/numbers/2.bmp");
-    value += _textures->numbers.three.load(_mainRenderer, "./materials/numbers/3.bmp");
-    value += _textures->numbers.four.load(_mainRenderer, "./materials/numbers/4.bmp");
+    value += _textures->numbers.one.load(_mainRenderer, "./materials/numbers/1.bmp", '1');
+    value += _textures->numbers.two.load(_mainRenderer, "./materials/numbers/2.bmp", '2');
+    value += _textures->numbers.three.load(_mainRenderer, "./materials/numbers/3.bmp", '3');
+    value += _textures->numbers.four.load(_mainRenderer, "./materials/numbers/4.bmp", '4');
 
-    value += _textures->numbers.five.load(_mainRenderer, "./materials/numbers/5.bmp");
-    value += _textures->numbers.six.load(_mainRenderer, "./materials/numbers/6.bmp");
-    value += _textures->numbers.seven.load(_mainRenderer, "./materials/numbers/7.bmp");
-    value += _textures->numbers.eight.load(_mainRenderer, "./materials/numbers/8.bmp");
+    value += _textures->numbers.five.load(_mainRenderer, "./materials/numbers/5.bmp", '5');
+    value += _textures->numbers.six.load(_mainRenderer, "./materials/numbers/6.bmp", '6');
+    value += _textures->numbers.seven.load(_mainRenderer, "./materials/numbers/7.bmp", '7');
+    value += _textures->numbers.eight.load(_mainRenderer, "./materials/numbers/8.bmp", '8');
 
     if (value != 0)
         _error = true;

@@ -158,32 +158,63 @@ void    visualGame::loadMap(void)
     }
 }
 
-void    visualGame::loadCoords(void)
+void    visualGame::loadCoords(const int cx, const int cy)
 {
     SDL_Rect    obj;
     string      coords;
 
-    SDL_Texture *letters[8] = {_textures->letters.h.getTexture(), _textures->letters.g.getTexture(), \
-        _textures->letters.f.getTexture(), _textures->letters.e.getTexture(), \
-        _textures->letters.d.getTexture(), _textures->letters.c.getTexture(), \
-        _textures->letters.b.getTexture(), _textures->letters.a.getTexture()};
+    visualTexture *letters[8] = {&_textures->letters.h, &_textures->letters.g, \
+        &_textures->letters.f, &_textures->letters.e, \
+        &_textures->letters.d, &_textures->letters.c, \
+        &_textures->letters.b, &_textures->letters.a};
 
-    SDL_Texture *numbers[8] = {_textures->numbers.one.getTexture(), _textures->numbers.two.getTexture(), \
-        _textures->numbers.three.getTexture(), _textures->numbers.four.getTexture(), \
-        _textures->numbers.five.getTexture(), _textures->numbers.six.getTexture(), \
-        _textures->numbers.seven.getTexture(), _textures->numbers.eight.getTexture()};
+    visualTexture *numbers[8] = {&_textures->numbers.one, &_textures->numbers.two, \
+        &_textures->numbers.three, &_textures->numbers.four, \
+        &_textures->numbers.five, &_textures->numbers.six, \
+        &_textures->numbers.seven, &_textures->numbers.eight};
 
     for (int i = 0; i != 8; i++)
     {
         coords = string(1, "hgfedcba"[i]) + "1";
         obj = getRectangle(coords, "coordsl");
-        SDL_RenderCopy(_mainRenderer, letters[i], NULL, &obj);
+        SDL_RenderCopy(_mainRenderer, letters[i]->getTexture(), NULL, &obj);
 
         coords = string(1, 'h') + "12345678"[i];
         obj = getRectangle(coords, "coordsn");
-        SDL_RenderCopy(_mainRenderer, numbers[i], NULL, &obj);
+        SDL_RenderCopy(_mainRenderer, numbers[i]->getTexture(), NULL, &obj);
     }
 
+    if (cx >= 105 && cx <= 745 && cy >= 80 && cy <= 720
+        && _actualCoords != "none" && _actualCoords != "")
+    {
+        SDL_Texture *texture;
+
+        obj.w = 25, obj.h = 15;
+        obj.x = cx - 25, obj.y = cy - 15;
+
+        SDL_SetRenderDrawColor(_mainRenderer, 160, 160, 160, 255);
+        SDL_RenderFillRect(_mainRenderer, &obj);
+
+        for (int i = 0; i != 8; i++)
+        {
+            if (letters[i]->getId() == _actualCoords[0])
+                texture = letters[i]->getTexture();
+        }
+
+        obj.w = 7, obj.h = 17;
+        obj.x++, obj.y = obj.y - 4;
+        SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
+
+        for (int i = 0; i != 8; i++)
+        {
+            if (numbers[i]->getId() == _actualCoords[1])
+                texture = numbers[i]->getTexture();
+        }
+
+        obj.w = 7, obj.h = 17;
+        obj.x += 7;
+        SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
+    }
 }
 
 void    visualGame::loadBoard(const string color, const int cx, const int cy)
@@ -332,8 +363,8 @@ void    visualGame::displayGame(const int cx, const int cy)
     SDL_RenderClear(_mainRenderer);
 
     loadEvaluation(stateValue);
+
     loadMap();
-    loadCoords();
     loadPath();
 
     if (_board->isItCheckMate() == true)
@@ -347,6 +378,8 @@ void    visualGame::displayGame(const int cx, const int cy)
         loadBoard("black", cx, cy), loadBoard("white", cx, cy);
     else
         loadBoard("white", cx, cy), loadBoard("black", cx, cy);
+
+    loadCoords(cx, cy);
 
     loadText(stateValue);
 }

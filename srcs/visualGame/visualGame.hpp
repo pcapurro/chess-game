@@ -132,7 +132,7 @@ class visualGame
         bool        isCodeDetected(void);
 
         void        loadMap(void);
-        void        loadCoords(void);
+        void        loadCoords(const int cx, const int cy);
         void        loadPath(void);
         void        loadEvaluation(const int value);
         void        loadMapColors(void);
@@ -188,6 +188,7 @@ class visualGame
         string          _droppedSrc;
         string          _clickSrc;
         string          _droppedDest;
+        string          _actualCoords;
 
         string          _lastAiMove;
         string          _lastMove;
