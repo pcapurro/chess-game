@@ -163,10 +163,10 @@ void    visualGame::loadCoords(void)
     SDL_Rect    obj;
     string      coords;
 
-    SDL_Texture *letters[8] = {_textures->letters.a.getTexture(), _textures->letters.b.getTexture(), \
-        _textures->letters.c.getTexture(), _textures->letters.d.getTexture(), \
-        _textures->letters.e.getTexture(), _textures->letters.f.getTexture(), \
-        _textures->letters.g.getTexture(), _textures->letters.h.getTexture()};
+    SDL_Texture *letters[8] = {_textures->letters.h.getTexture(), _textures->letters.g.getTexture(), \
+        _textures->letters.f.getTexture(), _textures->letters.e.getTexture(), \
+        _textures->letters.d.getTexture(), _textures->letters.c.getTexture(), \
+        _textures->letters.b.getTexture(), _textures->letters.a.getTexture()};
 
     SDL_Texture *numbers[8] = {_textures->numbers.one.getTexture(), _textures->numbers.two.getTexture(), \
         _textures->numbers.three.getTexture(), _textures->numbers.four.getTexture(), \
@@ -176,9 +176,6 @@ void    visualGame::loadCoords(void)
     for (int i = 0; i != 8; i++)
     {
         coords = string(1, "hgfedcba"[i]) + "1";
-        if (_sandBoxMode == false && _aiSide % 2 == 0)
-            coords = string(1, "abcdefgh"[i]) + "1";
-
         obj = getRectangle(coords, "coordsl");
         SDL_RenderCopy(_mainRenderer, letters[i], NULL, &obj);
 
