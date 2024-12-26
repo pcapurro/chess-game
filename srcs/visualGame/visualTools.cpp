@@ -105,7 +105,7 @@ string  visualGame::getCoord(const int x, const int y) const
                 else
                     xZone = 80 * (k + 1);
 
-                if (x >= xZone && x <= xZone + 105 && y >= yZone && y <= yZone + 105)
+                if (x >= xZone && x <= xZone + 105 && y >= yZone && y <= yZone + 80)
                     return (string(1, "abcdefgh"[k]) + string(1, "12345678"[i]));
             }
         }
