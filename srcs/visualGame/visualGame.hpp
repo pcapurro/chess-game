@@ -117,7 +117,6 @@ class visualGame
         void        loadBoardTextures(void);
         void        loadWhiteTextures(void);
         void        loadBlackTextures(void);
-        void        loadArrowTexture(void);
         void        loadTextures(void);
 
         SDL_Texture *getTexture(const char type, const string color) const;

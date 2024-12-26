@@ -10,7 +10,7 @@ class visualTexture
 		visualTexture();
 		~visualTexture();
 
-		void		*load(SDL_Renderer *renderer, const char *path);
+		int			load(SDL_Renderer *renderer, const char *path);
 
 		SDL_Texture	*getTexture(void) const { return (_texture); };
 

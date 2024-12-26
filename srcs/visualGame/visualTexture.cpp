@@ -8,28 +8,23 @@ visualTexture::visualTexture()
 visualTexture::~visualTexture()
 {
 	if (_texture != nullptr && _texture != NULL)
-		SDL_DestroyTexture(_texture);
+		SDL_DestroyTexture(_texture), _texture = nullptr;
 }
 
-void	*visualTexture::load(SDL_Renderer *renderer, const char *path)
+int	visualTexture::load(SDL_Renderer *renderer, const char *path)
 {
-	int			fail = false;
-	SDL_Surface	*surface;
-
-    surface = SDL_LoadBMP(path);
+    SDL_Surface	*surface;
+	
+	surface = SDL_LoadBMP(path);
     if (surface == NULL)
-		fail = true;
+		return (1);
 	else
 	{
 		_texture = SDL_CreateTextureFromSurface(renderer, surface);
-		if (_texture == NULL)
-			fail = true;
-
 		SDL_FreeSurface(surface);
+		if (_texture == NULL)
+			return (1);
 	}
 
-	if (fail == true)
-		return (nullptr);
-
-	return (_texture);
+	return (0);
 }
