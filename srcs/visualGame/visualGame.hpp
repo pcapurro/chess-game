@@ -39,6 +39,39 @@ typedef struct s_texts
 
 }   t_text;
 
+typedef struct s_letters
+{
+    SDL_Texture *a;
+    SDL_Texture *b;
+    SDL_Texture *c;
+    SDL_Texture *d;
+    SDL_Texture *e;
+    SDL_Texture *f;
+    SDL_Texture *g;
+    SDL_Texture *h;
+
+}   t_letters;
+
+typedef struct s_numbers
+{
+    SDL_Texture *one;
+    SDL_Texture *two;
+    SDL_Texture *three;
+    SDL_Texture *four;
+    SDL_Texture *five;
+    SDL_Texture *six;
+    SDL_Texture *seven;
+    SDL_Texture *eight;
+
+}   t_numbers;
+
+typedef struct s_symbols
+{
+    SDL_Texture *plus;
+    SDL_Texture *moins;
+
+}   t_symbols;
+
 class visualGame
 {
     public:
@@ -56,6 +89,9 @@ class visualGame
         void        setToNullPtr(void);
 
         void        loadTexts(void);
+        void        loadLetters(void);
+        void        loadNumbers(void);
+        void        loadSymbols(void);
         void        loadBoardTextures(void);
         void        loadWhiteTextures(void);
         void        loadBlackTextures(void);
@@ -131,6 +167,9 @@ class visualGame
         SDL_Texture     *_arrowTexture;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
+        t_letters       _letters;
+        t_numbers       _numbers;
+        t_symbols       _symbols;
         t_text          _texts;
 
         chessBoard      *_board;

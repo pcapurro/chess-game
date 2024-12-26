@@ -22,8 +22,6 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
     initializeGame();
     if (_error == false)
         loadTextures();
-    if (_error == false)
-        loadTexts();
 
     _evaluation = true;
     _code = true;
@@ -58,6 +56,7 @@ void    visualGame::setToNullPtr(void)
     _checkMateBlackTexture = nullptr;
     _promotionTexture = nullptr;
     _arrowTexture = nullptr;
+
     _baseSurface = nullptr;
     _baseCheck = 0;
 
@@ -74,6 +73,27 @@ void    visualGame::setToNullPtr(void)
     _blackTextures.pawn = nullptr;
     _blackTextures.queen = nullptr;
     _blackTextures.rook = nullptr;
+
+    _letters.a = nullptr;
+    _letters.b = nullptr;
+    _letters.c = nullptr;
+    _letters.d = nullptr;
+    _letters.e = nullptr;
+    _letters.f = nullptr;
+    _letters.g = nullptr;
+    _letters.h = nullptr;
+
+    _numbers.one = nullptr;
+    _numbers.two = nullptr;
+    _numbers.three = nullptr;
+    _numbers.four = nullptr;
+    _numbers.five = nullptr;
+    _numbers.six = nullptr;
+    _numbers.seven = nullptr;
+    _numbers.eight = nullptr;
+
+    _symbols.plus = nullptr;
+    _symbols.moins = nullptr;
 
     _texts.blackToPlay = nullptr;
     _texts.blackWon = nullptr;

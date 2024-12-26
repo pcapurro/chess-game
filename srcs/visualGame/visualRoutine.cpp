@@ -86,13 +86,12 @@ void	visualGame::visualRoutine(void)
     while (1)
     {
         _board = new (nothrow) chessBoard;
-        if (!_board || _board == nullptr)
-            _error = true;
-        if (_board->isAllocated() == false)
-            _error = true, delete _board;
+        if (!_board || _board == nullptr
+            || _board->isAllocated() == false)
+            _error = true, memoryFailed(false);
 
         if (_error == true)
-            { memoryFailed(false); return ; }
+            return ;
 
         int value = visualLoop();
 
