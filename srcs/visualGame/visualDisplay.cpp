@@ -161,7 +161,7 @@ void    visualGame::loadMap(void)
 void    visualGame::loadCoords(void)
 {
     SDL_Rect    obj;
-    string      coords, alph, nbs;
+    string      coords;
 
     SDL_Texture *letters[8] = {_textures->letters.a.getTexture(), _textures->letters.b.getTexture(), \
         _textures->letters.c.getTexture(), _textures->letters.d.getTexture(), \
@@ -173,21 +173,16 @@ void    visualGame::loadCoords(void)
         _textures->numbers.five.getTexture(), _textures->numbers.six.getTexture(), \
         _textures->numbers.seven.getTexture(), _textures->numbers.eight.getTexture()};
 
-    if (_sandBoxMode == false && _aiSide % 2 == 0)
-        alph = "hgfedcba", nbs = "87654321";
-    else
-        alph = "abcdefgh", nbs = "12345678";
-
     for (int i = 0; i != 8; i++)
     {
-        coords = string(1, alph[i]) + "1";
+        coords = string(1, "hgfedcba"[i]) + "1";
+        if (_sandBoxMode == false && _aiSide % 2 == 0)
+            coords = string(1, "abcdefgh"[i]) + "1";
+
         obj = getRectangle(coords, "coordsl");
         SDL_RenderCopy(_mainRenderer, letters[i], NULL, &obj);
-    }
 
-    for (int i = 0; i != 8; i++)
-    {
-        coords = string(1, 'h') + nbs[i];
+        coords = string(1, 'h') + "12345678"[i];
         obj = getRectangle(coords, "coordsn");
         SDL_RenderCopy(_mainRenderer, numbers[i], NULL, &obj);
     }
