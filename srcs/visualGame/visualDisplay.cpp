@@ -10,7 +10,7 @@ void    visualGame::loadText(const int value)
     else
         color = "black";
 
-    obj.x = 211, obj.y = 14;
+    obj.x = 215, obj.y = 14;
     obj.w = 392, obj.h = 51;
     if (value == 0)
     {

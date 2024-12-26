@@ -89,8 +89,6 @@ string  visualGame::getCoord(const int x, const int y) const
     int xZone;
     int yZone;
 
-    cout << x << " ; " << y << endl;
-
     if (x >= 105 && x <= 745 && y >= 80 && y <= 720)
     {
         for (int i = 0; i != 8; i++)
