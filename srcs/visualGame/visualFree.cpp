@@ -8,13 +8,54 @@ visualGame::~visualGame()
     if (_boardTexture != nullptr && _boardTexture != NULL)
         SDL_DestroyTexture(_boardTexture);
 
-    if (_checkMateWhiteTexture != nullptr && _checkMateWhiteTexture != NULL)
-        SDL_DestroyTexture(_checkMateWhiteTexture);
-    if (_checkMateBlackTexture != nullptr && _checkMateBlackTexture != NULL)
-        SDL_DestroyTexture(_checkMateBlackTexture);
+    if (_symbols.checkMateWhite != nullptr && _symbols.checkMateWhite != NULL)
+        SDL_DestroyTexture(_symbols.checkMateWhite);
+    if (_symbols.checkMateBlack != nullptr && _symbols.checkMateBlack != NULL)
+        SDL_DestroyTexture(_symbols.checkMateBlack);
 
-    if (_arrowTexture != nullptr && _arrowTexture != NULL)
-        SDL_DestroyTexture(_arrowTexture);
+    if (_letters.a != nullptr && _letters.a != NULL)
+        SDL_DestroyTexture(_letters.a);
+    if (_letters.b != nullptr && _letters.b != NULL)
+        SDL_DestroyTexture(_letters.b);
+    if (_letters.c != nullptr && _letters.c != NULL)
+        SDL_DestroyTexture(_letters.c);
+    if (_letters.d != nullptr && _letters.d != NULL)
+        SDL_DestroyTexture(_letters.d);
+
+    if (_letters.e != nullptr && _letters.e != NULL)
+        SDL_DestroyTexture(_letters.e);
+    if (_letters.f != nullptr && _letters.f != NULL)
+        SDL_DestroyTexture(_letters.f);
+    if (_letters.g != nullptr && _letters.g != NULL)
+        SDL_DestroyTexture(_letters.g);
+    if (_letters.h != nullptr && _letters.h != NULL)
+        SDL_DestroyTexture(_letters.h);
+
+    if (_numbers.one != nullptr && _numbers.one != NULL)
+        SDL_DestroyTexture(_numbers.one);
+    if (_numbers.two != nullptr && _numbers.two != NULL)
+        SDL_DestroyTexture(_numbers.two);
+    if (_numbers.three != nullptr && _numbers.three != NULL)
+        SDL_DestroyTexture(_numbers.three);
+    if (_numbers.four != nullptr && _numbers.four != NULL)
+        SDL_DestroyTexture(_numbers.four);
+
+    if (_numbers.five != nullptr && _numbers.five != NULL)
+        SDL_DestroyTexture(_numbers.five);
+    if (_numbers.six != nullptr && _numbers.six != NULL)
+        SDL_DestroyTexture(_numbers.six);
+    if (_numbers.seven != nullptr && _numbers.seven != NULL)
+        SDL_DestroyTexture(_numbers.seven);
+    if (_numbers.eight != nullptr && _numbers.eight != NULL)
+        SDL_DestroyTexture(_numbers.eight);
+
+    if (_symbols.plus != nullptr && _symbols.plus != NULL)
+        SDL_DestroyTexture(_symbols.plus);
+    if (_symbols.moins != nullptr && _symbols.moins != NULL)
+        SDL_DestroyTexture(_symbols.moins);
+
+    if (_arrow != nullptr && _arrow != NULL)
+        SDL_DestroyTexture(_arrow);
 
     if (_texts.blackToPlay != nullptr && _texts.blackToPlay != NULL)
         SDL_DestroyTexture(_texts.blackToPlay);

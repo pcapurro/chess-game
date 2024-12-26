@@ -6,7 +6,7 @@ void    visualGame::loadArrow(const int value)
 
     obj.x = _width - (_width / 12), obj.y = 0;
     obj.w = _width / 12, obj.h = _height / 12;
-    SDL_RenderCopy(_mainRenderer, _arrowTexture, NULL, &obj);
+    SDL_RenderCopy(_mainRenderer, _arrow, NULL, &obj);
 }
 
 void    visualGame::loadText(const int value)
@@ -167,6 +167,33 @@ void    visualGame::loadMap(void)
     }
 }
 
+void    visualGame::loadCoords(void)
+{
+    SDL_Texture *letters[8] = {_letters.a, _letters.b, _letters.c, _letters.d, \
+        _letters.e, _letters.f, _letters.g, _letters.h};
+    SDL_Texture *numbers[8] = { _numbers.one, _numbers.two, _numbers.three, _numbers.four, \
+        _numbers.five, _numbers.six, _numbers.seven, _numbers.eight };
+
+    SDL_Rect    obj;
+
+    obj = getRectangle("coords");
+    if (_sandBoxMode == false && _aiSide % 2 == 0)
+    {
+        for (int i = 8; i != -1; i--)
+            ;
+        for (int i = 8; i != -1; i--)
+            ;
+    }
+    else
+    {
+        for (int i = 0; i != 8; i++)
+            ;
+        for (int i = 0; i != 8; i++)
+            ;
+    }
+
+}
+
 void    visualGame::loadBoard(const string color, const int cx, const int cy)
 {
     char        objType;
@@ -301,7 +328,7 @@ void    visualGame::displayPromotion(const char type, const string coord)
     SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
 
     obj = getRectangle(coord, "promotion");
-    SDL_RenderCopy(_mainRenderer, _promotionTexture, NULL, &obj);
+    SDL_RenderCopy(_mainRenderer, _promotion, NULL, &obj);
 
     SDL_RenderPresent(_mainRenderer);
 }
@@ -314,6 +341,7 @@ void    visualGame::displayGame(const int cx, const int cy)
 
     loadEvaluation(stateValue);
     loadMap();
+    loadCoords();
     loadPath();
 
     if (_board->isItCheckMate() == true)

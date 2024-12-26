@@ -5,7 +5,7 @@ SDL_Texture *visualGame::getTexture(const char type, const string color) const
     if (color == "white")
     {
         if (type == 'c')
-            return (_checkMateBlackTexture);
+            return (_symbols.checkMateBlack);
 
         if (type == 'K')
             return (_whiteTextures.king);
@@ -23,7 +23,7 @@ SDL_Texture *visualGame::getTexture(const char type, const string color) const
     if (color == "black")
     {
         if (type == 'c')
-            return (_checkMateWhiteTexture);
+            return (_symbols.checkMateWhite);
 
         if (type == 'K')
             return (_blackTextures.king);
@@ -49,6 +49,12 @@ SDL_Rect    visualGame::getRectangle(const string coords, const string type) con
     {
         obj.h = _height, obj.w = _width;
         obj.x = 0, obj.y = 0;
+        return (obj);
+    }
+
+    if (type == "coords")
+    {
+        obj.h = _height / 22, obj.w = _width / 57;
         return (obj);
     }
 

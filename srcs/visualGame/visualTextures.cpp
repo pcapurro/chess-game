@@ -329,26 +329,26 @@ void    visualGame::loadBoardTextures(void)
 
     _baseCheck = 0;
 
-    _baseSurface = SDL_LoadBMP("./materials/images/checkmate-white.bmp");
+    _baseSurface = SDL_LoadBMP("./materials/symbols/checkmate-white.bmp");
     if (_baseSurface == NULL)
         { _error = true; return ; }
     _baseCheck = 1;
 
-    _checkMateWhiteTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
-    if (_checkMateWhiteTexture == NULL)
+    _symbols.checkMateWhite = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (_symbols.checkMateWhite == NULL)
         { _error = true; return ; }
 
     SDL_FreeSurface(_baseSurface);
 
     _baseCheck = 0;
 
-    _baseSurface = SDL_LoadBMP("./materials/images/checkmate-black.bmp");
+    _baseSurface = SDL_LoadBMP("./materials/symbols/checkmate-black.bmp");
     if (_baseSurface == NULL)
         { _error = true; return ; }
     _baseCheck = 1;
 
-    _checkMateBlackTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
-    if (_checkMateBlackTexture == NULL)
+    _symbols.checkMateBlack = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (_symbols.checkMateBlack == NULL)
         { _error = true; return ; }
 
     SDL_FreeSurface(_baseSurface);
@@ -360,8 +360,8 @@ void    visualGame::loadBoardTextures(void)
         { _error = true; return ; }
     _baseCheck = 1;
 
-    _promotionTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
-    if (_promotionTexture == NULL)
+    _promotion = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (_promotion == NULL)
         { _error = true; return ; }
 
     SDL_FreeSurface(_baseSurface);
@@ -378,8 +378,8 @@ void    visualGame::loadArrowTexture(void)
         { _error = true; return ; }
     _baseCheck = 1;
 
-    _arrowTexture = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
-    if (_arrowTexture == NULL)
+    _arrow = SDL_CreateTextureFromSurface(_mainRenderer, _baseSurface);
+    if (_arrow == NULL)
         { _error = true; return ; }
 
     SDL_FreeSurface(_baseSurface);

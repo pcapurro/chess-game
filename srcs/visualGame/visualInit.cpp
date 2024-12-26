@@ -52,10 +52,8 @@ void    visualGame::setToNullPtr(void)
     _playCursor = nullptr;
 
     _boardTexture = nullptr;
-    _checkMateWhiteTexture = nullptr;
-    _checkMateBlackTexture = nullptr;
-    _promotionTexture = nullptr;
-    _arrowTexture = nullptr;
+    _promotion = nullptr;
+    _arrow = nullptr;
 
     _baseSurface = nullptr;
     _baseCheck = 0;
@@ -94,6 +92,9 @@ void    visualGame::setToNullPtr(void)
 
     _symbols.plus = nullptr;
     _symbols.moins = nullptr;
+
+    _symbols.checkMateWhite = nullptr;
+    _symbols.checkMateBlack = nullptr;
 
     _texts.blackToPlay = nullptr;
     _texts.blackWon = nullptr;

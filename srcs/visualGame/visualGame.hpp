@@ -70,6 +70,9 @@ typedef struct s_symbols
     SDL_Texture *plus;
     SDL_Texture *moins;
 
+    SDL_Texture *checkMateWhite;
+    SDL_Texture *checkMateBlack;
+
 }   t_symbols;
 
 class visualGame
@@ -110,6 +113,7 @@ class visualGame
         bool        isCodeDetected(void);
 
         void        loadMap(void);
+        void        loadCoords(void);
         void        loadPath(void);
         void        loadEvaluation(const int value);
         void        loadMapColors(void);
@@ -161,10 +165,8 @@ class visualGame
         int             _baseCheck;
 
         SDL_Texture     *_boardTexture;
-        SDL_Texture     *_checkMateWhiteTexture;
-        SDL_Texture     *_checkMateBlackTexture;
-        SDL_Texture     *_promotionTexture;
-        SDL_Texture     *_arrowTexture;
+        SDL_Texture     *_promotion;
+        SDL_Texture     *_arrow;
         t_textures      _whiteTextures;
         t_textures      _blackTextures;
         t_letters       _letters;
