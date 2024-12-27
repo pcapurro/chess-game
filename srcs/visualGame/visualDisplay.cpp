@@ -185,14 +185,15 @@ void    visualGame::loadCoords(const int cx, const int cy)
     }
 
     if (cx >= 105 && cx <= 745 && cy >= 80 && cy <= 720
-        && _actualCoords != "none" && _actualCoords != "")
+        && _actualCoords != "none" && _actualCoords != ""
+        && ((_aiSide % 2 == 0 && _turn % 2 != 0) || (_aiSide % 2 != 0 && _turn % 2 == 0)))
     {
         SDL_Texture *texture;
 
-        obj.w = 25, obj.h = 15;
-        obj.x = cx - 25, obj.y = cy - 15;
+        obj.w = 28, obj.h = 18;
+        obj.x = cx - 28, obj.y = cy - 18;
 
-        SDL_SetRenderDrawColor(_mainRenderer, 160, 160, 160, 255);
+        SDL_SetRenderDrawColor(_mainRenderer, 192, 192, 192, 255);
         SDL_RenderFillRect(_mainRenderer, &obj);
 
         for (int i = 0; i != 8; i++)
@@ -201,8 +202,9 @@ void    visualGame::loadCoords(const int cx, const int cy)
                 texture = letters[i]->getTexture();
         }
 
-        obj.w = 7, obj.h = 17;
-        obj.x++, obj.y = obj.y - 4;
+        obj.w = 11, obj.h = 27;
+
+        obj.x += 3, obj.y = obj.y - 5;
         SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 
         for (int i = 0; i != 8; i++)
@@ -211,8 +213,7 @@ void    visualGame::loadCoords(const int cx, const int cy)
                 texture = numbers[i]->getTexture();
         }
 
-        obj.w = 7, obj.h = 17;
-        obj.x += 7;
+        obj.x += 12;
         SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
     }
 }
