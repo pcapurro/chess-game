@@ -138,7 +138,6 @@ class visualGame
         void        loadMapColors(void);
         void        loadBoard(const string color, const int cx = 0, const int cy = 0);
         void        loadText(const int value);
-        void        loadArrow(const int value);
         void        loadCheck(void);
         void        loadDraw(void);
         void        loadCheckMate(void);
@@ -188,6 +187,8 @@ class visualGame
         string          _droppedSrc;
         string          _clickSrc;
         string          _droppedDest;
+
+        bool            _visualCoords;
         string          _actualCoords;
 
         string          _lastAiMove;

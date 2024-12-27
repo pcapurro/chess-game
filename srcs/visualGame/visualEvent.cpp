@@ -186,6 +186,9 @@ string  visualGame::waitForEvent(void)
                 
                 if (event.type == SDL_MOUSEBUTTONUP)
                 {
+                    if (event.button.button == SDL_BUTTON_MIDDLE)
+                        _visualCoords = !_visualCoords;
+
                     if (_droppedSrc == coord)
                         _clickSrc = coord, _droppedSrc.clear();
                     else

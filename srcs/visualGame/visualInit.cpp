@@ -4,6 +4,7 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 {
     _error = false;
 
+    _visualCoords = false;
     _evaluation = true;
     _code = true;
 	_aiSide = -1;
