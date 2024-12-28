@@ -147,11 +147,17 @@ string  visualGame::waitForEvent(void)
                 || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
                 return ("end");
 
-            if (event.type == SDL_KEYDOWN && _code == true)
+            if (event.type == SDL_KEYDOWN)
             {
-                _keyHistory.push_back(event.key.keysym.sym);
-                if (_keyHistory.size() > 11)
-                    _keyHistory.erase(_keyHistory.begin());
+                if (event.key.keysym.sym == SDLK_TAB)
+                    _simpleSummary = !_simpleSummary, displayGame(event.button.x, event.button.y);
+
+                if (_code == true)
+                {
+                    _keyHistory.push_back(event.key.keysym.sym);
+                    if (_keyHistory.size() > 11)
+                        _keyHistory.erase(_keyHistory.begin());
+                }
             }
 
             if (_code == true && isCodeDetected() == true)
@@ -187,7 +193,7 @@ string  visualGame::waitForEvent(void)
                 if (event.type == SDL_MOUSEBUTTONUP)
                 {
                     if (event.button.button == SDL_BUTTON_MIDDLE)
-                        _visualCoords = !_visualCoords;
+                        _visualCoords = !_visualCoords, displayGame(event.button.x, event.button.y);
 
                     if (_droppedSrc == coord)
                         _clickSrc = coord, _droppedSrc.clear();

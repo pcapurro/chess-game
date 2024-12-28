@@ -58,9 +58,9 @@ SDL_Rect    visualGame::getRectangle(const string coords, const string type) con
         obj.x = 760;
 
         if (type == "wscore")
-            _aiSide % 2 == 0 ? obj.y = 67 : obj.y = 697;
+            _aiSide % 2 == 0 ? obj.y = 72 : obj.y = 692;
         if (type == "bscore")
-            _aiSide % 2 == 0 ? obj.y = 697 : obj.y = 67;
+            _aiSide % 2 == 0 ? obj.y = 692 : obj.y = 72;
 
         return (obj);
     }

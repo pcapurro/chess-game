@@ -18,6 +18,12 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
     }
 
     srand(time(nullptr));
+    if (rand() % 2 == 0)
+        _simpleSummary = true;
+    else
+        _simpleSummary = false;
+
+    srand(time(nullptr));
     _boardColor = rand() % COLOR_NB;
 
     setToDefault();
