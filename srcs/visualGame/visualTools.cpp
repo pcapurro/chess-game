@@ -97,6 +97,23 @@ SDL_Rect    visualGame::getRectangle(const string coords, const string type) con
     return (obj);
 }
 
+vector<char>    visualGame::getOrderedCaptured(const vector<char> &captured)
+{
+    vector<char>    newCaptured;
+
+    for (int i = 0; i != captured.size(); i++)
+    {
+        if (find(newCaptured.begin(), newCaptured.end(), captured.at(i)) == newCaptured.end())
+        {
+            int value = count(captured.begin(), captured.end(), captured.at(i));
+            while (value != 0)
+                newCaptured.push_back(captured.at(i)), value--;
+        }
+    }
+
+    return (newCaptured);
+}
+
 string  visualGame::getCoord(const int x, const int y) const
 {
     int xZone;

@@ -133,12 +133,14 @@ class visualGame
 
         bool        isCodeDetected(void);
 
+        bool        isAbovePromotion(const int x, const int y, SDL_Rect obj);
+        bool        isPromotion(const string coord);
+
         void        loadMap(void);
         void        loadCoords(const int cx, const int cy);
         void        loadPath(void);
         void        loadEvaluation(const int value);
-        void        loadScore(const string color, const int score);
-        void        loadScores(void);
+        void        loadScore(string color, const int y);
         void        loadCaptured(vector<char> &captured, const string color);
         void        loadCaptures(void);
         void        loadMapColors(void);
@@ -161,8 +163,7 @@ class visualGame
         string      getCoord(const int x, const int y) const;
         string      getTurnColor(void) const;
 
-        bool        isAbovePromotion(const int x, const int y, SDL_Rect obj);
-        bool        isPromotion(const string coord);
+        vector<char>    getOrderedCaptured(const vector<char> &captured);
 
         const bool		_sandBoxMode;
 

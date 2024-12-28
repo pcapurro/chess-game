@@ -111,7 +111,7 @@ string  visualGame::waitForPromotion(const string coord)
                 SDL_SetCursor(_normalCursor);
         }
     }
-    displayGame();
+    displayGame(-1, -1);
     SDL_RenderPresent(_mainRenderer);
     return (coord + types.at(i));
 }

@@ -98,80 +98,10 @@ void    visualGame::loadMapColors(void)
     SDL_RenderFillRect(_mainRenderer, &obj);
 }
 
-void    visualGame::loadCaptured(vector<char> &captured, const string color)
+void    visualGame::loadScore(string color, const int y)
 {
-    SDL_Rect        obj;
-    SDL_Texture     *texture;
-    visualTexture   *textures;
+    int         score;
 
-    visualTexture *white[5] = {&_textures->whiteTextures.pawn, &_textures->whiteTextures.bishop, \
-        &_textures->whiteTextures.knight, &_textures->whiteTextures.rook, &_textures->whiteTextures.queen};
-
-    visualTexture *black[5] = {&_textures->blackTextures.pawn, &_textures->blackTextures.bishop, \
-        &_textures->blackTextures.knight, &_textures->blackTextures.rook, &_textures->blackTextures.queen};
-
-    vector<char>    newCaptured;
-
-    for (int i = 0; i != captured.size(); i++)
-    {
-        if (find(newCaptured.begin(), newCaptured.end(), captured.at(i)) == newCaptured.end())
-        {
-            int value = count(captured.begin(), captured.end(), captured.at(i));
-            while (value != 0)
-                newCaptured.push_back(captured.at(i)), value--;
-        }
-    }
-
-    if (color == "white")
-        obj = getRectangle("", "wscore");
-    if (color == "black")
-        obj = getRectangle("", "bscore");
-
-    obj.w = 33, obj.h = 33;
-    for (int i = 0, pawn = 0; i != newCaptured.size(); i++)
-    {
-        if (i != 0 && (newCaptured.at(i) != newCaptured.at(i - 1) || pawn == 4))
-        {
-            obj.x = 760;
-            if (color == "white")
-                _aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
-            if (color == "black")
-                _aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
-        }
-
-        for (int k = 0; k != 5; k++)
-        {
-            if (color == "white" && black[k]->getId() == newCaptured.at(i))
-                texture = black[k]->getTexture();
-            if (color == "black" && white[k]->getId() == newCaptured.at(i))
-                texture = white[k]->getTexture();
-        }
-
-        if (newCaptured.at(i) == 'P')
-            pawn++;
-
-        SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
-
-        obj.x += 15;
-    }
-}
-
-void    visualGame::loadCaptures(void)
-{
-    vector<char>    whiteCaptured;
-    vector<char>    blackCaptured;
-
-    whiteCaptured = _board->getWhiteCaptured();
-    blackCaptured = _board->getBlackCaptured();
-
-    if (whiteCaptured.size() > 0)
-        loadCaptured(whiteCaptured, "white");
-    if (blackCaptured.size() > 0)
-        loadCaptured(blackCaptured, "black");
-}
-
-void    visualGame::loadScore(const string color, const int score)
-{
     SDL_Rect    obj;
     SDL_Texture *texture;
 
@@ -183,9 +113,15 @@ void    visualGame::loadScore(const string color, const int score)
         &_textures->numbers.nine};
 
     if (color == "white")
-        obj = getRectangle("", "wscore");
+        score = _board->getWhiteMaterialsScore() - _board->getBlackMaterialsScore();
     if (color == "black")
-        obj = getRectangle("", "bscore");
+        score = _board->getBlackMaterialsScore() - _board->getWhiteMaterialsScore();
+
+    if (score < 0)
+        score = 0;
+
+    obj = getRectangle("", string(1, color[0]) + "score");
+    obj.y = y;
 
     texture = _textures->symbols.plus.getTexture();
     SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
@@ -206,22 +142,88 @@ void    visualGame::loadScore(const string color, const int score)
     }
 }
 
-void    visualGame::loadScores(void)
+void    visualGame::loadCaptured(vector<char> &captured, const string color)
 {
-    int     whiteScore;
-    int     blackScore;
-    string  value;
+    SDL_Rect        obj;
+    SDL_Texture     *texture;
+    visualTexture   *textures;
 
-    whiteScore = _board->getWhiteMaterialsScore() - _board->getBlackMaterialsScore();
-    blackScore = _board->getBlackMaterialsScore() - _board->getWhiteMaterialsScore();
+    visualTexture *white[5] = {&_textures->whiteTextures.pawn, &_textures->whiteTextures.bishop, \
+        &_textures->whiteTextures.knight, &_textures->whiteTextures.rook, &_textures->whiteTextures.queen};
 
-    if (whiteScore < 0)
-        whiteScore = 0;
-    if (blackScore < 0)
-        blackScore = 0;
+    visualTexture *black[5] = {&_textures->blackTextures.pawn, &_textures->blackTextures.bishop, \
+        &_textures->blackTextures.knight, &_textures->blackTextures.rook, &_textures->blackTextures.queen};
 
-    loadScore("white", whiteScore);
-    loadScore("black", blackScore);
+    if (color == "white")
+        obj = getRectangle("", "wscore");
+    if (color == "black")
+        obj = getRectangle("", "bscore");
+
+    obj.w = 33, obj.h = 33;
+    for (int i = 0, same = 1; i != captured.size(); i++)
+    {
+        if (i != 0 && (captured.at(i) != captured.at(i - 1) || same == 4))
+        {
+            if (same == 4)
+                same = 0;
+
+            obj.x = 760;
+            if (color == "white")
+                _aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
+            if (color == "black")
+                _aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
+        }
+
+        for (int k = 0; k != 5; k++)
+        {
+            if (color == "white" && black[k]->getId() == captured.at(i))
+                texture = black[k]->getTexture();
+            if (color == "black" && white[k]->getId() == captured.at(i))
+                texture = white[k]->getTexture();
+        }
+
+        SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
+
+        if (i != 0 && captured.at(i) == captured.at(i - 1))
+        {
+            same++;
+            if (same == 2 && (captured.at(i) == 'Q' || captured.at(i) == 'R'
+                || captured.at(i) == 'B'))
+                same = 4;
+        }
+
+        obj.x += 10;
+        if (captured.at(i) == 'R')
+            obj.x += 15;
+        if (captured.at(i) == 'B' || captured.at(i) == 'Q')
+            obj.x += 19;
+        if (captured.at(i) == 'N')
+            obj.x += 5;
+    }
+
+    if (color == "white")
+        _aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
+    if (color == "black")
+        _aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
+
+    loadScore(color, obj.y);
+}
+
+void    visualGame::loadCaptures(void)
+{
+    vector<char>    whiteCaptured;
+    vector<char>    blackCaptured;
+
+    whiteCaptured = _board->getWhiteCaptured();
+    blackCaptured = _board->getBlackCaptured();
+
+    whiteCaptured = getOrderedCaptured(whiteCaptured);
+    blackCaptured = getOrderedCaptured(blackCaptured);
+
+    if (whiteCaptured.size() > 0)
+        loadCaptured(whiteCaptured, "white");
+    if (blackCaptured.size() > 0)
+        loadCaptured(blackCaptured, "black");
 }
 
 void    visualGame::loadPath(void)
@@ -364,15 +366,24 @@ void    visualGame::loadBoard(const string color, const int cx, const int cy)
             if (objType != ' ' && objColor == color && coords != _droppedDest)
             {
                 if (coords != _droppedSrc)
+                {
                     obj = getRectangle(coords);
-                else
-                    obj.x = cx - 28, obj.y = cy - 40;
-
-                if (obj.x > 0 && obj.y > 0 && obj.x < _width && obj.y < _height)
-                    SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), NULL, &obj);
+                    if (obj.x > 0 && obj.y > 0 && obj.x < _width && obj.y < _height)
+                        SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), NULL, &obj);
+                }
             }
         }
     }
+
+    if (cx != -1 && cy != -1)
+    {
+        objType = _board->getType(_droppedSrc);
+        objColor = _board->getColor(_droppedSrc);
+
+        obj.x = cx - 28, obj.y = cy - 40;
+        SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), NULL, &obj);
+    }
+
 }
 
 void    visualGame::loadCheck(void)
@@ -470,7 +481,7 @@ void    visualGame::displayPromotion(const char type, const string coord)
     SDL_Rect    obj;
     string      color;
 
-    displayGame();
+    displayGame(-1, -1);
 
     _turn % 2 == 0 ? color = "white" : color = "black";
 
@@ -495,7 +506,6 @@ void    visualGame::displayGame(const int cx, const int cy)
     loadPath();
 
     loadCaptures();
-    // loadScores();
 
     if (_board->isItCheckMate() == true)
         loadCheckMate();
