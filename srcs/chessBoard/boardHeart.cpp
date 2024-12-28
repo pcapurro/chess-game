@@ -270,8 +270,8 @@ int chessBoard::playMove(t_move structureMove, const string stringMove)
             }
         }
         enableDisableEnPassant();
-        countTotalMaterials();
         addToHistory();
+        countTotalMaterials();
 
         ++_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
     }

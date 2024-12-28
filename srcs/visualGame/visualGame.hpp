@@ -139,6 +139,7 @@ class visualGame
         void        loadEvaluation(const int value);
         void        loadScore(const string color, const int score);
         void        loadScores(void);
+        void        loadCaptured(vector<char> &captured, const string color);
         void        loadCaptures(void);
         void        loadMapColors(void);
         void        loadBoard(const string color, const int cx = 0, const int cy = 0);

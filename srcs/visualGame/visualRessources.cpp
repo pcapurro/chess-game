@@ -72,13 +72,13 @@ void    visualGame::loadWhiteTextures(void)
     int value = 0;
 
     value += _textures->whiteTextures.king.load(_mainRenderer, "./materials/images/white/king.bmp");
-    value += _textures->whiteTextures.queen.load(_mainRenderer, "./materials/images/white/queen.bmp");
+    value += _textures->whiteTextures.queen.load(_mainRenderer, "./materials/images/white/queen.bmp", 'Q');
 
-    value += _textures->whiteTextures.knight.load(_mainRenderer, "./materials/images/white/knight.bmp");
-    value += _textures->whiteTextures.bishop.load(_mainRenderer, "./materials/images/white/bishop.bmp");
-    value += _textures->whiteTextures.rook.load(_mainRenderer, "./materials/images/white/rook.bmp");
+    value += _textures->whiteTextures.knight.load(_mainRenderer, "./materials/images/white/knight.bmp", 'N');
+    value += _textures->whiteTextures.bishop.load(_mainRenderer, "./materials/images/white/bishop.bmp", 'B');
+    value += _textures->whiteTextures.rook.load(_mainRenderer, "./materials/images/white/rook.bmp", 'R');
 
-    value += _textures->whiteTextures.pawn.load(_mainRenderer, "./materials/images/white/pawn.bmp");
+    value += _textures->whiteTextures.pawn.load(_mainRenderer, "./materials/images/white/pawn.bmp", 'P');
 
     if (value != 0)
         _error = true;
@@ -92,13 +92,13 @@ void    visualGame::loadBlackTextures(void)
     int value = 0;
 
     value += _textures->blackTextures.king.load(_mainRenderer, "./materials/images/black/king.bmp");
-    value += _textures->blackTextures.queen.load(_mainRenderer, "./materials/images/black/queen.bmp");
+    value += _textures->blackTextures.queen.load(_mainRenderer, "./materials/images/black/queen.bmp", 'Q');
 
-    value += _textures->blackTextures.knight.load(_mainRenderer, "./materials/images/black/knight.bmp");
-    value += _textures->blackTextures.bishop.load(_mainRenderer, "./materials/images/black/bishop.bmp");
-    value += _textures->blackTextures.rook.load(_mainRenderer, "./materials/images/black/rook.bmp");
+    value += _textures->blackTextures.knight.load(_mainRenderer, "./materials/images/black/knight.bmp", 'N');
+    value += _textures->blackTextures.bishop.load(_mainRenderer, "./materials/images/black/bishop.bmp", 'B');
+    value += _textures->blackTextures.rook.load(_mainRenderer, "./materials/images/black/rook.bmp", 'R');
 
-    value += _textures->blackTextures.pawn.load(_mainRenderer, "./materials/images/black/pawn.bmp");
+    value += _textures->blackTextures.pawn.load(_mainRenderer, "./materials/images/black/pawn.bmp", 'P');
 
     if (value != 0)
         _error = true;
