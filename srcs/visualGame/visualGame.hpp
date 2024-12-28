@@ -49,6 +49,7 @@ typedef struct s_letters
     visualTexture   b;
     visualTexture   c;
     visualTexture   d;
+
     visualTexture   e;
     visualTexture   f;
     visualTexture   g;
@@ -58,21 +59,23 @@ typedef struct s_letters
 
 typedef struct s_numbers
 {
+    visualTexture zero;
     visualTexture one;
     visualTexture two;
     visualTexture three;
     visualTexture four;
+
     visualTexture five;
     visualTexture six;
     visualTexture seven;
     visualTexture eight;
+    visualTexture nine;
 
 }   t_numbers;
 
 typedef struct s_symbols
 {
     visualTexture plus;
-    visualTexture moins;
 
     visualTexture checkMateWhite;
     visualTexture checkMateBlack;
@@ -115,7 +118,6 @@ class visualGame
         void        loadTexts(void);
         void        loadLetters(void);
         void        loadNumbers(void);
-        void        loadSymbols(void);
         void        loadBoardTextures(void);
         void        loadWhiteTextures(void);
         void        loadBlackTextures(void);
@@ -135,6 +137,7 @@ class visualGame
         void        loadCoords(const int cx, const int cy);
         void        loadPath(void);
         void        loadEvaluation(const int value);
+        void        loadScore(const string color, const int score);
         void        loadScores(void);
         void        loadCaptures(void);
         void        loadMapColors(void);

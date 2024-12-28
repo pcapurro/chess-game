@@ -48,6 +48,7 @@ void    visualGame::loadNumbers(void)
 
     int value = 0;
 
+    value += _textures->numbers.zero.load(_mainRenderer, "./materials/numbers/0.bmp", '0');
     value += _textures->numbers.one.load(_mainRenderer, "./materials/numbers/1.bmp", '1');
     value += _textures->numbers.two.load(_mainRenderer, "./materials/numbers/2.bmp", '2');
     value += _textures->numbers.three.load(_mainRenderer, "./materials/numbers/3.bmp", '3');
@@ -57,20 +58,7 @@ void    visualGame::loadNumbers(void)
     value += _textures->numbers.six.load(_mainRenderer, "./materials/numbers/6.bmp", '6');
     value += _textures->numbers.seven.load(_mainRenderer, "./materials/numbers/7.bmp", '7');
     value += _textures->numbers.eight.load(_mainRenderer, "./materials/numbers/8.bmp", '8');
-
-    if (value != 0)
-        _error = true;
-}
-
-void    visualGame::loadSymbols(void)
-{
-    if (_error == true)
-        return ;
-
-    int value = 0;
-
-    value += _textures->symbols.plus.load(_mainRenderer, "./materials/symbols/plus.bmp");
-    value += _textures->symbols.moins.load(_mainRenderer, "./materials/symbols/moins.bmp");
+    value += _textures->numbers.nine.load(_mainRenderer, "./materials/numbers/9.bmp", '9');
 
     if (value != 0)
         _error = true;
@@ -130,6 +118,8 @@ void    visualGame::loadBoardTextures(void)
 
     value += _textures->promotion.load(_mainRenderer, "./materials/images/promotion.bmp");
 
+    value += _textures->symbols.plus.load(_mainRenderer, "./materials/symbols/plus.bmp");
+
     if (value != 0)
         _error = true;
 }
@@ -140,9 +130,9 @@ void    visualGame::loadTextures(void)
 
     loadLetters();
     loadNumbers();
-    loadSymbols();
 
     loadBoardTextures();
+
     loadWhiteTextures();
     loadBlackTextures();
 }

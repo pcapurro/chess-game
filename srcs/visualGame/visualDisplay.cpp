@@ -106,19 +106,62 @@ void    visualGame::loadCaptures(void)
     whiteCaptured = _board->getWhiteCaptured();
     blackCaptured = _board->getBlackCaptured();
 
-    cout << "white captured " << whiteCaptured.size() << endl;
-    cout << "black captured " << blackCaptured.size() << endl;
+    // cout << "white captured " << whiteCaptured.size() << endl;
+    // cout << "black captured " << blackCaptured.size() << endl;
+}
+
+void    visualGame::loadScore(const string color, const int score)
+{
+    SDL_Rect    obj;
+    SDL_Texture *texture;
+
+    visualTexture *numbers[10] = {&_textures->numbers.zero, \
+        &_textures->numbers.one, &_textures->numbers.two, \
+        &_textures->numbers.three, &_textures->numbers.four, \
+        &_textures->numbers.five, &_textures->numbers.six, \
+        &_textures->numbers.seven, &_textures->numbers.eight, \
+        &_textures->numbers.nine};
+
+    if (color == "white")
+        obj = getRectangle("", "wscore");
+    if (color == "black")
+        obj = getRectangle("", "bscore");
+
+    texture = _textures->symbols.plus.getTexture();
+    SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
+
+    _sandBoxMode == false || _aiSide % 2 != 0 ? obj.y-- : obj.y++;
+
+    string value = to_string(score);
+    for (int i = 0; value[i] != '\0'; i++)
+    {
+        for (int k = 0; k != 10; k++)
+        {
+            if (numbers[k]->getId() == value[i])
+                texture = numbers[k]->getTexture();
+        }
+        obj.x += 15;
+
+        SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
+    }
 }
 
 void    visualGame::loadScores(void)
 {
-    int whiteScore;
-    int blackScore;
+    int     whiteScore;
+    int     blackScore;
+    string  value;
 
-    int score;
+    whiteScore = _board->getWhiteMaterialsScore() - _board->getBlackMaterialsScore();
+    blackScore = _board->getBlackMaterialsScore() - _board->getWhiteMaterialsScore();
 
-    cout << "white score > " << _board->getWhiteMaterialsScore() << endl;
-    cout << "black score > " << _board->getBlackMaterialsScore() << endl;
+    if (whiteScore < 0)
+        whiteScore = 0;
+    if (blackScore < 0)
+        blackScore = 0;
+
+    loadScore("white", whiteScore);
+    loadScore("black", blackScore);
 }
 
 void    visualGame::loadPath(void)

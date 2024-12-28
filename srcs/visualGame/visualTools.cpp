@@ -52,6 +52,19 @@ SDL_Rect    visualGame::getRectangle(const string coords, const string type) con
         return (obj);
     }
 
+    if (type == "wscore" || type == "bscore")
+    {
+        obj.w = 14, obj.h = 35;
+        obj.x = 760;
+
+        if (type == "wscore")
+            _aiSide % 2 == 0 ? obj.y = 67 : obj.y = 697;
+        if (type == "bscore")
+            _aiSide % 2 == 0 ? obj.y = 697 : obj.y = 67;
+
+        return (obj);
+    }
+
     int x = coords[0] - 97;
     int y = atoi(coords.c_str() + 1) - 1;
 
