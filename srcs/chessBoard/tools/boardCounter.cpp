@@ -23,6 +23,23 @@ void    chessBoard::resetCount(void)
     _boardCount.total = 0;
 }
 
+void    chessBoard::countTotalMaterials(void)
+{
+    _boardCount.whiteMaterial = 0;
+    _boardCount.blackMaterial = 0;
+
+    for (int i = 0; i != 64; i++)
+    {
+        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
+        {
+            if (_board.at(i).piece->getColor() == "white")
+                _boardCount.whiteMaterial += getMaterialValue(_board.at(i).piece->getType());
+            if (_board.at(i).piece->getColor() == "black")
+                _boardCount.blackMaterial += getMaterialValue(_board.at(i).piece->getType());
+        }
+    }
+}
+
 void    chessBoard::countPiecesOnBoard(void)
 {
     resetCount();

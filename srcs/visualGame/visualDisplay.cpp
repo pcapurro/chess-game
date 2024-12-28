@@ -98,6 +98,29 @@ void    visualGame::loadMapColors(void)
     SDL_RenderFillRect(_mainRenderer, &obj);
 }
 
+void    visualGame::loadCaptures(void)
+{
+    vector<char>    whiteCaptured;
+    vector<char>    blackCaptured;
+
+    whiteCaptured = _board->getWhiteCaptured();
+    blackCaptured = _board->getBlackCaptured();
+
+    cout << "white captured " << whiteCaptured.size() << endl;
+    cout << "black captured " << blackCaptured.size() << endl;
+}
+
+void    visualGame::loadScores(void)
+{
+    int whiteScore;
+    int blackScore;
+
+    int score;
+
+    cout << "white score > " << _board->getWhiteMaterialsScore() << endl;
+    cout << "black score > " << _board->getBlackMaterialsScore() << endl;
+}
+
 void    visualGame::loadPath(void)
 {
     SDL_Rect    obj;
@@ -367,6 +390,9 @@ void    visualGame::displayGame(const int cx, const int cy)
 
     loadMap();
     loadPath();
+
+    loadCaptures();
+    loadScores();
 
     if (_board->isItCheckMate() == true)
         loadCheckMate();

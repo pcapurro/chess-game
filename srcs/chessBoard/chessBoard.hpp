@@ -65,6 +65,9 @@ typedef struct s_counter
     int whitePawn;
     int blackPawn;
 
+    int whiteMaterial;
+    int blackMaterial;
+
     int total;
 
 }   t_counter;
@@ -97,12 +100,16 @@ class chessBoard
 
         int     playMove(t_move structureMove, const string stringMove = "");
 
-        void    printEvent(const bool cfail, const bool bfail,\
+        void    printEvent(const bool cfail, const bool bfail, \
                             const bool blindMode);
         void    printEndGame(const int value = 0);
         void    printBoard(const int aiSide) const;
 
+        int             getWhiteMaterialsScore(void) { return (_boardCount.whiteMaterial); };
+        int             getBlackMaterialsScore(void) { return (_boardCount.blackMaterial); };
         vector<string>  getHistory(void) { return (_simpleHistory); };
+        vector<char>    getWhiteCaptured(void) const { return (_whiteCaptured); };
+        vector<char>    getBlackCaptured(void) const { return (_blackCaptured); };
 
     private:
 
@@ -199,6 +206,7 @@ class chessBoard
         void    removePiece(const string coord);
 
         void    countPiecesOnBoard(void);
+        void    countTotalMaterials(void);
         void    resetCount(void);
 
         bool                _allocated;
@@ -208,6 +216,9 @@ class chessBoard
         t_game_info         _gameInfo;
 
         t_counter           _boardCount;
+        vector<char>        _whiteCaptured;
+        vector<char>        _blackCaptured;
+
         vector<string>      _history;
         vector<string>      _simpleHistory;
 

@@ -21,6 +21,9 @@ chessBoard::chessBoard(void)
     _gameInfo._enPassant = false;
     _gameInfo._enPassantDest = "";
 
+    _boardCount.whiteMaterial = 39;
+    _boardCount.blackMaterial = 39;
+
     initBoard();
     if (checkBoardAllocation() == false)
         _allocated = false;

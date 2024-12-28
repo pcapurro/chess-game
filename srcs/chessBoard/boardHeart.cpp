@@ -55,6 +55,11 @@ void    chessBoard::removePiece(const string coord)
     size_t  atValue = getAtValue(coord);
     if (_board.at(atValue).piece != NULL)
     {
+        if (_board.at(atValue).piece->getColor() == "black")
+            _whiteCaptured.push_back(_board.at(atValue).piece->getType());
+        if (_board.at(atValue).piece->getColor() == "white")
+            _blackCaptured.push_back(_board.at(atValue).piece->getType());
+
         delete _board.at(atValue).piece;
         _board.at(atValue).piece = NULL;
     }
@@ -265,6 +270,7 @@ int chessBoard::playMove(t_move structureMove, const string stringMove)
             }
         }
         enableDisableEnPassant();
+        countTotalMaterials();
         addToHistory();
 
         ++_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";

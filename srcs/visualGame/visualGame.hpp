@@ -135,6 +135,8 @@ class visualGame
         void        loadCoords(const int cx, const int cy);
         void        loadPath(void);
         void        loadEvaluation(const int value);
+        void        loadScores(void);
+        void        loadCaptures(void);
         void        loadMapColors(void);
         void        loadBoard(const string color, const int cx = 0, const int cy = 0);
         void        loadText(const int value);
