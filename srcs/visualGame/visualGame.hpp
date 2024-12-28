@@ -9,15 +9,17 @@
 # define WIDTH 850
 # define HEIGHT 800
 
-# define COLOR_NB 5
+# define COLOR_NB 7
 
 # define COLORS \
 { \
-    {0, 153, 0}, \
+    {0, 135, 0}, \
     {0, 0, 153}, \
     {153, 0, 0}, \
-    {204, 102, 0}, \
-    {102, 0, 102} \
+    {205, 102, 0}, \
+    {90, 0, 90}, \
+    {128, 64, 0}, \
+    {160, 160, 160} \
 }
 
 typedef struct s_pieces
