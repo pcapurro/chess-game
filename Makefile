@@ -69,6 +69,7 @@ $(NAMES): $(OBJSS)
 	$(CXX) $(CXXFLAGS) $(OBJSS) -o $(NAMES)
 
 clean:
+	@rm -f .stockfish.answer
 	@rm -rf $(OBJSS) $(OBJSV)
 
 fclean: clean
