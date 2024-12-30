@@ -343,7 +343,7 @@ void    visualGame::loadMap(void)
     }
 }
 
-void    visualGame::loadCoords(const int cx, const int cy)
+void    visualGame::loadCoords(void)
 {
     SDL_Rect    obj;
     string      coords;
@@ -369,14 +369,14 @@ void    visualGame::loadCoords(const int cx, const int cy)
         SDL_RenderCopy(_mainRenderer, numbers[i]->getTexture(), NULL, &obj);
     }
 
-    if (cx >= 105 && cx <= 745 && cy >= 80 && cy <= 720
+    if (_x >= 105 && _x <= 745 && _y >= 80 && _y <= 720
         && _visualCoords == true && _actualCoords != "none" && _actualCoords != ""
-        && ((_aiSide % 2 == 0 && _turn % 2 != 0) || (_aiSide % 2 != 0 && _turn % 2 == 0)))
+        && (_sandBoxMode == true || _aiSide % 2 == 0 && _turn % 2 != 0 || _aiSide % 2 != 0 && _turn % 2 == 0))
     {
         SDL_Texture *texture;
 
         obj.w = 28, obj.h = 18;
-        obj.x = cx - 28, obj.y = cy - 18;
+        obj.x = _x - 28, obj.y = _y - 18;
 
         SDL_SetRenderDrawColor(_mainRenderer, 192, 192, 192, 255);
         SDL_RenderFillRect(_mainRenderer, &obj);
@@ -403,7 +403,7 @@ void    visualGame::loadCoords(const int cx, const int cy)
     }
 }
 
-void    visualGame::loadBoard(const string color, const int cx, const int cy)
+void    visualGame::loadBoard(const string color)
 {
     char        objType;
     string      coords;
@@ -432,12 +432,12 @@ void    visualGame::loadBoard(const string color, const int cx, const int cy)
         }
     }
 
-    if (cx != -1 && cy != -1)
+    if (_x != -1 && _y != -1)
     {
         objType = _board->getType(_droppedSrc);
         objColor = _board->getColor(_droppedSrc);
 
-        obj.x = cx - 28, obj.y = cy - 40;
+        obj.x = _x - 28, obj.y = _y - 40;
         SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), NULL, &obj);
     }
 
@@ -527,7 +527,8 @@ void    visualGame::displayMoveAnimation(const string move)
         if ((src[0] != dest[0] && src[1] == dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
             destX > obj.x ? obj.x++ : obj.x--;
 
-        displayGame(obj.x + 28, obj.y + 40);
+        _x = obj.x + 28, _y = obj.y + 40;
+        displayGame();
         SDL_RenderPresent(_mainRenderer);
         usleep(500);
     }
@@ -538,7 +539,8 @@ void    visualGame::displayPromotion(const char type, const string coord)
     SDL_Rect    obj;
     string      color;
 
-    displayGame(-1, -1);
+    _x = -1, _y = -1;
+    displayGame();
 
     _turn % 2 == 0 ? color = "white" : color = "black";
 
@@ -551,13 +553,11 @@ void    visualGame::displayPromotion(const char type, const string coord)
     SDL_RenderPresent(_mainRenderer);
 }
 
-void    visualGame::displayGame(const int cx, const int cy)
+void    visualGame::displayGame(void)
 {
-    int stateValue = _board->getStateValue();
-
     SDL_RenderClear(_mainRenderer);
 
-    loadEvaluation(stateValue);
+    loadEvaluation(_board->getStateValue());
 
     loadMap();
     loadPath();
@@ -572,11 +572,11 @@ void    visualGame::displayGame(const int cx, const int cy)
         loadDraw();
 
     if (_turn % 2 == 0)
-        loadBoard("black", cx, cy), loadBoard("white", cx, cy);
+        loadBoard("black"), loadBoard("white");
     else
-        loadBoard("white", cx, cy), loadBoard("black", cx, cy);
+        loadBoard("white"), loadBoard("black");
 
-    loadCoords(cx, cy);
+    loadCoords();
 
-    loadText(stateValue);
+    loadText(_board->getStateValue());
 }

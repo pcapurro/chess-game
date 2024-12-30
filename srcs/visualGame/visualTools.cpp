@@ -199,3 +199,54 @@ bool    visualGame::isAbovePromotion(const int x, const int y, SDL_Rect obj)
 
     return (false);
 }
+
+bool    visualGame::isCodeDetected(void)
+{
+    if (_keyHistory.size() == 11)
+    {
+        vector<SDL_Keycode> code = {SDLK_UP, SDLK_UP, SDLK_DOWN, SDLK_DOWN, SDLK_LEFT, \
+            SDLK_RIGHT, SDLK_LEFT, SDLK_RIGHT, SDLK_b, SDLK_a, SDLK_RETURN};
+
+        vector<SDL_Keycode> sequence;
+        for (int i = _keyHistory.size() - 11; i != _keyHistory.size(); i++)
+            sequence.push_back(_keyHistory.at(i));
+
+        if (code == sequence)
+            return (true);
+    }
+
+    return (false);
+}
+
+bool    visualGame::isBoardTargetZone(const string coord, const int x, const int y)
+{
+    if (_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
+        return (true);
+
+    if (x >= 777 && x <= _width && y >= 724 && y <= _height)
+        return (true);
+
+    if (x >= 26 && x <= 54 && y >= 725 && y <= 752)
+        return (true);
+
+    if (x > 780 && y < 60)
+        return (true);
+
+    return (false);
+}
+
+bool    visualGame::isColorTargetZone(const string coord, const int x, const int y)
+{
+    if (x >= 777 && x <= _width && y >= 724 && y <= _height)
+        return (true);
+
+    return (false);
+}
+
+bool    visualGame::isEvaluationTargetZone(const string coord, const int x, const int y)
+{
+    if (x >= 26 && x <= 54 && y >= 725 && y <= 752)
+        return (true);
+
+    return (false);
+}

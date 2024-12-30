@@ -51,6 +51,8 @@ void    visualGame::setToDefault(void)
     _whiteScore = 0;
     _blackScore = 0;
 
+    _x = 0; _y = 0;
+
     _lastMove.clear();
     _lastAiMove.clear();
 

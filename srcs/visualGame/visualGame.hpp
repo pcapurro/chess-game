@@ -142,7 +142,7 @@ class visualGame
         bool        isPromotion(const string coord);
 
         void        loadMap(void);
-        void        loadCoords(const int cx, const int cy);
+        void        loadCoords(void);
         void        loadPath(void);
         void        loadEvaluation(const int value);
         void        loadScore(string color, const int y);
@@ -150,16 +150,21 @@ class visualGame
         void        loadCaptured(vector<char> &captured, const string color);
         void        loadCaptures(void);
         void        loadMapColors(void);
-        void        loadBoard(const string color, const int cx = 0, const int cy = 0);
+        void        loadBoard(const string color);
         void        loadText(const int value);
         void        loadCheck(void);
         void        loadDraw(void);
         void        loadCheckMate(void);
 
         void        displayPromotion(const char type, const string coord);
-        void        displayGame(const int cx = 0, const int cy = 0);
+        void        displayGame(void);
         void        displayMoveAnimation(const string move);
     
+        void        reactKeyDown(const int key);
+        void        reactMouseMotion(void);
+        void        reactMouseDown(const int key);
+        void        reactMouseUp(void);
+
         string      waitForEvent(void);
         string      waitForPromotion(const string coord);
         int         waitForNewGame(void);
@@ -196,6 +201,9 @@ class visualGame
 
         chessBoard      *_board;
         chessAi         *_ai;
+
+        int             _x;
+        int             _y;
 
         string          _droppedSrc;
         string          _clickSrc;
