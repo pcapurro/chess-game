@@ -176,7 +176,7 @@ void    visualGame::loadCaptured(vector<char> &captured, const string color)
         if (captured.at(i) == 'R')
             obj.x += 15;
         if (captured.at(i) == 'B' || captured.at(i) == 'Q')
-            obj.x += 19;
+            obj.x += 21;
         if (captured.at(i) == 'N')
             obj.x += 5;
 
