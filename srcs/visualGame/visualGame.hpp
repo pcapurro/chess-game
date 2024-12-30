@@ -212,7 +212,6 @@ class visualGame
         bool            _visualCoords;
         string          _actualCoords;
 
-        string          _lastAiMove;
         string          _lastMove;
 
         int             _aiSide;

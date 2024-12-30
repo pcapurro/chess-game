@@ -19,13 +19,11 @@ string  visualGame::getVisualAnswer(void)
         if (answer == "Ke1c1" || answer == "Ke8c8")
             answer = "O-O-O";
 
-        _lastAiMove = answer;
-
-        if (_lastAiMove.find('O') == string::npos)
-            displayMoveAnimation(_lastAiMove.c_str() + 1);
+        if (answer.find('O') == string::npos)
+            displayMoveAnimation(answer.c_str() + 1);
     }
     else
-        answer = waitForEvent(), _lastAiMove.clear();
+        answer = waitForEvent();
 
     return (answer);
 }

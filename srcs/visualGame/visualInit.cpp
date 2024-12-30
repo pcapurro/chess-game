@@ -54,7 +54,7 @@ void    visualGame::setToDefault(void)
     _x = 0; _y = 0;
 
     _lastMove.clear();
-    _lastAiMove.clear();
+    _actualCoords.clear();
 
     _clickSrc.clear();
     _droppedSrc.clear();
