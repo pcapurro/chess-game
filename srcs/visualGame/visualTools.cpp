@@ -143,6 +143,31 @@ string  visualGame::getCoord(const int x, const int y) const
     return ("none");
 }
 
+string visualGame::getInput(const string coord)
+{
+    string  input;
+
+    if (coord == "end" || coord == "none" || coord == "error")
+        return (coord);
+
+    input = input + _board->getType(_droppedSrc);
+    input = input + _droppedSrc + coord;
+
+    if (input[0] == 'K')
+    {
+        if ((coord == "g1" && _droppedSrc == "e1") || (coord == "g8" && _droppedSrc == "e8"))
+            input[3] = 'O', input[4] = '-', input = input + "O";
+        if ((coord == "c1" && _droppedSrc == "e1") || (coord == "c8" && _droppedSrc == "e8"))
+            input[3] = 'O', input[4] = '-', input = input + "O-O";
+    }
+
+    _droppedSrc.clear();
+    _clickSrc.clear();
+    _droppedDest.clear();
+
+    return (input);
+}
+
 string  visualGame::getKingCoords(const string color)
 {
     string      coords;

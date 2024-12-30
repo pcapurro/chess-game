@@ -166,8 +166,8 @@ class visualGame
         void        reactMouseUp(void);
 
         string      waitForEvent(void);
-        string      waitForPromotion(const string coord);
-        int         waitForNewGame(void);
+        string      waitForPromotion(void);
+        string      waitForNewGame(void);
 
         string      getInput(const string coord);
 
