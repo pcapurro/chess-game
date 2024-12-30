@@ -9,7 +9,7 @@ string  shellGame::getShellAnswer(void) const
     if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
         || (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
     {
-        answer = _ai.getBestMove(_board->getHistory());
+        answer = _ai->getBestMove(_board->getHistory());
         if (answer == "error")
             { systemFailed(true, "Stockfish failed."); return ("error"); }
 

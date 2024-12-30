@@ -193,7 +193,7 @@ class visualGame
         t_textures      *_textures;
 
         chessBoard      *_board;
-        chessAi         _ai;
+        chessAi         *_ai;
 
         string          _droppedSrc;
         string          _clickSrc;

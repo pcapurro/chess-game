@@ -8,7 +8,7 @@ string  visualGame::getVisualAnswer(void)
 
     if (_sandBoxMode == false && _turn % 2 == _aiSide)
     {
-        answer = _ai.getBestMove(_board->getHistory());
+        answer = _ai->getBestMove(_board->getHistory());
         if (answer == "error")
         if (answer == "error")
             { systemFailed(true, "Stockfish failed."); return ("error"); }

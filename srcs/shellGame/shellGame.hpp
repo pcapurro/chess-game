@@ -22,7 +22,7 @@ class shellGame
 	private:
 
 		chessBoard		*_board;
-		chessAi         _ai;
+		chessAi         *_ai;
 		algebraParser	*_checker;
 
 		const bool		_blindMode;
