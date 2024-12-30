@@ -135,4 +135,7 @@ void    visualGame::loadTextures(void)
 
     loadWhiteTextures();
     loadBlackTextures();
+
+    if (_error == true)
+        systemFailed(false, "SDL failed.");
 }

@@ -17,26 +17,34 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 		_aiSide = rand() % 2;
     }
 
-    srand(time(nullptr));
-    if (rand() % 2 == 0)
-        _simpleSummary = true;
-    else
-        _simpleSummary = false;
-
-    srand(time(nullptr));
-    _boardColor = rand() % COLOR_NB;
-
-    setToDefault();
-    setToNullPtr();
-
-    initializeGame();
-
-    _textures = new (nothrow) t_textures;
-    if (_textures == nullptr)
-        _error = true;
-
     if (_error == false)
-        loadTextures();
+    {
+        srand(time(nullptr));
+        if (rand() % 2 == 0)
+            _simpleSummary = true;
+        else
+            _simpleSummary = false;
+
+        srand(time(nullptr));
+        _boardColor = rand() % COLOR_NB;
+
+        setToDefault();
+        setToNullPtr();
+
+        initializeGame();
+
+        if (_error == true)
+            systemFailed(false, "SDL failed.");
+        else
+        {
+            _textures = new (nothrow) t_textures;
+            if (_textures == nullptr)
+                _error = true, memoryFailed(false);
+
+            if (_error == false)
+                loadTextures();
+        }
+    }
 }
 
 void    visualGame::setToDefault(void)

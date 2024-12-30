@@ -20,10 +20,10 @@ void    printGradually(const string str, const int value)
     {
         cout << "\033[1A" << str << points << flush << endl;
         points = points + ".";
-        // if (value == 1)
-            // sleep(1);
-        // else
-            // usleep(500);
+        if (value == 1)
+            sleep(1);
+        else
+            usleep(5000);
     }
 }
 
@@ -31,7 +31,7 @@ void    printLoading(void)
 {
     printGradually("Loading", 1);
     cout << GREEN << "Game is ready." << COLOR_E << endl;
-    // sleep(1);
+    sleep(1);
     cout << endl;
 }
 
@@ -41,7 +41,7 @@ void    initWelcome(void)
     printTitle();
     getline(cin, input);
     if (cin.fail() == true)
-        systemFailed(true);
+        systemFailed(true, "getline() failed.");
     else
         cout << "\033[2A" << ERASE_LINE << endl;
 }
@@ -57,10 +57,14 @@ int initializeShellGame(const bool sandBoxMode, const bool blindMode)
     if (gameShell == nullptr)
         return (1);
 
+    if (gameShell->fail() == true)
+        { delete gameShell; return (1); }
+
     gameShell->shellRoutine();
 
     if (gameShell->fail() == true)
         { delete gameShell; return (1); }
+
     delete gameShell;
     
     return (0);

@@ -10,7 +10,8 @@ string  visualGame::getVisualAnswer(void)
     {
         answer = _ai.getBestMove(_board->getHistory());
         if (answer == "error")
-            return ("error");
+        if (answer == "error")
+            { systemFailed(true, "Stockfish failed."); return ("error"); }
         answer = _board->getType(string(1, answer[0]) + answer[1]) + answer;
 
         _lastMove = answer.c_str() + 1;
@@ -101,8 +102,6 @@ void	visualGame::visualRoutine(void)
             _error = true;
             if (value == 1)
                 memoryFailed(false);
-            if (value == 3)
-                systemFailed(false);
             return ;
         }
         if (value == 2)

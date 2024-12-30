@@ -11,7 +11,7 @@ string  shellGame::getShellAnswer(void) const
     {
         answer = _ai.getBestMove(_board->getHistory());
         if (answer == "error")
-            return ("error");
+            { systemFailed(true, "Stockfish failed."); return ("error"); }
 
         answer = _board->getType(string(1, answer[0]) + answer[1]) + answer;
 
@@ -54,7 +54,7 @@ void	shellGame::shellRoutine(void)
         _board->printEvent(_checker->fail(), _board->fail(), _blindMode);
         input = getShellAnswer();
         if (input == "error")
-            { _systemFail = true; systemFailed(true); return ; }
+            { _error = true; systemFailed(true, "getline() failed."); return ; }
 
         *_checker = input;
         move = _checker->getParsedMove();
@@ -63,7 +63,7 @@ void	shellGame::shellRoutine(void)
             continue ;
 
         if (move.error == true || _board->isAllocated() == false)
-            { _memoryFail = true; memoryFailed(true); return ; }
+            { _error = true; memoryFailed(true); return ; }
 
         if (_blindMode == false)
             _board->printBoard(_aiSide);

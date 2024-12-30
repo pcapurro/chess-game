@@ -14,12 +14,7 @@ class shellGame
 		shellGame(const bool blindMode, const bool sandBoxMode);
 		~shellGame(void);
 
-		bool	fail(void) const
-		{
-			if (_systemFail == true || _memoryFail == true)
-				return (true);
-			return (false);
-		}
+		bool	fail(void) const { return (_error); };
 
 		void	shellRoutine(void);
 		string  getShellAnswer(void) const;
@@ -35,8 +30,7 @@ class shellGame
 
 		int				_aiSide;
 
-		bool			_systemFail;
-		bool			_memoryFail;
+		bool			_error;
 
 };
 

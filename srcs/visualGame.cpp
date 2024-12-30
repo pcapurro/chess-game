@@ -9,10 +9,14 @@ int initializeVisualGame(const bool sandBoxMode)
     if (gameVisual == nullptr)
         return (1);
 
+    if (gameVisual->fail() == true)
+        { delete gameVisual; return (1); }
+
     gameVisual->visualRoutine();
 
     if (gameVisual->fail() == true)
         { delete gameVisual; return (1); }
+
     delete gameVisual;
 
     return (0);
