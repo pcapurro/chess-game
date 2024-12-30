@@ -149,9 +149,6 @@ string  visualGame::waitForEvent(void)
 
             if (event.type == SDL_KEYDOWN)
             {
-                if (event.key.keysym.sym == SDLK_TAB)
-                    _simpleSummary = !_simpleSummary, displayGame(event.button.x, event.button.y);
-
                 if (_code == true)
                 {
                     _keyHistory.push_back(event.key.keysym.sym);

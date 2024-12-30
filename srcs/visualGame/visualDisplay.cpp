@@ -142,7 +142,7 @@ void    visualGame::loadScore(string color, const int y)
     }
 }
 
-void    visualGame::loadCaptured(vector<char> &captured, const string color)
+void    visualGame::loadCapturedComplex(vector<char> &captured, const string color)
 {
     SDL_Rect        obj;
     SDL_Texture     *texture;
@@ -194,7 +194,7 @@ void    visualGame::loadCaptured(vector<char> &captured, const string color)
     loadScore(color, obj.y);
 }
 
-void    visualGame::loadCapturedSimplified(vector<char> &captured, const string color)
+void    visualGame::loadCaptured(vector<char> &captured, const string color)
 {
     SDL_Rect        obj;
     SDL_Texture     *texture;
@@ -278,19 +278,9 @@ void    visualGame::loadCaptures(void)
     blackCaptured = getOrderedCaptured(blackCaptured);
 
     if (whiteCaptured.size() > 0)
-    {
-        if (_simpleSummary == false)
-            loadCaptured(whiteCaptured, "white");
-        else
-            loadCapturedSimplified(whiteCaptured, "white");
-    }
+        loadCaptured(whiteCaptured, "white");
     if (blackCaptured.size() > 0)
-    {
-        if (_simpleSummary == false)
-            loadCaptured(blackCaptured, "black");
-        else
-            loadCapturedSimplified(blackCaptured, "black");
-    }
+        loadCaptured(blackCaptured, "black");
 }
 
 void    visualGame::loadPath(void)

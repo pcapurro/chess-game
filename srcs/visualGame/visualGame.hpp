@@ -143,8 +143,8 @@ class visualGame
         void        loadPath(void);
         void        loadEvaluation(const int value);
         void        loadScore(string color, const int y);
+        void        loadCapturedComplex(vector<char> &captured, const string color);
         void        loadCaptured(vector<char> &captured, const string color);
-        void        loadCapturedSimplified(vector<char> &captured, const string color);
         void        loadCaptures(void);
         void        loadMapColors(void);
         void        loadBoard(const string color, const int cx = 0, const int cy = 0);
@@ -177,7 +177,6 @@ class visualGame
         vector<int>     _boardColors;
 
         bool            _evaluation;
-        bool            _simpleSummary;
         int             _whiteScore;
         int             _blackScore;
 
