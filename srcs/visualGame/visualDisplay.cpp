@@ -162,18 +162,6 @@ void    visualGame::loadCaptured(vector<char> &captured, const string color)
     obj.w = 33, obj.h = 33;
     for (int i = 0, same = 1; i != captured.size(); i++)
     {
-        if (i != 0 && (captured.at(i) != captured.at(i - 1) || same == 4))
-        {
-            if (same == 4)
-                same = 0;
-
-            obj.x = 760;
-            if (color == "white")
-                _aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
-            if (color == "black")
-                _aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
-        }
-
         for (int k = 0; k != 5; k++)
         {
             if (color == "white" && black[k]->getId() == captured.at(i))
@@ -184,14 +172,6 @@ void    visualGame::loadCaptured(vector<char> &captured, const string color)
 
         SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 
-        if (i != 0 && captured.at(i) == captured.at(i - 1))
-        {
-            same++;
-            if (same == 2 && (captured.at(i) == 'Q' || captured.at(i) == 'R'
-                || captured.at(i) == 'B'))
-                same = 4;
-        }
-
         obj.x += 10;
         if (captured.at(i) == 'R')
             obj.x += 15;
@@ -199,12 +179,17 @@ void    visualGame::loadCaptured(vector<char> &captured, const string color)
             obj.x += 19;
         if (captured.at(i) == 'N')
             obj.x += 5;
-    }
 
-    if (color == "white")
-        _aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
-    if (color == "black")
-        _aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
+        if (obj.x >= 800 || i == captured.size() - 1
+            || (i != captured.size() - 1 && captured.at(i) != captured.at(i + 1)))
+        {
+            obj.x = 760;
+            if (color == "white")
+                _aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
+            if (color == "black")
+                _aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
+        }
+    }
 
     loadScore(color, obj.y);
 }
