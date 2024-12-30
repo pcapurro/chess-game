@@ -134,6 +134,39 @@ bool    visualGame::isCodeDetected(void)
     return (false);
 }
 
+bool    visualGame::isBoardTargetZone(const string coord, const int x, const int y)
+{
+    if (_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
+        return (true);
+
+    if (x >= 777 && x <= _width && y >= 724 && y <= _height)
+        return (true);
+
+    if (x >= 26 && x <= 54 && y >= 725 && y <= 752)
+        return (true);
+
+    if (x > 780 && y < 60)
+        return (true);
+
+    return (false);
+}
+
+bool    visualGame::isColorTargetZone(const string coord, const int x, const int y)
+{
+    if (x >= 777 && x <= _width && y >= 724 && y <= _height)
+        return (true);
+
+    return (false);
+}
+
+bool    visualGame::isEvaluationTargetZone(const string coord, const int x, const int y)
+{
+    if (x >= 26 && x <= 54 && y >= 725 && y <= 752)
+        return (true);
+
+    return (false);
+}
+
 string  visualGame::waitForEvent(void)
 {
     SDL_Event   event;
@@ -160,73 +193,61 @@ string  visualGame::waitForEvent(void)
             if (_code == true && isCodeDetected() == true)
                 _code = false, cout << "You're pretty good!" << endl;
 
-            if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP
-                || event.type == SDL_MOUSEMOTION)
+            coord = getCoord(event.button.x, event.button.y);
+            _actualCoords = coord;
+
+            if (event.type == SDL_MOUSEMOTION)
             {
-                coord = getCoord(event.button.x, event.button.y);
-
-                if (coord != "none")
-                    _actualCoords = coord;
-                else
-                    _actualCoords.clear();
-
-                if ((_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
-                    || (event.button.x >= 777 && event.button.x <= _width && event.button.y >= 724 && event.button.y <= _height)
-                    || (event.button.x >= 26 && event.button.x <= 54 && event.button.y >= 725 && event.button.y <= 752)
-                    || (event.button.x > 780 && event.button.y < 60))
-                {
+                if (isBoardTargetZone(coord, event.button.x, event.button.y) == true)
                     SDL_SetCursor(_playCursor);
-                    if (event.type == SDL_MOUSEBUTTONDOWN)
-                    {
-                        if (event.button.x > 780 && event.button.y < 60)
-                            return ("restart");
-                        if (coord != "none")
-                            _droppedSrc = coord;
-                    }
-                }
                 else
                     SDL_SetCursor(_normalCursor);
-                
-                if (event.type == SDL_MOUSEBUTTONUP)
-                {
-                    if (event.button.button == SDL_BUTTON_MIDDLE)
-                        _visualCoords = !_visualCoords, displayGame(event.button.x, event.button.y);
-
-                    if (_droppedSrc == coord)
-                        _clickSrc = coord, _droppedSrc.clear();
-                    else
-                    {
-                        if (_droppedSrc == "none" || coord == "none" || _clickSrc == "none" || coord == "")
-                        {
-                            if (event.button.x >= 777 && event.button.x <= _width
-                                && event.button.y >= 724 && event.button.y <= _height)
-                                ++_boardColor == COLOR_NB ? _boardColor = 0 : _boardColor;
-
-                            if ((event.button.x >= 26 && event.button.x <= 54
-                                && event.button.y >= 725 && event.button.y <= 752))
-                                _evaluation = !_evaluation;
-                            
-                            return ("none");
-                        }
-
-                        _droppedDest = coord;
-                        if (_droppedSrc == "")
-                        {
-                            _droppedSrc = _clickSrc;
-                            if (_board->isLegal(_board->getType(_droppedSrc) + _droppedSrc + _droppedDest))
-                                displayMoveAnimation(_droppedSrc + _droppedDest);
-                        }
-
-                        if (isPromotion(coord) == true
-                            && _board->isLegal(_board->getType(_droppedSrc) + _droppedSrc + _droppedDest + 'Q') == true)
-                            coord = waitForPromotion(coord);
-
-                        return (getInput(coord));
-                    }
-                }
-                displayGame(event.button.x, event.button.y);
-                SDL_RenderPresent(_mainRenderer);
             }
+
+            if (event.type == SDL_MOUSEBUTTONDOWN)
+            {
+                if (isBoardTargetZone(coord, event.button.x, event.button.y) == true)
+                {
+                    if (event.button.x > 780 && event.button.y < 60)
+                        return ("restart");
+                    if (coord != "none")
+                        _droppedSrc = coord;
+                }
+
+                if (event.button.button == SDL_BUTTON_MIDDLE)
+                    _visualCoords = !_visualCoords;
+
+                if (isColorTargetZone(coord, event.button.x, event.button.y) == true)
+                    ++_boardColor == COLOR_NB ? _boardColor = 0 : _boardColor;
+                if (isEvaluationTargetZone(coord, event.button.x, event.button.y) == true)
+                    _evaluation = !_evaluation;
+            }
+
+            if (event.type == SDL_MOUSEBUTTONUP)
+            {
+                if (_droppedSrc == coord)
+                    _clickSrc = coord, _droppedSrc.clear();
+                else
+                {
+                    _droppedDest = coord;
+                    if (_droppedSrc == "")
+                    {
+                        _droppedSrc = _clickSrc;
+                        if (_board->isLegal(_board->getType(_droppedSrc) + _droppedSrc + _droppedDest))
+                            displayMoveAnimation(_droppedSrc + _droppedDest);
+                    }
+
+                    if (isPromotion(coord) == true
+                        && _board->isLegal(_board->getType(_droppedSrc) + _droppedSrc + _droppedDest + 'Q') == true)
+                        coord = waitForPromotion(coord);
+
+                    cout << "sending " << getInput(coord) << endl;
+
+                    return (getInput(coord));
+                }
+            }
+            displayGame(event.button.x, event.button.y);
+            SDL_RenderPresent(_mainRenderer);
         }
     }
     return ("error");

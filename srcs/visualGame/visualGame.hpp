@@ -134,6 +134,9 @@ class visualGame
         string      getVisualAnswer(void);
 
         bool        isCodeDetected(void);
+        bool        isColorTargetZone(const string coord, const int x, const int y);
+        bool        isEvaluationTargetZone(const string coord, const int x, const int y);
+        bool        isBoardTargetZone(const string coord, const int x, const int y);
 
         bool        isAbovePromotion(const int x, const int y, SDL_Rect obj);
         bool        isPromotion(const string coord);
