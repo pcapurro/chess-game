@@ -97,10 +97,10 @@ string  visualGame::waitForEvent(void)
                 || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
                 return ("end");
 
-            // _x = event.button.x, _y = event.button.y;
-            // if (_x > 850 || _x < 0 || _y > 800 || _y < 0)
-            //     _x = 0, _y = 0;
-            // _actualCoords = getCoord(_x, _y);
+            _x = event.button.x, _y = event.button.y;
+            if (_x > 850 || _x < 0 || _y > 800 || _y < 0)
+                _x = 0, _y = 0;
+            _actualCoords = getCoord(_x, _y);
 
             if (event.type == SDL_KEYDOWN)
                 reactKeyDown(event.key.keysym.sym);
@@ -123,8 +123,7 @@ string  visualGame::waitForEvent(void)
                     { reactMouseUp(); return (getInput(_actualCoords)); }
             }
 
-            displayGame();
-            SDL_RenderPresent(_mainRenderer);
+            displayGame(true);
         }
     }
     return ("error");

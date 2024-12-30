@@ -528,8 +528,7 @@ void    visualGame::displayMoveAnimation(const string move)
             destX > obj.x ? obj.x++ : obj.x--;
 
         _x = obj.x + 28, _y = obj.y + 40;
-        displayGame();
-        SDL_RenderPresent(_mainRenderer);
+        displayGame(true);
         usleep(500);
     }
 }
@@ -553,7 +552,7 @@ void    visualGame::displayPromotion(const char type, const string coord)
     SDL_RenderPresent(_mainRenderer);
 }
 
-void    visualGame::displayGame(void)
+void    visualGame::displayGame(const bool value)
 {
     SDL_RenderClear(_mainRenderer);
 
@@ -579,4 +578,7 @@ void    visualGame::displayGame(void)
     loadCoords();
 
     loadText(_board->getStateValue());
+
+    if (value == true)
+        SDL_RenderPresent(_mainRenderer);
 }

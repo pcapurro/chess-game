@@ -34,8 +34,7 @@ int		visualGame::visualLoop(void)
 
     while (_board->isGameOver() == false)
     {
-        displayGame();
-        SDL_RenderPresent(_mainRenderer);
+        displayGame(true);
 
         answer = getVisualAnswer();
         if (answer == "error" || answer == "restart"
@@ -60,18 +59,14 @@ int		visualGame::visualLoop(void)
 
         if (_evaluation == true)
         {
-            displayGame();
-            SDL_RenderPresent(_mainRenderer);
-
+            displayGame(true);
             _whiteScore = _board->getScore("white");
             _blackScore = _board->getScore("black");
         }
 
         _turn++;
     }
-    displayGame();
-    SDL_RenderPresent(_mainRenderer);
-
+    displayGame(true);
     _board->printEndGame(1);
 
     return (0);

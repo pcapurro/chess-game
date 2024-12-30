@@ -157,7 +157,7 @@ class visualGame
         void        loadCheckMate(void);
 
         void        displayPromotion(const char type, const string coord);
-        void        displayGame(void);
+        void        displayGame(const bool value = false);
         void        displayMoveAnimation(const string move);
     
         void        reactKeyDown(const int key);
