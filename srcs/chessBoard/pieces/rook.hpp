@@ -10,14 +10,14 @@ class Rook : public chessPiece
         Rook(const string color, const string pos) : chessPiece(color, pos) { _type = 'R'; }
         ~Rook() {};
 
-        virtual bool  isOnMyWay(const string target, const vector<string> boardCoords = {}, \
+        virtual bool isOnMyWay(const string target, const vector<string> boardCoords = {}, \
                                     const int value = 0, const string enPassant = "") const
         {
-            int src_x = _x;
-            int src_y = _y;
+            int	src_x = _x;
+            int	src_y = _y;
 
-            string  coords;
-            string  newCoords;
+            string	coords;
+            string	newCoords;
 
             (void) boardCoords;
             (void) value;

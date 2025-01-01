@@ -5,16 +5,16 @@ shellGame::shellGame(const bool blindMode, const bool sandBoxMode) : _blindMode(
 	_error = false;
 
 	_aiSide = -1;
-    _ai = nullptr;
+	_ai = nullptr;
    	if (_sandBoxMode == false)
-    {
-        _ai = new (nothrow) chessAi;
-        if (_ai == nullptr || _ai->fail() == true)
-            _error = true;
-        
-        srand(time(nullptr));
+	{
+		_ai = new (nothrow) chessAi;
+		if (_ai == nullptr || _ai->fail() == true)
+			_error = true;
+		
+		srand(time(nullptr));
 		_aiSide = rand() % 2;
-    }
+	}
 
 	_board = nullptr;
 	_checker = nullptr;

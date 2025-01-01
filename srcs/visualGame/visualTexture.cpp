@@ -13,12 +13,12 @@ visualTexture::~visualTexture()
 
 int	visualTexture::load(SDL_Renderer *renderer, const char *path, const char id)
 {
-    SDL_Surface	*surface;
+	SDL_Surface	*surface;
 
 	_id = id;
 	
 	surface = SDL_LoadBMP(path);
-    if (surface == NULL)
+	if (surface == NULL)
 		return (1);
 	else
 	{

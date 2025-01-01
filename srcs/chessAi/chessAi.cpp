@@ -21,7 +21,7 @@ chessAi::chessAi(void)
 		return ;
 	}
 
-	string command = "stockfish > .stockfish.answer";
+	string	command = "stockfish > .stockfish.answer";
 	_stream = popen(command.c_str(), "w");
 	if (!_stream)
 	{
@@ -73,7 +73,7 @@ string	chessAi::getBestMove(vector<string> moves) const
 	if (move == "")
 		return ("error");
 
-	size_t k = 0;
+	size_t	k = 0;
 	while (k != move.size() && word != "bestmove")
 	{
 		if (move[k] == ' ' || move[k] == '\n')

@@ -1,6 +1,6 @@
 #include "chessBoard.hpp"
 
-int		chessBoard::evaluateMaterial(const bool colorSwitch)
+int	chessBoard::evaluateMaterial(const bool colorSwitch)
 {
 	int			value = 0;
 	int			enemyMaterial = 0;
@@ -130,15 +130,15 @@ int		chessBoard::evaluateKingControl(const bool colorSwitch)
 		}
 	}
 
-    for (int i = 0; i != 8; i++)
-    {
-        for (int k = 0; k != 8; k++)
-        {
-            coord = "abcdefgh"[i] + to_string(k + 1);
+	for (int i = 0; i != 8; i++)
+	{
+		for (int k = 0; k != 8; k++)
+		{
+			coord = "abcdefgh"[i] + to_string(k + 1);
 			if (King("white", kingCoords).isOnMyWay(coord) == true)
 				kingWays.push_back(coord);
-        }
-    }
+		}
+	}
 
 	for (size_t i = 0; i != kingWays.size(); i++)
 	{
@@ -159,7 +159,7 @@ int		chessBoard::evaluateKingDefense(const bool colorSwitch)
 	int		value = 0;
 
 	if (_gameInfo._check == false && isDefeatNext() == true)
-        colorSwitch == true ? value -= 21000 : value += 50;
+		colorSwitch == true ? value -= 21000 : value += 50;
 
 	if (_gameInfo._color == "white" && _gameInfo._whiteCastled == true)
 		value += 15;
@@ -325,11 +325,11 @@ int		chessBoard::evaluateCenter(void)
 	return (value);
 }
 
-int		chessBoard::evaluateDev(void)
+int		chessBoard::evaluateDev(void) const
 {
 	int		value = 0;
 	int		atValue;
-    char    nb1, nb2;
+	char	nb1, nb2;
 
 	_gameInfo._color == "white" ? nb1 = '1', nb2 = '2' : nb1 = '8', nb2 = '7';
 

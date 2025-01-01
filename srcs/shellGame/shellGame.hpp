@@ -17,12 +17,12 @@ class shellGame
 		bool	fail(void) const { return (_error); };
 
 		void	shellRoutine(void);
-		string  getShellAnswer(void) const;
+		string	getShellAnswer(void) const;
 
 	private:
 
 		chessBoard		*_board;
-		chessAi         *_ai;
+		chessAi			*_ai;
 		algebraParser	*_checker;
 
 		const bool		_blindMode;

@@ -13,211 +13,211 @@
 
 # define COLORS \
 { \
-    {0, 135, 0}, \
-    {0, 0, 153}, \
-    {153, 0, 0}, \
-    {205, 102, 0}, \
-    {90, 0, 90}, \
-    {128, 64, 0}, \
-    {160, 160, 160} \
+	{0, 135, 0}, \
+	{0, 0, 153}, \
+	{153, 0, 0}, \
+	{205, 102, 0}, \
+	{90, 0, 90}, \
+	{128, 64, 0}, \
+	{160, 160, 160} \
 }
 
 typedef struct s_pieces
 {
-    visualTexture     king;
-    visualTexture     queen;
+	visualTexture	king;
+	visualTexture	queen;
 
-    visualTexture     bishop;
-    visualTexture     knight;
-    visualTexture     rook;
+	visualTexture	bishop;
+	visualTexture	knight;
+	visualTexture	rook;
 
-    visualTexture     pawn;
+	visualTexture	pawn;
 
-}   t_pieces;
+}	t_pieces;
 
 typedef struct s_texts
 {
-    visualTexture     whiteWon;
-    visualTexture     blackWon;
-    visualTexture     whiteToPlay;
-    visualTexture     blackToPlay;
-    visualTexture     draw;
+	visualTexture	whiteWon;
+	visualTexture	blackWon;
+	visualTexture	whiteToPlay;
+	visualTexture	blackToPlay;
+	visualTexture	draw;
 
-}   t_text;
+}	t_text;
 
 typedef struct s_letters
 {
-    visualTexture   a;
-    visualTexture   b;
-    visualTexture   c;
-    visualTexture   d;
+	visualTexture	a;
+	visualTexture	b;
+	visualTexture	c;
+	visualTexture	d;
 
-    visualTexture   e;
-    visualTexture   f;
-    visualTexture   g;
-    visualTexture   h;
+	visualTexture	e;
+	visualTexture	f;
+	visualTexture	g;
+	visualTexture	h;
 
-}   t_letters;
+}	t_letters;
 
 typedef struct s_numbers
 {
-    visualTexture zero;
-    visualTexture one;
-    visualTexture two;
-    visualTexture three;
-    visualTexture four;
+	visualTexture	zero;
+	visualTexture	one;
+	visualTexture	two;
+	visualTexture	three;
+	visualTexture	four;
 
-    visualTexture five;
-    visualTexture six;
-    visualTexture seven;
-    visualTexture eight;
-    visualTexture nine;
+	visualTexture	five;
+	visualTexture	six;
+	visualTexture	seven;
+	visualTexture	eight;
+	visualTexture	nine;
 
-}   t_numbers;
+}	t_numbers;
 
 typedef struct s_symbols
 {
-    visualTexture plus;
+	visualTexture	plus;
 
-    visualTexture checkMateWhite;
-    visualTexture checkMateBlack;
+	visualTexture	checkMateWhite;
+	visualTexture	checkMateBlack;
 
-}   t_symbols;
+}	t_symbols;
 
 typedef struct s_textures
 {
-    visualTexture   boardTexture;
-    visualTexture   promotion;
+	visualTexture	boardTexture;
+	visualTexture	promotion;
 
-    t_pieces        whiteTextures;
-    t_pieces        blackTextures;
+	t_pieces		whiteTextures;
+	t_pieces		blackTextures;
 
-    t_letters       letters;
-    t_numbers       numbers;
+	t_letters		letters;
+	t_numbers		numbers;
 
-    t_symbols       symbols;
+	t_symbols		symbols;
 
-    t_text          texts;
+	t_text		texts;
 
-}   t_textures;
+}	t_textures;
 
 class visualGame
 {
-    public:
+	public:
 
-        visualGame(const bool sandBoxMode);
-        ~visualGame(void);
+		visualGame(const bool sandBoxMode);
+		~visualGame(void);
 
-        void	    visualRoutine(void);
-        bool        fail(void) const { return (_error); }
+		void		visualRoutine(void);
+		bool		fail(void) const { return (_error); }
 
-    private:
+	private:
 
-        void        initializeGame(void);
-        void        setToDefault(void);
-        void        setToNullPtr(void);
+		void		initializeGame(void);
+		void		setToDefault(void);
+		void		setToNullPtr(void);
 
-        void        loadTexts(void);
-        void        loadLetters(void);
-        void        loadNumbers(void);
-        void        loadBoardTextures(void);
-        void        loadWhiteTextures(void);
-        void        loadBlackTextures(void);
-        void        loadTextures(void);
+		void		loadTexts(void);
+		void		loadLetters(void);
+		void		loadNumbers(void);
+		void		loadBoardTextures(void);
+		void		loadWhiteTextures(void);
+		void		loadBlackTextures(void);
+		void		loadTextures(void);
 
-        SDL_Texture *getTexture(const char type, const string color) const;
-        SDL_Rect    getRectangle(const string coords, const string type = "") const;
+		SDL_Texture	*getTexture(const char type, const string color) const;
+		SDL_Rect	getRectangle(const string coords, const string type = "") const;
 
-        string      getKingCoords(const string color) const;
+		string		getKingCoords(const string color) const;
 
-        int		    visualLoop(void);
-        string      getVisualAnswer(void); //
+		int			visualLoop(void);
+		string		getVisualAnswer(void); //
 
-        bool        isCodeDetected(void) const;
-        bool        isColorTargetZone(const int x, const int y) const;
-        bool        isEvaluationTargetZone(const int x, const int y) const;
-        bool        isBoardTargetZone(const string coord, const int x, const int y) const;
+		bool		isCodeDetected(void) const;
+		bool		isColorTargetZone(const int x, const int y) const;
+		bool		isEvaluationTargetZone(const int x, const int y) const;
+		bool		isBoardTargetZone(const string coord, const int x, const int y) const;
 
-        bool        isAbovePromotion(const int x, const int y, SDL_Rect obj) const;
-        bool        isPromotion(const string coord) const;
+		bool		isAbovePromotion(const int x, const int y, SDL_Rect obj) const;
+		bool		isPromotion(const string coord) const;
 
-        void        loadMap(void);
-        void        loadCoords(void);
-        void        loadPath(void);
-        void        loadEvaluation(const int value);
-        void        loadScore(string color, const int y);
-        void        loadCapturedComplex(vector<char> &captured, const string color);
-        void        loadCaptured(vector<char> &captured, const string color);
-        void        loadCaptures(void);
-        void        loadMapColors(void);
-        void        loadBoard(const string color);
-        void        loadText(const int value);
-        void        loadCheck(void);
-        void        loadDraw(void);
-        void        loadCheckMate(void);
+		void		loadMap(void);
+		void		loadCoords(void);
+		void		loadPath(void);
+		void		loadEvaluation(const int value);
+		void		loadScore(string color, const int y);
+		void		loadCapturedComplex(vector<char> &captured, const string color);
+		void		loadCaptured(vector<char> &captured, const string color);
+		void		loadCaptures(void);
+		void		loadMapColors(void);
+		void		loadBoard(const string color);
+		void		loadText(const int value);
+		void		loadCheck(void);
+		void		loadDraw(void);
+		void		loadCheckMate(void);
 
-        void        displayPromotion(const char type, const string coord);
-        void        displayGame(const bool value = false);
-        void        displayMoveAnimation(const string move);
-    
-        void        reactKeyDown(const int key);
-        void        reactMouseMotion(void);
-        void        reactMouseDown(const int key);
-        void        reactMouseUp(void);
+		void		displayPromotion(const char type, const string coord);
+		void		displayGame(const bool value = false);
+		void		displayMoveAnimation(const string move);
+	
+		void		reactKeyDown(const int key);
+		void		reactMouseMotion(void);
+		void		reactMouseDown(const int key);
+		void		reactMouseUp(void);
 
-        string      waitForEvent(void);
-        string      waitForPromotion(void);
-        string      waitForNewGame(void);
+		string		waitForEvent(void);
+		string		waitForPromotion(void);
+		string		waitForNewGame(void);
 
-        string      getInput(const string coord);
+		string		getInput(const string coord);
 
-        string      getCoord(const int x, const int y) const;
-        string      getTurnColor(void) const;
+		string		getCoord(const int x, const int y) const;
+		string		getTurnColor(void) const;
 
-        vector<char>    getOrderedCaptured(const vector<char> &captured) const;
+		vector<char>	getOrderedCaptured(const vector<char> &captured) const;
 
-        const bool		_sandBoxMode;
+		const bool		_sandBoxMode;
 
-        const int       _width;
-        const int       _height;
+		const int		_width;
+		const int		_height;
 
-        int             _boardColor;
-        vector<int>     _boardColors;
+		int				_boardColor;
+		vector<int>		_boardColors;
 
-        bool            _evaluation;
-        int             _whiteScore;
-        int             _blackScore;
+		bool			_evaluation;
+		int				_whiteScore;
+		int				_blackScore;
 
-        bool                _code;
-        vector<SDL_Keycode> _keyHistory;
+		bool				_code;
+		vector<SDL_Keycode>	_keyHistory;
 
-        SDL_Window      *_mainWindow;
-        SDL_Renderer    *_mainRenderer;
+		SDL_Window		*_mainWindow;
+		SDL_Renderer	*_mainRenderer;
 
-        SDL_Cursor      *_normalCursor;
-        SDL_Cursor      *_playCursor;
+		SDL_Cursor		*_normalCursor;
+		SDL_Cursor		*_playCursor;
 
-        t_textures      *_textures;
+		t_textures		*_textures;
 
-        chessBoard      *_board;
-        chessAi         *_ai;
+		chessBoard		*_board;
+		chessAi			*_ai;
 
-        int             _x;
-        int             _y;
+		int				_x;
+		int				_y;
 
-        string          _droppedSrc;
-        string          _clickSrc;
-        string          _droppedDest;
+		string			_droppedSrc;
+		string			_clickSrc;
+		string			_droppedDest;
 
-        bool            _visualCoords;
-        string          _actualCoords;
+		bool			_visualCoords;
+		string			_actualCoords;
 
-        string          _lastMove;
+		string			_lastMove;
 
-        int             _aiSide;
-        int             _turn;
+		int				_aiSide;
+		int				_turn;
 
-        bool            _error;
+		bool			_error;
 };
 
 #endif

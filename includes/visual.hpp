@@ -5,9 +5,9 @@
 
 # include <SDL2/SDL.h>
 
-int 	initializeVisualGame(const bool sandBoxMode);
+int		initializeVisualGame(const bool sandBoxMode);
 
-void    printInvalidArguments(void);
-int     main(const int argc, const char **argv);
+void	printInvalidArguments(void);
+int		main(const int argc, const char **argv);
 
 #endif
