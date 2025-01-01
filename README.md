@@ -16,7 +16,7 @@ Use `make shell` to compile a shell version of the game. Type `./shell-chess` to
 
 <br/>
 
-**In both modes**: 
+**In both versions**: 
 
 You can specify `--sandbox` to play against yourself. Otherwise, you will play by default against Stockfish (elo randomly set between 1 400 and 2 000).
 
@@ -24,7 +24,7 @@ At the end of a game, a summary is written in algebraic notation in the terminal
 
 <br/>
 
-**In classical mode**:
+**In classical version**:
 
 Use `LMB` on the right bottom corner to switch the colors of the board, or on the left side of the board to enable/disable the score bar.
 
@@ -38,7 +38,7 @@ A secret key sequence can unlock an easter egg if typed during a game.
 
 <br/>
 
-**In shell mode**:
+**In shell version**:
 
 Type the move you want to play using algebraic notation (e.g.: 'e4', 'e4-e5', 'Bc4', 'Nf3xg5', 'Qh5xf7#').
 
