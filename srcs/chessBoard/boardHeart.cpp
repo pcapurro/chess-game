@@ -216,7 +216,8 @@ void	chessBoard::loadMove(const string move)
 		_gameInfo._lastMove.src = {move[1], move[2]};
 		_gameInfo._lastMove.dest = move.c_str() + 3;
 
-		if (_gameInfo._lastMove.dest == _gameInfo._enPassantDest)
+		if (_gameInfo._lastMove.dest == _gameInfo._enPassantDest
+			|| _board.at(getAtValue(move.c_str() + 3)).piece != nullptr)
 			_gameInfo._lastMove.action = 'x';
 		else
 			_gameInfo._lastMove.action = '-';

@@ -52,7 +52,7 @@ int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 	initWelcome();
 	printLoading();
 
-	shellGame   *gameShell;
+	shellGame	*gameShell;
 			
 	gameShell = new (nothrow) shellGame(blindMode, sandBoxMode);
 	if (gameShell == nullptr)

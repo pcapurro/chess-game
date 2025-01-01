@@ -13,20 +13,22 @@ string	shellGame::getShellAnswer(void) const
 		if (answer == "error")
 			{ systemFailed(true, "Stockfish failed."); return ("error"); }
 
-		answer = _board->getType(string{answer[0], answer[1]} + answer);
+		char	type = _board->getType(string{answer[0], answer[1]});
 
-		if (answer == "Ke1g1" || answer == "Ke8g8")
-			answer = "O-O";
-		if (answer == "Ke1c1" || answer == "Ke8c8")
-			answer = "O-O-O";
+		if (type + answer == "Ke1g1" || type + answer == "Ke8g8")
+			return ("O-O");
+		if (type + answer == "Ke1c1" || type + answer == "Ke8c8")
+			return ("O-O-O");
 
-		if (answer != "O-O" && answer != "O-O-O")
-		{
-			if (answer[0] != 'P')
-				answer = string{answer[0], answer[1], answer[2], '-'} + (answer.c_str() + 3);
-			else
-				answer = string{answer[1], answer[2], '-'} + (answer.c_str() + 3);
-		}
+		string	src = string{answer[0], answer[1]};
+		string	dest = string{answer[2], answer[3]};
+
+		if (type != 'P')
+			src = string{type} + src;
+		if (answer.size() == 3)
+			dest += answer[2];
+
+		_board->getType(dest) != ' ' ? answer = src + 'x' + dest : answer = src + '-' + dest;
 
 		return (answer);
 	}
@@ -35,6 +37,7 @@ string	shellGame::getShellAnswer(void) const
 		cout << ERASE_LINE << "> ";
 		getline(cin, answer);
 		cout << "\033[1A";
+
 		if (cin.fail() == true)
 			return ("error");
 	}
@@ -54,7 +57,9 @@ void	shellGame::shellRoutine(void)
 		_board->printEvent(_checker->fail(), _board->fail(), _blindMode);
 		input = getShellAnswer();
 		if (input == "error")
-			{ _error = true; systemFailed(true, "getline() failed."); return ; }
+			{ _error = true; systemFailed(true, "getline() failed.");}
+		if (input == "end" || input == "error")
+			return ;
 
 		*_checker = input;
 		move = _checker->getParsedMove();
