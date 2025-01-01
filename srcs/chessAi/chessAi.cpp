@@ -53,7 +53,7 @@ string	chessAi::getBestMove(vector<string> moves) const
 	string	history, command;
 	string	word, move, bestMove;
 
-	for (int i = 0; i != moves.size(); i++)
+	for (size_t i = 0; i != moves.size(); i++)
 		history += moves.at(i) + " ";
 
 	command = "position startpos moves " + history;
@@ -73,7 +73,7 @@ string	chessAi::getBestMove(vector<string> moves) const
 	if (move == "")
 		return ("error");
 
-	int k = 0;
+	size_t k = 0;
 	while (k != move.size() && word != "bestmove")
 	{
 		if (move[k] == ' ' || move[k] == '\n')

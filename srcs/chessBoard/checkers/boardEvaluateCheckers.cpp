@@ -98,7 +98,7 @@ bool    chessBoard::checkMateInOne(void)
     vector<string>  legalMoves;
 
     legalMoves = getLegalMoves();
-    for (int i = 0; i != legalMoves.size(); i++)
+    for (size_t i = 0; i != legalMoves.size(); i++)
     {
         move = legalMoves.at(i);
         if (move[0] != 'O')

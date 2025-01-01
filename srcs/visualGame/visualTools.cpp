@@ -101,7 +101,7 @@ vector<char>    visualGame::getOrderedCaptured(const vector<char> &captured)
 {
     vector<char>    newCaptured;
 
-    for (int i = 0; i != captured.size(); i++)
+    for (size_t i = 0; i != captured.size(); i++)
     {
         if (find(newCaptured.begin(), newCaptured.end(), captured.at(i)) == newCaptured.end())
         {
@@ -233,7 +233,7 @@ bool    visualGame::isCodeDetected(void)
             SDLK_RIGHT, SDLK_LEFT, SDLK_RIGHT, SDLK_b, SDLK_a, SDLK_RETURN};
 
         vector<SDL_Keycode> sequence;
-        for (int i = _keyHistory.size() - 11; i != _keyHistory.size(); i++)
+        for (size_t i = _keyHistory.size() - 11; i != _keyHistory.size(); i++)
             sequence.push_back(_keyHistory.at(i));
 
         if (code == sequence)
@@ -260,7 +260,7 @@ bool    visualGame::isBoardTargetZone(const string coord, const int x, const int
     return (false);
 }
 
-bool    visualGame::isColorTargetZone(const string coord, const int x, const int y)
+bool    visualGame::isColorTargetZone(const int x, const int y)
 {
     if (x >= 777 && x <= _width && y >= 724 && y <= _height)
         return (true);
@@ -268,7 +268,7 @@ bool    visualGame::isColorTargetZone(const string coord, const int x, const int
     return (false);
 }
 
-bool    visualGame::isEvaluationTargetZone(const string coord, const int x, const int y)
+bool    visualGame::isEvaluationTargetZone(const int x, const int y)
 {
     if (x >= 26 && x <= 54 && y >= 725 && y <= 752)
         return (true);

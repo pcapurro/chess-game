@@ -30,7 +30,7 @@ void	printInvalidArguments(void)
 
 int	main(const int argc, const char **argv)
 {
-    if (argc > 2 || argc == 2 && string(argv[1]) != "--sandbox")
+    if (argc > 2 || (argc == 2 && string(argv[1]) != "--sandbox"))
         printInvalidArguments();
     else
     {

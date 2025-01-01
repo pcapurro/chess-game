@@ -255,7 +255,7 @@ int chessBoard::playMove(t_move structureMove, const string stringMove)
         }
         else
         {
-            if ((_gameInfo._lastMove.action == 'x' || _gameInfo._lastMove.action == '-')
+            if ((action == 'x' || action == '-')
                 && isThereSomething(dest) == false
                 && _gameInfo._enPassant == true && _gameInfo._enPassantDest == dest)
                 priseEnPassant();

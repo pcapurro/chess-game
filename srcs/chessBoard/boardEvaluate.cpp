@@ -140,7 +140,7 @@ int		chessBoard::evaluateKingControl(const bool colorSwitch)
         }
     }
 
-	for (int i = 0; i != kingWays.size(); i++)
+	for (size_t i = 0; i != kingWays.size(); i++)
 	{
 		watchers = getWatchers(kingWays.at(i));
 		while (watchers.size() != 0)
@@ -192,7 +192,7 @@ int		chessBoard::evaluateKingDefense(const bool colorSwitch)
 			}
 		}
 
-		for (int i = 0; i != kingWays.size(); i++)
+		for (size_t i = 0; i != kingWays.size(); i++)
 		{
 			watchers = getWatchers(kingWays.at(i));
 			while (watchers.size() != 0)

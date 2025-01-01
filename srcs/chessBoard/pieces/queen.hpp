@@ -22,6 +22,7 @@ class Queen : public chessPiece
 
             (void) boardCoords;
             (void) value;
+            (void) enPassant;
 
             for (int k = 0; k != 4; k++)
             {

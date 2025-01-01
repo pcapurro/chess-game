@@ -30,9 +30,9 @@ void    visualGame::reactMouseDown(const int key)
     if (key == SDL_BUTTON_RIGHT)
         _visualCoords = !_visualCoords;
 
-    if (isColorTargetZone(_actualCoords, _x, _y) == true)
+    if (isColorTargetZone(_x, _y) == true)
         ++_boardColor == COLOR_NB ? _boardColor = 0 : _boardColor;
-    if (isEvaluationTargetZone(_actualCoords, _x, _y) == true)
+    if (isEvaluationTargetZone(_x, _y) == true)
         _evaluation = !_evaluation;
 }
 

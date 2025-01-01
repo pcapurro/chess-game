@@ -43,7 +43,7 @@ vector<string>  chessBoard::getLegalMoves(void)
                 && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
             {
                 availaibleTargets = getPossibleTargets(coord);
-                for (int j = 0; j != availaibleTargets.size(); j++)
+                for (size_t j = 0; j != availaibleTargets.size(); j++)
                 {
                     type = _board.at(getAtValue(coord)).piece->getType();
                     move = string(1, type) + availaibleTargets.at(j);
@@ -59,7 +59,7 @@ vector<string>  chessBoard::getLegalMoves(void)
         }
     }
 
-    for (int i = 0; i != possibleMoves.size(); i++)
+    for (size_t i = 0; i != possibleMoves.size(); i++)
     {
         if (isLegal(possibleMoves.at(i)) == true)
             legalMoves.push_back(possibleMoves.at(i));
@@ -230,7 +230,7 @@ stack<chessPiece *> chessBoard::orderByValue(stack<chessPiece *> materials)
 
     for (int i = 0; i != 5; i++)
     {
-        for (int k = 0; k != vMaterials.size(); k++)
+        for (size_t k = 0; k != vMaterials.size(); k++)
         {
             if (i == 4 && vMaterials.at(k)->getType() == 'K')
                 stack.push(vMaterials.at(k));

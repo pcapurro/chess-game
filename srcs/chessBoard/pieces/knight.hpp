@@ -18,6 +18,7 @@ class Knight : public chessPiece
 
             (void) boardCoords;
             (void) value;
+            (void) enPassant;
 
             if (algebraParser::isChessCoord(target[0]) != true
                 || algebraParser::isChessDigit(target[1]) != true)

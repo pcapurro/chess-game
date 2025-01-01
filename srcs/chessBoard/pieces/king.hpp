@@ -18,6 +18,7 @@ class King : public chessPiece
 
             (void) boardCoords;
             (void) value;
+            (void) enPassant;
 
             if ((_x + 1 == dest_x && _y - 1 == dest_y) || (_x + 1 == dest_x && _y == dest_y))
                 return (true);

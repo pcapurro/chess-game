@@ -146,7 +146,6 @@ void    visualGame::loadCapturedComplex(vector<char> &captured, const string col
 {
     SDL_Rect        obj;
     SDL_Texture     *texture;
-    visualTexture   *textures;
 
     visualTexture *white[5] = {&_textures->whiteTextures.pawn, &_textures->whiteTextures.bishop, \
         &_textures->whiteTextures.knight, &_textures->whiteTextures.rook, &_textures->whiteTextures.queen};
@@ -160,7 +159,7 @@ void    visualGame::loadCapturedComplex(vector<char> &captured, const string col
         obj = getRectangle("", "bscore");
 
     obj.w = 33, obj.h = 33;
-    for (int i = 0, same = 1; i != captured.size(); i++)
+    for (size_t i = 0; i != captured.size(); i++)
     {
         for (int k = 0; k != 5; k++)
         {
@@ -198,7 +197,6 @@ void    visualGame::loadCaptured(vector<char> &captured, const string color)
 {
     SDL_Rect        obj;
     SDL_Texture     *texture;
-    visualTexture   *textures;
 
     visualTexture *white[5] = {&_textures->whiteTextures.pawn, &_textures->whiteTextures.bishop, \
         &_textures->whiteTextures.knight, &_textures->whiteTextures.rook, &_textures->whiteTextures.queen};
@@ -220,7 +218,7 @@ void    visualGame::loadCaptured(vector<char> &captured, const string color)
 
     char object = ' ';
 
-    for (int i = 0; i != captured.size(); i++)
+    for (size_t i = 0; i != captured.size(); i++)
     {
         if (object == ' ' || object != captured.at(i))
         {
@@ -371,7 +369,7 @@ void    visualGame::loadCoords(void)
 
     if (_x >= 105 && _x <= 745 && _y >= 80 && _y <= 720
         && _visualCoords == true && _actualCoords != "none" && _actualCoords != ""
-        && (_sandBoxMode == true || _aiSide % 2 == 0 && _turn % 2 != 0 || _aiSide % 2 != 0 && _turn % 2 == 0))
+        && (_sandBoxMode == true || ((_aiSide % 2 == 0 && _turn % 2 != 0) || (_aiSide % 2 != 0 && _turn % 2 == 0))))
     {
         SDL_Texture *texture;
 
