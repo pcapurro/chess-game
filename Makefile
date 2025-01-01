@@ -57,11 +57,11 @@ OBJSS = $(SRCS_S:.cpp=.o)
 
 ## === RULES === ##
 
+all: $(NAMEV) $(NAMES)
+
 visual: $(NAMEV)
 
 shell: $(NAMES)
-
-all: $(NAMEV) $(NAMES)
 
 $(NAMEV): $(OBJSV)
 	$(CXX) $(CXXFLAGS) $(OBJSV) -o $(NAMEV) $(SDLFLAG)

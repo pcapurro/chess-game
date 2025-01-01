@@ -109,8 +109,8 @@ int	main(const int argc, const char **argv)
 		printInvalidArguments();
 	else
 	{
-		bool    sandBoxMode = false;
-		bool    blindMode = false;
+		bool	sandBoxMode = false;
+		bool	blindMode = false;
 
 		if (argc > 1)
 		{
