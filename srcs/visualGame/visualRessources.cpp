@@ -155,7 +155,7 @@ void	visualGame::loadBoardTextures(void)
 		"./materials/symbols/checkmate-black.bmp", 'c');
 
 	value += _textures->promotion.load(_mainRenderer, \
-		"./materials/promotion.bmp");
+		"./materials/symbols/promotion.bmp");
 
 	value += _textures->symbols.plus.load(_mainRenderer, \
 		"./materials/symbols/plus.bmp");
