@@ -2,6 +2,7 @@
 # define VISUALGAME_HPP
 
 # include "../../includes/visual.hpp"
+# include "./visualObjects.hpp"
 # include "./visualTexture.hpp"
 # include "../chessBoard/chessBoard.hpp"
 # include "../chessAi/chessAi.hpp"
@@ -18,85 +19,6 @@
 	{128, 64, 0}, \
 	{160, 160, 160} \
 }
-
-typedef struct s_pieces
-{
-	visualTexture	king;
-	visualTexture	queen;
-
-	visualTexture	bishop;
-	visualTexture	knight;
-	visualTexture	rook;
-
-	visualTexture	pawn;
-
-}	t_pieces;
-
-typedef struct s_texts
-{
-	visualTexture	whiteWon;
-	visualTexture	blackWon;
-	visualTexture	whiteToPlay;
-	visualTexture	blackToPlay;
-	visualTexture	draw;
-
-}	t_text;
-
-typedef struct s_letters
-{
-	visualTexture	a;
-	visualTexture	b;
-	visualTexture	c;
-	visualTexture	d;
-
-	visualTexture	e;
-	visualTexture	f;
-	visualTexture	g;
-	visualTexture	h;
-
-}	t_letters;
-
-typedef struct s_numbers
-{
-	visualTexture	zero;
-	visualTexture	one;
-	visualTexture	two;
-	visualTexture	three;
-	visualTexture	four;
-
-	visualTexture	five;
-	visualTexture	six;
-	visualTexture	seven;
-	visualTexture	eight;
-	visualTexture	nine;
-
-}	t_numbers;
-
-typedef struct s_symbols
-{
-	visualTexture	plus;
-
-	visualTexture	checkMateWhite;
-	visualTexture	checkMateBlack;
-
-}	t_symbols;
-
-typedef struct s_textures
-{
-	visualTexture	boardTexture;
-	visualTexture	promotion;
-
-	t_pieces		whiteTextures;
-	t_pieces		blackTextures;
-
-	t_letters		letters;
-	t_numbers		numbers;
-
-	t_symbols		symbols;
-
-	t_text		texts;
-
-}	t_textures;
 
 class visualGame
 {
@@ -179,16 +101,6 @@ class visualGame
 		const int		_width;
 		const int		_height;
 
-		int				_boardColor;
-		vector<int>		_boardColors;
-
-		bool			_evaluation;
-		int				_whiteScore;
-		int				_blackScore;
-
-		bool				_code;
-		vector<SDL_Keycode>	_keyHistory;
-
 		SDL_Window		*_mainWindow;
 		SDL_Renderer	*_mainRenderer;
 
@@ -200,20 +112,7 @@ class visualGame
 		chessBoard		*_board;
 		chessAi			*_ai;
 
-		int				_x;
-		int				_y;
-
-		string			_droppedSrc;
-		string			_clickSrc;
-		string			_droppedDest;
-
-		bool			_visualCoords;
-		string			_actualCoords;
-
-		string			_lastMove;
-
-		int				_aiSide;
-		int				_turn;
+		t_visual_infos	visualInfo;
 
 		bool			_error;
 };

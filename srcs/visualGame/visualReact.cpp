@@ -2,20 +2,23 @@
 
 void	visualGame::reactKeyDown(const int key)
 {
-	if (_code == true)
+	if (visualInfo._code == true)
 	{
-		_keyHistory.push_back(key);
-		if (_keyHistory.size() > 11)
-			_keyHistory.erase(_keyHistory.begin());
+		visualInfo._keyHistory.push_back(key);
+		if (visualInfo._keyHistory.size() > 11)
+			visualInfo._keyHistory.erase(visualInfo._keyHistory.begin());
 
 		if (isCodeDetected() == true)
-			_code = false, cout << "You're pretty good!" << endl;
+			visualInfo._code = false, cout << "You're pretty good!" << endl;
 	}
 }
 
 void	visualGame::reactMouseMotion(void)
 {
-	if (isBoardTargetZone(_actualCoords, _x, _y) == true)
+	int	x = visualInfo._x;
+	int	y = visualInfo._y;
+
+	if (isBoardTargetZone(visualInfo._actualCoords, x, y) == true)
 		SDL_SetCursor(_playCursor);
 	else
 		SDL_SetCursor(_normalCursor);
@@ -23,31 +26,35 @@ void	visualGame::reactMouseMotion(void)
 
 void	visualGame::reactMouseDown(const int key)
 {
-	if (isBoardTargetZone(_actualCoords, _x, _y) == true \
-		&& _actualCoords != "none")
-		_droppedSrc = _actualCoords;
+	int	x = visualInfo._x;
+	int	y = visualInfo._y;
+
+	if (isBoardTargetZone(visualInfo._actualCoords, x, y) == true \
+		&& visualInfo._actualCoords != "none")
+		visualInfo._droppedSrc = visualInfo._actualCoords;
 
 	if (key == SDL_BUTTON_RIGHT)
-		_visualCoords = !_visualCoords;
+		visualInfo._visualCoords = !visualInfo._visualCoords;
 
-	if (isColorTargetZone(_x, _y) == true)
-		++_boardColor == COLOR_NB ? _boardColor = 0 : _boardColor;
-	if (isEvaluationTargetZone(_x, _y) == true)
-		_evaluation = !_evaluation;
+	if (isColorTargetZone(x, y) == true)
+		++visualInfo._boardColor == COLOR_NB ? visualInfo._boardColor = 0 : visualInfo._boardColor;
+	if (isEvaluationTargetZone(x, y) == true)
+		visualInfo._evaluation = !visualInfo._evaluation;
 }
 
 void	visualGame::reactMouseUp(void)
 {
-	_droppedDest = _actualCoords;
-	if (_droppedSrc == "")
+	visualInfo._droppedDest = visualInfo._actualCoords;
+	if (visualInfo._droppedSrc == "")
 	{
-		_droppedSrc = _clickSrc;
-		if (_board->isLegal(_board->getType(_droppedSrc) + _droppedSrc + _droppedDest))
-			displayMoveAnimation(_droppedSrc + _droppedDest);
+		visualInfo._droppedSrc = visualInfo._clickSrc;
+		if (_board->isLegal(_board->getType(visualInfo._droppedSrc) + \
+			visualInfo._droppedSrc + visualInfo._droppedDest))
+			displayMoveAnimation(visualInfo._droppedSrc + visualInfo._droppedDest);
 	}
 
-	if (isPromotion(_actualCoords) == true
-		&& _board->isLegal(_board->getType(_droppedSrc) + \
-			_droppedSrc + _droppedDest + 'Q') == true)
-		_actualCoords = waitForPromotion();
+	if (isPromotion(visualInfo._actualCoords) == true
+		&& _board->isLegal(_board->getType(visualInfo._droppedSrc) + \
+			visualInfo._droppedSrc + visualInfo._droppedDest + 'Q') == true)
+		visualInfo._actualCoords = waitForPromotion();
 }

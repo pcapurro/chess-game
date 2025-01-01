@@ -6,7 +6,7 @@ string	visualGame::getVisualAnswer(void)
 {
 	string	answer;
 
-	if (_sandBoxMode == false && _turn % 2 == _aiSide)
+	if (_sandBoxMode == false && visualInfo._turn % 2 == visualInfo._aiSide)
 	{
 		answer = _ai->getBestMove(_board->getHistory());
 		if (answer == "error")
@@ -51,20 +51,20 @@ int	visualGame::visualLoop(void)
 		{
 			if (_board->playMove({}, answer) == FAIL)
 				continue ;
-			_lastMove = answer.c_str() + 1;
+			visualInfo._lastMove = answer.c_str() + 1;
 			
 			if (_board->isAllocated() == false)
 				return (1);
 		}
 
-		if (_evaluation == true)
+		if (visualInfo._evaluation == true)
 		{
 			displayGame(true);
-			_whiteScore = _board->getScore("white");
-			_blackScore = _board->getScore("black");
+			visualInfo._whiteScore = _board->getScore("white");
+			visualInfo._blackScore = _board->getScore("black");
 		}
 
-		_turn++;
+		visualInfo._turn++;
 	}
 	displayGame(true);
 	_board->printEndGame(1);
