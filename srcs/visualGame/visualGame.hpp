@@ -6,9 +6,6 @@
 # include "../chessBoard/chessBoard.hpp"
 # include "../chessAi/chessAi.hpp"
 
-# define WIDTH 850
-# define HEIGHT 800
-
 # define COLOR_NB 7
 
 # define COLORS \

@@ -1,10 +1,7 @@
 #ifndef CHESSPIECE_HPP
 # define CHESSPIECE_HPP
 
-# include <iostream>
-# include <vector>
-
-using namespace std;
+# include "../../../includes/game.hpp"
 
 class chessPiece
 {

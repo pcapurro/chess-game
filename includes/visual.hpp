@@ -5,6 +5,9 @@
 
 # include <SDL2/SDL.h>
 
+# define WIDTH 850
+# define HEIGHT 800
+
 int		initializeVisualGame(const bool sandBoxMode);
 
 void	printInvalidArguments(void);
