@@ -403,10 +403,13 @@ void	visualGame::loadCoords(void)
 
 void	visualGame::loadBoard(const string color)
 {
-	char		objType;
+	char		objType ;
 	string		coords;
 	string		objColor;
 	SDL_Rect	obj;
+
+	obj.w = 80, obj.h = 80;
+	obj.x = 0, obj.y = 0;
 
 	for (int i = 0; i != 8; i++)
 	{
@@ -421,7 +424,6 @@ void	visualGame::loadBoard(const string color)
 				if (coords != _droppedSrc)
 				{
 					obj = getRectangle(coords);
-					obj.h = 80, obj.w = 80;
 
 					if (obj.x > 0 && obj.y > 0 && obj.x < _width && obj.y < _height)
 						SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), NULL, &obj);
