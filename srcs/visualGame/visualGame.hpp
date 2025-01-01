@@ -129,7 +129,7 @@ class visualGame
 		string		getKingCoords(const string color) const;
 
 		int			visualLoop(void);
-		string		getVisualAnswer(void); //
+		string		getVisualAnswer(void);
 
 		bool		isCodeDetected(void) const;
 		bool		isColorTargetZone(const int x, const int y) const;
