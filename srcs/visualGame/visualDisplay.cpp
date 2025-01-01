@@ -567,7 +567,8 @@ void	visualGame::displayGame(const bool value)
 	else
 		loadBoard("white"), loadBoard("black");
 
-	loadCoords();
+	if (_board->getStateValue() == 0)
+		loadCoords();
 
 	loadText(_board->getStateValue());
 
