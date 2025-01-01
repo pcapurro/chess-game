@@ -8,6 +8,7 @@ size_t	chessBoard::getAtValue(const string coord) const
 			&& _board.at(i).coord[1] == coord[1])
 			return (i);
 	}
+
 	return (0);
 }
 
@@ -20,6 +21,7 @@ vector<string>	chessBoard::getPiecesCoords(void) const
 		if (_board.at(i).piece != nullptr && _board.at(i).piece->isVisible() == true)
 			coords.push_back(_board.at(i).coord);
 	}
+
 	return (coords);
 }
 
@@ -103,6 +105,7 @@ int	chessBoard::getStateValue(void) const
 		return (1);
 	if (_gameInfo._draw == true || isAllocated() == false)
 		return (2);
+
 	return (0);
 }
 
@@ -133,6 +136,7 @@ int	chessBoard::getWatchersNumber(const string coord) const
 			}
 		}
 	}
+
 	return (0);
 }
 
@@ -207,6 +211,7 @@ char	chessBoard::getType(const string coord) const
 		if (_board.at(i).coord == coord && _board.at(i).piece != nullptr)
 			return (_board.at(i).piece->getType());
 	}
+
 	return (' ');
 }
 
@@ -217,6 +222,7 @@ string	chessBoard::getColor(const string coord) const
 		if (_board.at(i).coord == coord && _board.at(i).piece != nullptr)
 			return (_board.at(i).piece->getColor());
 	}
+
 	return ("");
 }
 
@@ -244,5 +250,6 @@ stack<chessPiece *>	chessBoard::orderByValue(stack<chessPiece *> materials) cons
 				stack.push(vMaterials.at(k));
 		}
 	}
+
 	return (stack);
 }

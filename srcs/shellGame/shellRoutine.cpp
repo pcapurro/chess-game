@@ -41,6 +41,7 @@ string	shellGame::getShellAnswer(void) const
 		if (cin.fail() == true)
 			return ("error");
 	}
+
 	return (answer);
 }
 

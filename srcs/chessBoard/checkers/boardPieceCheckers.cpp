@@ -110,14 +110,14 @@ bool	chessBoard::isCastlingPossible(const string castle)
 				return (false);
 		}
 	}
+
 	return (true);
 }
 
 bool	chessBoard::isTheDestinationSafe(void) const
 {
-	vector<string>	coords;
+	vector<string>	coords = getPiecesCoords();
 
-	coords = getPiecesCoords();
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() != _gameInfo._color)
@@ -126,6 +126,7 @@ bool	chessBoard::isTheDestinationSafe(void) const
 				return (false);
 		}
 	}
+
 	return (true);
 }
 

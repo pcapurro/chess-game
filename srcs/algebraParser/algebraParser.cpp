@@ -2,17 +2,14 @@
 
 void	algebraParser::parseDoubleSequence(void)
 {
-	string	left;
-	string	right;
-	string	middle;
-
-	left = getLeftSequence();
-	right = getRightSequence();
-
 	if (count(_move.move.begin(), _move.move.end(), 'x') != 0)
 		_move.action = 'x';
 	if (count(_move.move.begin(), _move.move.end(), '-') != 0)
 		_move.action = '-';
+
+	string	left = getLeftSequence();
+	string	right = getRightSequence();
+	string	middle;
 
 	if (left.length() < 3 
 		|| (algebraParser::isChessCoord(_move.move[0]) == false && left.length() == 1))
@@ -33,7 +30,8 @@ void	algebraParser::parseDoubleSequence(void)
 
 		for (size_t i = 0; i != coords.size(); i++)
 		{
-			if (algebraParser::isChessCoord(coords.at(i)[0]) == true && algebraParser::isChessDigit(coords.at(i)[1]) == true)
+			if (algebraParser::isChessCoord(coords.at(i)[0]) == true
+				&& algebraParser::isChessDigit(coords.at(i)[1]) == true)
 			{
 				if (left.length() != 2 || (left.length() == 2 && coords.at(i)[0] == _move.move[1]))
 					middle = middle + coords.at(i);
@@ -73,7 +71,8 @@ void	algebraParser::parseUniqueSequence(void)
 
 	for (size_t i = 0; i != coords.size(); i++)
 	{
-		if (algebraParser::isChessCoord(coords.at(i)[0]) == true && algebraParser::isChessDigit(coords.at(i)[1]) == true)
+		if (algebraParser::isChessCoord(coords.at(i)[0]) == true
+			&& algebraParser::isChessDigit(coords.at(i)[1]) == true)
 			_move.src = _move.src + coords.at(i);
 	}
 	if (algebraParser::isChessCoord(_move.move[0]) == true)

@@ -96,13 +96,6 @@ string	chessAi::getBestMove(vector<string> moves) const
 	return (bestMove);
 }
 
-bool	chessAi::fail(void) const
-{
-	if (_fail == true)
-		return (true);
-	return (false);
-}
-
 chessAi::~chessAi(void)
 {
 	if (_line)

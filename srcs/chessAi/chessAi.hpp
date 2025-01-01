@@ -12,7 +12,7 @@ class chessAi
 
 		string	getBestMove(vector<string> moves) const;
 
-		bool	fail(void) const;
+		bool	fail(void) const { return (_fail); };
 	
 	private:
 

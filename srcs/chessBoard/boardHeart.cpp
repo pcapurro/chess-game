@@ -53,6 +53,7 @@ void	chessBoard::priseEnPassant()
 void	chessBoard::removePiece(const string coord)
 {
 	size_t	atValue = getAtValue(coord);
+
 	if (_board.at(atValue).piece != nullptr)
 	{
 		if (_board.at(atValue).piece->getColor() == "black")
@@ -276,5 +277,6 @@ int	chessBoard::playMove(t_move structureMove, const string stringMove)
 
 		++_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
 	}
+
 	return (SUCCESS);
 }

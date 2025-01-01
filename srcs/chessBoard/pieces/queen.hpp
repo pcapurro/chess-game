@@ -84,6 +84,7 @@ class Queen : public chessPiece
 
 			if (coords.find(target) != string::npos)
 				return (true);
+
 			return (false);
 		}
 };

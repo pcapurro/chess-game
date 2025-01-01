@@ -37,16 +37,14 @@ string	visualGame::waitForNewGame(void)
 
 string  visualGame::waitForPromotion(void)
 {
-	int				i = 0;
-	string			coords;
+	int				select = 0;
 	vector<char>	types;
 	SDL_Event		event;
-	SDL_Rect		obj;
 
 	types.push_back('Q'), types.push_back('B'), types.push_back('N'), types.push_back('R');
-	obj = getRectangle(_actualCoords, "promotion");
+	SDL_Rect obj = getRectangle(_actualCoords, "promotion");
 
-	displayPromotion(types.at(i), _actualCoords);
+	displayPromotion(types.at(select), _actualCoords);
 
 	while (1)
 	{
@@ -60,7 +58,7 @@ string  visualGame::waitForPromotion(void)
 				break ;
 
 			_x = event.button.x, _y = event.button.y;
-			coords = getCoord(_x, _y);
+			string coords = getCoord(_x, _y);
 
 			if (isAbovePromotion(_x, _y, obj) == true)
 			{
@@ -68,20 +66,21 @@ string  visualGame::waitForPromotion(void)
 
 				if (event.type == SDL_MOUSEBUTTONUP)
 				{
-					if (_x > obj.x && _x < obj.x + 20 && _y < obj.y + 50 && i != 0)
-						i--;
-					if (_x > obj.x + 88 && _x < (obj.x + obj.w) && _y < obj.y + 50 && i != 3)
-						i++;
+					if (_x > obj.x && _x < obj.x + 20 && _y < obj.y + 50 && select != 0)
+						select--;
+					if (_x > obj.x + 88 && _x < (obj.x + obj.w) && _y < obj.y + 50 && select != 3)
+						select++;
 					if (_x > obj.x + 32 && _x < (obj.x + obj.w) - 32 && _y > obj.y + 50 && _y < (obj.y + obj.h))
-						return (_actualCoords + types.at(i));
+						return (_actualCoords + types.at(select));
 
-					displayPromotion(types.at(i), _actualCoords);
+					displayPromotion(types.at(select), _actualCoords);
 				}
 			}
 			else
 				SDL_SetCursor(_normalCursor);
 		}
 	}
+
 	return ("error");
 }
 
@@ -126,5 +125,6 @@ string	visualGame::waitForEvent(void)
 			displayGame(true);
 		}
 	}
+
 	return ("error");
 }

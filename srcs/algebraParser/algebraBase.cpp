@@ -14,5 +14,6 @@ bool	algebraParser::fail(void) const
 {
 	if (_fail == true)
 		return (true);
+
 	return (false);
 }

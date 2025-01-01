@@ -4,14 +4,12 @@ void	visualGame::loadText(const int value)
 {
 	SDL_Rect	obj;
 	string		color;
-	
-	if (_turn % 2 == 0)
-		color = "white";
-	else
-		color = "black";
+
+	_turn % 2 == 0 ? color = "white" : color = "black";
 
 	obj.x = 215, obj.y = 14;
 	obj.w = 392, obj.h = 51;
+
 	if (value == 0)
 	{
 		if (color == "white")
@@ -83,9 +81,7 @@ void	visualGame::loadEvaluation(const int value)
 void	visualGame::loadMapColors(void)
 {
 	int			colors[COLOR_NB][3] = COLORS;
-	SDL_Rect	obj;
-
-	obj = getRectangle("", "default");
+	SDL_Rect	obj = getRectangle("", "default");
 
 	_boardColors.clear();
 	_boardColors.push_back(colors[_boardColor][0]);
@@ -100,10 +96,7 @@ void	visualGame::loadMapColors(void)
 
 void    visualGame::loadScore(string color, const int y)
 {
-	int			score;
-
-	SDL_Rect	obj;
-	SDL_Texture	*texture;
+	int	score;
 
 	visualTexture	*numbers[10] = {&_textures->numbers.zero, \
 		&_textures->numbers.one, &_textures->numbers.two, \
@@ -120,10 +113,10 @@ void    visualGame::loadScore(string color, const int y)
 	if (score < 0)
 		score = 0;
 
-	obj = getRectangle("", string{color[0]} + "score");
+	SDL_Rect obj = getRectangle("", string{color[0]} + "score");
 	obj.y = y;
 
-	texture = _textures->symbols.plus.getTexture();
+	SDL_Texture *texture = _textures->symbols.plus.getTexture();
 	SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 
 	_sandBoxMode == false || _aiSide % 2 != 0 ? obj.y-- : obj.y++;
@@ -266,11 +259,8 @@ void	visualGame::loadCaptured(vector<char> &captured, const string color)
 
 void	visualGame::loadCaptures(void)
 {
-	vector<char>	whiteCaptured;
-	vector<char>	blackCaptured;
-
-	whiteCaptured = _board->getWhiteCaptured();
-	blackCaptured = _board->getBlackCaptured();
+	vector<char>	whiteCaptured = _board->getWhiteCaptured();
+	vector<char>	blackCaptured = _board->getBlackCaptured();
 
 	whiteCaptured = getOrderedCaptured(whiteCaptured);
 	blackCaptured = getOrderedCaptured(blackCaptured);
@@ -315,14 +305,11 @@ void    visualGame::loadPath(void)
 
 void	visualGame::loadMap(void)
 {
-	SDL_Rect	obj;
-	bool		state;
-
 	loadMapColors();
-	obj = getRectangle("", "default");
+	SDL_Rect obj = getRectangle("", "default");
 	SDL_RenderCopy(_mainRenderer, _textures->boardTexture.getTexture(), NULL, &obj);
 
-	state = true;
+	bool state = true;
 	for (int i = 0; i != 8; i++)
 	{
 		for (int k = 0; k != 8; k++)
@@ -344,7 +331,6 @@ void	visualGame::loadMap(void)
 void	visualGame::loadCoords(void)
 {
 	SDL_Rect	obj;
-	string		coords;
 
 	visualTexture	*letters[8] = {&_textures->letters.h, &_textures->letters.g, \
 		&_textures->letters.f, &_textures->letters.e, \
@@ -358,6 +344,8 @@ void	visualGame::loadCoords(void)
 
 	for (int i = 0; i != 8; i++)
 	{
+		string	coords;
+
 		coords = {"hgfedcba"[i], '1'};
 		obj = getRectangle(coords, "coordsl");
 		SDL_RenderCopy(_mainRenderer, letters[i]->getTexture(), NULL, &obj);
@@ -403,7 +391,7 @@ void	visualGame::loadCoords(void)
 
 void	visualGame::loadBoard(const string color)
 {
-	char		objType ;
+	char		objType;
 	string		coords;
 	string		objColor;
 	SDL_Rect	obj;
@@ -446,11 +434,9 @@ void	visualGame::loadBoard(const string color)
 void	visualGame::loadCheck(void)
 {
 	string		color;
-	string		kingCoords;
 	SDL_Rect	obj;
 
 	_turn % 2 == 0 ? color = "white" : color = "black";
-	kingCoords = getKingCoords(color);
 	obj = getRectangle(getKingCoords(color));
 
 	SDL_SetRenderDrawColor(_mainRenderer, 242, 255, 0, 255);

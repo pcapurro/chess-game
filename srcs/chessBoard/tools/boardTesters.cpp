@@ -176,13 +176,7 @@ void	chessBoard::tryMove(string srcdest)
 }
 
 void	chessBoard::undoMove(string srcdest)
-{
-	int		atValueSrc;
-	int		atValueDest;
-	
-	string	src;
-	string	dest;
-
+{	
 	if (srcdest == "O-O" || srcdest == "O-O-O"
 		|| (string{srcdest[2], srcdest[3]} == _gameInfo._enPassantDest
 		&& (getType({srcdest[0], srcdest[1]}) == 'P' || getType({srcdest[2], srcdest[3]}) == 'P')))
@@ -200,11 +194,11 @@ void	chessBoard::undoMove(string srcdest)
 	}
 	else
 	{
-		src = {srcdest[0], srcdest[1]};
-		dest = srcdest.c_str() + 2;
+		string src = {srcdest[0], srcdest[1]};
+		string dest = srcdest.c_str() + 2;
 
-		atValueSrc = getAtValue(src);
-		atValueDest = getAtValue(dest);
+		int		atValueSrc = getAtValue(src);
+		int		atValueDest = getAtValue(dest);
 
 		if (_board.at(atValueDest).piece->getType() == 'K')
 			enableCastling(srcdest);

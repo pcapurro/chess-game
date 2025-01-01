@@ -2,42 +2,32 @@
 
 SDL_Texture	*visualGame::getTexture(const char type, const string color) const
 {
+	visualTexture	*whiteTextures[7] = {&_textures->symbols.checkMateBlack, &_textures->whiteTextures.king, \
+		&_textures->whiteTextures.queen, &_textures->whiteTextures.rook, &_textures->whiteTextures.bishop, \
+		&_textures->whiteTextures.knight, &_textures->whiteTextures.pawn};
+
+	visualTexture	*blackTextures[7] = {&_textures->symbols.checkMateWhite, &_textures->blackTextures.king, \
+		&_textures->blackTextures.queen, &_textures->blackTextures.rook, &_textures->blackTextures.bishop, \
+		&_textures->blackTextures.knight, &_textures->blackTextures.pawn};
+
 	if (color == "white")
 	{
-		if (type == 'c')
-			return (_textures->symbols.checkMateBlack.getTexture());
-
-		if (type == 'K')
-			return (_textures->whiteTextures.king.getTexture());
-		if (type == 'Q')
-			return (_textures->whiteTextures.queen.getTexture());
-		if (type == 'R')
-			return (_textures->whiteTextures.rook.getTexture());
-		if (type == 'B')
-			return (_textures->whiteTextures.bishop.getTexture());
-		if (type == 'N')
-			return (_textures->whiteTextures.knight.getTexture());
-		if (type == 'P')
-			return (_textures->whiteTextures.pawn.getTexture());
+		for (int i = 0; i != 7; i++)
+		{
+			if (type == whiteTextures[i]->getId())
+				return (whiteTextures[i]->getTexture());
+		}
 	}
+
 	if (color == "black")
 	{
-		if (type == 'c')
-			return (_textures->symbols.checkMateWhite.getTexture());
-
-		if (type == 'K')
-			return (_textures->blackTextures.king.getTexture());
-		if (type == 'Q')
-			return (_textures->blackTextures.queen.getTexture());
-		if (type == 'R')
-			return (_textures->blackTextures.rook.getTexture());
-		if (type == 'B')
-			return (_textures->blackTextures.bishop.getTexture());
-		if (type == 'N')
-			return (_textures->blackTextures.knight.getTexture());
-		if (type == 'P')
-			return (_textures->blackTextures.pawn.getTexture());
+		for (int i = 0; i != 7; i++)
+		{
+			if (type == blackTextures[i]->getId())
+				return (blackTextures[i]->getTexture());
+		}
 	}
+
 	return (nullptr);
 }
 
@@ -140,6 +130,7 @@ string	visualGame::getCoord(const int x, const int y) const
 			}
 		}
 	}
+
 	return ("none");
 }
 
@@ -181,6 +172,7 @@ string	visualGame::getKingCoords(const string color) const
 				return (coords);
 		}
 	}
+
 	return (coords);
 }
 
@@ -188,6 +180,7 @@ string	visualGame::getTurnColor(void) const
 {
 	if (_turn % 2 == 0)
 		return ("white");
+
 	return ("black");
 }
 
@@ -205,6 +198,7 @@ bool	visualGame::isPromotion(const string coord) const
 				return (true);
 		}
 	}
+
 	return (false);
 }
 

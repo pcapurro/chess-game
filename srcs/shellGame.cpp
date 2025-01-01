@@ -99,6 +99,7 @@ bool	validateArguments(const int argc, const char **argv)
 
 		return (SUCCESS);
 	}
+
 	return (FAIL);
 }
 

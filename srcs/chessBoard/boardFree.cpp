@@ -22,5 +22,6 @@ bool	chessBoard::checkBoardAllocation(void) const
 			|| _board.at(i).coord[1] == '8' || _board.at(i).coord[1] == '7'))
 			return (false);
 	}
+
 	return (true);
 }

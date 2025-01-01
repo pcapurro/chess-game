@@ -2,8 +2,6 @@
 
 bool	chessBoard::isFree(const string coord)
 {
-	stack<cP *>	attackers;
-
 	if (getEnPassantTarget() == coord)
 	{
 		if (isFree(_gameInfo._enPassantDest) == true)
@@ -11,6 +9,8 @@ bool	chessBoard::isFree(const string coord)
 	}
 	else
 	{
+		stack<cP *>	attackers;
+
 		switchPlayers();
 		attackers = getWatchers(coord);
 		unSwitchPlayers();
@@ -26,20 +26,18 @@ bool	chessBoard::isSafe(const string coord)
 {
 	if (isProtected(coord) == true || isFree(coord) == true)
 		return (true);
+
 	return (false);
 }
 
 bool	chessBoard::isProtected(const string coord)
 {
-	int			attMaterials, defMaterials;
-	stack<cP *>	defenders, attackers;
-
-	defenders = getWatchers(coord);
+	stack<cP *>	defenders = getWatchers(coord);
 	if (defenders.size() == 0)
 		return (false);
 
 	switchPlayers();
-	attackers = getWatchers(coord);
+	stack<cP *>	attackers = getWatchers(coord);
 	unSwitchPlayers();
 	if (attackers.size() == 0)
 		return (true);
@@ -49,8 +47,8 @@ bool	chessBoard::isProtected(const string coord)
 	else
 		defenders.push(_board.at(getAtValue(coord)).piece);
 
-	attMaterials = 0;
-	defMaterials = 0;
+	int attMaterials = 0;
+	int defMaterials = 0;
 
 	while (attackers.size() != 0 && defenders.size() != 0)
 	{
@@ -94,7 +92,6 @@ bool	chessBoard::isEndGame(void) const
 bool    chessBoard::checkMateInOne(void)
 {
 	string			move;
-	string			target;
 	vector<string>	legalMoves;
 
 	legalMoves = getLegalMoves();

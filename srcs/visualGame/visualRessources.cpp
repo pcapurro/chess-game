@@ -71,7 +71,7 @@ void	visualGame::loadWhiteTextures(void)
 
 	int	value = 0;
 
-	value += _textures->whiteTextures.king.load(_mainRenderer, "./materials/images/white/king.bmp");
+	value += _textures->whiteTextures.king.load(_mainRenderer, "./materials/images/white/king.bmp", 'K');
 	value += _textures->whiteTextures.queen.load(_mainRenderer, "./materials/images/white/queen.bmp", 'Q');
 
 	value += _textures->whiteTextures.knight.load(_mainRenderer, "./materials/images/white/knight.bmp", 'N');
@@ -91,7 +91,7 @@ void	visualGame::loadBlackTextures(void)
 
 	int	value = 0;
 
-	value += _textures->blackTextures.king.load(_mainRenderer, "./materials/images/black/king.bmp");
+	value += _textures->blackTextures.king.load(_mainRenderer, "./materials/images/black/king.bmp", 'K');
 	value += _textures->blackTextures.queen.load(_mainRenderer, "./materials/images/black/queen.bmp", 'Q');
 
 	value += _textures->blackTextures.knight.load(_mainRenderer, "./materials/images/black/knight.bmp", 'N');
@@ -113,8 +113,8 @@ void	visualGame::loadBoardTextures(void)
 
 	value += _textures->boardTexture.load(_mainRenderer, "./materials/images/board.bmp");
 
-	value += _textures->symbols.checkMateWhite.load(_mainRenderer, "./materials/symbols/checkmate-white.bmp");
-	value += _textures->symbols.checkMateBlack.load(_mainRenderer, "./materials/symbols/checkmate-black.bmp");
+	value += _textures->symbols.checkMateWhite.load(_mainRenderer, "./materials/symbols/checkmate-white.bmp", 'c');
+	value += _textures->symbols.checkMateBlack.load(_mainRenderer, "./materials/symbols/checkmate-black.bmp", 'c');
 
 	value += _textures->promotion.load(_mainRenderer, "./materials/images/promotion.bmp");
 

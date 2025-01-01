@@ -11,14 +11,15 @@ bool	algebraParser::isChessDigit(const char c)
 	if (c != '1' && c != '2' && c != '3' && c != '4'
 		&& c != '5' && c != '6' && c != '7' && c != '8')
 		return (false);
+
 	return (true);
 }
 
 bool	algebraParser::isChessPiece(const char c)
 {
-	if (c != 'K' && c != 'Q' && c != 'R'
-		&& c != 'B' && c != 'N')
+	if (c != 'K' && c != 'Q' && c != 'R' && c != 'B' && c != 'N')
 		return (false);
+
 	return (true);
 }
 
@@ -27,6 +28,7 @@ bool	algebraParser::isChessCoord(const char c)
 	if (c != 'a' && c != 'b' && c != 'c' && c != 'd'
 		&& c != 'e' && c != 'f' && c != 'g' && c != 'h')
 		return (false);
+
 	return (true);
 }
 
@@ -40,6 +42,7 @@ string	algebraParser::getLeftSequence(void) const
 			break ;
 		left = left + _move.move[i];
 	}
+
 	return (left);
 }
 
@@ -50,20 +53,18 @@ string	algebraParser::getRightSequence(void) const
 	for (int i = 0; _move.move[i] != '\0'; i++)
 	{
 		if (_move.move[i] == 'x' || _move.move[i] == '-')
-		{
-			right = _move.move.c_str() + i + 1;
-			break ;
-		}
+			{ right = _move.move.c_str() + i + 1; break ; }
 	}
+
 	if (right[right.length() - 1] == '#' || right[right.length() - 1] == '+')
 		right.erase(right.length() - 1);
+
 	return (right);
 }
 
 vector<string>	getWatchersSequence(const char type, const string move, const char sign)
 {
 	vector<string>	coords;
-	string			newCoords;
 	chessPiece		*object;
 
 	if (type == 'K')
@@ -84,7 +85,7 @@ vector<string>	getWatchersSequence(const char type, const string move, const cha
 	{
 		for (int k = 0; k != 8; k++)
 		{
-			newCoords = "abcdefgh"[k] + to_string(i - 1);
+			string newCoords = "abcdefgh"[k] + to_string(i - 1);
 			if (object->isOnMyWay(newCoords) == true
 				&& (sign == 'i' || newCoords[0] == sign))
 				coords.push_back(newCoords);
@@ -153,5 +154,6 @@ vector<string>	getPawnSequence(const string move, const int turn, const char sig
 		if (sign == 'i' || coords.at(i)[0] == sign)
 			realCoords.push_back(coords.at(i));
 	}
+
 	return (realCoords);
 }
