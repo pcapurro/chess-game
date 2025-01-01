@@ -30,7 +30,7 @@ void    chessBoard::countTotalMaterials(void)
 
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
+        if (_board.at(i).piece != nullptr && _board.at(i).piece->getType() != 'K')
         {
             if (_board.at(i).piece->getColor() == "white")
                 _boardCount.whiteMaterial += getMaterialValue(_board.at(i).piece->getType());
@@ -46,7 +46,7 @@ void    chessBoard::countPiecesOnBoard(void)
 
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL)
+        if (_board.at(i).piece != nullptr)
         {
             if (_board.at(i).piece->getType() == 'K'
                 && _board.at(i).piece->getColor() == "white")

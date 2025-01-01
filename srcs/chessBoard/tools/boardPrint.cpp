@@ -45,7 +45,7 @@ void    chessBoard::printWhiteBoard(void) const
         {
             coords = "abcdefgh"[k] + to_string(i - 1);
             atValue = getAtValue(coords);
-            if (_board.at(atValue).piece != NULL)
+            if (_board.at(atValue).piece != nullptr)
             {
                 char type = _board.at(atValue).piece->getType();
                 string color = _board.at(atValue).piece->getColor();
@@ -70,7 +70,7 @@ void    chessBoard::printBlackBoard(void) const
         {
             coords = "abcdefgh"[k] + to_string(i);
             atValue = getAtValue(coords);
-            if (_board.at(atValue).piece != NULL)
+            if (_board.at(atValue).piece != nullptr)
             {
                 char type = _board.at(atValue).piece->getType();
                 string color = _board.at(atValue).piece->getColor();

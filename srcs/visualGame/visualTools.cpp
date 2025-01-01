@@ -97,7 +97,7 @@ SDL_Rect    visualGame::getRectangle(const string coords, const string type) con
     return (obj);
 }
 
-vector<char>    visualGame::getOrderedCaptured(const vector<char> &captured)
+vector<char>    visualGame::getOrderedCaptured(const vector<char> &captured) const
 {
     vector<char>    newCaptured;
 
@@ -168,7 +168,7 @@ string visualGame::getInput(const string coord)
     return (input);
 }
 
-string  visualGame::getKingCoords(const string color)
+string  visualGame::getKingCoords(const string color) const
 {
     string      coords;
 
@@ -191,7 +191,7 @@ string  visualGame::getTurnColor(void) const
     return ("black");
 }
 
-bool    visualGame::isPromotion(const string coord)
+bool    visualGame::isPromotion(const string coord) const
 {
     if (_board->getType(_droppedSrc) == 'P')
     {
@@ -208,7 +208,7 @@ bool    visualGame::isPromotion(const string coord)
     return (false);
 }
 
-bool    visualGame::isAbovePromotion(const int x, const int y, SDL_Rect obj)
+bool    visualGame::isAbovePromotion(const int x, const int y, SDL_Rect obj) const
 {
     if (x > obj.x && x < obj.x + 20
         && y > obj.y + 20 && y <= obj.y + 20 + 40)
@@ -225,7 +225,7 @@ bool    visualGame::isAbovePromotion(const int x, const int y, SDL_Rect obj)
     return (false);
 }
 
-bool    visualGame::isCodeDetected(void)
+bool    visualGame::isCodeDetected(void) const
 {
     if (_keyHistory.size() == 11)
     {
@@ -243,7 +243,7 @@ bool    visualGame::isCodeDetected(void)
     return (false);
 }
 
-bool    visualGame::isBoardTargetZone(const string coord, const int x, const int y)
+bool    visualGame::isBoardTargetZone(const string coord, const int x, const int y) const
 {
     if (_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
         return (true);
@@ -260,7 +260,7 @@ bool    visualGame::isBoardTargetZone(const string coord, const int x, const int
     return (false);
 }
 
-bool    visualGame::isColorTargetZone(const int x, const int y)
+bool    visualGame::isColorTargetZone(const int x, const int y) const
 {
     if (x >= 777 && x <= _width && y >= 724 && y <= _height)
         return (true);
@@ -268,7 +268,7 @@ bool    visualGame::isColorTargetZone(const int x, const int y)
     return (false);
 }
 
-bool    visualGame::isEvaluationTargetZone(const int x, const int y)
+bool    visualGame::isEvaluationTargetZone(const int x, const int y) const
 {
     if (x >= 26 && x <= 54 && y >= 725 && y <= 752)
         return (true);

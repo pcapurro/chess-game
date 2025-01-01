@@ -68,14 +68,14 @@ bool    chessBoard::isProtected(const string coord)
     return (true);
 }
 
-bool    chessBoard::isEndGame(void)
+bool    chessBoard::isEndGame(void) const
 {
     int whiteMaterials = 0;
     int blackMaterials = 0;
 
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
+        if (_board.at(i).piece != nullptr && _board.at(i).piece->getType() != 'K')
         {
             if (_board.at(i).piece->getColor() == "white")
                 whiteMaterials += getMaterialValue(_board.at(i).piece->getType());

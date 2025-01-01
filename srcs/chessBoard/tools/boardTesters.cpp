@@ -29,11 +29,11 @@ void    chessBoard::tryEnPassant(string srcdest)
     atValueDestTwo = getAtValue(destTwo);
 
     _savedObjects.push(_board.at(atValueDestTwo).piece);
-    _board.at(atValueDestTwo).piece = NULL;
+    _board.at(atValueDestTwo).piece = nullptr;
 
     _board.at(atValueDestOne).piece = _board.at(atValueSrc).piece;
     _board.at(atValueDestOne).piece->updatePos(_board.at(atValueDestOne).coord);
-    _board.at(atValueSrc).piece = NULL;
+    _board.at(atValueSrc).piece = nullptr;
 
     _gameInfo._enPassant = false;
 }
@@ -57,7 +57,7 @@ void    chessBoard::undoEnPassant(string srcdest)
     atValueDestTwo = getAtValue(destTwo);
 
     _board.at(atValueSrc).piece = _board.at(atValueDestOne).piece;
-    _board.at(atValueDestOne).piece = NULL;
+    _board.at(atValueDestOne).piece = nullptr;
     _board.at(atValueSrc).piece->updatePos(_board.at(atValueSrc).coord);
 
     _board.at(atValueDestTwo).piece = _savedObjects.top();
@@ -161,17 +161,17 @@ void    chessBoard::tryMove(string srcdest)
         if (_board.at(atValueSrc).piece->getType() == 'K')
             disableCastling(srcdest);
 
-        if (_board.at(atValueDest).piece != NULL)
+        if (_board.at(atValueDest).piece != nullptr)
         {
             _savedObjects.push(_board.at(atValueDest).piece);
-            _board.at(atValueDest).piece = NULL;
+            _board.at(atValueDest).piece = nullptr;
         }
         else
-            _savedObjects.push(NULL);
+            _savedObjects.push(nullptr);
 
         _board.at(atValueDest).piece = _board.at(atValueSrc).piece;
         _board.at(atValueDest).piece->updatePos(_board.at(atValueDest).coord);
-        _board.at(atValueSrc).piece = NULL;
+        _board.at(atValueSrc).piece = nullptr;
     }
 }
 

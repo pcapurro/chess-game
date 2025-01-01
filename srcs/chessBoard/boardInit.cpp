@@ -96,7 +96,7 @@ void    chessBoard::initBoard(void)
                 _board.push_back({new (nothrow) Pawn ("black", coord), coord});
             
             if (k + 1 >= 3 && k + 1 <= 6)
-                _board.push_back({NULL, coord});
+                _board.push_back({nullptr, coord});
         }
     }
     initRooksKnights();

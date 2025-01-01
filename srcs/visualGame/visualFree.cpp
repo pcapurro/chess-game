@@ -3,10 +3,10 @@
 visualGame::~visualGame()
 {
     if (_board != nullptr)
-        delete _board;
+        delete _board, _board = nullptr;
 
     if (_textures != nullptr)
-        delete _textures;
+        delete _textures, _textures = nullptr;
 
     if (_mainRenderer != nullptr && _mainRenderer != NULL)
         SDL_DestroyRenderer(_mainRenderer);

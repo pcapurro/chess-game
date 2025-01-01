@@ -92,6 +92,7 @@ vector<string>  getWatchersSequence(const char type, const string move, const ch
     }
 
     delete object;
+    object = nullptr;
 
     return (coords);
 }

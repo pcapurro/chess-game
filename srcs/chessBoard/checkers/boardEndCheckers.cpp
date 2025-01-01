@@ -9,12 +9,12 @@ bool    chessBoard::isCheck(void)
     boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _gameInfo._color)
+        if (_board.at(i).piece != nullptr && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _gameInfo._color)
             kingPos = _board.at(i).coord, kingColor = _board.at(i).piece->getColor();
     }
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != kingColor)
+        if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() != kingColor)
         {
             if (_board.at(i).piece->isOnMyWay(kingPos, boardCoords, 1) == true)
                 return (true);
@@ -30,7 +30,7 @@ bool    chessBoard::canAnyAllyPieceMove(void)
     boardCoords = getPiecesCoords();
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+        if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color
             && _board.at(i).piece->getType() != 'K')
         {
             for (int k = 0; k != 64; k++)
@@ -95,7 +95,7 @@ bool    chessBoard::canTheKingMove(void)
 
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _gameInfo._color)
+        if (_board.at(i).piece != nullptr && _board.at(i).piece->getType() == 'K' && _board.at(i).piece->getColor() == _gameInfo._color)
             kingPos = i, kingColor = _board.at(i).piece->getColor();
     }
     for (int i = 0; i != 64; i++)
@@ -103,7 +103,7 @@ bool    chessBoard::canTheKingMove(void)
         if (_board.at(kingPos).piece->isOnMyWay(_board.at(i).coord, boardCoords) == true)
         {
             boardCoords = getPiecesCoords();
-            if ((_board.at(i).piece == NULL || _board.at(i).piece->getColor() != kingColor)
+            if ((_board.at(i).piece == nullptr || _board.at(i).piece->getColor() != kingColor)
                 && doesItResolveCheck(_board.at(kingPos).coord + _board.at(i).coord) == true)
                 return (true);
         }
@@ -149,7 +149,7 @@ vector<string>  chessBoard::getPossibleTargets(const string coord) const
             coords = "abcdefgh"[i] + to_string(k + 1);
             if (_board.at(atValue).piece->isOnMyWay(coords, boardCoords, 0, _gameInfo._enPassantDest) == true)
             {
-                if (_board.at(getAtValue(coords)).piece == NULL
+                if (_board.at(getAtValue(coords)).piece == nullptr
                     || _board.at(getAtValue(coords)).piece->getColor() != _gameInfo._color)
                     moves.push_back(coord + coords);
             }
@@ -170,7 +170,7 @@ bool    chessBoard::isCheckMate(const int value)
 
         for (int i = 0; i != 64; i++)
         {
-            if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+            if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color)
             {
                 sources = getPossibleTargets(_board.at(i).coord);
                 for (size_t k = 0; k != sources.size(); k++)

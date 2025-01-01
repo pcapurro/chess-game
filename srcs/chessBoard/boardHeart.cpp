@@ -34,7 +34,7 @@ void    chessBoard::priseEnPassant()
 
     atValue = getAtValue(_gameInfo._lastMove.src); 
     piece = _board.at(atValue).piece;
-    _board.at(atValue).piece = NULL;
+    _board.at(atValue).piece = nullptr;
 
     atValue = getAtValue(_gameInfo._lastMove.dest);
     _board.at(atValue).piece = piece;
@@ -53,7 +53,7 @@ void    chessBoard::priseEnPassant()
 void    chessBoard::removePiece(const string coord)
 {
     size_t  atValue = getAtValue(coord);
-    if (_board.at(atValue).piece != NULL)
+    if (_board.at(atValue).piece != nullptr)
     {
         if (_board.at(atValue).piece->getColor() == "black")
             _whiteCaptured.push_back(_board.at(atValue).piece->getType());
@@ -61,7 +61,7 @@ void    chessBoard::removePiece(const string coord)
             _blackCaptured.push_back(_board.at(atValue).piece->getType());
 
         delete _board.at(atValue).piece;
-        _board.at(atValue).piece = NULL;
+        _board.at(atValue).piece = nullptr;
     }
 }
 
@@ -87,7 +87,7 @@ void    chessBoard::promotePiece(const string initialCoord, char pieceType)
         _board.at(atValue).piece = new (nothrow) Rook(color, initialCoordUpdated);
     
     if (_board.at(atValue).piece == nullptr)
-        _allocated = false, _board.at(atValue).piece = NULL;
+        _allocated = false, _board.at(atValue).piece = nullptr;
 }
 
 void    chessBoard::movePiece(const string initialCoord, const string newCoord)
@@ -98,7 +98,7 @@ void    chessBoard::movePiece(const string initialCoord, const string newCoord)
     
     atValue = getAtValue(initialCoord); 
     piece = _board.at(atValue).piece;
-    _board.at(atValue).piece = NULL;
+    _board.at(atValue).piece = nullptr;
 
     newCoordUpdated = newCoord;
     if (newCoord.length() == 3)
@@ -238,7 +238,7 @@ int chessBoard::playMove(t_move structureMove, const string stringMove)
     {
         _gameInfo._moveFailed = false;
 
-        if (_board.at(getAtValue(_gameInfo._lastMove.dest)).piece != NULL)
+        if (_board.at(getAtValue(_gameInfo._lastMove.dest)).piece != nullptr)
             _gameInfo._lastMove.action = 'x';
 
         string  src = _gameInfo._lastMove.src;

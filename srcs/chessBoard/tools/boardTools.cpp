@@ -17,7 +17,7 @@ vector<string>  chessBoard::getPiecesCoords(void) const
 
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL && _board.at(i).piece->isVisible() == true)
+        if (_board.at(i).piece != nullptr && _board.at(i).piece->isVisible() == true)
             coords.push_back(_board.at(i).coord);
     }
     return (coords);
@@ -39,7 +39,7 @@ vector<string>  chessBoard::getLegalMoves(void)
         for (int k = 0; k != 8; k++)
         {
             string coord = "abcdefgh"[i] + to_string(k + 1);
-            if (_board.at(getAtValue(coord)).piece != NULL 
+            if (_board.at(getAtValue(coord)).piece != nullptr 
                 && _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
             {
                 availaibleTargets = getPossibleTargets(coord);
@@ -68,7 +68,7 @@ vector<string>  chessBoard::getLegalMoves(void)
     return (legalMoves);
 }
 
-vector<string>  chessBoard::getCastlingSrcsDests(const string srcdest)
+vector<string>  chessBoard::getCastlingSrcsDests(const string srcdest) const
 {
     char            y;
     string          src;
@@ -106,7 +106,7 @@ int chessBoard::getStateValue(void) const
     return (0);
 }
 
-string  chessBoard::getEnPassantTarget(void)
+string  chessBoard::getEnPassantTarget(void) const
 {
     string  target;
 
@@ -119,11 +119,11 @@ string  chessBoard::getEnPassantTarget(void)
     return (target);
 }
 
-int chessBoard::getWatchersNumber(const string coord)
+int chessBoard::getWatchersNumber(const string coord) const
 {
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).piece != NULL)
+        if (_board.at(i).piece != nullptr)
         {
             if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord
                 && _board.at(i).piece->isVisible() == true)
@@ -149,7 +149,7 @@ stack<cP *> chessBoard::getWatchers(const string coord)
 
         for (int i = 0; i != 64; i++)
         {
-            if (_board.at(i).piece != NULL)
+            if (_board.at(i).piece != nullptr)
             {
                 if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord
                     && _board.at(i).piece->isVisible() == true)
@@ -184,7 +184,7 @@ stack<cP *> chessBoard::getWatchers(const string coord)
     return (material3);
 }
 
-int chessBoard::getMaterialValue(const char type)
+int chessBoard::getMaterialValue(const char type) const
 {
     if (type == 'P')
         return (1);
@@ -204,7 +204,7 @@ char    chessBoard::getType(const string coord) const
 {
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).coord == coord && _board.at(i).piece != NULL)
+        if (_board.at(i).coord == coord && _board.at(i).piece != nullptr)
             return (_board.at(i).piece->getType());
     }
     return (' ');
@@ -214,13 +214,13 @@ string  chessBoard::getColor(const string coord) const
 {
     for (int i = 0; i != 64; i++)
     {
-        if (_board.at(i).coord == coord && _board.at(i).piece != NULL)
+        if (_board.at(i).coord == coord && _board.at(i).piece != nullptr)
             return (_board.at(i).piece->getColor());
     }
     return ("");
 }
 
-stack<chessPiece *> chessBoard::orderByValue(stack<chessPiece *> materials)
+stack<chessPiece *> chessBoard::orderByValue(stack<chessPiece *> materials) const
 {
     stack<cP *>     stack;
     vector<cP *>    vMaterials;

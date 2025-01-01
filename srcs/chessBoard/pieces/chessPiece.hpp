@@ -34,10 +34,10 @@ class chessPiece
         
         int             getMoves(void) { return (_moves); }
 
-        string          getCoord(void) { return (_pos); }
-        string          getOriginalCoord(void) { return (_originalPos); }
-        int             getX(void) { return (_x); }
-        int             getY(void) { return (_y); }
+        string          getCoord(void) const { return (_pos); }
+        string          getOriginalCoord(void) const { return (_originalPos); }
+        int             getX(void) const { return (_x); }
+        int             getY(void) const { return (_y); }
         void            move(void) { _moves++; };
 
         void            updatePos(const string coord)

@@ -9,7 +9,7 @@ int		chessBoard::evaluateMaterial(const bool colorSwitch)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getType() != 'K')
 		{
 			if (_board.at(i).piece->getColor() == _gameInfo._color)
 				value += getMaterialValue(_board.at(i).piece->getType()) * 2;
@@ -22,7 +22,7 @@ int		chessBoard::evaluateMaterial(const bool colorSwitch)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getType() != 'K')
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getType() != 'K')
 		{
 			if (_board.at(i).piece->getColor() == _gameInfo._color)
 			{
@@ -77,7 +77,7 @@ int		chessBoard::evaluateDefense(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color
 			&& _board.at(i).piece->getType() != 'K')
 		{
 			if (isSafe(_board.at(i).coord) == true)
@@ -96,12 +96,12 @@ int		chessBoard::evaluateAttack(void)
 	boardCoords = getPiecesCoords();
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color
 			&& _board.at(i).piece->getType() != 'K' && isSafe(_board.at(i).coord) == true)
 		{
 			for (int k = 0; k != 64; k++)
 			{
-				if (_board.at(k).piece != NULL && _board.at(k).piece->getColor() != _gameInfo._color
+				if (_board.at(k).piece != nullptr && _board.at(k).piece->getColor() != _gameInfo._color
 					&& _board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords, 0, _gameInfo._enPassantDest) == true)
 					value++;
 			}
@@ -123,7 +123,7 @@ int		chessBoard::evaluateKingControl(const bool colorSwitch)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() != _gameInfo._color)
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() != _gameInfo._color)
 		{
 			if (_board.at(i).piece->getType() == 'K')
 				{ kingCoords = _board.at(i).coord; break ; }
@@ -175,7 +175,7 @@ int		chessBoard::evaluateKingDefense(const bool colorSwitch)
 
 		for (int i = 0; i != 64; i++)
 		{
-			if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+			if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color)
 			{
 				if (_board.at(i).piece->getType() == 'K')
 					{ kingCoords = _board.at(i).coord; break ; }
@@ -214,7 +214,7 @@ int		chessBoard::evaluateMobility(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color
 			&& isSafe(_board.at(i).coord) == true)
 		{
 			if (_board.at(i).piece->getType() != 'K')
@@ -234,7 +234,7 @@ int		chessBoard::evaluatePromotion(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color)
 		{
 			if (_board.at(i).piece->getType() == 'P' && isSafe(_board.at(i).coord) == true)
 			{
@@ -243,7 +243,7 @@ int		chessBoard::evaluatePromotion(void)
 				if (_gameInfo._color == "black")
 					next = _board.at(i).coord, next[1] = next[1] - 1;
 
-				if (_board.at(getAtValue(next)).piece == NULL || _board.at(getAtValue(next)).piece->getColor() == _gameInfo._color
+				if (_board.at(getAtValue(next)).piece == nullptr || _board.at(getAtValue(next)).piece->getColor() == _gameInfo._color
 					|| _board.at(getAtValue(next)).piece->getType() != 'P')
 					value += _board.at(i).piece->getMoves();
 			}
@@ -260,7 +260,7 @@ int		chessBoard::evaluatePawns(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color)
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color)
 		{
 			if (_board.at(i).piece->getType() == 'P' && isSafe(_board.at(i).coord) == true)
 			{
@@ -287,7 +287,7 @@ int		chessBoard::evaluateCenter(void)
 	boardCoords = getPiecesCoords();
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color
 			&& isSafe(_board.at(i).coord) == true)
 		{
 			for (int k = 0; k != 4; k++)
@@ -305,7 +305,7 @@ int		chessBoard::evaluateCenter(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != NULL && _board.at(i).piece->getColor() == _gameInfo._color
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color
 			&& isSafe(_board.at(i).coord) == true)
 		{
 			if (_board.at(i).coord == "e4" || _board.at(i).coord == "e5"
@@ -334,27 +334,27 @@ int		chessBoard::evaluateDev(void)
 	_gameInfo._color == "white" ? nb1 = '1', nb2 = '2' : nb1 = '8', nb2 = '7';
 
 	atValue = getAtValue(string(1, 'b') + nb1);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
+	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 	
 	atValue = getAtValue(string(1, 'g') + nb1);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
+	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 
 	atValue = getAtValue(string(1, 'c') + nb1);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
+	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 	
 	atValue = getAtValue(string(1, 'f') + nb1);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getMoves() != 0)
+	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 
 	atValue = getAtValue(string(1, 'd') + nb2);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getType() != 'P')
+	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getType() != 'P')
 		value += 16;
 
 	atValue = getAtValue(string(1, 'e') + nb2);
-	if (_board.at(atValue).piece == NULL || _board.at(atValue).piece->getType() != 'P')
+	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getType() != 'P')
 		value += 16;
 
 	return (value);

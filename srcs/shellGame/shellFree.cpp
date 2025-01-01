@@ -3,7 +3,9 @@
 shellGame::~shellGame(void)
 {
 	if (_board != nullptr)
-		delete _board;
+		delete _board, _board = nullptr;
+	if (_ai != nullptr)
+		delete _ai, _ai = nullptr;
 	if (_checker != nullptr)
-		delete _checker;
+		delete _checker, _checker = nullptr;
 }

@@ -128,18 +128,18 @@ class visualGame
         SDL_Texture *getTexture(const char type, const string color) const;
         SDL_Rect    getRectangle(const string coords, const string type = "") const;
 
-        string      getKingCoords(const string color);
+        string      getKingCoords(const string color) const;
 
         int		    visualLoop(void);
-        string      getVisualAnswer(void);
+        string      getVisualAnswer(void); //
 
-        bool        isCodeDetected(void);
-        bool        isColorTargetZone(const int x, const int y);
-        bool        isEvaluationTargetZone(const int x, const int y);
-        bool        isBoardTargetZone(const string coord, const int x, const int y);
+        bool        isCodeDetected(void) const;
+        bool        isColorTargetZone(const int x, const int y) const;
+        bool        isEvaluationTargetZone(const int x, const int y) const;
+        bool        isBoardTargetZone(const string coord, const int x, const int y) const;
 
-        bool        isAbovePromotion(const int x, const int y, SDL_Rect obj);
-        bool        isPromotion(const string coord);
+        bool        isAbovePromotion(const int x, const int y, SDL_Rect obj) const;
+        bool        isPromotion(const string coord) const;
 
         void        loadMap(void);
         void        loadCoords(void);
@@ -174,7 +174,7 @@ class visualGame
         string      getCoord(const int x, const int y) const;
         string      getTurnColor(void) const;
 
-        vector<char>    getOrderedCaptured(const vector<char> &captured);
+        vector<char>    getOrderedCaptured(const vector<char> &captured) const;
 
         const bool		_sandBoxMode;
 
