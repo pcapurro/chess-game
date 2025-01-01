@@ -120,7 +120,7 @@ void    visualGame::loadScore(string color, const int y)
     if (score < 0)
         score = 0;
 
-    obj = getRectangle("", string(1, color[0]) + "score");
+    obj = getRectangle("", string{color[0]} + "score");
     obj.y = y;
 
     texture = _textures->symbols.plus.getTexture();
@@ -297,14 +297,14 @@ void    visualGame::loadPath(void)
 
     if (_lastMove != "")
     {
-        obj = getRectangle(string(1, _lastMove[0]) + _lastMove[1]);
+        obj = getRectangle({_lastMove[0], _lastMove[1]});
         SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
         SDL_RenderFillRect(_mainRenderer, &obj);
 
         SDL_SetRenderDrawColor(_mainRenderer, 204, 204, 0, 100);
         SDL_RenderFillRect(_mainRenderer, &obj);
 
-        obj = getRectangle(string(1, _lastMove[2]) + _lastMove[3]);
+        obj = getRectangle({_lastMove[2], _lastMove[3]});
         SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
         SDL_RenderFillRect(_mainRenderer, &obj);
 
@@ -327,7 +327,7 @@ void    visualGame::loadMap(void)
     {
         for (int k = 0; k != 8; k++)
         {
-            string coords = string(1, "hgfedcba"[k]) + string(1, "87654321"[i]);
+            string  coords = {"hgfedcba"[k], "87654321"[i]};
 
             if ((state == true && k % 2 == 0)
                 || (state == false && k % 2 != 0))
@@ -358,11 +358,11 @@ void    visualGame::loadCoords(void)
 
     for (int i = 0; i != 8; i++)
     {
-        coords = string(1, "hgfedcba"[i]) + "1";
+        coords = {"hgfedcba"[i], '1'};
         obj = getRectangle(coords, "coordsl");
         SDL_RenderCopy(_mainRenderer, letters[i]->getTexture(), NULL, &obj);
 
-        coords = string(1, 'h') + "12345678"[i];
+        coords = {'h', "12345678"[i]};
         obj = getRectangle(coords, "coordsn");
         SDL_RenderCopy(_mainRenderer, numbers[i]->getTexture(), NULL, &obj);
     }
@@ -412,7 +412,7 @@ void    visualGame::loadBoard(const string color)
     {
         for (int k = 0; k != 8; k++)
         {
-            coords = string(1, "hgfedcba"[k]) + string(1, "87654321"[i]);
+            coords = {"hgfedcba"[k], "87654321"[i]};
             objType = _board->getType(coords);
             objColor = _board->getColor(coords);
 
@@ -508,8 +508,8 @@ void    visualGame::displayMoveAnimation(const string move)
     string      src, dest;
     SDL_Rect    obj;
 
-    src = string(1, move[0]) + move[1];
-    dest = string(1, move[2]) + move[3];
+    src = {move[0], move[1]};
+    dest = {move[2], move[3]};
 
     obj.x = getRectangle(src).x;
     obj.y = getRectangle(src).y;

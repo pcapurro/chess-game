@@ -213,7 +213,7 @@ void    chessBoard::loadMove(const string move)
         _gameInfo._lastMove.obj = move[0];
 
         _gameInfo._lastMove.move = move;
-        _gameInfo._lastMove.src = string(1, move[1]) + move[2];
+        _gameInfo._lastMove.src = {move[1], move[2]};
         _gameInfo._lastMove.dest = move.c_str() + 3;
 
         if (_gameInfo._lastMove.dest == _gameInfo._enPassantDest)

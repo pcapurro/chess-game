@@ -20,8 +20,8 @@ void    chessBoard::tryEnPassant(string srcdest)
     string      destOne;
     string      destTwo;
 
-    src = string(1, srcdest[0]) + srcdest[1];
-    destOne = string(1, srcdest[2]) + srcdest[3];
+    src = {srcdest[0], srcdest[1]};
+    destOne = {srcdest[2], srcdest[3]};
     destTwo = destOne, destTwo[1] = src[1];
 
     atValueSrc = getAtValue(src);
@@ -48,8 +48,8 @@ void    chessBoard::undoEnPassant(string srcdest)
     string      destOne;
     string      destTwo;
 
-    src = string(1, srcdest[0]) + srcdest[1];
-    destOne = string(1, srcdest[2]) + srcdest[3];
+    src = {srcdest[0], srcdest[1]};
+    destOne = {srcdest[2], srcdest[3]};
     destTwo = destOne, destTwo[1] = src[1];
 
     atValueSrc = getAtValue(src);
@@ -136,8 +136,8 @@ void    chessBoard::tryMove(string srcdest)
     string      dest;
 
     if (srcdest == "O-O" || srcdest == "O-O-O"
-        || (string(1, srcdest[2]) + srcdest[3] == _gameInfo._enPassantDest
-            && (getType(string(1, srcdest[0]) + srcdest[1]) == 'P' || getType(string(1, srcdest[2]) + srcdest[3]) == 'P')))
+        || (string{srcdest[2], srcdest[3]} == _gameInfo._enPassantDest
+            && (getType({srcdest[0], srcdest[1]}) == 'P' || getType({srcdest[2], srcdest[3]}) == 'P')))
     {
         if (srcdest[0] == 'O')
         {
@@ -152,7 +152,7 @@ void    chessBoard::tryMove(string srcdest)
     }
     else
     {
-        src = string(1, srcdest[0]) + string(1, srcdest[1]);
+        src = {srcdest[0], srcdest[1]};
         dest = srcdest.c_str() + 2;
 
         atValueSrc = getAtValue(src);
@@ -184,8 +184,8 @@ void    chessBoard::undoMove(string srcdest)
     string      dest;
 
     if (srcdest == "O-O" || srcdest == "O-O-O"
-        || (string(1, srcdest[2]) + srcdest[3] == _gameInfo._enPassantDest
-            && (getType(string(1, srcdest[0]) + srcdest[1]) == 'P' || getType(string(1, srcdest[2]) + srcdest[3]) == 'P')))
+        || (string{srcdest[2], srcdest[3]} == _gameInfo._enPassantDest
+        && (getType({srcdest[0], srcdest[1]}) == 'P' || getType({srcdest[2], srcdest[3]}) == 'P')))
     {
         if (srcdest[0] == 'O')
         {
@@ -200,7 +200,7 @@ void    chessBoard::undoMove(string srcdest)
     }
     else
     {
-        src = string(1, srcdest[0]) + string(1, srcdest[1]);
+        src = {srcdest[0], srcdest[1]};
         dest = srcdest.c_str() + 2;
 
         atValueSrc = getAtValue(src);

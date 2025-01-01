@@ -46,7 +46,7 @@ vector<string>  chessBoard::getLegalMoves(void)
                 for (size_t j = 0; j != availaibleTargets.size(); j++)
                 {
                     type = _board.at(getAtValue(coord)).piece->getType();
-                    move = string(1, type) + availaibleTargets.at(j);
+                    move = string{type} + availaibleTargets.at(j);
                     
                     if ((move.at(move.length() - 1) == '8' || move.at(move.length() - 1) == '1') && type == 'P')
                         possibleMoves.push_back(move + 'Q'), possibleMoves.push_back(move + 'B'), \
@@ -79,18 +79,18 @@ vector<string>  chessBoard::getCastlingSrcsDests(const string srcdest) const
 
     if (srcdest == "O-O")
     {
-        src = string(1, 'e') + y, dest = string(1, 'g') + y;
+        src = {'e', y}, dest = {'g', y};
         srcsDests.push_back(src + dest);
 
-        src = string(1, 'h') + y, dest = string(1, 'f') + y;
+        src = {'h', y}, dest = {'f', y};
         srcsDests.push_back(src + dest);
     }
     if (srcdest == "O-O-O")
     {
-        src = string(1, 'e') + y, dest = string(1, 'c') + y;
+        src = {'e', y}, dest = {'c', y};
         srcsDests.push_back(src + dest);
 
-        src = string(1, 'a') + y, dest = string(1, 'd') + y;
+        src = {'a', y}, dest = {'d', y};
         srcsDests.push_back(src + dest);
     }
 

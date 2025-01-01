@@ -136,7 +136,7 @@ string  visualGame::getCoord(const int x, const int y) const
                     xZone = 80 * (k + 1);
 
                 if (x >= xZone && x <= xZone + 105 && y >= yZone && y <= yZone + 80)
-                    return (string(1, "abcdefgh"[k]) + string(1, "12345678"[i]));
+                    return (string{ "abcdefgh"[k], "12345678"[i] });
             }
         }
     }
@@ -176,7 +176,7 @@ string  visualGame::getKingCoords(const string color) const
     {
         for (int k = 0; k != 8; k++)
         {
-            coords = string(1, "hgfedcba"[k]) + string(1, "87654321"[i]);
+            coords = { "hgfedcba"[k], "87654321"[i] };
             if (_board->getType(coords) == 'K' && _board->getColor(coords) == color)
                 return (coords);
         }

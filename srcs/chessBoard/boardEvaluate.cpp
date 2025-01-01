@@ -333,27 +333,27 @@ int		chessBoard::evaluateDev(void)
 
 	_gameInfo._color == "white" ? nb1 = '1', nb2 = '2' : nb1 = '8', nb2 = '7';
 
-	atValue = getAtValue(string(1, 'b') + nb1);
+	atValue = getAtValue({'b', nb1});
 	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 	
-	atValue = getAtValue(string(1, 'g') + nb1);
+	atValue = getAtValue({'g', nb1});
 	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 
-	atValue = getAtValue(string(1, 'c') + nb1);
+	atValue = getAtValue({'c', nb1});
 	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 	
-	atValue = getAtValue(string(1, 'f') + nb1);
+	atValue = getAtValue({'f', nb1});
 	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getMoves() != 0)
 		value += 8;
 
-	atValue = getAtValue(string(1, 'd') + nb2);
+	atValue = getAtValue({'d', nb2});
 	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getType() != 'P')
 		value += 16;
 
-	atValue = getAtValue(string(1, 'e') + nb2);
+	atValue = getAtValue({'e', nb2});
 	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getType() != 'P')
 		value += 16;
 

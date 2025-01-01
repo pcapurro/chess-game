@@ -12,7 +12,7 @@ string  visualGame::getVisualAnswer(void)
         if (answer == "error")
         if (answer == "error")
             { systemFailed(true, "Stockfish failed."); return ("error"); }
-        answer = _board->getType(string(1, answer[0]) + answer[1]) + answer;
+        answer = _board->getType({answer[0], answer[1]}) + answer;
 
         if (answer == "Ke1g1" || answer == "Ke8g8")
             answer = "O-O";

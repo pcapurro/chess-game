@@ -13,7 +13,7 @@ string  shellGame::getShellAnswer(void) const
         if (answer == "error")
             { systemFailed(true, "Stockfish failed."); return ("error"); }
 
-        answer = _board->getType(string(1, answer[0]) + answer[1]) + answer;
+        answer = _board->getType(string{answer[0], answer[1]} + answer);
 
         if (answer == "Ke1g1" || answer == "Ke8g8")
             answer = "O-O";
@@ -23,9 +23,9 @@ string  shellGame::getShellAnswer(void) const
         if (answer != "O-O" && answer != "O-O-O")
         {
             if (answer[0] != 'P')
-                answer = string(1, answer[0]) + answer[1] + answer[2] + "-" + (answer.c_str() + 3);
+                answer = string{answer[0], answer[1], answer[2], '-'} + (answer.c_str() + 3);
             else
-                answer = string(1, answer[1]) + answer[2] + "-" + (answer.c_str() + 3);
+                answer = string{answer[1], answer[2], '-'} + (answer.c_str() + 3);
         }
 
         return (answer);
