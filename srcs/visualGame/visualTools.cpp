@@ -58,10 +58,7 @@ SDL_Rect	visualGame::getRectangle(const string coords, const string type) const
 	int	x = coords[0] - 97;
 	int	y = atoi(coords.c_str() + 1) - 1;
 
-	if (_aiSide != 0)
-		y = 8 - (y + 1);
-	else
-		x = 7 - x;
+	_aiSide != 0 ? y = 8 - (y + 1) : x = 7 - x;
 
 	obj.x = 105 + (80 * x), obj.y = 80 + (80 * y);
 
@@ -113,17 +110,11 @@ string	visualGame::getCoord(const int x, const int y) const
 	{
 		for (int i = 0; i != 8; i++)
 		{
-			if (_aiSide == 0)
-				yZone = 80 * (i + 1);
-			else
-				yZone = 80 * (8 - i);
+			_aiSide == 0 ? yZone = 80 * (i + 1) : yZone = 80 * (8 - i);
 
 			for (int k = 0; k != 8; k++)
 			{
-				if (_aiSide == 0)
-					xZone = 80 * (8 - k);
-				else
-					xZone = 80 * (k + 1);
+				_aiSide == 0 ? xZone = 80 * (8 - k) : xZone = 80 * (k + 1);
 
 				if (x >= xZone && x <= xZone + 105 && y >= yZone && y <= yZone + 80)
 					return (string{ "abcdefgh"[k], "12345678"[i] });
@@ -141,15 +132,15 @@ string	visualGame::getInput(const string coord)
 	if (coord == "end" || coord == "none" || coord == "error")
 		return (coord);
 
-	input = input + _board->getType(_droppedSrc);
-	input = input + _droppedSrc + coord;
+	input += _board->getType(_droppedSrc);
+	input += _droppedSrc + coord;
 
 	if (input[0] == 'K')
 	{
 		if ((coord == "g1" && _droppedSrc == "e1") || (coord == "g8" && _droppedSrc == "e8"))
-			input[3] = 'O', input[4] = '-', input = input + "O";
+			input[3] = 'O', input[4] = '-', input += "O";
 		if ((coord == "c1" && _droppedSrc == "e1") || (coord == "c8" && _droppedSrc == "e8"))
-			input[3] = 'O', input[4] = '-', input = input + "O-O";
+			input[3] = 'O', input[4] = '-', input += + "O-O";
 	}
 
 	_droppedSrc.clear();

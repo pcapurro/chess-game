@@ -69,9 +69,7 @@ void	chessBoard::undoEnPassant(string srcdest)
 
 void	chessBoard::enableCastling(string srcdest)
 {
-	string	dest;
-
-	dest = dest = srcdest.c_str() + 2;
+	string	dest = srcdest.c_str() + 2;
 
 	if (_gameInfo._color == "white" && _gameInfo._whiteCastleLost != "")
 	{
@@ -90,9 +88,7 @@ void	chessBoard::enableCastling(string srcdest)
 
 void	chessBoard::disableCastling(string srcdest)
 {
-	string	dest;
-
-	dest = dest = srcdest.c_str() + 2;
+	string	dest = srcdest.c_str() + 2;
 
 	if (_gameInfo._color == "white" && _gameInfo._whiteCastle == true)
 	{

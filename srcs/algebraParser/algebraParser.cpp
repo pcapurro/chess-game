@@ -34,7 +34,7 @@ void	algebraParser::parseDoubleSequence(void)
 				&& algebraParser::isChessDigit(coords.at(i)[1]) == true)
 			{
 				if (left.length() != 2 || (left.length() == 2 && coords.at(i)[0] == _move.move[1]))
-					middle = middle + coords.at(i);
+					middle += coords.at(i);
 			}
 		}
 	}
@@ -73,12 +73,12 @@ void	algebraParser::parseUniqueSequence(void)
 	{
 		if (algebraParser::isChessCoord(coords.at(i)[0]) == true
 			&& algebraParser::isChessDigit(coords.at(i)[1]) == true)
-			_move.src = _move.src + coords.at(i);
+			_move.src += coords.at(i);
 	}
 	if (algebraParser::isChessCoord(_move.move[0]) == true)
-		_move.dest = _move.dest + _move.move.c_str();
+		_move.dest += _move.move.c_str();
 	else
-		_move.dest = _move.dest + (_move.move.c_str() + 1 + i);
+		_move.dest += (_move.move.c_str() + 1 + i);
 }
 
 void	algebraParser::parseMove(void)

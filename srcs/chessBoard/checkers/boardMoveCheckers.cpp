@@ -85,7 +85,7 @@ int	chessBoard::checkPawnSource(void)
 		return (FAIL);
 	for (size_t i = 0; i != src->length(); i++)
 	{
-		source = source + src->at(i);
+		source += src->at(i);
 		if (source.length() == 2)
 		{
 			if (_board.at(getAtValue(source)).piece != nullptr
@@ -120,7 +120,7 @@ int	chessBoard::checkNormalSource(void)
 			if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).piece->getType() == _gameInfo._lastMove.obj)
 			{
 				if (_board.at(i).piece->isOnMyWay(*dest, boardCoords) == true)
-					*src = *src + _board.at(i).coord;
+					*src += _board.at(i).coord;
 			}
 		}
 	}

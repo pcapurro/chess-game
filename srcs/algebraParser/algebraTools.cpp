@@ -40,7 +40,7 @@ string	algebraParser::getLeftSequence(void) const
 	{
 		if (_move.move[i] == 'x' || _move.move[i] == '-')
 			break ;
-		left = left + _move.move[i];
+		left += _move.move[i];
 	}
 
 	return (left);

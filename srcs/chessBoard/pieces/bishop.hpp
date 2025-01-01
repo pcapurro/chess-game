@@ -36,11 +36,11 @@ class Bishop : public chessPiece
 					if (k == 3)
 						src_x++, src_y--;
 
-					newCoords = newCoords + "abcdefgh"[src_x] + to_string(src_y);
+					newCoords += "abcdefgh"[src_x] + to_string(src_y);
 					if (algebraParser::isChessCoord(newCoords[0]) == false || algebraParser::isChessDigit(newCoords[1]) == false)
 						break ;
 					else
-						coords = coords + newCoords;
+						coords += newCoords;
 					if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
 						break ;
 					newCoords.clear();
