@@ -26,19 +26,29 @@ class chessPiece
 
 		virtual ~chessPiece() {};
 
-		bool	isVisible(void) const { return (_visible); }
-		void	setVisibility(void) { _visible == true ? _visible = false : _visible = true; }
+		bool	isVisible(void) const
+			{ return (_visible); }
+		void	setVisibility(void)
+			{ _visible == true ? _visible = false : _visible = true; }
 
-		string	getColor() const { return (_color); }
-		char	getType() const { return (_type); }
+		string	getColor() const
+			{ return (_color); }
+		char	getType() const
+			{ return (_type); }
 		
-		int		getMoves(void) { return (_moves); }
+		int		getMoves(void)
+			{ return (_moves); }
 
-		string	getCoord(void) const { return (_pos); }
-		string	getOriginalCoord(void) const { return (_originalPos); }
-		int		getX(void) const { return (_x); }
-		int		getY(void) const { return (_y); }
-		void	move(void) { _moves++; };
+		string	getCoord(void) const
+			{ return (_pos); }
+		string	getOriginalCoord(void) const
+			{ return (_originalPos); }
+		int		getX(void) const
+			{ return (_x); }
+		int		getY(void) const
+			{ return (_y); }
+		void	move(void)
+			{ _moves++; };
 
 		void	updatePos(const string coord)
 		{
@@ -48,7 +58,7 @@ class chessPiece
 		}
 
 		virtual bool	isOnMyWay(const string target, const vector<string> boardCoords = {}, \
-									const int value = 0, const string enPassant = "") const = 0;
+			const int value = 0, const string enPassant = "") const = 0;
 
 	protected:
 

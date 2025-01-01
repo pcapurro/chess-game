@@ -17,8 +17,8 @@ bool	chessBoard::checkBoardAllocation(void) const
 {
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece == nullptr
-			&& (_board.at(i).coord[1] == '1' || _board.at(i).coord[1] == '2'
+		if (_board.at(i).piece == nullptr \
+			&& (_board.at(i).coord[1] == '1' || _board.at(i).coord[1] == '2' \
 			|| _board.at(i).coord[1] == '8' || _board.at(i).coord[1] == '7'))
 			return (false);
 	}

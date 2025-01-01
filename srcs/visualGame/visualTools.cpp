@@ -179,7 +179,7 @@ bool	visualGame::isPromotion(const string coord) const
 {
 	if (_board->getType(_droppedSrc) == 'P')
 	{
-		if ((coord[1] == '8' && _droppedSrc[1] == '7')
+		if ((coord[1] == '8' && _droppedSrc[1] == '7') \
 			|| (coord[1] == '1' && _droppedSrc[1] == '2'))
 		{
 			if (coord[0] == _droppedSrc[0] && _board->getType(coord) == ' ')
@@ -195,15 +195,15 @@ bool	visualGame::isPromotion(const string coord) const
 
 bool	visualGame::isAbovePromotion(const int x, const int y, SDL_Rect obj) const
 {
-	if (x > obj.x && x < obj.x + 20
+	if (x > obj.x && x < obj.x + 20 \
 		&& y > obj.y + 20 && y <= obj.y + 20 + 40)
 		return (true);
 
-	if (x > obj.x + 88 && x < (obj.x + obj.w)
+	if (x > obj.x + 88 && x < (obj.x + obj.w) \
 		&& y > obj.y + 20 && y <= obj.y + 20 + 40)
 		return (true);
 
-	if (x > obj.x + 32 && x < (obj.x + obj.w) - 32
+	if (x > obj.x + 32 && x < (obj.x + obj.w) - 32 \
 		&& y > obj.y + 50 && y < (obj.y + obj.h))
 		return (true);
 

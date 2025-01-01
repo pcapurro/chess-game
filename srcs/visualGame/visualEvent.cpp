@@ -8,11 +8,11 @@ string	visualGame::waitForNewGame(void)
 	{
 		if (SDL_PollEvent(&event) == true)
 		{
-			if (event.type == SDL_QUIT
+			if (event.type == SDL_QUIT \
 				|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				return ("end");
 
-			if (event.type == SDL_KEYDOWN
+			if (event.type == SDL_KEYDOWN \
 				&& event.key.keysym.sym == SDLK_RETURN)
 				break ;
 
@@ -50,7 +50,7 @@ string  visualGame::waitForPromotion(void)
 	{
 		if (SDL_PollEvent(&event) == true)
 		{
-			if (event.type == SDL_QUIT
+			if (event.type == SDL_QUIT \
 				|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				return ("end");
 
@@ -92,7 +92,7 @@ string	visualGame::waitForEvent(void)
 	{
 		if (SDL_PollEvent(&event) == true)
 		{
-			if (event.type == SDL_QUIT
+			if (event.type == SDL_QUIT \
 				|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				return ("end");
 

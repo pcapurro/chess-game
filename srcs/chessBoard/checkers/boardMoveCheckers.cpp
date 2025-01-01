@@ -6,14 +6,14 @@ int	chessBoard::checkPawnDest(void) const
 	string	dest = _gameInfo._lastMove.dest;
 	int		atValue = getAtValue(dest);
 
-	if ((_board.at(atValue).coord[1] == '8' || _board.at(atValue).coord[1] == '1')
-		&& (dest.length() != 3 || algebraParser::isChessPiece(dest[2]) == false
+	if ((_board.at(atValue).coord[1] == '8' || _board.at(atValue).coord[1] == '1') \
+		&& (dest.length() != 3 || algebraParser::isChessPiece(dest[2]) == false \
 		|| dest[2] == 'K'))
 		return (FAIL);
 
 	if (_board.at(atValue).coord[0] != src[0])
 	{
-		if (_board.at(atValue).coord[0] - 1 != src[0]
+		if (_board.at(atValue).coord[0] - 1 != src[0] \
 			&& _board.at(atValue).coord[0] + 1 != src[0])
 			return (FAIL);
 
@@ -36,23 +36,23 @@ int	chessBoard::checkPawnDest(void) const
 		if (isThereSomething(dest) == true)
 			return (FAIL);
 
-		if (_gameInfo._color == "white" 
-			&& dest[1] - src[1] != 2
+		if (_gameInfo._color == "white" \
+			&& dest[1] - src[1] != 2 \
 			&& dest[1] - src[1] != 1)
 			return (FAIL);
 
-		if (_gameInfo._color == "black" 
-			&& src[1] - dest[1] != 2
+		if (_gameInfo._color == "black" \
+			&& src[1] - dest[1] != 2 \
 			&& src[1] - dest[1] != 1)
 			return (FAIL);
 
-		if (_gameInfo._color == "white" 
-			&& dest[1] - src[1] == 2
+		if (_gameInfo._color == "white" \
+			&& dest[1] - src[1] == 2 \
 			&& src[1] != '2')
 			return (FAIL);
 
-		if (_gameInfo._color == "black" 
-			&& src[1] - dest[1] == 2
+		if (_gameInfo._color == "black" \
+			&& src[1] - dest[1] == 2 \
 			&& src[1] != '7')
 			return (FAIL);
 
@@ -91,9 +91,11 @@ int	chessBoard::checkPawnSource(void)
 			if (_board.at(getAtValue(source)).piece != nullptr
 				&& _board.at(getAtValue(source)).piece->getType() == 'P')
 			{
-				if (source[1] == (*dest)[1] - 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
+				if (source[1] == (*dest)[1] - 2 \
+					&& _board.at(getAtValue(source)).piece->getMoves() != 0)
 					return (FAIL);
-				if (source[1] == (*dest)[1] + 2 && _board.at(getAtValue(source)).piece->getMoves() != 0)
+				if (source[1] == (*dest)[1] + 2 \
+					&& _board.at(getAtValue(source)).piece->getMoves() != 0)
 					return (FAIL);
 				*src = source;
 				return (SUCCESS);
@@ -117,7 +119,8 @@ int	chessBoard::checkNormalSource(void)
 	{
 		if (source.find(_board.at(i).coord) != string::npos && _board.at(i).piece != nullptr)
 		{
-			if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).piece->getType() == _gameInfo._lastMove.obj)
+			if (_board.at(i).piece->getColor() == _gameInfo._color \
+				&& _board.at(i).piece->getType() == _gameInfo._lastMove.obj)
 			{
 				if (_board.at(i).piece->isOnMyWay(*dest, boardCoords) == true)
 					*src += _board.at(i).coord;
@@ -187,7 +190,7 @@ bool	chessBoard::isThereValidSource(void)
 
 bool	chessBoard::isValidEnPassant(void) const
 {
-	if (_gameInfo._lastMove.obj != 'P' || _gameInfo._enPassant == false 
+	if (_gameInfo._lastMove.obj != 'P' || _gameInfo._enPassant == false \
 		|| _gameInfo._enPassantDest != _gameInfo._lastMove.dest)
 		return (false);
 
@@ -207,7 +210,7 @@ bool    chessBoard::isItValidSource(void) const
 {
 	int	atValue = getAtValue(_gameInfo._lastMove.src);
 
-	if (_board.at(atValue).piece == nullptr
+	if (_board.at(atValue).piece == nullptr \
 		|| _board.at(atValue).piece->getType() != _gameInfo._lastMove.obj)
 		return (false);
 
@@ -257,14 +260,14 @@ bool    chessBoard::isLegal(const string move)
 			if (checkNormalDest() == FAIL)
 				return (false);
 
-		if (isThereAlly() == true || isRightSide() == false
+		if (isThereAlly() == true || isRightSide() == false \
 			|| (*obj == 'K' && isTheDestinationSafe() == false))
 			return (false);
 
 		if (isCheck() == false && doesItResolveCheck(*src + *dest) == false)
 			return (false);
 
-		if (isCheck() == true 
+		if (isCheck() == true \
 			&& doesItResolveCheck(*src + *dest) == false)
 			return (false);
 	}

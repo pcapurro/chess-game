@@ -86,7 +86,7 @@ vector<string>	getWatchersSequence(const char type, const string move, const cha
 		for (int k = 0; k != 8; k++)
 		{
 			string newCoords = "abcdefgh"[k] + to_string(i - 1);
-			if (object->isOnMyWay(newCoords) == true
+			if (object->isOnMyWay(newCoords) == true \
 				&& (sign == 'i' || newCoords[0] == sign))
 				coords.push_back(newCoords);
 		}

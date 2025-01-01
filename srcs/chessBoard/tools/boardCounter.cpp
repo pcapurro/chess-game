@@ -48,45 +48,45 @@ void	chessBoard::countPiecesOnBoard(void)
 	{
 		if (_board.at(i).piece != nullptr)
 		{
-			if (_board.at(i).piece->getType() == 'K'
+			if (_board.at(i).piece->getType() == 'K' \
 				&& _board.at(i).piece->getColor() == "white")
 				_boardCount.whiteKing++;
-			if (_board.at(i).piece->getType() == 'K'
+			if (_board.at(i).piece->getType() == 'K' \
 				&& _board.at(i).piece->getColor() == "black")
 				_boardCount.whiteKing++;
 
-			if (_board.at(i).piece->getType() == 'Q'
+			if (_board.at(i).piece->getType() == 'Q' \
 				&& _board.at(i).piece->getColor() == "white")
 				_boardCount.whiteQueen++;
-			if (_board.at(i).piece->getType() == 'Q'
+			if (_board.at(i).piece->getType() == 'Q' \
 				&& _board.at(i).piece->getColor() == "black")
 				_boardCount.blackQueen++;
 
-			if (_board.at(i).piece->getType() == 'N'
+			if (_board.at(i).piece->getType() == 'N' \
 				&& _board.at(i).piece->getColor() == "white")
 				_boardCount.whiteKnight++;
-			if (_board.at(i).piece->getType() == 'N'
+			if (_board.at(i).piece->getType() == 'N' \
 				&& _board.at(i).piece->getColor() == "black")
 				_boardCount.blackKnight++;
 
-			if (_board.at(i).piece->getType() == 'R'
+			if (_board.at(i).piece->getType() == 'R' \
 				&& _board.at(i).piece->getColor() == "white")
 				_boardCount.whiteRook++;
-			if (_board.at(i).piece->getType() == 'R'
+			if (_board.at(i).piece->getType() == 'R' \
 				&& _board.at(i).piece->getColor() == "black")
 				_boardCount.blackRook++;
 
-			if (_board.at(i).piece->getType() == 'B'
+			if (_board.at(i).piece->getType() == 'B' \
 				&& _board.at(i).piece->getColor() == "white")
 				_boardCount.whiteBishop++;
-			if (_board.at(i).piece->getType() == 'B'
+			if (_board.at(i).piece->getType() == 'B' \
 				&& _board.at(i).piece->getColor() == "black")
 				_boardCount.blackBishop++;
 
-			if (_board.at(i).piece->getType() == 'P'
+			if (_board.at(i).piece->getType() == 'P' \
 				&& _board.at(i).piece->getColor() == "white")
 				_boardCount.whitePawn++;
-			if (_board.at(i).piece->getType() == 'P'
+			if (_board.at(i).piece->getType() == 'P' \
 				&& _board.at(i).piece->getColor() == "black")
 				_boardCount.blackPawn++;
 			

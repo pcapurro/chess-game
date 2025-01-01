@@ -37,7 +37,7 @@ int	visualGame::visualLoop(void)
 		displayGame(true);
 
 		answer = getVisualAnswer();
-		if (answer == "error" || answer == "restart"
+		if (answer == "error" || answer == "restart" \
 			|| answer == "end")
 		{
 			if (answer == "error")
@@ -80,7 +80,7 @@ void	visualGame::visualRoutine(void)
 	while (1)
 	{
 		_board = new (nothrow) chessBoard;
-		if (!_board || _board == nullptr
+		if (!_board || _board == nullptr \
 			|| _board->isAllocated() == false)
 			_error = true, memoryFailed(false);
 

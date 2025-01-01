@@ -114,9 +114,11 @@ int	main(const int argc, const char **argv)
 
 		if (argc > 1)
 		{
-			if (string(argv[1]) == "--blind-mode" || (argc == 3 && string(argv[2]) == "--blind-mode"))
+			if (string(argv[1]) == "--blind-mode" \
+				|| (argc == 3 && string(argv[2]) == "--blind-mode"))
 				blindMode = true;
-			if (string(argv[1]) == "--sandbox" || (argc == 3 && string(argv[2]) == "--sandbox"))
+			if (string(argv[1]) == "--sandbox" \
+				|| (argc == 3 && string(argv[2]) == "--sandbox"))
 				sandBoxMode = true;
 		}
 

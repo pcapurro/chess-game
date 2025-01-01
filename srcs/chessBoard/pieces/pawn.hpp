@@ -12,7 +12,7 @@ class Pawn : public chessPiece
 		~Pawn() {};
 
 		virtual bool isOnMyWay(const string target, const vector<string> boardCoords = {}, \
-									const int value = 0, const string enPassant = "") const
+			const int value = 0, const string enPassant = "") const
 		{
 			int	src_x = _x;
 			int	src_y = _y;
@@ -25,7 +25,7 @@ class Pawn : public chessPiece
 			if (_color == "white")
 			{
 				newCoord = "abcdefgh"[src_x + 1] + to_string(src_y + 1);
-				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end() \
 					&& src_x + 1 == dest_x && src_y + 1 == dest_y)
 					return (true);
 
@@ -33,7 +33,7 @@ class Pawn : public chessPiece
 					return (true);
 
 				newCoord = "abcdefgh"[src_x - 1] + to_string(src_y + 1);
-				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end() \
 					&& src_x - 1 == dest_x && src_y + 1 == dest_y)
 					return (true);
 
@@ -43,14 +43,14 @@ class Pawn : public chessPiece
 				if (value == 0)
 				{
 					newCoord = "abcdefgh"[src_x] + to_string(src_y + 1);
-					if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
+					if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end() \
 						&& src_x == dest_x && src_y + 1 == dest_y)
 						return (true);
 					
 					if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end())
 					{
 						newCoord = "abcdefgh"[src_x] + to_string(src_y + 2);
-						if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
+						if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end() \
 							&& src_x == dest_x && src_y + 2 == dest_y && _moves == 0)
 						return (true);
 					}
@@ -60,7 +60,7 @@ class Pawn : public chessPiece
 			if (_color == "black")
 			{
 				newCoord = "abcdefgh"[src_x + 1] + to_string(src_y - 1);
-				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end() \
 					&& src_x + 1 == dest_x && src_y - 1 == dest_y)
 					return (true);
 
@@ -68,7 +68,7 @@ class Pawn : public chessPiece
 					return (true);
 
 				newCoord = "abcdefgh"[src_x - 1] + to_string(src_y - 1);
-				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end()
+				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end() \
 					&& src_x - 1 == dest_x && src_y - 1 == dest_y)
 					return (true);
 
@@ -78,14 +78,14 @@ class Pawn : public chessPiece
 				if (value == 0)
 				{
 					newCoord = "abcdefgh"[src_x] + to_string(src_y - 1);
-					if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
+					if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end() \
 						&& src_x == dest_x && src_y - 1 == dest_y)
 						return (true);
 					
 					if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end())
 					{
 						newCoord = "abcdefgh"[src_x] + to_string(src_y - 2);
-						if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end()
+						if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end() \
 							&& src_x == dest_x && src_y - 2 == dest_y && _moves == 0)
 						return (true);
 					}

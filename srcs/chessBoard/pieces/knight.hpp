@@ -11,7 +11,7 @@ class Knight : public chessPiece
 		~Knight() {};
 
 		virtual bool isOnMyWay(const string target, const vector<string> boardCoords = {}, \
-									const int value = 0, const string enPassant = "") const
+			const int value = 0, const string enPassant = "") const
 		{
 			int	dest_x = target[0] - 97;
 			int	dest_y = atoi(target.c_str() + 1);

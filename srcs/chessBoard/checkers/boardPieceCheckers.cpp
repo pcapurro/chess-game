@@ -12,7 +12,7 @@ bool	chessBoard::isCastlingPossible(const string castle)
 		if (castle == "O-O")
 		{
 			atValue = getAtValue("h1");
-			if (_board.at(atValue).piece == nullptr
+			if (_board.at(atValue).piece == nullptr \
 				|| _board.at(atValue).piece->getMoves() != 0)
 				return (false);
 			
@@ -27,14 +27,14 @@ bool	chessBoard::isCastlingPossible(const string castle)
 			if (_board.at(atValue).piece == nullptr)
 				return (false);
 
-			if (doesItResolveCheck("e1g1") == false
+			if (doesItResolveCheck("e1g1") == false \
 				|| doesItResolveCheck("e1f1") == false)
 				return (false);
 		}
 		if (castle == "O-O-O")
 		{
 			atValue = getAtValue("a1");
-			if (_board.at(atValue).piece == nullptr
+			if (_board.at(atValue).piece == nullptr \
 				|| _board.at(atValue).piece->getMoves() != 0)
 				return (false);
 			
@@ -52,7 +52,7 @@ bool	chessBoard::isCastlingPossible(const string castle)
 			if (_board.at(atValue).piece == nullptr)
 				return (false);
 
-			if (doesItResolveCheck("e1d1") == false
+			if (doesItResolveCheck("e1d1") == false \
 				|| doesItResolveCheck("e1c1") == false)
 				return (false);
 		}
@@ -65,7 +65,7 @@ bool	chessBoard::isCastlingPossible(const string castle)
 		if (castle == "O-O")
 		{
 			atValue = getAtValue("h8");
-			if (_board.at(atValue).piece == nullptr
+			if (_board.at(atValue).piece == nullptr \
 				|| _board.at(atValue).piece->getMoves() != 0)
 				return (false);
 			
@@ -80,14 +80,14 @@ bool	chessBoard::isCastlingPossible(const string castle)
 			if (_board.at(atValue).piece == nullptr)
 				return (false);
 
-			if (doesItResolveCheck("e8f8") == false
+			if (doesItResolveCheck("e8f8") == false \
 				|| doesItResolveCheck("e8g8") == false)
 				return (false);
 		}
 		if (castle == "O-O-O")
 		{
 			atValue = getAtValue("a8");
-			if (_board.at(atValue).piece == nullptr
+			if (_board.at(atValue).piece == nullptr \
 				|| _board.at(atValue).piece->getMoves() != 0)
 				return (false);
 
@@ -105,7 +105,7 @@ bool	chessBoard::isCastlingPossible(const string castle)
 			if (_board.at(atValue).piece == nullptr)
 				return (false);
 
-			if (doesItResolveCheck("e8d8") == false
+			if (doesItResolveCheck("e8d8") == false \
 				|| doesItResolveCheck("e8c8") == false)
 				return (false);
 		}
@@ -134,7 +134,7 @@ bool	chessBoard::isRightSide(void) const
 {
 	int	atValue = getAtValue(_gameInfo._lastMove.src);
 
-	if (_board.at(atValue).piece == nullptr
+	if (_board.at(atValue).piece == nullptr \
 		|| _board.at(atValue).piece->getColor() == _gameInfo._color)
 		return (true);
 	return (false);
@@ -153,7 +153,8 @@ bool	chessBoard::isThereAlly(void) const
 {
 	int	atValue = getAtValue(_gameInfo._lastMove.dest);
 
-	if (_board.at(atValue).piece != nullptr && _board.at(atValue).piece->getColor() == _gameInfo._color)
+	if (_board.at(atValue).piece != nullptr \
+		&& _board.at(atValue).piece->getColor() == _gameInfo._color)
 		return (true);
 	return (false);
 }

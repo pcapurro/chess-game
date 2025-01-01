@@ -6,7 +6,7 @@ string	shellGame::getShellAnswer(void) const
 {
 	string	answer;
 
-	if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0)
+	if (_sandBoxMode == false && ((_board->getActualTurn() % 2 == 0 && _aiSide % 2 == 0) \
 		|| (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
 	{
 		answer = _ai->getBestMove(_board->getHistory());

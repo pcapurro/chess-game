@@ -20,14 +20,17 @@ class algebraParser
 {
 	public:
 
-		algebraParser(void) { _turn = 0, _fail = false; };
+		algebraParser(void)
+			{ _turn = 0, _fail = false; };
 		~algebraParser(void) {};
 
 		void		operator=(const string move);
 		bool		fail(void) const;
 
-		void		setTurn(const int turn) { _turn = turn; };
-		t_move		getParsedMove(void) const { return (_move); };
+		void		setTurn(const int turn)
+			{ _turn = turn; };
+		t_move		getParsedMove(void) const
+			{ return (_move); };
 
 
 		static bool	isChessDigit(const char c);

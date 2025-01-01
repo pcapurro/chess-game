@@ -12,7 +12,7 @@ class Queen : public chessPiece
 		~Queen() {};
 
 		virtual bool isOnMyWay(const string target, const vector<string> boardCoords = {}, \
-									const int value = 0, const string enPassant = "") const
+			const int value = 0, const string enPassant = "") const
 		{
 			int	src_x = _x;
 			int	src_y = _y;
@@ -38,7 +38,8 @@ class Queen : public chessPiece
 						src_y--;
 
 					newCoords += "abcdefgh"[src_x] + to_string(src_y);
-					if (algebraParser::isChessCoord(newCoords[0]) == false || algebraParser::isChessDigit(newCoords[1]) == false)
+					if (algebraParser::isChessCoord(newCoords[0]) == false \
+						|| algebraParser::isChessDigit(newCoords[1]) == false)
 						break ;
 					else
 						coords += newCoords;
@@ -69,7 +70,8 @@ class Queen : public chessPiece
 						src_x++, src_y--;
 
 					newCoords += "abcdefgh"[src_x] + to_string(src_y);
-					if (algebraParser::isChessCoord(newCoords[0]) == false || algebraParser::isChessDigit(newCoords[1]) == false)
+					if (algebraParser::isChessCoord(newCoords[0]) == false \
+						|| algebraParser::isChessDigit(newCoords[1]) == false)
 						break ;
 					else
 						coords += newCoords;

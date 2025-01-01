@@ -172,7 +172,7 @@ void	visualGame::loadCapturedComplex(vector<char> &captured, const string color)
 		if (captured.at(i) == 'N')
 			obj.x += 5;
 
-		if (obj.x >= 800 || i == captured.size() - 1
+		if (obj.x >= 800 || i == captured.size() - 1 \
 			|| (i != captured.size() - 1 && captured.at(i) != captured.at(i + 1)))
 		{
 			obj.x = 760;
@@ -316,7 +316,7 @@ void	visualGame::loadMap(void)
 		{
 			string  coords = {"hgfedcba"[k], "87654321"[i]};
 
-			if ((state == true && k % 2 == 0)
+			if ((state == true && k % 2 == 0) \
 				|| (state == false && k % 2 != 0))
 			{
 				obj = getRectangle(coords);
@@ -355,8 +355,8 @@ void	visualGame::loadCoords(void)
 		SDL_RenderCopy(_mainRenderer, numbers[i]->getTexture(), NULL, &obj);
 	}
 
-	if (_x >= 105 && _x <= 745 && _y >= 80 && _y <= 720
-		&& _visualCoords == true && _actualCoords != "none" && _actualCoords != ""
+	if (_x >= 105 && _x <= 745 && _y >= 80 && _y <= 720 \
+		&& _visualCoords == true && _actualCoords != "none" && _actualCoords != "" \
 		&& (_sandBoxMode == true || ((_aiSide % 2 == 0 && _turn % 2 != 0) || (_aiSide % 2 != 0 && _turn % 2 == 0))))
 	{
 		SDL_Texture	*texture;

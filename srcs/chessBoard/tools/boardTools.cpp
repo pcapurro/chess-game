@@ -41,7 +41,7 @@ vector<string>	chessBoard::getLegalMoves(void)
 		for (int k = 0; k != 8; k++)
 		{
 			string coord = "abcdefgh"[i] + to_string(k + 1);
-			if (_board.at(getAtValue(coord)).piece != nullptr 
+			if (_board.at(getAtValue(coord)).piece != nullptr \
 				&& _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
 			{
 				availaibleTargets = getPossibleTargets(coord);
@@ -50,7 +50,7 @@ vector<string>	chessBoard::getLegalMoves(void)
 					type = _board.at(getAtValue(coord)).piece->getType();
 					move = string{type} + availaibleTargets.at(j);
 					
-					if ((move.at(move.length() - 1) == '8' || move.at(move.length() - 1) == '1') && type == 'P')
+					if ((move.at(move.length() - 1) == '8' || move.at(move.length() - 1) == '1') && type == 'P') \
 						possibleMoves.push_back(move + 'Q'), possibleMoves.push_back(move + 'B'), \
 						possibleMoves.push_back(move + 'N'), possibleMoves.push_back(move + 'R');
 					else
@@ -128,7 +128,7 @@ int	chessBoard::getWatchersNumber(const string coord) const
 	{
 		if (_board.at(i).piece != nullptr)
 		{
-			if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord
+			if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord \
 				&& _board.at(i).piece->isVisible() == true)
 			{
 				if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
@@ -155,7 +155,7 @@ stack<cP *>	chessBoard::getWatchers(const string coord)
 		{
 			if (_board.at(i).piece != nullptr)
 			{
-				if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord
+				if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord \
 					&& _board.at(i).piece->isVisible() == true)
 				{
 					if (_board.at(i).piece->isOnMyWay(coord, baordCoords, 1, _gameInfo._enPassantDest) == true)

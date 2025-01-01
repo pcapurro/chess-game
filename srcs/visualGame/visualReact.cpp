@@ -23,7 +23,7 @@ void	visualGame::reactMouseMotion(void)
 
 void	visualGame::reactMouseDown(const int key)
 {
-	if (isBoardTargetZone(_actualCoords, _x, _y) == true
+	if (isBoardTargetZone(_actualCoords, _x, _y) == true \
 		&& _actualCoords != "none")
 		_droppedSrc = _actualCoords;
 
@@ -47,6 +47,7 @@ void	visualGame::reactMouseUp(void)
 	}
 
 	if (isPromotion(_actualCoords) == true
-		&& _board->isLegal(_board->getType(_droppedSrc) + _droppedSrc + _droppedDest + 'Q') == true)
+		&& _board->isLegal(_board->getType(_droppedSrc) + \
+			_droppedSrc + _droppedDest + 'Q') == true)
 		_actualCoords = waitForPromotion();
 }

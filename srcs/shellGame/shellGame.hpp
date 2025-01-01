@@ -14,7 +14,8 @@ class shellGame
 		shellGame(const bool blindMode, const bool sandBoxMode);
 		~shellGame(void);
 
-		bool	fail(void) const { return (_error); };
+		bool	fail(void) const
+			{ return (_error); };
 
 		void	shellRoutine(void);
 		string	getShellAnswer(void) const;

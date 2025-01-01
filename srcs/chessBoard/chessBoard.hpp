@@ -81,21 +81,27 @@ class chessBoard
 
 		~chessBoard(void);
 
-		bool	fail(void) const { return (_gameInfo._moveFailed); };
-		bool	isAllocated(void) const { return (_allocated); }
+		bool	fail(void) const
+			{ return (_gameInfo._moveFailed); };
+		bool	isAllocated(void) const
+			{ return (_allocated); }
 
 		int		getScore(const string color);
 
 		char	getType(const string coord) const;
 		string	getColor(const string coord) const;
 
-		int		getActualTurn(void) const { return (_gameInfo._turn); };
+		int		getActualTurn(void) const
+			{ return (_gameInfo._turn); };
 		int		getStateValue(void) const;
 
 		bool	isLegal(const string move = "");
-		bool	isItCheck(void) const { return (_gameInfo._check); };
-		bool	isItDraw(void) const { return (_gameInfo._draw); };
-		bool	isItCheckMate(void) const { return (_gameInfo._checkmate); }
+		bool	isItCheck(void) const
+			{ return (_gameInfo._check); };
+		bool	isItDraw(void) const
+			{ return (_gameInfo._draw); };
+		bool	isItCheckMate(void) const
+			{ return (_gameInfo._checkmate); }
 		bool	isGameOver(void);
 
 		int		playMove(t_move structureMove, const string stringMove = "");
@@ -104,11 +110,16 @@ class chessBoard
 		void	printEndGame(const int value = 0);
 		void	printBoard(const int aiSide) const;
 
-		int		getWhiteMaterialsScore(void) const { return (_boardCount.whiteMaterial); };
-		int		getBlackMaterialsScore(void) const { return (_boardCount.blackMaterial); };
-		vector<string>	getHistory(void) const { return (_simpleHistory); };
-		vector<char>	getWhiteCaptured(void) const { return (_whiteCaptured); };
-		vector<char>	getBlackCaptured(void) const { return (_blackCaptured); };
+		int		getWhiteMaterialsScore(void) const
+			{ return (_boardCount.whiteMaterial); };
+		int		getBlackMaterialsScore(void) const
+			{ return (_boardCount.blackMaterial); };
+		vector<string>	getHistory(void) const
+			{ return (_simpleHistory); };
+		vector<char>	getWhiteCaptured(void) const
+			{ return (_whiteCaptured); };
+		vector<char>	getBlackCaptured(void) const
+			{ return (_blackCaptured); };
 
 	private:
 

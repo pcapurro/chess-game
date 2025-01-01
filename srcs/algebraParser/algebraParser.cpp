@@ -30,7 +30,7 @@ void	algebraParser::parseDoubleSequence(void)
 
 		for (size_t i = 0; i != coords.size(); i++)
 		{
-			if (algebraParser::isChessCoord(coords.at(i)[0]) == true
+			if (algebraParser::isChessCoord(coords.at(i)[0]) == true \
 				&& algebraParser::isChessDigit(coords.at(i)[1]) == true)
 			{
 				if (left.length() != 2 || (left.length() == 2 && coords.at(i)[0] == _move.move[1]))
@@ -71,7 +71,7 @@ void	algebraParser::parseUniqueSequence(void)
 
 	for (size_t i = 0; i != coords.size(); i++)
 	{
-		if (algebraParser::isChessCoord(coords.at(i)[0]) == true
+		if (algebraParser::isChessCoord(coords.at(i)[0]) == true \
 			&& algebraParser::isChessDigit(coords.at(i)[1]) == true)
 			_move.src += coords.at(i);
 	}
@@ -91,11 +91,11 @@ void	algebraParser::parseMove(void)
 		_move.obj = 'R', _move.src = "", _move.dest = _move.move;
 	else
 	{
-		if (count(_move.move.begin(), _move.move.end(), '#') != 0
+		if (count(_move.move.begin(), _move.move.end(), '#') != 0 \
 			|| count(_move.move.begin(), _move.move.end(), '+') != 0)
 			_move.move.erase(_move.move.length() - 1);
 
-		if (count(_move.move.begin(), _move.move.end(), 'x') != 0
+		if (count(_move.move.begin(), _move.move.end(), 'x') != 0 \
 			|| count(_move.move.begin(), _move.move.end(), '-') != 0)
 			parseDoubleSequence();
 		else

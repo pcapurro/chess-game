@@ -131,8 +131,8 @@ void	chessBoard::tryMove(string srcdest)
 	string	src;
 	string	dest;
 
-	if (srcdest == "O-O" || srcdest == "O-O-O"
-		|| (string{srcdest[2], srcdest[3]} == _gameInfo._enPassantDest
+	if (srcdest == "O-O" || srcdest == "O-O-O" \
+		|| (string{srcdest[2], srcdest[3]} == _gameInfo._enPassantDest \
 			&& (getType({srcdest[0], srcdest[1]}) == 'P' || getType({srcdest[2], srcdest[3]}) == 'P')))
 	{
 		if (srcdest[0] == 'O')
@@ -173,8 +173,8 @@ void	chessBoard::tryMove(string srcdest)
 
 void	chessBoard::undoMove(string srcdest)
 {	
-	if (srcdest == "O-O" || srcdest == "O-O-O"
-		|| (string{srcdest[2], srcdest[3]} == _gameInfo._enPassantDest
+	if (srcdest == "O-O" || srcdest == "O-O-O" \
+		|| (string{srcdest[2], srcdest[3]} == _gameInfo._enPassantDest \
 		&& (getType({srcdest[0], srcdest[1]}) == 'P' || getType({srcdest[2], srcdest[3]}) == 'P')))
 	{
 		if (srcdest[0] == 'O')

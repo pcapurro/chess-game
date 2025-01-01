@@ -8,8 +8,8 @@ void	chessBoard::enableDisableEnPassant(void)
 
 	if (obj == 'P')
 	{
-		if ((_gameInfo._color == "white" && dest[1] == src[1] + 2 && dest[1] == '4') || (_gameInfo._color == "black" 
-			&& dest[1] == src[1] - 2 && dest[1] == '5'))
+		if ((_gameInfo._color == "white" && dest[1] == src[1] + 2 && dest[1] == '4') \
+			|| (_gameInfo._color == "black" && dest[1] == src[1] - 2 && dest[1] == '5'))
 		{
 			_gameInfo._enPassant = true;
 			_gameInfo._enPassantDest = dest;
@@ -217,7 +217,7 @@ void	chessBoard::loadMove(const string move)
 		_gameInfo._lastMove.src = {move[1], move[2]};
 		_gameInfo._lastMove.dest = move.c_str() + 3;
 
-		if (_gameInfo._lastMove.dest == _gameInfo._enPassantDest
+		if (_gameInfo._lastMove.dest == _gameInfo._enPassantDest \
 			|| _board.at(getAtValue(move.c_str() + 3)).piece != nullptr)
 			_gameInfo._lastMove.action = 'x';
 		else
@@ -257,8 +257,8 @@ int	chessBoard::playMove(t_move structureMove, const string stringMove)
 		}
 		else
 		{
-			if ((action == 'x' || action == '-')
-				&& isThereSomething(dest) == false
+			if ((action == 'x' || action == '-') \
+				&& isThereSomething(dest) == false \
 				&& _gameInfo._enPassant == true && _gameInfo._enPassantDest == dest)
 				priseEnPassant();
 			else
