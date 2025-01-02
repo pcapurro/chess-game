@@ -29,8 +29,6 @@ string	shellGame::getShellAnswer(void) const
 			dest += answer[2];
 
 		_board->getType(dest) != ' ' ? answer = src + 'x' + dest : answer = src + '-' + dest;
-
-		return (answer);
 	}
 	else
 	{
@@ -65,7 +63,8 @@ void	shellGame::shellRoutine(void)
 		*_checker = input;
 		move = _checker->getParsedMove();
 
-		if (move.error == false && (_checker->fail() == true || _board->playMove(move) == FAIL))
+		if (move.error == false \
+			&& (_checker->fail() == true || _board->playMove(move) == FAIL))
 			continue ;
 
 		if (move.error == true || _board->isAllocated() == false)
