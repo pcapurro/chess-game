@@ -4,7 +4,7 @@ bool	chessBoard::isFree(const string coord)
 {
 	if (getEnPassantTarget() == coord)
 	{
-		if (isFree(_gameInfo._enPassantDest) == true)
+		if (isFree(_gameInfo.enPassantDest) == true)
 			return (true);
 	}
 	else
@@ -42,7 +42,7 @@ bool	chessBoard::isProtected(const string coord)
 	if (attackers.size() == 0)
 		return (true);
 
-	if (coord == _gameInfo._enPassantDest)
+	if (coord == _gameInfo.enPassantDest)
 		defenders.push(_board.at(getAtValue(getEnPassantTarget())).piece);
 	else
 		defenders.push(_board.at(getAtValue(coord)).piece);

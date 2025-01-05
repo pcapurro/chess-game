@@ -42,7 +42,7 @@ vector<string>	chessBoard::getLegalMoves(void)
 		{
 			string coord = "abcdefgh"[i] + to_string(k + 1);
 			if (_board.at(getAtValue(coord)).piece != nullptr \
-				&& _board.at(getAtValue(coord)).piece->getColor() == _gameInfo._color)
+				&& _board.at(getAtValue(coord)).piece->getColor() == _gameInfo.color)
 			{
 				availaibleTargets = getPossibleTargets(coord);
 				for (size_t j = 0; j != availaibleTargets.size(); j++)
@@ -77,7 +77,7 @@ vector<string>	chessBoard::getCastlingSrcsDests(const string srcdest) const
 	string			dest;
 	vector<string>	srcsDests;
 
-	_gameInfo._color == "white" ? y = '1' : y = '8';
+	_gameInfo.color == "white" ? y = '1' : y = '8';
 
 	if (srcdest == "O-O")
 	{
@@ -101,9 +101,9 @@ vector<string>	chessBoard::getCastlingSrcsDests(const string srcdest) const
 
 int	chessBoard::getStateValue(void) const
 {
-	if (_gameInfo._checkmate == true)
+	if (_gameInfo.checkmate == true)
 		return (1);
-	if (_gameInfo._draw == true || isAllocated() == false)
+	if (_gameInfo.draw == true || isAllocated() == false)
 		return (2);
 
 	return (0);
@@ -113,10 +113,10 @@ string	chessBoard::getEnPassantTarget(void) const
 {
 	string	target;
 
-	target = _gameInfo._enPassantDest;
-	if (_gameInfo._turn % 2 == 0)
+	target = _gameInfo.enPassantDest;
+	if (_gameInfo.turn % 2 == 0)
 		target[1] = target[1] + 1;
-	if (_gameInfo._turn % 2 == 1)
+	if (_gameInfo.turn % 2 == 1)
 		target[1] = target[1] - 1;
 	
 	return (target);
@@ -128,10 +128,10 @@ int	chessBoard::getWatchersNumber(const string coord) const
 	{
 		if (_board.at(i).piece != nullptr)
 		{
-			if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord \
+			if (_board.at(i).piece->getColor() == _gameInfo.color && _board.at(i).coord != coord \
 				&& _board.at(i).piece->isVisible() == true)
 			{
-				if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo._enPassantDest) == true)
+				if (_board.at(i).piece->isOnMyWay(coord, getPiecesCoords(), 1, _gameInfo.enPassantDest) == true)
 					return (1);
 			}
 		}
@@ -155,10 +155,10 @@ stack<cP *>	chessBoard::getWatchers(const string coord)
 		{
 			if (_board.at(i).piece != nullptr)
 			{
-				if (_board.at(i).piece->getColor() == _gameInfo._color && _board.at(i).coord != coord \
+				if (_board.at(i).piece->getColor() == _gameInfo.color && _board.at(i).coord != coord \
 					&& _board.at(i).piece->isVisible() == true)
 				{
-					if (_board.at(i).piece->isOnMyWay(coord, baordCoords, 1, _gameInfo._enPassantDest) == true)
+					if (_board.at(i).piece->isOnMyWay(coord, baordCoords, 1, _gameInfo.enPassantDest) == true)
 					{
 						material.push(_board.at(i).piece);
 						_board.at(i).piece->setVisibility();

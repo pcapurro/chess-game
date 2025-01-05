@@ -16,7 +16,7 @@ class chessBoard
 		~chessBoard(void);
 
 		bool	fail(void) const
-			{ return (_gameInfo._moveFailed); };
+			{ return (_gameInfo.moveFailed); };
 		bool	isAllocated(void) const
 			{ return (_allocated); }
 
@@ -26,16 +26,16 @@ class chessBoard
 		string	getColor(const string coord) const;
 
 		int		getActualTurn(void) const
-			{ return (_gameInfo._turn); };
+			{ return (_gameInfo.turn); };
 		int		getStateValue(void) const;
 
 		bool	isLegal(const string move = "");
 		bool	isItCheck(void) const
-			{ return (_gameInfo._check); };
+			{ return (_gameInfo.check); };
 		bool	isItDraw(void) const
-			{ return (_gameInfo._draw); };
+			{ return (_gameInfo.draw); };
 		bool	isItCheckMate(void) const
-			{ return (_gameInfo._checkmate); }
+			{ return (_gameInfo.checkmate); }
 		bool	isGameOver(void);
 
 		int		playMove(t_move structureMove, const string stringMove = "");

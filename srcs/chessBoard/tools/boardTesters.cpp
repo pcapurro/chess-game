@@ -2,12 +2,12 @@
 
 void	chessBoard::switchPlayers(void)
 {
-	++_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
+	++_gameInfo.turn % 2 == 0 ? _gameInfo.color = "white" : _gameInfo.color = "black";
 }
 
 void	chessBoard::unSwitchPlayers(void)
 {
-	--_gameInfo._turn % 2 == 0 ? _gameInfo._color = "white" : _gameInfo._color = "black";
+	--_gameInfo.turn % 2 == 0 ? _gameInfo.color = "white" : _gameInfo.color = "black";
 }
 
 void	chessBoard::tryEnPassant(string srcdest)
@@ -35,7 +35,7 @@ void	chessBoard::tryEnPassant(string srcdest)
 	_board.at(atValueDestOne).piece->updatePos(_board.at(atValueDestOne).coord);
 	_board.at(atValueSrc).piece = nullptr;
 
-	_gameInfo._enPassant = false;
+	_gameInfo.enPassant = false;
 }
 
 void	chessBoard::undoEnPassant(string srcdest)
@@ -64,25 +64,25 @@ void	chessBoard::undoEnPassant(string srcdest)
 
 	_savedObjects.pop();
 
-	_gameInfo._enPassant = true;
+	_gameInfo.enPassant = true;
 }
 
 void	chessBoard::enableCastling(string srcdest)
 {
 	string	dest = srcdest.c_str() + 2;
 
-	if (_gameInfo._color == "white" && _gameInfo._whiteCastleLost != "")
+	if (_gameInfo.color == "white" && _gameInfo.whiteCastleLost != "")
 	{
-		_gameInfo._whiteCastled = false;
-		_gameInfo._whiteCastle = true;
-		_gameInfo._whiteCastleLost.clear();
+		_gameInfo.whiteCastled = false;
+		_gameInfo.whiteCastle = true;
+		_gameInfo.whiteCastleLost.clear();
 	}
 
-	if (_gameInfo._color == "black" && _gameInfo._blackCastleLost != "")
+	if (_gameInfo.color == "black" && _gameInfo.blackCastleLost != "")
 	{
-		_gameInfo._blackCastled = false;
-		_gameInfo._blackCastle = true;
-		_gameInfo._blackCastleLost.clear();
+		_gameInfo.blackCastled = false;
+		_gameInfo.blackCastle = true;
+		_gameInfo.blackCastleLost.clear();
 	}
 }
 
@@ -90,35 +90,35 @@ void	chessBoard::disableCastling(string srcdest)
 {
 	string	dest = srcdest.c_str() + 2;
 
-	if (_gameInfo._color == "white" && _gameInfo._whiteCastle == true)
+	if (_gameInfo.color == "white" && _gameInfo.whiteCastle == true)
 	{
 		if (dest == "c1" || dest == "g1")
 		{
-			_gameInfo._whiteCastled = true;
-			_gameInfo._whiteCastle = false;
-			_gameInfo._whiteCastleLost = srcdest;
+			_gameInfo.whiteCastled = true;
+			_gameInfo.whiteCastle = false;
+			_gameInfo.whiteCastleLost = srcdest;
 		}
 		else
 		{
-			_gameInfo._whiteCastled = false;
-			_gameInfo._whiteCastle = false;
-			_gameInfo._whiteCastleLost = srcdest;
+			_gameInfo.whiteCastled = false;
+			_gameInfo.whiteCastle = false;
+			_gameInfo.whiteCastleLost = srcdest;
 		}
 	}
 
-	if (_gameInfo._color == "black" && _gameInfo._blackCastle == true)
+	if (_gameInfo.color == "black" && _gameInfo.blackCastle == true)
 	{
 		if (dest == "c1" || dest == "g1")
 		{
-			_gameInfo._blackCastled = true;
-			_gameInfo._blackCastle = false;
-			_gameInfo._blackCastleLost = srcdest;
+			_gameInfo.blackCastled = true;
+			_gameInfo.blackCastle = false;
+			_gameInfo.blackCastleLost = srcdest;
 		}
 		else
 		{
-			_gameInfo._blackCastled = false;
-			_gameInfo._blackCastle = false;
-			_gameInfo._blackCastleLost = srcdest;
+			_gameInfo.blackCastled = false;
+			_gameInfo.blackCastle = false;
+			_gameInfo.blackCastleLost = srcdest;
 		}
 	}
 }
@@ -132,7 +132,7 @@ void	chessBoard::tryMove(string srcdest)
 	string	dest;
 
 	if (srcdest == "O-O" || srcdest == "O-O-O" \
-		|| (string{srcdest[2], srcdest[3]} == _gameInfo._enPassantDest \
+		|| (string{srcdest[2], srcdest[3]} == _gameInfo.enPassantDest \
 			&& (getType({srcdest[0], srcdest[1]}) == 'P' || getType({srcdest[2], srcdest[3]}) == 'P')))
 	{
 		if (srcdest[0] == 'O')
@@ -174,7 +174,7 @@ void	chessBoard::tryMove(string srcdest)
 void	chessBoard::undoMove(string srcdest)
 {	
 	if (srcdest == "O-O" || srcdest == "O-O-O" \
-		|| (string{srcdest[2], srcdest[3]} == _gameInfo._enPassantDest \
+		|| (string{srcdest[2], srcdest[3]} == _gameInfo.enPassantDest \
 		&& (getType({srcdest[0], srcdest[1]}) == 'P' || getType({srcdest[2], srcdest[3]}) == 'P')))
 	{
 		if (srcdest[0] == 'O')

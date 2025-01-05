@@ -2,24 +2,24 @@
 
 chessBoard::chessBoard(void)
 {
-	_gameInfo._turn = 0;
+	_gameInfo.turn = 0;
 	_allocated = true;
 	_free = true;
-	_gameInfo._color = "white";
+	_gameInfo.color = "white";
 
-	_gameInfo._moveFailed = false;
+	_gameInfo.moveFailed = false;
 
-	_gameInfo._whiteCastle = true;
-	_gameInfo._blackCastle = true;
+	_gameInfo.whiteCastle = true;
+	_gameInfo.blackCastle = true;
 
-	_gameInfo._whiteCastled = false;
-	_gameInfo._blackCastled = false;
+	_gameInfo.whiteCastled = false;
+	_gameInfo.blackCastled = false;
 	
-	_gameInfo._draw = false;
-	_gameInfo._checkmate = false;
+	_gameInfo.draw = false;
+	_gameInfo.checkmate = false;
 
-	_gameInfo._enPassant = false;
-	_gameInfo._enPassantDest = "";
+	_gameInfo.enPassant = false;
+	_gameInfo.enPassantDest = "";
 
 	_boardCount.whiteMaterial = 39;
 	_boardCount.blackMaterial = 39;
@@ -33,21 +33,21 @@ chessBoard::chessBoard(const chessBoard *originalBoard)
 {
 	_free = false;
 
-	_gameInfo._turn = originalBoard->_gameInfo._turn;
-	_gameInfo._color = originalBoard->_gameInfo._color;
+	_gameInfo.turn = originalBoard->_gameInfo.turn;
+	_gameInfo.color = originalBoard->_gameInfo.color;
 
-	_gameInfo._whiteCastle = originalBoard->_gameInfo._whiteCastle;
-	_gameInfo._blackCastle = originalBoard->_gameInfo._blackCastle;
+	_gameInfo.whiteCastle = originalBoard->_gameInfo.whiteCastle;
+	_gameInfo.blackCastle = originalBoard->_gameInfo.blackCastle;
 
-	_gameInfo._whiteCastled = originalBoard->_gameInfo._whiteCastled;
-	_gameInfo._blackCastled = originalBoard->_gameInfo._blackCastled;
+	_gameInfo.whiteCastled = originalBoard->_gameInfo.whiteCastled;
+	_gameInfo.blackCastled = originalBoard->_gameInfo.blackCastled;
 
-	_gameInfo._enPassant = originalBoard->_gameInfo._enPassant;
-	_gameInfo._enPassantDest = originalBoard->_gameInfo._enPassantDest;
+	_gameInfo.enPassant = originalBoard->_gameInfo.enPassant;
+	_gameInfo.enPassantDest = originalBoard->_gameInfo.enPassantDest;
 
-	_gameInfo._check = originalBoard->_gameInfo._check;
-	_gameInfo._draw = originalBoard->_gameInfo._draw;
-	_gameInfo._checkmate = originalBoard->_gameInfo._checkmate;
+	_gameInfo.check = originalBoard->_gameInfo.check;
+	_gameInfo.draw = originalBoard->_gameInfo.draw;
+	_gameInfo.checkmate = originalBoard->_gameInfo.checkmate;
 
 	for (int i = 0; i != 64; i++)
 		_board.push_back(originalBoard->_board.at(i));

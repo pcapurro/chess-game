@@ -85,31 +85,31 @@ typedef struct s_textures
 
 typedef struct s_visual_infos
 {
-		string			_droppedSrc;
-		string			_clickSrc;
-		string			_droppedDest;
-		vector<string>	_droppedDests;
+		string			droppedSrc;
+		string			clickSrc;
+		string			droppedDest;
+		vector<string>	droppedDests;
 
-		int				_x;
-		int				_y;
+		int				x;
+		int				y;
 
-		bool			_visualCoords;
-		string			_actualCoords;
+		bool			visualCoords;
+		string			actualCoords;
 
-		string			_lastMove;
+		string			lastMove;
 
-		bool			_evaluation;
-		int				_whiteScore;
-		int				_blackScore;
+		bool			evaluation;
+		int				whiteScore;
+		int				blackScore;
 
-		int				_aiSide;
-		int				_turn;
+		int				aiSide;
+		int				turn;
 
-		int				_boardColor;
-		vector<int>		_boardColors;
+		int				boardColor;
+		vector<int>		boardColors;
 
-		bool				_code;
-		vector<SDL_Keycode>	_keyHistory;
+		bool				code;
+		vector<SDL_Keycode>	keyHistory;
 
 }	t_visual_infos;
 

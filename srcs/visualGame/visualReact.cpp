@@ -2,23 +2,23 @@
 
 void	visualGame::reactKeyDown(const int key)
 {
-	if (_visualInfo._code == true)
+	if (_visualInfo.code == true)
 	{
-		_visualInfo._keyHistory.push_back(key);
-		if (_visualInfo._keyHistory.size() > 11)
-			_visualInfo._keyHistory.erase(_visualInfo._keyHistory.begin());
+		_visualInfo.keyHistory.push_back(key);
+		if (_visualInfo.keyHistory.size() > 11)
+			_visualInfo.keyHistory.erase(_visualInfo.keyHistory.begin());
 
 		if (isCodeDetected() == true)
-			_visualInfo._code = false, cout << "You're pretty good!" << endl;
+			_visualInfo.code = false, cout << "You're pretty good!" << endl;
 	}
 }
 
 void	visualGame::reactMouseMotion(void)
 {
-	int	x = _visualInfo._x;
-	int	y = _visualInfo._y;
+	int	x = _visualInfo.x;
+	int	y = _visualInfo.y;
 
-	if (isBoardTargetZone(_visualInfo._actualCoords, x, y) == true)
+	if (isBoardTargetZone(_visualInfo.actualCoords, x, y) == true)
 		SDL_SetCursor(_playCursor);
 	else
 		SDL_SetCursor(_normalCursor);
@@ -26,17 +26,17 @@ void	visualGame::reactMouseMotion(void)
 
 void	visualGame::reactMouseDown(const int key)
 {
-	int	x = _visualInfo._x;
-	int	y = _visualInfo._y;
+	int	x = _visualInfo.x;
+	int	y = _visualInfo.y;
 
-	if (isBoardTargetZone(_visualInfo._actualCoords, x, y) == true \
-		&& _visualInfo._actualCoords != "none")
+	if (isBoardTargetZone(_visualInfo.actualCoords, x, y) == true \
+		&& _visualInfo.actualCoords != "none")
 	{
 		vector<string>	legalMoves;
 		string			src, dest;
 
-		_visualInfo._droppedSrc = _visualInfo._actualCoords;
-		_visualInfo._droppedDests.clear();
+		_visualInfo.droppedSrc = _visualInfo.actualCoords;
+		_visualInfo.droppedDests.clear();
 
 		legalMoves = _board->getLegalMoves();
 		for (size_t i = 0; i != legalMoves.size(); i++)
@@ -44,33 +44,33 @@ void	visualGame::reactMouseDown(const int key)
 			src = {legalMoves.at(i)[1], legalMoves.at(i)[2]};
 			dest = {legalMoves.at(i)[3], legalMoves.at(i)[4]};
 
-			if (src == _visualInfo._droppedSrc)
-				_visualInfo._droppedDests.push_back(dest);
+			if (src == _visualInfo.droppedSrc)
+				_visualInfo.droppedDests.push_back(dest);
 		}
 	}
 
 	if (key == SDL_BUTTON_RIGHT)
-		_visualInfo._visualCoords = !_visualInfo._visualCoords;
+		_visualInfo.visualCoords = !_visualInfo.visualCoords;
 
 	if (isColorTargetZone(x, y) == true)
-		++_visualInfo._boardColor == COLOR_NB ? _visualInfo._boardColor = 0 : _visualInfo._boardColor;
+		++_visualInfo.boardColor == COLOR_NB ? _visualInfo.boardColor = 0 : _visualInfo.boardColor;
 	if (isEvaluationTargetZone(x, y) == true)
-		_visualInfo._evaluation = !_visualInfo._evaluation;
+		_visualInfo.evaluation = !_visualInfo.evaluation;
 }
 
 void	visualGame::reactMouseUp(void)
 {
-	_visualInfo._droppedDest = _visualInfo._actualCoords;
-	if (_visualInfo._droppedSrc == "")
+	_visualInfo.droppedDest = _visualInfo.actualCoords;
+	if (_visualInfo.droppedSrc == "")
 	{
-		_visualInfo._droppedSrc = _visualInfo._clickSrc;
-		if (_board->isLegal(_board->getType(_visualInfo._droppedSrc) + \
-			_visualInfo._droppedSrc + _visualInfo._droppedDest))
-			displayMoveAnimation(_visualInfo._droppedSrc + _visualInfo._droppedDest);
+		_visualInfo.droppedSrc = _visualInfo.clickSrc;
+		if (_board->isLegal(_board->getType(_visualInfo.droppedSrc) + \
+			_visualInfo.droppedSrc + _visualInfo.droppedDest))
+			displayMoveAnimation(_visualInfo.droppedSrc + _visualInfo.droppedDest);
 	}
 
-	if (isPromotion(_visualInfo._actualCoords) == true
-		&& _board->isLegal(_board->getType(_visualInfo._droppedSrc) + \
-			_visualInfo._droppedSrc + _visualInfo._droppedDest + 'Q') == true)
-		_visualInfo._actualCoords = waitForPromotion();
+	if (isPromotion(_visualInfo.actualCoords) == true
+		&& _board->isLegal(_board->getType(_visualInfo.droppedSrc) + \
+			_visualInfo.droppedSrc + _visualInfo.droppedDest + 'Q') == true)
+		_visualInfo.actualCoords = waitForPromotion();
 }

@@ -11,7 +11,7 @@ int	chessBoard::evaluateMaterial(const bool colorSwitch)
 	{
 		if (_board.at(i).piece != nullptr && _board.at(i).piece->getType() != 'K')
 		{
-			if (_board.at(i).piece->getColor() == _gameInfo._color)
+			if (_board.at(i).piece->getColor() == _gameInfo.color)
 				value += getMaterialValue(_board.at(i).piece->getType()) * 2;
 			else
 				enemyMaterial += getMaterialValue(_board.at(i).piece->getType()) * 2;
@@ -24,7 +24,7 @@ int	chessBoard::evaluateMaterial(const bool colorSwitch)
 	{
 		if (_board.at(i).piece != nullptr && _board.at(i).piece->getType() != 'K')
 		{
-			if (_board.at(i).piece->getColor() == _gameInfo._color)
+			if (_board.at(i).piece->getColor() == _gameInfo.color)
 			{
 				if (isSafe(_board.at(i).coord) == false)
 					attacked.push(_board.at(i).piece);
@@ -77,7 +77,7 @@ int		chessBoard::evaluateDefense(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color \
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color \
 			&& _board.at(i).piece->getType() != 'K')
 		{
 			if (isSafe(_board.at(i).coord) == true)
@@ -96,13 +96,13 @@ int		chessBoard::evaluateAttack(void)
 	boardCoords = getPiecesCoords();
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color \
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color \
 			&& _board.at(i).piece->getType() != 'K' && isSafe(_board.at(i).coord) == true)
 		{
 			for (int k = 0; k != 64; k++)
 			{
-				if (_board.at(k).piece != nullptr && _board.at(k).piece->getColor() != _gameInfo._color \
-					&& _board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords, 0, _gameInfo._enPassantDest) == true)
+				if (_board.at(k).piece != nullptr && _board.at(k).piece->getColor() != _gameInfo.color \
+					&& _board.at(i).piece->isOnMyWay(_board.at(k).coord, boardCoords, 0, _gameInfo.enPassantDest) == true)
 					value++;
 			}
 		}
@@ -118,12 +118,12 @@ int		chessBoard::evaluateKingControl(const bool colorSwitch)
 	vector<string>	kingWays;
 	stack<cP *>		watchers;
 
-	if (_gameInfo._check == false && checkMateInOne() == true)
+	if (_gameInfo.check == false && checkMateInOne() == true)
 		colorSwitch == true ? value += 50 : value += 42000;
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() != _gameInfo._color)
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() != _gameInfo.color)
 		{
 			if (_board.at(i).piece->getType() == 'K')
 				{ kingCoords = _board.at(i).coord; break ; }
@@ -158,13 +158,13 @@ int		chessBoard::evaluateKingDefense(const bool colorSwitch)
 {
 	int		value = 0;
 
-	if (_gameInfo._check == false && isDefeatNext() == true)
+	if (_gameInfo.check == false && isDefeatNext() == true)
 		colorSwitch == true ? value -= 42000 : value += 50;
 
-	if (_gameInfo._color == "white" && _gameInfo._whiteCastled == true)
+	if (_gameInfo.color == "white" && _gameInfo.whiteCastled == true)
 		value += 15;
 
-	if (_gameInfo._color == "black" && _gameInfo._blackCastled == true)
+	if (_gameInfo.color == "black" && _gameInfo.blackCastled == true)
 		value += 15;
 
 	if (value != 0 || isEndGame() == true)
@@ -175,7 +175,7 @@ int		chessBoard::evaluateKingDefense(const bool colorSwitch)
 
 		for (int i = 0; i != 64; i++)
 		{
-			if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color)
+			if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color)
 			{
 				if (_board.at(i).piece->getType() == 'K')
 					{ kingCoords = _board.at(i).coord; break ; }
@@ -214,7 +214,7 @@ int		chessBoard::evaluateMobility(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color \
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color \
 			&& isSafe(_board.at(i).coord) == true)
 		{
 			if (_board.at(i).piece->getType() != 'K')
@@ -234,17 +234,17 @@ int		chessBoard::evaluatePromotion(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color)
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color)
 		{
 			if (_board.at(i).piece->getType() == 'P' && isSafe(_board.at(i).coord) == true)
 			{
-				if (_gameInfo._color == "white")
+				if (_gameInfo.color == "white")
 					next = _board.at(i).coord, next[1] = next[1] + 1;
-				if (_gameInfo._color == "black")
+				if (_gameInfo.color == "black")
 					next = _board.at(i).coord, next[1] = next[1] - 1;
 
 				if (_board.at(getAtValue(next)).piece == nullptr \
-					|| _board.at(getAtValue(next)).piece->getColor() == _gameInfo._color \
+					|| _board.at(getAtValue(next)).piece->getColor() == _gameInfo.color \
 					|| _board.at(getAtValue(next)).piece->getType() != 'P')
 					value += _board.at(i).piece->getMoves();
 			}
@@ -261,7 +261,7 @@ int		chessBoard::evaluatePawns(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color)
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color)
 		{
 			if (_board.at(i).piece->getType() == 'P' && isSafe(_board.at(i).coord) == true)
 			{
@@ -288,12 +288,12 @@ int		chessBoard::evaluateCenter(void)
 	boardCoords = getPiecesCoords();
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color \
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color \
 			&& isSafe(_board.at(i).coord) == true)
 		{
 			for (int k = 0; k != 4; k++)
 			{
-				if (_board.at(i).piece->isOnMyWay(targets[k], boardCoords, 1, _gameInfo._enPassantDest) == true)
+				if (_board.at(i).piece->isOnMyWay(targets[k], boardCoords, 1, _gameInfo.enPassantDest) == true)
 				{
 					if (_board.at(i).piece->getType() != 'K')
 						value += getMaterialValue(_board.at(i).piece->getType());
@@ -306,7 +306,7 @@ int		chessBoard::evaluateCenter(void)
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo._color \
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color \
 			&& isSafe(_board.at(i).coord) == true)
 		{
 			if (_board.at(i).coord == "e4" || _board.at(i).coord == "e5" \
@@ -332,7 +332,7 @@ int		chessBoard::evaluateDev(void) const
 	int		atValue;
 	char	nb1, nb2;
 
-	_gameInfo._color == "white" ? nb1 = '1', nb2 = '2' : nb1 = '8', nb2 = '7';
+	_gameInfo.color == "white" ? nb1 = '1', nb2 = '2' : nb1 = '8', nb2 = '7';
 
 	atValue = getAtValue({'b', nb1});
 	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getMoves() != 0)
@@ -370,7 +370,7 @@ int		chessBoard::getScore(const string color)
 
 	isEndGame() == false ? normalCoeff = 4 : endCoeff = 4;
 
-	if (_gameInfo._color != color)
+	if (_gameInfo.color != color)
 		switchPlayers(), colorSwitch = true;
 
 	score += evaluateKingControl(colorSwitch) * (normalCoeff + endCoeff);

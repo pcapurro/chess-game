@@ -4,9 +4,9 @@ bool	chessBoard::isCastlingPossible(const string castle)
 {
 	int	atValue;
 
-	if (_gameInfo._color == "white")
+	if (_gameInfo.color == "white")
 	{
-		if (_gameInfo._whiteCastle == false)
+		if (_gameInfo.whiteCastle == false)
 			return (false);
 
 		if (castle == "O-O")
@@ -57,9 +57,9 @@ bool	chessBoard::isCastlingPossible(const string castle)
 				return (false);
 		}
 	}
-	if (_gameInfo._color == "black")
+	if (_gameInfo.color == "black")
 	{
-		if (_gameInfo._blackCastle == false)
+		if (_gameInfo.blackCastle == false)
 			return (false);
 
 		if (castle == "O-O")
@@ -120,9 +120,9 @@ bool	chessBoard::isTheDestinationSafe(void) const
 
 	for (int i = 0; i != 64; i++)
 	{
-		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() != _gameInfo._color)
+		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() != _gameInfo.color)
 		{
-			if (_board.at(i).piece->isOnMyWay(_gameInfo._lastMove.dest, coords, 1, _gameInfo._enPassantDest) == true)
+			if (_board.at(i).piece->isOnMyWay(_gameInfo.lastMove.dest, coords, 1, _gameInfo.enPassantDest) == true)
 				return (false);
 		}
 	}
@@ -132,10 +132,10 @@ bool	chessBoard::isTheDestinationSafe(void) const
 
 bool	chessBoard::isRightSide(void) const
 {
-	int	atValue = getAtValue(_gameInfo._lastMove.src);
+	int	atValue = getAtValue(_gameInfo.lastMove.src);
 
 	if (_board.at(atValue).piece == nullptr \
-		|| _board.at(atValue).piece->getColor() == _gameInfo._color)
+		|| _board.at(atValue).piece->getColor() == _gameInfo.color)
 		return (true);
 	return (false);
 }
@@ -151,10 +151,10 @@ bool	chessBoard::isThereSomething(const string dest) const
 
 bool	chessBoard::isThereAlly(void) const
 {
-	int	atValue = getAtValue(_gameInfo._lastMove.dest);
+	int	atValue = getAtValue(_gameInfo.lastMove.dest);
 
 	if (_board.at(atValue).piece != nullptr \
-		&& _board.at(atValue).piece->getColor() == _gameInfo._color)
+		&& _board.at(atValue).piece->getColor() == _gameInfo.color)
 		return (true);
 	return (false);
 }

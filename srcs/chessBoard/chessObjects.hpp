@@ -20,26 +20,26 @@ typedef struct s_square
 
 typedef struct s_game_info
 {
-	bool	_check;
-	bool	_checkmate;
-	bool	_draw;
+	bool	check;
+	bool	checkmate;
+	bool	draw;
 
-	t_move	_lastMove;
-	bool	_moveFailed;
+	t_move	lastMove;
+	bool	moveFailed;
 
-	bool	_whiteCastle;
-	bool	_whiteCastled;
-	string	_whiteCastleLost;
+	bool	whiteCastle;
+	bool	whiteCastled;
+	string	whiteCastleLost;
 
-	bool	_blackCastle;
-	bool	_blackCastled;
-	string	_blackCastleLost;
+	bool	blackCastle;
+	bool	blackCastled;
+	string	blackCastleLost;
 
-	bool	_enPassant;
-	string	_enPassantDest;
+	bool	enPassant;
+	string	enPassantDest;
 
-	int		_turn;
-	string	_color;
+	int		turn;
+	string	color;
 
 }	t_game_info;
 

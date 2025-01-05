@@ -85,7 +85,7 @@ void	chessBoard::printBlackBoard(void) const
 
 void	chessBoard::printBoard(const int aiSide) const
 {
-	if (_gameInfo._turn != 0)
+	if (_gameInfo.turn != 0)
 		cout << "\033[12A";
 
 	cout << ERASE_LINE << "    a  b  c  d  e  f  g  h" << endl;
@@ -120,7 +120,7 @@ void	chessBoard::printEndGame(const int value)
 {
 	string	player;
 
-	_gameInfo._color == "white" ? player = "black" : player = "white";
+	_gameInfo.color == "white" ? player = "black" : player = "white";
 	player[0] = player[0] - 32;
 	if (isCheckMate() == true)
 	{
@@ -142,7 +142,7 @@ void	chessBoard::printEvent(const bool cfail, const bool bfail, const bool blind
 	string	player;
 
 	cout << ERASE_LINE;
-	if (blindMode == true && _gameInfo._turn != 0)
+	if (blindMode == true && _gameInfo.turn != 0)
 		cout << "\033[1A" << ERASE_LINE;
 
 	if (cfail == true || bfail == true)
@@ -155,21 +155,21 @@ void	chessBoard::printEvent(const bool cfail, const bool bfail, const bool blind
 		else
 			cout << YELLOW << "Illegal move" << COLOR_E << ". ";
 	}
-	if (_gameInfo._turn > 0)
+	if (_gameInfo.turn > 0)
 	{
-		_gameInfo._color == "white" ? player = "black" : player = "white";
+		_gameInfo.color == "white" ? player = "black" : player = "white";
 		player[0] = player[0] - 32;
 
 		if (cfail == false && bfail == false)
 		{
 			if (isCheck() == true)
-				cout << player << " played " << _gameInfo._lastMove.move << ORANGE 
+				cout << player << " played " << _gameInfo.lastMove.move << ORANGE 
 					<< " (check)" << COLOR_E << ". ";
 			else
-				cout << player << " played " << _gameInfo._lastMove.move << ". ";
+				cout << player << " played " << _gameInfo.lastMove.move << ". ";
 		}
 	}
-	player = _gameInfo._color;
+	player = _gameInfo.color;
 	player[0] = player[0] - 32;
 	cout << player << " to play." << endl;
 }
