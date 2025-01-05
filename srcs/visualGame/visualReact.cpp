@@ -2,6 +2,9 @@
 
 void	visualGame::reactKeyDown(const int key)
 {
+	if (key == SDLK_TAB)
+		_visualInfo.visualDests = !_visualInfo.visualDests;
+
 	if (_visualInfo.code == true)
 	{
 		_visualInfo.keyHistory.push_back(key);
@@ -73,4 +76,6 @@ void	visualGame::reactMouseUp(void)
 		&& _board->isLegal(_board->getType(_visualInfo.droppedSrc) + \
 			_visualInfo.droppedSrc + _visualInfo.droppedDest + 'Q') == true)
 		_visualInfo.actualCoords = waitForPromotion();
+
+	_visualInfo.droppedDests.clear();
 }

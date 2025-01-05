@@ -28,7 +28,7 @@ At the end of a game, a summary is written in algebraic notation in the terminal
 
 Use `LMB` on the right bottom corner to switch the colors of the board, or on the left side of the board to enable/disable the score bar.
 
-You can use `RMB` to enable visual coordinates indicator on the board.
+You can use `RMB` to enable visual coordinates indicator and `Tab` key to enable visual hints.
 
 Use `LMB` on the right top corner of the window to restart the game. When a game is over, you can also use `Enter`.
 

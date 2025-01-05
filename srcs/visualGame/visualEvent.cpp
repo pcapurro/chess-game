@@ -120,9 +120,16 @@ string	visualGame::waitForEvent(void)
 			if (event.type == SDL_MOUSEBUTTONUP)
 			{
 				if (_visualInfo.droppedSrc == _visualInfo.actualCoords)
-					_visualInfo.clickSrc = _visualInfo.actualCoords, _visualInfo.droppedSrc.clear();
+				{
+					_visualInfo.clickSrc = _visualInfo.actualCoords;
+					_visualInfo.droppedSrc.clear();
+					_visualInfo.droppedDests.clear();
+				}
 				else
-					{ reactMouseUp(); return (getInput(_visualInfo.actualCoords)); }
+				{
+					reactMouseUp();
+					return (getInput(_visualInfo.actualCoords));
+				}
 			}
 
 			displayGame(true);

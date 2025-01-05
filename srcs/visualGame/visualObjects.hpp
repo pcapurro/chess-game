@@ -87,8 +87,10 @@ typedef struct s_visual_infos
 {
 		string			droppedSrc;
 		string			clickSrc;
+
 		string			droppedDest;
 		vector<string>	droppedDests;
+		bool			visualDests;
 
 		int				x;
 		int				y;

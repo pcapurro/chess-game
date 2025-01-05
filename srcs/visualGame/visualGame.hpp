@@ -63,6 +63,7 @@ class visualGame
 		bool		isPromotion(const string coord) const;
 
 		void		loadMap(void);
+		void		loadHints(void);
 		void		loadCoords(void);
 		void		loadPath(void);
 		void		loadEvaluation(const int value);

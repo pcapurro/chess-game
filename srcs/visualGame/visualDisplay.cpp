@@ -306,22 +306,62 @@ void    visualGame::loadPath(void)
 
 void	visualGame::loadMap(void)
 {
+	bool		state;
+	string		coords;
+	SDL_Rect	obj;
+
 	loadMapColors();
-	SDL_Rect obj = getRectangle("", "default");
+
+	obj = getRectangle("", "default");
 	SDL_RenderCopy(_mainRenderer, _textures->boardTexture.getTexture(), NULL, &obj);
 
-	bool state = true;
+	state = true;
 	for (int i = 0; i != 8; i++)
 	{
 		for (int k = 0; k != 8; k++)
 		{
-			string  coords = {"hgfedcba"[k], "87654321"[i]};
+			coords = {"hgfedcba"[k], "87654321"[i]};
 
 			if ((state == true && k % 2 == 0) || (state == false && k % 2 != 0))
 			{
 				obj = getRectangle(coords);
 				SDL_SetRenderDrawColor(_mainRenderer, _visualInfo.boardColors.at(0), \
 					_visualInfo.boardColors.at(1), _visualInfo.boardColors.at(2), 255);
+				SDL_RenderFillRect(_mainRenderer, &obj);
+			}
+		}
+		state = !state;
+	}
+}
+
+void	visualGame::loadHints(void)
+{
+	bool		state;
+	string		coords;
+	SDL_Rect	obj;
+
+	SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
+
+	state = true;
+	for (int i = 0; i != 8; i++)
+	{
+		for (int k = 0; k != 8; k++)
+		{
+			coords = {"hgfedcba"[k], "87654321"[i]};
+
+			if (find(_visualInfo.droppedDests.begin(), _visualInfo.droppedDests.end(), coords) \
+				!= _visualInfo.droppedDests.end())
+			{
+				obj = getRectangle(coords);
+				obj.x -= 3, obj.y -= 3, obj.w = 6, obj.h = 86;
+				SDL_RenderFillRect(_mainRenderer, &obj);
+				obj.x += 80;
+				SDL_RenderFillRect(_mainRenderer, &obj);
+
+				obj = getRectangle(coords);
+				obj.x += 3, obj.y -= 3, obj.w = 74, obj.h = 6;
+				SDL_RenderFillRect(_mainRenderer, &obj);
+				obj.y += 80;
 				SDL_RenderFillRect(_mainRenderer, &obj);
 			}
 		}
@@ -551,6 +591,10 @@ void	visualGame::displayGame(const bool value)
 
 	loadMap();
 	loadPath();
+
+	if (_visualInfo.visualDests == true \
+		&& _visualInfo.droppedDests.size() != 0)
+		loadHints();
 
 	loadCaptures();
 
