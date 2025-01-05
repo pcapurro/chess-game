@@ -35,20 +35,35 @@ void	visualGame::reactMouseDown(const int key)
 	if (isBoardTargetZone(_visualInfo.actualCoords, x, y) == true \
 		&& _visualInfo.actualCoords != "none")
 	{
-		vector<string>	legalMoves;
+		char			sign;
 		string			src, dest;
+		vector<string>	legalMoves;
 
 		_visualInfo.droppedSrc = _visualInfo.actualCoords;
 		_visualInfo.droppedDests.clear();
 
+		_visualInfo.turn % 2 == 0 ? sign = '1' : sign = '8';
+
 		legalMoves = _board->getLegalMoves();
+
+		if (_visualInfo.droppedSrc == string{'e', sign} && _board->getType(string{'e', sign}) == 'K')
+		{
+			if (find(legalMoves.begin(), legalMoves.end(), "O-O") != legalMoves.end())
+				_visualInfo.droppedDests.push_back({'g', sign});
+			if (find(legalMoves.begin(), legalMoves.end(), "O-O-O") != legalMoves.end())
+				_visualInfo.droppedDests.push_back({'c', sign});
+		}
+
 		for (size_t i = 0; i != legalMoves.size(); i++)
 		{
-			src = {legalMoves.at(i)[1], legalMoves.at(i)[2]};
-			dest = {legalMoves.at(i)[3], legalMoves.at(i)[4]};
+			if (legalMoves.at(i) != "O-O" && legalMoves.at(i) != "O-O-O")
+			{
+				src = {legalMoves.at(i)[1], legalMoves.at(i)[2]};
+				dest = {legalMoves.at(i)[3], legalMoves.at(i)[4]};
 
-			if (src == _visualInfo.droppedSrc)
-				_visualInfo.droppedDests.push_back(dest);
+				if (src == _visualInfo.droppedSrc)
+					_visualInfo.droppedDests.push_back(dest);
+			}
 		}
 	}
 
