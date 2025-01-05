@@ -95,6 +95,8 @@ typedef struct s_visual_infos
 		int				x;
 		int				y;
 
+		bool			promotion;
+
 		bool			visualCoords;
 		string			actualCoords;
 

@@ -6,10 +6,13 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 
 	_visualInfo.visualCoords = false;
 	_visualInfo.visualDests = false;
-	_visualInfo.evaluation = true;
-	_visualInfo.code = true;
-	_visualInfo.aiSide = -1;
 
+	_visualInfo.evaluation = true;
+	_visualInfo.promotion = false;
+
+	_visualInfo.code = true;
+
+	_visualInfo.aiSide = -1;
 	_ai = nullptr;
    	if (_sandBoxMode == false)
 	{

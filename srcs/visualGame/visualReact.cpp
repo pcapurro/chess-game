@@ -75,7 +75,11 @@ void	visualGame::reactMouseUp(void)
 	if (isPromotion(_visualInfo.actualCoords) == true
 		&& _board->isLegal(_board->getType(_visualInfo.droppedSrc) + \
 			_visualInfo.droppedSrc + _visualInfo.droppedDest + 'Q') == true)
+	{
+		_visualInfo.promotion = true;
 		_visualInfo.actualCoords = waitForPromotion();
+		_visualInfo.promotion = false;
+	}
 
 	_visualInfo.droppedDests.clear();
 }

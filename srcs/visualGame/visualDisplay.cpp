@@ -454,8 +454,8 @@ void	visualGame::loadBoard(const string color)
 
 			if (objType != ' ' && objColor == color && coords != _visualInfo.droppedDest)
 			{
-				if ((coords == _visualInfo.droppedSrc && isBoardZone(_visualInfo.x, _visualInfo.y) == false) \
-					|| coords != _visualInfo.droppedSrc)
+				if ((coords == _visualInfo.droppedSrc && isBoardZone(_visualInfo.x, _visualInfo.y) == false
+					&& _visualInfo.promotion == false) || coords != _visualInfo.droppedSrc)
 				{
 					obj = getRectangle(coords);
 					if (obj.x > 0 && obj.y > 0 && obj.x < _width && obj.y < _height)
