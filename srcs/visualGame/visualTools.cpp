@@ -231,6 +231,14 @@ bool	visualGame::isCodeDetected(void) const
 	return (false);
 }
 
+bool	visualGame::isBoardZone(const int x, const int y) const
+{
+	if (x >= 100 && x <= 750 && y >= 75 && y <= 725)
+		return (true);
+
+	return (false);
+}
+
 bool	visualGame::isBoardTargetZone(const string coord, const int x, const int y) const
 {
 	if (_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
@@ -247,6 +255,7 @@ bool	visualGame::isBoardTargetZone(const string coord, const int x, const int y)
 
 	return (false);
 }
+
 
 bool	visualGame::isColorTargetZone(const int x, const int y) const
 {

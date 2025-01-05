@@ -57,6 +57,7 @@ class visualGame
 		bool		isColorTargetZone(const int x, const int y) const;
 		bool		isEvaluationTargetZone(const int x, const int y) const;
 		bool		isBoardTargetZone(const string coord, const int x, const int y) const;
+		bool		isBoardZone(const int x, const int y) const;
 
 		bool		isAbovePromotion(const int x, const int y, SDL_Rect obj) const;
 		bool		isPromotion(const string coord) const;
