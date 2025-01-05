@@ -48,6 +48,7 @@ class chessBoard
 			{ return (_boardCount.whiteMaterial); };
 		int		getBlackMaterialsScore(void) const
 			{ return (_boardCount.blackMaterial); };
+
 		vector<string>	getHistory(void) const
 			{ return (_simpleHistory); };
 		vector<char>	getWhiteCaptured(void) const
@@ -55,12 +56,13 @@ class chessBoard
 		vector<char>	getBlackCaptured(void) const
 			{ return (_blackCaptured); };
 
+		vector<string>	getLegalMoves(void);
+
 	private:
 
 		size_t	getAtValue(const string coord) const;
 		string	getEnPassantTarget(void) const;
 
-		vector<string>	getLegalMoves(void);
 		vector<string>	getPossibleTargets(const string coord) const;
 		vector<string>	getPiecesCoords(void) const;
 		vector<string>	getCastlingSrcsDests(const string srcdest) const;

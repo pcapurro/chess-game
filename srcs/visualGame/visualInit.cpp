@@ -4,10 +4,10 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 {
 	_error = false;
 
-	visualInfo._visualCoords = false;
-	visualInfo._evaluation = true;
-	visualInfo._code = true;
-	visualInfo._aiSide = -1;
+	_visualInfo._visualCoords = false;
+	_visualInfo._evaluation = true;
+	_visualInfo._code = true;
+	_visualInfo._aiSide = -1;
 
 	_ai = nullptr;
    	if (_sandBoxMode == false)
@@ -17,13 +17,13 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 			_error = true;
 		
 		srand(time(nullptr));
-		visualInfo._aiSide = rand() % 2;
+		_visualInfo._aiSide = rand() % 2;
 	}
 
 	if (_error == false)
 	{
 		srand(time(nullptr));
-		visualInfo._boardColor = rand() % COLOR_NB;
+		_visualInfo._boardColor = rand() % COLOR_NB;
 
 		setToDefault();
 		setToNullPtr();
@@ -46,19 +46,19 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 
 void	visualGame::setToDefault(void)
 {
-	visualInfo._turn = 0;
+	_visualInfo._turn = 0;
 
-	visualInfo._whiteScore = 0;
-	visualInfo._blackScore = 0;
+	_visualInfo._whiteScore = 0;
+	_visualInfo._blackScore = 0;
 
-	visualInfo._x = 0; visualInfo._y = 0;
+	_visualInfo._x = 0; _visualInfo._y = 0;
 
-	visualInfo._lastMove.clear();
-	visualInfo._actualCoords.clear();
+	_visualInfo._lastMove.clear();
+	_visualInfo._actualCoords.clear();
 
-	visualInfo._clickSrc.clear();
-	visualInfo._droppedSrc.clear();
-	visualInfo._droppedDest.clear();
+	_visualInfo._clickSrc.clear();
+	_visualInfo._droppedSrc.clear();
+	_visualInfo._droppedDest.clear();
 }
 
 void	visualGame::setToNullPtr(void)

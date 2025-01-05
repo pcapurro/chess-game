@@ -5,7 +5,7 @@ void	visualGame::loadText(const int value)
 	SDL_Rect	obj;
 	string		color;
 
-	visualInfo._turn % 2 == 0 ? color = "white" : color = "black";
+	_visualInfo._turn % 2 == 0 ? color = "white" : color = "black";
 
 	obj.x = 215, obj.y = 14;
 	obj.w = 392, obj.h = 51;
@@ -40,32 +40,32 @@ void	visualGame::loadEvaluation(const int value)
 	evalObj.x = 35, evalObj.y = 80;
 	evalObj.w = 10, evalObj.h = 640;
 
-	if (visualInfo._evaluation == true && value == 0)
+	if (_visualInfo._evaluation == true && value == 0)
 	{
 		int score;
 
 		SDL_SetRenderDrawColor(_mainRenderer, 76, 153, 0, 255);
 		SDL_RenderFillRect(_mainRenderer, &activObj);
 
-		if (_sandBoxMode == false && visualInfo._aiSide % 2 == 0)
+		if (_sandBoxMode == false && _visualInfo._aiSide % 2 == 0)
 		{
 			SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
 			SDL_RenderFillRect(_mainRenderer, &evalObj);
 			SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 255);
-			score = visualInfo._whiteScore;
+			score = _visualInfo._whiteScore;
 		}
 		else
 		{
 			SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 255);
 			SDL_RenderFillRect(_mainRenderer, &evalObj);
 			SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
-			score = visualInfo._blackScore;
+			score = _visualInfo._blackScore;
 		}
 
-		if (visualInfo._whiteScore + visualInfo._blackScore == 0)
-			visualInfo._whiteScore = 50, visualInfo._blackScore = 50, score = 50;
+		if (_visualInfo._whiteScore + _visualInfo._blackScore == 0)
+			_visualInfo._whiteScore = 50, _visualInfo._blackScore = 50, score = 50;
 
-		evalObj.h = ((score * 640) / (visualInfo._whiteScore + visualInfo._blackScore));
+		evalObj.h = ((score * 640) / (_visualInfo._whiteScore + _visualInfo._blackScore));
 		SDL_RenderFillRect(_mainRenderer, &evalObj);
 	}
 	else
@@ -83,15 +83,15 @@ void	visualGame::loadMapColors(void)
 	int			colors[COLOR_NB][3] = COLORS;
 	SDL_Rect	obj = getRectangle("", "default");
 
-	visualInfo._boardColors.clear();
-	visualInfo._boardColors.push_back(colors[visualInfo._boardColor][0]);
-	visualInfo._boardColors.push_back(colors[visualInfo._boardColor][1]);
-	visualInfo._boardColors.push_back(colors[visualInfo._boardColor][2]);
+	_visualInfo._boardColors.clear();
+	_visualInfo._boardColors.push_back(colors[_visualInfo._boardColor][0]);
+	_visualInfo._boardColors.push_back(colors[_visualInfo._boardColor][1]);
+	_visualInfo._boardColors.push_back(colors[_visualInfo._boardColor][2]);
 
 	obj.w = 60, obj.h = 66;
 	obj.x = 790, obj.y = 734;
-	SDL_SetRenderDrawColor(_mainRenderer, visualInfo._boardColors.at(0), \
-		visualInfo._boardColors.at(1), visualInfo._boardColors.at(2), 255);
+	SDL_SetRenderDrawColor(_mainRenderer, _visualInfo._boardColors.at(0), \
+		_visualInfo._boardColors.at(1), _visualInfo._boardColors.at(2), 255);
 	SDL_RenderFillRect(_mainRenderer, &obj);
 }
 
@@ -120,7 +120,7 @@ void    visualGame::loadScore(string color, const int y)
 	SDL_Texture *texture = _textures->symbols.plus.getTexture();
 	SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 
-	_sandBoxMode == false || visualInfo._aiSide % 2 != 0 ? obj.y-- : obj.y++;
+	_sandBoxMode == false || _visualInfo._aiSide % 2 != 0 ? obj.y-- : obj.y++;
 
 	string value = to_string(score);
 	for (int i = 0; value[i] != '\0'; i++)
@@ -178,9 +178,9 @@ void	visualGame::loadCapturedComplex(vector<char> &captured, const string color)
 		{
 			obj.x = 760;
 			if (color == "white")
-				visualInfo._aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
+				_visualInfo._aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
 			if (color == "black")
-				visualInfo._aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
+				_visualInfo._aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
 		}
 	}
 
@@ -247,9 +247,9 @@ void	visualGame::loadCaptured(vector<char> &captured, const string color)
 
 			obj.x = 760;
 			if (color == "white")
-				visualInfo._aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
+				_visualInfo._aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
 			if (color == "black")
-				visualInfo._aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
+				_visualInfo._aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
 
 		}
 		object = captured.at(i);
@@ -276,9 +276,9 @@ void    visualGame::loadPath(void)
 {
 	SDL_Rect	obj;
 
-	if (visualInfo._droppedSrc != "")
+	if (_visualInfo._droppedSrc != "")
 	{
-		obj = getRectangle(visualInfo._droppedSrc);
+		obj = getRectangle(_visualInfo._droppedSrc);
 		SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
 		SDL_RenderFillRect(_mainRenderer, &obj);
 
@@ -286,16 +286,16 @@ void    visualGame::loadPath(void)
 		SDL_RenderFillRect(_mainRenderer, &obj);
 	}
 
-	if (visualInfo._lastMove != "")
+	if (_visualInfo._lastMove != "")
 	{
-		obj = getRectangle({visualInfo._lastMove[0], visualInfo._lastMove[1]});
+		obj = getRectangle({_visualInfo._lastMove[0], _visualInfo._lastMove[1]});
 		SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
 		SDL_RenderFillRect(_mainRenderer, &obj);
 
 		SDL_SetRenderDrawColor(_mainRenderer, 204, 204, 0, 100);
 		SDL_RenderFillRect(_mainRenderer, &obj);
 
-		obj = getRectangle({visualInfo._lastMove[2], visualInfo._lastMove[3]});
+		obj = getRectangle({_visualInfo._lastMove[2], _visualInfo._lastMove[3]});
 		SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
 		SDL_RenderFillRect(_mainRenderer, &obj);
 
@@ -321,8 +321,8 @@ void	visualGame::loadMap(void)
 				|| (state == false && k % 2 != 0))
 			{
 				obj = getRectangle(coords);
-				SDL_SetRenderDrawColor(_mainRenderer, visualInfo._boardColors.at(0), \
-					visualInfo._boardColors.at(1), visualInfo._boardColors.at(2), 255);
+				SDL_SetRenderDrawColor(_mainRenderer, _visualInfo._boardColors.at(0), \
+					_visualInfo._boardColors.at(1), _visualInfo._boardColors.at(2), 255);
 				SDL_RenderFillRect(_mainRenderer, &obj);
 			}
 		}
@@ -357,13 +357,13 @@ void	visualGame::loadCoords(void)
 		SDL_RenderCopy(_mainRenderer, numbers[i]->getTexture(), NULL, &obj);
 	}
 
-	int	x = visualInfo._x;
-	int y = visualInfo._y;
+	int	x = _visualInfo._x;
+	int y = _visualInfo._y;
 
-	if (x >= 105 && x <= 745 && y >= 80 && y <= 720 && visualInfo._visualCoords == true \
-		&& visualInfo._actualCoords != "none" && visualInfo._actualCoords != "" \
-		&& (_sandBoxMode == true || ((visualInfo._aiSide % 2 == 0 && visualInfo._turn % 2 != 0) \
-			|| (visualInfo._aiSide % 2 != 0 && visualInfo._turn % 2 == 0))))
+	if (x >= 105 && x <= 745 && y >= 80 && y <= 720 && _visualInfo._visualCoords == true \
+		&& _visualInfo._actualCoords != "none" && _visualInfo._actualCoords != "" \
+		&& (_sandBoxMode == true || ((_visualInfo._aiSide % 2 == 0 && _visualInfo._turn % 2 != 0) \
+			|| (_visualInfo._aiSide % 2 != 0 && _visualInfo._turn % 2 == 0))))
 	{
 		SDL_Texture	*texture;
 
@@ -375,7 +375,7 @@ void	visualGame::loadCoords(void)
 
 		for (int i = 0; i != 8; i++)
 		{
-			if (letters[i]->getId() == visualInfo._actualCoords[0])
+			if (letters[i]->getId() == _visualInfo._actualCoords[0])
 				texture = letters[i]->getTexture();
 		}
 
@@ -386,7 +386,7 @@ void	visualGame::loadCoords(void)
 
 		for (int i = 0; i != 8; i++)
 		{
-			if (numbers[i]->getId() == visualInfo._actualCoords[1])
+			if (numbers[i]->getId() == _visualInfo._actualCoords[1])
 				texture = numbers[i]->getTexture();
 		}
 
@@ -413,9 +413,9 @@ void	visualGame::loadBoard(const string color)
 			objType = _board->getType(coords);
 			objColor = _board->getColor(coords);
 
-			if (objType != ' ' && objColor == color && coords != visualInfo._droppedDest)
+			if (objType != ' ' && objColor == color && coords != _visualInfo._droppedDest)
 			{
-				if (coords != visualInfo._droppedSrc)
+				if (coords != _visualInfo._droppedSrc)
 				{
 					obj = getRectangle(coords);
 
@@ -426,12 +426,12 @@ void	visualGame::loadBoard(const string color)
 		}
 	}
 
-	if (visualInfo._x != -1 && visualInfo._y != -1)
+	if (_visualInfo._x != -1 && _visualInfo._y != -1)
 	{
-		objType = _board->getType(visualInfo._droppedSrc);
-		objColor = _board->getColor(visualInfo._droppedSrc);
+		objType = _board->getType(_visualInfo._droppedSrc);
+		objColor = _board->getColor(_visualInfo._droppedSrc);
 
-		obj.x = visualInfo._x - 28, obj.y = visualInfo._y - 40;
+		obj.x = _visualInfo._x - 28, obj.y = _visualInfo._y - 40;
 		SDL_RenderCopy(_mainRenderer, getTexture(objType, objColor), NULL, &obj);
 	}
 
@@ -442,7 +442,7 @@ void	visualGame::loadCheck(void)
 	string		color;
 	SDL_Rect	obj;
 
-	visualInfo._turn % 2 == 0 ? color = "white" : color = "black";
+	_visualInfo._turn % 2 == 0 ? color = "white" : color = "black";
 	obj = getRectangle(getKingCoords(color));
 
 	SDL_SetRenderDrawColor(_mainRenderer, 242, 255, 0, 255);
@@ -454,13 +454,13 @@ void	visualGame::loadDraw(void)
 	string		color;
 	SDL_Rect	obj;
 
-	visualInfo._turn % 2 == 0 ? color = "white" : color = "black";
+	_visualInfo._turn % 2 == 0 ? color = "white" : color = "black";
 	obj = getRectangle(getKingCoords(color));
 
 	SDL_SetRenderDrawColor(_mainRenderer, 128, 128, 128, 255);
 	SDL_RenderFillRect(_mainRenderer, &obj);
 
-	visualInfo._turn % 2 == 0 ? color = "black" : color = "white";
+	_visualInfo._turn % 2 == 0 ? color = "black" : color = "white";
 	obj = getRectangle(getKingCoords(color));
 
 	SDL_SetRenderDrawColor(_mainRenderer, 128, 128, 128, 255);
@@ -473,7 +473,7 @@ void	visualGame::loadCheckMate(void)
 	string		kingCoords;
 	SDL_Rect	obj;
 
-	visualInfo._turn % 2 == 0 ? color = "white" : color = "black";
+	_visualInfo._turn % 2 == 0 ? color = "white" : color = "black";
 	kingCoords = getKingCoords(color);
 	obj = getRectangle(getKingCoords(color));
 
@@ -511,7 +511,7 @@ void	visualGame::displayMoveAnimation(const string move)
 	destX = getRectangle(dest).x;
 	destY = getRectangle(dest).y;
 
-	visualInfo._droppedSrc = src;
+	_visualInfo._droppedSrc = src;
 	while (obj.y != destY || obj.x != destX)
 	{
 		if ((src[0] == dest[0] && src[1] != dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
@@ -519,7 +519,7 @@ void	visualGame::displayMoveAnimation(const string move)
 		if ((src[0] != dest[0] && src[1] == dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
 			destX > obj.x ? obj.x++ : obj.x--;
 
-		visualInfo._x = obj.x + 28, visualInfo._y = obj.y + 40;
+		_visualInfo._x = obj.x + 28, _visualInfo._y = obj.y + 40;
 		displayGame(true);
 		usleep(500);
 	}
@@ -530,10 +530,10 @@ void	visualGame::displayPromotion(const char type, const string coord)
 	SDL_Rect	obj;
 	string		color;
 
-	visualInfo._x = -1, visualInfo._y = -1;
+	_visualInfo._x = -1, _visualInfo._y = -1;
 	displayGame();
 
-	visualInfo._turn % 2 == 0 ? color = "white" : color = "black";
+	_visualInfo._turn % 2 == 0 ? color = "white" : color = "black";
 
 	obj = getRectangle(coord);
 	SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
@@ -562,7 +562,7 @@ void	visualGame::displayGame(const bool value)
 	else if (_board->isItDraw() == true)
 		loadDraw();
 
-	if (visualInfo._turn % 2 == 0)
+	if (_visualInfo._turn % 2 == 0)
 		loadBoard("black"), loadBoard("white");
 	else
 		loadBoard("white"), loadBoard("black");

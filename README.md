@@ -40,7 +40,7 @@ A secret key sequence can unlock an easter egg if typed during a game.
 
 **In shell version**:
 
-You can specify `blind-mode` to play without the terminal board
+You can specify `--blind-mode` to play without the terminal board.
 
 Type the move you want to play using algebraic notation (e.g.: 'e4', 'e4-e5', 'Bc4', 'Nf3xg5', 'Qh5xf7#').
 

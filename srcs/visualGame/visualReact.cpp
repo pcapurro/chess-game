@@ -2,23 +2,23 @@
 
 void	visualGame::reactKeyDown(const int key)
 {
-	if (visualInfo._code == true)
+	if (_visualInfo._code == true)
 	{
-		visualInfo._keyHistory.push_back(key);
-		if (visualInfo._keyHistory.size() > 11)
-			visualInfo._keyHistory.erase(visualInfo._keyHistory.begin());
+		_visualInfo._keyHistory.push_back(key);
+		if (_visualInfo._keyHistory.size() > 11)
+			_visualInfo._keyHistory.erase(_visualInfo._keyHistory.begin());
 
 		if (isCodeDetected() == true)
-			visualInfo._code = false, cout << "You're pretty good!" << endl;
+			_visualInfo._code = false, cout << "You're pretty good!" << endl;
 	}
 }
 
 void	visualGame::reactMouseMotion(void)
 {
-	int	x = visualInfo._x;
-	int	y = visualInfo._y;
+	int	x = _visualInfo._x;
+	int	y = _visualInfo._y;
 
-	if (isBoardTargetZone(visualInfo._actualCoords, x, y) == true)
+	if (isBoardTargetZone(_visualInfo._actualCoords, x, y) == true)
 		SDL_SetCursor(_playCursor);
 	else
 		SDL_SetCursor(_normalCursor);
@@ -26,35 +26,51 @@ void	visualGame::reactMouseMotion(void)
 
 void	visualGame::reactMouseDown(const int key)
 {
-	int	x = visualInfo._x;
-	int	y = visualInfo._y;
+	int	x = _visualInfo._x;
+	int	y = _visualInfo._y;
 
-	if (isBoardTargetZone(visualInfo._actualCoords, x, y) == true \
-		&& visualInfo._actualCoords != "none")
-		visualInfo._droppedSrc = visualInfo._actualCoords;
+	if (isBoardTargetZone(_visualInfo._actualCoords, x, y) == true \
+		&& _visualInfo._actualCoords != "none")
+	{
+		vector<string>	legalMoves;
+		string			src, dest;
+
+		_visualInfo._droppedSrc = _visualInfo._actualCoords;
+		_visualInfo._droppedDests.clear();
+
+		legalMoves = _board->getLegalMoves();
+		for (size_t i = 0; i != legalMoves.size(); i++)
+		{
+			src = {legalMoves.at(i)[1], legalMoves.at(i)[2]};
+			dest = {legalMoves.at(i)[3], legalMoves.at(i)[4]};
+
+			if (src == _visualInfo._droppedSrc)
+				_visualInfo._droppedDests.push_back(dest);
+		}
+	}
 
 	if (key == SDL_BUTTON_RIGHT)
-		visualInfo._visualCoords = !visualInfo._visualCoords;
+		_visualInfo._visualCoords = !_visualInfo._visualCoords;
 
 	if (isColorTargetZone(x, y) == true)
-		++visualInfo._boardColor == COLOR_NB ? visualInfo._boardColor = 0 : visualInfo._boardColor;
+		++_visualInfo._boardColor == COLOR_NB ? _visualInfo._boardColor = 0 : _visualInfo._boardColor;
 	if (isEvaluationTargetZone(x, y) == true)
-		visualInfo._evaluation = !visualInfo._evaluation;
+		_visualInfo._evaluation = !_visualInfo._evaluation;
 }
 
 void	visualGame::reactMouseUp(void)
 {
-	visualInfo._droppedDest = visualInfo._actualCoords;
-	if (visualInfo._droppedSrc == "")
+	_visualInfo._droppedDest = _visualInfo._actualCoords;
+	if (_visualInfo._droppedSrc == "")
 	{
-		visualInfo._droppedSrc = visualInfo._clickSrc;
-		if (_board->isLegal(_board->getType(visualInfo._droppedSrc) + \
-			visualInfo._droppedSrc + visualInfo._droppedDest))
-			displayMoveAnimation(visualInfo._droppedSrc + visualInfo._droppedDest);
+		_visualInfo._droppedSrc = _visualInfo._clickSrc;
+		if (_board->isLegal(_board->getType(_visualInfo._droppedSrc) + \
+			_visualInfo._droppedSrc + _visualInfo._droppedDest))
+			displayMoveAnimation(_visualInfo._droppedSrc + _visualInfo._droppedDest);
 	}
 
-	if (isPromotion(visualInfo._actualCoords) == true
-		&& _board->isLegal(_board->getType(visualInfo._droppedSrc) + \
-			visualInfo._droppedSrc + visualInfo._droppedDest + 'Q') == true)
-		visualInfo._actualCoords = waitForPromotion();
+	if (isPromotion(_visualInfo._actualCoords) == true
+		&& _board->isLegal(_board->getType(_visualInfo._droppedSrc) + \
+			_visualInfo._droppedSrc + _visualInfo._droppedDest + 'Q') == true)
+		_visualInfo._actualCoords = waitForPromotion();
 }

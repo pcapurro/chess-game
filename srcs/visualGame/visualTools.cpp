@@ -48,9 +48,9 @@ SDL_Rect	visualGame::getRectangle(const string coords, const string type) const
 		obj.x = 760;
 
 		if (type == "wscore")
-			visualInfo._aiSide % 2 == 0 ? obj.y = 72 : obj.y = 692;
+			_visualInfo._aiSide % 2 == 0 ? obj.y = 72 : obj.y = 692;
 		if (type == "bscore")
-			visualInfo._aiSide % 2 == 0 ? obj.y = 692 : obj.y = 72;
+			_visualInfo._aiSide % 2 == 0 ? obj.y = 692 : obj.y = 72;
 
 		return (obj);
 	}
@@ -58,7 +58,7 @@ SDL_Rect	visualGame::getRectangle(const string coords, const string type) const
 	int	x = coords[0] - 97;
 	int	y = atoi(coords.c_str() + 1) - 1;
 
-	visualInfo._aiSide != 0 ? y = 8 - (y + 1) : x = 7 - x;
+	_visualInfo._aiSide != 0 ? y = 8 - (y + 1) : x = 7 - x;
 
 	obj.x = 105 + (80 * x), obj.y = 80 + (80 * y);
 
@@ -110,11 +110,11 @@ string	visualGame::getCoord(const int x, const int y) const
 	{
 		for (int i = 0; i != 8; i++)
 		{
-			visualInfo._aiSide == 0 ? yZone = 80 * (i + 1) : yZone = 80 * (8 - i);
+			_visualInfo._aiSide == 0 ? yZone = 80 * (i + 1) : yZone = 80 * (8 - i);
 
 			for (int k = 0; k != 8; k++)
 			{
-				visualInfo._aiSide == 0 ? xZone = 80 * (8 - k) : xZone = 80 * (k + 1);
+				_visualInfo._aiSide == 0 ? xZone = 80 * (8 - k) : xZone = 80 * (k + 1);
 
 				if (x >= xZone && x <= xZone + 105 && y >= yZone && y <= yZone + 80)
 					return (string{ "abcdefgh"[k], "12345678"[i] });
@@ -132,22 +132,22 @@ string	visualGame::getInput(const string coord)
 	if (coord == "end" || coord == "none" || coord == "error")
 		return (coord);
 
-	input += _board->getType(visualInfo._droppedSrc);
-	input += visualInfo._droppedSrc + coord;
+	input += _board->getType(_visualInfo._droppedSrc);
+	input += _visualInfo._droppedSrc + coord;
 
 	if (input[0] == 'K')
 	{
-		if ((coord == "g1" && visualInfo._droppedSrc == "e1") \
-			|| (coord == "g8" && visualInfo._droppedSrc == "e8"))
+		if ((coord == "g1" && _visualInfo._droppedSrc == "e1") \
+			|| (coord == "g8" && _visualInfo._droppedSrc == "e8"))
 			input[3] = 'O', input[4] = '-', input += "O";
-		if ((coord == "c1" && visualInfo._droppedSrc == "e1") \
-			|| (coord == "c8" && visualInfo._droppedSrc == "e8"))
+		if ((coord == "c1" && _visualInfo._droppedSrc == "e1") \
+			|| (coord == "c8" && _visualInfo._droppedSrc == "e8"))
 			input[3] = 'O', input[4] = '-', input += + "O-O";
 	}
 
-	visualInfo._droppedSrc.clear();
-	visualInfo._clickSrc.clear();
-	visualInfo._droppedDest.clear();
+	_visualInfo._droppedSrc.clear();
+	_visualInfo._clickSrc.clear();
+	_visualInfo._droppedDest.clear();
 
 	return (input);
 }
@@ -171,7 +171,7 @@ string	visualGame::getKingCoords(const string color) const
 
 string	visualGame::getTurnColor(void) const
 {
-	if (visualInfo._turn % 2 == 0)
+	if (_visualInfo._turn % 2 == 0)
 		return ("white");
 
 	return ("black");
@@ -179,16 +179,16 @@ string	visualGame::getTurnColor(void) const
 
 bool	visualGame::isPromotion(const string coord) const
 {
-	if (_board->getType(visualInfo._droppedSrc) == 'P')
+	if (_board->getType(_visualInfo._droppedSrc) == 'P')
 	{
-		if ((coord[1] == '8' && visualInfo._droppedSrc[1] == '7') \
-			|| (coord[1] == '1' && visualInfo._droppedSrc[1] == '2'))
+		if ((coord[1] == '8' && _visualInfo._droppedSrc[1] == '7') \
+			|| (coord[1] == '1' && _visualInfo._droppedSrc[1] == '2'))
 		{
-			if (coord[0] == visualInfo._droppedSrc[0] && _board->getType(coord) == ' ')
+			if (coord[0] == _visualInfo._droppedSrc[0] && _board->getType(coord) == ' ')
 				return (true);
-			if (coord[0] != visualInfo._droppedSrc[0] \
-				&& (coord[0] - visualInfo._droppedSrc[0] != 1 \
-				|| coord[0] - visualInfo._droppedSrc[0] != -1) && _board->getType(coord) != ' ')
+			if (coord[0] != _visualInfo._droppedSrc[0] \
+				&& (coord[0] - _visualInfo._droppedSrc[0] != 1 \
+				|| coord[0] - _visualInfo._droppedSrc[0] != -1) && _board->getType(coord) != ' ')
 				return (true);
 		}
 	}
@@ -215,14 +215,14 @@ bool	visualGame::isAbovePromotion(const int x, const int y, SDL_Rect obj) const
 
 bool	visualGame::isCodeDetected(void) const
 {
-	if (visualInfo._keyHistory.size() == 11)
+	if (_visualInfo._keyHistory.size() == 11)
 	{
 		vector<SDL_Keycode> code = {SDLK_UP, SDLK_UP, SDLK_DOWN, SDLK_DOWN, SDLK_LEFT, \
 			SDLK_RIGHT, SDLK_LEFT, SDLK_RIGHT, SDLK_b, SDLK_a, SDLK_RETURN};
 
 		vector<SDL_Keycode> sequence;
-		for (size_t i = visualInfo._keyHistory.size() - 11; i != visualInfo._keyHistory.size(); i++)
-			sequence.push_back(visualInfo._keyHistory.at(i));
+		for (size_t i = _visualInfo._keyHistory.size() - 11; i != _visualInfo._keyHistory.size(); i++)
+			sequence.push_back(_visualInfo._keyHistory.at(i));
 
 		if (code == sequence)
 			return (true);

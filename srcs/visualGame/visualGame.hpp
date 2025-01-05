@@ -112,7 +112,7 @@ class visualGame
 		chessBoard		*_board;
 		chessAi			*_ai;
 
-		t_visual_infos	visualInfo;
+		t_visual_infos	_visualInfo;
 
 		bool			_error;
 };
