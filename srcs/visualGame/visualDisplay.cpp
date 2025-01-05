@@ -317,8 +317,7 @@ void	visualGame::loadMap(void)
 		{
 			string  coords = {"hgfedcba"[k], "87654321"[i]};
 
-			if ((state == true && k % 2 == 0) \
-				|| (state == false && k % 2 != 0))
+			if ((state == true && k % 2 == 0) || (state == false && k % 2 != 0))
 			{
 				obj = getRectangle(coords);
 				SDL_SetRenderDrawColor(_mainRenderer, _visualInfo.boardColors.at(0), \
@@ -415,7 +414,7 @@ void	visualGame::loadBoard(const string color)
 
 			if (objType != ' ' && objColor == color && coords != _visualInfo.droppedDest)
 			{
-				if ((coords == _visualInfo.droppedSrc && isBoardZone(_visualInfo.x, _visualInfo.y) == false)
+				if ((coords == _visualInfo.droppedSrc && isBoardZone(_visualInfo.x, _visualInfo.y) == false) \
 					|| coords != _visualInfo.droppedSrc)
 				{
 					obj = getRectangle(coords);
