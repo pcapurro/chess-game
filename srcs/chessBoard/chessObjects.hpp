@@ -36,6 +36,8 @@ typedef struct s_game_info
 	string	blackCastleLost;
 
 	bool	enPassant;
+	string	enPassantSrcOne;
+	string	enPassantSrcTwo;
 	string	enPassantDest;
 
 	int		turn;

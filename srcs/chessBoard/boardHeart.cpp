@@ -12,18 +12,26 @@ void	chessBoard::enableDisableEnPassant(void)
 			|| (_gameInfo.color == "black" && dest[1] == src[1] - 2 && dest[1] == '5'))
 		{
 			_gameInfo.enPassant = true;
+
+			_gameInfo.enPassantSrcOne = dest;
+			_gameInfo.enPassantSrcOne[0] = _gameInfo.enPassantSrcOne[0] - 1;
+			_gameInfo.enPassantSrcTwo = dest;
+			_gameInfo.enPassantSrcTwo[0] = _gameInfo.enPassantSrcTwo[0] + 1;
+
 			_gameInfo.enPassantDest = dest;
 
 			if (_gameInfo.color == "white")
 				_gameInfo.enPassantDest[1] = _gameInfo.enPassantDest[1] - 1;
 			else
 				_gameInfo.enPassantDest[1] = _gameInfo.enPassantDest[1] + 1;
+
+			return ;
 		}
-		else
-			_gameInfo.enPassant = false, _gameInfo.enPassantDest.clear();
 	}
-	else
-		_gameInfo.enPassant = false, _gameInfo.enPassantDest.clear();
+	_gameInfo.enPassant = false;
+	_gameInfo.enPassantSrcOne.clear();
+	_gameInfo.enPassantSrcTwo.clear();
+	_gameInfo.enPassantDest.clear();
 }
 
 void	chessBoard::priseEnPassant()

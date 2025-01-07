@@ -194,11 +194,18 @@ bool	chessBoard::isValidEnPassant(void) const
 		|| _gameInfo.enPassantDest != _gameInfo.lastMove.dest)
 		return (false);
 
-	string dest = _gameInfo.enPassantDest;
+	if (_gameInfo.lastMove.src != _gameInfo.enPassantSrcOne \
+		&& _gameInfo.lastMove.src != _gameInfo.enPassantSrcTwo)
+		return (false);
+
+	string	dest;
+	string	color, otherColor;
+
+	dest = _gameInfo.enPassantDest;
 	dest[1] = _gameInfo.lastMove.src[1];
 	
-	string color = _board.at(getAtValue(_gameInfo.lastMove.src)).piece->getColor();
-	string otherColor = _board.at(getAtValue(dest)).piece->getColor();
+	color = _board.at(getAtValue(_gameInfo.lastMove.src)).piece->getColor();
+	otherColor = _board.at(getAtValue(dest)).piece->getColor();
 
 	if (color == otherColor)
 		return (false);

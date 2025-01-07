@@ -19,6 +19,8 @@ chessBoard::chessBoard(void)
 	_gameInfo.checkmate = false;
 
 	_gameInfo.enPassant = false;
+	_gameInfo.enPassantSrcOne = "";
+	_gameInfo.enPassantSrcTwo = "";
 	_gameInfo.enPassantDest = "";
 
 	_boardCount.whiteMaterial = 39;
@@ -43,7 +45,8 @@ chessBoard::chessBoard(const chessBoard *originalBoard)
 	_gameInfo.blackCastled = originalBoard->_gameInfo.blackCastled;
 
 	_gameInfo.enPassant = originalBoard->_gameInfo.enPassant;
-	_gameInfo.enPassantDest = originalBoard->_gameInfo.enPassantDest;
+	_gameInfo.enPassantSrcOne = originalBoard->_gameInfo.enPassantSrcOne;
+	_gameInfo.enPassantSrcTwo = originalBoard->_gameInfo.enPassantSrcTwo;
 
 	_gameInfo.check = originalBoard->_gameInfo.check;
 	_gameInfo.draw = originalBoard->_gameInfo.draw;
