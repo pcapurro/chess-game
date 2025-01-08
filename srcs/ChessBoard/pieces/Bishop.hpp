@@ -4,7 +4,7 @@
 # include "ChessPiece.hpp"
 # include "../../AlgebraParser/AlgebraParser.hpp"
 
-class Bishop : public ChessPiece
+class Bishop final : public ChessPiece
 {
 	public:
 	
