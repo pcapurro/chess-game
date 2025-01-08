@@ -9,69 +9,69 @@ int	chessBoard::checkPawnDest(void) const
 	if ((_board.at(atValue).coord[1] == '8' || _board.at(atValue).coord[1] == '1') \
 		&& (dest.length() != 3 || algebraParser::isChessPiece(dest[2]) == false \
 		|| dest[2] == 'K'))
-		return (FAIL);
+		return (1);
 
 	if (_board.at(atValue).coord[0] != src[0])
 	{
 		if (_board.at(atValue).coord[0] - 1 != src[0] \
 			&& _board.at(atValue).coord[0] + 1 != src[0])
-			return (FAIL);
+			return (1);
 
 		if (_board.at(atValue).piece == nullptr)
 		{
 			if ((_gameInfo.enPassant == false || _gameInfo.enPassantDest != dest))
-				return (FAIL);
+				return (1);
 		}
 		else
 		{
 			if (_gameInfo.color == "white" && src[1] != dest[1] - 1)
-				return (FAIL);
+				return (1);
 			if (_gameInfo.color == "black" && src[1] != dest[1] + 1)
-				return (FAIL);
+				return (1);
 		}
 	}
 
 	if (_board.at(atValue).coord[0] == src[0])
 	{
 		if (isThereSomething(dest) == true)
-			return (FAIL);
+			return (1);
 
 		if (_gameInfo.color == "white" \
 			&& dest[1] - src[1] != 2 \
 			&& dest[1] - src[1] != 1)
-			return (FAIL);
+			return (1);
 
 		if (_gameInfo.color == "black" \
 			&& src[1] - dest[1] != 2 \
 			&& src[1] - dest[1] != 1)
-			return (FAIL);
+			return (1);
 
 		if (_gameInfo.color == "white" \
 			&& dest[1] - src[1] == 2 \
 			&& src[1] != '2')
-			return (FAIL);
+			return (1);
 
 		if (_gameInfo.color == "black" \
 			&& src[1] - dest[1] == 2 \
 			&& src[1] != '7')
-			return (FAIL);
+			return (1);
 
 		string	newDest = dest;
 		if (_board.at(atValue).coord[1] == dest[1] + 2)
 		{
 			newDest[1] = newDest[1] + 1;
 			if (isThereSomething(newDest) == true)
-				return (FAIL);
+				return (1);
 		}
 		if (_board.at(atValue).coord[1] == dest[1] - 2)
 		{
 			newDest[1] = newDest[1] - 1;
 			if (isThereSomething(newDest) == true)
-				return (FAIL);
+				return (1);
 		}
 	}
 
-	return (SUCCESS);
+	return (0);
 }
 
 int	chessBoard::checkPawnSource(void)
@@ -82,7 +82,7 @@ int	chessBoard::checkPawnSource(void)
 
 	int atValue = getAtValue(*dest);
 	if (_board.at(atValue).piece != nullptr)
-		return (FAIL);
+		return (1);
 	for (size_t i = 0; i != src->length(); i++)
 	{
 		source += src->at(i);
@@ -93,18 +93,18 @@ int	chessBoard::checkPawnSource(void)
 			{
 				if (source[1] == (*dest)[1] - 2 \
 					&& _board.at(getAtValue(source)).piece->getMoves() != 0)
-					return (FAIL);
+					return (1);
 				if (source[1] == (*dest)[1] + 2 \
 					&& _board.at(getAtValue(source)).piece->getMoves() != 0)
-					return (FAIL);
+					return (1);
 				*src = source;
-				return (SUCCESS);
+				return (0);
 			}
 			else
 				source.clear();
 		}
 	}
-	return (FAIL);
+	return (1);
 }
 
 int	chessBoard::checkNormalSource(void)
@@ -129,9 +129,9 @@ int	chessBoard::checkNormalSource(void)
 	}
 
 	if (src->length() != 2)
-		return (FAIL);
+		return (1);
 
-	return (SUCCESS);
+	return (0);
 }
 
 int	chessBoard::checkNormalDest(void) const
@@ -145,44 +145,44 @@ int	chessBoard::checkNormalDest(void) const
 	{
 		Queen	queen("white", src);
 		if (queen.isOnMyWay(dest, boardCoords) == false)
-			return (FAIL);
+			return (1);
 	}
 	if (obj == 'K')
 	{
 		King	king("white", src);
 		if (king.isOnMyWay(dest, boardCoords) == false)
-			return (FAIL);
+			return (1);
 	}
 	if (obj == 'B')
 	{
 		Bishop	bishop("white", src);
 		if (bishop.isOnMyWay(dest, boardCoords) == false)
-			return (FAIL);
+			return (1);
 	}
 	if (obj == 'N')
 	{
 		Knight	knight("white", src);
 		if (knight.isOnMyWay(dest, boardCoords) == false)
-			return (FAIL);
+			return (1);
 	}
 	if (obj == 'R')
 	{
 		Rook	rook("white", src);
 		if (rook.isOnMyWay(dest, boardCoords) == false)
-			return (FAIL);
+			return (1);
 	}
 
-	return (SUCCESS);
+	return (0);
 }
 
 bool	chessBoard::isThereValidSource(void)
 {
 	if (_gameInfo.lastMove.obj == 'P')
 	{
-		if (checkPawnSource() == FAIL)
+		if (checkPawnSource() == 1)
 			return (false);
 	}
-	else if (checkNormalSource() == FAIL)
+	else if (checkNormalSource() == 1)
 		return (false);
 
 	return (true);
@@ -260,11 +260,11 @@ bool    chessBoard::isLegal(const string move)
 
 		if (*obj == 'P')
 		{
-			if (checkPawnDest() == FAIL)
+			if (checkPawnDest() == 1)
 				return (false);
 		}
 		else
-			if (checkNormalDest() == FAIL)
+			if (checkNormalDest() == 1)
 				return (false);
 
 		if (isThereAlly() == true || isRightSide() == false \

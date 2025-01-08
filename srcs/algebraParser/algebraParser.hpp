@@ -3,7 +3,7 @@
 
 # include "../../includes/game.hpp"
 
-typedef struct s_move
+struct Move
 {
 	string	move;
 	char	action;
@@ -14,7 +14,7 @@ typedef struct s_move
 
 	bool	error;
 
-}	t_move;
+};
 
 class algebraParser
 {
@@ -29,7 +29,7 @@ class algebraParser
 
 		void		setTurn(const int turn)
 			{ _turn = turn; };
-		t_move		getParsedMove(void) const
+		Move		getParsedMove(void) const
 			{ return (_move); };
 
 
@@ -57,7 +57,7 @@ class algebraParser
 		bool	_fail;
 
 		int		_turn;
-		t_move	_move;
+		Move	_move;
 };
 
 vector<string>	getWatchersSequence(const char type, const string move, const char sign);

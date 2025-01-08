@@ -11,20 +11,20 @@
 # include "pieces/knight.hpp"
 # include "pieces/pawn.hpp"
 
-typedef struct s_square
+struct Square
 {
 	chessPiece	*piece;
 	string		coord;
 
-}	t_square;
+};
 
-typedef struct s_game_info
+struct GameInfo
 {
 	bool	check;
 	bool	checkmate;
 	bool	draw;
 
-	t_move	lastMove;
+	Move	lastMove;
 	bool	moveFailed;
 
 	bool	whiteCastle;
@@ -43,9 +43,9 @@ typedef struct s_game_info
 	int		turn;
 	string	color;
 
-}	t_game_info;
+};
 
-typedef struct s_counter
+struct Counter
 {
 	int	whiteKing;
 	int	blackKing;
@@ -70,6 +70,6 @@ typedef struct s_counter
 
 	int	total;
 
-}	t_counter;
+};
 
 #endif

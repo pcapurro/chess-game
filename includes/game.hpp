@@ -16,10 +16,6 @@
 
 # include <unistd.h>
 
-# define ERR -1
-# define SUCCESS 0
-# define FAIL 1
-
 # define ERASE_LINE "\033[2K"
 
 # define RED "\033[31m"

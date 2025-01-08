@@ -46,7 +46,7 @@ string	shellGame::getShellAnswer(void) const
 void	shellGame::shellRoutine(void)
 {
 	string	input;
-	t_move	move;
+	Move	move;
 
 	if (_blindMode == false)
 		_board->printBoard(_aiSide);
@@ -64,7 +64,7 @@ void	shellGame::shellRoutine(void)
 		move = _checker->getParsedMove();
 
 		if (move.error == false \
-			&& (_checker->fail() == true || _board->playMove(move) == FAIL))
+			&& (_checker->fail() == true || _board->playMove(move) == 1))
 			continue ;
 
 		if (move.error == true || _board->isAllocated() == false)

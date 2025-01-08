@@ -109,12 +109,12 @@ class visualGame
 		SDL_Cursor		*_normalCursor;
 		SDL_Cursor		*_playCursor;
 
-		t_textures		*_textures;
+		Textures		*_textures;
 
 		chessBoard		*_board;
 		chessAi			*_ai;
 
-		t_visual_infos	_visualInfo;
+		VisualInfos	_visualInfo;
 
 		bool			_error;
 };

@@ -47,6 +47,12 @@ void	initWelcome(void)
 		cout << "\033[2A" << ERASE_LINE << endl;
 }
 
+void	printInvalidArguments(void)
+{
+	cerr << "Error! Invalid arguments." << endl;
+	cerr << "Usage: ./shell-chess [--sandbox] or/and [--blind-mode]" << endl;
+}
+
 int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 {
 	initWelcome();
@@ -71,41 +77,35 @@ int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 	return (0);
 }
 
-void	printInvalidArguments(void)
-{
-	cerr << "Error! Invalid arguments." << endl;
-	cerr << "Usage: ./shell-chess [--sandbox] or/and [--blind-mode]" << endl;
-}
-
-bool	validateArguments(const int argc, const char **argv)
+int	validateArguments(const int argc, const char **argv)
 {
 	if (argc == 1)
-		return (SUCCESS);
+		return (0);
 	if (argc == 2)
 	{
 		if (string(argv[1]) != "--sandbox" && string(argv[1]) != "--blind-mode")
-			return (FAIL);
-		return (SUCCESS);
+			return (1);
+		return (0);
 	}
 	if (argc == 3)
 	{
 		if (string(argv[1]) != "--sandbox" && string(argv[1]) != "--blind-mode")
-			return (FAIL);
+			return (1);
 		if (string(argv[2]) != "--sandbox" && string(argv[2]) != "--blind-mode")
-			return (FAIL);
+			return (1);
 
 		if (string(argv[1]) == string(argv[2]))
-			return (FAIL);
+			return (1);
 
-		return (SUCCESS);
+		return (0);
 	}
 
-	return (FAIL);
+	return (1);
 }
 
 int	main(const int argc, const char **argv)
 {
-	if (validateArguments(argc, argv) == FAIL)
+	if (validateArguments(argc, argv) == 1)
 		printInvalidArguments();
 	else
 	{

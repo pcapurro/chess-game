@@ -38,7 +38,7 @@ class chessBoard
 			{ return (_gameInfo.checkmate); }
 		bool	isGameOver(void);
 
-		int		playMove(t_move structureMove, const string stringMove = "");
+		int		playMove(Move structureMove, const string stringMove = "");
 
 		void	printEvent(const bool cfail, const bool bfail, const bool blindMode);
 		void	printEndGame(const int value = 0);
@@ -158,10 +158,10 @@ class chessBoard
 		bool				_allocated;
 		bool				_free;
 
-		vector<t_square>	_board;
-		t_game_info			_gameInfo;
+		vector<Square>	_board;
+		GameInfo			_gameInfo;
 
-		t_counter			_boardCount;
+		Counter			_boardCount;
 		vector<char>		_whiteCaptured;
 		vector<char>		_blackCaptured;
 

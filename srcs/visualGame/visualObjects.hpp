@@ -4,7 +4,7 @@
 # include "../../includes/visual.hpp"
 # include "./visualTexture.hpp"
 
-typedef struct s_pieces
+struct Pieces
 {
 	visualTexture	king;
 	visualTexture	queen;
@@ -15,9 +15,9 @@ typedef struct s_pieces
 
 	visualTexture	pawn;
 
-}	t_pieces;
+};
 
-typedef struct s_texts
+struct Texts
 {
 	visualTexture	whiteWon;
 	visualTexture	blackWon;
@@ -25,9 +25,9 @@ typedef struct s_texts
 	visualTexture	blackToPlay;
 	visualTexture	draw;
 
-}	t_text;
+};
 
-typedef struct s_letters
+struct Letters
 {
 	visualTexture	a;
 	visualTexture	b;
@@ -39,9 +39,9 @@ typedef struct s_letters
 	visualTexture	g;
 	visualTexture	h;
 
-}	t_letters;
+};
 
-typedef struct s_numbers
+struct Numbers
 {
 	visualTexture	zero;
 	visualTexture	one;
@@ -55,66 +55,66 @@ typedef struct s_numbers
 	visualTexture	eight;
 	visualTexture	nine;
 
-}	t_numbers;
+};
 
-typedef struct s_symbols
+struct Symbols
 {
 	visualTexture	plus;
 
 	visualTexture	checkMateWhite;
 	visualTexture	checkMateBlack;
 
-}	t_symbols;
+};
 
-typedef struct s_textures
+struct Textures
 {
 	visualTexture	boardTexture;
 	visualTexture	promotion;
 
-	t_pieces		whiteTextures;
-	t_pieces		blackTextures;
+	Pieces		whiteTextures;
+	Pieces		blackTextures;
 
-	t_letters		letters;
-	t_numbers		numbers;
+	Letters		letters;
+	Numbers		numbers;
 
-	t_symbols		symbols;
+	Symbols		symbols;
 
-	t_text			texts;
+	Texts			texts;
 
-}	t_textures;
+};
 
-typedef struct s_visual_infos
+struct VisualInfos
 {
-		string			droppedSrc;
-		string			clickSrc;
+	string			droppedSrc;
+	string			clickSrc;
 
-		string			droppedDest;
-		vector<string>	droppedDests;
-		bool			visualDests;
+	string			droppedDest;
+	vector<string>	droppedDests;
+	bool			visualDests;
 
-		int				x;
-		int				y;
+	int				x;
+	int				y;
 
-		bool			promotion;
+	bool			promotion;
 
-		bool			visualCoords;
-		string			actualCoords;
+	bool			visualCoords;
+	string			actualCoords;
 
-		string			lastMove;
+	string			lastMove;
 
-		bool			evaluation;
-		int				whiteScore;
-		int				blackScore;
+	bool			evaluation;
+	int				whiteScore;
+	int				blackScore;
 
-		int				aiSide;
-		int				turn;
+	int				aiSide;
+	int				turn;
 
-		int				boardColor;
-		vector<int>		boardColors;
+	int				boardColor;
+	vector<int>		boardColors;
 
-		bool				code;
-		vector<SDL_Keycode>	keyHistory;
+	bool				code;
+	vector<SDL_Keycode>	keyHistory;
 
-}	t_visual_infos;
+};
 
 #endif

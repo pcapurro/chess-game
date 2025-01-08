@@ -48,7 +48,7 @@ int	visualGame::visualLoop(void)
 		}
 		else
 		{
-			if (_board->playMove({}, answer) == FAIL)
+			if (_board->playMove({}, answer) == 1)
 				continue ;
 			_visualInfo.lastMove = answer.c_str() + 1;
 			

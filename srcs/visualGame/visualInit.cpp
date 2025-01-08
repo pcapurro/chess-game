@@ -1,6 +1,6 @@
 #include "visualGame.hpp"
 
-visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _width(WIDTH), _height(HEIGHT)
+visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _width(850), _height(800)
 {
 	_error = false;
 
@@ -38,7 +38,7 @@ visualGame::visualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 			systemFailed(false, "SDL failed.");
 		else
 		{
-			_textures = new (nothrow) t_textures;
+			_textures = new (nothrow) Textures;
 			if (_textures == nullptr)
 				_error = true, memoryFailed(false);
 

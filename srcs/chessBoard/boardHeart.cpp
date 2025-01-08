@@ -235,7 +235,7 @@ void	chessBoard::loadMove(const string move)
 	}
 }
 
-int	chessBoard::playMove(t_move structureMove, const string stringMove)
+int	chessBoard::playMove(Move structureMove, const string stringMove)
 {
 	if (stringMove == "")
 		_gameInfo.lastMove = structureMove;
@@ -243,7 +243,7 @@ int	chessBoard::playMove(t_move structureMove, const string stringMove)
 		loadMove(stringMove);
 
 	if (isLegal() == false)
-		{ _gameInfo.moveFailed = true; return (FAIL); }
+		{ _gameInfo.moveFailed = true; return (1); }
 	else
 	{
 		_gameInfo.moveFailed = false;
@@ -276,7 +276,7 @@ int	chessBoard::playMove(t_move structureMove, const string stringMove)
 					promotePiece(dest, dest[dest.length() - 1]);
 				
 				if (_allocated == false)
-					return (ERR);
+					return (2);
 			}
 		}
 		enableDisableEnPassant();
@@ -286,5 +286,5 @@ int	chessBoard::playMove(t_move structureMove, const string stringMove)
 		++_gameInfo.turn % 2 == 0 ? _gameInfo.color = "white" : _gameInfo.color = "black";
 	}
 
-	return (SUCCESS);
+	return (0);
 }
