@@ -3,7 +3,7 @@
 
 int	initializeVisualGame(const bool sandBoxMode)
 {
-	visualGame	*gameVisual;
+	visualGame*	gameVisual;
 
 	gameVisual = new (nothrow) visualGame (sandBoxMode);
 	if (gameVisual == nullptr)
@@ -28,7 +28,7 @@ void	printInvalidArguments(void)
 	cerr << "Usage: ./chess-game [--sandbox]" << endl;
 }
 
-int	main(const int argc, const char **argv)
+int	main(const int argc, const char** argv)
 {
 	if (argc > 2 || (argc == 2 && string(argv[1]) != "--sandbox"))
 		printInvalidArguments();

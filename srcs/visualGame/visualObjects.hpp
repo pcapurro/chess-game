@@ -14,7 +14,6 @@ struct Pieces
 	visualTexture	rook;
 
 	visualTexture	pawn;
-
 };
 
 struct Texts
@@ -24,7 +23,6 @@ struct Texts
 	visualTexture	whiteToPlay;
 	visualTexture	blackToPlay;
 	visualTexture	draw;
-
 };
 
 struct Letters
@@ -38,7 +36,6 @@ struct Letters
 	visualTexture	f;
 	visualTexture	g;
 	visualTexture	h;
-
 };
 
 struct Numbers
@@ -54,7 +51,6 @@ struct Numbers
 	visualTexture	seven;
 	visualTexture	eight;
 	visualTexture	nine;
-
 };
 
 struct Symbols
@@ -63,7 +59,6 @@ struct Symbols
 
 	visualTexture	checkMateWhite;
 	visualTexture	checkMateBlack;
-
 };
 
 struct Textures
@@ -71,16 +66,15 @@ struct Textures
 	visualTexture	boardTexture;
 	visualTexture	promotion;
 
-	Pieces		whiteTextures;
-	Pieces		blackTextures;
+	Pieces			whiteTextures;
+	Pieces			blackTextures;
 
-	Letters		letters;
-	Numbers		numbers;
+	Letters			letters;
+	Numbers			numbers;
 
-	Symbols		symbols;
+	Symbols			symbols;
 
 	Texts			texts;
-
 };
 
 struct VisualInfos
@@ -114,7 +108,6 @@ struct VisualInfos
 
 	bool				code;
 	vector<SDL_Keycode>	keyHistory;
-
 };
 
 #endif

@@ -77,8 +77,8 @@ int	chessBoard::checkPawnDest(void) const
 int	chessBoard::checkPawnSource(void)
 {
 	string	source;
-	string	*src = &_gameInfo.lastMove.src;
-	string	*dest = &_gameInfo.lastMove.dest;
+	string*	src = &_gameInfo.lastMove.src;
+	string*	dest = &_gameInfo.lastMove.dest;
 
 	int atValue = getAtValue(*dest);
 	if (_board.at(atValue).piece != nullptr)
@@ -109,8 +109,8 @@ int	chessBoard::checkPawnSource(void)
 
 int	chessBoard::checkNormalSource(void)
 {
-	string			*src = &_gameInfo.lastMove.src;
-	string			*dest = &_gameInfo.lastMove.dest;
+	string*			src = &_gameInfo.lastMove.src;
+	string*			dest = &_gameInfo.lastMove.dest;
 	string 			source = *src;
 	vector<string>	boardCoords = getPiecesCoords();
 
@@ -226,9 +226,9 @@ bool    chessBoard::isItValidSource(void) const
 
 bool    chessBoard::isLegal(const string move)
 {
-	char	*obj;
-	string	*src;
-	string	*dest;
+	char*	obj;
+	string*	src;
+	string*	dest;
 
 	if (move != "")
 		loadMove(move);

@@ -99,7 +99,7 @@ void    visualGame::loadScore(string color, const int y)
 {
 	int	score;
 
-	visualTexture	*numbers[10] = {&_textures->numbers.zero, \
+	visualTexture*	numbers[10] = {&_textures->numbers.zero, \
 		&_textures->numbers.one, &_textures->numbers.two, \
 		&_textures->numbers.three, &_textures->numbers.four, \
 		&_textures->numbers.five, &_textures->numbers.six, \
@@ -117,7 +117,7 @@ void    visualGame::loadScore(string color, const int y)
 	SDL_Rect obj = getRectangle("", string{color[0]} + "score");
 	obj.y = y;
 
-	SDL_Texture *texture = _textures->symbols.plus.getTexture();
+	SDL_Texture*	texture = _textures->symbols.plus.getTexture();
 	SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 
 	_sandBoxMode == false || _visualInfo.aiSide % 2 != 0 ? obj.y-- : obj.y++;
@@ -139,12 +139,12 @@ void    visualGame::loadScore(string color, const int y)
 void	visualGame::loadCapturedComplex(vector<char> &captured, const string color)
 {
 	SDL_Rect		obj;
-	SDL_Texture		*texture;
+	SDL_Texture*	texture;
 
-	visualTexture	*white[5] = {&_textures->whiteTextures.pawn, &_textures->whiteTextures.bishop, \
+	visualTexture*	white[5] = {&_textures->whiteTextures.pawn, &_textures->whiteTextures.bishop, \
 		&_textures->whiteTextures.knight, &_textures->whiteTextures.rook, &_textures->whiteTextures.queen};
 
-	visualTexture	*black[5] = {&_textures->blackTextures.pawn, &_textures->blackTextures.bishop, \
+	visualTexture*	black[5] = {&_textures->blackTextures.pawn, &_textures->blackTextures.bishop, \
 		&_textures->blackTextures.knight, &_textures->blackTextures.rook, &_textures->blackTextures.queen};
 
 	if (color == "white")
@@ -190,15 +190,15 @@ void	visualGame::loadCapturedComplex(vector<char> &captured, const string color)
 void	visualGame::loadCaptured(vector<char> &captured, const string color)
 {
 	SDL_Rect		obj;
-	SDL_Texture		*texture;
+	SDL_Texture*	texture;
 
-	visualTexture	*white[5] = {&_textures->whiteTextures.pawn, &_textures->whiteTextures.bishop, \
+	visualTexture*	white[5] = {&_textures->whiteTextures.pawn, &_textures->whiteTextures.bishop, \
 		&_textures->whiteTextures.knight, &_textures->whiteTextures.rook, &_textures->whiteTextures.queen};
 
-	visualTexture	*black[5] = {&_textures->blackTextures.pawn, &_textures->blackTextures.bishop, \
+	visualTexture*	black[5] = {&_textures->blackTextures.pawn, &_textures->blackTextures.bishop, \
 		&_textures->blackTextures.knight, &_textures->blackTextures.rook, &_textures->blackTextures.queen};
 
-	visualTexture	*numbers[10] = {&_textures->numbers.zero, \
+	visualTexture*	numbers[10] = {&_textures->numbers.zero, \
 		&_textures->numbers.one, &_textures->numbers.two, \
 		&_textures->numbers.three, &_textures->numbers.four, \
 		&_textures->numbers.five, &_textures->numbers.six, \
@@ -373,12 +373,12 @@ void	visualGame::loadCoords(void)
 {
 	SDL_Rect	obj;
 
-	visualTexture	*letters[8] = {&_textures->letters.h, &_textures->letters.g, \
+	visualTexture*	letters[8] = {&_textures->letters.h, &_textures->letters.g, \
 		&_textures->letters.f, &_textures->letters.e, \
 		&_textures->letters.d, &_textures->letters.c, \
 		&_textures->letters.b, &_textures->letters.a};
 
-	visualTexture	*numbers[8] = {&_textures->numbers.one, &_textures->numbers.two, \
+	visualTexture*	numbers[8] = {&_textures->numbers.one, &_textures->numbers.two, \
 		&_textures->numbers.three, &_textures->numbers.four, \
 		&_textures->numbers.five, &_textures->numbers.six, \
 		&_textures->numbers.seven, &_textures->numbers.eight};
@@ -404,7 +404,7 @@ void	visualGame::loadCoords(void)
 		&& (_sandBoxMode == true || ((_visualInfo.aiSide % 2 == 0 && _visualInfo.turn % 2 != 0) \
 			|| (_visualInfo.aiSide % 2 != 0 && _visualInfo.turn % 2 == 0))))
 	{
-		SDL_Texture	*texture;
+		SDL_Texture*	texture;
 
 		obj.w = 28, obj.h = 18;
 		obj.x = x - 28, obj.y = y - 18;

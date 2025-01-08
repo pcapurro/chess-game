@@ -140,12 +140,12 @@ int	chessBoard::getWatchersNumber(const string coord) const
 	return (0);
 }
 
-stack<cP *>	chessBoard::getWatchers(const string coord)
+stack<cP*>	chessBoard::getWatchers(const string coord)
 {
 	vector<string>		baordCoords;
-	stack<cP *>			material;
-	stack<cP *>			material3;
-	vector<stack<cP *>>	materials;
+	stack<cP*>			material;
+	stack<cP*>			material3;
+	vector<stack<cP*>>	materials;
 
 	while (getWatchersNumber(coord) != 0)
 	{
@@ -228,8 +228,8 @@ string	chessBoard::getColor(const string coord) const
 
 stack<chessPiece *>	chessBoard::orderByValue(stack<chessPiece *> materials) const
 {
-	stack<cP *>		stack;
-	vector<cP *>	vMaterials;
+	stack<cP*>		stack;
+	vector<cP*>	vMaterials;
 
 	while (materials.size() != 0)
 		vMaterials.push_back(materials.top()), materials.pop();

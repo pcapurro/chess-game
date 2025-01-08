@@ -11,7 +11,7 @@ class chessBoard
 	public:
 
 		chessBoard(void);
-		chessBoard(const chessBoard *originalBoard);
+		chessBoard(const chessBoard* originalBoard);
 
 		~chessBoard(void);
 
@@ -67,8 +67,8 @@ class chessBoard
 		vector<string>	getPiecesCoords(void) const;
 		vector<string>	getCastlingSrcsDests(const string srcdest) const;
 
-		stack<cP *>	orderByValue(stack<cP *> materials) const;
-		stack<cP *>	getWatchers(const string coord);
+		stack<cP*>	orderByValue(stack<cP*> materials) const;
+		stack<cP*>	getWatchers(const string coord);
 
 		int		getWatchersNumber(const string coord) const;
 		int		getMaterialValue(const char type) const;
@@ -158,10 +158,10 @@ class chessBoard
 		bool				_allocated;
 		bool				_free;
 
-		vector<Square>	_board;
+		vector<Square>		_board;
 		GameInfo			_gameInfo;
 
-		Counter			_boardCount;
+		Counter				_boardCount;
 		vector<char>		_whiteCaptured;
 		vector<char>		_blackCaptured;
 

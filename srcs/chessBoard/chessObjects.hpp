@@ -13,9 +13,8 @@
 
 struct Square
 {
-	chessPiece	*piece;
+	chessPiece*	piece;
 	string		coord;
-
 };
 
 struct GameInfo
@@ -42,7 +41,6 @@ struct GameInfo
 
 	int		turn;
 	string	color;
-
 };
 
 struct Counter
@@ -69,7 +67,6 @@ struct Counter
 	int	blackMaterial;
 
 	int	total;
-
 };
 
 #endif

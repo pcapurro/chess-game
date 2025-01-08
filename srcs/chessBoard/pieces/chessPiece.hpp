@@ -59,18 +59,18 @@ class chessPiece
 
 	protected:
 
-		string  _color;
-		char    _type;
+		string	_color;
+		char	_type;
 
-		int     _moves;
+		int		_moves;
 
-		string  _originalPos;
-		string  _pos;
+		string	_originalPos;
+		string	_pos;
 
-		int     _x;
-		int     _y;
+		int		_x;
+		int		_y;
 
-		bool    _visible;
+		bool	_visible;
 
 };
 

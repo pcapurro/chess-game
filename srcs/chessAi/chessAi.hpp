@@ -21,7 +21,7 @@ class chessAi
 		ofstream	_answer;
 		ifstream	_line;
 
-		FILE		*_stream;
+		FILE*		_stream;
 };
 
 #endif

@@ -22,9 +22,9 @@ class shellGame
 
 	private:
 
-		chessBoard		*_board;
-		chessAi			*_ai;
-		algebraParser	*_checker;
+		chessBoard*		_board;
+		chessAi*		_ai;
+		algebraParser*	_checker;
 
 		const bool		_blindMode;
 		const bool		_sandBoxMode;

@@ -65,7 +65,7 @@ string	algebraParser::getRightSequence(void) const
 vector<string>	getWatchersSequence(const char type, const string move, const char sign)
 {
 	vector<string>	coords;
-	chessPiece		*object;
+	chessPiece*		object;
 
 	if (type == 'K')
 		object = new (nothrow) King("white", move);

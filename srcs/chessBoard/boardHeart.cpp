@@ -36,7 +36,7 @@ void	chessBoard::enableDisableEnPassant(void)
 
 void	chessBoard::priseEnPassant()
 {
-	chessPiece	*piece;
+	chessPiece*	piece;
 	size_t		atValue;
 	string		newCoordUpdated;
 
@@ -101,7 +101,7 @@ void	chessBoard::promotePiece(const string initialCoord, char pieceType)
 
 void	chessBoard::movePiece(const string initialCoord, const string newCoord)
 {
-	chessPiece	*piece;
+	chessPiece*	piece;
 	size_t		atValue;
 	string		newCoordUpdated;
 	

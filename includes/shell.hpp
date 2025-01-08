@@ -12,7 +12,7 @@ void	printLoading(void);
 int		initializeShellGame(const bool sandBoxMode, const bool blindMode);
 
 void	printInvalidArguments(void);
-int		validateArguments(const int argc, const char **argv);
-int		main(const int argc, const char **argv);
+int		validateArguments(const int argc, const char** argv);
+int		main(const int argc, const char** argv);
 
 #endif

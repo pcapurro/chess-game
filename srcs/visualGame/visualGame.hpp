@@ -45,8 +45,8 @@ class visualGame
 		void		loadBlackTextures(void);
 		void		loadTextures(void);
 
-		SDL_Texture	*getTexture(const char type, const string color) const;
-		SDL_Rect	getRectangle(const string coords, const string type = "") const;
+		SDL_Texture*	getTexture(const char type, const string color) const;
+		SDL_Rect		getRectangle(const string coords, const string type = "") const;
 
 		string		getKingCoords(const string color) const;
 
@@ -103,18 +103,18 @@ class visualGame
 		const int		_width;
 		const int		_height;
 
-		SDL_Window		*_mainWindow;
-		SDL_Renderer	*_mainRenderer;
+		SDL_Window*		_mainWindow;
+		SDL_Renderer*	_mainRenderer;
 
-		SDL_Cursor		*_normalCursor;
-		SDL_Cursor		*_playCursor;
+		SDL_Cursor*		_normalCursor;
+		SDL_Cursor*		_playCursor;
 
-		Textures		*_textures;
+		Textures*		_textures;
 
-		chessBoard		*_board;
-		chessAi			*_ai;
+		chessBoard*		_board;
+		chessAi*		_ai;
 
-		VisualInfos	_visualInfo;
+		VisualInfos		_visualInfo;
 
 		bool			_error;
 };

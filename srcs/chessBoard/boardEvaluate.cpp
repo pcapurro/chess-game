@@ -4,8 +4,8 @@ int	chessBoard::evaluateMaterial(const bool colorSwitch)
 {
 	int			value = 0;
 	int			enemyMaterial = 0;
-	stack<cP *>	attacked;
-	stack<cP *>	attacking;
+	stack<cP*>	attacked;
+	stack<cP*>	attacking;
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -116,7 +116,7 @@ int		chessBoard::evaluateKingControl(const bool colorSwitch)
 	int				value = 0;
 	string			coord, kingCoords;
 	vector<string>	kingWays;
-	stack<cP *>		watchers;
+	stack<cP*>		watchers;
 
 	if (_gameInfo.check == false && checkMateInOne() == true)
 		colorSwitch == true ? value += 50 : value += 42000;
@@ -171,7 +171,7 @@ int		chessBoard::evaluateKingDefense(const bool colorSwitch)
 	{
 		string			coord, kingCoords;
 		vector<string>	kingWays;
-		stack<cP *>		watchers;
+		stack<cP*>		watchers;
 
 		for (int i = 0; i != 64; i++)
 		{
@@ -257,7 +257,7 @@ int		chessBoard::evaluatePromotion(void)
 int		chessBoard::evaluatePawns(void)
 {
 	int			value = 0;
-	stack<cP *>	watchers;
+	stack<cP*>	watchers;
 
 	for (int i = 0; i != 64; i++)
 	{

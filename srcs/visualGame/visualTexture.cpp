@@ -11,9 +11,9 @@ visualTexture::~visualTexture()
 		SDL_DestroyTexture(_texture), _texture = nullptr;
 }
 
-int	visualTexture::load(SDL_Renderer *renderer, const char *path, const char id)
+int	visualTexture::load(SDL_Renderer* renderer, const char* path, const char id)
 {
-	SDL_Surface	*surface;
+	SDL_Surface*	surface;
 
 	_id = id;
 	

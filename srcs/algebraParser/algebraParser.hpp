@@ -13,7 +13,6 @@ struct Move
 	string	dest;
 
 	bool	error;
-
 };
 
 class algebraParser

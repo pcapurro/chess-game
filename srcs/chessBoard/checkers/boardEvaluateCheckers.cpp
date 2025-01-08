@@ -9,7 +9,7 @@ bool	chessBoard::isFree(const string coord)
 	}
 	else
 	{
-		stack<cP *>	attackers;
+		stack<cP*>	attackers;
 
 		switchPlayers();
 		attackers = getWatchers(coord);
@@ -32,12 +32,12 @@ bool	chessBoard::isSafe(const string coord)
 
 bool	chessBoard::isProtected(const string coord)
 {
-	stack<cP *>	defenders = getWatchers(coord);
+	stack<cP*>	defenders = getWatchers(coord);
 	if (defenders.size() == 0)
 		return (false);
 
 	switchPlayers();
-	stack<cP *>	attackers = getWatchers(coord);
+	stack<cP*>	attackers = getWatchers(coord);
 	unSwitchPlayers();
 	if (attackers.size() == 0)
 		return (true);

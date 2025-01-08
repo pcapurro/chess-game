@@ -31,7 +31,7 @@ chessBoard::chessBoard(void)
 		_allocated = false;
 }
 
-chessBoard::chessBoard(const chessBoard *originalBoard)
+chessBoard::chessBoard(const chessBoard* originalBoard)
 {
 	_free = false;
 

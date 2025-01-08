@@ -58,7 +58,7 @@ int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 	initWelcome();
 	printLoading();
 
-	shellGame	*gameShell;
+	shellGame*	gameShell;
 			
 	gameShell = new (nothrow) shellGame(blindMode, sandBoxMode);
 	if (gameShell == nullptr)
@@ -77,7 +77,7 @@ int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 	return (0);
 }
 
-int	validateArguments(const int argc, const char **argv)
+int	validateArguments(const int argc, const char** argv)
 {
 	if (argc == 1)
 		return (0);
@@ -103,7 +103,7 @@ int	validateArguments(const int argc, const char **argv)
 	return (1);
 }
 
-int	main(const int argc, const char **argv)
+int	main(const int argc, const char** argv)
 {
 	if (validateArguments(argc, argv) == 1)
 		printInvalidArguments();
