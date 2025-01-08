@@ -1,11 +1,11 @@
-#include "../includes/game.hpp"
-#include "visualGame/visualGame.hpp"
+#include "../includes/Game.hpp"
+#include "VisualGame/VisualGame.hpp"
 
 int	initializeVisualGame(const bool sandBoxMode)
 {
-	visualGame*	gameVisual;
+	VisualGame*	gameVisual;
 
-	gameVisual = new (nothrow) visualGame (sandBoxMode);
+	gameVisual = new (nothrow) VisualGame (sandBoxMode);
 	if (gameVisual == nullptr)
 		return (1);
 

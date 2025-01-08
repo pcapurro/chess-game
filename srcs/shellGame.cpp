@@ -1,5 +1,5 @@
-#include "../includes/shell.hpp"
-#include "shellGame/shellGame.hpp"
+#include "../includes/Shell.hpp"
+#include "ShellGame/ShellGame.hpp"
 
 void	printTitle(void)
 {
@@ -58,9 +58,9 @@ int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 	initWelcome();
 	printLoading();
 
-	shellGame*	gameShell;
+	ShellGame*	gameShell;
 			
-	gameShell = new (nothrow) shellGame(blindMode, sandBoxMode);
+	gameShell = new (nothrow) ShellGame(blindMode, sandBoxMode);
 	if (gameShell == nullptr)
 		return (1);
 

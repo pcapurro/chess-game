@@ -1,4 +1,4 @@
-#include "../includes/game.hpp"
+#include "../includes/Game.hpp"
 
 int	systemFailed(const bool value, const string message)
 {

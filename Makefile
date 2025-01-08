@@ -9,40 +9,42 @@ NAMEV = chess-game
 NAMES = shell-chess
 
 SRCSO = srcs/failPrint.cpp \
-	srcs/algebraParser/algebraBase.cpp \
-	srcs/algebraParser/algebraChecker.cpp \
-	srcs/algebraParser/algebraParser.cpp \
-	srcs/algebraParser/algebraTools.cpp \
-	srcs/chessAi/chessAi.cpp \
-	srcs/chessBoard/boardHeart.cpp \
-	srcs/chessBoard/boardEvaluate.cpp \
-	srcs/chessBoard/tools/boardCounter.cpp \
-	srcs/chessBoard/tools/boardPrint.cpp \
-	srcs/chessBoard/tools/boardTesters.cpp \
-	srcs/chessBoard/tools/boardTools.cpp \
-	srcs/chessBoard/boardInit.cpp \
-	srcs/chessBoard/boardFree.cpp \
-	srcs/chessBoard/checkers/boardEndCheckers.cpp \
-	srcs/chessBoard/checkers/boardEvaluateCheckers.cpp \
-	srcs/chessBoard/checkers/boardMoveCheckers.cpp \
-	srcs/chessBoard/checkers/boardPieceCheckers.cpp \
+	srcs/AlgebraParser/Base.cpp \
+	srcs/AlgebraParser/Checker.cpp \
+	srcs/AlgebraParser/Parser.cpp \
+	srcs/AlgebraParser/Tools.cpp \
+	srcs/ChessAi/Heart.cpp \
+	srcs/ChessAi/Init.cpp \
+	srcs/ChessAi/Free.cpp \
+	srcs/ChessBoard/Heart.cpp \
+	srcs/ChessBoard/Init.cpp \
+	srcs/ChessBoard/Free.cpp \
+	srcs/ChessBoard/Evaluate.cpp \
+	srcs/ChessBoard/tools/Counter.cpp \
+	srcs/ChessBoard/tools/Print.cpp \
+	srcs/ChessBoard/tools/Testers.cpp \
+	srcs/ChessBoard/tools/Tools.cpp \
+	srcs/ChessBoard/tools/EndCheckers.cpp \
+	srcs/ChessBoard/tools/EvaluateCheckers.cpp \
+	srcs/ChessBoard/tools/MoveCheckers.cpp \
+	srcs/ChessBoard/tools/PieceCheckers.cpp \
 
 SRCS_V = srcs/visualGame.cpp \
-	srcs/visualGame/visualDisplay.cpp \
-	srcs/visualGame/visualRoutine.cpp \
-	srcs/visualGame/visualFree.cpp \
-	srcs/visualGame/visualInit.cpp \
-	srcs/visualGame/visualRessources.cpp \
-	srcs/visualGame/visualTexture.cpp \
-	srcs/visualGame/visualEvent.cpp \
-	srcs/visualGame/visualReact.cpp \
-	srcs/visualGame/visualTools.cpp \
+	srcs/VisualGame/Display.cpp \
+	srcs/VisualGame/Routine.cpp \
+	srcs/VisualGame/Free.cpp \
+	srcs/VisualGame/Init.cpp \
+	srcs/VisualGame/Ressources.cpp \
+	srcs/VisualGame/Texture.cpp \
+	srcs/VisualGame/Event.cpp \
+	srcs/VisualGame/React.cpp \
+	srcs/VisualGame/Tools.cpp \
 	$(SRCSO)
 
 SRCS_S = srcs/shellGame.cpp \
-	srcs/shellGame/shellInit.cpp \
-	srcs/shellGame/shellRoutine.cpp \
-	srcs/shellGame/shellFree.cpp \
+	srcs/ShellGame/Init.cpp \
+	srcs/ShellGame/Routine.cpp \
+	srcs/ShellGame/Free.cpp \
 	$(SRCSO)
 
 CXX = c++
