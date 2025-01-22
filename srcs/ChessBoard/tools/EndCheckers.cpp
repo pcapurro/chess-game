@@ -128,7 +128,7 @@ bool	ChessBoard::isDraw(void)
 	return (false);
 }
 
-bool	ChessBoard::doesItResolveCheck(const string srcdest)
+bool	ChessBoard::doesItResolveCheck(const string& srcdest)
 {
 	tryMove(srcdest);
 
@@ -139,7 +139,7 @@ bool	ChessBoard::doesItResolveCheck(const string srcdest)
 	return (true);
 }
 
-vector<string>	ChessBoard::getPossibleTargets(const string coord) const
+vector<string>	ChessBoard::getPossibleTargets(const string& coord) const
 {
 	int				atValue;
 	string			coords;

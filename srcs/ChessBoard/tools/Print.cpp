@@ -1,6 +1,6 @@
 #include "../ChessBoard.hpp"
 
-void	ChessBoard::printPiece(const char type, const string color) const
+void	ChessBoard::printPiece(const char type, const string& color) const
 {
 	if (type == 'P' && color == "white")
 		cout << "│♟▕";

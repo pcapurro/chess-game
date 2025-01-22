@@ -58,7 +58,7 @@ void	ChessBoard::priseEnPassant()
 	removePiece(newCoordUpdated);
 }
 
-void	ChessBoard::removePiece(const string coord)
+void	ChessBoard::removePiece(const string& coord)
 {
 	size_t	atValue = getAtValue(coord);
 
@@ -74,7 +74,7 @@ void	ChessBoard::removePiece(const string coord)
 	}
 }
 
-void	ChessBoard::promotePiece(const string initialCoord, char pieceType)
+void	ChessBoard::promotePiece(const string& initialCoord, char pieceType)
 {
 	string	initialCoordUpdated;
 	string	color;
@@ -99,7 +99,7 @@ void	ChessBoard::promotePiece(const string initialCoord, char pieceType)
 		_allocated = false, _board.at(atValue).piece = nullptr;
 }
 
-void	ChessBoard::movePiece(const string initialCoord, const string newCoord)
+void	ChessBoard::movePiece(const string& initialCoord, const string& newCoord)
 {
 	ChessPiece*	piece;
 	size_t		atValue;
@@ -206,7 +206,7 @@ void	ChessBoard::addToHistory(void)
 	}
 }
 
-void	ChessBoard::loadMove(const string move)
+void	ChessBoard::loadMove(const string& move)
 {
 	if (move == "O-O-O" || move == "O-O")
 	{
@@ -235,7 +235,7 @@ void	ChessBoard::loadMove(const string move)
 	}
 }
 
-int	ChessBoard::playMove(Move structureMove, const string stringMove)
+int	ChessBoard::playMove(Move structureMove, const string& stringMove)
 {
 	if (stringMove == "")
 		_gameInfo.lastMove = structureMove;

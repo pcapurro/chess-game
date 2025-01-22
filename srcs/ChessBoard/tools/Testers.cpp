@@ -10,7 +10,7 @@ void	ChessBoard::unSwitchPlayers(void)
 	--_gameInfo.turn % 2 == 0 ? _gameInfo.color = "white" : _gameInfo.color = "black";
 }
 
-void	ChessBoard::tryEnPassant(string srcdest)
+void	ChessBoard::tryEnPassant(const string& srcdest)
 {
 	int		atValueSrc;
 	int		atValueDestOne;
@@ -38,7 +38,7 @@ void	ChessBoard::tryEnPassant(string srcdest)
 	_gameInfo.enPassant = false;
 }
 
-void	ChessBoard::undoEnPassant(string srcdest)
+void	ChessBoard::undoEnPassant(const string& srcdest)
 {
 	int		atValueSrc;
 	int		atValueDestOne;
@@ -67,7 +67,7 @@ void	ChessBoard::undoEnPassant(string srcdest)
 	_gameInfo.enPassant = true;
 }
 
-void	ChessBoard::enableCastling(string srcdest)
+void	ChessBoard::enableCastling(const string& srcdest)
 {
 	string	dest = srcdest.c_str() + 2;
 
@@ -86,7 +86,7 @@ void	ChessBoard::enableCastling(string srcdest)
 	}
 }
 
-void	ChessBoard::disableCastling(string srcdest)
+void	ChessBoard::disableCastling(const string& srcdest)
 {
 	string	dest = srcdest.c_str() + 2;
 
@@ -123,7 +123,7 @@ void	ChessBoard::disableCastling(string srcdest)
 	}
 }
 
-void	ChessBoard::tryMove(string srcdest)
+void	ChessBoard::tryMove(const string& srcdest)
 {
 	int		atValueSrc;
 	int		atValueDest;
@@ -171,7 +171,7 @@ void	ChessBoard::tryMove(string srcdest)
 	}
 }
 
-void	ChessBoard::undoMove(string srcdest)
+void	ChessBoard::undoMove(const string& srcdest)
 {	
 	if (srcdest == "O-O" || srcdest == "O-O-O" \
 		|| (string{srcdest[2], srcdest[3]} == _gameInfo.enPassantDest \

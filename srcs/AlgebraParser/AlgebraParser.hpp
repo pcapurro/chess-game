@@ -59,7 +59,7 @@ class AlgebraParser
 		Move	_move;
 };
 
-vector<string>	getWatchersSequence(const char type, const string move, const char sign);
-vector<string>	getPawnSequence(const string move, const int turn, const char sign);
+vector<string>	getWatchersSequence(const char type, const string& move, const char sign);
+vector<string>	getPawnSequence(const string& move, const int turn, const char sign);
 
 #endif

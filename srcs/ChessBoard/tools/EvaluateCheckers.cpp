@@ -1,6 +1,6 @@
 #include "../ChessBoard.hpp"
 
-bool	ChessBoard::isFree(const string coord)
+bool	ChessBoard::isFree(const string& coord)
 {
 	if (getEnPassantTarget() == coord)
 	{
@@ -22,7 +22,7 @@ bool	ChessBoard::isFree(const string coord)
 	return (false);
 }
 
-bool	ChessBoard::isSafe(const string coord)
+bool	ChessBoard::isSafe(const string& coord)
 {
 	if (isProtected(coord) == true || isFree(coord) == true)
 		return (true);
@@ -30,7 +30,7 @@ bool	ChessBoard::isSafe(const string coord)
 	return (false);
 }
 
-bool	ChessBoard::isProtected(const string coord)
+bool	ChessBoard::isProtected(const string& coord)
 {
 	stack<cP*>	defenders = getWatchers(coord);
 	if (defenders.size() == 0)

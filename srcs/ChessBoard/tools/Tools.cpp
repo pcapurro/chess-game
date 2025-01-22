@@ -1,6 +1,6 @@
 #include "../ChessBoard.hpp"
 
-size_t	ChessBoard::getAtValue(const string coord) const
+size_t	ChessBoard::getAtValue(const string& coord) const
 {
 	for (int i = 0; i != 64; i++)
 	{
@@ -70,7 +70,7 @@ vector<string>	ChessBoard::getLegalMoves(void)
 	return (legalMoves);
 }
 
-vector<string>	ChessBoard::getCastlingSrcsDests(const string srcdest) const
+vector<string>	ChessBoard::getCastlingSrcsDests(const string& srcdest) const
 {
 	char			y;
 	string			src;
@@ -122,7 +122,7 @@ string	ChessBoard::getEnPassantTarget(void) const
 	return (target);
 }
 
-int	ChessBoard::getWatchersNumber(const string coord) const
+int	ChessBoard::getWatchersNumber(const string& coord) const
 {
 	for (int i = 0; i != 64; i++)
 	{
@@ -140,7 +140,7 @@ int	ChessBoard::getWatchersNumber(const string coord) const
 	return (0);
 }
 
-stack<cP*>	ChessBoard::getWatchers(const string coord)
+stack<cP*>	ChessBoard::getWatchers(const string& coord)
 {
 	vector<string>		baordCoords;
 	stack<cP*>			material;
@@ -204,7 +204,7 @@ int	ChessBoard::getMaterialValue(const char type) const
 	return (0);
 }
 
-char	ChessBoard::getType(const string coord) const
+char	ChessBoard::getType(const string& coord) const
 {
 	for (int i = 0; i != 64; i++)
 	{
@@ -215,7 +215,7 @@ char	ChessBoard::getType(const string coord) const
 	return (' ');
 }
 
-string	ChessBoard::getColor(const string coord) const
+string	ChessBoard::getColor(const string& coord) const
 {
 	for (int i = 0; i != 64; i++)
 	{

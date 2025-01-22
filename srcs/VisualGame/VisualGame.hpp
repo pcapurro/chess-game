@@ -45,10 +45,10 @@ class VisualGame
 		void		loadBlackTextures(void);
 		void		loadTextures(void);
 
-		SDL_Texture*	getTexture(const char type, const string color) const;
-		SDL_Rect		getRectangle(const string coords, const string type = "") const;
+		SDL_Texture*	getTexture(const char type, const string& color) const;
+		SDL_Rect		getRectangle(const string& coords, const string& type = "") const;
 
-		string		getKingCoords(const string color) const;
+		string		getKingCoords(const string& color) const;
 
 		int			visualLoop(void);
 		string		getVisualAnswer(void);
@@ -56,31 +56,31 @@ class VisualGame
 		bool		isCodeDetected(void) const;
 		bool		isColorTargetZone(const int x, const int y) const;
 		bool		isEvaluationTargetZone(const int x, const int y) const;
-		bool		isBoardTargetZone(const string coord, const int x, const int y) const;
+		bool		isBoardTargetZone(const string& coord, const int x, const int y) const;
 		bool		isBoardZone(const int x, const int y) const;
 
-		bool		isAbovePromotion(const int x, const int y, SDL_Rect obj) const;
-		bool		isPromotion(const string coord) const;
+		bool		isAbovePromotion(const int x, const int y, SDL_Rect& obj) const;
+		bool		isPromotion(const string& coord) const;
 
 		void		loadMap(void);
 		void		loadHints(void);
 		void		loadCoords(void);
 		void		loadPath(void);
 		void		loadEvaluation(const int value);
-		void		loadScore(string color, const int y);
-		void		loadCapturedComplex(vector<char> &captured, const string color);
-		void		loadCaptured(vector<char> &captured, const string color);
+		void		loadScore(const string& color, const int y);
+		void		loadCapturedComplex(vector<char> &captured, const string& color);
+		void		loadCaptured(vector<char> &captured, const string& color);
 		void		loadCaptures(void);
 		void		loadMapColors(void);
-		void		loadBoard(const string color);
+		void		loadBoard(const string& color);
 		void		loadText(const int value);
 		void		loadCheck(void);
 		void		loadDraw(void);
 		void		loadCheckMate(void);
 
-		void		displayPromotion(const char type, const string coord);
+		void		displayPromotion(const char type, const string& coord);
 		void		displayGame(const bool value = false);
-		void		displayMoveAnimation(const string move);
+		void		displayMoveAnimation(const string& move);
 	
 		void		reactKeyDown(const int key);
 		void		reactMouseMotion(void);
@@ -91,7 +91,7 @@ class VisualGame
 		string		waitForPromotion(void);
 		string		waitForNewGame(void);
 
-		string		getInput(const string coord);
+		string		getInput(const string& coord);
 
 		string		getCoord(const int x, const int y) const;
 		string		getTurnColor(void) const;

@@ -62,7 +62,7 @@ string	AlgebraParser::getRightSequence(void) const
 	return (right);
 }
 
-vector<string>	getWatchersSequence(const char type, const string move, const char sign)
+vector<string>	getWatchersSequence(const char type, const string& move, const char sign)
 {
 	vector<string>	coords;
 	ChessPiece*		object;
@@ -98,7 +98,7 @@ vector<string>	getWatchersSequence(const char type, const string move, const cha
 	return (coords);
 }
 
-vector<string>	getPawnSequence(const string move, const int turn, const char sign)
+vector<string>	getPawnSequence(const string& move, const int turn, const char sign)
 {
 	vector<string>	coords;
 	vector<string>	realCoords;

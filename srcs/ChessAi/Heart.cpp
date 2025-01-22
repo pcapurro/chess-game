@@ -1,6 +1,6 @@
 #include "ChessAi.hpp"
 
-string	ChessAi::getBestMove(vector<string> moves) const
+string	ChessAi::getBestMove(const vector<string>& moves) const
 {
 	string	history, command;
 	string	word, move, bestMove;

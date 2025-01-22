@@ -11,8 +11,6 @@ class ChessBoard
 	public:
 
 		ChessBoard(void);
-		ChessBoard(const ChessBoard* originalBoard);
-
 		~ChessBoard(void);
 
 		bool	fail(void) const
@@ -22,14 +20,14 @@ class ChessBoard
 
 		int		getScore(const string color);
 
-		char	getType(const string coord) const;
-		string	getColor(const string coord) const;
+		char	getType(const string& coord) const;
+		string	getColor(const string& coord) const;
 
 		int		getActualTurn(void) const
 			{ return (_gameInfo.turn); };
 		int		getStateValue(void) const;
 
-		bool	isLegal(const string move = "");
+		bool	isLegal(const string& move = "");
 		bool	isItCheck(void) const
 			{ return (_gameInfo.check); };
 		bool	isItDraw(void) const
@@ -38,7 +36,7 @@ class ChessBoard
 			{ return (_gameInfo.checkmate); }
 		bool	isGameOver(void);
 
-		int		playMove(Move structureMove, const string stringMove = "");
+		int		playMove(Move structureMove, const string& stringMove = "");
 
 		void	printEvent(const bool cfail, const bool bfail, const bool blindMode);
 		void	printEndGame(const int value = 0);
@@ -49,7 +47,7 @@ class ChessBoard
 		int		getBlackMaterialsScore(void) const
 			{ return (_boardCount.blackMaterial); };
 
-		vector<string>	getHistory(void) const
+		const vector<string>&	getHistory(void) const
 			{ return (_simpleHistory); };
 		vector<char>	getWhiteCaptured(void) const
 			{ return (_whiteCaptured); };
@@ -60,17 +58,17 @@ class ChessBoard
 
 	private:
 
-		size_t	getAtValue(const string coord) const;
+		size_t	getAtValue(const string& coord) const;
 		string	getEnPassantTarget(void) const;
 
-		vector<string>	getPossibleTargets(const string coord) const;
+		vector<string>	getPossibleTargets(const string& coord) const;
 		vector<string>	getPiecesCoords(void) const;
-		vector<string>	getCastlingSrcsDests(const string srcdest) const;
+		vector<string>	getCastlingSrcsDests(const string& srcdest) const;
 
 		stack<cP*>	orderByValue(stack<cP*> materials) const;
-		stack<cP*>	getWatchers(const string coord);
+		stack<cP*>	getWatchers(const string& coord);
 
-		int		getWatchersNumber(const string coord) const;
+		int		getWatchersNumber(const string& coord) const;
 		int		getMaterialValue(const char type) const;
 
 		int		evaluateMaterial(const bool colorSwitch);
@@ -84,9 +82,9 @@ class ChessBoard
 		int		evaluateCenter(void);
 		int		evaluateDev(void) const;
 
-		bool	isSafe(const string coord);
-		bool	isProtected(const string coord);
-		bool	isFree(const string coord);
+		bool	isSafe(const string& coord);
+		bool	isProtected(const string& coord);
+		bool	isFree(const string& coord);
 		bool	isEndGame(void) const;
 		bool	isDefeatNext(void);
 		bool	checkMateInOne(void);
@@ -102,13 +100,13 @@ class ChessBoard
 
 		bool	isValidEnPassant(void) const;
 
-		bool	isThereSomething(const string coord) const;
+		bool	isThereSomething(const string& coord) const;
 		bool	isThereAlly(void) const;
 		bool	isRightSide(void) const;
 		bool	isTheDestinationSafe(void) const;
-		bool	isCastlingPossible(const string castle);
+		bool	isCastlingPossible(const string& castle);
 
-		bool	doesItResolveCheck(const string srcdest);
+		bool	doesItResolveCheck(const string& srcdest);
 		bool	isCheckMateImpossible(void);
 		bool	canTheKingMove(void);
 		bool	canAnyAllyPieceMove(void);
@@ -120,18 +118,18 @@ class ChessBoard
 		void	switchPlayers(void);
 		void	unSwitchPlayers(void);
 
-		void	tryMove(string srcdest);
-		void	undoMove(string srcdest);
-		void	tryEnPassant(string srcdest);
-		void	undoEnPassant(string srcdest);
-		void	enableCastling(string srcdest);
-		void	disableCastling(string srcdest);
+		void	tryMove(const string& srcdest);
+		void	undoMove(const string& srcdest);
+		void	tryEnPassant(const string& srcdest);
+		void	undoEnPassant(const string& srcdest);
+		void	enableCastling(const string& srcdest);
+		void	disableCastling(const string& srcdest);
 
-		void	loadMove(const string move);
+		void	loadMove(const string& move);
 
 		void	printWhiteBoard(void) const;
 		void	printBlackBoard(void) const;
-		void	printPiece(const char type, const string color) const;
+		void	printPiece(const char type, const string& color) const;
 		void	printHistory(void) const;
 		void	addToHistory(void);
 
@@ -147,28 +145,28 @@ class ChessBoard
 		void	whiteCastles(void);
 		void	blackCastles(void);
 
-		void	promotePiece(const string initialCoord, char pieceType);
-		void	movePiece(const string initialCoord, const string newCoord);
-		void	removePiece(const string coord);
+		void	promotePiece(const string& initialCoord, char pieceType);
+		void	movePiece(const string& initialCoord, const string& newCoord);
+		void	removePiece(const string& coord);
 
 		void	countPiecesOnBoard(void);
 		void	countTotalMaterials(void);
 		void	resetCount(void);
 
-		bool				_allocated;
-		bool				_free;
+		bool			_allocated;
+		bool			_free;
 
-		vector<Square>		_board;
-		GameInfo			_gameInfo;
+		vector<Square>	_board;
+		GameInfo		_gameInfo;
 
-		Counter				_boardCount;
-		vector<char>		_whiteCaptured;
-		vector<char>		_blackCaptured;
+		Counter			_boardCount;
+		vector<char>	_whiteCaptured;
+		vector<char>	_blackCaptured;
 
-		vector<string>		_history;
-		vector<string>		_simpleHistory;
+		vector<string>	_history;
+		vector<string>	_simpleHistory;
 
-		stack<cP*>			_savedObjects;
+		stack<cP*>		_savedObjects;
 };
 
 #endif

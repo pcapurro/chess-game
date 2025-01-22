@@ -95,7 +95,7 @@ void	VisualGame::loadMapColors(void)
 	SDL_RenderFillRect(_mainRenderer, &obj);
 }
 
-void    VisualGame::loadScore(string color, const int y)
+void    VisualGame::loadScore(const string& color, const int y)
 {
 	int	score;
 
@@ -136,7 +136,7 @@ void    VisualGame::loadScore(string color, const int y)
 	}
 }
 
-void	VisualGame::loadCapturedComplex(vector<char> &captured, const string color)
+void	VisualGame::loadCapturedComplex(vector<char> &captured, const string& color)
 {
 	SDL_Rect		obj;
 	SDL_Texture*	texture;
@@ -187,7 +187,7 @@ void	VisualGame::loadCapturedComplex(vector<char> &captured, const string color)
 	loadScore(color, obj.y);
 }
 
-void	VisualGame::loadCaptured(vector<char> &captured, const string color)
+void	VisualGame::loadCaptured(vector<char> &captured, const string& color)
 {
 	SDL_Rect		obj;
 	SDL_Texture*	texture;
@@ -434,7 +434,7 @@ void	VisualGame::loadCoords(void)
 	}
 }
 
-void	VisualGame::loadBoard(const string color)
+void	VisualGame::loadBoard(const string& color)
 {
 	char		objType;
 	string		coords;
@@ -535,7 +535,7 @@ void	VisualGame::loadCheckMate(void)
 	SDL_RenderCopy(_mainRenderer, getTexture('c', color), NULL, &obj);
 }
 
-void	VisualGame::displayMoveAnimation(const string move)
+void	VisualGame::displayMoveAnimation(const string& move)
 {
 	int			destX, destY;
 	string		src, dest;
@@ -564,7 +564,7 @@ void	VisualGame::displayMoveAnimation(const string move)
 	}
 }
 
-void	VisualGame::displayPromotion(const char type, const string coord)
+void	VisualGame::displayPromotion(const char type, const string& coord)
 {
 	SDL_Rect	obj;
 	string		color;

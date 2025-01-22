@@ -8,11 +8,11 @@ class Queen final : public ChessPiece
 {
 	public:
 	
-		Queen(const string color, const string pos) : ChessPiece(color, pos) { _type = 'Q'; }
+		Queen(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'Q'; }
 		~Queen() {};
 
-		virtual bool isOnMyWay(const string target, const vector<string> boardCoords = {}, \
-			const int value = 0, const string enPassant = "") const
+		virtual bool isOnMyWay(const string& target, const vector<string>& boardCoords = {}, \
+			const int value = 0, const string& enPassant = "") const
 		{
 			int	src_x = _x;
 			int	src_y = _y;

@@ -224,7 +224,7 @@ bool    ChessBoard::isItValidSource(void) const
 	return (true);
 }
 
-bool    ChessBoard::isLegal(const string move)
+bool    ChessBoard::isLegal(const string& move)
 {
 	char*	obj;
 	string*	src;

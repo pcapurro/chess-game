@@ -31,31 +31,6 @@ ChessBoard::ChessBoard(void)
 		_allocated = false;
 }
 
-ChessBoard::ChessBoard(const ChessBoard* originalBoard)
-{
-	_free = false;
-
-	_gameInfo.turn = originalBoard->_gameInfo.turn;
-	_gameInfo.color = originalBoard->_gameInfo.color;
-
-	_gameInfo.whiteCastle = originalBoard->_gameInfo.whiteCastle;
-	_gameInfo.blackCastle = originalBoard->_gameInfo.blackCastle;
-
-	_gameInfo.whiteCastled = originalBoard->_gameInfo.whiteCastled;
-	_gameInfo.blackCastled = originalBoard->_gameInfo.blackCastled;
-
-	_gameInfo.enPassant = originalBoard->_gameInfo.enPassant;
-	_gameInfo.enPassantSrcOne = originalBoard->_gameInfo.enPassantSrcOne;
-	_gameInfo.enPassantSrcTwo = originalBoard->_gameInfo.enPassantSrcTwo;
-
-	_gameInfo.check = originalBoard->_gameInfo.check;
-	_gameInfo.draw = originalBoard->_gameInfo.draw;
-	_gameInfo.checkmate = originalBoard->_gameInfo.checkmate;
-
-	for (int i = 0; i != 64; i++)
-		_board.push_back(originalBoard->_board.at(i));
-}
-
 void	ChessBoard::initBishops(void)
 {
 	_board.push_back({new (nothrow) Bishop("white", "c1"), "c1"});

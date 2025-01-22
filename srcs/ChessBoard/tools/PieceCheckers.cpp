@@ -1,6 +1,6 @@
 #include "../ChessBoard.hpp"
 
-bool	ChessBoard::isCastlingPossible(const string castle)
+bool	ChessBoard::isCastlingPossible(const string& castle)
 {
 	int	atValue;
 
@@ -140,7 +140,7 @@ bool	ChessBoard::isRightSide(void) const
 	return (false);
 }
 
-bool	ChessBoard::isThereSomething(const string dest) const
+bool	ChessBoard::isThereSomething(const string& dest) const
 {
 	int	atValue = getAtValue(dest);
 

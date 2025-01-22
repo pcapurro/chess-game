@@ -7,7 +7,7 @@ class ChessPiece
 {
 	public:
 		
-		ChessPiece(const string color, const string pos)
+		ChessPiece(const string& color, const string& pos)
 		{
 			_color = color;
 			_moves = 0;
@@ -40,22 +40,24 @@ class ChessPiece
 			{ return (_pos); }
 		string	getOriginalCoord(void) const
 			{ return (_originalPos); }
+
 		int		getX(void) const
 			{ return (_x); }
 		int		getY(void) const
 			{ return (_y); }
+
 		void	move(void)
 			{ _moves++; };
 
-		void	updatePos(const string coord)
+		void	updatePos(const string& coord)
 		{
 			_pos = coord;
 			_x = coord[0] - 97;
 			_y = atoi(coord.c_str() + 1);
 		}
 
-		virtual bool	isOnMyWay(const string target, const vector<string> boardCoords = {}, \
-			const int value = 0, const string enPassant = "") const = 0;
+		virtual bool	isOnMyWay(const string& target, const vector<string>& boardCoords = {}, \
+			const int value = 0, const string& enPassant = "") const = 0;
 
 	protected:
 

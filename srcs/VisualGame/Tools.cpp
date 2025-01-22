@@ -1,6 +1,6 @@
 #include "VisualGame.hpp"
 
-SDL_Texture*	VisualGame::getTexture(const char type, const string color) const
+SDL_Texture*	VisualGame::getTexture(const char type, const string& color) const
 {
 	VisualTexture*	whiteTextures[7] = {&_textures->symbols.checkMateBlack, &_textures->whiteTextures.king, \
 		&_textures->whiteTextures.queen, &_textures->whiteTextures.rook, &_textures->whiteTextures.bishop, \
@@ -31,7 +31,7 @@ SDL_Texture*	VisualGame::getTexture(const char type, const string color) const
 	return (nullptr);
 }
 
-SDL_Rect	VisualGame::getRectangle(const string coords, const string type) const
+SDL_Rect	VisualGame::getRectangle(const string& coords, const string& type) const
 {
 	SDL_Rect	obj;
 
@@ -125,7 +125,7 @@ string	VisualGame::getCoord(const int x, const int y) const
 	return ("none");
 }
 
-string	VisualGame::getInput(const string coord)
+string	VisualGame::getInput(const string& coord)
 {
 	string	input;
 
@@ -152,7 +152,7 @@ string	VisualGame::getInput(const string coord)
 	return (input);
 }
 
-string	VisualGame::getKingCoords(const string color) const
+string	VisualGame::getKingCoords(const string& color) const
 {
 	string	coords;
 
@@ -177,7 +177,7 @@ string	VisualGame::getTurnColor(void) const
 	return ("black");
 }
 
-bool	VisualGame::isPromotion(const string coord) const
+bool	VisualGame::isPromotion(const string& coord) const
 {
 	if (_board->getType(_visualInfo.droppedSrc) == 'P')
 	{
@@ -196,7 +196,7 @@ bool	VisualGame::isPromotion(const string coord) const
 	return (false);
 }
 
-bool	VisualGame::isAbovePromotion(const int x, const int y, SDL_Rect obj) const
+bool	VisualGame::isAbovePromotion(const int x, const int y, SDL_Rect& obj) const
 {
 	if (x > obj.x && x < obj.x + 20 \
 		&& y > obj.y + 20 && y <= obj.y + 20 + 40)
@@ -239,7 +239,7 @@ bool	VisualGame::isBoardZone(const int x, const int y) const
 	return (false);
 }
 
-bool	VisualGame::isBoardTargetZone(const string coord, const int x, const int y) const
+bool	VisualGame::isBoardTargetZone(const string& coord, const int x, const int y) const
 {
 	if (_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
 		return (true);
