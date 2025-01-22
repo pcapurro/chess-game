@@ -4,7 +4,7 @@ VisualGame::VisualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 {
 	_error = false;
 
-	_visualInfo.visualCoords = false;
+	_visualInfo.visualCoords = true;
 	_visualInfo.visualDests = false;
 
 	_visualInfo.evaluation = true;
