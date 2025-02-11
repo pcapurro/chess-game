@@ -3,8 +3,6 @@
 ChessBoard::ChessBoard(void)
 {
 	_gameInfo.turn = 0;
-	_allocated = true;
-	_free = true;
 	_gameInfo.color = "white";
 
 	_gameInfo.moveFailed = false;
@@ -27,8 +25,6 @@ ChessBoard::ChessBoard(void)
 	_boardCount.blackMaterial = 39;
 
 	initBoard();
-	if (checkBoardAllocation() == false)
-		_allocated = false;
 }
 
 void	ChessBoard::initBishops(void)

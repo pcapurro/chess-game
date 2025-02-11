@@ -2,9 +2,6 @@
 
 void	VisualGame::loadTexts(void)
 {
-	if (_error == true)
-		return ;
-
 	int	value = 0;
 
 	value += _textures->texts.blackToPlay.load(_mainRenderer, \
@@ -21,14 +18,11 @@ void	VisualGame::loadTexts(void)
 		"./materials/texts/draw.bmp");
 
 	if (value != 0)
-		_error = true;
+		throw runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadLetters(void)
 {
-	if (_error == true)
-		return ;
-
 	int	value = 0;
 
 	value += _textures->letters.a.load(_mainRenderer, \
@@ -51,14 +45,11 @@ void	VisualGame::loadLetters(void)
 
 
 	if (value != 0)
-		_error = true;
+		throw runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadNumbers(void)
 {
-	if (_error == true)
-		return ;
-
 	int	value = 0;
 
 	value += _textures->numbers.zero.load(_mainRenderer, \
@@ -84,14 +75,11 @@ void	VisualGame::loadNumbers(void)
 		"./materials/numbers/9.bmp", '9');
 
 	if (value != 0)
-		_error = true;
+		throw runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadWhiteTextures(void)
 {
-	if (_error == true)
-		return ;
-
 	int	value = 0;
 
 	value += _textures->whiteTextures.king.load(_mainRenderer, \
@@ -110,14 +98,11 @@ void	VisualGame::loadWhiteTextures(void)
 		"./materials/white/pawn.bmp", 'P');
 
 	if (value != 0)
-		_error = true;
+		throw runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadBlackTextures(void)
 {
-	if (_error == true)
-		return ;
-
 	int	value = 0;
 
 	value += _textures->blackTextures.king.load(_mainRenderer, \
@@ -136,14 +121,11 @@ void	VisualGame::loadBlackTextures(void)
 		"./materials/black/pawn.bmp", 'P');
 
 	if (value != 0)
-		_error = true;
+		throw runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadBoardTextures(void)
 {
-	if (_error == true)
-		return ;
-
 	int	value = 0;
 
 	value += _textures->boardTexture.load(_mainRenderer, \
@@ -161,7 +143,7 @@ void	VisualGame::loadBoardTextures(void)
 		"./materials/symbols/plus.bmp");
 
 	if (value != 0)
-		_error = true;
+		throw runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadTextures(void)
@@ -175,7 +157,4 @@ void	VisualGame::loadTextures(void)
 
 	loadWhiteTextures();
 	loadBlackTextures();
-
-	if (_error == true)
-		systemFailed(false, "SDL failed.");
 }

@@ -103,7 +103,7 @@ int	ChessBoard::getStateValue(void) const
 {
 	if (_gameInfo.checkmate == true)
 		return (1);
-	if (_gameInfo.draw == true || isAllocated() == false)
+	if (_gameInfo.draw == true)
 		return (2);
 
 	return (0);

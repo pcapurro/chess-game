@@ -8,6 +8,9 @@
 # include <vector>
 # include <stack>
 
+# include <stdexcept>
+# include <memory>
+
 # include <fstream>
 # include <sstream>
 
@@ -27,8 +30,5 @@
 # define COLOR_E "\033[0m"
 
 using namespace std;
-
-int		memoryFailed(const bool value);
-int		systemFailed(const bool value, const string message);
 
 #endif

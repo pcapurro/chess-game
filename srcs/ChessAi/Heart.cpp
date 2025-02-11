@@ -10,11 +10,11 @@ string	ChessAi::getBestMove(const vector<string>& moves) const
 
 	command = "position startpos moves " + history;
 	if (fprintf(_stream, "%s\n", command.c_str()) < 0)
-		return ("error");
+		throw runtime_error("Stockfish failed.");
 	
 	command = "go movetime 500";
 	if (fprintf(_stream, "%s\n", command.c_str()) < 0)
-		return ("error");
+		throw runtime_error("Stockfish failed.");
 	else
 		fflush(_stream);
 	
@@ -23,7 +23,7 @@ string	ChessAi::getBestMove(const vector<string>& moves) const
 	if (_answer.good() == true && _line.good() == true)
 		move = (stringstream() << _line.rdbuf()).str();
 	if (move == "")
-		return ("error");
+		throw runtime_error("Stockfish failed.");
 
 	size_t	k = 0;
 	while (k != move.size() && word != "bestmove")
@@ -40,7 +40,7 @@ string	ChessAi::getBestMove(const vector<string>& moves) const
 		bestMove += move[i];
 
 	if (bestMove.size() == 0 || bestMove.size() > 5)
-		return ("error");
+		throw runtime_error("Stockfish failed.");
 
 	if (bestMove.size() == 5)
 		bestMove[4] = toupper(bestMove[4]);

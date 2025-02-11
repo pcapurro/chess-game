@@ -28,8 +28,6 @@ class VisualGame
 		~VisualGame(void);
 
 		void		visualRoutine(void);
-		bool		fail(void) const
-			{ return (_error); }
 
 	private:
 
@@ -115,8 +113,6 @@ class VisualGame
 		ChessAi*		_ai;
 
 		VisualInfos		_visualInfo;
-
-		bool			_error;
 };
 
 #endif

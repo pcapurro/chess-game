@@ -8,8 +8,7 @@ NAMEV = chess-game
 
 NAMES = shell-chess
 
-SRCSO = srcs/failPrint.cpp \
-	srcs/AlgebraParser/Base.cpp \
+SRCSO = srcs/AlgebraParser/Init.cpp \
 	srcs/AlgebraParser/Checker.cpp \
 	srcs/AlgebraParser/Parser.cpp \
 	srcs/AlgebraParser/Tools.cpp \
@@ -18,7 +17,6 @@ SRCSO = srcs/failPrint.cpp \
 	srcs/ChessAi/Free.cpp \
 	srcs/ChessBoard/Heart.cpp \
 	srcs/ChessBoard/Init.cpp \
-	srcs/ChessBoard/Free.cpp \
 	srcs/ChessBoard/Evaluate.cpp \
 	srcs/ChessBoard/tools/Counter.cpp \
 	srcs/ChessBoard/tools/Print.cpp \

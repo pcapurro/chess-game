@@ -78,9 +78,6 @@ vector<string>	getWatchersSequence(const char type, const string& move, const ch
 	if (type == 'R')
 		object = new (nothrow) Rook("white", move);
 
-	if (object == nullptr)
-		{ coords.push_back("error"); return (coords); }
-
 	for (int i = 9; i != 1; i--)
 	{
 		for (int k = 0; k != 8; k++)

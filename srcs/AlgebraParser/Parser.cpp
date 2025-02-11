@@ -25,9 +25,6 @@ void	AlgebraParser::parseDoubleSequence(void)
 		else
 			coords = getWatchersSequence(_move.move[0], right, 'i');
 
-		if (coords.size() == 1 && coords.at(0) == "error")
-			{ _move.error = true; return ; }
-
 		for (size_t i = 0; i != coords.size(); i++)
 		{
 			if (AlgebraParser::isChessCoord(coords.at(i)[0]) == true \
@@ -64,9 +61,6 @@ void	AlgebraParser::parseUniqueSequence(void)
 
 		_move.obj = _move.move[0];
 		coords = getWatchersSequence(_move.move[0], _move.move.c_str() + 1 + i, sign);
-
-		if (coords.size() == 1 && coords.at(0) == "error")
-			{ _move.error = true; return ; }
 	}
 
 	for (size_t i = 0; i != coords.size(); i++)

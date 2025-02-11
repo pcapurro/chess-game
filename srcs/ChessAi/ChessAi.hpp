@@ -11,12 +11,8 @@ class ChessAi
 		~ChessAi(void);
 
 		string	getBestMove(const vector<string>& moves) const;
-
-		bool	fail(void) const { return (_fail); };
 	
 	private:
-
-		bool		_fail;
 
 		ofstream	_answer;
 		ifstream	_line;

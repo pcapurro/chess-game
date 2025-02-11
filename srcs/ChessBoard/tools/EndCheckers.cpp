@@ -201,8 +201,6 @@ bool	ChessBoard::isCheckMate(const int value)
 
 bool	ChessBoard::isGameOver(void)
 {
-	if (isAllocated() == false)
-		return (true);
 	if (isCheckMate() == true)
 		return (true);
 	if (isDraw() == true)

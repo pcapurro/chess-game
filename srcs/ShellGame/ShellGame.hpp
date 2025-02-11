@@ -14,9 +14,6 @@ class ShellGame
 		ShellGame(const bool blindMode, const bool sandBoxMode);
 		~ShellGame(void);
 
-		bool	fail(void) const
-			{ return (_error); };
-
 		void	shellRoutine(void);
 		string	getShellAnswer(void) const;
 
@@ -30,9 +27,6 @@ class ShellGame
 		const bool		_sandBoxMode;
 
 		int				_aiSide;
-
-		bool			_error;
-
 };
 
 #endif

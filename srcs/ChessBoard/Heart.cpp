@@ -94,10 +94,7 @@ void	ChessBoard::promotePiece(const string& initialCoord, char pieceType)
 		_board.at(atValue).piece = new (nothrow) Bishop(color, initialCoordUpdated);
 	if (pieceType == 'R')
 		_board.at(atValue).piece = new (nothrow) Rook(color, initialCoordUpdated);
-	
-	if (_board.at(atValue).piece == nullptr)
-		_allocated = false, _board.at(atValue).piece = nullptr;
-}
+	}
 
 void	ChessBoard::movePiece(const string& initialCoord, const string& newCoord)
 {
@@ -230,8 +227,6 @@ void	ChessBoard::loadMove(const string& move)
 			_gameInfo.lastMove.action = 'x';
 		else
 			_gameInfo.lastMove.action = '-';
-		
-		_gameInfo.lastMove.error = false;
 	}
 }
 
@@ -274,9 +269,6 @@ int	ChessBoard::playMove(Move structureMove, const string& stringMove)
 				movePiece(src, dest);
 				if (AlgebraParser::isChessPiece(dest.at(dest.length() - 1)) == true)
 					promotePiece(dest, dest[dest.length() - 1]);
-				
-				if (_allocated == false)
-					return (2);
 			}
 		}
 		enableDisableEnPassant();

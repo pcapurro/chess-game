@@ -11,8 +11,6 @@ struct Move
 	char	obj;
 	string	src;
 	string	dest;
-
-	bool	error;
 };
 
 class AlgebraParser
@@ -30,7 +28,6 @@ class AlgebraParser
 			{ _turn = turn; };
 		Move		getParsedMove(void) const
 			{ return (_move); };
-
 
 		static bool	isChessDigit(const char c);
 		static bool	isChessPiece(const char c);

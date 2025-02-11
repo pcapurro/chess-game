@@ -8,8 +8,6 @@ string	ShellGame::getShellAnswer(void) const
 		|| (_board->getActualTurn() % 2 != 0 && _aiSide % 2 != 0)))
 	{
 		answer = _ai->getBestMove(_board->getHistory());
-		if (answer == "error")
-			{ systemFailed(true, "Stockfish failed."); return ("error"); }
 
 		char	type = _board->getType(string{answer[0], answer[1]});
 
@@ -54,19 +52,15 @@ void	ShellGame::shellRoutine(void)
 		_board->printEvent(_checker->fail(), _board->fail(), _blindMode);
 		input = getShellAnswer();
 		if (input == "error")
-			{ _error = true; systemFailed(true, "getline() failed.");}
+			throw runtime_error("getline() failed.");
 		if (input == "end" || input == "error")
 			return ;
 
 		*_checker = input;
 		move = _checker->getParsedMove();
 
-		if (move.error == false \
-			&& (_checker->fail() == true || _board->playMove(move) == 1))
+		if (_checker->fail() == true || _board->playMove(move) == 1)
 			continue ;
-
-		if (move.error == true || _board->isAllocated() == false)
-			{ _error = true; memoryFailed(true); return ; }
 
 		if (_blindMode == false)
 			_board->printBoard(_aiSide);

@@ -11,12 +11,10 @@ class ChessBoard
 	public:
 
 		ChessBoard(void);
-		~ChessBoard(void);
+		~ChessBoard(void) {};
 
 		bool	fail(void) const
 			{ return (_gameInfo.moveFailed); };
-		bool	isAllocated(void) const
-			{ return (_allocated); }
 
 		int		getScore(const string color);
 
@@ -138,8 +136,6 @@ class ChessBoard
 		void	initQueensKings(void);
 		void	initBoard(void);
 
-		bool	checkBoardAllocation(void) const;
-
 		void	priseEnPassant(void);
 		void	enableDisableEnPassant(void);
 		void	whiteCastles(void);
@@ -152,9 +148,6 @@ class ChessBoard
 		void	countPiecesOnBoard(void);
 		void	countTotalMaterials(void);
 		void	resetCount(void);
-
-		bool			_allocated;
-		bool			_free;
 
 		vector<Square>	_board;
 		GameInfo		_gameInfo;
