@@ -5,7 +5,7 @@ int	initializeVisualGame(const bool sandBoxMode)
 {
 	VisualGame*	gameVisual;
 
-	gameVisual = new (std::nothrow) VisualGame (sandBoxMode);
+	gameVisual = new VisualGame (sandBoxMode);
 
 	gameVisual->visualRoutine();
 

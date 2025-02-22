@@ -69,7 +69,7 @@ void	VisualGame::visualRoutine(void)
 {
 	while (true)
 	{
-		_board = new (std::nothrow) ChessBoard;
+		_board = new ChessBoard;
 
 		int	value = visualLoop();
 

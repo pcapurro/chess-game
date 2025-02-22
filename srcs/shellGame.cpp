@@ -11,7 +11,7 @@ int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 {
 	ShellGame*	gameShell;
 			
-	gameShell = new (std::nothrow) ShellGame(blindMode, sandBoxMode);
+	gameShell = new ShellGame(blindMode, sandBoxMode);
 
 	gameShell->shellRoutine();
 

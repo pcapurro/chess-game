@@ -14,7 +14,7 @@ VisualGame::VisualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 	_ai = nullptr;
 	if (_sandBoxMode == false)
 	{
-		_ai = new (std::nothrow) ChessAi;
+		_ai = new ChessAi;
 		
 		srand(time(nullptr));
 		_visualInfo.aiSide = rand() % 2;
@@ -28,7 +28,7 @@ VisualGame::VisualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 
 	initializeGame();
 
-	_textures = new (std::nothrow) Textures;
+	_textures = new Textures;
 	loadTextures();
 }
 

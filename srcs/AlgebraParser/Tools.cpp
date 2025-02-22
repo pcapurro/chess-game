@@ -68,15 +68,15 @@ std::vector<std::string>	getWatchersSequence(const char type, const std::string&
 	ChessPiece*					object;
 
 	if (type == 'K')
-		object = new (std::nothrow) King("white", move);
+		object = new King("white", move);
 	if (type == 'Q')
-		object = new (std::nothrow) Queen("white", move);
+		object = new Queen("white", move);
 	if (type == 'N')
-		object = new (std::nothrow) Knight("white", move);
+		object = new Knight("white", move);
 	if (type == 'B')
-		object = new (std::nothrow) Bishop("white", move);
+		object = new Bishop("white", move);
 	if (type == 'R')
-		object = new (std::nothrow) Rook("white", move);
+		object = new Rook("white", move);
 
 	for (int i = 9; i != 1; i--)
 	{

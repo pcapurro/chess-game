@@ -6,7 +6,7 @@ ShellGame::ShellGame(const bool blindMode, const bool sandBoxMode) : _blindMode(
 	_ai = nullptr;
 	if (_sandBoxMode == false)
 	{
-		_ai = new (std::nothrow) ChessAi;
+		_ai = new ChessAi;
 
 		srand(time(nullptr));
 		_aiSide = rand() % 2;
@@ -15,6 +15,6 @@ ShellGame::ShellGame(const bool blindMode, const bool sandBoxMode) : _blindMode(
 	_board = nullptr;
 	_checker = nullptr;
 
-	_board = new (std::nothrow) ChessBoard;
-	_checker = new (std::nothrow) AlgebraParser;
+	_board = new ChessBoard;
+	_checker = new AlgebraParser;
 }
