@@ -560,7 +560,7 @@ void	VisualGame::displayMoveAnimation(const std::string& move)
 
 		_visualInfo.x = obj.x + 28, _visualInfo.y = obj.y + 40;
 		displayGame(true);
-		usleep(500);
+		std::this_thread::sleep_for(std::chrono::microseconds(500));
 	}
 }
 

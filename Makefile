@@ -42,6 +42,7 @@ SRCS_V = srcs/visualGame.cpp \
 SRCS_S = srcs/shellGame.cpp \
 	srcs/ShellGame/Init.cpp \
 	srcs/ShellGame/Routine.cpp \
+	srcs/ShellGame/Print.cpp \
 	srcs/ShellGame/Free.cpp \
 	$(SRCSO)
 

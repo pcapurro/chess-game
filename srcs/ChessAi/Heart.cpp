@@ -18,7 +18,7 @@ std::string	ChessAi::getBestMove(const std::vector<std::string>& moves) const
 	else
 		fflush(_stream);
 	
-	sleep(1);
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 
 	if (_answer.good() == true && _line.good() == true)
 		move = (std::stringstream() << _line.rdbuf()).str();

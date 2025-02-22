@@ -39,13 +39,32 @@ std::string	ShellGame::getShellAnswer(void) const
 	return (answer);
 }
 
+void	ShellGame::initWelcome(void)
+{
+	std::string	input;
+
+	printTitle();
+	std::getline(std::cin, input);
+	if (std::cin.fail() == true)
+		throw std::runtime_error("getline() failed");
+	else
+		cout << "\033[2A" << ERASE_LINE << endl;
+
+	printGradually("Loading", 1);
+	cout << GREEN << "Game is ready." << COLOR_E << endl;
+	std::this_thread::sleep_for(std::chrono::seconds(1));
+	cout << endl;
+}
+
 void	ShellGame::shellRoutine(void)
 {
 	std::string		input;
 	Move			move;
 
+	initWelcome();
+
 	if (_blindMode == false)
-		_board->printBoard(_aiSide);
+		printGame();
 
 	while (_board->isGameOver() == false)
 	{
@@ -63,7 +82,7 @@ void	ShellGame::shellRoutine(void)
 			continue ;
 
 		if (_blindMode == false)
-			_board->printBoard(_aiSide);
+			printGame();
 		_checker->setTurn(_board->getActualTurn());
 	}
 	_board->printEndGame();

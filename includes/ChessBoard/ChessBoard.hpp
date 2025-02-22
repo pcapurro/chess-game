@@ -150,9 +150,9 @@ class ChessBoard
 		void	resetCount(void);
 
 		std::vector<Square>	_board;
-		GameInfo		_gameInfo;
+		GameInfo			_gameInfo;
 
-		Counter			_boardCount;
+		Counter				_boardCount;
 		std::vector<char>	_whiteCaptured;
 		std::vector<char>	_blackCaptured;
 

@@ -1,52 +1,6 @@
 #include "Game.hpp"
 #include "ShellGame/ShellGame.hpp"
 
-void	printTitle(void)
-{
-	cout << "                         #-# ############ #-#                            " << endl;
-	cout << "##           #-######-#                         #-######-#           ##  " << endl;
-	cout << "#                 #/-/# ♛ ♞ ♝ shell-chess ♛ ♞ ♝ #\\-\\#                 #" << endl;
-	cout << "#        #-######-#       #-# by pcapurro #-#       #-######-#        #  " << endl;
-	cout << "##                #-######-#               #-######-#                ##  " << endl;
-	cout << "                                                                         " << endl;
-	cout << "                    ♖ ## Press ENTER to start! ## ♖                      " << endl;
-}
-
-void	printGradually(const std::string str, const int value)
-{
-	std::string	points;
-
-	for (int i = 0; i != 4; i++)
-	{
-		cout << "\033[1A" << str << points << std::flush << endl;
-		points = points + ".";
-		if (value == 1)
-			sleep(1);
-		else
-			usleep(5000);
-	}
-}
-
-void	printLoading(void)
-{
-	printGradually("Loading", 1);
-	cout << GREEN << "Game is ready." << COLOR_E << endl;
-	sleep(1);
-	cout << endl;
-}
-
-void	initWelcome(void)
-{
-	std::string	input;
-
-	printTitle();
-	std::getline(std::cin, input);
-	if (std::cin.fail() == true)
-		throw std::runtime_error("getline() failed");
-	else
-		cout << "\033[2A" << ERASE_LINE << endl;
-}
-
 void	printInvalidArguments(void)
 {
 	cerr << "Error! Invalid arguments." << endl;
@@ -55,12 +9,10 @@ void	printInvalidArguments(void)
 
 int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 {
-	initWelcome();
-	printLoading();
-
 	ShellGame*	gameShell;
 			
 	gameShell = new (std::nothrow) ShellGame(blindMode, sandBoxMode);
+
 	gameShell->shellRoutine();
 
 	delete gameShell;

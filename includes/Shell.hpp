@@ -3,12 +3,6 @@
 
 # include "Game.hpp"
 
-void	printTitle(void);
-void	initWelcome(void);
-
-void	printGradually(const std::string str, const int value);
-void	printLoading(void);
-
 int		initializeShellGame(const bool sandBoxMode, const bool blindMode);
 
 void	printInvalidArguments(void);
