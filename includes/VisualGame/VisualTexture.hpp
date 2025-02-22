@@ -7,8 +7,8 @@ class VisualTexture
 {
 	public:
 
-		VisualTexture();
-		~VisualTexture();
+		VisualTexture(void);
+		~VisualTexture(void);
 
 		int				load(SDL_Renderer* renderer, const char* path, const char id = '0');
 

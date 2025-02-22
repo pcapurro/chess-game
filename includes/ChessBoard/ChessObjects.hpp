@@ -13,7 +13,7 @@
 
 struct Square
 {
-	ChessPiece*	piece;
+	ChessPiece*		piece;
 	std::string		coord;
 };
 

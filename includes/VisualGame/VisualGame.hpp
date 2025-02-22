@@ -24,6 +24,7 @@ class VisualGame
 {
 	public:
 
+		VisualGame(void) = delete;
 		VisualGame(const bool sandBoxMode);
 		~VisualGame(void);
 
@@ -48,7 +49,7 @@ class VisualGame
 
 		std::string		getKingCoords(const std::string& color) const;
 
-		int			visualLoop(void);
+		int				visualLoop(void);
 		std::string		getVisualAnswer(void);
 
 		bool		isCodeDetected(void) const;

@@ -19,7 +19,7 @@ class AlgebraParser
 
 		AlgebraParser(void)
 			{ _turn = 0, _fail = false; };
-		~AlgebraParser(void) {};
+		~AlgebraParser(void) = default;
 
 		void		operator=(const std::string move);
 		bool		fail(void) const;

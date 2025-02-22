@@ -7,12 +7,12 @@ class Pawn final : public ChessPiece
 {
 	public:
 	
+		Pawn(void) = delete;
 		Pawn(const std::string& color, const std::string& pos) : ChessPiece(color, pos) { _type = 'P'; }
-
-		~Pawn() {};
+		~Pawn(void) = default;
 
 		virtual bool isOnMyWay(const std::string& target, const std::vector<std::string>& boardCoords = {}, \
-			const int value = 0, const std::string& enPassant = "") const
+			const int value = 0, const std::string& enPassant = "") const override
 		{
 			int	src_x = _x;
 			int	src_y = _y;

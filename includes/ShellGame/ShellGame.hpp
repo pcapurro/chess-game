@@ -11,6 +11,7 @@ class ShellGame
 {
 	public:
 
+		ShellGame(void) = delete;
 		ShellGame(const bool blindMode, const bool sandBoxMode);
 		~ShellGame(void);
 

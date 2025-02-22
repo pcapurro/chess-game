@@ -7,11 +7,12 @@ class King final : public ChessPiece
 {
 	public:
 	
+		King(void) = delete;
 		King(const std::string& color, const std::string& pos) : ChessPiece(color, pos) { _type = 'K'; }
-		~King() {};
+		~King(void) = default;
 
 		virtual bool isOnMyWay(const std::string& target, const std::vector<std::string>& boardCoords = {}, \
-			const int value = 0, const std::string& enPassant = "") const
+			const int value = 0, const std::string& enPassant = "") const override
 		{
 			int	dest_x = target[0] - 97;
 			int	dest_y = atoi(target.c_str() + 1);

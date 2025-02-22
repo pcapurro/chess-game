@@ -21,7 +21,7 @@ class ChessPiece
 			_visible = true;
 		}
 
-		virtual ~ChessPiece() {};
+		virtual ~ChessPiece() = default;
 
 		bool	isVisible(void) const
 			{ return (_visible); }

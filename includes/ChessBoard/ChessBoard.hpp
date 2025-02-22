@@ -11,7 +11,7 @@ class ChessBoard
 	public:
 
 		ChessBoard(void);
-		~ChessBoard(void) {};
+		~ChessBoard(void) = default;
 
 		bool	fail(void) const
 			{ return (_gameInfo.moveFailed); };
