@@ -1,19 +1,6 @@
 #include "Game.hpp"
 #include "VisualGame/VisualGame.hpp"
 
-int	initializeVisualGame(const bool sandBoxMode)
-{
-	VisualGame*	gameVisual;
-
-	gameVisual = new VisualGame (sandBoxMode);
-
-	gameVisual->visualRoutine();
-
-	delete gameVisual;
-
-	return (0);
-}
-
 void	printInvalidArguments(void)
 {
 	cerr << "Error! Invalid arguments." << endl;
@@ -73,7 +60,9 @@ int	main(const int argc, const char** argv)
 		if (argc != 1 && registerArguments(argv, sandBoxMode) != 0)
 			{ printInvalidArguments(); return (1); }
 
-		initializeVisualGame(sandBoxMode);
+		VisualGame	gameVisual(sandBoxMode);
+
+		gameVisual.visualRoutine();
 	}
 	catch (const std::exception& except)
 	{

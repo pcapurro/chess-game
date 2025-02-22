@@ -7,19 +7,6 @@ void	printInvalidArguments(void)
 	cerr << "Usage: ./shell-chess [--sandbox/-s] or/and [--blind-mode/-b]" << endl;
 }
 
-int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
-{
-	ShellGame*	gameShell;
-			
-	gameShell = new ShellGame(blindMode, sandBoxMode);
-
-	gameShell->shellRoutine();
-
-	delete gameShell;
-	
-	return (0);
-}
-
 void	printHelp(void)
 {
 	cout << "Play a chess game against Stockfish from the terminal." << endl;
@@ -78,7 +65,9 @@ int	main(const int argc, const char** argv)
 		if (argc != 1 && registerArguments(argv, sandBoxMode, blindMode) != 0)
 			{ printInvalidArguments(); return (1); }
 
-		initializeShellGame(sandBoxMode, blindMode);
+		ShellGame	gameShell(blindMode, sandBoxMode);
+
+		gameShell.shellRoutine();
 	}
 	catch (const std::exception& except)
 	{

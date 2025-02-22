@@ -5,8 +5,6 @@
 
 # include <SDL2/SDL.h>
 
-int		initializeVisualGame(const bool sandBoxMode);
-
 void	printHelp(void);
 bool	isHelp(const char** argv);
 

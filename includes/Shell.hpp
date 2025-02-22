@@ -3,8 +3,6 @@
 
 # include "Game.hpp"
 
-int		initializeShellGame(const bool sandBoxMode, const bool blindMode);
-
 void	printHelp(void);
 bool	isHelp(const char** argv);
 
