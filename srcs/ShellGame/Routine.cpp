@@ -29,10 +29,10 @@ std::string	ShellGame::getShellAnswer(void) const
 	else
 	{
 		cout << ERASE_LINE << "> ";
-		getline(cin, answer);
+		std::getline(std::cin, answer);
 		cout << "\033[1A";
 
-		if (cin.fail() == true)
+		if (std::cin.fail() == true)
 			return ("error");
 	}
 

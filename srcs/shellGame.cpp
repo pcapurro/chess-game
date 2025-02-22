@@ -1,3 +1,4 @@
+#include "Game.hpp"
 #include "ShellGame/ShellGame.hpp"
 
 void	printTitle(void)
@@ -17,7 +18,7 @@ void	printGradually(const std::string str, const int value)
 
 	for (int i = 0; i != 4; i++)
 	{
-		cout << "\033[1A" << str << points << flush << endl;
+		cout << "\033[1A" << str << points << std::flush << endl;
 		points = points + ".";
 		if (value == 1)
 			sleep(1);
@@ -39,8 +40,8 @@ void	initWelcome(void)
 	std::string	input;
 
 	printTitle();
-	getline(cin, input);
-	if (cin.fail() == true)
+	std::getline(std::cin, input);
+	if (std::cin.fail() == true)
 		throw std::runtime_error("getline() failed");
 	else
 		cout << "\033[2A" << ERASE_LINE << endl;
@@ -67,56 +68,34 @@ int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 	return (0);
 }
 
-int	validateArguments(const int argc, const char** argv)
+int	registerArguments(const char** argv, bool& sandBoxMode, bool& blindMode)
 {
-	if (argc == 1)
-		return (0);
-	if (argc == 2)
+	for (int i = 1; argv[i] != NULL; i++)
 	{
-		if (std::string(argv[1]) != "--sandbox" && std::string(argv[1]) != "--blind-mode")
+		if (sandBoxMode == false \
+			&& (std::string(argv[i]) == "--sandbox" || std::string(argv[i]) == "-s"))
+			sandBoxMode = true;
+		else if (blindMode == false \
+			&& (std::string(argv[i]) == "--blind-mode" || std::string(argv[i]) == "-b"))
+			blindMode = true;
+		else
 			return (1);
-		return (0);
-	}
-	if (argc == 3)
-	{
-		if (std::string(argv[1]) != "--sandbox" && std::string(argv[1]) != "--blind-mode")
-			return (1);
-		if (std::string(argv[2]) != "--sandbox" && std::string(argv[2]) != "--blind-mode")
-			return (1);
-
-		if (std::string(argv[1]) == std::string(argv[2]))
-			return (1);
-
-		return (0);
 	}
 
-	return (1);
+	return (0);
 }
 
 int	main(const int argc, const char** argv)
 {
 	try
 	{
-		if (validateArguments(argc, argv) == 1)
-			printInvalidArguments();
-		else
-		{
-			bool	sandBoxMode = false;
-			bool	blindMode = false;
+		bool	sandBoxMode = false;
+		bool	blindMode = false;
 
-			if (argc > 1)
-			{
-				if (std::string(argv[1]) == "--blind-mode" \
-					|| (argc == 3 && std::string(argv[2]) == "--blind-mode"))
-					blindMode = true;
-				if (std::string(argv[1]) == "--sandbox" \
-					|| (argc == 3 && std::string(argv[2]) == "--sandbox"))
-					sandBoxMode = true;
-			}
+		if (argc != 1 && registerArguments(argv, sandBoxMode, blindMode) != 0)
+			{ printInvalidArguments(); return (1); }
 
-			if (initializeShellGame(sandBoxMode, blindMode) != 0)
-				return (1);
-		}
+		initializeShellGame(sandBoxMode, blindMode);
 	}
 	catch (const std::exception& except)
 	{

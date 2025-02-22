@@ -8,6 +8,8 @@
 int		initializeVisualGame(const bool sandBoxMode);
 
 void	printInvalidArguments(void);
+int		registerArguments(const char** argv, bool& sandBoxMode);
+
 int		main(const int argc, const char** argv);
 
 #endif

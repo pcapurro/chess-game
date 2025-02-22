@@ -20,22 +20,30 @@ void	printInvalidArguments(void)
 	cerr << "Usage: ./chess-game [--sandbox]" << endl;
 }
 
+int	registerArguments(const char** argv, bool& sandBoxMode)
+{
+	for (int i = 1; argv[i] != NULL; i++)
+	{
+		if (sandBoxMode == false \
+			&& (std::string(argv[i]) == "--sandbox" || std::string(argv[i]) == "-s"))
+			sandBoxMode = true;
+		else
+			return (1);
+	}
+
+	return (0);
+}
+
 int	main(const int argc, const char** argv)
 {
 	try
 	{
-		if (argc > 2 || (argc == 2 && std::string(argv[1]) != "--sandbox"))
-			printInvalidArguments();
-		else
-		{
-			bool	sandBoxMode = false;
+		bool	sandBoxMode = false;
 
-			if (argc == 2)
-				sandBoxMode = true;
+		if (argc != 1 && registerArguments(argv, sandBoxMode) != 0)
+			{ printInvalidArguments(); return (1); }
 
-			if (initializeVisualGame(sandBoxMode) != 0)
-				return (1);
-		}
+		initializeVisualGame(sandBoxMode);
 	}
 	catch (const std::exception& except)
 	{
