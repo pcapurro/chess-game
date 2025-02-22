@@ -7,6 +7,9 @@
 
 int		initializeVisualGame(const bool sandBoxMode);
 
+void	printHelp(void);
+bool	isHelp(const char** argv);
+
 void	printInvalidArguments(void);
 int		registerArguments(const char** argv, bool& sandBoxMode);
 

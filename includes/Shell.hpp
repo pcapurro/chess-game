@@ -5,6 +5,9 @@
 
 int		initializeShellGame(const bool sandBoxMode, const bool blindMode);
 
+void	printHelp(void);
+bool	isHelp(const char** argv);
+
 void	printInvalidArguments(void);
 int		registerArguments(const char** argv, bool& sandBoxMode, bool& blindMode);
 

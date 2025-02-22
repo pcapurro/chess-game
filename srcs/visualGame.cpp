@@ -20,6 +20,33 @@ void	printInvalidArguments(void)
 	cerr << "Usage: ./chess-game [--sandbox]" << endl;
 }
 
+void	printHelp(void)
+{
+	cout << "Play a chess game against Stockfish." << endl;
+	cout << "Usage: ./chess-game [--sandbox/-s]" << endl;
+	cout << endl;
+
+	cout << "Options:" << endl;
+	cout << "--sandbox (or -s)			: play against yourself" << endl;
+	cout << endl;
+
+	cout << "For more information, please read README.md." << endl;
+}
+
+bool	isHelp(const char** argv)
+{
+	for (int i = 1; argv[i] != NULL; i++)
+	{
+		if (std::string(argv[i]) == "--help")
+			return (true);
+
+		if (std::string(argv[i]) == "-h")
+			return (true);
+	}
+
+	return (false);
+}
+
 int	registerArguments(const char** argv, bool& sandBoxMode)
 {
 	for (int i = 1; argv[i] != NULL; i++)
@@ -38,6 +65,9 @@ int	main(const int argc, const char** argv)
 {
 	try
 	{
+		if (isHelp(argv) == true)
+			{ printHelp(); return (0); }
+
 		bool	sandBoxMode = false;
 
 		if (argc != 1 && registerArguments(argv, sandBoxMode) != 0)

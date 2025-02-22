@@ -4,7 +4,7 @@
 void	printInvalidArguments(void)
 {
 	cerr << "Error! Invalid arguments." << endl;
-	cerr << "Usage: ./shell-chess [--sandbox] or/and [--blind-mode]" << endl;
+	cerr << "Usage: ./shell-chess [--sandbox/-s] or/and [--blind-mode/-b]" << endl;
 }
 
 int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
@@ -18,6 +18,34 @@ int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 	delete gameShell;
 	
 	return (0);
+}
+
+void	printHelp(void)
+{
+	cout << "Play a chess game against Stockfish from the terminal." << endl;
+	cout << "Usage: ./shell-chess [--sandbox/-s] or/and [--blind-mode/-b]" << endl;
+	cout << endl;
+
+	cout << "Options:" << endl;
+	cout << "--sandbox (or -s)		: play against yourself" << endl;
+	cout << "--blind-mode (or -b)		: play without the board" << endl;
+	cout << endl;
+
+	cout << "For more information, please read README.md." << endl;
+}
+
+bool	isHelp(const char** argv)
+{
+	for (int i = 1; argv[i] != NULL; i++)
+	{
+		if (std::string(argv[i]) == "--help")
+			return (true);
+
+		if (std::string(argv[i]) == "-h")
+			return (true);
+	}
+
+	return (false);
 }
 
 int	registerArguments(const char** argv, bool& sandBoxMode, bool& blindMode)
@@ -41,6 +69,9 @@ int	main(const int argc, const char** argv)
 {
 	try
 	{
+		if (isHelp(argv) == true)
+			{ printHelp(); return (0); }
+
 		bool	sandBoxMode = false;
 		bool	blindMode = false;
 
