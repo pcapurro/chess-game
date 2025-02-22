@@ -1,4 +1,4 @@
-#include "VisualGame.hpp"
+#include "VisualGame/VisualGame.hpp"
 
 VisualGame::VisualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _width(850), _height(800)
 {

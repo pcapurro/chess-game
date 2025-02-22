@@ -1,10 +1,10 @@
-# include "AlgebraParser.hpp"
+#include "AlgebraParser/AlgebraParser.hpp"
 
-#include "../ChessBoard/pieces/King.hpp"
-#include "../ChessBoard/pieces/Queen.hpp"
-#include "../ChessBoard/pieces/Rook.hpp"
-#include "../ChessBoard/pieces/Bishop.hpp"
-#include "../ChessBoard/pieces/Knight.hpp"
+#include "ChessBoard/King.hpp"
+#include "ChessBoard/Queen.hpp"
+#include "ChessBoard/Rook.hpp"
+#include "ChessBoard/Bishop.hpp"
+#include "ChessBoard/Knight.hpp"
 
 bool	AlgebraParser::isChessDigit(const char c)
 {

@@ -1,4 +1,4 @@
-#include "../ChessBoard.hpp"
+#include "ChessBoard/ChessBoard.hpp"
 
 void	ChessBoard::switchPlayers(void)
 {

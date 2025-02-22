@@ -1,4 +1,3 @@
-#include "../includes/Shell.hpp"
 #include "ShellGame/ShellGame.hpp"
 
 void	printTitle(void)

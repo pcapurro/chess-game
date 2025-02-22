@@ -1,4 +1,4 @@
-#include "../ChessBoard.hpp"
+#include "ChessBoard/ChessBoard.hpp"
 
 int	ChessBoard::checkPawnDest(void) const
 {

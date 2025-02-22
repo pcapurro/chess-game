@@ -1,4 +1,4 @@
-#include "../ChessBoard.hpp"
+#include "ChessBoard/ChessBoard.hpp"
 
 bool	ChessBoard::isFree(const string& coord)
 {

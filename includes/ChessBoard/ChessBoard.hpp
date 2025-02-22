@@ -1,8 +1,8 @@
 #ifndef CHESSBOARD_HPP
 # define CHESSBOARD_HPP
 
-# include "../../includes/Game.hpp"
-# include "ChessObjects.hpp"
+# include "Game.hpp"
+# include "ChessBoard/ChessObjects.hpp"
 
 typedef	ChessPiece cP;
 

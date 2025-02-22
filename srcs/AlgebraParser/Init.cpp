@@ -1,4 +1,4 @@
-# include "AlgebraParser.hpp"
+#include "AlgebraParser/AlgebraParser.hpp"
 
 void	AlgebraParser::operator=(const string move)
 {

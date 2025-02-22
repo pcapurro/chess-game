@@ -2,7 +2,7 @@
 # define BISHOP_HPP
 
 # include "ChessPiece.hpp"
-# include "../../AlgebraParser/AlgebraParser.hpp"
+# include "AlgebraParser/AlgebraParser.hpp"
 
 class Bishop final : public ChessPiece
 {

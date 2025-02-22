@@ -2,7 +2,7 @@
 # define KNIGHT_HPP
 
 # include "ChessPiece.hpp"
-# include "../../AlgebraParser/AlgebraParser.hpp"
+# include "AlgebraParser/AlgebraParser.hpp"
 
 class Knight final : public ChessPiece
 {

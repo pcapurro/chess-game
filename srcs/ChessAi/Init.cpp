@@ -1,4 +1,4 @@
-#include "ChessAi.hpp"
+#include "ChessAi/ChessAi.hpp"
 
 ChessAi::ChessAi(void)
 {

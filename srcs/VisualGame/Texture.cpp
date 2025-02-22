@@ -1,4 +1,4 @@
-#include "VisualTexture.hpp"
+#include "VisualGame/VisualTexture.hpp"
 
 VisualTexture::VisualTexture()
 {

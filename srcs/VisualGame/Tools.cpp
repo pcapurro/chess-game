@@ -1,4 +1,4 @@
-#include "VisualGame.hpp"
+#include "VisualGame/VisualGame.hpp"
 
 SDL_Texture*	VisualGame::getTexture(const char type, const string& color) const
 {

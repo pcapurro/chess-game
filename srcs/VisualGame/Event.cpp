@@ -1,4 +1,4 @@
-#include "VisualGame.hpp"
+#include "VisualGame/VisualGame.hpp"
 
 string	VisualGame::waitForNewGame(void)
 {

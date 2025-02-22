@@ -1,7 +1,7 @@
 #ifndef ALGEBRAPARSER_HPP
 # define ALGEBRAPARSER_HPP
 
-# include "../../includes/Game.hpp"
+# include "Game.hpp"
 
 struct Move
 {

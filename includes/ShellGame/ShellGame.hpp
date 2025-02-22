@@ -1,11 +1,11 @@
 #ifndef SHELLGAME_HPP
 # define SHELLGAME_HPP
 
-# include "../../includes/Game.hpp"
-# include "../../includes/Shell.hpp"
-# include "../ChessBoard/ChessBoard.hpp"
-# include "../ChessAi/ChessAi.hpp"
-# include "../AlgebraParser/AlgebraParser.hpp"
+# include "Game.hpp"
+# include "Shell.hpp"
+# include "ChessBoard/ChessBoard.hpp"
+# include "ChessAi/ChessAi.hpp"
+# include "AlgebraParser/AlgebraParser.hpp"
 
 class ShellGame
 {

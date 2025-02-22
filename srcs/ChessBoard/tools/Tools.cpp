@@ -1,4 +1,4 @@
-#include "../ChessBoard.hpp"
+#include "ChessBoard/ChessBoard.hpp"
 
 size_t	ChessBoard::getAtValue(const string& coord) const
 {

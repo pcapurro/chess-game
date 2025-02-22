@@ -1,7 +1,7 @@
 #ifndef CHESSAI_HPP
 # define CHESSAI_HPP
 
-# include "../../includes/Game.hpp"
+# include "Game.hpp"
 
 class ChessAi
 {

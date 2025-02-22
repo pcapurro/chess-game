@@ -1,4 +1,4 @@
-#include "VisualGame.hpp"
+#include "VisualGame/VisualGame.hpp"
 
 VisualGame::~VisualGame()
 {

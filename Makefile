@@ -47,7 +47,7 @@ SRCS_S = srcs/shellGame.cpp \
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror
+CXXFLAGS = -Wall -Wextra -Werror -I includes/
 
 SDLFLAG = -lSDL2
 

@@ -1,4 +1,4 @@
-#include "../includes/Game.hpp"
+#include "Game.hpp"
 #include "VisualGame/VisualGame.hpp"
 
 int	initializeVisualGame(const bool sandBoxMode)

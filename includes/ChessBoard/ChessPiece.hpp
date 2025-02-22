@@ -1,7 +1,7 @@
 #ifndef CHESSPIECE_HPP
 # define CHESSPIECE_HPP
 
-# include "../../../includes/Game.hpp"
+# include "Game.hpp"
 
 class ChessPiece
 {

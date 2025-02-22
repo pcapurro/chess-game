@@ -1,15 +1,15 @@
 #ifndef CHESSOBJECTS
 # define CHESSOBJECTS
 
-# include "../../includes/Game.hpp"
+# include "Game.hpp"
 
-# include "pieces/ChessPiece.hpp"
-# include "pieces/King.hpp"
-# include "pieces/Queen.hpp"
-# include "pieces/Rook.hpp"
-# include "pieces/Bishop.hpp"
-# include "pieces/Knight.hpp"
-# include "pieces/Pawn.hpp"
+# include "ChessBoard/ChessPiece.hpp"
+# include "ChessBoard/King.hpp"
+# include "ChessBoard/Queen.hpp"
+# include "ChessBoard/Rook.hpp"
+# include "ChessBoard/Bishop.hpp"
+# include "ChessBoard/Knight.hpp"
+# include "ChessBoard/Pawn.hpp"
 
 struct Square
 {
