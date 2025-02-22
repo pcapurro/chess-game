@@ -32,9 +32,9 @@ bool	AlgebraParser::isChessCoord(const char c)
 	return (true);
 }
 
-string	AlgebraParser::getLeftSequence(void) const
+std::string	AlgebraParser::getLeftSequence(void) const
 {
-	string  left;
+	std::string  left;
 
 	for (int i = 0; _move.move[i] != '\0'; i++)
 	{
@@ -46,9 +46,9 @@ string	AlgebraParser::getLeftSequence(void) const
 	return (left);
 }
 
-string	AlgebraParser::getRightSequence(void) const
+std::string	AlgebraParser::getRightSequence(void) const
 {
-	string	right;
+	std::string	right;
 
 	for (int i = 0; _move.move[i] != '\0'; i++)
 	{
@@ -62,27 +62,27 @@ string	AlgebraParser::getRightSequence(void) const
 	return (right);
 }
 
-vector<string>	getWatchersSequence(const char type, const string& move, const char sign)
+std::vector<std::string>	getWatchersSequence(const char type, const std::string& move, const char sign)
 {
-	vector<string>	coords;
-	ChessPiece*		object;
+	std::vector<std::string>	coords;
+	ChessPiece*					object;
 
 	if (type == 'K')
-		object = new (nothrow) King("white", move);
+		object = new (std::nothrow) King("white", move);
 	if (type == 'Q')
-		object = new (nothrow) Queen("white", move);
+		object = new (std::nothrow) Queen("white", move);
 	if (type == 'N')
-		object = new (nothrow) Knight("white", move);
+		object = new (std::nothrow) Knight("white", move);
 	if (type == 'B')
-		object = new (nothrow) Bishop("white", move);
+		object = new (std::nothrow) Bishop("white", move);
 	if (type == 'R')
-		object = new (nothrow) Rook("white", move);
+		object = new (std::nothrow) Rook("white", move);
 
 	for (int i = 9; i != 1; i--)
 	{
 		for (int k = 0; k != 8; k++)
 		{
-			string newCoords = "abcdefgh"[k] + to_string(i - 1);
+			std::string newCoords = "abcdefgh"[k] + std::to_string(i - 1);
 			if (object->isOnMyWay(newCoords) == true \
 				&& (sign == 'i' || newCoords[0] == sign))
 				coords.push_back(newCoords);
@@ -95,12 +95,12 @@ vector<string>	getWatchersSequence(const char type, const string& move, const ch
 	return (coords);
 }
 
-vector<string>	getPawnSequence(const string& move, const int turn, const char sign)
+std::vector<std::string>	getPawnSequence(const std::string& move, const int turn, const char sign)
 {
-	vector<string>	coords;
-	vector<string>	realCoords;
-	string			newMove;
-	string			newCoords;
+	std::vector<std::string>	coords;
+	std::vector<std::string>	realCoords;
+	std::string					newMove;
+	std::string					newCoords;
 
 	newMove = move;
 	if (move.length() > 2)

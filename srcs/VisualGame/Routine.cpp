@@ -1,8 +1,8 @@
 #include "VisualGame/VisualGame.hpp"
 
-string	VisualGame::getVisualAnswer(void)
+std::string	VisualGame::getVisualAnswer(void)
 {
-	string	answer;
+	std::string	answer;
 
 	if (_sandBoxMode == false && _visualInfo.turn % 2 == _visualInfo.aiSide)
 	{
@@ -15,7 +15,7 @@ string	VisualGame::getVisualAnswer(void)
 		if (answer == "Ke1c1" || answer == "Ke8c8")
 			answer = "O-O-O";
 
-		if (answer.find('O') == string::npos)
+		if (answer.find('O') == std::string::npos)
 			displayMoveAnimation(answer.c_str() + 1);
 	}
 	else
@@ -26,7 +26,7 @@ string	VisualGame::getVisualAnswer(void)
 
 int	VisualGame::visualLoop(void)
 {
-	string	answer;
+	std::string	answer;
 
 	while (_board->isGameOver() == false)
 	{
@@ -67,9 +67,9 @@ int	VisualGame::visualLoop(void)
 
 void	VisualGame::visualRoutine(void)
 {
-	while (1)
+	while (true)
 	{
-		_board = new (nothrow) ChessBoard;
+		_board = new (std::nothrow) ChessBoard;
 
 		int	value = visualLoop();
 

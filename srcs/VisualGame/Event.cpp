@@ -1,10 +1,10 @@
 #include "VisualGame/VisualGame.hpp"
 
-string	VisualGame::waitForNewGame(void)
+std::string	VisualGame::waitForNewGame(void)
 {
 	SDL_Event	event;
 
-	while (1)
+	while (true)
 	{
 		if (SDL_PollEvent(&event) == true)
 		{
@@ -35,18 +35,18 @@ string	VisualGame::waitForNewGame(void)
 	return ("error");
 }
 
-string  VisualGame::waitForPromotion(void)
+std::string  VisualGame::waitForPromotion(void)
 {
-	int				select = 0;
-	vector<char>	types;
-	SDL_Event		event;
+	int					select = 0;
+	std::vector<char>	types;
+	SDL_Event			event;
 
 	types.push_back('Q'), types.push_back('B'), types.push_back('N'), types.push_back('R');
 	SDL_Rect obj = getRectangle(_visualInfo.actualCoords, "promotion");
 
 	displayPromotion(types.at(select), _visualInfo.actualCoords);
 
-	while (1)
+	while (true)
 	{
 		if (SDL_PollEvent(&event) == true)
 		{
@@ -58,7 +58,7 @@ string  VisualGame::waitForPromotion(void)
 				break ;
 
 			_visualInfo.x = event.button.x, _visualInfo.y = event.button.y;
-			string coords = getCoord(_visualInfo.x, _visualInfo.y);
+			std::string coords = getCoord(_visualInfo.x, _visualInfo.y);
 
 			if (isAbovePromotion(_visualInfo.x, _visualInfo.y, obj) == true)
 			{
@@ -87,11 +87,11 @@ string  VisualGame::waitForPromotion(void)
 	return ("error");
 }
 
-string	VisualGame::waitForEvent(void)
+std::string	VisualGame::waitForEvent(void)
 {
 	SDL_Event	event;
 
-	while (1)
+	while (true)
 	{
 		if (SDL_PollEvent(&event) == true)
 		{

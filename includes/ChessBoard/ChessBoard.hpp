@@ -16,16 +16,16 @@ class ChessBoard
 		bool	fail(void) const
 			{ return (_gameInfo.moveFailed); };
 
-		int		getScore(const string color);
+		int		getScore(const std::string color);
 
-		char	getType(const string& coord) const;
-		string	getColor(const string& coord) const;
+		char	getType(const std::string& coord) const;
+		std::string	getColor(const std::string& coord) const;
 
 		int		getActualTurn(void) const
 			{ return (_gameInfo.turn); };
 		int		getStateValue(void) const;
 
-		bool	isLegal(const string& move = "");
+		bool	isLegal(const std::string& move = "");
 		bool	isItCheck(void) const
 			{ return (_gameInfo.check); };
 		bool	isItDraw(void) const
@@ -34,7 +34,7 @@ class ChessBoard
 			{ return (_gameInfo.checkmate); }
 		bool	isGameOver(void);
 
-		int		playMove(Move structureMove, const string& stringMove = "");
+		int		playMove(Move structureMove, const std::string& move = "");
 
 		void	printEvent(const bool cfail, const bool bfail, const bool blindMode);
 		void	printEndGame(const int value = 0);
@@ -45,28 +45,28 @@ class ChessBoard
 		int		getBlackMaterialsScore(void) const
 			{ return (_boardCount.blackMaterial); };
 
-		const vector<string>&	getHistory(void) const
+		const std::vector<std::string>&	getHistory(void) const
 			{ return (_simpleHistory); };
-		vector<char>	getWhiteCaptured(void) const
+		std::vector<char>	getWhiteCaptured(void) const
 			{ return (_whiteCaptured); };
-		vector<char>	getBlackCaptured(void) const
+		std::vector<char>	getBlackCaptured(void) const
 			{ return (_blackCaptured); };
 
-		vector<string>	getLegalMoves(void);
+		std::vector<std::string>	getLegalMoves(void);
 
 	private:
 
-		size_t	getAtValue(const string& coord) const;
-		string	getEnPassantTarget(void) const;
+		size_t	getAtValue(const std::string& coord) const;
+		std::string	getEnPassantTarget(void) const;
 
-		vector<string>	getPossibleTargets(const string& coord) const;
-		vector<string>	getPiecesCoords(void) const;
-		vector<string>	getCastlingSrcsDests(const string& srcdest) const;
+		std::vector<std::string>	getPossibleTargets(const std::string& coord) const;
+		std::vector<std::string>	getPiecesCoords(void) const;
+		std::vector<std::string>	getCastlingSrcsDests(const std::string& srcdest) const;
 
-		stack<cP*>	orderByValue(stack<cP*> materials) const;
-		stack<cP*>	getWatchers(const string& coord);
+		std::stack<cP*>	orderByValue(std::stack<cP*> materials) const;
+		std::stack<cP*>	getWatchers(const std::string& coord);
 
-		int		getWatchersNumber(const string& coord) const;
+		int		getWatchersNumber(const std::string& coord) const;
 		int		getMaterialValue(const char type) const;
 
 		int		evaluateMaterial(const bool colorSwitch);
@@ -80,9 +80,9 @@ class ChessBoard
 		int		evaluateCenter(void);
 		int		evaluateDev(void) const;
 
-		bool	isSafe(const string& coord);
-		bool	isProtected(const string& coord);
-		bool	isFree(const string& coord);
+		bool	isSafe(const std::string& coord);
+		bool	isProtected(const std::string& coord);
+		bool	isFree(const std::string& coord);
 		bool	isEndGame(void) const;
 		bool	isDefeatNext(void);
 		bool	checkMateInOne(void);
@@ -98,13 +98,13 @@ class ChessBoard
 
 		bool	isValidEnPassant(void) const;
 
-		bool	isThereSomething(const string& coord) const;
+		bool	isThereSomething(const std::string& coord) const;
 		bool	isThereAlly(void) const;
 		bool	isRightSide(void) const;
 		bool	isTheDestinationSafe(void) const;
-		bool	isCastlingPossible(const string& castle);
+		bool	isCastlingPossible(const std::string& castle);
 
-		bool	doesItResolveCheck(const string& srcdest);
+		bool	doesItResolveCheck(const std::string& srcdest);
 		bool	isCheckMateImpossible(void);
 		bool	canTheKingMove(void);
 		bool	canAnyAllyPieceMove(void);
@@ -116,18 +116,18 @@ class ChessBoard
 		void	switchPlayers(void);
 		void	unSwitchPlayers(void);
 
-		void	tryMove(const string& srcdest);
-		void	undoMove(const string& srcdest);
-		void	tryEnPassant(const string& srcdest);
-		void	undoEnPassant(const string& srcdest);
-		void	enableCastling(const string& srcdest);
-		void	disableCastling(const string& srcdest);
+		void	tryMove(const std::string& srcdest);
+		void	undoMove(const std::string& srcdest);
+		void	tryEnPassant(const std::string& srcdest);
+		void	undoEnPassant(const std::string& srcdest);
+		void	enableCastling(const std::string& srcdest);
+		void	disableCastling(const std::string& srcdest);
 
-		void	loadMove(const string& move);
+		void	loadMove(const std::string& move);
 
 		void	printWhiteBoard(void) const;
 		void	printBlackBoard(void) const;
-		void	printPiece(const char type, const string& color) const;
+		void	printPiece(const char type, const std::string& color) const;
 		void	printHistory(void) const;
 		void	addToHistory(void);
 
@@ -141,25 +141,25 @@ class ChessBoard
 		void	whiteCastles(void);
 		void	blackCastles(void);
 
-		void	promotePiece(const string& initialCoord, char pieceType);
-		void	movePiece(const string& initialCoord, const string& newCoord);
-		void	removePiece(const string& coord);
+		void	promotePiece(const std::string& initialCoord, char pieceType);
+		void	movePiece(const std::string& initialCoord, const std::string& newCoord);
+		void	removePiece(const std::string& coord);
 
 		void	countPiecesOnBoard(void);
 		void	countTotalMaterials(void);
 		void	resetCount(void);
 
-		vector<Square>	_board;
+		std::vector<Square>	_board;
 		GameInfo		_gameInfo;
 
 		Counter			_boardCount;
-		vector<char>	_whiteCaptured;
-		vector<char>	_blackCaptured;
+		std::vector<char>	_whiteCaptured;
+		std::vector<char>	_blackCaptured;
 
-		vector<string>	_history;
-		vector<string>	_simpleHistory;
+		std::vector<std::string>	_history;
+		std::vector<std::string>	_simpleHistory;
 
-		stack<cP*>		_savedObjects;
+		std::stack<cP*>		_savedObjects;
 };
 
 #endif

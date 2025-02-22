@@ -79,35 +79,35 @@ struct Textures
 
 struct VisualInfos
 {
-	string			droppedSrc;
-	string			clickSrc;
+	std::string					droppedSrc;
+	std::string					clickSrc;
 
-	string			droppedDest;
-	vector<string>	droppedDests;
-	bool			visualDests;
+	std::string					droppedDest;
+	std::vector<std::string>	droppedDests;
+	bool						visualDests;
 
-	int				x;
-	int				y;
+	int							x;
+	int							y;
 
-	bool			promotion;
+	bool						promotion;
 
-	bool			visualCoords;
-	string			actualCoords;
+	bool						visualCoords;
+	std::string					actualCoords;
 
-	string			lastMove;
+	std::string					lastMove;
 
-	bool			evaluation;
-	int				whiteScore;
-	int				blackScore;
+	bool						evaluation;
+	int							whiteScore;
+	int							blackScore;
 
-	int				aiSide;
-	int				turn;
+	int							aiSide;
+	int							turn;
 
-	int				boardColor;
-	vector<int>		boardColors;
+	int							boardColor;
+	std::vector<int>			boardColors;
 
-	bool				code;
-	vector<SDL_Keycode>	keyHistory;
+	bool						code;
+	std::vector<SDL_Keycode>	keyHistory;
 };
 
 #endif

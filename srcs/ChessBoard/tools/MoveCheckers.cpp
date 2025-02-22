@@ -2,9 +2,9 @@
 
 int	ChessBoard::checkPawnDest(void) const
 {
-	string	src = _gameInfo.lastMove.src;
-	string	dest = _gameInfo.lastMove.dest;
-	int		atValue = getAtValue(dest);
+	std::string	src = _gameInfo.lastMove.src;
+	std::string	dest = _gameInfo.lastMove.dest;
+	int			atValue = getAtValue(dest);
 
 	if ((_board.at(atValue).coord[1] == '8' || _board.at(atValue).coord[1] == '1') \
 		&& (dest.length() != 3 || AlgebraParser::isChessPiece(dest[2]) == false \
@@ -56,7 +56,7 @@ int	ChessBoard::checkPawnDest(void) const
 			&& src[1] != '7')
 			return (1);
 
-		string	newDest = dest;
+		std::string	newDest = dest;
 		if (_board.at(atValue).coord[1] == dest[1] + 2)
 		{
 			newDest[1] = newDest[1] + 1;
@@ -76,9 +76,9 @@ int	ChessBoard::checkPawnDest(void) const
 
 int	ChessBoard::checkPawnSource(void)
 {
-	string	source;
-	string*	src = &_gameInfo.lastMove.src;
-	string*	dest = &_gameInfo.lastMove.dest;
+	std::string		source;
+	std::string*	src = &_gameInfo.lastMove.src;
+	std::string*	dest = &_gameInfo.lastMove.dest;
 
 	int atValue = getAtValue(*dest);
 	if (_board.at(atValue).piece != nullptr)
@@ -109,15 +109,15 @@ int	ChessBoard::checkPawnSource(void)
 
 int	ChessBoard::checkNormalSource(void)
 {
-	string*			src = &_gameInfo.lastMove.src;
-	string*			dest = &_gameInfo.lastMove.dest;
-	string 			source = *src;
-	vector<string>	boardCoords = getPiecesCoords();
+	std::string*				src = &_gameInfo.lastMove.src;
+	std::string*				dest = &_gameInfo.lastMove.dest;
+	std::string 				source = *src;
+	std::vector<std::string>	boardCoords = getPiecesCoords();
 
 	src->clear();
 	for (int i = 0; i != 64; i++)
 	{
-		if (source.find(_board.at(i).coord) != string::npos && _board.at(i).piece != nullptr)
+		if (source.find(_board.at(i).coord) != std::string::npos && _board.at(i).piece != nullptr)
 		{
 			if (_board.at(i).piece->getColor() == _gameInfo.color \
 				&& _board.at(i).piece->getType() == _gameInfo.lastMove.obj)
@@ -136,10 +136,10 @@ int	ChessBoard::checkNormalSource(void)
 
 int	ChessBoard::checkNormalDest(void) const
 {
-	char			obj = _gameInfo.lastMove.obj;
-	string			src = _gameInfo.lastMove.src;
-	string			dest = _gameInfo.lastMove.dest;
-	vector<string>	boardCoords = getPiecesCoords();
+	char						obj = _gameInfo.lastMove.obj;
+	std::string					src = _gameInfo.lastMove.src;
+	std::string					dest = _gameInfo.lastMove.dest;
+	std::vector<std::string>	boardCoords = getPiecesCoords();
 
 	if (obj == 'Q')
 	{
@@ -198,8 +198,8 @@ bool	ChessBoard::isValidEnPassant(void) const
 		&& _gameInfo.lastMove.src != _gameInfo.enPassantSrcTwo)
 		return (false);
 
-	string	dest;
-	string	color, otherColor;
+	std::string	dest;
+	std::string	color, otherColor;
 
 	dest = _gameInfo.enPassantDest;
 	dest[1] = _gameInfo.lastMove.src[1];
@@ -224,11 +224,11 @@ bool    ChessBoard::isItValidSource(void) const
 	return (true);
 }
 
-bool    ChessBoard::isLegal(const string& move)
+bool    ChessBoard::isLegal(const std::string& move)
 {
-	char*	obj;
-	string*	src;
-	string*	dest;
+	char*			obj;
+	std::string*	src;
+	std::string*	dest;
 
 	if (move != "")
 		loadMove(move);

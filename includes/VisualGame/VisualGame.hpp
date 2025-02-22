@@ -43,58 +43,58 @@ class VisualGame
 		void		loadBlackTextures(void);
 		void		loadTextures(void);
 
-		SDL_Texture*	getTexture(const char type, const string& color) const;
-		SDL_Rect		getRectangle(const string& coords, const string& type = "") const;
+		SDL_Texture*	getTexture(const char type, const std::string& color) const;
+		SDL_Rect		getRectangle(const std::string& coords, const std::string& type = "") const;
 
-		string		getKingCoords(const string& color) const;
+		std::string		getKingCoords(const std::string& color) const;
 
 		int			visualLoop(void);
-		string		getVisualAnswer(void);
+		std::string		getVisualAnswer(void);
 
 		bool		isCodeDetected(void) const;
 		bool		isColorTargetZone(const int x, const int y) const;
 		bool		isEvaluationTargetZone(const int x, const int y) const;
-		bool		isBoardTargetZone(const string& coord, const int x, const int y) const;
+		bool		isBoardTargetZone(const std::string& coord, const int x, const int y) const;
 		bool		isBoardZone(const int x, const int y) const;
 
 		bool		isAbovePromotion(const int x, const int y, SDL_Rect& obj) const;
-		bool		isPromotion(const string& coord) const;
+		bool		isPromotion(const std::string& coord) const;
 
 		void		loadMap(void);
 		void		loadHints(void);
 		void		loadCoords(void);
 		void		loadPath(void);
 		void		loadEvaluation(const int value);
-		void		loadScore(const string& color, const int y);
-		void		loadCapturedComplex(vector<char> &captured, const string& color);
-		void		loadCaptured(vector<char> &captured, const string& color);
+		void		loadScore(const std::string& color, const int y);
+		void		loadCapturedComplex(std::vector<char> &captured, const std::string& color);
+		void		loadCaptured(std::vector<char> &captured, const std::string& color);
 		void		loadCaptures(void);
 		void		loadMapColors(void);
-		void		loadBoard(const string& color);
+		void		loadBoard(const std::string& color);
 		void		loadText(const int value);
 		void		loadCheck(void);
 		void		loadDraw(void);
 		void		loadCheckMate(void);
 
-		void		displayPromotion(const char type, const string& coord);
+		void		displayPromotion(const char type, const std::string& coord);
 		void		displayGame(const bool value = false);
-		void		displayMoveAnimation(const string& move);
+		void		displayMoveAnimation(const std::string& move);
 	
 		void		reactKeyDown(const int key);
 		void		reactMouseMotion(void);
 		void		reactMouseDown(const int key);
 		void		reactMouseUp(void);
 
-		string		waitForEvent(void);
-		string		waitForPromotion(void);
-		string		waitForNewGame(void);
+		std::string		waitForEvent(void);
+		std::string		waitForPromotion(void);
+		std::string		waitForNewGame(void);
 
-		string		getInput(const string& coord);
+		std::string		getInput(const std::string& coord);
 
-		string		getCoord(const int x, const int y) const;
-		string		getTurnColor(void) const;
+		std::string		getCoord(const int x, const int y) const;
+		std::string		getTurnColor(void) const;
 
-		vector<char>	getOrderedCaptured(const vector<char> &captured) const;
+		std::vector<char>	getOrderedCaptured(const std::vector<char> &captured) const;
 
 		const bool		_sandBoxMode;
 

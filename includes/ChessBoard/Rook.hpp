@@ -8,17 +8,17 @@ class Rook final : public ChessPiece
 {
 	public:
 	
-		Rook(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'R'; }
+		Rook(const std::string& color, const std::string& pos) : ChessPiece(color, pos) { _type = 'R'; }
 		~Rook() {};
 
-		virtual bool isOnMyWay(const string& target, const vector<string>& boardCoords = {}, \
-			const int value = 0, const string& enPassant = "") const
+		virtual bool isOnMyWay(const std::string& target, const std::vector<std::string>& boardCoords = {}, \
+			const int value = 0, const std::string& enPassant = "") const
 		{
 			int	src_x = _x;
 			int	src_y = _y;
 
-			string	coords;
-			string	newCoords;
+			std::string	coords;
+			std::string	newCoords;
 
 			(void) boardCoords;
 			(void) value;
@@ -37,7 +37,7 @@ class Rook final : public ChessPiece
 					if (k == 3)
 						src_y--;
 
-					newCoords += "abcdefgh"[src_x] + to_string(src_y);
+					newCoords += "abcdefgh"[src_x] + std::to_string(src_y);
 					if (AlgebraParser::isChessCoord(newCoords[0]) == false \
 						|| AlgebraParser::isChessDigit(newCoords[1]) == false)
 						break ;
@@ -52,7 +52,7 @@ class Rook final : public ChessPiece
 				newCoords.clear();
 			}
 
-			if (coords.find(target) != string::npos)
+			if (coords.find(target) != std::string::npos)
 				return (true);
 
 			return (false);

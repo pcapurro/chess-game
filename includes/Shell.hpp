@@ -6,7 +6,7 @@
 void	printTitle(void);
 void	initWelcome(void);
 
-void	printGradually(const string str, const int value);
+void	printGradually(const std::string str, const int value);
 void	printLoading(void);
 
 int		initializeShellGame(const bool sandBoxMode, const bool blindMode);

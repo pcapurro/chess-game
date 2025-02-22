@@ -2,9 +2,9 @@
 
 bool	ChessBoard::isCheck(void)
 {
-	string			kingPos;
-	string			kingColor;
-	vector<string>	boardCoords;
+	std::string					kingPos;
+	std::string					kingColor;
+	std::vector<std::string>	boardCoords;
 
 	boardCoords = getPiecesCoords();
 	for (int i = 0; i != 64; i++)
@@ -27,7 +27,7 @@ bool	ChessBoard::isCheck(void)
 
 bool	ChessBoard::canAnyAllyPieceMove(void)
 {
-	vector<string>	boardCoords;
+	std::vector<std::string>	boardCoords;
 
 	boardCoords = getPiecesCoords();
 	for (int i = 0; i != 64; i++)
@@ -93,8 +93,8 @@ bool	ChessBoard::isCheckMateImpossible(void)
 bool	ChessBoard::canTheKingMove(void)
 {
 	int				kingPos;
-	string			kingColor;
-	vector<string>	boardCoords;
+	std::string			kingColor;
+	std::vector<std::string>	boardCoords;
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -128,7 +128,7 @@ bool	ChessBoard::isDraw(void)
 	return (false);
 }
 
-bool	ChessBoard::doesItResolveCheck(const string& srcdest)
+bool	ChessBoard::doesItResolveCheck(const std::string& srcdest)
 {
 	tryMove(srcdest);
 
@@ -139,12 +139,12 @@ bool	ChessBoard::doesItResolveCheck(const string& srcdest)
 	return (true);
 }
 
-vector<string>	ChessBoard::getPossibleTargets(const string& coord) const
+std::vector<std::string>	ChessBoard::getPossibleTargets(const std::string& coord) const
 {
-	int				atValue;
-	string			coords;
-	vector<string>	boardCoords;
-	vector<string>	moves;
+	int							atValue;
+	std::string					coords;
+	std::vector<std::string>	boardCoords;
+	std::vector<std::string>	moves;
 
 	atValue = getAtValue(coord);
 	boardCoords = getPiecesCoords();
@@ -153,7 +153,7 @@ vector<string>	ChessBoard::getPossibleTargets(const string& coord) const
 	{
 		for (int k = 0; k != 8; k++)
 		{
-			coords = "abcdefgh"[i] + to_string(k + 1);
+			coords = "abcdefgh"[i] + std::to_string(k + 1);
 			if (_board.at(atValue).piece->isOnMyWay(coords, boardCoords, 0, _gameInfo.enPassantDest) == true)
 			{
 				if (_board.at(getAtValue(coords)).piece == nullptr \
@@ -173,7 +173,7 @@ bool	ChessBoard::isCheckMate(const int value)
 		if (value == 0)
 			_gameInfo.check = true;
 
-		vector<string>	sources;
+		std::vector<std::string>	sources;
 
 		for (int i = 0; i != 64; i++)
 		{

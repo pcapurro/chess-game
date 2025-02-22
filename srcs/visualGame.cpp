@@ -5,7 +5,7 @@ int	initializeVisualGame(const bool sandBoxMode)
 {
 	VisualGame*	gameVisual;
 
-	gameVisual = new (nothrow) VisualGame (sandBoxMode);
+	gameVisual = new (std::nothrow) VisualGame (sandBoxMode);
 
 	gameVisual->visualRoutine();
 
@@ -24,7 +24,7 @@ int	main(const int argc, const char** argv)
 {
 	try
 	{
-		if (argc > 2 || (argc == 2 && string(argv[1]) != "--sandbox"))
+		if (argc > 2 || (argc == 2 && std::string(argv[1]) != "--sandbox"))
 			printInvalidArguments();
 		else
 		{
@@ -37,7 +37,7 @@ int	main(const int argc, const char** argv)
 				return (1);
 		}
 	}
-	catch (const exception& except)
+	catch (const std::exception& except)
 	{
 		cerr << except.what() << endl;
 		return (1);

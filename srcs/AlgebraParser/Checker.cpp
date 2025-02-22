@@ -15,7 +15,7 @@ bool	AlgebraParser::isValid(void)
 
 bool	AlgebraParser::isValidChar(void) const
 {
-	string	dictionnary;
+	std::string	dictionnary;
 
 	dictionnary = "KQRBNabcdefgh12345678xO-#+";
 	for (int i = 0; _move.move[i] != '\0'; i++)
@@ -44,8 +44,8 @@ bool	AlgebraParser::isValidComplexSequence(void) const
 		|| _move.move[0] == '-' || _move.move.at(_move.move.length() - 1) == '-')
 		return (false);
 		
-	string	left = getLeftSequence();
-	string	right = getRightSequence();
+	std::string	left = getLeftSequence();
+	std::string	right = getRightSequence();
 
 	if (left.length() > 3 || right.length() < 2 || right.length() > 3)
 		return (false);
@@ -91,7 +91,7 @@ bool	AlgebraParser::isValidComplexSequence(void) const
 
 bool	AlgebraParser::isValidSimpleSequence(void) const
 {
-	string	sequence = _move.move;
+	std::string	sequence = _move.move;
 
 	if (sequence[sequence.length() - 1] == '#' || sequence[sequence.length() - 1] == '+')
 		sequence.erase(sequence.length() - 1);

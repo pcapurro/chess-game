@@ -1,6 +1,6 @@
 #include "AlgebraParser/AlgebraParser.hpp"
 
-void	AlgebraParser::operator=(const string move)
+void	AlgebraParser::operator=(const std::string move)
 {
 	_move.move = move;
 

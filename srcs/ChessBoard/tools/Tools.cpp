@@ -1,6 +1,6 @@
 #include "ChessBoard/ChessBoard.hpp"
 
-size_t	ChessBoard::getAtValue(const string& coord) const
+size_t	ChessBoard::getAtValue(const std::string& coord) const
 {
 	for (int i = 0; i != 64; i++)
 	{
@@ -12,9 +12,9 @@ size_t	ChessBoard::getAtValue(const string& coord) const
 	return (0);
 }
 
-vector<string>	ChessBoard::getPiecesCoords(void) const
+std::vector<std::string>	ChessBoard::getPiecesCoords(void) const
 {
-	vector<string>	coords;
+	std::vector<std::string>	coords;
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -25,13 +25,13 @@ vector<string>	ChessBoard::getPiecesCoords(void) const
 	return (coords);
 }
 
-vector<string>	ChessBoard::getLegalMoves(void)
+std::vector<std::string>	ChessBoard::getLegalMoves(void)
 {
-	char			type;
-	string			move;
-	vector<string>	possibleMoves;
-	vector<string>	legalMoves;
-	vector<string>	availaibleTargets;
+	char						type;
+	std::string					move;
+	std::vector<std::string>	possibleMoves;
+	std::vector<std::string>	legalMoves;
+	std::vector<std::string>	availaibleTargets;
 
 	possibleMoves.push_back("O-O");
 	possibleMoves.push_back("O-O-O");
@@ -40,7 +40,7 @@ vector<string>	ChessBoard::getLegalMoves(void)
 	{
 		for (int k = 0; k != 8; k++)
 		{
-			string coord = "abcdefgh"[i] + to_string(k + 1);
+			std::string coord = "abcdefgh"[i] + std::to_string(k + 1);
 			if (_board.at(getAtValue(coord)).piece != nullptr \
 				&& _board.at(getAtValue(coord)).piece->getColor() == _gameInfo.color)
 			{
@@ -48,7 +48,7 @@ vector<string>	ChessBoard::getLegalMoves(void)
 				for (size_t j = 0; j != availaibleTargets.size(); j++)
 				{
 					type = _board.at(getAtValue(coord)).piece->getType();
-					move = string{type} + availaibleTargets.at(j);
+					move = std::string{type} + availaibleTargets.at(j);
 					
 					if ((move.at(move.length() - 1) == '8' || move.at(move.length() - 1) == '1') && type == 'P') \
 						possibleMoves.push_back(move + 'Q'), possibleMoves.push_back(move + 'B'), \
@@ -70,12 +70,12 @@ vector<string>	ChessBoard::getLegalMoves(void)
 	return (legalMoves);
 }
 
-vector<string>	ChessBoard::getCastlingSrcsDests(const string& srcdest) const
+std::vector<std::string>	ChessBoard::getCastlingSrcsDests(const std::string& srcdest) const
 {
-	char			y;
-	string			src;
-	string			dest;
-	vector<string>	srcsDests;
+	char						y;
+	std::string					src;
+	std::string					dest;
+	std::vector<std::string>	srcsDests;
 
 	_gameInfo.color == "white" ? y = '1' : y = '8';
 
@@ -109,9 +109,9 @@ int	ChessBoard::getStateValue(void) const
 	return (0);
 }
 
-string	ChessBoard::getEnPassantTarget(void) const
+std::string	ChessBoard::getEnPassantTarget(void) const
 {
-	string	target;
+	std::string	target;
 
 	target = _gameInfo.enPassantDest;
 	if (_gameInfo.turn % 2 == 0)
@@ -122,7 +122,7 @@ string	ChessBoard::getEnPassantTarget(void) const
 	return (target);
 }
 
-int	ChessBoard::getWatchersNumber(const string& coord) const
+int	ChessBoard::getWatchersNumber(const std::string& coord) const
 {
 	for (int i = 0; i != 64; i++)
 	{
@@ -140,12 +140,12 @@ int	ChessBoard::getWatchersNumber(const string& coord) const
 	return (0);
 }
 
-stack<cP*>	ChessBoard::getWatchers(const string& coord)
+std::stack<cP*>	ChessBoard::getWatchers(const std::string& coord)
 {
-	vector<string>		baordCoords;
-	stack<cP*>			material;
-	stack<cP*>			material3;
-	vector<stack<cP*>>	materials;
+	std::vector<std::string>		baordCoords;
+	std::stack<cP*>					material;
+	std::stack<cP*>					material3;
+	std::vector<std::stack<cP*>>	materials;
 
 	while (getWatchersNumber(coord) != 0)
 	{
@@ -204,7 +204,7 @@ int	ChessBoard::getMaterialValue(const char type) const
 	return (0);
 }
 
-char	ChessBoard::getType(const string& coord) const
+char	ChessBoard::getType(const std::string& coord) const
 {
 	for (int i = 0; i != 64; i++)
 	{
@@ -215,7 +215,7 @@ char	ChessBoard::getType(const string& coord) const
 	return (' ');
 }
 
-string	ChessBoard::getColor(const string& coord) const
+std::string	ChessBoard::getColor(const std::string& coord) const
 {
 	for (int i = 0; i != 64; i++)
 	{
@@ -226,10 +226,10 @@ string	ChessBoard::getColor(const string& coord) const
 	return ("");
 }
 
-stack<cP*>	ChessBoard::orderByValue(stack<cP*> materials) const
+std::stack<cP*>	ChessBoard::orderByValue(std::stack<cP*> materials) const
 {
-	stack<cP*>		stack;
-	vector<cP*>	vMaterials;
+	std::stack<cP*>		stack;
+	std::vector<cP*>	vMaterials;
 
 	while (materials.size() != 0)
 		vMaterials.push_back(materials.top()), materials.pop();

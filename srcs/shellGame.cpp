@@ -11,9 +11,9 @@ void	printTitle(void)
 	cout << "                    ♖ ## Press ENTER to start! ## ♖                      " << endl;
 }
 
-void	printGradually(const string str, const int value)
+void	printGradually(const std::string str, const int value)
 {
-	string	points;
+	std::string	points;
 
 	for (int i = 0; i != 4; i++)
 	{
@@ -36,12 +36,12 @@ void	printLoading(void)
 
 void	initWelcome(void)
 {
-	string	input;
+	std::string	input;
 
 	printTitle();
 	getline(cin, input);
 	if (cin.fail() == true)
-		throw runtime_error("getline() failed");
+		throw std::runtime_error("getline() failed");
 	else
 		cout << "\033[2A" << ERASE_LINE << endl;
 }
@@ -59,7 +59,7 @@ int	initializeShellGame(const bool sandBoxMode, const bool blindMode)
 
 	ShellGame*	gameShell;
 			
-	gameShell = new (nothrow) ShellGame(blindMode, sandBoxMode);
+	gameShell = new (std::nothrow) ShellGame(blindMode, sandBoxMode);
 	gameShell->shellRoutine();
 
 	delete gameShell;
@@ -73,18 +73,18 @@ int	validateArguments(const int argc, const char** argv)
 		return (0);
 	if (argc == 2)
 	{
-		if (string(argv[1]) != "--sandbox" && string(argv[1]) != "--blind-mode")
+		if (std::string(argv[1]) != "--sandbox" && std::string(argv[1]) != "--blind-mode")
 			return (1);
 		return (0);
 	}
 	if (argc == 3)
 	{
-		if (string(argv[1]) != "--sandbox" && string(argv[1]) != "--blind-mode")
+		if (std::string(argv[1]) != "--sandbox" && std::string(argv[1]) != "--blind-mode")
 			return (1);
-		if (string(argv[2]) != "--sandbox" && string(argv[2]) != "--blind-mode")
+		if (std::string(argv[2]) != "--sandbox" && std::string(argv[2]) != "--blind-mode")
 			return (1);
 
-		if (string(argv[1]) == string(argv[2]))
+		if (std::string(argv[1]) == std::string(argv[2]))
 			return (1);
 
 		return (0);
@@ -106,11 +106,11 @@ int	main(const int argc, const char** argv)
 
 			if (argc > 1)
 			{
-				if (string(argv[1]) == "--blind-mode" \
-					|| (argc == 3 && string(argv[2]) == "--blind-mode"))
+				if (std::string(argv[1]) == "--blind-mode" \
+					|| (argc == 3 && std::string(argv[2]) == "--blind-mode"))
 					blindMode = true;
-				if (string(argv[1]) == "--sandbox" \
-					|| (argc == 3 && string(argv[2]) == "--sandbox"))
+				if (std::string(argv[1]) == "--sandbox" \
+					|| (argc == 3 && std::string(argv[2]) == "--sandbox"))
 					sandBoxMode = true;
 			}
 
@@ -118,7 +118,7 @@ int	main(const int argc, const char** argv)
 				return (1);
 		}
 	}
-	catch (const exception& except)
+	catch (const std::exception& except)
 	{
 		cerr << except.what() << endl;
 		return (1);

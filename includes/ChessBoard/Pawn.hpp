@@ -7,12 +7,12 @@ class Pawn final : public ChessPiece
 {
 	public:
 	
-		Pawn(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'P'; }
+		Pawn(const std::string& color, const std::string& pos) : ChessPiece(color, pos) { _type = 'P'; }
 
 		~Pawn() {};
 
-		virtual bool isOnMyWay(const string& target, const vector<string>& boardCoords = {}, \
-			const int value = 0, const string& enPassant = "") const
+		virtual bool isOnMyWay(const std::string& target, const std::vector<std::string>& boardCoords = {}, \
+			const int value = 0, const std::string& enPassant = "") const
 		{
 			int	src_x = _x;
 			int	src_y = _y;
@@ -20,11 +20,11 @@ class Pawn final : public ChessPiece
 			int	dest_x = target[0] - 97;
 			int	dest_y = atoi(target.c_str() + 1);
 
-			string	newCoord;
+			std::string	newCoord;
 
 			if (_color == "white")
 			{
-				newCoord = "abcdefgh"[src_x + 1] + to_string(src_y + 1);
+				newCoord = "abcdefgh"[src_x + 1] + std::to_string(src_y + 1);
 				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end() \
 					&& src_x + 1 == dest_x && src_y + 1 == dest_y)
 					return (true);
@@ -32,7 +32,7 @@ class Pawn final : public ChessPiece
 				if (enPassant.empty() != true && target == enPassant && newCoord == target && _y == 5)
 					return (true);
 
-				newCoord = "abcdefgh"[src_x - 1] + to_string(src_y + 1);
+				newCoord = "abcdefgh"[src_x - 1] + std::to_string(src_y + 1);
 				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end() \
 					&& src_x - 1 == dest_x && src_y + 1 == dest_y)
 					return (true);
@@ -42,14 +42,14 @@ class Pawn final : public ChessPiece
 
 				if (value == 0)
 				{
-					newCoord = "abcdefgh"[src_x] + to_string(src_y + 1);
+					newCoord = "abcdefgh"[src_x] + std::to_string(src_y + 1);
 					if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end() \
 						&& src_x == dest_x && src_y + 1 == dest_y)
 						return (true);
 					
 					if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end())
 					{
-						newCoord = "abcdefgh"[src_x] + to_string(src_y + 2);
+						newCoord = "abcdefgh"[src_x] + std::to_string(src_y + 2);
 						if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end() \
 							&& src_x == dest_x && src_y + 2 == dest_y && _moves == 0)
 						return (true);
@@ -59,7 +59,7 @@ class Pawn final : public ChessPiece
 
 			if (_color == "black")
 			{
-				newCoord = "abcdefgh"[src_x + 1] + to_string(src_y - 1);
+				newCoord = "abcdefgh"[src_x + 1] + std::to_string(src_y - 1);
 				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end() \
 					&& src_x + 1 == dest_x && src_y - 1 == dest_y)
 					return (true);
@@ -67,7 +67,7 @@ class Pawn final : public ChessPiece
 				if (enPassant.empty() != true && target == enPassant && newCoord == target && _y == 4)
 					return (true);
 
-				newCoord = "abcdefgh"[src_x - 1] + to_string(src_y - 1);
+				newCoord = "abcdefgh"[src_x - 1] + std::to_string(src_y - 1);
 				if (find(boardCoords.begin(), boardCoords.end(), newCoord) != boardCoords.end() \
 					&& src_x - 1 == dest_x && src_y - 1 == dest_y)
 					return (true);
@@ -77,14 +77,14 @@ class Pawn final : public ChessPiece
 
 				if (value == 0)
 				{
-					newCoord = "abcdefgh"[src_x] + to_string(src_y - 1);
+					newCoord = "abcdefgh"[src_x] + std::to_string(src_y - 1);
 					if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end() \
 						&& src_x == dest_x && src_y - 1 == dest_y)
 						return (true);
 					
 					if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end())
 					{
-						newCoord = "abcdefgh"[src_x] + to_string(src_y - 2);
+						newCoord = "abcdefgh"[src_x] + std::to_string(src_y - 2);
 						if (find(boardCoords.begin(), boardCoords.end(), newCoord) == boardCoords.end() \
 							&& src_x == dest_x && src_y - 2 == dest_y && _moves == 0)
 						return (true);

@@ -35,9 +35,9 @@ void	VisualGame::reactMouseDown(const int key)
 	if (isBoardTargetZone(_visualInfo.actualCoords, x, y) == true \
 		&& _visualInfo.actualCoords != "none")
 	{
-		char			sign;
-		string			src, dest;
-		vector<string>	legalMoves;
+		char						sign;
+		std::string					src, dest;
+		std::vector<std::string>	legalMoves;
 
 		_visualInfo.droppedSrc = _visualInfo.actualCoords;
 		_visualInfo.droppedDests.clear();
@@ -46,7 +46,7 @@ void	VisualGame::reactMouseDown(const int key)
 
 		legalMoves = _board->getLegalMoves();
 
-		if (_visualInfo.droppedSrc == string{'e', sign} && _board->getType(string{'e', sign}) == 'K')
+		if (_visualInfo.droppedSrc == std::string{'e', sign} && _board->getType(std::string{'e', sign}) == 'K')
 		{
 			if (find(legalMoves.begin(), legalMoves.end(), "O-O") != legalMoves.end())
 				_visualInfo.droppedDests.push_back({'g', sign});

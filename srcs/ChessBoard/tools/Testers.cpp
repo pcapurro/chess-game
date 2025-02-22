@@ -10,15 +10,10 @@ void	ChessBoard::unSwitchPlayers(void)
 	--_gameInfo.turn % 2 == 0 ? _gameInfo.color = "white" : _gameInfo.color = "black";
 }
 
-void	ChessBoard::tryEnPassant(const string& srcdest)
+void	ChessBoard::tryEnPassant(const std::string& srcdest)
 {
-	int		atValueSrc;
-	int		atValueDestOne;
-	int		atValueDestTwo;
-	
-	string	src;
-	string	destOne;
-	string	destTwo;
+	int				atValueSrc, atValueDestOne, atValueDestTwo;
+	std::string		src, destOne, destTwo;
 
 	src = {srcdest[0], srcdest[1]};
 	destOne = {srcdest[2], srcdest[3]};
@@ -38,15 +33,10 @@ void	ChessBoard::tryEnPassant(const string& srcdest)
 	_gameInfo.enPassant = false;
 }
 
-void	ChessBoard::undoEnPassant(const string& srcdest)
+void	ChessBoard::undoEnPassant(const std::string& srcdest)
 {
-	int		atValueSrc;
-	int		atValueDestOne;
-	int		atValueDestTwo;
-	
-	string	src;
-	string	destOne;
-	string	destTwo;
+	int				atValueSrc, atValueDestOne, atValueDestTwo;
+	std::string		src, destOne, destTwo;
 
 	src = {srcdest[0], srcdest[1]};
 	destOne = {srcdest[2], srcdest[3]};
@@ -67,9 +57,9 @@ void	ChessBoard::undoEnPassant(const string& srcdest)
 	_gameInfo.enPassant = true;
 }
 
-void	ChessBoard::enableCastling(const string& srcdest)
+void	ChessBoard::enableCastling(const std::string& srcdest)
 {
-	string	dest = srcdest.c_str() + 2;
+	std::string	dest = srcdest.c_str() + 2;
 
 	if (_gameInfo.color == "white" && _gameInfo.whiteCastleLost != "")
 	{
@@ -86,9 +76,9 @@ void	ChessBoard::enableCastling(const string& srcdest)
 	}
 }
 
-void	ChessBoard::disableCastling(const string& srcdest)
+void	ChessBoard::disableCastling(const std::string& srcdest)
 {
-	string	dest = srcdest.c_str() + 2;
+	std::string	dest = srcdest.c_str() + 2;
 
 	if (_gameInfo.color == "white" && _gameInfo.whiteCastle == true)
 	{
@@ -123,21 +113,18 @@ void	ChessBoard::disableCastling(const string& srcdest)
 	}
 }
 
-void	ChessBoard::tryMove(const string& srcdest)
+void	ChessBoard::tryMove(const std::string& srcdest)
 {
-	int		atValueSrc;
-	int		atValueDest;
-	
-	string	src;
-	string	dest;
+	int				atValueSrc, atValueDest;
+	std::string		src, dest;
 
 	if (srcdest == "O-O" || srcdest == "O-O-O" \
-		|| (string{srcdest[2], srcdest[3]} == _gameInfo.enPassantDest \
+		|| (std::string{srcdest[2], srcdest[3]} == _gameInfo.enPassantDest \
 			&& (getType({srcdest[0], srcdest[1]}) == 'P' || getType({srcdest[2], srcdest[3]}) == 'P')))
 	{
 		if (srcdest[0] == 'O')
 		{
-			vector<string>  castling;
+			std::vector<std::string>  castling;
 		
 			castling = getCastlingSrcsDests(srcdest);
 			tryMove(castling.at(0));
@@ -171,15 +158,15 @@ void	ChessBoard::tryMove(const string& srcdest)
 	}
 }
 
-void	ChessBoard::undoMove(const string& srcdest)
+void	ChessBoard::undoMove(const std::string& srcdest)
 {	
 	if (srcdest == "O-O" || srcdest == "O-O-O" \
-		|| (string{srcdest[2], srcdest[3]} == _gameInfo.enPassantDest \
+		|| (std::string{srcdest[2], srcdest[3]} == _gameInfo.enPassantDest \
 		&& (getType({srcdest[0], srcdest[1]}) == 'P' || getType({srcdest[2], srcdest[3]}) == 'P')))
 	{
 		if (srcdest[0] == 'O')
 		{
-			vector<string>  castling;
+			std::vector<std::string>  castling;
 
 			castling = getCastlingSrcsDests(srcdest);
 			undoMove(castling.at(1));
@@ -190,8 +177,8 @@ void	ChessBoard::undoMove(const string& srcdest)
 	}
 	else
 	{
-		string src = {srcdest[0], srcdest[1]};
-		string dest = srcdest.c_str() + 2;
+		std::string src = {srcdest[0], srcdest[1]};
+		std::string dest = srcdest.c_str() + 2;
 
 		int		atValueSrc = getAtValue(src);
 		int		atValueDest = getAtValue(dest);

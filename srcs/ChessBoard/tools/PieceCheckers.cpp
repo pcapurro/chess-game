@@ -1,6 +1,6 @@
 #include "ChessBoard/ChessBoard.hpp"
 
-bool	ChessBoard::isCastlingPossible(const string& castle)
+bool	ChessBoard::isCastlingPossible(const std::string& castle)
 {
 	int	atValue;
 
@@ -116,7 +116,7 @@ bool	ChessBoard::isCastlingPossible(const string& castle)
 
 bool	ChessBoard::isTheDestinationSafe(void) const
 {
-	vector<string>	coords = getPiecesCoords();
+	std::vector<std::string>	coords = getPiecesCoords();
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -140,7 +140,7 @@ bool	ChessBoard::isRightSide(void) const
 	return (false);
 }
 
-bool	ChessBoard::isThereSomething(const string& dest) const
+bool	ChessBoard::isThereSomething(const std::string& dest) const
 {
 	int	atValue = getAtValue(dest);
 

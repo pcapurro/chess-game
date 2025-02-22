@@ -14,8 +14,8 @@ class ShellGame
 		ShellGame(const bool blindMode, const bool sandBoxMode);
 		~ShellGame(void);
 
-		void	shellRoutine(void);
-		string	getShellAnswer(void) const;
+		void		shellRoutine(void);
+		std::string	getShellAnswer(void) const;
 
 	private:
 

@@ -18,7 +18,7 @@ void	VisualGame::loadTexts(void)
 		"./materials/texts/draw.bmp");
 
 	if (value != 0)
-		throw runtime_error("SDL failed.");
+		throw std::runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadLetters(void)
@@ -45,7 +45,7 @@ void	VisualGame::loadLetters(void)
 
 
 	if (value != 0)
-		throw runtime_error("SDL failed.");
+		throw std::runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadNumbers(void)
@@ -75,7 +75,7 @@ void	VisualGame::loadNumbers(void)
 		"./materials/numbers/9.bmp", '9');
 
 	if (value != 0)
-		throw runtime_error("SDL failed.");
+		throw std::runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadWhiteTextures(void)
@@ -98,7 +98,7 @@ void	VisualGame::loadWhiteTextures(void)
 		"./materials/white/pawn.bmp", 'P');
 
 	if (value != 0)
-		throw runtime_error("SDL failed.");
+		throw std::runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadBlackTextures(void)
@@ -121,7 +121,7 @@ void	VisualGame::loadBlackTextures(void)
 		"./materials/black/pawn.bmp", 'P');
 
 	if (value != 0)
-		throw runtime_error("SDL failed.");
+		throw std::runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadBoardTextures(void)
@@ -143,7 +143,7 @@ void	VisualGame::loadBoardTextures(void)
 		"./materials/symbols/plus.bmp");
 
 	if (value != 0)
-		throw runtime_error("SDL failed.");
+		throw std::runtime_error("SDL failed.");
 }
 
 void	VisualGame::loadTextures(void)

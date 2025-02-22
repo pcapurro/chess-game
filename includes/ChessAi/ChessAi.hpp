@@ -10,14 +10,14 @@ class ChessAi
 		ChessAi(void);
 		~ChessAi(void);
 
-		string	getBestMove(const vector<string>& moves) const;
+		std::string	getBestMove(const std::vector<std::string>& moves) const;
 	
 	private:
 
-		ofstream	_answer;
-		ifstream	_line;
+		std::ofstream	_answer;
+		std::ifstream	_line;
 
-		FILE*		_stream;
+		FILE*			_stream;
 };
 
 #endif

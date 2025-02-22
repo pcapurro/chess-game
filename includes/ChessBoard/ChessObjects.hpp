@@ -14,33 +14,33 @@
 struct Square
 {
 	ChessPiece*	piece;
-	string		coord;
+	std::string		coord;
 };
 
 struct GameInfo
 {
-	bool	check;
-	bool	checkmate;
-	bool	draw;
+	bool		check;
+	bool		checkmate;
+	bool		draw;
 
-	Move	lastMove;
-	bool	moveFailed;
+	Move		lastMove;
+	bool		moveFailed;
 
-	bool	whiteCastle;
-	bool	whiteCastled;
-	string	whiteCastleLost;
+	bool		whiteCastle;
+	bool		whiteCastled;
+	std::string	whiteCastleLost;
 
-	bool	blackCastle;
-	bool	blackCastled;
-	string	blackCastleLost;
+	bool		blackCastle;
+	bool		blackCastled;
+	std::string	blackCastleLost;
 
-	bool	enPassant;
-	string	enPassantSrcOne;
-	string	enPassantSrcTwo;
-	string	enPassantDest;
+	bool		enPassant;
+	std::string	enPassantSrcOne;
+	std::string	enPassantSrcTwo;
+	std::string	enPassantDest;
 
-	int		turn;
-	string	color;
+	int			turn;
+	std::string	color;
 };
 
 struct Counter

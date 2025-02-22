@@ -29,6 +29,8 @@
 
 # define COLOR_E "\033[0m"
 
-using namespace std;
+using std::cout;
+using std::cerr;
+using std::endl;
 
 #endif

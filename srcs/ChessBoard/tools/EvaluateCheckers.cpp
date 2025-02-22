@@ -1,6 +1,6 @@
 #include "ChessBoard/ChessBoard.hpp"
 
-bool	ChessBoard::isFree(const string& coord)
+bool	ChessBoard::isFree(const std::string& coord)
 {
 	if (getEnPassantTarget() == coord)
 	{
@@ -9,7 +9,7 @@ bool	ChessBoard::isFree(const string& coord)
 	}
 	else
 	{
-		stack<cP*>	attackers;
+		std::stack<cP*>	attackers;
 
 		switchPlayers();
 		attackers = getWatchers(coord);
@@ -22,7 +22,7 @@ bool	ChessBoard::isFree(const string& coord)
 	return (false);
 }
 
-bool	ChessBoard::isSafe(const string& coord)
+bool	ChessBoard::isSafe(const std::string& coord)
 {
 	if (isProtected(coord) == true || isFree(coord) == true)
 		return (true);
@@ -30,14 +30,14 @@ bool	ChessBoard::isSafe(const string& coord)
 	return (false);
 }
 
-bool	ChessBoard::isProtected(const string& coord)
+bool	ChessBoard::isProtected(const std::string& coord)
 {
-	stack<cP*>	defenders = getWatchers(coord);
+	std::stack<cP*>	defenders = getWatchers(coord);
 	if (defenders.size() == 0)
 		return (false);
 
 	switchPlayers();
-	stack<cP*>	attackers = getWatchers(coord);
+	std::stack<cP*>	attackers = getWatchers(coord);
 	unSwitchPlayers();
 	if (attackers.size() == 0)
 		return (true);
@@ -91,8 +91,8 @@ bool	ChessBoard::isEndGame(void) const
 
 bool    ChessBoard::checkMateInOne(void)
 {
-	string			move;
-	vector<string>	legalMoves;
+	std::string					move;
+	std::vector<std::string>	legalMoves;
 
 	legalMoves = getLegalMoves();
 	for (size_t i = 0; i != legalMoves.size(); i++)

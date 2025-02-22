@@ -1,6 +1,6 @@
 #include "VisualGame/VisualGame.hpp"
 
-SDL_Texture*	VisualGame::getTexture(const char type, const string& color) const
+SDL_Texture*	VisualGame::getTexture(const char type, const std::string& color) const
 {
 	VisualTexture*	whiteTextures[7] = {&_textures->symbols.checkMateBlack, &_textures->whiteTextures.king, \
 		&_textures->whiteTextures.queen, &_textures->whiteTextures.rook, &_textures->whiteTextures.bishop, \
@@ -31,7 +31,7 @@ SDL_Texture*	VisualGame::getTexture(const char type, const string& color) const
 	return (nullptr);
 }
 
-SDL_Rect	VisualGame::getRectangle(const string& coords, const string& type) const
+SDL_Rect	VisualGame::getRectangle(const std::string& coords, const std::string& type) const
 {
 	SDL_Rect	obj;
 
@@ -84,9 +84,9 @@ SDL_Rect	VisualGame::getRectangle(const string& coords, const string& type) cons
 	return (obj);
 }
 
-vector<char>	VisualGame::getOrderedCaptured(const vector<char> &captured) const
+std::vector<char>	VisualGame::getOrderedCaptured(const std::vector<char> &captured) const
 {
-	vector<char>	newCaptured;
+	std::vector<char>	newCaptured;
 
 	for (size_t i = 0; i != captured.size(); i++)
 	{
@@ -101,7 +101,7 @@ vector<char>	VisualGame::getOrderedCaptured(const vector<char> &captured) const
 	return (newCaptured);
 }
 
-string	VisualGame::getCoord(const int x, const int y) const
+std::string	VisualGame::getCoord(const int x, const int y) const
 {
 	int	xZone;
 	int	yZone;
@@ -117,7 +117,7 @@ string	VisualGame::getCoord(const int x, const int y) const
 				_visualInfo.aiSide == 0 ? xZone = 80 * (8 - k) : xZone = 80 * (k + 1);
 
 				if (x >= xZone && x <= xZone + 105 && y >= yZone && y <= yZone + 80)
-					return (string{ "abcdefgh"[k], "12345678"[i] });
+					return (std::string{ "abcdefgh"[k], "12345678"[i] });
 			}
 		}
 	}
@@ -125,9 +125,9 @@ string	VisualGame::getCoord(const int x, const int y) const
 	return ("none");
 }
 
-string	VisualGame::getInput(const string& coord)
+std::string	VisualGame::getInput(const std::string& coord)
 {
-	string	input;
+	std::string	input;
 
 	if (coord == "end" || coord == "none" || coord == "error")
 		return (coord);
@@ -152,9 +152,9 @@ string	VisualGame::getInput(const string& coord)
 	return (input);
 }
 
-string	VisualGame::getKingCoords(const string& color) const
+std::string	VisualGame::getKingCoords(const std::string& color) const
 {
-	string	coords;
+	std::string	coords;
 
 	for (int i = 0; i != 8; i++)
 	{
@@ -169,7 +169,7 @@ string	VisualGame::getKingCoords(const string& color) const
 	return (coords);
 }
 
-string	VisualGame::getTurnColor(void) const
+std::string	VisualGame::getTurnColor(void) const
 {
 	if (_visualInfo.turn % 2 == 0)
 		return ("white");
@@ -177,7 +177,7 @@ string	VisualGame::getTurnColor(void) const
 	return ("black");
 }
 
-bool	VisualGame::isPromotion(const string& coord) const
+bool	VisualGame::isPromotion(const std::string& coord) const
 {
 	if (_board->getType(_visualInfo.droppedSrc) == 'P')
 	{
@@ -217,10 +217,10 @@ bool	VisualGame::isCodeDetected(void) const
 {
 	if (_visualInfo.keyHistory.size() == 11)
 	{
-		vector<SDL_Keycode> code = {SDLK_UP, SDLK_UP, SDLK_DOWN, SDLK_DOWN, SDLK_LEFT, \
+		std::vector<SDL_Keycode> code = {SDLK_UP, SDLK_UP, SDLK_DOWN, SDLK_DOWN, SDLK_LEFT, \
 			SDLK_RIGHT, SDLK_LEFT, SDLK_RIGHT, SDLK_b, SDLK_a, SDLK_RETURN};
 
-		vector<SDL_Keycode> sequence;
+		std::vector<SDL_Keycode> sequence;
 		for (size_t i = _visualInfo.keyHistory.size() - 11; i != _visualInfo.keyHistory.size(); i++)
 			sequence.push_back(_visualInfo.keyHistory.at(i));
 
@@ -239,7 +239,7 @@ bool	VisualGame::isBoardZone(const int x, const int y) const
 	return (false);
 }
 
-bool	VisualGame::isBoardTargetZone(const string& coord, const int x, const int y) const
+bool	VisualGame::isBoardTargetZone(const std::string& coord, const int x, const int y) const
 {
 	if (_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
 		return (true);

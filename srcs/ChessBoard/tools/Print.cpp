@@ -1,6 +1,6 @@
 #include "ChessBoard/ChessBoard.hpp"
 
-void	ChessBoard::printPiece(const char type, const string& color) const
+void	ChessBoard::printPiece(const char type, const std::string& color) const
 {
 	if (type == 'P' && color == "white")
 		cout << "│♟▕";
@@ -35,20 +35,20 @@ void	ChessBoard::printPiece(const char type, const string& color) const
 
 void	ChessBoard::printWhiteBoard(void) const
 {
-	int		atValue;
-	string	coords;
+	int			atValue;
+	std::string	coords;
 
 	for (int i = 9; i != 1; i--)
 	{
 		cout << ERASE_LINE << " " << i - 1 << " ";
 		for (int k = 0; k != 8; k++)
 		{
-			coords = "abcdefgh"[k] + to_string(i - 1);
+			coords = "abcdefgh"[k] + std::to_string(i - 1);
 			atValue = getAtValue(coords);
 			if (_board.at(atValue).piece != nullptr)
 			{
 				char type = _board.at(atValue).piece->getType();
-				string color = _board.at(atValue).piece->getColor();
+				std::string color = _board.at(atValue).piece->getColor();
 				printPiece(type, color);
 			}
 			else
@@ -60,20 +60,20 @@ void	ChessBoard::printWhiteBoard(void) const
 
 void	ChessBoard::printBlackBoard(void) const
 {
-	int		atValue;
-	string	coords;
+	int			atValue;
+	std::string	coords;
 
 	for (int i = 1; i != 9; i++)
 	{
 		cout << ERASE_LINE << " " << i << " ";
 		for (int k = 0; k != 8; k++)
 		{
-			coords = "abcdefgh"[k] + to_string(i);
+			coords = "abcdefgh"[k] + std::to_string(i);
 			atValue = getAtValue(coords);
 			if (_board.at(atValue).piece != nullptr)
 			{
 				char type = _board.at(atValue).piece->getType();
-				string color = _board.at(atValue).piece->getColor();
+				std::string color = _board.at(atValue).piece->getColor();
 				printPiece(type, color);
 			}
 			else
@@ -118,7 +118,7 @@ void	ChessBoard::printHistory(void) const
 
 void	ChessBoard::printEndGame(const int value)
 {
-	string	player;
+	std::string	player;
 
 	_gameInfo.color == "white" ? player = "black" : player = "white";
 	player[0] = player[0] - 32;
@@ -139,7 +139,7 @@ void	ChessBoard::printEndGame(const int value)
 
 void	ChessBoard::printEvent(const bool cfail, const bool bfail, const bool blindMode)
 {
-	string	player;
+	std::string	player;
 
 	cout << ERASE_LINE;
 	if (blindMode == true && _gameInfo.turn != 0)

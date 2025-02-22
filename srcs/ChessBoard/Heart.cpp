@@ -2,9 +2,9 @@
 
 void	ChessBoard::enableDisableEnPassant(void)
 {
-	char	obj = _gameInfo.lastMove.obj;
-	string	src = _gameInfo.lastMove.src;
-	string	dest = _gameInfo.lastMove.dest;
+	char			obj = _gameInfo.lastMove.obj;
+	std::string		src = _gameInfo.lastMove.src;
+	std::string		dest = _gameInfo.lastMove.dest;
 
 	if (obj == 'P')
 	{
@@ -36,9 +36,9 @@ void	ChessBoard::enableDisableEnPassant(void)
 
 void	ChessBoard::priseEnPassant()
 {
-	ChessPiece*	piece;
-	size_t		atValue;
-	string		newCoordUpdated;
+	size_t			atValue;
+	std::string		newCoordUpdated;
+	ChessPiece*		piece;
 
 	atValue = getAtValue(_gameInfo.lastMove.src); 
 	piece = _board.at(atValue).piece;
@@ -58,7 +58,7 @@ void	ChessBoard::priseEnPassant()
 	removePiece(newCoordUpdated);
 }
 
-void	ChessBoard::removePiece(const string& coord)
+void	ChessBoard::removePiece(const std::string& coord)
 {
 	size_t	atValue = getAtValue(coord);
 
@@ -74,11 +74,11 @@ void	ChessBoard::removePiece(const string& coord)
 	}
 }
 
-void	ChessBoard::promotePiece(const string& initialCoord, char pieceType)
+void	ChessBoard::promotePiece(const std::string& initialCoord, char pieceType)
 {
-	string	initialCoordUpdated;
-	string	color;
-	size_t	atValue;
+	size_t			atValue;
+	std::string		initialCoordUpdated;
+	std::string		color;
 
 	initialCoordUpdated = initialCoord;
 	initialCoordUpdated[2] = '\0';
@@ -87,20 +87,20 @@ void	ChessBoard::promotePiece(const string& initialCoord, char pieceType)
 	
 	removePiece(initialCoord);
 	if (pieceType == 'Q')
-		_board.at(atValue).piece = new (nothrow) Queen(color, initialCoordUpdated);
+		_board.at(atValue).piece = new (std::nothrow) Queen(color, initialCoordUpdated);
 	if (pieceType == 'N')
-		_board.at(atValue).piece = new (nothrow) Knight(color, initialCoordUpdated);
+		_board.at(atValue).piece = new (std::nothrow) Knight(color, initialCoordUpdated);
 	if (pieceType == 'B')
-		_board.at(atValue).piece = new (nothrow) Bishop(color, initialCoordUpdated);
+		_board.at(atValue).piece = new (std::nothrow) Bishop(color, initialCoordUpdated);
 	if (pieceType == 'R')
-		_board.at(atValue).piece = new (nothrow) Rook(color, initialCoordUpdated);
+		_board.at(atValue).piece = new (std::nothrow) Rook(color, initialCoordUpdated);
 	}
 
-void	ChessBoard::movePiece(const string& initialCoord, const string& newCoord)
+void	ChessBoard::movePiece(const std::string& initialCoord, const std::string& newCoord)
 {
-	ChessPiece*	piece;
-	size_t		atValue;
-	string		newCoordUpdated;
+	ChessPiece*		piece;
+	size_t			atValue;
+	std::string		newCoordUpdated;
 	
 	atValue = getAtValue(initialCoord); 
 	piece = _board.at(atValue).piece;
@@ -164,10 +164,10 @@ void	ChessBoard::blackCastles(void)
 
 void	ChessBoard::addToHistory(void)
 {
-	char	action = _gameInfo.lastMove.action;
-	char	obj = _gameInfo.lastMove.obj;
-	string	src = _gameInfo.lastMove.src;
-	string	dest = _gameInfo.lastMove.dest;
+	char			action = _gameInfo.lastMove.action;
+	char			obj = _gameInfo.lastMove.obj;
+	std::string		src = _gameInfo.lastMove.src;
+	std::string		dest = _gameInfo.lastMove.dest;
 
 	if (dest == "O-O" || dest == "O-O-O")
 	{
@@ -203,7 +203,7 @@ void	ChessBoard::addToHistory(void)
 	}
 }
 
-void	ChessBoard::loadMove(const string& move)
+void	ChessBoard::loadMove(const std::string& move)
 {
 	if (move == "O-O-O" || move == "O-O")
 	{
@@ -230,12 +230,12 @@ void	ChessBoard::loadMove(const string& move)
 	}
 }
 
-int	ChessBoard::playMove(Move structureMove, const string& stringMove)
+int	ChessBoard::playMove(Move structureMove, const std::string& move)
 {
-	if (stringMove == "")
+	if (move == "")
 		_gameInfo.lastMove = structureMove;
 	else
-		loadMove(stringMove);
+		loadMove(move);
 
 	if (isLegal() == false)
 		{ _gameInfo.moveFailed = true; return (1); }
@@ -246,8 +246,8 @@ int	ChessBoard::playMove(Move structureMove, const string& stringMove)
 		if (_board.at(getAtValue(_gameInfo.lastMove.dest)).piece != nullptr)
 			_gameInfo.lastMove.action = 'x';
 
-		string	src = _gameInfo.lastMove.src;
-		string	dest = _gameInfo.lastMove.dest;
+		std::string	src = _gameInfo.lastMove.src;
+		std::string	dest = _gameInfo.lastMove.dest;
 		char	action = _gameInfo.lastMove.action;
 
 		if (_gameInfo.lastMove.dest == "O-O"
