@@ -110,14 +110,20 @@ std::string	VisualGame::waitForEvent(void)
 			if (event.type == SDL_MOUSEMOTION)
 				reactMouseMotion();
 
-			if (event.type == SDL_MOUSEBUTTONDOWN)
+			if (event.type == SDL_MOUSEBUTTONDOWN \
+				&& event.button.button == SDL_BUTTON_LEFT)
 			{
 				if (_visualInfo.x > 780 && _visualInfo.y < 60)
 					return ("restart");
-				reactMouseDown(event.button.button);
+				reactMouseDown();
 			}
 
-			if (event.type == SDL_MOUSEBUTTONUP)
+			if (event.type == SDL_MOUSEBUTTONUP \
+				&& event.button.button != SDL_BUTTON_LEFT)
+				_visualInfo.visualCoords = !_visualInfo.visualCoords;
+
+			if (event.type == SDL_MOUSEBUTTONUP \
+				&& event.button.button == SDL_BUTTON_LEFT)
 			{
 				if (_visualInfo.droppedSrc == _visualInfo.actualCoords)
 				{

@@ -27,7 +27,7 @@ void	VisualGame::reactMouseMotion(void)
 		SDL_SetCursor(_normalCursor);
 }
 
-void	VisualGame::reactMouseDown(const int key)
+void	VisualGame::reactMouseDown(void)
 {
 	int	x = _visualInfo.x;
 	int	y = _visualInfo.y;
@@ -66,9 +66,6 @@ void	VisualGame::reactMouseDown(const int key)
 			}
 		}
 	}
-
-	if (key == SDL_BUTTON_RIGHT)
-		_visualInfo.visualCoords = !_visualInfo.visualCoords;
 
 	if (isColorTargetZone(x, y) == true)
 		++_visualInfo.boardColor == COLOR_NB ? _visualInfo.boardColor = 0 : _visualInfo.boardColor;

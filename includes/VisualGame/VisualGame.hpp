@@ -83,7 +83,7 @@ class VisualGame
 	
 		void		reactKeyDown(const int key);
 		void		reactMouseMotion(void);
-		void		reactMouseDown(const int key);
+		void		reactMouseDown(void);
 		void		reactMouseUp(void);
 
 		std::string		waitForEvent(void);
