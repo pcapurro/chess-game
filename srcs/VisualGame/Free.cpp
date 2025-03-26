@@ -5,9 +5,6 @@ VisualGame::~VisualGame()
 	if (_board != nullptr)
 		delete _board, _board = nullptr;
 
-	if (_textures != nullptr)
-		delete _textures, _textures = nullptr;
-
 	if (_mainRenderer != nullptr && _mainRenderer != NULL)
 		SDL_DestroyRenderer(_mainRenderer);
 	if (_mainWindow != nullptr && _mainWindow != NULL)

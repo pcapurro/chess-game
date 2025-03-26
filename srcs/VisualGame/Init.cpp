@@ -28,7 +28,6 @@ VisualGame::VisualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 
 	initializeGame();
 
-	_textures = new Textures;
 	loadTextures();
 }
 
@@ -52,7 +51,6 @@ void	VisualGame::setToDefault(void)
 void	VisualGame::setToNullPtr(void)
 {
 	_board = nullptr;
-	_textures = nullptr;
 
 	_mainWindow = nullptr;
 	_mainRenderer = nullptr;

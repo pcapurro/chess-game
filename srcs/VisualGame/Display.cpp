@@ -13,20 +13,20 @@ void	VisualGame::loadText(const int value)
 	if (value == 0)
 	{
 		if (color == "white")
-			SDL_RenderCopy(_mainRenderer, _textures->texts.whiteToPlay.getTexture(), NULL, &obj);
+			SDL_RenderCopy(_mainRenderer, _textures.texts.whiteToPlay.getTexture(), NULL, &obj);
 		if (color == "black")
-			SDL_RenderCopy(_mainRenderer, _textures->texts.blackToPlay.getTexture(), NULL, &obj);
+			SDL_RenderCopy(_mainRenderer, _textures.texts.blackToPlay.getTexture(), NULL, &obj);
 	}
 	if (value == 1)
 	{
 		if (color == "white")
-			SDL_RenderCopy(_mainRenderer, _textures->texts.blackWon.getTexture(), NULL, &obj);
+			SDL_RenderCopy(_mainRenderer, _textures.texts.blackWon.getTexture(), NULL, &obj);
 		if (color == "black")
-			SDL_RenderCopy(_mainRenderer, _textures->texts.whiteWon.getTexture(), NULL, &obj);
+			SDL_RenderCopy(_mainRenderer, _textures.texts.whiteWon.getTexture(), NULL, &obj);
 	}
 
 	if (value == 2)
-		SDL_RenderCopy(_mainRenderer, _textures->texts.draw.getTexture(), NULL, &obj);
+		SDL_RenderCopy(_mainRenderer, _textures.texts.draw.getTexture(), NULL, &obj);
 }
 
 void	VisualGame::loadEvaluation(const int value)
@@ -99,12 +99,12 @@ void    VisualGame::loadScore(const std::string& color, const int y)
 {
 	int	score;
 
-	VisualTexture*	numbers[10] = {&_textures->numbers.zero, \
-		&_textures->numbers.one, &_textures->numbers.two, \
-		&_textures->numbers.three, &_textures->numbers.four, \
-		&_textures->numbers.five, &_textures->numbers.six, \
-		&_textures->numbers.seven, &_textures->numbers.eight, \
-		&_textures->numbers.nine};
+	VisualTexture*	numbers[10] = {&_textures.numbers.zero, \
+		&_textures.numbers.one, &_textures.numbers.two, \
+		&_textures.numbers.three, &_textures.numbers.four, \
+		&_textures.numbers.five, &_textures.numbers.six, \
+		&_textures.numbers.seven, &_textures.numbers.eight, \
+		&_textures.numbers.nine};
 
 	if (color == "white")
 		score = _board->getWhiteMaterialsScore() - _board->getBlackMaterialsScore();
@@ -117,7 +117,7 @@ void    VisualGame::loadScore(const std::string& color, const int y)
 	SDL_Rect obj = getRectangle("", std::string{color[0]} + "score");
 	obj.y = y;
 
-	SDL_Texture*	texture = _textures->symbols.plus.getTexture();
+	SDL_Texture*	texture = _textures.symbols.plus.getTexture();
 	SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 
 	_sandBoxMode == false || _visualInfo.aiSide % 2 != 0 ? obj.y-- : obj.y++;
@@ -141,11 +141,11 @@ void	VisualGame::loadCapturedComplex(std::vector<char> &captured, const std::str
 	SDL_Rect		obj;
 	SDL_Texture*	texture;
 
-	VisualTexture*	white[5] = {&_textures->whiteTextures.pawn, &_textures->whiteTextures.bishop, \
-		&_textures->whiteTextures.knight, &_textures->whiteTextures.rook, &_textures->whiteTextures.queen};
+	VisualTexture*	white[5] = {&_textures.whiteTextures.pawn, &_textures.whiteTextures.bishop, \
+		&_textures.whiteTextures.knight, &_textures.whiteTextures.rook, &_textures.whiteTextures.queen};
 
-	VisualTexture*	black[5] = {&_textures->blackTextures.pawn, &_textures->blackTextures.bishop, \
-		&_textures->blackTextures.knight, &_textures->blackTextures.rook, &_textures->blackTextures.queen};
+	VisualTexture*	black[5] = {&_textures.blackTextures.pawn, &_textures.blackTextures.bishop, \
+		&_textures.blackTextures.knight, &_textures.blackTextures.rook, &_textures.blackTextures.queen};
 
 	if (color == "white")
 		obj = getRectangle("", "wscore");
@@ -192,18 +192,18 @@ void	VisualGame::loadCaptured(std::vector<char> &captured, const std::string& co
 	SDL_Rect		obj;
 	SDL_Texture*	texture;
 
-	VisualTexture*	white[5] = {&_textures->whiteTextures.pawn, &_textures->whiteTextures.bishop, \
-		&_textures->whiteTextures.knight, &_textures->whiteTextures.rook, &_textures->whiteTextures.queen};
+	VisualTexture*	white[5] = {&_textures.whiteTextures.pawn, &_textures.whiteTextures.bishop, \
+		&_textures.whiteTextures.knight, &_textures.whiteTextures.rook, &_textures.whiteTextures.queen};
 
-	VisualTexture*	black[5] = {&_textures->blackTextures.pawn, &_textures->blackTextures.bishop, \
-		&_textures->blackTextures.knight, &_textures->blackTextures.rook, &_textures->blackTextures.queen};
+	VisualTexture*	black[5] = {&_textures.blackTextures.pawn, &_textures.blackTextures.bishop, \
+		&_textures.blackTextures.knight, &_textures.blackTextures.rook, &_textures.blackTextures.queen};
 
-	VisualTexture*	numbers[10] = {&_textures->numbers.zero, \
-		&_textures->numbers.one, &_textures->numbers.two, \
-		&_textures->numbers.three, &_textures->numbers.four, \
-		&_textures->numbers.five, &_textures->numbers.six, \
-		&_textures->numbers.seven, &_textures->numbers.eight, \
-		&_textures->numbers.nine};
+	VisualTexture*	numbers[10] = {&_textures.numbers.zero, \
+		&_textures.numbers.one, &_textures.numbers.two, \
+		&_textures.numbers.three, &_textures.numbers.four, \
+		&_textures.numbers.five, &_textures.numbers.six, \
+		&_textures.numbers.seven, &_textures.numbers.eight, \
+		&_textures.numbers.nine};
 
 	if (color == "white")
 		obj = getRectangle("", "wscore");
@@ -313,7 +313,7 @@ void	VisualGame::loadMap(void)
 	loadMapColors();
 
 	obj = getRectangle("", "default");
-	SDL_RenderCopy(_mainRenderer, _textures->boardTexture.getTexture(), NULL, &obj);
+	SDL_RenderCopy(_mainRenderer, _textures.boardTexture.getTexture(), NULL, &obj);
 
 	state = true;
 	for (int i = 0; i != 8; i++)
@@ -373,15 +373,15 @@ void	VisualGame::loadCoords(void)
 {
 	SDL_Rect	obj;
 
-	VisualTexture*	letters[8] = {&_textures->letters.h, &_textures->letters.g, \
-		&_textures->letters.f, &_textures->letters.e, \
-		&_textures->letters.d, &_textures->letters.c, \
-		&_textures->letters.b, &_textures->letters.a};
+	VisualTexture*	letters[8] = {&_textures.letters.h, &_textures.letters.g, \
+		&_textures.letters.f, &_textures.letters.e, \
+		&_textures.letters.d, &_textures.letters.c, \
+		&_textures.letters.b, &_textures.letters.a};
 
-	VisualTexture*	numbers[8] = {&_textures->numbers.one, &_textures->numbers.two, \
-		&_textures->numbers.three, &_textures->numbers.four, \
-		&_textures->numbers.five, &_textures->numbers.six, \
-		&_textures->numbers.seven, &_textures->numbers.eight};
+	VisualTexture*	numbers[8] = {&_textures.numbers.one, &_textures.numbers.two, \
+		&_textures.numbers.three, &_textures.numbers.four, \
+		&_textures.numbers.five, &_textures.numbers.six, \
+		&_textures.numbers.seven, &_textures.numbers.eight};
 
 	for (int i = 0; i != 8; i++)
 	{
@@ -578,7 +578,7 @@ void	VisualGame::displayPromotion(const char type, const std::string& coord)
 	SDL_RenderCopy(_mainRenderer, getTexture(type, color), NULL, &obj);
 
 	obj = getRectangle(coord, "promotion");
-	SDL_RenderCopy(_mainRenderer, _textures->promotion.getTexture(), NULL, &obj);
+	SDL_RenderCopy(_mainRenderer, _textures.promotion.getTexture(), NULL, &obj);
 
 	SDL_RenderPresent(_mainRenderer);
 }

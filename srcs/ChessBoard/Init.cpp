@@ -59,6 +59,8 @@ void	ChessBoard::initQueensKings(void)
 
 void	ChessBoard::initBoard(void)
 {
+	_board.reserve(64);
+
 	for (int i = 0; i != 8; i++)
 	{
 		for (int k = 0; k != 8; k++)

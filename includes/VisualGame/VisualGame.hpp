@@ -108,7 +108,7 @@ class VisualGame
 		SDL_Cursor*		_normalCursor;
 		SDL_Cursor*		_playCursor;
 
-		Textures*		_textures;
+		Textures		_textures;
 
 		ChessBoard*		_board;
 		ChessAi*		_ai;

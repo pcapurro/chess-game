@@ -169,9 +169,9 @@ int		ChessBoard::evaluateKingDefense(const bool colorSwitch)
 
 	if (value != 0 || isEndGame() == true)
 	{
-		std::string			coord, kingCoords;
+		std::string					coord, kingCoords;
 		std::vector<std::string>	kingWays;
-		std::stack<cP*>		watchers;
+		std::stack<cP*>				watchers;
 
 		for (int i = 0; i != 64; i++)
 		{

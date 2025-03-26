@@ -13,8 +13,5 @@ ShellGame::ShellGame(const bool blindMode, const bool sandBoxMode) : _blindMode(
 	}
 
 	_board = nullptr;
-	_checker = nullptr;
-
 	_board = new ChessBoard;
-	_checker = new AlgebraParser;
 }

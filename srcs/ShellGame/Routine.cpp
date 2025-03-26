@@ -68,22 +68,22 @@ void	ShellGame::shellRoutine(void)
 
 	while (_board->isGameOver() == false)
 	{
-		_board->printEvent(_checker->fail(), _board->fail(), _blindMode);
+		_board->printEvent(_checker.fail(), _board->fail(), _blindMode);
 		input = getShellAnswer();
 		if (input == "error")
 			throw std::runtime_error("getline() failed.");
 		if (input == "end" || input == "error")
 			return ;
 
-		*_checker = input;
-		move = _checker->getParsedMove();
+		_checker = input;
+		move = _checker.getParsedMove();
 
-		if (_checker->fail() == true || _board->playMove(move) == 1)
+		if (_checker.fail() == true || _board->playMove(move) == 1)
 			continue ;
 
 		if (_blindMode == false)
 			printGame();
-		_checker->setTurn(_board->getActualTurn());
+		_checker.setTurn(_board->getActualTurn());
 	}
 	_board->printEndGame();
 }

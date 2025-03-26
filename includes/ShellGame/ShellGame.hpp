@@ -29,7 +29,7 @@ class ShellGame
 
 		ChessBoard*		_board;
 		ChessAi*		_ai;
-		AlgebraParser*	_checker;
+		AlgebraParser	_checker;
 
 		const bool		_blindMode;
 		const bool		_sandBoxMode;

@@ -92,8 +92,8 @@ bool	ChessBoard::isCheckMateImpossible(void)
 
 bool	ChessBoard::canTheKingMove(void)
 {
-	int				kingPos;
-	std::string			kingColor;
+	int							kingPos;
+	std::string					kingColor;
 	std::vector<std::string>	boardCoords;
 
 	for (int i = 0; i != 64; i++)

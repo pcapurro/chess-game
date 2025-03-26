@@ -67,16 +67,22 @@ std::vector<std::string>	getWatchersSequence(const char type, const std::string&
 	std::vector<std::string>	coords;
 	ChessPiece*					object;
 
+	King	king("white", move);
+	Queen	queen("white", move);
+	Knight	knight("white", move);
+	Bishop	bishop("white", move);
+	Rook	rook("white", move);
+
 	if (type == 'K')
-		object = new King("white", move);
+		object = &king;
 	if (type == 'Q')
-		object = new Queen("white", move);
+		object = &queen;
 	if (type == 'N')
-		object = new Knight("white", move);
+		object = &knight;
 	if (type == 'B')
-		object = new Bishop("white", move);
+		object = &bishop;
 	if (type == 'R')
-		object = new Rook("white", move);
+		object = &rook;
 
 	for (int i = 9; i != 1; i--)
 	{
@@ -88,9 +94,6 @@ std::vector<std::string>	getWatchersSequence(const char type, const std::string&
 				coords.push_back(newCoords);
 		}
 	}
-
-	delete object;
-	object = nullptr;
 
 	return (coords);
 }

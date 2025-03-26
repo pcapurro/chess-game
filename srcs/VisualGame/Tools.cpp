@@ -2,13 +2,13 @@
 
 SDL_Texture*	VisualGame::getTexture(const char type, const std::string& color) const
 {
-	VisualTexture*	whiteTextures[7] = {&_textures->symbols.checkMateBlack, &_textures->whiteTextures.king, \
-		&_textures->whiteTextures.queen, &_textures->whiteTextures.rook, &_textures->whiteTextures.bishop, \
-		&_textures->whiteTextures.knight, &_textures->whiteTextures.pawn};
+	const VisualTexture*	whiteTextures[7] = {&_textures.symbols.checkMateBlack, &_textures.whiteTextures.king, \
+		&_textures.whiteTextures.queen, &_textures.whiteTextures.rook, &_textures.whiteTextures.bishop, \
+		&_textures.whiteTextures.knight, &_textures.whiteTextures.pawn};
 
-	VisualTexture*	blackTextures[7] = {&_textures->symbols.checkMateWhite, &_textures->blackTextures.king, \
-		&_textures->blackTextures.queen, &_textures->blackTextures.rook, &_textures->blackTextures.bishop, \
-		&_textures->blackTextures.knight, &_textures->blackTextures.pawn};
+	const VisualTexture*	blackTextures[7] = {&_textures.symbols.checkMateWhite, &_textures.blackTextures.king, \
+		&_textures.blackTextures.queen, &_textures.blackTextures.rook, &_textures.blackTextures.bishop, \
+		&_textures.blackTextures.knight, &_textures.blackTextures.pawn};
 
 	if (color == "white")
 	{
