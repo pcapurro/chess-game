@@ -31,6 +31,8 @@ std::string	VisualGame::waitForNewGame(void)
 					SDL_SetCursor(_normalCursor);
 			}
 		}
+
+		std::this_thread::sleep_for(std::chrono::microseconds(500));
 	}
 	return ("error");
 }
@@ -82,6 +84,8 @@ std::string  VisualGame::waitForPromotion(void)
 			else
 				SDL_SetCursor(_normalCursor);
 		}
+
+		std::this_thread::sleep_for(std::chrono::microseconds(500));
 	}
 
 	return ("error");
@@ -139,6 +143,8 @@ std::string	VisualGame::waitForEvent(void)
 			}
 
 			displayGame(true);
+
+			std::this_thread::sleep_for(std::chrono::microseconds(500));
 		}
 	}
 
