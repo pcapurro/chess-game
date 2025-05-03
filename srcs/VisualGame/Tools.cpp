@@ -114,7 +114,7 @@ std::string	VisualGame::getCoord(const int x, const int y) const
 
 			for (int k = 0; k != 8; k++)
 			{
-				_visualInfo.aiSide == 0 ? xZone = 80 * (8 - k) : xZone = 80 * (k + 1);
+				_visualInfo.aiSide == 0 ? xZone = 105 + (80 * (7 - k)) : xZone = 80 * (k + 1);
 
 				if (x >= xZone && x <= xZone + 105 && y >= yZone && y <= yZone + 80)
 					return (std::string{ "abcdefgh"[k], "12345678"[i] });

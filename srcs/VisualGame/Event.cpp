@@ -143,9 +143,8 @@ std::string	VisualGame::waitForEvent(void)
 			}
 
 			displayGame(true);
-
-			std::this_thread::sleep_for(std::chrono::microseconds(500));
 		}
+		std::this_thread::sleep_for(std::chrono::microseconds(500));
 	}
 
 	return ("error");
