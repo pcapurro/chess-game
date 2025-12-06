@@ -2,6 +2,8 @@
 
 ### Here is my first game project: a feature-complete chess engine and chess game written from scratch, along with a user interface.
 
+![project-preview](preview.png)
+
 <br/>
 
 The project has been created for Linux only and requires the following packages:
