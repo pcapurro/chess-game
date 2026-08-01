@@ -1,12 +1,8 @@
-# Welcome to chess-game!
-
-### Here is my first game project: a feature-complete chess engine and chess game written from scratch, along with a user interface.
+# chess-game
 
 ![project-preview](preview.png)
 
-<br/>
-
-The project has been created for Linux only and requires the following packages:
+The project has been created for `Linux` and requires the following packages:
 
 ```
 libsdl2-dev stockfish
@@ -16,15 +12,12 @@ Use `make` to compile the classic version of the game. Type `./chess-game` to la
 
 Use `make shell` to compile a shell version of the game. Type `./shell-chess` to launch.
 
-<br/>
 
-**In both versions**: 
+**In both versions**:
 
-You can specify `--sandbox` to play against yourself. Otherwise, you will play by default against Stockfish (elo randomly set between 1 400 and 2 000).
+You can specify `--sandbox` to play against yourself. Otherwise, you will play by default against Stockfish (elo randomly set between `1 400` and `2 000`).
 
 At the end of a game, a summary is written in algebraic notation in the terminal.
-
-<br/>
 
 **In classical version**:
 
@@ -38,13 +31,11 @@ You can use `Escape` key to quit the game or simply click the cross in the windo
 
 A secret key sequence can unlock an easter egg if typed during a game.
 
-<br/>
-
 **In shell version**:
 
 You can specify `--blind-mode` to play without the terminal board.
 
-Type the move you want to play using algebraic notation (e.g.: 'e4', 'e4-e5', 'Bc4', 'Nf3xg5', 'Qh5xf7#').
+Type the move you want to play using algebraic notation (e.g.: `e4`, `e4-e5`, `Bc4`, `Nf3xg`', `Qh5xf7#`).
 
 Write `end` to end the game and shut down the program.
 
@@ -53,4 +44,4 @@ Write `end` to end the game and shut down the program.
 > [!NOTE]
 > The chess pieces textures have been downloaded from Wikimedia Commons and are under the Creative Commons license, originally made by the user Cburnett.
 >
-> All the others assets have been made by myself from scratch using GIMP software.
+> All the others assets have been made using GIMP software.
