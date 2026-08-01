@@ -32,7 +32,7 @@ std::string	VisualGame::waitForNewGame(void)
 			}
 		}
 
-		std::this_thread::sleep_for(std::chrono::microseconds(500));
+		SDL_Delay(1);
 	}
 	return ("error");
 }
@@ -85,7 +85,7 @@ std::string  VisualGame::waitForPromotion(void)
 				SDL_SetCursor(_normalCursor);
 		}
 
-		std::this_thread::sleep_for(std::chrono::microseconds(500));
+		SDL_Delay(1);
 	}
 
 	return ("error");
@@ -103,9 +103,14 @@ std::string	VisualGame::waitForEvent(void)
 				|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 				return ("end");
 
-			_visualInfo.x = event.button.x, _visualInfo.y = event.button.y;
+			if (event.type == SDL_MOUSEMOTION)
+				_visualInfo.x = event.motion.x, _visualInfo.y = event.motion.y;
+			else if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP)
+				_visualInfo.x = event.button.x, _visualInfo.y = event.button.y;
+
 			if (_visualInfo.x > 850 || _visualInfo.x < 0 || _visualInfo.y > 800 || _visualInfo.y < 0)
 				_visualInfo.x = 0, _visualInfo.y = 0;
+
 			_visualInfo.actualCoords = getCoord(_visualInfo.x, _visualInfo.y);
 
 			if (event.type == SDL_KEYDOWN)
@@ -144,7 +149,6 @@ std::string	VisualGame::waitForEvent(void)
 
 			displayGame(true);
 		}
-		std::this_thread::sleep_for(std::chrono::microseconds(500));
 	}
 
 	return ("error");

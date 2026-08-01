@@ -58,6 +58,8 @@ int	VisualGame::visualLoop(void)
 		}
 
 		_visualInfo.turn++;
+
+		SDL_Delay(1);
 	}
 	displayGame(true);
 	_board->printEndGame(1);

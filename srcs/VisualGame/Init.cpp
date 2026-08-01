@@ -60,13 +60,13 @@ void	VisualGame::setToNullPtr(void)
 
 void	VisualGame::initializeGame(void)
 {
-	if (SDL_Init(SDL_INIT_VIDEO) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) != 0)
 		throw std::runtime_error("SDL failed.");
 
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-	
-	_mainWindow = SDL_CreateWindow("chess-game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, \
-		_width, _height, 0);
+
+	_mainWindow = SDL_CreateWindow("chess-game", SDL_WINDOWPOS_CENTERED, \
+		SDL_WINDOWPOS_CENTERED, _width, _height, 0);
 	if (_mainWindow == NULL)
 		throw std::runtime_error("SDL failed.");
 
