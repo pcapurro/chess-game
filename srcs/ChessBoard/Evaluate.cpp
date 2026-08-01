@@ -1,4 +1,4 @@
-#include "ChessBoard/ChessBoard.hpp"
+#include "ChessBoard.hpp"
 
 int	ChessBoard::evaluateMaterial(const bool colorSwitch)
 {

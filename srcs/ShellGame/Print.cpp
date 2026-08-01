@@ -1,4 +1,4 @@
-#include "ShellGame/ShellGame.hpp"
+#include "ShellGame.hpp"
 
 void	ShellGame::printTitle(void)
 {

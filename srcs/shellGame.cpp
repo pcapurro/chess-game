@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "ShellGame/ShellGame.hpp"
+#include "ShellGame.hpp"
 
 void	printInvalidArguments(void)
 {

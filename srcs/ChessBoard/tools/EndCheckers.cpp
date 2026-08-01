@@ -1,4 +1,4 @@
-#include "ChessBoard/ChessBoard.hpp"
+#include "ChessBoard.hpp"
 
 bool	ChessBoard::isCheck(void)
 {

@@ -1,4 +1,4 @@
-#include "AlgebraParser/AlgebraParser.hpp"
+#include "AlgebraParser.hpp"
 
 bool	AlgebraParser::isValid(void)
 {

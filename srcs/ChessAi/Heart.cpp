@@ -1,4 +1,4 @@
-#include "ChessAi/ChessAi.hpp"
+#include "ChessAi.hpp"
 
 std::string	ChessAi::getBestMove(const std::vector<std::string>& moves) const
 {

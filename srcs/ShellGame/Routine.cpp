@@ -1,4 +1,4 @@
-#include "ShellGame/ShellGame.hpp"
+#include "ShellGame.hpp"
 
 std::string	ShellGame::getShellAnswer(void) const
 {

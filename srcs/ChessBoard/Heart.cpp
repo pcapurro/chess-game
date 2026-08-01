@@ -1,4 +1,4 @@
-#include "ChessBoard/ChessBoard.hpp"
+#include "ChessBoard.hpp"
 
 void	ChessBoard::enableDisableEnPassant(void)
 {

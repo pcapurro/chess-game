@@ -1,4 +1,4 @@
-#include "ShellGame/ShellGame.hpp"
+#include "ShellGame.hpp"
 
 ShellGame::ShellGame(const bool blindMode, const bool sandBoxMode) : _blindMode(blindMode), _sandBoxMode(sandBoxMode)
 {

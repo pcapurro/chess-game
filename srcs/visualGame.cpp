@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "VisualGame/VisualGame.hpp"
+#include "VisualGame.hpp"
 
 void	printInvalidArguments(void)
 {

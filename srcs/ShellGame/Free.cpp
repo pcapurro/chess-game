@@ -1,4 +1,4 @@
-#include "ShellGame/ShellGame.hpp"
+#include "ShellGame.hpp"
 
 ShellGame::~ShellGame(void)
 {

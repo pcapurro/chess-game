@@ -49,7 +49,13 @@ SRCS_S = srcs/shellGame.cpp \
 
 CXX = c++
 
-CXXFLAGS = -Wall -Wextra -Werror -I includes/
+CXXFLAGS = -Wall -Wextra -Werror \
+	-I includes/ \
+	-I includes/AlgebraParser \
+	-I includes/ChessAi \
+	-I includes/ChessBoard \
+	-I includes/ShellGame \
+	-I includes/VisualGame
 
 SDLFLAG = -lSDL2
 
