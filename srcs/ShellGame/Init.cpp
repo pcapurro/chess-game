@@ -4,16 +4,14 @@ ShellGame::ShellGame(const bool blindMode, const bool sandBoxMode) : \
 	_blindMode(blindMode), _sandBoxMode(sandBoxMode)
 {
 	_aiSide = -1;
-	_ai = nullptr;
 
 	if (_sandBoxMode == false)
 	{
-		_ai = new ChessAi;
+		_ai.emplace();
 
 		srand(time(nullptr));
 		_aiSide = rand() % 2;
 	}
 
-	_board = nullptr;
-	_board = new ChessBoard;
+	_board.emplace();
 }

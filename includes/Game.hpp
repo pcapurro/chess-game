@@ -12,6 +12,7 @@
 # include <chrono>
 
 # include <stdexcept>
+# include <optional>
 # include <memory>
 
 # include <fstream>
@@ -39,5 +40,7 @@ using std::endl;
 using std::string;
 using std::vector;
 using std::stack;
+
+using std::optional;
 
 #endif

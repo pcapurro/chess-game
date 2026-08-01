@@ -13,28 +13,28 @@ class ShellGame
 
 		ShellGame(void) = delete;
 		ShellGame(const bool blindMode, const bool sandBoxMode);
-		~ShellGame(void);
+		~ShellGame(void) = default;
 
-		void				shellRoutine(void);
+		void					shellRoutine(void);
 
 	private:
 
-		void				initWelcome(void);
-		void				printTitle(void);
-		void				printGradually(const string str, const int value);
+		void					initWelcome(void);
+		void					printTitle(void);
+		void					printGradually(const string str, const int value);
 
-		void				printGame(void);
+		void					printGame(void);
 
-		string				getShellAnswer(void) const;
+		string					getShellAnswer(void) const;
 
-		ChessBoard*			_board;
-		ChessAi*			_ai;
-		AlgebraParser		_checker;
+		optional<ChessBoard>	_board;
+		optional<ChessAi>		_ai;
+		AlgebraParser			_checker;
 
-		const bool			_blindMode;
-		const bool			_sandBoxMode;
+		const bool				_blindMode;
+		const bool				_sandBoxMode;
 
-		int					_aiSide;
+		int						_aiSide;
 };
 
 #endif

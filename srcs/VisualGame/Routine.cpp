@@ -74,11 +74,11 @@ void	VisualGame::visualRoutine(void)
 {
 	while (true)
 	{
-		_board = new ChessBoard;
+		_board.emplace();
 
 		int	value = visualLoop();
 
-		delete _board, _board = nullptr;
+		_board.reset();
 
 		if (value == 2)
 			return;

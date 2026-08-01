@@ -11,10 +11,10 @@ VisualGame::VisualGame(const bool sandBoxMode) : _sandBoxMode(sandBoxMode), _wid
 	_visualInfo.code = true;
 
 	_visualInfo.aiSide = -1;
-	_ai = nullptr;
+
 	if (_sandBoxMode == false)
 	{
-		_ai = new ChessAi;
+		_ai.emplace();
 		
 		srand(time(nullptr));
 		_visualInfo.aiSide = rand() % 2;
@@ -50,8 +50,6 @@ void	VisualGame::setToDefault(void)
 
 void	VisualGame::setToNullPtr(void)
 {
-	_board = nullptr;
-
 	_mainWindow = nullptr;
 	_mainRenderer = nullptr;
 	_normalCursor = nullptr;

@@ -2,9 +2,6 @@
 
 VisualGame::~VisualGame()
 {
-	if (_board != nullptr)
-		delete _board, _board = nullptr;
-
 	if (_normalCursor != nullptr && _normalCursor != NULL)
 		SDL_FreeCursor(_normalCursor);
 	if (_playCursor != nullptr && _playCursor != NULL)
