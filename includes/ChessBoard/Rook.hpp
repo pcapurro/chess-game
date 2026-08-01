@@ -6,7 +6,6 @@
 class Rook final : public ChessPiece
 {
 	public:
-	
 		Rook(void) = delete;
 		Rook(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'R'; }
 		~Rook(void) = default;

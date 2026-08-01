@@ -4,8 +4,21 @@
 
 class ChessPiece
 {
+	protected:
+		string		_color;
+		char		_type;
+
+		int			_moves;
+
+		string		_originalPos;
+		string		_pos;
+
+		int			_x;
+		int			_y;
+
+		bool		_visible;
+
 	public:
-		
 		ChessPiece(const string& color, const string& pos)
 		{
 			_color = color;
@@ -57,20 +70,4 @@ class ChessPiece
 
 		virtual bool	isOnMyWay(const string& target, const vector<string>& boardCoords = {}, \
 			const int value = 0, const string& enPassant = "") const = 0;
-
-	protected:
-
-		string		_color;
-		char		_type;
-
-		int			_moves;
-
-		string		_originalPos;
-		string		_pos;
-
-		int			_x;
-		int			_y;
-
-		bool		_visible;
-
 };

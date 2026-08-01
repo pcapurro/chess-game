@@ -4,8 +4,11 @@
 
 class VisualTexture
 {
-	public:
+	private:
+		SDL_Texture*	_texture;
+		char			_id;
 
+	public:
 		VisualTexture(void);
 		~VisualTexture(void);
 
@@ -15,8 +18,4 @@ class VisualTexture
 			{ return _texture; };
 		char			getId(void) const
 			{ return _id; };
-
-	private:
-		SDL_Texture*	_texture;
-		char			_id;
 };

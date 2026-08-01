@@ -6,7 +6,6 @@
 class Bishop final : public ChessPiece
 {
 	public:
-
 		Bishop(void) = delete;
 		Bishop(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'B'; }
 		~Bishop(void) = default;

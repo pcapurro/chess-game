@@ -5,7 +5,6 @@
 class Pawn final : public ChessPiece
 {
 	public:
-	
 		Pawn(void) = delete;
 		Pawn(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'P'; }
 		~Pawn(void) = default;

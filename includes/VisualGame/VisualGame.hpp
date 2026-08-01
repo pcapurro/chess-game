@@ -21,15 +21,24 @@
 
 class VisualGame
 {
-	public:
-
-		VisualGame(void) = delete;
-		VisualGame(const bool sandBoxMode);
-		~VisualGame(void);
-
-		void					visualRoutine(void);
-
 	private:
+		const bool				_sandBoxMode;
+
+		const int				_width;
+		const int				_height;
+
+		SDL_Window*				_mainWindow;
+		SDL_Renderer*			_mainRenderer;
+
+		SDL_Cursor*				_normalCursor;
+		SDL_Cursor*				_playCursor;
+
+		Textures				_textures;
+
+		optional<ChessBoard>	_board;
+		optional<ChessAi>		_ai;
+
+		VisualInfos				_visualInfo;
 
 		void					initializeGame(void);
 		void					setToDefault(void);
@@ -96,21 +105,10 @@ class VisualGame
 
 		vector<char>			getOrderedCaptured(const vector<char> &captured) const;
 
-		const bool				_sandBoxMode;
+	public:
+		VisualGame(void) = delete;
+		VisualGame(const bool sandBoxMode);
+		~VisualGame(void);
 
-		const int				_width;
-		const int				_height;
-
-		SDL_Window*				_mainWindow;
-		SDL_Renderer*			_mainRenderer;
-
-		SDL_Cursor*				_normalCursor;
-		SDL_Cursor*				_playCursor;
-
-		Textures				_textures;
-
-		optional<ChessBoard>	_board;
-		optional<ChessAi>		_ai;
-
-		VisualInfos				_visualInfo;
+		void					visualRoutine(void);
 };

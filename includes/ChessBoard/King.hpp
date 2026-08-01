@@ -5,7 +5,6 @@
 class King final : public ChessPiece
 {
 	public:
-	
 		King(void) = delete;
 		King(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'K'; }
 		~King(void) = default;

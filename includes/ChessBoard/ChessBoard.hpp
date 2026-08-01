@@ -7,53 +7,18 @@ typedef	ChessPiece cP;
 
 class ChessBoard
 {
-	public:
-
-		ChessBoard(void);
-		~ChessBoard(void);
-
-		bool		fail(void) const
-			{ return _gameInfo.moveFailed; };
-
-		int			getScore(const string color);
-
-		char		getType(const string& coord) const;
-		string		getColor(const string& coord) const;
-
-		int			getActualTurn(void) const
-			{ return _gameInfo.turn; };
-		int			getStateValue(void) const;
-
-		bool		isLegal(const string& move = "");
-		bool		isItCheck(void) const
-			{ return _gameInfo.check; };
-		bool		isItDraw(void) const
-			{ return _gameInfo.draw; };
-		bool		isItCheckMate(void) const
-			{ return _gameInfo.checkmate; }
-		bool		isGameOver(void);
-
-		int			playMove(Move structureMove, const string& move = "");
-
-		void		printEvent(const bool cfail, const bool bfail, const bool blindMode);
-		void		printEndGame(const int value = 0);
-		void		printBoard(const int aiSide) const;
-
-		int			getWhiteMaterialsScore(void) const
-			{ return _boardCount.whiteMaterial; };
-		int			getBlackMaterialsScore(void) const
-			{ return _boardCount.blackMaterial; };
-
-		const vector<string>&	getHistory(void) const
-			{ return _simpleHistory; };
-		vector<char>	getWhiteCaptured(void) const
-			{ return _whiteCaptured; };
-		vector<char>	getBlackCaptured(void) const
-			{ return _blackCaptured; };
-
-		vector<string>	getLegalMoves(void);
-
 	private:
+		vector<Square>		_board;
+		GameInfo			_gameInfo;
+
+		Counter				_boardCount;
+		vector<char>		_whiteCaptured;
+		vector<char>		_blackCaptured;
+
+		vector<string>		_history;
+		vector<string>		_simpleHistory;
+
+		stack<cP*>			_savedObjects;
 
 		size_t				getAtValue(const string& coord) const;
 		string				getEnPassantTarget(void) const;
@@ -148,15 +113,48 @@ class ChessBoard
 		void				countTotalMaterials(void);
 		void				resetCount(void);
 
-		vector<Square>		_board;
-		GameInfo			_gameInfo;
+	public:
+		ChessBoard(void);
+		~ChessBoard(void);
 
-		Counter				_boardCount;
-		vector<char>		_whiteCaptured;
-		vector<char>		_blackCaptured;
+		bool		fail(void) const
+			{ return _gameInfo.moveFailed; };
 
-		vector<string>		_history;
-		vector<string>		_simpleHistory;
+		int			getScore(const string color);
 
-		stack<cP*>			_savedObjects;
+		char		getType(const string& coord) const;
+		string		getColor(const string& coord) const;
+
+		int			getActualTurn(void) const
+			{ return _gameInfo.turn; };
+		int			getStateValue(void) const;
+
+		bool		isLegal(const string& move = "");
+		bool		isItCheck(void) const
+			{ return _gameInfo.check; };
+		bool		isItDraw(void) const
+			{ return _gameInfo.draw; };
+		bool		isItCheckMate(void) const
+			{ return _gameInfo.checkmate; }
+		bool		isGameOver(void);
+
+		int			playMove(Move structureMove, const string& move = "");
+
+		void		printEvent(const bool cfail, const bool bfail, const bool blindMode);
+		void		printEndGame(const int value = 0);
+		void		printBoard(const int aiSide) const;
+
+		int			getWhiteMaterialsScore(void) const
+			{ return _boardCount.whiteMaterial; };
+		int			getBlackMaterialsScore(void) const
+			{ return _boardCount.blackMaterial; };
+
+		const vector<string>&	getHistory(void) const
+			{ return _simpleHistory; };
+		vector<char>	getWhiteCaptured(void) const
+			{ return _whiteCaptured; };
+		vector<char>	getBlackCaptured(void) const
+			{ return _blackCaptured; };
+
+		vector<string>	getLegalMoves(void);
 };

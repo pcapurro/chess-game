@@ -8,16 +8,7 @@
 
 class ShellGame
 {
-	public:
-
-		ShellGame(void) = delete;
-		ShellGame(const bool blindMode, const bool sandBoxMode);
-		~ShellGame(void) = default;
-
-		void					shellRoutine(void);
-
 	private:
-
 		void					initWelcome(void);
 		void					printTitle(void);
 		void					printGradually(const string str, const int value);
@@ -34,4 +25,11 @@ class ShellGame
 		const bool				_sandBoxMode;
 
 		int						_aiSide;
+
+	public:
+		ShellGame(void) = delete;
+		ShellGame(const bool blindMode, const bool sandBoxMode);
+		~ShellGame(void) = default;
+
+		void					shellRoutine(void);
 };

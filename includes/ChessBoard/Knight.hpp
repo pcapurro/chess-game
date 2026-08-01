@@ -6,7 +6,6 @@
 class Knight final : public ChessPiece
 {
 	public:
-	
 		Knight(void) = delete;
 		Knight(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'N'; }
 		~Knight(void) = default;

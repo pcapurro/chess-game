@@ -6,7 +6,6 @@
 class Queen final : public ChessPiece
 {
 	public:
-	
 		Queen(void) = delete;
 		Queen(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'Q'; }
 		~Queen(void) = default;
