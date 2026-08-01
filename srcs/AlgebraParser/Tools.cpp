@@ -10,67 +10,69 @@ bool	AlgebraParser::isChessDigit(const char c)
 {
 	if (c != '1' && c != '2' && c != '3' && c != '4'
 		&& c != '5' && c != '6' && c != '7' && c != '8')
-		return (false);
+		return false;
 
-	return (true);
+	return true;
 }
 
 bool	AlgebraParser::isChessPiece(const char c)
 {
 	if (c != 'K' && c != 'Q' && c != 'R' && c != 'B' && c != 'N')
-		return (false);
+		return false;
 
-	return (true);
+	return true;
 }
 
 bool	AlgebraParser::isChessCoord(const char c)
 {
 	if (c != 'a' && c != 'b' && c != 'c' && c != 'd'
 		&& c != 'e' && c != 'f' && c != 'g' && c != 'h')
-		return (false);
+		return false;
 
-	return (true);
+	return true;
 }
 
-std::string	AlgebraParser::getLeftSequence(void) const
+string	AlgebraParser::getLeftSequence(void) const
 {
-	std::string  left;
+	string  left;
 
 	for (int i = 0; _move.move[i] != '\0'; i++)
 	{
 		if (_move.move[i] == 'x' || _move.move[i] == '-')
-			break ;
+			break;
 		left += _move.move[i];
 	}
 
-	return (left);
+	return left;
 }
 
-std::string	AlgebraParser::getRightSequence(void) const
+string	AlgebraParser::getRightSequence(void) const
 {
-	std::string	right;
+	string	right;
 
 	for (int i = 0; _move.move[i] != '\0'; i++)
 	{
 		if (_move.move[i] == 'x' || _move.move[i] == '-')
-			{ right = _move.move.c_str() + i + 1; break ; }
+			{ right = _move.move.c_str() + i + 1; break; }
 	}
 
 	if (right[right.length() - 1] == '#' || right[right.length() - 1] == '+')
 		right.erase(right.length() - 1);
 
-	return (right);
+	return right;
 }
 
-std::vector<std::string>	getWatchersSequence(const char type, const std::string& move, const char sign)
+vector<string>	getWatchersSequence(const char type, const string& move, const char sign)
 {
-	std::vector<std::string>	coords;
-	ChessPiece*					object;
+	ChessPiece*				object;
+	vector<string>			coords;
 
 	King	king("white", move);
 	Queen	queen("white", move);
+
 	Knight	knight("white", move);
 	Bishop	bishop("white", move);
+
 	Rook	rook("white", move);
 
 	if (type == 'K')
@@ -88,28 +90,30 @@ std::vector<std::string>	getWatchersSequence(const char type, const std::string&
 	{
 		for (int k = 0; k != 8; k++)
 		{
-			std::string newCoords = "abcdefgh"[k] + std::to_string(i - 1);
+			string newCoords = "abcdefgh"[k] + std::to_string(i - 1);
 			if (object->isOnMyWay(newCoords) == true \
 				&& (sign == 'i' || newCoords[0] == sign))
 				coords.push_back(newCoords);
 		}
 	}
 
-	return (coords);
+	return coords;
 }
 
-std::vector<std::string>	getPawnSequence(const std::string& move, const int turn, const char sign)
+vector<string>	getPawnSequence(const string& move, const int turn, const char sign)
 {
-	std::vector<std::string>	coords;
-	std::vector<std::string>	realCoords;
-	std::string					newMove;
-	std::string					newCoords;
+	string				newMove;
+	string				newCoords;
+	vector<string>		coords;
+	vector<string>		realCoords;
 
 	newMove = move;
+
 	if (move.length() > 2)
 		newMove.erase(newMove.length() - 1);
 
 	newCoords = newMove;
+
 	if (turn % 2 == 0)
 	{
 		newCoords[1] = newCoords[1] - 1;
@@ -155,5 +159,5 @@ std::vector<std::string>	getPawnSequence(const std::string& move, const int turn
 			realCoords.push_back(coords.at(i));
 	}
 
-	return (realCoords);
+	return realCoords;
 }

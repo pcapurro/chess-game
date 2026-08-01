@@ -1,10 +1,11 @@
 #include "AlgebraParser.hpp"
 
-void	AlgebraParser::operator=(const std::string move)
+void	AlgebraParser::operator=(const string move)
 {
 	_move.move = move;
 
 	isValid();
+
 	if (_fail == false)
 		parseMove();
 }
@@ -12,7 +13,7 @@ void	AlgebraParser::operator=(const std::string move)
 bool	AlgebraParser::fail(void) const
 {
 	if (_fail == true)
-		return (true);
+		return true;
 
-	return (false);
+	return false;
 }

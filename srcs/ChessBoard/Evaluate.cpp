@@ -2,10 +2,10 @@
 
 int	ChessBoard::evaluateMaterial(const bool colorSwitch)
 {
-	int					value = 0;
-	int					enemyMaterial = 0;
-	std::stack<cP*>		attacked;
-	std::stack<cP*>		attacking;
+	int				value = 0;
+	int				enemyMaterial = 0;
+	stack<cP*>		attacked;
+	stack<cP*>		attacking;
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -32,8 +32,10 @@ int	ChessBoard::evaluateMaterial(const bool colorSwitch)
 			else
 			{
 				switchPlayers();
+
 				if (isSafe(_board.at(i).coord) == false)
 					attacking.push(_board.at(i).piece);
+
 				unSwitchPlayers();
 			}
 		}
@@ -42,11 +44,13 @@ int	ChessBoard::evaluateMaterial(const bool colorSwitch)
 	if (attacking.size() != 0)
 	{
 		attacking = orderByValue(attacking);
+
 		if (colorSwitch == false)
 			value += getMaterialValue(attacking.top()->getType()) * 2;
 		else
 		{
 			attacking.pop();
+
 			if (attacking.size() != 0)
 				value += getMaterialValue(attacking.top()->getType()) * 2;
 		}
@@ -55,11 +59,13 @@ int	ChessBoard::evaluateMaterial(const bool colorSwitch)
 	if (attacked.size() != 0)
 	{
 		attacked = orderByValue(attacked);
+
 		if (colorSwitch == true)
 			value -= getMaterialValue(attacked.top()->getType()) * 2;
 		else
 		{
 			attacked.pop();
+
 			if (attacked.size() != 0)
 				value -= getMaterialValue(attacked.top()->getType()) * 2;
 		}
@@ -68,12 +74,12 @@ int	ChessBoard::evaluateMaterial(const bool colorSwitch)
 	if (value < 0)
 		value = 0;
 
-	return (value);
+	return value;
 }
 
 int		ChessBoard::evaluateDefense(void)
 {
-	int	value = 0;
+	int		value = 0;
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -85,15 +91,16 @@ int		ChessBoard::evaluateDefense(void)
 		}
 	}
 
-	return (value);
+	return value;
 }
 
 int		ChessBoard::evaluateAttack(void)
 {
-	int							value = 0;
-	std::vector<std::string>	boardCoords;
+	int					value = 0;
+	vector<string>		boardCoords;
 
 	boardCoords = getPiecesCoords();
+
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color \
@@ -108,15 +115,15 @@ int		ChessBoard::evaluateAttack(void)
 		}
 	}
 
-	return (value);
+	return value;
 }
 
 int		ChessBoard::evaluateKingControl(const bool colorSwitch)
 {
-	int							value = 0;
-	std::string					coord, kingCoords;
-	std::vector<std::string>	kingWays;
-	std::stack<cP*>				watchers;
+	int					value = 0;
+	string				coord, kingCoords;
+	vector<string>		kingWays;
+	stack<cP*>			watchers;
 
 	if (_gameInfo.check == false && checkMateInOne() == true)
 		colorSwitch == true ? value += 50 : value += 42000;
@@ -126,7 +133,7 @@ int		ChessBoard::evaluateKingControl(const bool colorSwitch)
 		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() != _gameInfo.color)
 		{
 			if (_board.at(i).piece->getType() == 'K')
-				{ kingCoords = _board.at(i).coord; break ; }
+				{ kingCoords = _board.at(i).coord; break; }
 		}
 	}
 
@@ -151,7 +158,7 @@ int		ChessBoard::evaluateKingControl(const bool colorSwitch)
 		}
 	}
 
-	return (value);
+	return value;
 }
 
 int		ChessBoard::evaluateKingDefense(const bool colorSwitch)
@@ -163,22 +170,21 @@ int		ChessBoard::evaluateKingDefense(const bool colorSwitch)
 
 	if (_gameInfo.color == "white" && _gameInfo.whiteCastled == true)
 		value += 15;
-
 	if (_gameInfo.color == "black" && _gameInfo.blackCastled == true)
 		value += 15;
 
 	if (value != 0 || isEndGame() == true)
 	{
-		std::string					coord, kingCoords;
-		std::vector<std::string>	kingWays;
-		std::stack<cP*>				watchers;
+		string				coord, kingCoords;
+		vector<string>		kingWays;
+		stack<cP*>			watchers;
 
 		for (int i = 0; i != 64; i++)
 		{
 			if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color)
 			{
 				if (_board.at(i).piece->getType() == 'K')
-					{ kingCoords = _board.at(i).coord; break ; }
+					{ kingCoords = _board.at(i).coord; break; }
 			}
 		}
 
@@ -204,13 +210,13 @@ int		ChessBoard::evaluateKingDefense(const bool colorSwitch)
 		}
 	}
 
-	return (value);
+	return value;
 }
 
 int		ChessBoard::evaluateMobility(void)
 {
-	int							value = 0;
-	std::vector<std::string>	possibleMoves;
+	int					value = 0;
+	vector<string>		possibleMoves;
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -224,13 +230,13 @@ int		ChessBoard::evaluateMobility(void)
 		}
 	}
 
-	return (value);
+	return value;
 }
 
 int		ChessBoard::evaluatePromotion(void)
 {
-	int				value = 0;
-	std::string		next;
+	int			value = 0;
+	string		next;
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -251,13 +257,13 @@ int		ChessBoard::evaluatePromotion(void)
 		}
 	}
 
-	return (value);
+	return value;
 }
 
 int		ChessBoard::evaluatePawns(void)
 {
-	int					value = 0;
-	std::stack<cP*>		watchers;
+	int				value = 0;
+	stack<cP*>		watchers;
 
 	for (int i = 0; i != 64; i++)
 	{
@@ -276,16 +282,17 @@ int		ChessBoard::evaluatePawns(void)
 		}
 	}
 
-	return (value);
+	return value;
 }
 
 int		ChessBoard::evaluateCenter(void)
 {
-	int							value = 0;
-	std::string					targets[] = {"e4", "e5", "d4", "d5"};
-	std::vector<std::string>	boardCoords;
+	int					value = 0;
+	string				targets[] = {"e4", "e5", "d4", "d5"};
+	vector<string>		boardCoords;
 
 	boardCoords = getPiecesCoords();
+
 	for (int i = 0; i != 64; i++)
 	{
 		if (_board.at(i).piece != nullptr && _board.at(i).piece->getColor() == _gameInfo.color \
@@ -323,14 +330,14 @@ int		ChessBoard::evaluateCenter(void)
 		}
 	}
 
-	return (value);
+	return value;
 }
 
 int		ChessBoard::evaluateDev(void) const
 {
-	int		value = 0;
-	int		atValue;
-	char	nb1, nb2;
+	int			value = 0;
+	int			atValue;
+	char		nb1, nb2;
 
 	_gameInfo.color == "white" ? nb1 = '1', nb2 = '2' : nb1 = '8', nb2 = '7';
 
@@ -358,15 +365,15 @@ int		ChessBoard::evaluateDev(void) const
 	if (_board.at(atValue).piece == nullptr || _board.at(atValue).piece->getType() != 'P')
 		value += 16;
 
-	return (value);
+	return value;
 }
 
-int		ChessBoard::getScore(const std::string color)
+int		ChessBoard::getScore(const string color)
 {
-	int		score = 0;
-	int		normalCoeff = 1;
-	int		endCoeff = 1;
-	bool	colorSwitch = false;
+	int			score = 0;
+	int			normalCoeff = 1;
+	int			endCoeff = 1;
+	bool		colorSwitch = false;
 
 	isEndGame() == false ? normalCoeff = 4 : endCoeff = 4;
 
@@ -395,5 +402,5 @@ int		ChessBoard::getScore(const std::string color)
 	if (colorSwitch == true)
 		unSwitchPlayers();
 
-	return (score);
+	return score;
 }

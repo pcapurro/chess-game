@@ -1,8 +1,8 @@
 #include "VisualGame.hpp"
 
-std::string	VisualGame::getVisualAnswer(void)
+string	VisualGame::getVisualAnswer(void)
 {
-	std::string	answer;
+	string	answer;
 
 	if (_sandBoxMode == false && _visualInfo.turn % 2 == _visualInfo.aiSide)
 	{
@@ -15,18 +15,18 @@ std::string	VisualGame::getVisualAnswer(void)
 		if (answer == "Ke1c1" || answer == "Ke8c8")
 			answer = "O-O-O";
 
-		if (answer.find('O') == std::string::npos)
+		if (answer.find('O') == string::npos)
 			displayMoveAnimation(answer.c_str() + 1);
 	}
 	else
 		answer = waitForEvent();
 
-	return (answer);
+	return answer;
 }
 
 int	VisualGame::visualLoop(void)
 {
-	std::string	answer;
+	string	answer;
 
 	while (_board->isGameOver() == false)
 	{
@@ -37,16 +37,18 @@ int	VisualGame::visualLoop(void)
 			|| answer == "end")
 		{
 			if (answer == "error")
-				return (3);
+				return 3;
 			if (answer == "restart")
-				return (4);
+				return 4;
+
 			if (answer == "end")
-				{ _board->printEndGame(1); return (2); }
+				{ _board->printEndGame(1); return 2; }
 		}
 		else
 		{
 			if (_board->playMove({}, answer) == 1)
-				continue ;
+				continue;
+
 			_visualInfo.lastMove = answer.c_str() + 1;
 		}
 
@@ -61,10 +63,11 @@ int	VisualGame::visualLoop(void)
 
 		SDL_Delay(1);
 	}
+
 	displayGame(true);
 	_board->printEndGame(1);
 
-	return (0);
+	return 0;
 }
 
 void	VisualGame::visualRoutine(void)
@@ -76,11 +79,13 @@ void	VisualGame::visualRoutine(void)
 		int	value = visualLoop();
 
 		delete _board, _board = nullptr;
+
 		if (value == 2)
-			return ;
-			
+			return;
+
 		setToDefault();
+
 		if (value != 4 && waitForNewGame() == "end")
-			break ;
+			break;
 	}
 }

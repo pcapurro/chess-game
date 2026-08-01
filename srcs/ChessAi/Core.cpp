@@ -1,9 +1,9 @@
 #include "ChessAi.hpp"
 
-std::string	ChessAi::getBestMove(const std::vector<std::string>& moves) const
+string	ChessAi::getBestMove(const vector<string>& moves) const
 {
-	std::string	history, command;
-	std::string	word, move, bestMove;
+	string	history, command;
+	string	word, move, bestMove;
 
 	for (size_t i = 0; i != moves.size(); i++)
 		history += moves.at(i) + " ";
@@ -25,7 +25,8 @@ std::string	ChessAi::getBestMove(const std::vector<std::string>& moves) const
 	if (move == "")
 		throw std::runtime_error("Stockfish failed.");
 
-	size_t	k = 0;
+	size_t		k = 0;
+
 	while (k != move.size() && word != "bestmove")
 	{
 		if (move[k] == ' ' || move[k] == '\n')
@@ -45,5 +46,5 @@ std::string	ChessAi::getBestMove(const std::vector<std::string>& moves) const
 	if (bestMove.size() == 5)
 		bestMove[4] = toupper(bestMove[4]);
 
-	return (bestMove);
+	return bestMove;
 }

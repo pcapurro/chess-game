@@ -10,7 +10,7 @@ class ChessAi
 		ChessAi(void);
 		~ChessAi(void);
 
-		std::string	getBestMove(const std::vector<std::string>& moves) const;
+		string	getBestMove(const vector<string>& moves) const;
 	
 	private:
 

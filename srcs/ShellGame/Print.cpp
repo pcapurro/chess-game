@@ -11,14 +11,15 @@ void	ShellGame::printTitle(void)
 	cout << "                    ♖ ## Press ENTER to start! ## ♖                      " << endl;
 }
 
-void	ShellGame::printGradually(const std::string str, const int value)
+void	ShellGame::printGradually(const string str, const int value)
 {
-	std::string	points;
+	string	points;
 
 	for (int i = 0; i != 4; i++)
 	{
 		cout << "\033[1A" << str << points << std::flush << endl;
 		points = points + ".";
+
 		if (value == 1)
 			std::this_thread::sleep_for(std::chrono::seconds(1));
 		else

@@ -3,9 +3,9 @@
 
 # include "Game.hpp"
 # include "Shell.hpp"
-# include "ChessBoard/ChessBoard.hpp"
-# include "ChessAi/ChessAi.hpp"
-# include "AlgebraParser/AlgebraParser.hpp"
+# include "ChessBoard.hpp"
+# include "ChessAi.hpp"
+# include "AlgebraParser.hpp"
 
 class ShellGame
 {
@@ -15,26 +15,26 @@ class ShellGame
 		ShellGame(const bool blindMode, const bool sandBoxMode);
 		~ShellGame(void);
 
-		void			shellRoutine(void);
+		void				shellRoutine(void);
 
 	private:
 
-		void			initWelcome(void);
-		void			printTitle(void);
-		void			printGradually(const std::string str, const int value);
+		void				initWelcome(void);
+		void				printTitle(void);
+		void				printGradually(const string str, const int value);
 
-		void			printGame(void);
+		void				printGame(void);
 
-		std::string		getShellAnswer(void) const;
+		string				getShellAnswer(void) const;
 
-		ChessBoard*		_board;
-		ChessAi*		_ai;
-		AlgebraParser	_checker;
+		ChessBoard*			_board;
+		ChessAi*			_ai;
+		AlgebraParser		_checker;
 
-		const bool		_blindMode;
-		const bool		_sandBoxMode;
+		const bool			_blindMode;
+		const bool			_sandBoxMode;
 
-		int				_aiSide;
+		int					_aiSide;
 };
 
 #endif

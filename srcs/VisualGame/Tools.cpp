@@ -1,6 +1,6 @@
 #include "VisualGame.hpp"
 
-SDL_Texture*	VisualGame::getTexture(const char type, const std::string& color) const
+SDL_Texture*	VisualGame::getTexture(const char type, const string& color) const
 {
 	const VisualTexture*	whiteTextures[7] = {&_textures.symbols.checkMateBlack, &_textures.whiteTextures.king, \
 		&_textures.whiteTextures.queen, &_textures.whiteTextures.rook, &_textures.whiteTextures.bishop, \
@@ -15,7 +15,7 @@ SDL_Texture*	VisualGame::getTexture(const char type, const std::string& color) c
 		for (int i = 0; i != 7; i++)
 		{
 			if (type == whiteTextures[i]->getId())
-				return (whiteTextures[i]->getTexture());
+				return whiteTextures[i]->getTexture();
 		}
 	}
 
@@ -24,14 +24,14 @@ SDL_Texture*	VisualGame::getTexture(const char type, const std::string& color) c
 		for (int i = 0; i != 7; i++)
 		{
 			if (type == blackTextures[i]->getId())
-				return (blackTextures[i]->getTexture());
+				return blackTextures[i]->getTexture();
 		}
 	}
 
-	return (nullptr);
+	return nullptr;
 }
 
-SDL_Rect	VisualGame::getRectangle(const std::string& coords, const std::string& type) const
+SDL_Rect	VisualGame::getRectangle(const string& coords, const string& type) const
 {
 	SDL_Rect	obj;
 
@@ -39,7 +39,7 @@ SDL_Rect	VisualGame::getRectangle(const std::string& coords, const std::string& 
 	{
 		obj.h = _height, obj.w = _width;
 		obj.x = 0, obj.y = 0;
-		return (obj);
+		return obj;
 	}
 
 	if (type == "wscore" || type == "bscore")
@@ -49,14 +49,15 @@ SDL_Rect	VisualGame::getRectangle(const std::string& coords, const std::string& 
 
 		if (type == "wscore")
 			_visualInfo.aiSide % 2 == 0 ? obj.y = 72 : obj.y = 692;
+
 		if (type == "bscore")
 			_visualInfo.aiSide % 2 == 0 ? obj.y = 692 : obj.y = 72;
 
-		return (obj);
+		return obj;
 	}
 
-	int	x = coords[0] - 97;
-	int	y = atoi(coords.c_str() + 1) - 1;
+	int		x = coords[0] - 97;
+	int		y = atoi(coords.c_str() + 1) - 1;
 
 	_visualInfo.aiSide != 0 ? y = 8 - (y + 1) : x = 7 - x;
 
@@ -73,7 +74,8 @@ SDL_Rect	VisualGame::getRectangle(const std::string& coords, const std::string& 
 		}
 		else
 			obj.x = 75, obj.y = obj.y + 40 - (obj.h / 2);
-		return (obj);
+
+		return obj;
 	}
 
 	if (type == "promotion")
@@ -81,30 +83,31 @@ SDL_Rect	VisualGame::getRectangle(const std::string& coords, const std::string& 
 	else
 		obj.h = 80, obj.w = 80;
 
-	return (obj);
+	return obj;
 }
 
-std::vector<char>	VisualGame::getOrderedCaptured(const std::vector<char> &captured) const
+vector<char>	VisualGame::getOrderedCaptured(const vector<char> &captured) const
 {
-	std::vector<char>	newCaptured;
+	vector<char>	newCaptured;
 
 	for (size_t i = 0; i != captured.size(); i++)
 	{
 		if (find(newCaptured.begin(), newCaptured.end(), captured.at(i)) == newCaptured.end())
 		{
-			int value = count(captured.begin(), captured.end(), captured.at(i));
+			int 	value = count(captured.begin(), captured.end(), captured.at(i));
+
 			while (value != 0)
 				newCaptured.push_back(captured.at(i)), value--;
 		}
 	}
 
-	return (newCaptured);
+	return newCaptured;
 }
 
-std::string	VisualGame::getCoord(const int x, const int y) const
+string	VisualGame::getCoord(const int x, const int y) const
 {
-	int	xZone;
-	int	yZone;
+	int		xZone = 0;
+	int		yZone = 0;
 
 	if (x >= 105 && x <= 745 && y >= 80 && y <= 720)
 	{
@@ -117,20 +120,20 @@ std::string	VisualGame::getCoord(const int x, const int y) const
 				_visualInfo.aiSide == 0 ? xZone = 105 + (80 * (7 - k)) : xZone = 80 * (k + 1);
 
 				if (x >= xZone && x <= xZone + 105 && y >= yZone && y <= yZone + 80)
-					return (std::string{ "abcdefgh"[k], "12345678"[i] });
+					return string{ "abcdefgh"[k], "12345678"[i] };
 			}
 		}
 	}
 
-	return ("none");
+	return "none";
 }
 
-std::string	VisualGame::getInput(const std::string& coord)
+string	VisualGame::getInput(const string& coord)
 {
-	std::string	input;
+	string	input;
 
 	if (coord == "end" || coord == "none" || coord == "error")
-		return (coord);
+		return coord;
 
 	input += _board->getType(_visualInfo.droppedSrc);
 	input += _visualInfo.droppedSrc + coord;
@@ -149,12 +152,12 @@ std::string	VisualGame::getInput(const std::string& coord)
 	_visualInfo.clickSrc.clear();
 	_visualInfo.droppedDest.clear();
 
-	return (input);
+	return input;
 }
 
-std::string	VisualGame::getKingCoords(const std::string& color) const
+string	VisualGame::getKingCoords(const string& color) const
 {
-	std::string	coords;
+	string	coords;
 
 	for (int i = 0; i != 8; i++)
 	{
@@ -162,22 +165,22 @@ std::string	VisualGame::getKingCoords(const std::string& color) const
 		{
 			coords = { "hgfedcba"[k], "87654321"[i] };
 			if (_board->getType(coords) == 'K' && _board->getColor(coords) == color)
-				return (coords);
+				return coords;
 		}
 	}
 
-	return (coords);
+	return coords;
 }
 
-std::string	VisualGame::getTurnColor(void) const
+string	VisualGame::getTurnColor(void) const
 {
 	if (_visualInfo.turn % 2 == 0)
-		return ("white");
+		return "white";
 
-	return ("black");
+	return "black";
 }
 
-bool	VisualGame::isPromotion(const std::string& coord) const
+bool	VisualGame::isPromotion(const string& coord) const
 {
 	if (_board->getType(_visualInfo.droppedSrc) == 'P')
 	{
@@ -185,90 +188,90 @@ bool	VisualGame::isPromotion(const std::string& coord) const
 			|| (coord[1] == '1' && _visualInfo.droppedSrc[1] == '2'))
 		{
 			if (coord[0] == _visualInfo.droppedSrc[0] && _board->getType(coord) == ' ')
-				return (true);
+				return true;
 			if (coord[0] != _visualInfo.droppedSrc[0] \
 				&& (coord[0] - _visualInfo.droppedSrc[0] != 1 \
 				|| coord[0] - _visualInfo.droppedSrc[0] != -1) && _board->getType(coord) != ' ')
-				return (true);
+				return true;
 		}
 	}
 
-	return (false);
+	return false;
 }
 
 bool	VisualGame::isAbovePromotion(const int x, const int y, SDL_Rect& obj) const
 {
 	if (x > obj.x && x < obj.x + 20 \
 		&& y > obj.y + 20 && y <= obj.y + 20 + 40)
-		return (true);
+		return true;
 
 	if (x > obj.x + 88 && x < (obj.x + obj.w) \
 		&& y > obj.y + 20 && y <= obj.y + 20 + 40)
-		return (true);
+		return true;
 
 	if (x > obj.x + 32 && x < (obj.x + obj.w) - 32 \
 		&& y > obj.y + 50 && y < (obj.y + obj.h))
-		return (true);
+		return true;
 
-	return (false);
+	return false;
 }
 
 bool	VisualGame::isCodeDetected(void) const
 {
 	if (_visualInfo.keyHistory.size() == 11)
 	{
-		std::vector<SDL_Keycode> code = {SDLK_UP, SDLK_UP, SDLK_DOWN, SDLK_DOWN, SDLK_LEFT, \
+		vector<SDL_Keycode> 	code = {SDLK_UP, SDLK_UP, SDLK_DOWN, SDLK_DOWN, SDLK_LEFT, \
 			SDLK_RIGHT, SDLK_LEFT, SDLK_RIGHT, SDLK_b, SDLK_a, SDLK_RETURN};
+		vector<SDL_Keycode> 	sequence;
 
-		std::vector<SDL_Keycode> sequence;
 		for (size_t i = _visualInfo.keyHistory.size() - 11; i != _visualInfo.keyHistory.size(); i++)
 			sequence.push_back(_visualInfo.keyHistory.at(i));
 
 		if (code == sequence)
-			return (true);
+			return true;
 	}
 
-	return (false);
+	return false;
 }
 
 bool	VisualGame::isBoardZone(const int x, const int y) const
 {
 	if (x >= 100 && x <= 750 && y >= 75 && y <= 725)
-		return (true);
+		return true;
 
-	return (false);
+	return false;
 }
 
-bool	VisualGame::isBoardTargetZone(const std::string& coord, const int x, const int y) const
+bool	VisualGame::isBoardTargetZone(const string& coord, const int x, const int y) const
 {
 	if (_board->getType(coord) != ' ' && _board->getColor(coord) == getTurnColor())
-		return (true);
+		return true;
 
 	if (x >= 777 && x <= _width && y >= 724 && y <= _height)
-		return (true);
+		return true;
 
 	if (x >= 26 && x <= 54 && y >= 725 && y <= 752)
-		return (true);
+		return true;
 
 	if (x > 780 && y < 60)
-		return (true);
+		return true;
 
-	return (false);
+	return false;
 }
 
 
 bool	VisualGame::isColorTargetZone(const int x, const int y) const
 {
 	if (x >= 777 && x <= _width && y >= 724 && y <= _height)
-		return (true);
+		return true;
 
-	return (false);
+	return false;
 }
 
 bool	VisualGame::isEvaluationTargetZone(const int x, const int y) const
 {
 	if (x >= 26 && x <= 54 && y >= 725 && y <= 752)
-		return (true);
+		return true;
 
-	return (false);
+	return false;
 }

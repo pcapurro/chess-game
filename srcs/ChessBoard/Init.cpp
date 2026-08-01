@@ -65,7 +65,7 @@ void	ChessBoard::initBoard(void)
 	{
 		for (int k = 0; k != 8; k++)
 		{
-			std::string coord = "abcdefgh"[i] + std::to_string(k + 1);
+			string coord = "abcdefgh"[i] + std::to_string(k + 1);
 			if (k + 1 == 2)
 				_board.push_back({new Pawn ("white", coord), coord});
 			if (k + 1 == 7)
@@ -75,6 +75,7 @@ void	ChessBoard::initBoard(void)
 				_board.push_back({nullptr, coord});
 		}
 	}
+
 	initRooksKnights();
 	initBishops();
 	initQueensKings();

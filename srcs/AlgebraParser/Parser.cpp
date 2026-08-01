@@ -7,16 +7,16 @@ void	AlgebraParser::parseDoubleSequence(void)
 	if (count(_move.move.begin(), _move.move.end(), '-') != 0)
 		_move.action = '-';
 
-	std::string	left = getLeftSequence();
-	std::string	right = getRightSequence();
-	std::string	middle;
+	string		left = getLeftSequence();
+	string		right = getRightSequence();
+	string		middle;
 
 	if (left.length() < 3 
 		|| (AlgebraParser::isChessCoord(_move.move[0]) == false && left.length() == 1))
 	{
-		std::vector<std::string>	coords;
+		char				c = 'i';
+		vector<string>		coords;
 
-		char	c = 'i';
 		if (left.length() == 1 && AlgebraParser::isChessCoord(left[0]) == true)
 			c = left[0];
 
@@ -42,20 +42,22 @@ void	AlgebraParser::parseDoubleSequence(void)
 	{
 		AlgebraParser::isChessCoord(_move.move[0]) == true ? _move.obj = 'P' : _move.obj = _move.move[0];
 		middle.size() != 0 ? _move.src = middle : _move.src = (left.c_str() + 1);
+
 		_move.dest = right;
 	}
 }
 
 void	AlgebraParser::parseUniqueSequence(void)
 {
-	std::vector<std::string>	coords;
-	int 						i = 0;
+	vector<string>		coords;
+	int					i = 0;
 
 	if (AlgebraParser::isChessCoord(_move.move[0]) == true)
 		coords = getPawnSequence(_move.move, _turn, 'i'), _move.obj = 'P';
 	else
 	{   
 		char	sign = 'i';
+
 		if (_move.move.length() == 4)
 			sign = _move.move[1], i = 1;
 
@@ -69,6 +71,7 @@ void	AlgebraParser::parseUniqueSequence(void)
 			&& AlgebraParser::isChessDigit(coords.at(i)[1]) == true)
 			_move.src += coords.at(i);
 	}
+
 	if (AlgebraParser::isChessCoord(_move.move[0]) == true)
 		_move.dest += _move.move.c_str();
 	else
@@ -81,6 +84,7 @@ void	AlgebraParser::parseMove(void)
 	_move.dest.clear();
 
 	_move.action = '>';
+
 	if (_move.move == "O-O" || _move.move == "O-O-O")
 		_move.obj = 'R', _move.src = "", _move.dest = _move.move;
 	else

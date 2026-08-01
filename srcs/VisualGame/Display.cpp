@@ -3,7 +3,7 @@
 void	VisualGame::loadText(const int value)
 {
 	SDL_Rect		obj;
-	std::string		color;
+	string			color;
 
 	_visualInfo.turn % 2 == 0 ? color = "white" : color = "black";
 
@@ -17,7 +17,8 @@ void	VisualGame::loadText(const int value)
 		if (color == "black")
 			SDL_RenderCopy(_mainRenderer, _textures.texts.blackToPlay.getTexture(), NULL, &obj);
 	}
-	if (value == 1)
+
+	else if (value == 1)
 	{
 		if (color == "white")
 			SDL_RenderCopy(_mainRenderer, _textures.texts.blackWon.getTexture(), NULL, &obj);
@@ -25,7 +26,7 @@ void	VisualGame::loadText(const int value)
 			SDL_RenderCopy(_mainRenderer, _textures.texts.whiteWon.getTexture(), NULL, &obj);
 	}
 
-	if (value == 2)
+	else if (value == 2)
 		SDL_RenderCopy(_mainRenderer, _textures.texts.draw.getTexture(), NULL, &obj);
 }
 
@@ -42,7 +43,7 @@ void	VisualGame::loadEvaluation(const int value)
 
 	if (_visualInfo.evaluation == true && value == 0)
 	{
-		int score;
+		int 	score = 0;
 
 		SDL_SetRenderDrawColor(_mainRenderer, 76, 153, 0, 255);
 		SDL_RenderFillRect(_mainRenderer, &activObj);
@@ -95,9 +96,9 @@ void	VisualGame::loadMapColors(void)
 	SDL_RenderFillRect(_mainRenderer, &obj);
 }
 
-void    VisualGame::loadScore(const std::string& color, const int y)
+void    VisualGame::loadScore(const string& color, const int y)
 {
-	int	score;
+	int		score = 0;
 
 	VisualTexture*	numbers[10] = {&_textures.numbers.zero, \
 		&_textures.numbers.one, &_textures.numbers.two, \
@@ -114,15 +115,18 @@ void    VisualGame::loadScore(const std::string& color, const int y)
 	if (score < 0)
 		score = 0;
 
-	SDL_Rect obj = getRectangle("", std::string{color[0]} + "score");
+	SDL_Rect 		obj = getRectangle("", string{color[0]} + "score");
+
 	obj.y = y;
 
 	SDL_Texture*	texture = _textures.symbols.plus.getTexture();
+
 	SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 
 	_sandBoxMode == false || _visualInfo.aiSide % 2 != 0 ? obj.y-- : obj.y++;
 
-	std::string value = std::to_string(score);
+	string			value = std::to_string(score);
+
 	for (int i = 0; value[i] != '\0'; i++)
 	{
 		for (int k = 0; k != 10; k++)
@@ -130,21 +134,22 @@ void    VisualGame::loadScore(const std::string& color, const int y)
 			if (numbers[k]->getId() == value[i])
 				texture = numbers[k]->getTexture();
 		}
+
 		obj.x += 15;
 
 		SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 	}
 }
 
-void	VisualGame::loadCapturedComplex(std::vector<char> &captured, const std::string& color)
+void	VisualGame::loadCapturedComplex(vector<char> &captured, const string& color)
 {
-	SDL_Rect		obj;
-	SDL_Texture*	texture;
+	SDL_Rect			obj;
+	SDL_Texture*		texture;
 
-	VisualTexture*	white[5] = {&_textures.whiteTextures.pawn, &_textures.whiteTextures.bishop, \
+	VisualTexture*		white[5] = {&_textures.whiteTextures.pawn, &_textures.whiteTextures.bishop, \
 		&_textures.whiteTextures.knight, &_textures.whiteTextures.rook, &_textures.whiteTextures.queen};
 
-	VisualTexture*	black[5] = {&_textures.blackTextures.pawn, &_textures.blackTextures.bishop, \
+	VisualTexture*		black[5] = {&_textures.blackTextures.pawn, &_textures.blackTextures.bishop, \
 		&_textures.blackTextures.knight, &_textures.blackTextures.rook, &_textures.blackTextures.queen};
 
 	if (color == "white")
@@ -153,6 +158,7 @@ void	VisualGame::loadCapturedComplex(std::vector<char> &captured, const std::str
 		obj = getRectangle("", "bscore");
 
 	obj.w = 33, obj.h = 33;
+
 	for (size_t i = 0; i != captured.size(); i++)
 	{
 		for (int k = 0; k != 5; k++)
@@ -166,6 +172,7 @@ void	VisualGame::loadCapturedComplex(std::vector<char> &captured, const std::str
 		SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 
 		obj.x += 10;
+
 		if (captured.at(i) == 'R')
 			obj.x += 15;
 		if (captured.at(i) == 'B' || captured.at(i) == 'Q')
@@ -177,6 +184,7 @@ void	VisualGame::loadCapturedComplex(std::vector<char> &captured, const std::str
 			|| (i != captured.size() - 1 && captured.at(i) != captured.at(i + 1)))
 		{
 			obj.x = 760;
+
 			if (color == "white")
 				_visualInfo.aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
 			if (color == "black")
@@ -187,18 +195,18 @@ void	VisualGame::loadCapturedComplex(std::vector<char> &captured, const std::str
 	loadScore(color, obj.y);
 }
 
-void	VisualGame::loadCaptured(std::vector<char> &captured, const std::string& color)
+void	VisualGame::loadCaptured(vector<char> &captured, const string& color)
 {
-	SDL_Rect		obj;
-	SDL_Texture*	texture;
+	SDL_Rect			obj;
+	SDL_Texture*		texture;
 
-	VisualTexture*	white[5] = {&_textures.whiteTextures.pawn, &_textures.whiteTextures.bishop, \
+	VisualTexture*		white[5] = {&_textures.whiteTextures.pawn, &_textures.whiteTextures.bishop, \
 		&_textures.whiteTextures.knight, &_textures.whiteTextures.rook, &_textures.whiteTextures.queen};
 
-	VisualTexture*	black[5] = {&_textures.blackTextures.pawn, &_textures.blackTextures.bishop, \
+	VisualTexture*		black[5] = {&_textures.blackTextures.pawn, &_textures.blackTextures.bishop, \
 		&_textures.blackTextures.knight, &_textures.blackTextures.rook, &_textures.blackTextures.queen};
 
-	VisualTexture*	numbers[10] = {&_textures.numbers.zero, \
+	VisualTexture*		numbers[10] = {&_textures.numbers.zero, \
 		&_textures.numbers.one, &_textures.numbers.two, \
 		&_textures.numbers.three, &_textures.numbers.four, \
 		&_textures.numbers.five, &_textures.numbers.six, \
@@ -228,8 +236,8 @@ void	VisualGame::loadCaptured(std::vector<char> &captured, const std::string& co
 
 			SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 
-			int value = count(captured.begin(), captured.end(), captured.at(i));
-			std::string nb = std::to_string(value);
+			int 		value = count(captured.begin(), captured.end(), captured.at(i));
+			string 		nb = std::to_string(value);
 
 			obj.w = 14, obj.h = 35;
 			obj.x += 20;
@@ -242,16 +250,19 @@ void	VisualGame::loadCaptured(std::vector<char> &captured, const std::string& co
 						texture = numbers[k]->getTexture();
 				}
 				obj.x += 15;
+
 				SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 			}
 
 			obj.x = 760;
+
 			if (color == "white")
 				_visualInfo.aiSide % 2 == 0 ? obj.y += 40 : obj.y -= 40;
 			if (color == "black")
 				_visualInfo.aiSide % 2 == 0 ? obj.y -= 40 : obj.y += 40;
 
 		}
+
 		object = captured.at(i);
 	}
 
@@ -260,8 +271,8 @@ void	VisualGame::loadCaptured(std::vector<char> &captured, const std::string& co
 
 void	VisualGame::loadCaptures(void)
 {
-	std::vector<char>	whiteCaptured = _board->getWhiteCaptured();
-	std::vector<char>	blackCaptured = _board->getBlackCaptured();
+	vector<char>	whiteCaptured = _board->getWhiteCaptured();
+	vector<char>	blackCaptured = _board->getBlackCaptured();
 
 	whiteCaptured = getOrderedCaptured(whiteCaptured);
 	blackCaptured = getOrderedCaptured(blackCaptured);
@@ -289,6 +300,7 @@ void    VisualGame::loadPath(void)
 	if (_visualInfo.lastMove != "")
 	{
 		obj = getRectangle({_visualInfo.lastMove[0], _visualInfo.lastMove[1]});
+
 		SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
 		SDL_RenderFillRect(_mainRenderer, &obj);
 
@@ -296,6 +308,7 @@ void    VisualGame::loadPath(void)
 		SDL_RenderFillRect(_mainRenderer, &obj);
 
 		obj = getRectangle({_visualInfo.lastMove[2], _visualInfo.lastMove[3]});
+
 		SDL_SetRenderDrawColor(_mainRenderer, 255, 255, 255, 128);
 		SDL_RenderFillRect(_mainRenderer, &obj);
 
@@ -306,8 +319,8 @@ void    VisualGame::loadPath(void)
 
 void	VisualGame::loadMap(void)
 {
-	bool			state;
-	std::string		coords;
+	bool			state = true;
+	string			coords;
 	SDL_Rect		obj;
 
 	loadMapColors();
@@ -315,7 +328,6 @@ void	VisualGame::loadMap(void)
 	obj = getRectangle("", "default");
 	SDL_RenderCopy(_mainRenderer, _textures.boardTexture.getTexture(), NULL, &obj);
 
-	state = true;
 	for (int i = 0; i != 8; i++)
 	{
 		for (int k = 0; k != 8; k++)
@@ -325,24 +337,25 @@ void	VisualGame::loadMap(void)
 			if ((state == true && k % 2 == 0) || (state == false && k % 2 != 0))
 			{
 				obj = getRectangle(coords);
+
 				SDL_SetRenderDrawColor(_mainRenderer, _visualInfo.boardColors.at(0), \
 					_visualInfo.boardColors.at(1), _visualInfo.boardColors.at(2), 255);
 				SDL_RenderFillRect(_mainRenderer, &obj);
 			}
 		}
+
 		state = !state;
 	}
 }
 
 void	VisualGame::loadHints(void)
 {
-	bool			state;
-	std::string		coords;
-	SDL_Rect		obj;
+	bool		state = true;
+	string		coords;
+	SDL_Rect	obj;
 
 	SDL_SetRenderDrawColor(_mainRenderer, 0, 0, 0, 255);
 
-	state = true;
 	for (int i = 0; i != 8; i++)
 	{
 		for (int k = 0; k != 8; k++)
@@ -354,12 +367,14 @@ void	VisualGame::loadHints(void)
 			{
 				obj = getRectangle(coords);
 				obj.x -= 3, obj.y -= 3, obj.w = 6, obj.h = 86;
+
 				SDL_RenderFillRect(_mainRenderer, &obj);
 				obj.x += 80;
 				SDL_RenderFillRect(_mainRenderer, &obj);
 
 				obj = getRectangle(coords);
 				obj.x += 3, obj.y -= 3, obj.w = 74, obj.h = 6;
+
 				SDL_RenderFillRect(_mainRenderer, &obj);
 				obj.y += 80;
 				SDL_RenderFillRect(_mainRenderer, &obj);
@@ -371,21 +386,21 @@ void	VisualGame::loadHints(void)
 
 void	VisualGame::loadCoords(void)
 {
-	SDL_Rect	obj;
+	SDL_Rect			obj;
 
-	VisualTexture*	letters[8] = {&_textures.letters.h, &_textures.letters.g, \
+	VisualTexture*		letters[8] = {&_textures.letters.h, &_textures.letters.g, \
 		&_textures.letters.f, &_textures.letters.e, \
 		&_textures.letters.d, &_textures.letters.c, \
 		&_textures.letters.b, &_textures.letters.a};
 
-	VisualTexture*	numbers[8] = {&_textures.numbers.one, &_textures.numbers.two, \
+	VisualTexture*		numbers[8] = {&_textures.numbers.one, &_textures.numbers.two, \
 		&_textures.numbers.three, &_textures.numbers.four, \
 		&_textures.numbers.five, &_textures.numbers.six, \
 		&_textures.numbers.seven, &_textures.numbers.eight};
 
 	for (int i = 0; i != 8; i++)
 	{
-		std::string	coords;
+		string			coords;
 
 		coords = {"hgfedcba"[i], '1'};
 		obj = getRectangle(coords, "coordsl");
@@ -396,8 +411,8 @@ void	VisualGame::loadCoords(void)
 		SDL_RenderCopy(_mainRenderer, numbers[i]->getTexture(), NULL, &obj);
 	}
 
-	int	x = _visualInfo.x;
-	int y = _visualInfo.y;
+	int				x = _visualInfo.x;
+	int 			y = _visualInfo.y;
 
 	if (x >= 105 && x <= 745 && y >= 80 && y <= 720 && _visualInfo.visualCoords == true \
 		&& _visualInfo.actualCoords != "none" && _visualInfo.actualCoords != "" \
@@ -430,15 +445,16 @@ void	VisualGame::loadCoords(void)
 		}
 
 		obj.x += 12;
+
 		SDL_RenderCopy(_mainRenderer, texture, NULL, &obj);
 	}
 }
 
-void	VisualGame::loadBoard(const std::string& color)
+void	VisualGame::loadBoard(const string& color)
 {
 	char			objType;
-	std::string		coords;
-	std::string		objColor;
+	string			coords;
+	string			objColor;
 	SDL_Rect		obj;
 
 	obj.w = 80, obj.h = 80;
@@ -478,8 +494,8 @@ void	VisualGame::loadBoard(const std::string& color)
 
 void	VisualGame::loadCheck(void)
 {
-	std::string		color;
-	SDL_Rect		obj;
+	string		color;
+	SDL_Rect	obj;
 
 	_visualInfo.turn % 2 == 0 ? color = "white" : color = "black";
 	obj = getRectangle(getKingCoords(color));
@@ -490,8 +506,8 @@ void	VisualGame::loadCheck(void)
 
 void	VisualGame::loadDraw(void)
 {
-	std::string		color;
-	SDL_Rect		obj;
+	string		color;
+	SDL_Rect	obj;
 
 	_visualInfo.turn % 2 == 0 ? color = "white" : color = "black";
 	obj = getRectangle(getKingCoords(color));
@@ -508,8 +524,8 @@ void	VisualGame::loadDraw(void)
 
 void	VisualGame::loadCheckMate(void)
 {
-	std::string		color;
-	std::string		kingCoords;
+	string			color;
+	string			kingCoords;
 	SDL_Rect		obj;
 
 	_visualInfo.turn % 2 == 0 ? color = "white" : color = "black";
@@ -535,10 +551,10 @@ void	VisualGame::loadCheckMate(void)
 	SDL_RenderCopy(_mainRenderer, getTexture('c', color), NULL, &obj);
 }
 
-void	VisualGame::displayMoveAnimation(const std::string& move)
+void	VisualGame::displayMoveAnimation(const string& move)
 {
 	int				destX, destY;
-	std::string		src, dest;
+	string			src, dest;
 	SDL_Rect		obj;
 
 	src = {move[0], move[1]};
@@ -551,23 +567,26 @@ void	VisualGame::displayMoveAnimation(const std::string& move)
 	destY = getRectangle(dest).y;
 
 	_visualInfo.droppedSrc = src;
+
 	while (obj.y != destY || obj.x != destX)
 	{
 		if ((src[0] == dest[0] && src[1] != dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
 			destY > obj.y ? obj.y++ : obj.y--;
+
 		if ((src[0] != dest[0] && src[1] == dest[1]) || (src[0] != dest[0] && src[1] != dest[1]))
 			destX > obj.x ? obj.x++ : obj.x--;
 
 		_visualInfo.x = obj.x + 28, _visualInfo.y = obj.y + 40;
+
 		displayGame(true);
 		std::this_thread::sleep_for(std::chrono::microseconds(500));
 	}
 }
 
-void	VisualGame::displayPromotion(const char type, const std::string& coord)
+void	VisualGame::displayPromotion(const char type, const string& coord)
 {
-	SDL_Rect		obj;
-	std::string		color;
+	SDL_Rect	obj;
+	string		color;
 
 	_visualInfo.x = -1, _visualInfo.y = -1;
 	displayGame();

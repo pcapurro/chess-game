@@ -1,8 +1,8 @@
 #ifndef VISUALOBJECTS_HPP
 # define VISUALOBJECTS_HPP
 
-# include "../../includes/Visual.hpp"
-# include "./VisualTexture.hpp"
+# include "Visual.hpp"
+# include "VisualTexture.hpp"
 
 struct Pieces
 {
@@ -79,35 +79,35 @@ struct Textures
 
 struct VisualInfos
 {
-	std::string					droppedSrc;
-	std::string					clickSrc;
+	string					droppedSrc;
+	string					clickSrc;
 
-	std::string					droppedDest;
-	std::vector<std::string>	droppedDests;
-	bool						visualDests;
+	string					droppedDest;
+	vector<string>			droppedDests;
+	bool					visualDests;
 
-	int							x;
-	int							y;
+	int						x;
+	int						y;
 
-	bool						promotion;
+	bool					promotion;
 
-	bool						visualCoords;
-	std::string					actualCoords;
+	bool					visualCoords;
+	string					actualCoords;
 
-	std::string					lastMove;
+	string					lastMove;
 
-	bool						evaluation;
-	int							whiteScore;
-	int							blackScore;
+	bool					evaluation;
+	int						whiteScore;
+	int						blackScore;
 
-	int							aiSide;
-	int							turn;
+	int						aiSide;
+	int						turn;
 
-	int							boardColor;
-	std::vector<int>			boardColors;
+	int						boardColor;
+	vector<int>				boardColors;
 
-	bool						code;
-	std::vector<SDL_Keycode>	keyHistory;
+	bool					code;
+	vector<SDL_Keycode>		keyHistory;
 };
 
 #endif

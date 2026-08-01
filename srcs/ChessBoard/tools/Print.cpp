@@ -1,6 +1,6 @@
 #include "ChessBoard.hpp"
 
-void	ChessBoard::printPiece(const char type, const std::string& color) const
+void	ChessBoard::printPiece(const char type, const string& color) const
 {
 	if (type == 'P' && color == "white")
 		cout << "│♟▕";
@@ -36,24 +36,27 @@ void	ChessBoard::printPiece(const char type, const std::string& color) const
 void	ChessBoard::printWhiteBoard(void) const
 {
 	int			atValue;
-	std::string	coords;
+	string		coords;
 
 	for (int i = 9; i != 1; i--)
 	{
 		cout << ERASE_LINE << " " << i - 1 << " ";
+
 		for (int k = 0; k != 8; k++)
 		{
 			coords = "abcdefgh"[k] + std::to_string(i - 1);
 			atValue = getAtValue(coords);
+
 			if (_board.at(atValue).piece != nullptr)
 			{
 				char type = _board.at(atValue).piece->getType();
-				std::string color = _board.at(atValue).piece->getColor();
+				string color = _board.at(atValue).piece->getColor();
 				printPiece(type, color);
 			}
 			else
 				cout << "│ ▕";
 		}
+
 		cout << " " << i - 1 << endl;
 	}
 }
@@ -61,24 +64,27 @@ void	ChessBoard::printWhiteBoard(void) const
 void	ChessBoard::printBlackBoard(void) const
 {
 	int			atValue;
-	std::string	coords;
+	string		coords;
 
 	for (int i = 1; i != 9; i++)
 	{
 		cout << ERASE_LINE << " " << i << " ";
+
 		for (int k = 0; k != 8; k++)
 		{
 			coords = "abcdefgh"[k] + std::to_string(i);
 			atValue = getAtValue(coords);
+
 			if (_board.at(atValue).piece != nullptr)
 			{
 				char type = _board.at(atValue).piece->getType();
-				std::string color = _board.at(atValue).piece->getColor();
+				string color = _board.at(atValue).piece->getColor();
 				printPiece(type, color);
 			}
 			else
 				cout << "│ ▕";
 		}
+
 		cout << " " << i << endl;
 	}
 }
@@ -86,10 +92,12 @@ void	ChessBoard::printBlackBoard(void) const
 void	ChessBoard::printBoard(const int aiSide) const
 {
 	cout << ERASE_LINE << "    a  b  c  d  e  f  g  h" << endl;
+
 	if (aiSide == -1 || aiSide == 1)
 		printWhiteBoard();
 	else
 		printBlackBoard();
+
 	cout << ERASE_LINE << "    a  b  c  d  e  f  g  h" << endl << endl ;
 }
 
@@ -103,42 +111,51 @@ void	ChessBoard::printHistory(void) const
 	if (_history.empty() != true)
 	{
 		cout << "Game summary: ";
+
 		for (size_t i = 0; i != _history.size(); i++)
 		{
 			if (i != 0)
 				cout << " ";
+
 			cout << i + 1 << "." << _history.at(i);
 		}
+
 		cout << endl << endl;
 	}
 }
 
 void	ChessBoard::printEndGame(const int value)
 {
-	std::string	player;
+	string		player;
 
 	_gameInfo.color == "white" ? player = "black" : player = "white";
 	player[0] = player[0] - 32;
+
 	if (isCheckMate() == true)
 	{
 		if (value == 0)
 			cout << "\033[1A" << ERASE_LINE << endl << ERASE_LINE;
+
 		cout << "Checkmate. " << GREEN << player << " won the game" << COLOR_E << "! 🎉" << endl;
 	}
+
 	if (isDraw() == true)
 	{
 		if (value == 0)
 			cout << "\033[1A" << ERASE_LINE << endl << ERASE_LINE;
+
 		cout << "Draw. " << GREY << "No one won the game" << COLOR_E << "." << endl;
 	}
+
 	printHistory();
 }
 
 void	ChessBoard::printEvent(const bool cfail, const bool bfail, const bool blindMode)
 {
-	std::string	player;
+	string	player;
 
 	cout << ERASE_LINE;
+
 	if (blindMode == true && _gameInfo.turn != 0)
 		cout << "\033[1A" << ERASE_LINE;
 
@@ -152,6 +169,7 @@ void	ChessBoard::printEvent(const bool cfail, const bool bfail, const bool blind
 		else
 			cout << YELLOW << "Illegal move" << COLOR_E << ". ";
 	}
+
 	if (_gameInfo.turn > 0)
 	{
 		_gameInfo.color == "white" ? player = "black" : player = "white";
@@ -166,7 +184,9 @@ void	ChessBoard::printEvent(const bool cfail, const bool bfail, const bool blind
 				cout << player << " played " << _gameInfo.lastMove.move << ". ";
 		}
 	}
+
 	player = _gameInfo.color;
 	player[0] = player[0] - 32;
+
 	cout << player << " to play." << endl;
 }

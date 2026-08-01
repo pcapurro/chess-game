@@ -3,70 +3,70 @@
 
 # include "Game.hpp"
 
-# include "ChessBoard/ChessPiece.hpp"
-# include "ChessBoard/King.hpp"
-# include "ChessBoard/Queen.hpp"
-# include "ChessBoard/Rook.hpp"
-# include "ChessBoard/Bishop.hpp"
-# include "ChessBoard/Knight.hpp"
-# include "ChessBoard/Pawn.hpp"
+# include "ChessPiece.hpp"
+# include "King.hpp"
+# include "Queen.hpp"
+# include "Rook.hpp"
+# include "Bishop.hpp"
+# include "Knight.hpp"
+# include "Pawn.hpp"
 
 struct Square
 {
 	ChessPiece*		piece;
-	std::string		coord;
+	string			coord;
 };
 
 struct GameInfo
 {
-	bool		check;
-	bool		checkmate;
-	bool		draw;
+	bool			check;
+	bool			checkmate;
+	bool			draw;
 
-	Move		lastMove;
-	bool		moveFailed;
+	Move			lastMove;
+	bool			moveFailed;
 
-	bool		whiteCastle;
-	bool		whiteCastled;
-	std::string	whiteCastleLost;
+	bool			whiteCastle;
+	bool			whiteCastled;
+	string			whiteCastleLost;
 
-	bool		blackCastle;
-	bool		blackCastled;
-	std::string	blackCastleLost;
+	bool			blackCastle;
+	bool			blackCastled;
+	string			blackCastleLost;
 
-	bool		enPassant;
-	std::string	enPassantSrcOne;
-	std::string	enPassantSrcTwo;
-	std::string	enPassantDest;
+	bool			enPassant;
+	string			enPassantSrcOne;
+	string			enPassantSrcTwo;
+	string			enPassantDest;
 
-	int			turn;
-	std::string	color;
+	int				turn;
+	string			color;
 };
 
 struct Counter
 {
-	int	whiteKing;
-	int	blackKing;
+	int				whiteKing;
+	int				blackKing;
 
-	int	whiteQueen;
-	int	blackQueen;
+	int				whiteQueen;
+	int				blackQueen;
 
-	int	whiteRook;
-	int	blackRook;
+	int				whiteRook;
+	int				blackRook;
 
-	int	whiteBishop;
-	int	blackBishop;
+	int				whiteBishop;
+	int				blackBishop;
 
-	int	whiteKnight;
-	int	blackKnight;
+	int				whiteKnight;
+	int				blackKnight;
 
-	int	whitePawn;
-	int	blackPawn;
+	int				whitePawn;
+	int				blackPawn;
 
-	int	whiteMaterial;
-	int	blackMaterial;
+	int				whiteMaterial;
+	int				blackMaterial;
 
-	int	total;
+	int				total;
 };
 
 #endif

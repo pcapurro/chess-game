@@ -12,10 +12,10 @@ SRCSO = srcs/AlgebraParser/Init.cpp \
 	srcs/AlgebraParser/Checker.cpp \
 	srcs/AlgebraParser/Parser.cpp \
 	srcs/AlgebraParser/Tools.cpp \
-	srcs/ChessAi/Heart.cpp \
+	srcs/ChessAi/Core.cpp \
 	srcs/ChessAi/Init.cpp \
 	srcs/ChessAi/Free.cpp \
-	srcs/ChessBoard/Heart.cpp \
+	srcs/ChessBoard/Core.cpp \
 	srcs/ChessBoard/Init.cpp \
 	srcs/ChessBoard/Free.cpp \
 	srcs/ChessBoard/Evaluate.cpp \

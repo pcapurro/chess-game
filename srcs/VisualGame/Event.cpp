@@ -1,6 +1,6 @@
 #include "VisualGame.hpp"
 
-std::string	VisualGame::waitForNewGame(void)
+string	VisualGame::waitForNewGame(void)
 {
 	SDL_Event	event;
 
@@ -10,11 +10,11 @@ std::string	VisualGame::waitForNewGame(void)
 		{
 			if (event.type == SDL_QUIT \
 				|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-				return ("end");
+				return "end";
 
 			if (event.type == SDL_KEYDOWN \
 				&& event.key.keysym.sym == SDLK_RETURN)
-				break ;
+				break;
 
 			if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEMOTION)
 			{
@@ -24,8 +24,9 @@ std::string	VisualGame::waitForNewGame(void)
 				{
 					if (event.type == SDL_MOUSEMOTION)
 						SDL_SetCursor(_playCursor);
+
 					if (event.type == SDL_MOUSEBUTTONDOWN)
-						return ("restart");
+						return "restart";
 				}
 				else
 					SDL_SetCursor(_normalCursor);
@@ -34,13 +35,14 @@ std::string	VisualGame::waitForNewGame(void)
 
 		SDL_Delay(1);
 	}
-	return ("error");
+
+	return "error";
 }
 
-std::string  VisualGame::waitForPromotion(void)
+string  VisualGame::waitForPromotion(void)
 {
 	int					select = 0;
-	std::vector<char>	types;
+	vector<char>		types;
 	SDL_Event			event;
 
 	types.push_back('Q'), types.push_back('B'), types.push_back('N'), types.push_back('R');
@@ -54,13 +56,13 @@ std::string  VisualGame::waitForPromotion(void)
 		{
 			if (event.type == SDL_QUIT \
 				|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-				return ("end");
+				return "end";
 
 			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_RETURN)
-				break ;
+				break;
 
 			_visualInfo.x = event.button.x, _visualInfo.y = event.button.y;
-			std::string coords = getCoord(_visualInfo.x, _visualInfo.y);
+			string coords = getCoord(_visualInfo.x, _visualInfo.y);
 
 			if (isAbovePromotion(_visualInfo.x, _visualInfo.y, obj) == true)
 			{
@@ -68,15 +70,16 @@ std::string  VisualGame::waitForPromotion(void)
 
 				if (event.type == SDL_MOUSEBUTTONUP)
 				{
-					int x = _visualInfo.x;
-					int y = _visualInfo.y;
+					int 	x = _visualInfo.x;
+					int 	y = _visualInfo.y;
 
 					if (x > obj.x && x < obj.x + 20 && y < obj.y + 50 && select != 0)
 						select--;
 					if (x > obj.x + 88 && x < (obj.x + obj.w) && y < obj.y + 50 && select != 3)
 						select++;
+
 					if (x > obj.x + 32 && x < (obj.x + obj.w) - 32 && y > obj.y + 50 && y < (obj.y + obj.h))
-						return (_visualInfo.actualCoords + types.at(select));
+						return _visualInfo.actualCoords + types.at(select);
 
 					displayPromotion(types.at(select), _visualInfo.actualCoords);
 				}
@@ -88,10 +91,10 @@ std::string  VisualGame::waitForPromotion(void)
 		SDL_Delay(1);
 	}
 
-	return ("error");
+	return "error";
 }
 
-std::string	VisualGame::waitForEvent(void)
+string	VisualGame::waitForEvent(void)
 {
 	SDL_Event	event;
 
@@ -101,7 +104,7 @@ std::string	VisualGame::waitForEvent(void)
 		{
 			if (event.type == SDL_QUIT \
 				|| (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
-				return ("end");
+				return "end";
 
 			if (event.type == SDL_MOUSEMOTION)
 				_visualInfo.x = event.motion.x, _visualInfo.y = event.motion.y;
@@ -123,7 +126,7 @@ std::string	VisualGame::waitForEvent(void)
 				&& event.button.button == SDL_BUTTON_LEFT)
 			{
 				if (_visualInfo.x > 780 && _visualInfo.y < 60)
-					return ("restart");
+					return "restart";
 				reactMouseDown();
 			}
 
@@ -143,7 +146,7 @@ std::string	VisualGame::waitForEvent(void)
 				else
 				{
 					reactMouseUp();
-					return (getInput(_visualInfo.actualCoords));
+					return getInput(_visualInfo.actualCoords);
 				}
 			}
 
@@ -151,5 +154,5 @@ std::string	VisualGame::waitForEvent(void)
 		}
 	}
 
-	return ("error");
+	return "error";
 }

@@ -36,8 +36,8 @@ void	VisualGame::reactMouseDown(void)
 		&& _visualInfo.actualCoords != "none")
 	{
 		char						sign;
-		std::string					src, dest;
-		std::vector<std::string>	legalMoves;
+		string					src, dest;
+		vector<string>	legalMoves;
 
 		_visualInfo.droppedSrc = _visualInfo.actualCoords;
 		_visualInfo.droppedDests.clear();
@@ -46,10 +46,11 @@ void	VisualGame::reactMouseDown(void)
 
 		legalMoves = _board->getLegalMoves();
 
-		if (_visualInfo.droppedSrc == std::string{'e', sign} && _board->getType(std::string{'e', sign}) == 'K')
+		if (_visualInfo.droppedSrc == string{'e', sign} && _board->getType(string{'e', sign}) == 'K')
 		{
 			if (find(legalMoves.begin(), legalMoves.end(), "O-O") != legalMoves.end())
 				_visualInfo.droppedDests.push_back({'g', sign});
+
 			if (find(legalMoves.begin(), legalMoves.end(), "O-O-O") != legalMoves.end())
 				_visualInfo.droppedDests.push_back({'c', sign});
 		}
@@ -69,6 +70,7 @@ void	VisualGame::reactMouseDown(void)
 
 	if (isColorTargetZone(x, y) == true)
 		++_visualInfo.boardColor == COLOR_NB ? _visualInfo.boardColor = 0 : _visualInfo.boardColor;
+
 	if (isEvaluationTargetZone(x, y) == true)
 		_visualInfo.evaluation = !_visualInfo.evaluation;
 }
@@ -79,6 +81,7 @@ void	VisualGame::reactMouseUp(void)
 	if (_visualInfo.droppedSrc == "")
 	{
 		_visualInfo.droppedSrc = _visualInfo.clickSrc;
+
 		if (_board->isLegal(_board->getType(_visualInfo.droppedSrc) + \
 			_visualInfo.droppedSrc + _visualInfo.droppedDest))
 			displayMoveAnimation(_visualInfo.droppedSrc + _visualInfo.droppedDest);

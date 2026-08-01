@@ -2,7 +2,7 @@
 
 void	VisualGame::loadTexts(void)
 {
-	int	value = 0;
+	int		value = 0;
 
 	value += _textures.texts.blackToPlay.load(_mainRenderer, \
 		"./materials/texts/black-to-play.bmp");
@@ -50,7 +50,7 @@ void	VisualGame::loadLetters(void)
 
 void	VisualGame::loadNumbers(void)
 {
-	int	value = 0;
+	int		value = 0;
 
 	value += _textures.numbers.zero.load(_mainRenderer, \
 		"./materials/numbers/0.bmp", '0');
@@ -80,7 +80,7 @@ void	VisualGame::loadNumbers(void)
 
 void	VisualGame::loadWhiteTextures(void)
 {
-	int	value = 0;
+	int		value = 0;
 
 	value += _textures.whiteTextures.king.load(_mainRenderer, \
 		"./materials/white/king.bmp", 'K');
@@ -103,7 +103,7 @@ void	VisualGame::loadWhiteTextures(void)
 
 void	VisualGame::loadBlackTextures(void)
 {
-	int	value = 0;
+	int		value = 0;
 
 	value += _textures.blackTextures.king.load(_mainRenderer, \
 		"./materials/black/king.bmp", 'K');
@@ -126,7 +126,7 @@ void	VisualGame::loadBlackTextures(void)
 
 void	VisualGame::loadBoardTextures(void)
 {
-	int	value = 0;
+	int		value = 0;
 
 	value += _textures.boardTexture.load(_mainRenderer, \
 		"./materials/board.bmp");

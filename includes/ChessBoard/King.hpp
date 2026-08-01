@@ -8,11 +8,11 @@ class King final : public ChessPiece
 	public:
 	
 		King(void) = delete;
-		King(const std::string& color, const std::string& pos) : ChessPiece(color, pos) { _type = 'K'; }
+		King(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'K'; }
 		~King(void) = default;
 
-		virtual bool isOnMyWay(const std::string& target, const std::vector<std::string>& boardCoords = {}, \
-			const int value = 0, const std::string& enPassant = "") const override
+		virtual bool isOnMyWay(const string& target, const vector<string>& boardCoords = {}, \
+			const int value = 0, const string& enPassant = "") const override
 		{
 			int	dest_x = target[0] - 97;
 			int	dest_y = atoi(target.c_str() + 1);
@@ -22,16 +22,16 @@ class King final : public ChessPiece
 			(void) enPassant;
 
 			if ((_x + 1 == dest_x && _y - 1 == dest_y) || (_x + 1 == dest_x && _y == dest_y))
-				return (true);
+				return true;
 			if ((_x + 1 == dest_x && _y + 1 == dest_y) || (_x - 1 == dest_x && _y - 1 == dest_y))
-				return (true);
+				return true;
 
 			if ((_x - 1 == dest_x && _y == dest_y) || (_x - 1 == dest_x && _y + 1 == dest_y))
-				return (true);
+				return true;
 			if ((_x == dest_x && _y + 1 == dest_y) || (_x == dest_x && _y - 1 == dest_y))
-				return (true);
+				return true;
 
-			return (false);
+			return false;
 		}
 
 };

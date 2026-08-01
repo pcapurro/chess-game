@@ -25,14 +25,14 @@ bool	isHelp(const char** argv)
 {
 	for (int i = 1; argv[i] != NULL; i++)
 	{
-		if (std::string(argv[i]) == "--help")
-			return (true);
+		if (string(argv[i]) == "--help")
+			return true;
 
-		if (std::string(argv[i]) == "-h")
-			return (true);
+		if (string(argv[i]) == "-h")
+			return true;
 	}
 
-	return (false);
+	return false;
 }
 
 int	registerArguments(const char** argv, bool& sandBoxMode, bool& blindMode)
@@ -40,16 +40,16 @@ int	registerArguments(const char** argv, bool& sandBoxMode, bool& blindMode)
 	for (int i = 1; argv[i] != NULL; i++)
 	{
 		if (sandBoxMode == false \
-			&& (std::string(argv[i]) == "--sandbox" || std::string(argv[i]) == "-s"))
+			&& (string(argv[i]) == "--sandbox" || string(argv[i]) == "-s"))
 			sandBoxMode = true;
 		else if (blindMode == false \
-			&& (std::string(argv[i]) == "--blind-mode" || std::string(argv[i]) == "-b"))
+			&& (string(argv[i]) == "--blind-mode" || string(argv[i]) == "-b"))
 			blindMode = true;
 		else
-			return (1);
+			return 1;
 	}
 
-	return (0);
+	return 0;
 }
 
 int	main(const int argc, const char** argv)
@@ -57,13 +57,13 @@ int	main(const int argc, const char** argv)
 	try
 	{
 		if (isHelp(argv) == true)
-			{ printHelp(); return (0); }
+			{ printHelp(); return 0; }
 
 		bool	sandBoxMode = false;
 		bool	blindMode = false;
 
 		if (argc != 1 && registerArguments(argv, sandBoxMode, blindMode) != 0)
-			{ printInvalidArguments(); return (1); }
+			{ printInvalidArguments(); return 1; }
 
 		ShellGame	gameShell(blindMode, sandBoxMode);
 
@@ -72,8 +72,8 @@ int	main(const int argc, const char** argv)
 	catch (const std::exception& except)
 	{
 		cerr << except.what() << endl;
-		return (1);
+		return 1;
 	}
 
-	return (0);
+	return 0;
 }

@@ -2,24 +2,24 @@
 # define QUEEN_HPP
 
 # include "ChessPiece.hpp"
-# include "AlgebraParser/AlgebraParser.hpp"
+# include "AlgebraParser.hpp"
 
 class Queen final : public ChessPiece
 {
 	public:
 	
 		Queen(void) = delete;
-		Queen(const std::string& color, const std::string& pos) : ChessPiece(color, pos) { _type = 'Q'; }
+		Queen(const string& color, const string& pos) : ChessPiece(color, pos) { _type = 'Q'; }
 		~Queen(void) = default;
 
-		virtual bool isOnMyWay(const std::string& target, const std::vector<std::string>& boardCoords = {}, \
-			const int value = 0, const std::string& enPassant = "") const override
+		virtual bool isOnMyWay(const string& target, const vector<string>& boardCoords = {}, \
+			const int value = 0, const string& enPassant = "") const override
 		{
-			int	src_x = _x;
-			int	src_y = _y;
+			int			src_x = _x;
+			int			src_y = _y;
 
-			std::string	coords;
-			std::string	newCoords;
+			string		coords;
+			string		newCoords;
 
 			(void) boardCoords;
 			(void) value;
@@ -33,27 +33,33 @@ class Queen final : public ChessPiece
 						src_x--;
 					if (k == 1)
 						src_x++;
+
 					if (k == 2)
 						src_y++;
 					if (k == 3)
 						src_y--;
 
 					newCoords += "abcdefgh"[src_x] + std::to_string(src_y);
+
 					if (AlgebraParser::isChessCoord(newCoords[0]) == false \
 						|| AlgebraParser::isChessDigit(newCoords[1]) == false)
-						break ;
+						break;
 					else
 						coords += newCoords;
+
 					if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
-						break ;
+						break;
+
 					newCoords.clear();
 				}
 				newCoords.clear();
+
 				src_x = _x;
 				src_y = _y;
 			}
 			
 			newCoords.clear();
+
 			src_x = _x;
 			src_y = _y;
 
@@ -65,30 +71,36 @@ class Queen final : public ChessPiece
 						src_x++, src_y++;
 					if (k == 1)
 						src_x--, src_y++;
+
 					if (k == 2)
 						src_x--, src_y--;
 					if (k == 3)
 						src_x++, src_y--;
 
 					newCoords += "abcdefgh"[src_x] + std::to_string(src_y);
+
 					if (AlgebraParser::isChessCoord(newCoords[0]) == false \
 						|| AlgebraParser::isChessDigit(newCoords[1]) == false)
-						break ;
+						break;
 					else
 						coords += newCoords;
+
 					if (find(boardCoords.begin(), boardCoords.end(), newCoords) != boardCoords.end())
-						break ;
+						break;
+
 					newCoords.clear();
 				}
+
 				newCoords.clear();
+
 				src_x = _x;
 				src_y = _y;
 			}
 
-			if (coords.find(target) != std::string::npos)
-				return (true);
+			if (coords.find(target) != string::npos)
+				return true;
 
-			return (false);
+			return false;
 		}
 };
 

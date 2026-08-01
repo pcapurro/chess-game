@@ -2,9 +2,9 @@
 
 void	ChessBoard::enableDisableEnPassant(void)
 {
-	char			obj = _gameInfo.lastMove.obj;
-	std::string		src = _gameInfo.lastMove.src;
-	std::string		dest = _gameInfo.lastMove.dest;
+	char		obj = _gameInfo.lastMove.obj;
+	string		src = _gameInfo.lastMove.src;
+	string		dest = _gameInfo.lastMove.dest;
 
 	if (obj == 'P')
 	{
@@ -15,6 +15,7 @@ void	ChessBoard::enableDisableEnPassant(void)
 
 			_gameInfo.enPassantSrcOne = dest;
 			_gameInfo.enPassantSrcOne[0] = _gameInfo.enPassantSrcOne[0] - 1;
+
 			_gameInfo.enPassantSrcTwo = dest;
 			_gameInfo.enPassantSrcTwo[0] = _gameInfo.enPassantSrcTwo[0] + 1;
 
@@ -25,10 +26,12 @@ void	ChessBoard::enableDisableEnPassant(void)
 			else
 				_gameInfo.enPassantDest[1] = _gameInfo.enPassantDest[1] + 1;
 
-			return ;
+			return;
 		}
 	}
+
 	_gameInfo.enPassant = false;
+
 	_gameInfo.enPassantSrcOne.clear();
 	_gameInfo.enPassantSrcTwo.clear();
 	_gameInfo.enPassantDest.clear();
@@ -37,28 +40,32 @@ void	ChessBoard::enableDisableEnPassant(void)
 void	ChessBoard::priseEnPassant()
 {
 	size_t			atValue;
-	std::string		newCoordUpdated;
+	string		newCoordUpdated;
 	ChessPiece*		piece;
 
 	atValue = getAtValue(_gameInfo.lastMove.src); 
 	piece = _board.at(atValue).piece;
+
 	_board.at(atValue).piece = nullptr;
 
 	atValue = getAtValue(_gameInfo.lastMove.dest);
+
 	_board.at(atValue).piece = piece;
 	_board.at(atValue).piece->move();
 	_board.at(atValue).piece->updatePos(_gameInfo.lastMove.dest);
 
 	newCoordUpdated = _gameInfo.lastMove.dest;
+
 	if (_gameInfo.color == "white")
 		newCoordUpdated[1] = newCoordUpdated[1] - 1;
+
 	if (_gameInfo.color == "black")
 		newCoordUpdated[1] = newCoordUpdated[1] + 1;
 
 	removePiece(newCoordUpdated);
 }
 
-void	ChessBoard::removePiece(const std::string& coord)
+void	ChessBoard::removePiece(const string& coord)
 {
 	size_t	atValue = getAtValue(coord);
 
@@ -66,6 +73,7 @@ void	ChessBoard::removePiece(const std::string& coord)
 	{
 		if (_board.at(atValue).piece->getColor() == "black")
 			_whiteCaptured.push_back(_board.at(atValue).piece->getType());
+
 		if (_board.at(atValue).piece->getColor() == "white")
 			_blackCaptured.push_back(_board.at(atValue).piece->getType());
 
@@ -74,43 +82,49 @@ void	ChessBoard::removePiece(const std::string& coord)
 	}
 }
 
-void	ChessBoard::promotePiece(const std::string& initialCoord, char pieceType)
+void	ChessBoard::promotePiece(const string& initialCoord, char pieceType)
 {
-	size_t			atValue;
-	std::string		initialCoordUpdated;
-	std::string		color;
+	size_t		atValue;
+	string		initialCoordUpdated;
+	string		color;
 
 	initialCoordUpdated = initialCoord;
 	initialCoordUpdated[2] = '\0';
+
 	atValue = getAtValue(initialCoordUpdated);
 	color = _board.at(atValue).piece->getColor();
 	
 	removePiece(initialCoord);
+
 	if (pieceType == 'Q')
 		_board.at(atValue).piece = new Queen(color, initialCoordUpdated);
 	if (pieceType == 'N')
 		_board.at(atValue).piece = new Knight(color, initialCoordUpdated);
+
 	if (pieceType == 'B')
 		_board.at(atValue).piece = new Bishop(color, initialCoordUpdated);
 	if (pieceType == 'R')
 		_board.at(atValue).piece = new Rook(color, initialCoordUpdated);
 	}
 
-void	ChessBoard::movePiece(const std::string& initialCoord, const std::string& newCoord)
+void	ChessBoard::movePiece(const string& initialCoord, const string& newCoord)
 {
 	ChessPiece*		piece;
 	size_t			atValue;
-	std::string		newCoordUpdated;
+	string			newCoordUpdated;
 	
 	atValue = getAtValue(initialCoord); 
 	piece = _board.at(atValue).piece;
+
 	_board.at(atValue).piece = nullptr;
 
 	newCoordUpdated = newCoord;
+
 	if (newCoord.length() == 3)
 		newCoordUpdated = newCoord, newCoordUpdated[2] = '\0';
 	
 	removePiece(newCoordUpdated);
+
 	atValue = getAtValue(newCoordUpdated);
 	_board.at(atValue).piece = piece;
 
@@ -131,15 +145,10 @@ void	ChessBoard::movePiece(const std::string& initialCoord, const std::string& n
 void	ChessBoard::whiteCastles(void)
 {
 	if (_gameInfo.lastMove.dest == "O-O")
-	{
-		movePiece("h1", "f1");
-		movePiece("e1", "g1");
-	}
+		movePiece("h1", "f1"), movePiece("e1", "g1");
+
 	if (_gameInfo.lastMove.dest == "O-O-O")
-	{
-		movePiece("e1", "c1");
-		movePiece("a1", "d1");
-	}
+		movePiece("e1", "c1"), movePiece("a1", "d1");
 
 	_gameInfo.whiteCastle = false;
 	_gameInfo.whiteCastled = true;
@@ -148,15 +157,10 @@ void	ChessBoard::whiteCastles(void)
 void	ChessBoard::blackCastles(void)
 {
 	if (_gameInfo.lastMove.dest == "O-O")
-	{
-		movePiece("e8", "g8");
-		movePiece("h8", "f8");
-	}
+		movePiece("e8", "g8"), movePiece("h8", "f8");
+
 	if (_gameInfo.lastMove.dest == "O-O-O")
-	{
-		movePiece("e8", "c8");
-		movePiece("a8", "d8");
-	}
+		movePiece("e8", "c8"), movePiece("a8", "d8");
 
 	_gameInfo.blackCastle = false;
 	_gameInfo.blackCastled = true;
@@ -164,16 +168,18 @@ void	ChessBoard::blackCastles(void)
 
 void	ChessBoard::addToHistory(void)
 {
-	char			action = _gameInfo.lastMove.action;
-	char			obj = _gameInfo.lastMove.obj;
-	std::string		src = _gameInfo.lastMove.src;
-	std::string		dest = _gameInfo.lastMove.dest;
+	char		action = _gameInfo.lastMove.action;
+	char		obj = _gameInfo.lastMove.obj;
+	string		src = _gameInfo.lastMove.src;
+	string		dest = _gameInfo.lastMove.dest;
 
 	if (dest == "O-O" || dest == "O-O-O")
 	{
-		char letter, number;
+		char 	letter, number;
+
 		_gameInfo.turn % 2 == 0 ? src = "e1" : src = "e8";
 		dest.size() == 3 ? letter = 'g' : letter = 'c';
+
 		src == "e1" ? number = '1' : number = '8';
 
 		_simpleHistory.push_back(src + letter + number);
@@ -203,7 +209,7 @@ void	ChessBoard::addToHistory(void)
 	}
 }
 
-void	ChessBoard::loadMove(const std::string& move)
+void	ChessBoard::loadMove(const string& move)
 {
 	if (move == "O-O-O" || move == "O-O")
 	{
@@ -230,7 +236,7 @@ void	ChessBoard::loadMove(const std::string& move)
 	}
 }
 
-int	ChessBoard::playMove(Move structureMove, const std::string& move)
+int	ChessBoard::playMove(Move structureMove, const string& move)
 {
 	if (move == "")
 		_gameInfo.lastMove = structureMove;
@@ -238,7 +244,7 @@ int	ChessBoard::playMove(Move structureMove, const std::string& move)
 		loadMove(move);
 
 	if (isLegal() == false)
-		{ _gameInfo.moveFailed = true; return (1); }
+		{ _gameInfo.moveFailed = true; return 1; }
 	else
 	{
 		_gameInfo.moveFailed = false;
@@ -246,9 +252,9 @@ int	ChessBoard::playMove(Move structureMove, const std::string& move)
 		if (_board.at(getAtValue(_gameInfo.lastMove.dest)).piece != nullptr)
 			_gameInfo.lastMove.action = 'x';
 
-		std::string	src = _gameInfo.lastMove.src;
-		std::string	dest = _gameInfo.lastMove.dest;
-		char	action = _gameInfo.lastMove.action;
+		string		src = _gameInfo.lastMove.src;
+		string		dest = _gameInfo.lastMove.dest;
+		char		action = _gameInfo.lastMove.action;
 
 		if (_gameInfo.lastMove.dest == "O-O"
 			|| _gameInfo.lastMove.dest == "O-O-O")
@@ -267,10 +273,12 @@ int	ChessBoard::playMove(Move structureMove, const std::string& move)
 			else
 			{
 				movePiece(src, dest);
+
 				if (AlgebraParser::isChessPiece(dest.at(dest.length() - 1)) == true)
 					promotePiece(dest, dest[dest.length() - 1]);
 			}
 		}
+
 		enableDisableEnPassant();
 		addToHistory();
 		countTotalMaterials();
@@ -278,5 +286,5 @@ int	ChessBoard::playMove(Move structureMove, const std::string& move)
 		++_gameInfo.turn % 2 == 0 ? _gameInfo.color = "white" : _gameInfo.color = "black";
 	}
 
-	return (0);
+	return 0;
 }

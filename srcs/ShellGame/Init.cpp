@@ -1,9 +1,11 @@
 #include "ShellGame.hpp"
 
-ShellGame::ShellGame(const bool blindMode, const bool sandBoxMode) : _blindMode(blindMode), _sandBoxMode(sandBoxMode)
+ShellGame::ShellGame(const bool blindMode, const bool sandBoxMode) : \
+	_blindMode(blindMode), _sandBoxMode(sandBoxMode)
 {
 	_aiSide = -1;
 	_ai = nullptr;
+
 	if (_sandBoxMode == false)
 	{
 		_ai = new ChessAi;
