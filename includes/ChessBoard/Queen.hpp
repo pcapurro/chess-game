@@ -1,8 +1,7 @@
-#ifndef QUEEN_HPP
-# define QUEEN_HPP
+#pragma once
 
-# include "ChessPiece.hpp"
-# include "AlgebraParser.hpp"
+#include "ChessPiece.hpp"
+#include "AlgebraParser.hpp"
 
 class Queen final : public ChessPiece
 {
@@ -103,5 +102,3 @@ class Queen final : public ChessPiece
 			return false;
 		}
 };
-
-#endif

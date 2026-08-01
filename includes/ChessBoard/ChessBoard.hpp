@@ -1,8 +1,7 @@
-#ifndef CHESSBOARD_HPP
-# define CHESSBOARD_HPP
+#pragma once
 
-# include "Game.hpp"
-# include "ChessObjects.hpp"
+#include "Game.hpp"
+#include "ChessObjects.hpp"
 
 typedef	ChessPiece cP;
 
@@ -161,5 +160,3 @@ class ChessBoard
 
 		stack<cP*>			_savedObjects;
 };
-
-#endif

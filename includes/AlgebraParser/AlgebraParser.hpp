@@ -1,7 +1,6 @@
-#ifndef ALGEBRAPARSER_HPP
-# define ALGEBRAPARSER_HPP
+#pragma once
 
-# include "Game.hpp"
+#include "Game.hpp"
 
 struct Move
 {
@@ -58,5 +57,3 @@ class AlgebraParser
 
 vector<string>	getWatchersSequence(const char type, const string& move, const char sign);
 vector<string>	getPawnSequence(const string& move, const int turn, const char sign);
-
-#endif

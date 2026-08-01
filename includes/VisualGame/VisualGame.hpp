@@ -1,11 +1,10 @@
-#ifndef VISUALGAME_HPP
-# define VISUALGAME_HPP
+#pragma once
 
-# include "Visual.hpp"
-# include "VisualObjects.hpp"
-# include "VisualTexture.hpp"
-# include "ChessBoard.hpp"
-# include "ChessAi.hpp"
+#include "Visual.hpp"
+#include "VisualObjects.hpp"
+#include "VisualTexture.hpp"
+#include "ChessBoard.hpp"
+#include "ChessAi.hpp"
 
 # define COLOR_NB 7
 
@@ -115,5 +114,3 @@ class VisualGame
 
 		VisualInfos				_visualInfo;
 };
-
-#endif

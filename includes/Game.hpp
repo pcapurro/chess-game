@@ -1,27 +1,26 @@
-#ifndef GAME_HPP
-# define GAME_HPP
+#pragma once
 
-# include <iostream>
-# include <string>
+#include <iostream>
+#include <string>
 
-# include <algorithm>
-# include <vector>
-# include <stack>
+#include <algorithm>
+#include <vector>
+#include <stack>
 
-# include <thread>
-# include <chrono>
+#include <thread>
+#include <chrono>
 
-# include <stdexcept>
-# include <optional>
-# include <memory>
+#include <stdexcept>
+#include <optional>
+#include <memory>
 
-# include <fstream>
-# include <sstream>
+#include <fstream>
+#include <sstream>
 
-# include <cstdlib>
-# include <cstdio>
+#include <cstdlib>
+#include <cstdio>
 
-# include <unistd.h>
+#include <unistd.h>
 
 # define ERASE_LINE "\033[2K"
 
@@ -42,5 +41,3 @@ using std::vector;
 using std::stack;
 
 using std::optional;
-
-#endif

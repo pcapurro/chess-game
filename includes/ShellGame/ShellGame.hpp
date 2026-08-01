@@ -1,11 +1,10 @@
-#ifndef SHELLGAME_HPP
-# define SHELLGAME_HPP
+#pragma once
 
-# include "Game.hpp"
-# include "Shell.hpp"
-# include "ChessBoard.hpp"
-# include "ChessAi.hpp"
-# include "AlgebraParser.hpp"
+#include "Game.hpp"
+#include "Shell.hpp"
+#include "ChessBoard.hpp"
+#include "ChessAi.hpp"
+#include "AlgebraParser.hpp"
 
 class ShellGame
 {
@@ -36,5 +35,3 @@ class ShellGame
 
 		int						_aiSide;
 };
-
-#endif

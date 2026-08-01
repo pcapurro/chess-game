@@ -1,8 +1,7 @@
-#ifndef KNIGHT_HPP
-# define KNIGHT_HPP
+#pragma once
 
-# include "ChessPiece.hpp"
-# include "AlgebraParser.hpp"
+#include "ChessPiece.hpp"
+#include "AlgebraParser.hpp"
 
 class Knight final : public ChessPiece
 {
@@ -39,5 +38,3 @@ class Knight final : public ChessPiece
 			return false;
 		}
 };
-
-#endif

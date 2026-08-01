@@ -1,7 +1,6 @@
-#ifndef CHESSPIECE_HPP
-# define CHESSPIECE_HPP
+#pragma once
 
-# include "Game.hpp"
+#include "Game.hpp"
 
 class ChessPiece
 {
@@ -75,5 +74,3 @@ class ChessPiece
 		bool		_visible;
 
 };
-
-#endif

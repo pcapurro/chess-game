@@ -1,7 +1,6 @@
-#ifndef VISUALTEXTURE_HPP
-# define VISUALTEXTURE_HPP
+#pragma once
 
-# include "Visual.hpp"
+#include "Visual.hpp"
 
 class VisualTexture
 {
@@ -21,5 +20,3 @@ class VisualTexture
 		SDL_Texture*	_texture;
 		char			_id;
 };
-
-#endif

@@ -1,7 +1,6 @@
-#ifndef KING_HPP
-# define KING_HPP
+#pragma once
 
-# include "ChessPiece.hpp"
+#include "ChessPiece.hpp"
 
 class King final : public ChessPiece
 {
@@ -35,5 +34,3 @@ class King final : public ChessPiece
 		}
 
 };
-
-#endif

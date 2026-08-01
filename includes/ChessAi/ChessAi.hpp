@@ -1,7 +1,6 @@
-#ifndef CHESSAI_HPP
-# define CHESSAI_HPP
+#pragma once
 
-# include "Game.hpp"
+#include "Game.hpp"
 
 class ChessAi
 {
@@ -19,5 +18,3 @@ class ChessAi
 
 		FILE*			_stream;
 };
-
-#endif

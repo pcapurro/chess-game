@@ -1,8 +1,7 @@
-#ifndef VISUALOBJECTS_HPP
-# define VISUALOBJECTS_HPP
+#pragma once
 
-# include "Visual.hpp"
-# include "VisualTexture.hpp"
+#include "Visual.hpp"
+#include "VisualTexture.hpp"
 
 struct Pieces
 {
@@ -109,5 +108,3 @@ struct VisualInfos
 	bool					code;
 	vector<SDL_Keycode>		keyHistory;
 };
-
-#endif

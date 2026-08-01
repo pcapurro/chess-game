@@ -1,7 +1,6 @@
-#ifndef PAWN_HPP
-# define PAWN_HPP
+#pragma once
 
-# include "ChessPiece.hpp"
+#include "ChessPiece.hpp"
 
 class Pawn final : public ChessPiece
 {
@@ -95,5 +94,3 @@ class Pawn final : public ChessPiece
 			return false;
 		}
 };
-
-#endif

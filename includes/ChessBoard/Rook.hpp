@@ -1,8 +1,7 @@
-#ifndef ROOK_HPP
-# define ROOK_HPP
+#pragma once
 
-# include "ChessPiece.hpp"
-# include "AlgebraParser.hpp"
+#include "ChessPiece.hpp"
+#include "AlgebraParser.hpp"
 
 class Rook final : public ChessPiece
 {
@@ -65,5 +64,3 @@ class Rook final : public ChessPiece
 			return false;
 		}
 };
-
-#endif

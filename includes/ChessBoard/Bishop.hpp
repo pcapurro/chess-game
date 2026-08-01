@@ -1,8 +1,7 @@
-#ifndef BISHOP_HPP
-# define BISHOP_HPP
+#pragma once
 
-# include "ChessPiece.hpp"
-# include "AlgebraParser.hpp"
+#include "ChessPiece.hpp"
+#include "AlgebraParser.hpp"
 
 class Bishop final : public ChessPiece
 {
@@ -64,5 +63,3 @@ class Bishop final : public ChessPiece
 			return false;
 		}
 };
-
-#endif

@@ -1,15 +1,14 @@
-#ifndef CHESSOBJECTS
-# define CHESSOBJECTS
+#pragma once
 
-# include "Game.hpp"
+#include "Game.hpp"
 
-# include "ChessPiece.hpp"
-# include "King.hpp"
-# include "Queen.hpp"
-# include "Rook.hpp"
-# include "Bishop.hpp"
-# include "Knight.hpp"
-# include "Pawn.hpp"
+#include "ChessPiece.hpp"
+#include "King.hpp"
+#include "Queen.hpp"
+#include "Rook.hpp"
+#include "Bishop.hpp"
+#include "Knight.hpp"
+#include "Pawn.hpp"
 
 struct Square
 {
@@ -68,5 +67,3 @@ struct Counter
 
 	int				total;
 };
-
-#endif
